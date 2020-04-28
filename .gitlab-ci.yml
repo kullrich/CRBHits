@@ -9,8 +9,10 @@ before_script:
   - R -e "install.packages('magrittr',repos='http://cran.rstudio.com')"
   - R -e "if (!requireNamespace('BiocManager', quietly = TRUE)) {install.packages('BiocManager')}"
   - R -e "BiocManager::install('Biostrings')"
-  - R -e "install.packages("pkgdown")"
-  - R -e "devtools::install_github("kullrich/CRBHits", build_vignettes = TRUE, dependencies = FALSE)"
+  - R -e "install.packages('pkgdown')"
+  - R -e "devtools::install(".", build_vignettes = TRUE, dependencies = FALSE)"
+  - R -e "setwd(paste0(find.package('CRBHits'), '/extdata/')); system(paste0('unzip last-1060.zip')); setwd(paste0(find.package('CRBHits'), '/extdata/last-1060/')); system('make')"
+  - R -e "setwd(paste0(find.package('CRBHits'), '/extdata/')); system(paste0('tar -xvf KaKs_Calculator2.0.tar.gz')); setwd(paste0(find.package('CRBHits'), '/extdata/KaKs_Calculator2.0/src/')); system('make clean'); system('make')"
 
 pages:
   script:
