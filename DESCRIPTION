@@ -1,0 +1,31 @@
+Package: CRBHits
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Kristian K",
+           family = "Ullrich",
+           role = c("aut", "cre"),
+           email = "ullrich@evolbio.mpg.de",
+           comment = c(ORCID = "https://orcid.org/0000-0003-4308-9626"))
+Description: What the package does (one paragraph).
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Depends:
+  R (>= 3.6.0)
+Imports:
+  Biostrings,
+  seqinr,
+  foreach,
+  doMC,
+  magrittr
+Suggests:
+  rmarkdown,
+  knitr,
+  devtools,
+  testthat
+VignetteBuilder: knitr
+NeedsCompilation: no
+URL: https://github.com/kullrich/CRBHits
+BugReports: https://github.com/kullrich/CRBHits/issues
+RoxygenNote: 7.1.0

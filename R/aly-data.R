@@ -1,0 +1,11 @@
+#' @title aly-data
+#' @name aly-data
+#' @description Example cds sequences from Arabidopsis lyrata as \code{DNAStringSet}.
+#' @docType data
+#' @usage data(aly)
+#' @format an object of class \code{DNAStringSet}
+#' see \code{\link[Biostrings]{DNAStringSet}}
+#' @keywords datasets
+#' @examples
+#' data("aly", package="CRBHits")
+"aly"
