@@ -7,7 +7,7 @@ before_script:
   - R -e "install.packages('foreach',repos='http://cran.rstudio.com')"
   - R -e "install.packages('doMC',repos='http://cran.rstudio.com')"
   - R -e "install.packages('magrittr',repos='http://cran.rstudio.com')"
-  - R -e "if (!requireNamespace('BiocManager', quietly = TRUE)) {install.packages('BiocManager')}
+  - R -e "if (!requireNamespace('BiocManager', quietly = TRUE)) {install.packages('BiocManager')}"
   - R -e "BiocManager::install('Biostrings')"
   - R -e "install.packages("pkgdown")"
   - R -e "devtools::install_github("kullrich/CRBHits", build_vignettes = TRUE, dependencies = FALSE)"
