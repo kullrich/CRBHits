@@ -16,7 +16,7 @@ rbh2kaks(rbh, cds1, cds2, threads = 1)
 \item{threads}{number of parallel threads [default: 1]}
 }
 \description{
-This function calculates Ka and Ks (dN and dS; accoring to Li 1993) for each reciprocal best hit pair. The names of the \code{rbh} columns must match the names of the corresponding \code{cds1} and \code{cds2} \code{DNAStringSet} vectors.
+This function calculates Ka and Ks (dN and dS; accoring to *Li 1993*) for each reciprocal best hit pair. The names of the \code{rbh} columns must match the names of the corresponding \code{cds1} and \code{cds2} \code{DNAStringSet} vectors.
 }
 \examples{
 ##load example sequence data
@@ -28,7 +28,7 @@ ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh$crbh.pairs, ath, aly)
 head(ath_aly_crbh.kaks)
 }
 \references{
-Li W.-H. (1993) Unbiased estimation of the rates of synonymous and nonsynonymous substitution. \emph{J. Mol. Evol.}, \bold{36}, 96-99.
+Li WH. (1993) Unbiased estimation of the rates of synonymous and nonsynonymous substitution. \emph{J. Mol. Evol.}, \bold{36}, 96-99.
 }
 \author{
 Kristian K Ullrich

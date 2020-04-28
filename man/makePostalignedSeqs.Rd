@@ -6,6 +6,9 @@
 \usage{
 makePostalignedSeqs(x)
 }
+\arguments{
+\item{x}{x}
+}
 \description{
 This function is a fork from an internal function from \code{Biostrings}
 }

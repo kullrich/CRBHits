@@ -95,13 +95,21 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/CRBHitsVignette.html">CRBHits Vignette</a>
+      <a href="../articles/CRBHitsBasicVignette.html">CRBHits Basic Vignette</a>
+    </li>
+    <li>
+      <a href="../articles/dNdSClusteringVignette.html">dNdS Clustering Vignette</a>
     </li>
   </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -116,12 +124,12 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>rbh2kaks.YN</h1>
-    
+    <small class="dont-index">Source: <a href='https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/masterR/rbh2kaks.YN.R'><code>R/rbh2kaks.YN.R</code></a></small>
     <div class="hidden name"><code>rbh2kaks.YN.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function calculates Ka and Ks (dN and dS; accoring to Yang and Nielson 2000) for each reciprocal best hit pair. The names of the <code>rbh</code> columns must match the names of the corresponding <code>cds1</code> and <code>cds2</code> <code>DNAStringSet</code> vectors.</p>
+    <p>This function calculates Ka and Ks (dN and dS; accoring to <code>Yang and Nielson 2000</code>) for each reciprocal best hit pair. The names of the <code>rbh</code> columns must match the names of the corresponding <code>cds1</code> and <code>cds2</code> <code>DNAStringSet</code> vectors.</p>
     </div>
 
     <pre class="usage"><span class='fu'>rbh2kaks.YN</span>(
@@ -159,8 +167,8 @@
 
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Li W.-H. (1993) Unbiased estimation of the rates of synonymous and nonsynonymous substitution. <em>J. Mol. Evol.</em>, <b>36</b>, 96-99.</p>
-<p>Wang D, Zhang Y et al. (2010) KaKs_Calculator 2.0: a toolkit incorporating gamma-series methods and sliding window strategies. <em>Genomics Proteomics Bioinformatics.</em> <b>8</b>, <b>1</b>, 77-80.</p>
+    <p>Wang D, Zhang Y et al. (2010) KaKs_Calculator 2.0: a toolkit incorporating gamma-series methods and sliding window strategies. <em>Genomics Proteomics Bioinformatics.</em> <b>8(1)</b>, 77-80.</p>
+<p>Yang Z and Nielson R. (2000) Estimating synonymous and nonsynonymous substitution rates under realistic evolutionary models. <em>Mol. Biol. Evol.</em>, <b>17(1)</b>, 32-43.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>##load example sequence data</span>
@@ -168,7 +176,7 @@
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"aly"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"CRBHits"</span>)
 <span class='co'>##load example conditional-reciprocal best hit pair results</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"ath_aly_crbh"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"CRBHits"</span>)
-<span class='no'>ath_aly_crbh.kaks.YN</span> <span class='kw'>&lt;-</span> <span class='fu'>rbh2kaks.YN</span>(<span class='no'>ath_aly_crbh</span>$<span class='no'>crbh.pairs</span>, <span class='no'>ath</span>, <span class='no'>aly</span>)</div><div class='output co'>#&gt; <span class='error'>Error in rbh2kaks.YN(ath_aly_crbh$crbh.pairs, ath, aly): Error: KaKs_Calculator2.0 PATH does not exist. Please specify correct PATH and/or look into package installation prerequisites.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>ath_aly_crbh.kaks.YN</span>)</div><div class='output co'>#&gt; <span class='error'>Error in head(ath_aly_crbh.kaks.YN): object 'ath_aly_crbh.kaks.YN' not found</span></div></pre>
+<span class='no'>ath_aly_crbh.kaks.YN</span> <span class='kw'>&lt;-</span> <span class='fu'>rbh2kaks.YN</span>(<span class='no'>ath_aly_crbh</span>$<span class='no'>crbh.pairs</span>, <span class='no'>ath</span>, <span class='no'>aly</span>)</div><div class='output co'>#&gt; <span class='error'>Error in rbh2kaks.YN(ath_aly_crbh$crbh.pairs, ath, aly): Error: KaKs_Calculator2.0 PATH does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make.KaKs_Calculator2() function.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>ath_aly_crbh.kaks.YN</span>)</div><div class='output co'>#&gt; <span class='error'>Error in head(ath_aly_crbh.kaks.YN): object 'ath_aly_crbh.kaks.YN' not found</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

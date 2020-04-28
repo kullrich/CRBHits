@@ -56,9 +56,16 @@ cds2rbh(
 
 \item{remove}{specify if last result files should be removed [default: TRUE]}
 }
+\value{
+List of three
+1: $crbh.pairs (crbh = TRUE) or $rbh.pairs (crbh = FALSE)
+2: $crbh1 matrix (crbh = TRUE) or $rbh1 (crbh = FALSE); query > target
+3: $crbh2 matrix (crbh = TRUE) or $rbh2 (crbh = FALSE); target > query
+}
 \description{
 This function calculates (conditional-)reciprocal best hit pair matrix from two \code{DNAStringSet}'s.
-Conditionaö-reciprocal best hit pairs were introduced by *Aubrey
+Conditional-reciprocal best hit pairs were introduced by *Aubry S, Kelly S et al. (2014)*.
+Sequence searches are performed with *last* ().
 }
 \examples{
 ##load example sequence data
@@ -83,7 +90,9 @@ ath_aly_crbh.custom <- cds2rbh(ath, aly, filter = c("myfilter"))
 #multiple filters can be given in filter param
 }
 \references{
-Aubry S, Kelly S et al. (2014) Deep Evolutionary Comparison of Gene Expression Identifies Parallel Recruitment of Trans-Factors in Two Independent Origins of C4 Photosynthesis. \emph{PLOS Genetics}, \bold{10}, \bold{6} e1004365.
+Aubry S, Kelly S et al. (2014) Deep Evolutionary Comparison of Gene Expression Identifies Parallel Recruitment of Trans-Factors in Two Independent Origins of C4 Photosynthesis. \emph{PLOS Genetics}, \bold{10(6)} e1004365.
+
+Kiełbasa, SM et al. (2011) Adaptive seeds tame genomic sequence comparison. \emph{Genome research}, \bold{21(3)}, 487-493.
 
 Rost B. (1999). Twilight zone of protein sequence alignments. \emph{Protein Engineering}, \bold{12(2)}, 85-94.
 }

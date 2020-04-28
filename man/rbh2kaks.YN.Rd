@@ -24,7 +24,7 @@ rbh2kaks.YN(
 \item{threads}{number of parallel threads [default: 1]}
 }
 \description{
-This function calculates Ka and Ks (dN and dS; accoring to Yang and Nielson 2000) for each reciprocal best hit pair. The names of the \code{rbh} columns must match the names of the corresponding \code{cds1} and \code{cds2} \code{DNAStringSet} vectors.
+This function calculates Ka and Ks (dN and dS; accoring to \code{Yang and Nielson 2000}) for each reciprocal best hit pair. The names of the \code{rbh} columns must match the names of the corresponding \code{cds1} and \code{cds2} \code{DNAStringSet} vectors.
 }
 \examples{
 ##load example sequence data
@@ -36,9 +36,9 @@ ath_aly_crbh.kaks.YN <- rbh2kaks.YN(ath_aly_crbh$crbh.pairs, ath, aly)
 head(ath_aly_crbh.kaks.YN)
 }
 \references{
-Li W.-H. (1993) Unbiased estimation of the rates of synonymous and nonsynonymous substitution. \emph{J. Mol. Evol.}, \bold{36}, 96-99.
+Wang D, Zhang Y et al. (2010) KaKs_Calculator 2.0: a toolkit incorporating gamma-series methods and sliding window strategies. \emph{Genomics Proteomics Bioinformatics.} \bold{8(1)}, 77-80.
 
-Wang D, Zhang Y et al. (2010) KaKs_Calculator 2.0: a toolkit incorporating gamma-series methods and sliding window strategies. \emph{Genomics Proteomics Bioinformatics.} \bold{8}, \bold{1}, 77-80.
+Yang Z and Nielson R. (2000) Estimating synonymous and nonsynonymous substitution rates under realistic evolutionary models. \emph{Mol. Biol. Evol.}, \bold{17(1)}, 32-43.
 }
 \author{
 Kristian K Ullrich

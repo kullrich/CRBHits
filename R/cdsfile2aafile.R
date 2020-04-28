@@ -3,6 +3,7 @@
 #' @description This function translates a cds fasta file into an aa fasta file.
 #' @param infile cds fasta file [mandatory]
 #' @param outfile aa fasta file [mandatory]
+#' @return aa fasta file
 #' @importFrom Biostrings readDNAStringSet writeXStringSet
 #' @examples
 #' cdsfile <- system.file("fasta/ath.cds.fasta.gz", package = "CRBHits")

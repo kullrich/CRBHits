@@ -40,7 +40,7 @@
 
 
 <meta property="og:title" content="cdsfile2rbh — cdsfile2rbh" />
-<meta property="og:description" content="This function calculates (conditional-)reciprocal best hit pair matrix from two cds fasta file's." />
+<meta property="og:description" content="This function calculates (conditional-)reciprocal best hit pair matrix from two two cds fasta file's." />
 
 
 
@@ -95,13 +95,21 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/CRBHitsVignette.html">CRBHits Vignette</a>
+      <a href="../articles/CRBHitsBasicVignette.html">CRBHits Basic Vignette</a>
+    </li>
+    <li>
+      <a href="../articles/dNdSClusteringVignette.html">dNdS Clustering Vignette</a>
     </li>
   </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -116,12 +124,12 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>cdsfile2rbh</h1>
-    
+    <small class="dont-index">Source: <a href='https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/masterR/cdsfile2rbh.R'><code>R/cdsfile2rbh.R</code></a></small>
     <div class="hidden name"><code>cdsfile2rbh.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function calculates (conditional-)reciprocal best hit pair matrix from two cds fasta file's.</p>
+    <p>This function calculates (conditional-)reciprocal best hit pair matrix from two two cds fasta file's.</p>
     </div>
 
     <pre class="usage"><span class='fu'>cdsfile2rbh</span>(
@@ -129,9 +137,15 @@
   <span class='no'>cdsfile2</span>,
   <span class='kw'>lastpath</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/find.package.html'>find.package</a></span>(<span class='st'>"CRBHits"</span>), <span class='st'>"/extdata/last-1060/src/"</span>),
   <span class='kw'>outpath</span> <span class='kw'>=</span> <span class='st'>"/tmp"</span>,
-  <span class='kw'>filter</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>crbh</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>keepSingleDirection</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>evalue</span> <span class='kw'>=</span> <span class='fl'>0.001</span>,
+  <span class='kw'>qcov</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>tcov</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>pident</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>alnlen</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>rost1999</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>filter</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>plotCurve</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>threads</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
@@ -157,16 +171,40 @@
       <td><p>specify the output PATH [default: /tmp]</p></td>
     </tr>
     <tr>
-      <th>filter</th>
-      <td><p>specify the filters to be applied on hit pairs e.g.: c("filter.eval", "filter.rost1999") [default: NULL]</p></td>
-    </tr>
-    <tr>
       <th>crbh</th>
       <td><p>specify if conditional-reciprocal hit pairs should be retained as secondary hits [default: TRUE]</p></td>
     </tr>
     <tr>
       <th>keepSingleDirection</th>
       <td><p>specify if single direction secondary hit pairs should be retained [default: FALSE]</p></td>
+    </tr>
+    <tr>
+      <th>evalue</th>
+      <td><p>evalue [default: 1e-3]</p></td>
+    </tr>
+    <tr>
+      <th>qcov</th>
+      <td><p>query coverage [default: 0.0]</p></td>
+    </tr>
+    <tr>
+      <th>tcov</th>
+      <td><p>target coverage [default: 0.0]</p></td>
+    </tr>
+    <tr>
+      <th>pident</th>
+      <td><p>percent identity [default: 0.0]</p></td>
+    </tr>
+    <tr>
+      <th>alnlen</th>
+      <td><p>alignment length [default: 0.0]</p></td>
+    </tr>
+    <tr>
+      <th>rost1999</th>
+      <td><p>specifiy if hit pairs should be filter by equation 2 of Rost 1999 [default: FALSE]</p></td>
+    </tr>
+    <tr>
+      <th>filter</th>
+      <td><p>specify additonal custom filters to be applied on hit pairs [default: NULL]</p></td>
     </tr>
     <tr>
       <th>plotCurve</th>
@@ -182,17 +220,25 @@
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>List of three
+1: $crbh.pairs (crbh = TRUE) or $rbh.pairs (crbh = FALSE)
+2: $crbh1 matrix (crbh = TRUE) or $rbh1 (crbh = FALSE); query &gt; target
+3: $crbh2 matrix (crbh = TRUE) or $rbh2 (crbh = FALSE); target &gt; query</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Aubry S, Kelly S et al. (2014) Deep Evolutionary Comparison of Gene Expression Identifies Parallel Recruitment of Trans-Factors in Two Independent Origins of C4 Photosynthesis. <em>PLOS Genetics</em>, <b>10</b>, <b>6</b> e1004365.</p>
+    <p>Aubry S, Kelly S et al. (2014) Deep Evolutionary Comparison of Gene Expression Identifies Parallel Recruitment of Trans-Factors in Two Independent Origins of C4 Photosynthesis. <em>PLOS Genetics</em>, <b>10(6)</b> e1004365.</p>
+<p>Kiełbasa, SM et al. (2011) Adaptive seeds tame genomic sequence comparison. <em>Genome research</em>, <b>21(3)</b>, 487-493.</p>
 <p>Rost B. (1999). Twilight zone of protein sequence alignments. <em>Protein Engineering</em>, <b>12(2)</b>, 85-94.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>##load example sequence data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"ath"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"CRBHits"</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"aly"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"CRBHits"</span>)
-<span class='co'>#change default filter param</span>
-<span class='fu'><a href='https://rdrr.io/r/base/formals.html'>formals</a></span>(<span class='no'>filter.eval</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>alist</a></span>(<span class='kw'>x</span><span class='kw'>=</span> , <span class='kw'>eval</span><span class='kw'>=</span><span class='fl'>1e-10</span>)</div></pre>
+<span class='no'>athfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/find.package.html'>find.package</a></span>(<span class='st'>"CRBHits"</span>), <span class='st'>"inst/fasta/ath.cds.fasta.gz"</span>)
+<span class='no'>alyfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/find.package.html'>find.package</a></span>(<span class='st'>"CRBHits"</span>), <span class='st'>"inst/fasta/aly.cds.fasta.gz"</span>)
+<span class='co'>#conditional-reciprocal best hits</span>
+<span class='no'>ath_aly_crbh</span> <span class='kw'>&lt;-</span> <span class='fu'>cdsfile2rbh</span>(<span class='no'>athfile</span>, <span class='no'>alyfile</span>, <span class='kw'>plotCurve</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in cdsfile2rbh(athfile, alyfile, plotCurve = TRUE): Error: last PATH does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make.last() function.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span>(<span class='no'>ath_aly_crbh</span>$<span class='no'>crbh.pairs</span>)</div><div class='output co'>#&gt; [1] 798   2</div><div class='input'><span class='co'>#reciprocal best hits</span>
+<span class='no'>ath_aly_rbh</span> <span class='kw'>&lt;-</span> <span class='fu'>cdsfile2rbh</span>(<span class='no'>athfile</span>, <span class='no'>alyfile</span>, <span class='kw'>crbh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in cdsfile2rbh(athfile, alyfile, crbh = FALSE): Error: last PATH does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make.last() function.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span>(<span class='no'>ath_aly_rbh</span>$<span class='no'>rbh.pairs</span>)</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'ath_aly_rbh' not found</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

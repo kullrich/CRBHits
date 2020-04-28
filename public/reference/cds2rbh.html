@@ -41,7 +41,8 @@
 
 <meta property="og:title" content="cds2rbh — cds2rbh" />
 <meta property="og:description" content="This function calculates (conditional-)reciprocal best hit pair matrix from two DNAStringSet's.
-Conditionaö-reciprocal best hit pairs were introduced by *Aubrey" />
+Conditional-reciprocal best hit pairs were introduced by *Aubry S, Kelly S et al. (2014)*.
+Sequence searches are performed with *last* ()." />
 
 
 
@@ -96,13 +97,21 @@ Conditionaö-reciprocal best hit pairs were introduced by *Aubrey" />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/CRBHitsVignette.html">CRBHits Vignette</a>
+      <a href="../articles/CRBHitsBasicVignette.html">CRBHits Basic Vignette</a>
+    </li>
+    <li>
+      <a href="../articles/dNdSClusteringVignette.html">dNdS Clustering Vignette</a>
     </li>
   </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -117,13 +126,14 @@ Conditionaö-reciprocal best hit pairs were introduced by *Aubrey" />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>cds2rbh</h1>
-    
+    <small class="dont-index">Source: <a href='https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/masterR/cds2rbh.R'><code>R/cds2rbh.R</code></a></small>
     <div class="hidden name"><code>cds2rbh.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>This function calculates (conditional-)reciprocal best hit pair matrix from two <code>DNAStringSet</code>'s.
-Conditionaö-reciprocal best hit pairs were introduced by *Aubrey</p>
+Conditional-reciprocal best hit pairs were introduced by *Aubry S, Kelly S et al. (2014)*.
+Sequence searches are performed with *last* ().</p>
     </div>
 
     <pre class="usage"><span class='fu'>cds2rbh</span>(
@@ -214,9 +224,16 @@ Conditionaö-reciprocal best hit pairs were introduced by *Aubrey</p>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>List of three
+1: $crbh.pairs (crbh = TRUE) or $rbh.pairs (crbh = FALSE)
+2: $crbh1 matrix (crbh = TRUE) or $rbh1 (crbh = FALSE); query &gt; target
+3: $crbh2 matrix (crbh = TRUE) or $rbh2 (crbh = FALSE); target &gt; query</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Aubry S, Kelly S et al. (2014) Deep Evolutionary Comparison of Gene Expression Identifies Parallel Recruitment of Trans-Factors in Two Independent Origins of C4 Photosynthesis. <em>PLOS Genetics</em>, <b>10</b>, <b>6</b> e1004365.</p>
+    <p>Aubry S, Kelly S et al. (2014) Deep Evolutionary Comparison of Gene Expression Identifies Parallel Recruitment of Trans-Factors in Two Independent Origins of C4 Photosynthesis. <em>PLOS Genetics</em>, <b>10(6)</b> e1004365.</p>
+<p>Kiełbasa, SM et al. (2011) Adaptive seeds tame genomic sequence comparison. <em>Genome research</em>, <b>21(3)</b>, 487-493.</p>
 <p>Rost B. (1999). Twilight zone of protein sequence alignments. <em>Protein Engineering</em>, <b>12(2)</b>, 85-94.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -224,15 +241,15 @@ Conditionaö-reciprocal best hit pairs were introduced by *Aubrey</p>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"ath"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"CRBHits"</span>)
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"aly"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"CRBHits"</span>)
 <span class='co'>#conditional-reciprocal best hits</span>
-<span class='no'>ath_aly_crbh</span> <span class='kw'>&lt;-</span> <span class='fu'>cds2rbh</span>(<span class='no'>ath</span>, <span class='no'>aly</span>, <span class='kw'>plotCurve</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in cds2rbh(ath, aly, plotCurve = TRUE): Error: last PATH does not exist. Please specify correct PATH and/or look into package installation prerequisites.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span>(<span class='no'>ath_aly_crbh</span>$<span class='no'>crbh.pairs</span>)</div><div class='output co'>#&gt; [1] 798   2</div><div class='input'><span class='co'>#reciprocal best hits</span>
-<span class='no'>ath_aly_rbh</span> <span class='kw'>&lt;-</span> <span class='fu'>cds2rbh</span>(<span class='no'>ath</span>, <span class='no'>aly</span>, <span class='kw'>crbh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in cds2rbh(ath, aly, crbh = FALSE): Error: last PATH does not exist. Please specify correct PATH and/or look into package installation prerequisites.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span>(<span class='no'>ath_aly_rbh</span>$<span class='no'>rbh.pairs</span>)</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'ath_aly_rbh' not found</span></div><div class='input'><span class='co'>#filter for evalue 1e-100</span>
-<span class='no'>ath_aly_crbh.eval100</span> <span class='kw'>&lt;-</span> <span class='fu'>cds2rbh</span>(<span class='no'>ath</span>, <span class='no'>aly</span>, <span class='kw'>evalue</span> <span class='kw'>=</span> <span class='fl'>1e-100</span>)</div><div class='output co'>#&gt; <span class='error'>Error in cds2rbh(ath, aly, evalue = 1e-100): Error: last PATH does not exist. Please specify correct PATH and/or look into package installation prerequisites.</span></div><div class='input'><span class='co'>#filter for query coverage</span>
-<span class='no'>ath_aly_crbh.qcov</span> <span class='kw'>&lt;-</span> <span class='fu'>cds2rbh</span>(<span class='no'>ath</span>, <span class='no'>aly</span>, <span class='kw'>qcov</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</div><div class='output co'>#&gt; <span class='error'>Error in cds2rbh(ath, aly, qcov = 0.5): Error: last PATH does not exist. Please specify correct PATH and/or look into package installation prerequisites.</span></div><div class='input'><span class='co'>#custom filter for e.g. bit score (column 12)</span>
+<span class='no'>ath_aly_crbh</span> <span class='kw'>&lt;-</span> <span class='fu'>cds2rbh</span>(<span class='no'>ath</span>, <span class='no'>aly</span>, <span class='kw'>plotCurve</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in cds2rbh(ath, aly, plotCurve = TRUE): Error: last PATH does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make.last() function.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span>(<span class='no'>ath_aly_crbh</span>$<span class='no'>crbh.pairs</span>)</div><div class='output co'>#&gt; [1] 798   2</div><div class='input'><span class='co'>#reciprocal best hits</span>
+<span class='no'>ath_aly_rbh</span> <span class='kw'>&lt;-</span> <span class='fu'>cds2rbh</span>(<span class='no'>ath</span>, <span class='no'>aly</span>, <span class='kw'>crbh</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in cds2rbh(ath, aly, crbh = FALSE): Error: last PATH does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make.last() function.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span>(<span class='no'>ath_aly_rbh</span>$<span class='no'>rbh.pairs</span>)</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'ath_aly_rbh' not found</span></div><div class='input'><span class='co'>#filter for evalue 1e-100</span>
+<span class='no'>ath_aly_crbh.eval100</span> <span class='kw'>&lt;-</span> <span class='fu'>cds2rbh</span>(<span class='no'>ath</span>, <span class='no'>aly</span>, <span class='kw'>evalue</span> <span class='kw'>=</span> <span class='fl'>1e-100</span>)</div><div class='output co'>#&gt; <span class='error'>Error in cds2rbh(ath, aly, evalue = 1e-100): Error: last PATH does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make.last() function.</span></div><div class='input'><span class='co'>#filter for query coverage</span>
+<span class='no'>ath_aly_crbh.qcov</span> <span class='kw'>&lt;-</span> <span class='fu'>cds2rbh</span>(<span class='no'>ath</span>, <span class='no'>aly</span>, <span class='kw'>qcov</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</div><div class='output co'>#&gt; <span class='error'>Error in cds2rbh(ath, aly, qcov = 0.5): Error: last PATH does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make.last() function.</span></div><div class='input'><span class='co'>#custom filter for e.g. bit score (column 12)</span>
 <span class='no'>myfilter</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>rbh</span>, <span class='no'>value</span> <span class='kw'>=</span> <span class='fl'>500.0</span>){
 <span class='no'>retain.idx</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span>(<span class='no'>rbh</span>, <span class='fl'>1</span>, <span class='kw'>function</span>(<span class='no'>x</span>) {<span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='no'>x</span>[<span class='fl'>12</span>]) <span class='kw'>&gt;=</span> <span class='no'>value</span>, <span class='fl'>TRUE</span>, <span class='fl'>FALSE</span>)})
 <span class='fu'><a href='https://rdrr.io/r/base/function.html'>return</a></span>(<span class='no'>rbh</span>[<span class='no'>retain.idx</span>, , <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>])
 }
-<span class='no'>ath_aly_crbh.custom</span> <span class='kw'>&lt;-</span> <span class='fu'>cds2rbh</span>(<span class='no'>ath</span>, <span class='no'>aly</span>, <span class='kw'>filter</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"myfilter"</span>))</div><div class='output co'>#&gt; <span class='error'>Error in cds2rbh(ath, aly, filter = c("myfilter")): Error: last PATH does not exist. Please specify correct PATH and/or look into package installation prerequisites.</span></div><div class='input'>#multiple filters can be given in filter param
+<span class='no'>ath_aly_crbh.custom</span> <span class='kw'>&lt;-</span> <span class='fu'>cds2rbh</span>(<span class='no'>ath</span>, <span class='no'>aly</span>, <span class='kw'>filter</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"myfilter"</span>))</div><div class='output co'>#&gt; <span class='error'>Error in cds2rbh(ath, aly, filter = c("myfilter")): Error: last PATH does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make.last() function.</span></div><div class='input'>#multiple filters can be given in filter param
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

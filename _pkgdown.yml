@@ -1,1 +1,6 @@
 destination: public
+repo:
+  url:
+    home: https://gitlab.gwdg.de/mpievolbio-it/crbhits
+    source: https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/master
+    issue: https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues

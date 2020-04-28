@@ -8,6 +8,7 @@
 #' @param gapOpening the cost for opening a gap in the alignment (see \code{\link[Biostrings]{pairwiseAlignment}}) [default: 10]
 #' @param gapExtension the incremental cost incurred along the length of the gap in the alignment (see \code{\link[Biostrings]{pairwiseAlignment}}) [default: 0.5]
 #' @param remove.gaps specify if gaps in the codon alignment should be removed [default: FALSE]
+#' @return codon alignment as \code{DNAStringSet}
 #' @importFrom Biostrings DNAString DNAStringSet pairwiseAlignment AAStringSet width
 #' @importFrom seqinr translate
 #' @seealso \code{\link[Biostrings]{pairwiseAlignment}},

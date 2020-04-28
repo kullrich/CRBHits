@@ -1,7 +1,8 @@
 #' @title cds2rbh
 #' @name cds2rbh
 #' @description This function calculates (conditional-)reciprocal best hit pair matrix from two \code{DNAStringSet}'s.
-#' Conditionaö-reciprocal best hit pairs were introduced by *Aubrey
+#' Conditional-reciprocal best hit pairs were introduced by *Aubry S, Kelly S et al. (2014)*.
+#' Sequence searches are performed with *last* ().
 #' @param cds1 cds1 sequences as \code{DNAStringSet} [mandatory]
 #' @param cds2 cds2 sequences as \code{DNAStringSet} [mandatory]
 #' @param lastpath specify the PATH to the last binaries [default: /extdata/last-1060/src/]
@@ -18,9 +19,17 @@
 #' @param plotCurve specify if crbh fitting curve should be plotted [default: FALSE]
 #' @param threads number of parallel threads [default: 1]
 #' @param remove specify if last result files should be removed [default: TRUE]
+#' @return List of three
+#' 1: $crbh.pairs (crbh = TRUE) or $rbh.pairs (crbh = FALSE)
+#' 2: $crbh1 matrix (crbh = TRUE) or $rbh1 (crbh = FALSE); query > target
+#' 3: $crbh2 matrix (crbh = TRUE) or $rbh2 (crbh = FALSE); target > query
 #' @importFrom Biostrings writeXStringSet
+#' @importFrom graphics points
+#' @importFrom stats splinefun
+#' @importFrom utils read.table
 #' @import magrittr
-#' @references Aubry S, Kelly S et al. (2014) Deep Evolutionary Comparison of Gene Expression Identifies Parallel Recruitment of Trans-Factors in Two Independent Origins of C4 Photosynthesis. \emph{PLOS Genetics}, \bold{10}, \bold{6} e1004365.
+#' @references Aubry S, Kelly S et al. (2014) Deep Evolutionary Comparison of Gene Expression Identifies Parallel Recruitment of Trans-Factors in Two Independent Origins of C4 Photosynthesis. \emph{PLOS Genetics}, \bold{10(6)} e1004365.
+#' @references Kiełbasa, SM et al. (2011) Adaptive seeds tame genomic sequence comparison. \emph{Genome research}, \bold{21(3)}, 487-493.
 #' @references Rost B. (1999). Twilight zone of protein sequence alignments. \emph{Protein Engineering}, \bold{12(2)}, 85-94.
 #' @examples
 #' ##load example sequence data
@@ -94,9 +103,9 @@ cds2rbh <- function(cds1, cds2,
     fitMatrixfun <- splinefun(fitMatrix[,1], fitMatrix[,2])
     return(fitMatrixfun)
   }
-  if(!dir.exists(lastpath)){stop("Error: last PATH does not exist. Please specify correct PATH and/or look into package installation prerequisites.")}
-  if(!file.exists(paste0(lastpath, "lastdb"))){stop("Error: lastdb binary does not exist. Please specify correct PATH and/or look into package installation prerequisites.")}
-  if(!file.exists(paste0(lastpath, "lastal"))){stop("Error: lastal binary does not exist. Please specify correct PATH and/or look into package installation prerequisites.")}
+  if(!dir.exists(lastpath)){stop("Error: last PATH does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make.last() function.")}
+  if(!file.exists(paste0(lastpath, "lastdb"))){stop("Error: lastdb binary does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make.last() function.")}
+  if(!file.exists(paste0(lastpath, "lastal"))){stop("Error: lastal binary does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make.last() function.")}
   aa1file <- tempfile("aa1_", outpath)
   aa2file <- tempfile("aa2_", outpath)
   aa1dbfile <- tempfile("aa1db_", outpath)
@@ -109,14 +118,14 @@ cds2rbh <- function(cds1, cds2,
   system(paste0(lastpath, "lastdb -p -cR01 -P ", threads," ", aa2dbfile, " ", aa2file))
   system(paste0(lastpath, "lastal -f BlastTab+ -P ", threads, " ", aa1dbfile, " ", aa2file, " > ", aa2_aa1_lastout))
   system(paste0(lastpath, "lastal -f BlastTab+ -P ", threads, " ", aa2dbfile, " ", aa1file, " > ", aa1_aa2_lastout))
-  aa1_aa2 <- read.table(aa1_aa2_lastout, sep = "\t", header = FALSE, stringsAsFactor = FALSE)
-  aa2_aa1 <- read.table(aa2_aa1_lastout, sep = "\t", header = FALSE, stringsAsFactor = FALSE)
-  colnames(aa1_aa2) <- colnames(aa2_aa1) <- c("query id", "subject id", "% identity",
-                                              "alignment length", "mismatches",
-                                              "gap opens", "q. start", "q. end",
-                                              "s. start", "s. end", "evalue",
-                                              "bit score", "query length",
-                                              "subject length", "raw score")
+  aa1_aa2 <- read.table(aa1_aa2_lastout, sep = "\t", header = FALSE, stringsAsFactors = FALSE)
+  aa2_aa1 <- read.table(aa2_aa1_lastout, sep = "\t", header = FALSE, stringsAsFactors = FALSE)
+  colnames(aa1_aa2) <- colnames(aa2_aa1) <- c("query_id", "subject_id", "perc_identity",
+                                              "alignment_length", "mismatches",
+                                              "gap_opens", "q_start", "q_end",
+                                              "s_start", "s_end", "evalue",
+                                              "bit_score", "query_length",
+                                              "subject_length", "raw_score")
   if(remove){
     system(paste0("rm ", aa1file))
     system(paste0("rm ", aa2file))
@@ -126,15 +135,15 @@ cds2rbh <- function(cds1, cds2,
     system(paste0("rm ", aa1_aa2_lastout))
   }
   #apply standard filters on hit pairs
-  aa1_aa2 <- aa1_aa2 %>% filter.eval(., evalue) %>% filter.qcov(., qcov) %>%
-                         filter.tcov(., tcov) %>% filter.pident(., pident) %>%
-                         filter.alnlen(., alnlen)
-  aa2_aa1 <- aa2_aa1 %>% filter.eval(., evalue) %>% filter.qcov(., qcov) %>%
-                         filter.tcov(., tcov) %>% filter.pident(., pident) %>%
-                         filter.alnlen(., alnlen)
+  aa1_aa2 <- aa1_aa2 %>% filter.eval(evalue) %>% filter.qcov(qcov) %>%
+                         filter.tcov(tcov) %>% filter.pident(pident) %>%
+                         filter.alnlen(alnlen)
+  aa2_aa1 <- aa2_aa1 %>% filter.eval(evalue) %>% filter.qcov(qcov) %>%
+                         filter.tcov(tcov) %>% filter.pident(pident) %>%
+                         filter.alnlen(alnlen)
   if(rost1999){
-    aa1_aa2 <- aa1_aa2 %>% filter.rost1999(.)
-    aa2_aa1 <- aa2_aa1 %>% filter.rost1999(.)
+    aa1_aa2 <- aa1_aa2 %>% filter.rost1999
+    aa2_aa1 <- aa2_aa1 %>% filter.rost1999
   }
   #apply additional filters on hit pairs
   for(f in filter){
@@ -156,7 +165,7 @@ cds2rbh <- function(cds1, cds2,
   if(!crbh){
     rbh <- rbh1[, 1:2]
     colnames(rbh) <- c("aa1", "aa2")
-    out <- list(rbh, rbh1, rbh2)
+    out <- list(rbh, cbind(rbh1, "rbh"), cbind(rbh2, "rbh"))
     names(out) <- c("rbh.pairs", "rbh1", "rbh2")
     return(out)
   }
@@ -196,16 +205,31 @@ cds2rbh <- function(cds1, cds2,
     single2 <- aa2_aa1.red.dedup[which(!aa2_aa1.red.dedup.idx %in% aa1_aa2.red.dedup.idx), , drop = FALSE]
     #if plotCurve plot fitting
     if(plotCurve){
-      plot(log10(rbh1[, 4]), -log10(rbh1[, 11]), pch = 20, main = "Accept / Reject secondary hits as homologs", ylab = "-log10(evalue)", xlab = "log10(alnlength)")
+      len <- rbh1[, 4]
+      log10alnlen <- log10(len)
+      minuslog10evalue <- -log10(rbh1[, 11])
+      minuslog10evalue[is.infinite(minuslog10evalue)] <- 324
+      par(mfrow=c(2,1))
+      plot(log10alnlen, minuslog10evalue, pch = 20, main = "Accept / Reject secondary hits as homologs", ylab = "-log10(evalue)", xlab = "log10(alnlength)")
       points(x= log10(1:max(rbh1[, 4])), y=rbh1_rbh2_fit(1:max(rbh1[, 4])), type = "l", col = "blue")
       points(log10(rbh1.sec[, 4]), -log10(rbh1.sec[, 11]), pch = 20, col = "red")
       points(log10(single1[, 4]), -log10(single1[, 11]), pch = 20, col = "orange")
       points(log10(single2[, 4]), -log10(single2[, 11]), pch = 20, col = "cyan")
+      legend("bottomright", legend = c("rbh", "sec", "single1", "single2"), col = c("black", "red", "orange", "cyan"), pch = 20)
+      #
+      plot(len, minuslog10evalue, pch = 20, main = "Accept / Reject secondary hits as homologs", ylab = "-log10(evalue)", xlab = "alnlength")
+      points(x= 1:max(rbh1[, 4]), y=rbh1_rbh2_fit(1:max(rbh1[, 4])), type = "l", col = "blue")
+      points(rbh1.sec[, 4], -log10(rbh1.sec[, 11]), pch = 20, col = "red")
+      points(single1[, 4], -log10(single1[, 11]), pch = 20, col = "orange")
+      points(single2[, 4], -log10(single2[, 11]), pch = 20, col = "cyan")
+      legend("bottomright", legend = c("rbh", "sec", "single1", "single2"), col = c("black", "red", "orange", "cyan"), pch = 20)
     }
     #if no keepSingleDirection - done
     if(!keepSingleDirection){
-      crbh1 <- rbind(rbh1, rbh1.sec[, 1:15])
-      crbh2 <- rbind(rbh2, rbh2.sec[, 1:15])
+      crbh1 <- data.frame(Map(c ,cbind(rbh1, "rbh"), cbind(rbh1.sec[, 1:15], "sec")))
+      colnames(crbh1)[16] <- "rbh_class"
+      crbh2 <- data.frame(Map(c ,cbind(rbh2, "rbh"), cbind(rbh2.sec[, 1:15], "sec")))
+      colnames(crbh2)[16] <- "rbh_class"
       crbh <- crbh1[, 1:2]
       colnames(crbh) <- c("aa1", "aa2")
       out <- list(crbh, crbh1, crbh2)
@@ -213,10 +237,12 @@ cds2rbh <- function(cds1, cds2,
       return(out)
     }
     #if keepSingleDirection - include single - done
-    if(!keepSingleDirection){
-      crbh1 <- rbind(rbh1, rbh1.sec[, 1:15], single1[, 1:15])
-      crbh2 <- rbind(rbh2, rbh2.sec[, 1:15], single2[, 1:15])
-      crbh <- rbind(crbh1[, 1:2], single1[, 1:2], single2[, c(2,1)])
+    if(keepSingleDirection){
+      crbh1 <- data.frame(Map(c, cbind(rbh1, "rbh"), cbind(rbh1.sec[, 1:15], "sec"), cbind(single1[, 1:15], "single")))
+      colnames(crbh1)[16] <- "rbh_class"
+      crbh2 <- data.frame(Map(c, cbind(rbh2, "rbh"), cbind(rbh2.sec[, 1:15], "sec"), cbind(single2[, 1:15], "single")))
+      colnames(crbh2)[16] <- "rbh_class"
+      crbh <- data.frame(Map(c, crbh1[, 1:2], single1[, 1:2], single2[, c(2,1)]))
       colnames(crbh) <- c("aa1", "aa2")
       out <- list(crbh, crbh1, crbh2)
       names(out) <- c("crbh.pairs", "crbh1", "crbh2")

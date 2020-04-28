@@ -11,6 +11,9 @@ cdsfile2aafile(infile, outfile)
 
 \item{outfile}{aa fasta file [mandatory]}
 }
+\value{
+aa fasta file
+}
 \description{
 This function translates a cds fasta file into an aa fasta file.
 }

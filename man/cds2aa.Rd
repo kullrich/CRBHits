@@ -9,6 +9,9 @@ cds2aa(cds)
 \arguments{
 \item{cds}{\code{DNAStringSet} [mandatory]}
 }
+\value{
+\code{AAStringSet}
+}
 \description{
 This function translates a \code{DNAStringSet} into an \code{AAStringSet}.
 }

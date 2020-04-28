@@ -1,5 +1,7 @@
-^CRBH\.Rproj$
+^CRBHits\.Rproj$
 ^\.Rproj\.user$
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
+^public$
+^\.gitlab-ci\.yml$

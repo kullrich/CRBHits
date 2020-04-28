@@ -1,6 +1,6 @@
 #' @title rbh2kaks
 #' @name rbh2kaks
-#' @description This function calculates Ka and Ks (dN and dS; accoring to Li 1993) for each reciprocal best hit pair. The names of the \code{rbh} columns must match the names of the corresponding \code{cds1} and \code{cds2} \code{DNAStringSet} vectors.
+#' @description This function calculates Ka and Ks (dN and dS; accoring to *Li 1993*) for each reciprocal best hit pair. The names of the \code{rbh} columns must match the names of the corresponding \code{cds1} and \code{cds2} \code{DNAStringSet} vectors.
 #' @param rbh conditional-recirpocal best hit pair matrix [mandatory]
 #' @param cds1 cds1 sequences as \code{DNAStringSet} for first rbh column [mandatory]
 #' @param cds2 cds2 sequences as \code{DNAStringSet} for second rbh column [mandatory]
@@ -8,7 +8,7 @@
 #' @import foreach
 #' @import doMC
 #' @importFrom seqinr kaks
-#' @references Li W.-H. (1993) Unbiased estimation of the rates of synonymous and nonsynonymous substitution. \emph{J. Mol. Evol.}, \bold{36}, 96-99.
+#' @references Li WH. (1993) Unbiased estimation of the rates of synonymous and nonsynonymous substitution. \emph{J. Mol. Evol.}, \bold{36}, 96-99.
 #' @examples
 #' ##load example sequence data
 #' data("ath", package="CRBHits")

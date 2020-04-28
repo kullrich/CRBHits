@@ -9,9 +9,15 @@ cdsfile2rbh(
   cdsfile2,
   lastpath = paste0(find.package("CRBHits"), "/extdata/last-1060/src/"),
   outpath = "/tmp",
-  filter = NULL,
   crbh = TRUE,
   keepSingleDirection = FALSE,
+  evalue = 0.001,
+  qcov = 0,
+  tcov = 0,
+  pident = 0,
+  alnlen = 0,
+  rost1999 = FALSE,
+  filter = NULL,
   plotCurve = FALSE,
   threads = 1,
   remove = TRUE
@@ -26,11 +32,23 @@ cdsfile2rbh(
 
 \item{outpath}{specify the output PATH [default: /tmp]}
 
-\item{filter}{specify the filters to be applied on hit pairs e.g.: c("filter.eval", "filter.rost1999") [default: NULL]}
-
 \item{crbh}{specify if conditional-reciprocal hit pairs should be retained as secondary hits [default: TRUE]}
 
 \item{keepSingleDirection}{specify if single direction secondary hit pairs should be retained [default: FALSE]}
+
+\item{evalue}{evalue [default: 1e-3]}
+
+\item{qcov}{query coverage [default: 0.0]}
+
+\item{tcov}{target coverage [default: 0.0]}
+
+\item{pident}{percent identity [default: 0.0]}
+
+\item{alnlen}{alignment length [default: 0.0]}
+
+\item{rost1999}{specifiy if hit pairs should be filter by equation 2 of Rost 1999 [default: FALSE]}
+
+\item{filter}{specify additonal custom filters to be applied on hit pairs [default: NULL]}
 
 \item{plotCurve}{specify if crbh fitting curve should be plotted [default: FALSE]}
 
@@ -38,18 +56,30 @@ cdsfile2rbh(
 
 \item{remove}{specify if last result files should be removed [default: TRUE]}
 }
+\value{
+List of three
+1: $crbh.pairs (crbh = TRUE) or $rbh.pairs (crbh = FALSE)
+2: $crbh1 matrix (crbh = TRUE) or $rbh1 (crbh = FALSE); query > target
+3: $crbh2 matrix (crbh = TRUE) or $rbh2 (crbh = FALSE); target > query
+}
 \description{
-This function calculates (conditional-)reciprocal best hit pair matrix from two cds fasta file's.
+This function calculates (conditional-)reciprocal best hit pair matrix from two two cds fasta file's.
 }
 \examples{
 ##load example sequence data
-data("ath", package="CRBHits")
-data("aly", package="CRBHits")
-#change default filter param
-formals(filter.eval) <- alist(x= , eval=1e-10)
+athfile <- paste0(find.package("CRBHits"), "inst/fasta/ath.cds.fasta.gz")
+alyfile <- paste0(find.package("CRBHits"), "inst/fasta/aly.cds.fasta.gz")
+#conditional-reciprocal best hits
+ath_aly_crbh <- cdsfile2rbh(athfile, alyfile, plotCurve = TRUE)
+dim(ath_aly_crbh$crbh.pairs)
+#reciprocal best hits
+ath_aly_rbh <- cdsfile2rbh(athfile, alyfile, crbh = FALSE)
+dim(ath_aly_rbh$rbh.pairs)
 }
 \references{
-Aubry S, Kelly S et al. (2014) Deep Evolutionary Comparison of Gene Expression Identifies Parallel Recruitment of Trans-Factors in Two Independent Origins of C4 Photosynthesis. \emph{PLOS Genetics}, \bold{10}, \bold{6} e1004365.
+Aubry S, Kelly S et al. (2014) Deep Evolutionary Comparison of Gene Expression Identifies Parallel Recruitment of Trans-Factors in Two Independent Origins of C4 Photosynthesis. \emph{PLOS Genetics}, \bold{10(6)} e1004365.
+
+Kiełbasa, SM et al. (2011) Adaptive seeds tame genomic sequence comparison. \emph{Genome research}, \bold{21(3)}, 487-493.
 
 Rost B. (1999). Twilight zone of protein sequence alignments. \emph{Protein Engineering}, \bold{12(2)}, 85-94.
 }

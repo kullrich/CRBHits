@@ -29,6 +29,9 @@ cds2codonaln(
 
 \item{remove.gaps}{specify if gaps in the codon alignment should be removed [default: FALSE]}
 }
+\value{
+codon alignment as \code{DNAStringSet}
+}
 \description{
 This function takes two single sequence \code{DNAString}'s or two single sequence \code{DNAStringSet}'s, converts them into aa, calculates a global alignment and converts this alignment back into a codonalignment.
 }

@@ -2,6 +2,7 @@
 #' @name cds2aa
 #' @description This function translates a \code{DNAStringSet} into an \code{AAStringSet}.
 #' @param cds \code{DNAStringSet} [mandatory]
+#' @return \code{AAStringSet}
 #' @importFrom Biostrings DNAStringSet AAStringSet width
 #' @importFrom seqinr translate
 #' @examples
