@@ -26,6 +26,6 @@ Suggests:
   testthat
 VignetteBuilder: knitr
 NeedsCompilation: no
-URL: https://github.com/kullrich/CRBHits
-BugReports: https://github.com/kullrich/CRBHits/issues
+URL: https://gitlab.gwdg.de/mpievolbio-it/crbhits
+BugReports: https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues
 RoxygenNote: 7.1.0
