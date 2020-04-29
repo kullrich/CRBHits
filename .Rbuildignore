@@ -5,3 +5,6 @@
 ^pkgdown$
 ^public$
 ^\.gitlab-ci\.yml$
+^\.travis\.yml$
+^doc$
+^Meta$

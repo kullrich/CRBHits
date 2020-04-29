@@ -74,7 +74,7 @@ cds2codonaln <- function(cds1, cds2, type = "global", substitutionMatrix = "BLOS
   tmp.x <- Biostrings::DNAString()
   tmp.x.cur.start <- 0
   tmp.x.cur.end <- 0
-  for(i in 1:(length(xy.aln.pattern.gap.pos))){
+  for(i in seq(from=1, to=(length(xy.aln.pattern.gap.pos)))){
     cur.gap.pos <- xy.aln.pattern.gap.pos[i]
     cur.gap.len <- xy.aln.pattern.gap.len[i]
     if(i == 1){
@@ -110,7 +110,7 @@ cds2codonaln <- function(cds1, cds2, type = "global", substitutionMatrix = "BLOS
   tmp.y <- Biostrings::DNAString()
   tmp.y.cur.start <- 0
   tmp.y.cur.end <- 0
-  for(i in 1:(length(xy.aln.subject.gap.pos))){
+  for(i in seq(from=1, to=(length(xy.aln.subject.gap.pos)))){
     cur.gap.pos<-xy.aln.subject.gap.pos[i]
     cur.gap.len<-xy.aln.subject.gap.len[i]
     if(i == 1){

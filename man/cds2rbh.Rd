@@ -66,6 +66,7 @@ List of three
 This function calculates (conditional-)reciprocal best hit pair matrix from two \code{DNAStringSet}'s.
 Conditional-reciprocal best hit pairs were introduced by \emph{Aubry S, Kelly S et al. (2014)}.
 Sequence searches are performed with \bold{last} \emph{Kiełbasa, SM et al. (2011)}.
+If one specifies cds1 and cds2 as the same input a selfblast is conducted.
 }
 \examples{
 ##compile last-1060 within CRBHits
@@ -92,6 +93,9 @@ return(rbh[as.numeric(rbh[, 12]) >= value , , drop = FALSE])
 ath_aly_crbh.custom <- cds2rbh(ath, aly, filter = c("myfilter"))
 dim(ath_aly_crbh.custom$crbh.pairs)
 #multiple filters can be given in filter param
+#
+#selfblast
+ath_selfblast_crbh <- cds2rbh(ath, ath, plotCurve = TRUE)
 }
 \references{
 Aubry S, Kelly S et al. (2014) Deep Evolutionary Comparison of Gene Expression Identifies Parallel Recruitment of Trans-Factors in Two Independent Origins of C4 Photosynthesis. \emph{PLOS Genetics}, \bold{10(6)} e1004365.

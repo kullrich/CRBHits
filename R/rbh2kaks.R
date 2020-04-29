@@ -38,7 +38,7 @@ rbh2kaks <- function(rbhpairs, cds1, cds2, model = "Li", threads = 1,
   names(cds2) <- unlist(lapply(strsplit(names(cds2), " "), function(x) x[1]))
   doMC::registerDoMC(threads)
   i <- NULL
-  rbh.kaks <- foreach::foreach(i = 1:dim(rbhpairs)[1], .combine = rbind) %dopar% {
+  rbh.kaks <- foreach::foreach(i = seq(from=1, to=dim(rbhpairs)[1]), .combine = rbind) %dopar% {
     cds2kaks(get_cds_by_name(rbhpairs[i,1], cds1), get_cds_by_name(rbhpairs[i,2], cds2), model = model, kakscalcpath = kakscalcpath)
   }
   return(cbind(rbhpairs, rbh.kaks))

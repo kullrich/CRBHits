@@ -3,6 +3,7 @@
 #' @description This function calculates (conditional-)reciprocal best hit pair matrix from two \code{DNAStringSet}'s.
 #' Conditional-reciprocal best hit pairs were introduced by \emph{Aubry S, Kelly S et al. (2014)}.
 #' Sequence searches are performed with \bold{last} \emph{Kiełbasa, SM et al. (2011)}.
+#' If one specifies cds1 and cds2 as the same input a selfblast is conducted.
 #' @param cds1 cds1 sequences as \code{DNAStringSet} [mandatory]
 #' @param cds2 cds2 sequences as \code{DNAStringSet} [mandatory]
 #' @param lastpath specify the PATH to the last binaries [default: /extdata/last-1060/src/]
@@ -57,6 +58,9 @@
 #' ath_aly_crbh.custom <- cds2rbh(ath, aly, filter = c("myfilter"))
 #' dim(ath_aly_crbh.custom$crbh.pairs)
 #' #multiple filters can be given in filter param
+#' #
+#' #selfblast
+#' ath_selfblast_crbh <- cds2rbh(ath, ath, plotCurve = TRUE)
 #' @export cds2rbh
 #' @author Kristian K Ullrich
 
@@ -84,7 +88,7 @@ cds2rbh <- function(cds1, cds2,
     x <- x[order(x[,1]),]
     x.max <- max(x[,1])
     fitMatrix <- matrix(0, ncol = 2, nrow = x.max)
-    for(i in 1:x.max){
+    for(i in seq(from = 1, to = x.max)){
       fitMatrix[i, 1] <- i
       s <- round(i * 0.1)
       if(s < 5){s <- 5}
@@ -111,6 +115,10 @@ cds2rbh <- function(cds1, cds2,
   if(!dir.exists(lastpath)){stop("Error: last PATH does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make.last() function.")}
   if(!file.exists(paste0(lastpath, "lastdb"))){stop("Error: lastdb binary does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make.last() function.")}
   if(!file.exists(paste0(lastpath, "lastal"))){stop("Error: lastal binary does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make.last() function.")}
+  selfblast <- FALSE
+  if(any(cds1 == cds2)){
+    selfblast <- TRUE
+  }
   aa1file <- tempfile("aa1_", outpath)
   aa2file <- tempfile("aa2_", outpath)
   aa1dbfile <- tempfile("aa1db_", outpath)
@@ -139,6 +147,11 @@ cds2rbh <- function(cds1, cds2,
     system(paste0("rm ", aa2_aa1_lastout))
     system(paste0("rm ", aa1_aa2_lastout))
   }
+  #selfblast
+  if(selfblast){
+    aa1_aa2 <- aa1_aa2[aa1_aa2[,1] != aa1_aa2[,2], , drop = FALSE]
+    aa2_aa1 <- aa2_aa1[aa2_aa1[,1] != aa2_aa1[,2], , drop = FALSE]
+  }
   #apply standard filters on hit pairs
   aa1_aa2 <- aa1_aa2 %>% filter.eval(evalue) %>% filter.qcov(qcov) %>%
                          filter.tcov(tcov) %>% filter.pident(pident) %>%
@@ -156,16 +169,20 @@ cds2rbh <- function(cds1, cds2,
     aa1_aa2 <- aa1_aa2 %>% f_
     aa2_aa1 <- aa2_aa1 %>% f_
   }
-  aa1_aa2.idx <- paste0(aa1_aa2[, 1], "\t" , aa1_aa2[, 2])
-  aa2_aa1.idx <- paste0(aa2_aa1[, 2], "\t" , aa2_aa1[, 1])
+  aa1_aa2.idx <- paste0(aa1_aa2[, 1], "\t", aa1_aa2[, 2])
+  aa2_aa1.idx <- paste0(aa2_aa1[, 2], "\t", aa2_aa1[, 1])
   #deduplicate hit pairs and only retain the best hit per query
   aa1_aa2.dedup <- aa1_aa2[!duplicated(aa1_aa2[, 1]), , drop = FALSE]
   aa2_aa1.dedup <- aa2_aa1[!duplicated(aa2_aa1[, 1]), , drop = FALSE]
-  aa1_aa2.dedup.idx <- paste0(aa1_aa2.dedup[, 1], "\t" , aa1_aa2.dedup[, 2])
-  aa2_aa1.dedup.idx <- paste0(aa2_aa1.dedup[, 2], "\t" , aa2_aa1.dedup[, 1])
+  aa1_aa2.dedup.idx <- paste0(aa1_aa2.dedup[, 1], "\t", aa1_aa2.dedup[, 2])
+  aa2_aa1.dedup.idx <- paste0(aa2_aa1.dedup[, 2], "\t", aa2_aa1.dedup[, 1])
   #reduce to reciprocal best hits
   rbh1 <- aa1_aa2.dedup[which(aa1_aa2.dedup.idx %in% aa2_aa1.dedup.idx), , drop = FALSE]
   rbh2 <- aa2_aa1.dedup[which(aa2_aa1.dedup.idx %in% aa1_aa2.dedup.idx), , drop = FALSE]
+  if(selfblast){
+    rbh1 <- rbh1[!duplicated(apply(rbh1[, 1:2], 1, function(x) paste0(sort(x), collapse="\t"))), , drop = FALSE]
+    rbh2 <- rbh2[!duplicated(apply(rbh2[, 1:2], 1, function(x) paste0(sort(x), collapse="\t"))), , drop = FALSE]
+  }
   #if no crbh - done
   if(!crbh){
     rbh <- rbh1[, 1:2]
@@ -177,15 +194,26 @@ cds2rbh <- function(cds1, cds2,
   #if crbh - continue
   if(crbh){
     #fit evalue by length
-    rbh1_rbh2_fit <- fitSpline(c(rbh1[,4], rbh2[,4]), c(rbh1[,11], rbh2[,11]))
+    if(!selfblast){
+      rbh1_rbh2_fit <- fitSpline(c(rbh1[,4], rbh2[,4]), c(rbh1[,11], rbh2[,11]))
+    }
+    if(selfblast){
+      rbh1_rbh2_fit <- fitSpline(c(rbh1[,4]), c(rbh1[,11]))
+    }
     #internal function to filter hit pairs using rbh1_rbh2_fit
     filter.crbh <- function(x){
-      if(as.numeric(x[16]) < rbh1_rbh2_fit(as.numeric(x[4]))){return(FALSE)}
-      if(as.numeric(x[16]) >= rbh1_rbh2_fit(as.numeric(x[4]))){return(TRUE)}
+      minuslog10evalue_by_fit <- lapply(as.numeric(x[,4]), rbh1_rbh2_fit)
+      return(x[as.numeric(x[,16]) >= minuslog10evalue_by_fit, , drop = FALSE])
     }
     #remove reciprocal best hits from hit pairs to only look into secondary hits
-    rbh1.idx <- paste0(rbh1[, 1], "\t" , rbh1[, 2])
-    rbh2.idx <- paste0(rbh2[, 2], "\t" , rbh2[, 1])
+    if(!selfblast){
+      rbh1.idx <- paste0(rbh1[, 1], "\t", rbh1[, 2])
+      rbh2.idx <- paste0(rbh2[, 2], "\t", rbh2[, 1])
+    }
+    if(selfblast){
+      rbh1.idx <- c(paste0(rbh1[, 1], "\t", rbh1[, 2]), paste0(rbh1[, 2], "\t", rbh1[, 1]))
+      rbh2.idx <- c(paste0(rbh2[, 2], "\t", rbh2[, 1]), paste0(rbh2[, 1], "\t", rbh2[, 2]))
+    }
     aa1_aa2.red <- aa1_aa2[!aa1_aa2.idx %in% rbh1.idx, , drop = FALSE]
     aa2_aa1.red <- aa2_aa1[!aa2_aa1.idx %in% rbh2.idx, , drop = FALSE]
     #add -log10(evalue)
@@ -194,18 +222,22 @@ cds2rbh <- function(cds1, cds2,
     aa2_aa1.red <- cbind(aa2_aa1.red, -log10(aa2_aa1.red[,11]))
     aa2_aa1.red[is.infinite(aa2_aa1.red[, 16]), 16] <- 324
     #filter retained hit pairs with rbh1_rbh2_fit
-    aa1_aa2.red <- aa1_aa2.red[apply(aa1_aa2.red, 1, function(x) filter.crbh(x)), , drop = FALSE]
-    aa2_aa1.red <- aa2_aa1.red[apply(aa2_aa1.red, 1, function(x) filter.crbh(x)), , drop = FALSE]
-    aa1_aa2.red.idx <- paste0(aa1_aa2.red[, 1], "\t" , aa1_aa2.red[, 2])
-    aa2_aa1.red.idx <- paste0(aa2_aa1.red[, 2], "\t" , aa2_aa1.red[, 1])
+    aa1_aa2.red <- filter.crbh(aa1_aa2.red)
+    aa2_aa1.red <- filter.crbh(aa2_aa1.red)
+    aa1_aa2.red.idx <- paste0(aa1_aa2.red[, 1], "\t", aa1_aa2.red[, 2])
+    aa2_aa1.red.idx <- paste0(aa2_aa1.red[, 2], "\t", aa2_aa1.red[, 1])
     #deduplicate hit pairs and only retain the best hit per HSP
     aa1_aa2.red.dedup <- aa1_aa2.red[!duplicated(aa1_aa2.red.idx), , drop = FALSE]
     aa2_aa1.red.dedup <- aa2_aa1.red[!duplicated(aa2_aa1.red.idx), , drop = FALSE]
     #split into reciprocal direction secondary hits (rbh.sec) and single direction (single)
-    aa1_aa2.red.dedup.idx <- paste0(aa1_aa2.red.dedup[, 1], "\t" , aa1_aa2.red.dedup[, 2])
-    aa2_aa1.red.dedup.idx <- paste0(aa2_aa1.red.dedup[, 2], "\t" , aa2_aa1.red.dedup[, 1])
+    aa1_aa2.red.dedup.idx <- paste0(aa1_aa2.red.dedup[, 1], "\t", aa1_aa2.red.dedup[, 2])
+    aa2_aa1.red.dedup.idx <- paste0(aa2_aa1.red.dedup[, 2], "\t", aa2_aa1.red.dedup[, 1])
     rbh1.sec <- aa1_aa2.red.dedup[which(aa1_aa2.red.dedup.idx %in% aa2_aa1.red.dedup.idx), , drop = FALSE]
     rbh2.sec <- aa2_aa1.red.dedup[which(aa2_aa1.red.dedup.idx %in% aa1_aa2.red.dedup.idx), , drop = FALSE]
+    if(selfblast){
+      rbh1.sec <- rbh1.sec[!duplicated(apply(rbh1.sec[, 1:2], 1, function(x) paste0(sort(x), collapse="\t"))), , drop = FALSE]
+      rbh2.sec <- rbh2.sec[!duplicated(apply(rbh2.sec[, 1:2], 1, function(x) paste0(sort(x), collapse="\t"))), , drop = FALSE]
+    }
     single1 <- aa1_aa2.red.dedup[which(!aa1_aa2.red.dedup.idx %in% aa2_aa1.red.dedup.idx), , drop = FALSE]
     single2 <- aa2_aa1.red.dedup[which(!aa2_aa1.red.dedup.idx %in% aa1_aa2.red.dedup.idx), , drop = FALSE]
     #if plotCurve plot fitting
@@ -216,18 +248,28 @@ cds2rbh <- function(cds1, cds2,
       minuslog10evalue[is.infinite(minuslog10evalue)] <- 324
       par(mfrow=c(2,1))
       plot(log10alnlen, minuslog10evalue, pch = 20, main = "Accept / Reject secondary hits as homologs", ylab = "-log10(evalue)", xlab = "log10(alnlength)")
-      points(x= log10(1:max(rbh1[, 4])), y=rbh1_rbh2_fit(1:max(rbh1[, 4])), type = "l", col = "blue")
+      points(x= log10(1:max(rbh1[, 4])), y=rbh1_rbh2_fit(seq(from=1, to=max(rbh1[, 4]))), type = "l", col = "blue")
       points(log10(rbh1.sec[, 4]), -log10(rbh1.sec[, 11]), pch = 20, col = "red")
       points(log10(single1[, 4]), -log10(single1[, 11]), pch = 20, col = "orange")
-      points(log10(single2[, 4]), -log10(single2[, 11]), pch = 20, col = "cyan")
-      legend("bottomright", legend = c("rbh", "sec", "single1", "single2"), col = c("black", "red", "orange", "cyan"), pch = 20)
+      if(selfblast){
+        legend("bottomright", legend = c("rbh", "sec", "single"), col = c("black", "red", "orange"), pch = 20)
+      }
+      if(!selfblast){
+        points(log10(single2[, 4]), -log10(single2[, 11]), pch = 20, col = "cyan")
+        legend("bottomright", legend = c("rbh", "sec", "single1", "single2"), col = c("black", "red", "orange", "cyan"), pch = 20)
+      }
       #
       plot(len, minuslog10evalue, pch = 20, main = "Accept / Reject secondary hits as homologs", ylab = "-log10(evalue)", xlab = "alnlength")
-      points(x= 1:max(rbh1[, 4]), y=rbh1_rbh2_fit(1:max(rbh1[, 4])), type = "l", col = "blue")
+      points(x= 1:max(rbh1[, 4]), y=rbh1_rbh2_fit(seq(from=1, to=max(rbh1[, 4]))), type = "l", col = "blue")
       points(rbh1.sec[, 4], -log10(rbh1.sec[, 11]), pch = 20, col = "red")
       points(single1[, 4], -log10(single1[, 11]), pch = 20, col = "orange")
-      points(single2[, 4], -log10(single2[, 11]), pch = 20, col = "cyan")
-      legend("bottomright", legend = c("rbh", "sec", "single1", "single2"), col = c("black", "red", "orange", "cyan"), pch = 20)
+      if(selfblast){
+        legend("bottomright", legend = c("rbh", "sec", "single"), col = c("black", "red", "orange"), pch = 20)
+      }
+      if(!selfblast){
+        points(single2[, 4], -log10(single2[, 11]), pch = 20, col = "cyan")
+        legend("bottomright", legend = c("rbh", "sec", "single1", "single2"), col = c("black", "red", "orange", "cyan"), pch = 20)
+      }
     }
     #if no keepSingleDirection - done
     if(!keepSingleDirection){
