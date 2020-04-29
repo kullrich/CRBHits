@@ -11,6 +11,9 @@ filter.pident(rbh, pident = 0)
 
 \item{pident}{percent identity [default: 0.0]}
 }
+\value{
+rbh matrix
+}
 \description{
 This function filters BLAST-like tabular output according to protein identity.
 }

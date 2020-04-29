@@ -6,4 +6,5 @@
 #' \code{\link[Biostrings]{substitution.matrices}}
 #' @export makePostalignedSeqs
 #' @author Kristian K Ullrich
+
 makePostalignedSeqs <- get('.makePostalignedSeqs', envir = asNamespace('Biostrings'), inherits = FALSE)

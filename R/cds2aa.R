@@ -5,6 +5,9 @@
 #' @return \code{AAStringSet}
 #' @importFrom Biostrings DNAStringSet AAStringSet width
 #' @importFrom seqinr translate
+#' @seealso \code{\link[Biostrings]{DNAStringSet}},
+#' \code{\link[Biostrings]{AAStringSet}},
+#' \code{\link[seqinr]{translate}}
 #' @examples
 #' ##load example sequence data
 #' data("ath", package="CRBHits")

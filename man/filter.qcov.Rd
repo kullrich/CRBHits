@@ -11,6 +11,9 @@ filter.qcov(rbh, qcov = 0)
 
 \item{qcov}{query coverage [default: 0.0]}
 }
+\value{
+rbh matrix
+}
 \description{
 This function filters BLAST-like tabular output according to percentage query coverage.
 }

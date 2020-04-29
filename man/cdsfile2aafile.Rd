@@ -19,8 +19,13 @@ This function translates a cds fasta file into an aa fasta file.
 }
 \examples{
 cdsfile <- system.file("fasta/ath.cds.fasta.gz", package = "CRBHits")
-aafile <- "/tmp/ath.aa.fa"
+aafile <- tempfile()
 cdsfile2aafile(cdsfile, aafile)
+aa <- Biostrings::readAAStringSet(aafile)
+aa
+}
+\seealso{
+\code{\link[CRBHits]{cds2aa}}
 }
 \author{
 Kristian K Ullrich

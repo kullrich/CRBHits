@@ -64,10 +64,12 @@ List of three
 }
 \description{
 This function calculates (conditional-)reciprocal best hit pair matrix from two \code{DNAStringSet}'s.
-Conditional-reciprocal best hit pairs were introduced by *Aubry S, Kelly S et al. (2014)*.
-Sequence searches are performed with *last* ().
+Conditional-reciprocal best hit pairs were introduced by \emph{Aubry S, Kelly S et al. (2014)}.
+Sequence searches are performed with \bold{last} \emph{Kiełbasa, SM et al. (2011)}.
 }
 \examples{
+##compile last-1060 within CRBHits
+make.last()
 ##load example sequence data
 data("ath", package="CRBHits")
 data("aly", package="CRBHits")
@@ -79,14 +81,16 @@ ath_aly_rbh <- cds2rbh(ath, aly, crbh = FALSE)
 dim(ath_aly_rbh$rbh.pairs)
 #filter for evalue 1e-100
 ath_aly_crbh.eval100 <- cds2rbh(ath, aly, evalue = 1e-100)
+dim(ath_aly_crbh.eval100$crbh.pairs)
 #filter for query coverage
 ath_aly_crbh.qcov <- cds2rbh(ath, aly, qcov = 0.5)
+dim(ath_aly_crbh.qcov$crbh.pairs)
 #custom filter for e.g. bit score (column 12)
 myfilter <- function(rbh, value = 500.0){
-retain.idx <- apply(rbh, 1, function(x) {ifelse(as.numeric(x[12]) >= value, TRUE, FALSE)})
-return(rbh[retain.idx, , drop = FALSE])
+return(rbh[as.numeric(rbh[, 12]) >= value , , drop = FALSE])
 }
 ath_aly_crbh.custom <- cds2rbh(ath, aly, filter = c("myfilter"))
+dim(ath_aly_crbh.custom$crbh.pairs)
 #multiple filters can be given in filter param
 }
 \references{
@@ -95,6 +99,9 @@ Aubry S, Kelly S et al. (2014) Deep Evolutionary Comparison of Gene Expression I
 Kiełbasa, SM et al. (2011) Adaptive seeds tame genomic sequence comparison. \emph{Genome research}, \bold{21(3)}, 487-493.
 
 Rost B. (1999). Twilight zone of protein sequence alignments. \emph{Protein Engineering}, \bold{12(2)}, 85-94.
+}
+\seealso{
+\code{\link[CRBHits]{cdsfile2rbh}}
 }
 \author{
 Kristian K Ullrich

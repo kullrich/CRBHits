@@ -64,17 +64,22 @@ List of three
 }
 \description{
 This function calculates (conditional-)reciprocal best hit pair matrix from two two cds fasta file's.
+Conditional-reciprocal best hit pairs were introduced by \emph{Aubry S, Kelly S et al. (2014)}.
+Sequence searches are performed with \bold{last} \emph{Kiełbasa, SM et al. (2011)}.
 }
 \examples{
+##compile last-1060 within CRBHits
+make.last()
 ##load example sequence data
-athfile <- paste0(find.package("CRBHits"), "inst/fasta/ath.cds.fasta.gz")
-alyfile <- paste0(find.package("CRBHits"), "inst/fasta/aly.cds.fasta.gz")
+athfile <- system.file("fasta","ath.cds.fasta.gz",package = "CRBHits")
+alyfile <- system.file("fasta","aly.cds.fasta.gz",package = "CRBHits")
 #conditional-reciprocal best hits
 ath_aly_crbh <- cdsfile2rbh(athfile, alyfile, plotCurve = TRUE)
 dim(ath_aly_crbh$crbh.pairs)
 #reciprocal best hits
 ath_aly_rbh <- cdsfile2rbh(athfile, alyfile, crbh = FALSE)
 dim(ath_aly_rbh$rbh.pairs)
+#see ?cds2rb for more examples
 }
 \references{
 Aubry S, Kelly S et al. (2014) Deep Evolutionary Comparison of Gene Expression Identifies Parallel Recruitment of Trans-Factors in Two Independent Origins of C4 Photosynthesis. \emph{PLOS Genetics}, \bold{10(6)} e1004365.
@@ -82,6 +87,9 @@ Aubry S, Kelly S et al. (2014) Deep Evolutionary Comparison of Gene Expression I
 Kiełbasa, SM et al. (2011) Adaptive seeds tame genomic sequence comparison. \emph{Genome research}, \bold{21(3)}, 487-493.
 
 Rost B. (1999). Twilight zone of protein sequence alignments. \emph{Protein Engineering}, \bold{12(2)}, 85-94.
+}
+\seealso{
+\code{\link[CRBHits]{cds2rbh}}
 }
 \author{
 Kristian K Ullrich

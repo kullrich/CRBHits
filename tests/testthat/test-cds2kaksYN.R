@@ -1,0 +1,10 @@
+test_that("cds2kaks(., ., model = 'YN') calculates correct value", {
+  CRBHits_root <- system.file(package = "CRBHits")
+  KaKsCalcTempDir <- tempdir()
+  system(paste0("tar -C ", KaKsCalcTempDir, " -xvf ", CRBHits_root, "/extdata/KaKs_Calculator2.0.tar.gz"))
+  system(paste0("cd ", KaKsCalcTempDir, "/KaKs_Calculator2.0/src/; make clean; make"))
+  cds1 <- Biostrings::DNAStringSet("ATGCAACATTGC")
+  cds2 <- Biostrings::DNAStringSet("ATGTATTGC")
+  cds1.cds2.kaks1 <- cds2kaks(cds1, cds2, model = "YN", kakscalcpath = paste0(KaKsCalcTempDir, "/KaKs_Calculator2.0/src/"))
+  expect_equal(as.numeric(cds1.cds2.kaks1[3]), 0.152862)
+})

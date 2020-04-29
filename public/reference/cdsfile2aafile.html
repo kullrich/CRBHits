@@ -150,11 +150,15 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>aa fasta file</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='cds2aa.html'>cds2aa</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>cdsfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"fasta/ath.cds.fasta.gz"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"CRBHits"</span>)
-<span class='no'>aafile</span> <span class='kw'>&lt;-</span> <span class='st'>"/tmp/ath.aa.fa"</span>
-<span class='fu'>cdsfile2aafile</span>(<span class='no'>cdsfile</span>, <span class='no'>aafile</span>)</div></pre>
+<span class='no'>aafile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>()
+<span class='fu'>cdsfile2aafile</span>(<span class='no'>cdsfile</span>, <span class='no'>aafile</span>)
+<span class='no'>aa</span> <span class='kw'>&lt;-</span> <span class='fu'>readAAStringSet</span>(<span class='no'>aafile</span>)</div><div class='output co'>#&gt; <span class='error'>Error in readAAStringSet(aafile): could not find function "readAAStringSet"</span></div><div class='input'><span class='no'>aa</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'aa' not found</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

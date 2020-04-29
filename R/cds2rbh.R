@@ -1,8 +1,8 @@
 #' @title cds2rbh
 #' @name cds2rbh
 #' @description This function calculates (conditional-)reciprocal best hit pair matrix from two \code{DNAStringSet}'s.
-#' Conditional-reciprocal best hit pairs were introduced by *Aubry S, Kelly S et al. (2014)*.
-#' Sequence searches are performed with *last* ().
+#' Conditional-reciprocal best hit pairs were introduced by \emph{Aubry S, Kelly S et al. (2014)}.
+#' Sequence searches are performed with \bold{last} \emph{Kiełbasa, SM et al. (2011)}.
 #' @param cds1 cds1 sequences as \code{DNAStringSet} [mandatory]
 #' @param cds2 cds2 sequences as \code{DNAStringSet} [mandatory]
 #' @param lastpath specify the PATH to the last binaries [default: /extdata/last-1060/src/]
@@ -24,14 +24,17 @@
 #' 2: $crbh1 matrix (crbh = TRUE) or $rbh1 (crbh = FALSE); query > target
 #' 3: $crbh2 matrix (crbh = TRUE) or $rbh2 (crbh = FALSE); target > query
 #' @importFrom Biostrings writeXStringSet
-#' @importFrom graphics points
+#' @importFrom graphics legend par points
 #' @importFrom stats splinefun
 #' @importFrom utils read.table
 #' @import magrittr
+#' @seealso \code{\link[CRBHits]{cdsfile2rbh}}
 #' @references Aubry S, Kelly S et al. (2014) Deep Evolutionary Comparison of Gene Expression Identifies Parallel Recruitment of Trans-Factors in Two Independent Origins of C4 Photosynthesis. \emph{PLOS Genetics}, \bold{10(6)} e1004365.
 #' @references Kiełbasa, SM et al. (2011) Adaptive seeds tame genomic sequence comparison. \emph{Genome research}, \bold{21(3)}, 487-493.
 #' @references Rost B. (1999). Twilight zone of protein sequence alignments. \emph{Protein Engineering}, \bold{12(2)}, 85-94.
 #' @examples
+#' ##compile last-1060 within CRBHits
+#' make.last()
 #' ##load example sequence data
 #' data("ath", package="CRBHits")
 #' data("aly", package="CRBHits")
@@ -43,14 +46,16 @@
 #' dim(ath_aly_rbh$rbh.pairs)
 #' #filter for evalue 1e-100
 #' ath_aly_crbh.eval100 <- cds2rbh(ath, aly, evalue = 1e-100)
+#' dim(ath_aly_crbh.eval100$crbh.pairs)
 #' #filter for query coverage
 #' ath_aly_crbh.qcov <- cds2rbh(ath, aly, qcov = 0.5)
+#' dim(ath_aly_crbh.qcov$crbh.pairs)
 #' #custom filter for e.g. bit score (column 12)
 #' myfilter <- function(rbh, value = 500.0){
-#' retain.idx <- apply(rbh, 1, function(x) {ifelse(as.numeric(x[12]) >= value, TRUE, FALSE)})
-#' return(rbh[retain.idx, , drop = FALSE])
+#' return(rbh[as.numeric(rbh[, 12]) >= value , , drop = FALSE])
 #' }
 #' ath_aly_crbh.custom <- cds2rbh(ath, aly, filter = c("myfilter"))
+#' dim(ath_aly_crbh.custom$crbh.pairs)
 #' #multiple filters can be given in filter param
 #' @export cds2rbh
 #' @author Kristian K Ullrich

@@ -82,13 +82,14 @@
       </header><div class="row">
   <div class="contents col-md-9">
 
-<div id="crbhits---conditional-reciprocal-best-hit-in-r" class="section level1">
+<div id="crbhits---conditional-reciprocal-best-hits-in-r" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#crbhits---conditional-reciprocal-best-hit-in-r" class="anchor"></a>CRBHits - Conditional Reciprocal Best Hit in R</h1></div>
+<a href="#crbhits---conditional-reciprocal-best-hits-in-r" class="anchor"></a>CRBHits - Conditional Reciprocal Best Hits in R</h1></div>
 </div>
 <div id="crbhits---description" class="section level1">
 <h1 class="hasAnchor">
 <a href="#crbhits---description" class="anchor"></a>CRBHits - Description</h1>
+<p>R package source code: <a href="">https://gitlab.gwdg.de/mpievolbio-it/crbhits</a> R package pages: <a href="https://mpievolbio-it.pages.gwdg.de/crbhits/">https://mpievolbio-it.pages.gwdg.de/crbhits/</a> R packges issues: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues">https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues</a></p>
 <p><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> is a reimplementation of the Conditional Reciprocal Best Hit algorithm <a href="https://github.com/cboursnell/crb-blast">crb-blast</a> in R.</p>
 <p>The algorithm was introduced by <a href="http://www.plosgenetics.org/article/info%3Adoi%2F10.1371%2Fjournal.pgen.1004365">Aubry S, Kelly S et al. (2014)</a> and ported to python <a href="https://pypi.org/project/shmlast/">shmlast</a> (<a href="https://joss.theoj.org/papers/10.21105/joss.00142">Scott C. 2017</a>) which benefits from the blast-like sequence search software <a href="http://last.cbrc.jp/">LAST</a> (<a href="https://genome.cshlp.org/content/21/3/487.long">Kiełbasa SM et al. 2011</a>).</p>
 <p>Like <a href="https://pypi.org/project/shmlast/">shmlast</a>, <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> plots the fitted model of the conditional reciprocal best hit evalue based algorithm. In addition users can filter the hit pairs prior fitting for other cirteria like evalue, protein identity and/or the twilight zone of protein sequence alignments according to <a href="https://academic.oup.com/peds/article/12/2/85/1550637">Rost B. (1999)</a>.</p>
@@ -98,6 +99,7 @@
 <div id="installation" class="section level1">
 <h1 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h1>
+<p>see also here for the R package pages <a href="https://mpievolbio-it.pages.gwdg.de/crbhits/">https://mpievolbio-it.pages.gwdg.de/crbhits/</a></p>
 <div id="r-specific-installation-prerequisites" class="section level2">
 <h2 class="hasAnchor">
 <a href="#r-specific-installation-prerequisites" class="anchor"></a>R specific installation prerequisites</h2>
@@ -181,22 +183,26 @@ make.KaKs_Calculator2()</a></code></pre>
 <h2 class="hasAnchor">
 <a href="#quick-guide" class="anchor"></a>Quick-guide</h2>
 <pre><code><a href="https://rdrr.io/pkg/CRBHits/man">library(CRBHits)
+#compile last-1060
+make.last()
 #conditional-reciprocal best hits
 data("ath", package="CRBHits")
 data("aly", package="CRBHits")
 ath_aly_crbh &lt;- cds2rbh(ath, aly, plotCurve = TRUE)
+summary(ath_aly_crbh)
 
 #kaks calculation
-ath_aly_crbh.kaks &lt;- rbh2kaks(ath, aly, ath_aly_crbh)
+ath_aly_crbh.kaks &lt;- rbh2kaks(ath_aly_crbh$crbh.pairs[1:20, ], ath, aly)
+head(ath_aly_crbh.kaks)
 
 #kaks calculation using multiple threads
-ath_aly_crbh.kaks &lt;- rbh2kaks(ath, aly, ath_aly_crbh, threads = 4)</a></code></pre>
+ath_aly_crbh.kaks &lt;- rbh2kaks(ath_aly_crbh$crbh.pairs[1:20, ], ath, aly, threads = 4)
+head(ath_aly_crbh.kaks)</a></code></pre>
 </div>
 <div id="todo" class="section level2">
 <h2 class="hasAnchor">
 <a href="#todo" class="anchor"></a>Todo</h2>
 <ul>
-<li>re-write filter for speedup</li>
 <li>self-blast</li>
 <li>kaks-clustering</li>
 </ul>
@@ -227,11 +233,12 @@ ath_aly_crbh.kaks &lt;- rbh2kaks(ath, aly, ath_aly_crbh, threads = 4)</a></code>
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
 <p>Aubry, S., Kelly, S., Kümpers, B. M., Smith-Unna, R. D., &amp; Hibberd, J. M. (2014). <strong>Deep evolutionary comparison of gene expression identifies parallel recruitment of trans-factors in two independent origins of C4 photosynthesis.</strong> <em>PLoS genetics</em>, <strong>10(6)</strong>. <a href="https://doi.org/10.1371/journal.pgen.1004365">https://doi.org/10.1371/journal.pgen.1004365</a></p>
-<p>Scott, C. (2017). <strong>shmlast: an improved implementation of conditional reciprocal best hits with LAST and Python.</strong> <em>Journal of Open Source Software</em>, 2(9), 142. <a href="https://joss.theoj.org/papers/10.21105/joss.00142">https://joss.theoj.org/papers/10.21105/joss.00142</a></p>
-<p>Kiełbasa, S. M., Wan, R., Sato, K., Horton, P., &amp; Frith, M. C. (2011). <strong>Adaptive seeds tame genomic sequence comparison.</strong> <em>Genome research</em>, 21(3), 487-493. <a href="https://doi.org/10.1101/gr.113985.110">https://doi.org/10.1101/gr.113985.110</a></p>
-<p>Rost, B. (1999). <strong>Twilight zone of protein sequence alignments.</strong> <em>Protein engineering</em>, 12(2), 85-94. <a href="https://doi.org/10.1093/protein/12.2.85">https://doi.org/10.1093/protein/12.2.85</a></p>
 <p>Charif, D., &amp; Lobry, J. R. (2007). <strong>SeqinR 1.0-2: a contributed package to the R project for statistical computing devoted to biological sequences retrieval and analysis.</strong> <em>In Structural approaches to sequence evolution</em> (pp. 207-232). Springer, Berlin, Heidelberg. <a href="https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10">https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10</a></p>
+<p>Kiełbasa, S. M., Wan, R., Sato, K., Horton, P., &amp; Frith, M. C. (2011). <strong>Adaptive seeds tame genomic sequence comparison.</strong> <em>Genome research</em>, 21(3), 487-493. <a href="https://doi.org/10.1101/gr.113985.110">https://doi.org/10.1101/gr.113985.110</a></p>
 <p>Li, W. H. (1993). <strong>Unbiased estimation of the rates of synonymous and nonsynonymous substitution.</strong> <em>Journal of molecular evolution</em>, 36(1), 96-99. <a href="https://doi.org/10.1007/bf02407308">https://doi.org/10.1007/bf02407308</a></p>
+<p>Pagès, H., Aboyoun, P., Gentleman, R., &amp; DebRoy, S. (2017). <strong>Biostrings: Efficient manipulation of biological strings.</strong> <em>R package version</em>, 2(0).</p>
+<p>Rost, B. (1999). <strong>Twilight zone of protein sequence alignments.</strong> <em>Protein engineering</em>, 12(2), 85-94. <a href="https://doi.org/10.1093/protein/12.2.85">https://doi.org/10.1093/protein/12.2.85</a></p>
+<p>Scott, C. (2017). <strong>shmlast: an improved implementation of conditional reciprocal best hits with LAST and Python.</strong> <em>Journal of Open Source Software</em>, 2(9), 142. <a href="https://joss.theoj.org/papers/10.21105/joss.00142">https://joss.theoj.org/papers/10.21105/joss.00142</a></p>
 <p>Yang, Z., &amp; Nielsen, R. (2000). <strong>Estimating synonymous and nonsynonymous substitution rates under realistic evolutionary models.</strong> <em>Molecular biology and evolution</em>, 17(1), 32-43. <a href="https://doi.org/10.1093/oxfordjournals.molbev.a026236">https://doi.org/10.1093/oxfordjournals.molbev.a026236</a></p>
 </div>
 </div>

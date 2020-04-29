@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>cds2aa — cds2aa • CRBHits</title>
+<title>cds2kaks — cds2kaks • CRBHits</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="cds2aa — cds2aa" />
-<meta property="og:description" content="This function translates a DNAStringSet into an AAStringSet." />
+<meta property="og:title" content="cds2kaks — cds2kaks" />
+<meta property="og:description" content="This function calculates ka/ks (dN/dS; accoring to *Li 1993* or *Yang and Nielson 2000*) given two coding sequences cds1 and cds2 as DNAStringSet or DNAString." />
 
 
 
@@ -123,51 +123,66 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>cds2aa</h1>
-    <small class="dont-index">Source: <a href='https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/masterR/cds2aa.R'><code>R/cds2aa.R</code></a></small>
-    <div class="hidden name"><code>cds2aa.Rd</code></div>
+    <h1>cds2kaks</h1>
+    <small class="dont-index">Source: <a href='https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/masterR/cds2kaks.R'><code>R/cds2kaks.R</code></a></small>
+    <div class="hidden name"><code>cds2kaks.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function translates a <code>DNAStringSet</code> into an <code>AAStringSet</code>.</p>
+    <p>This function calculates ka/ks (dN/dS; accoring to *Li 1993* or *Yang and Nielson 2000*) given two coding sequences <code>cds1</code> and <code>cds2</code> as <code>DNAStringSet</code> or <code>DNAString</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>cds2aa</span>(<span class='no'>cds</span>)</pre>
+    <pre class="usage"><span class='fu'>cds2kaks</span>(
+  <span class='no'>cds1</span>,
+  <span class='no'>cds2</span>,
+  <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"Li"</span>,
+  <span class='kw'>kakscalcpath</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/find.package.html'>find.package</a></span>(<span class='st'>"CRBHits"</span>), <span class='st'>"/extdata/KaKs_Calculator2.0/src/"</span>)
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>cds</th>
-      <td><p><code>DNAStringSet</code> [mandatory]</p></td>
+      <th>cds1</th>
+      <td><p>single cds1 sequence as <code>DNAStringSet</code> or <code>DNAString</code> [mandatory]</p></td>
+    </tr>
+    <tr>
+      <th>cds2</th>
+      <td><p>single cds2 sequence as <code>DNAStringSet</code> or <code>DNAString</code> [mandatory]</p></td>
+    </tr>
+    <tr>
+      <th>model</th>
+      <td><p>specify codon model either "Li" or "YN" [default: Li]</p></td>
+    </tr>
+    <tr>
+      <th>kakscalcpath</th>
+      <td><p>specify the PATH to the KaKs_Calculator binaries [default: /extdata/KaKs_Calculator2.0/src/]</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>AAStringSet</code></p>
+    <p>vector of ka/ks values as specified by <code><a href='https://rdrr.io/pkg/seqinr/man/kaks.html'>seqinr::kaks</a></code> or <code>KaKs_Calculator2.0</code></p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Li WH. (1993) Unbiased estimation of the rates of synonymous and nonsynonymous substitution. <em>J. Mol. Evol.</em>, <b>36</b>, 96-99.</p>
+<p>Wang D, Zhang Y et al. (2010) KaKs_Calculator 2.0: a toolkit incorporating gamma-series methods and sliding window strategies. <em>Genomics Proteomics Bioinformatics.</em> <b>8(1)</b>, 77-80.</p>
+<p>Yang Z and Nielson R. (2000) Estimating synonymous and nonsynonymous substitution rates under realistic evolutionary models. <em>Mol. Biol. Evol.</em>, <b>17(1)</b>, 32-43.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/Biostrings/man/XStringSet-class.html'>DNAStringSet</a></code>,
-<code><a href='https://rdrr.io/pkg/Biostrings/man/XStringSet-class.html'>AAStringSet</a></code>,
-<code><a href='https://rdrr.io/pkg/seqinr/man/translate.html'>translate</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/seqinr/man/kaks.html'>kaks</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>##load example sequence data</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"ath"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"CRBHits"</span>)
-<span class='fu'>cds2aa</span>(<span class='no'>ath</span>)</div><div class='output co'>#&gt; AAStringSet object of length 1000:
-#&gt;        width seq                                            names               
-#&gt;    [1]   430 MEDQVGFGFRPNDEELVGHYLR...NMIIGVLLFISVISWIILVG* AT1G01010.1
-#&gt;    [2]   199 MIIFIDLILHRPKVYRHVLYNA...IFLIQIGSLLQYMSYFFRIV* AT1G01020.5
-#&gt;    [3]   359 MDLSLAPTTTTSSDQEQDRDQE...GDDDQFAKKGKSSLSLNFNP* AT1G01030.1
-#&gt;    [4]  1910 MVMEDEPREATIKPSYWLDACE...KKAKDSAAVLLLELLNKTFS* AT1G01040.1
-#&gt;    [5]   213 MSEETKDNQRLQRPAPRLNERI...EAIQYSMDLYAEYILHTLRR* AT1G01050.1
-#&gt;    ...   ... ...
-#&gt;  [996]   914 MSLSHLLRRLCTTTTTTRSPLS...PGPSHECQETQEKKVVELRN* AT1G10270.1
-#&gt;  [997]   413 MARGGKEEGEKHIGLLKLAQTL...KFSPSALAPLMNLSSTVLGF* AT1G10280.1
-#&gt;  [998]   915 MEAIDELSQLSDSMKQAASLLA...RTTPNRLPPAPPPTGSAYRY* AT1G10290.1
-#&gt;  [999]   659 MVKYNFKKITVVPNGKQFVDIV...SLKPKHLFSGKRGNGKNQRR* AT1G10300.2
-#&gt; [1000]   243 MTMATPFSGAANSIVAARTVLI...KAATMILNLTAGDNGGSLTV* AT1G10310.1</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"aly"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"CRBHits"</span>)
+<span class='co'>##select a sequence pair according to a best hit pair (done for you)</span>
+<span class='no'>cds1</span> <span class='kw'>&lt;-</span> <span class='no'>ath</span>[<span class='fl'>1</span>]
+<span class='no'>cds2</span> <span class='kw'>&lt;-</span> <span class='no'>aly</span>[<span class='fl'>282</span>]
+<span class='fu'>cds2kaks</span>(<span class='no'>cds1</span>, <span class='no'>cds2</span>, <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"Li"</span>)</div><div class='output co'>#&gt;           ka           ks          vka          vks 
+#&gt; 0.1061722655 0.2628911134 0.0002637032 0.0023637311 </div><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'>cds2kaks</span>(<span class='no'>cds1</span>, <span class='no'>cds2</span>, <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"YN"</span>)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

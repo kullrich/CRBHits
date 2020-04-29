@@ -11,6 +11,9 @@ filter.tcov(rbh, tcov = 0)
 
 \item{tcov}{target coverage [default: 0.0]}
 }
+\value{
+rbh matrix
+}
 \description{
 This function filters BLAST-like tabular output according to percentage target coverage.
 }

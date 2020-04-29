@@ -1,5 +1,12 @@
 CRBHits - Conditional Reciprocal Best Hits in R
 =========
+
+R package source code: [https://gitlab.gwdg.de/mpievolbio-it/crbhits](https://gitlab.gwdg.de/mpievolbio-it/crbhits)
+
+R package pages: [https://mpievolbio-it.pages.gwdg.de/crbhits/](https://mpievolbio-it.pages.gwdg.de/crbhits/)
+
+R packges issues: [https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues](https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues)
+
 # CRBHits - Description
 
 [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) is a reimplementation of the Conditional Reciprocal Best Hit algorithm [crb-blast](https://github.com/cboursnell/crb-blast) in R.
@@ -13,6 +20,8 @@ Like [shmlast](https://pypi.org/project/shmlast/), [CRBHits](https://gitlab.gwdg
 The resultings conditional reciprocal best hit pair matrix can be used to obtain pairwise codon alignments, which are further used to calculate synonymous and nonsynonymous substitutions using parallelization. The ka/ks (dN/dS) values can be obtained either via the codon model of [Li WH. (1999)](https://www.ncbi.nlm.nih.gov/pubmed/8433381) implemented in the R package [seqinr](https://cran.r-project.org/web/packages/seqinr/index.html) or the model [Yang Z and Nielson R. (2000)](https://www.ncbi.nlm.nih.gov/pubmed/10666704) implemented in [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download).
 
 # Installation
+
+see also here for the R package pages [https://mpievolbio-it.pages.gwdg.de/crbhits/](https://mpievolbio-it.pages.gwdg.de/crbhits/)
 
 ## R specific installation prerequisites
 
@@ -33,6 +42,7 @@ sudo yum install libcurl-devel openssl-devel libxml2-devel
 ```
 
 - [devtools](https://cran.r-project.org/web/packages/devtools/index.html)
+- [testthat](https://cran.r-project.org/web/packages/testthat/index.html)
 - [seqinr](https://cran.r-project.org/web/packages/seqinr/index.html)
 - [foreach](https://cran.r-project.org/web/packages/foreach/index.html)
 - [doMC](https://cran.r-project.org/web/packages/doMC/index.html)
@@ -40,6 +50,7 @@ sudo yum install libcurl-devel openssl-devel libxml2-devel
 
 ```
 install.packages("devtools")
+install.packages("testthat")
 install.packages("seqinr")
 install.packages("foreach")
 install.packages("doMC")
@@ -103,20 +114,24 @@ These vignettes introduce  [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhit
 
 ```
 library(CRBHits)
+#compile last-1060
+make.last()
 #conditional-reciprocal best hits
 data("ath", package="CRBHits")
 data("aly", package="CRBHits")
 ath_aly_crbh <- cds2rbh(ath, aly, plotCurve = TRUE)
+summary(ath_aly_crbh)
 
 #kaks calculation
-ath_aly_crbh.kaks <- rbh2kaks(ath, aly, ath_aly_crbh)
+ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh$crbh.pairs[1:20, ], ath, aly)
+head(ath_aly_crbh.kaks)
 
 #kaks calculation using multiple threads
-ath_aly_crbh.kaks <- rbh2kaks(ath, aly, ath_aly_crbh, threads = 4)
+ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh$crbh.pairs[1:20, ], ath, aly, threads = 4)
+head(ath_aly_crbh.kaks)
 ```
 
 ## Todo
-- re-write filter for speedup
 - self-blast
 - kaks-clustering
 
@@ -144,14 +159,16 @@ or use the issue tracker at [https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues
 
 Aubry, S., Kelly, S., Kümpers, B. M., Smith-Unna, R. D., & Hibberd, J. M. (2014). **Deep evolutionary comparison of gene expression identifies parallel recruitment of trans-factors in two independent origins of C4 photosynthesis.** *PLoS genetics*, **10(6)**. [https://doi.org/10.1371/journal.pgen.1004365](https://doi.org/10.1371/journal.pgen.1004365)
 
-Scott, C. (2017). **shmlast: an improved implementation of conditional reciprocal best hits with LAST and Python.** *Journal of Open Source Software*, 2(9), 142. [https://joss.theoj.org/papers/10.21105/joss.00142](https://joss.theoj.org/papers/10.21105/joss.00142)
+Charif, D., & Lobry, J. R. (2007). **SeqinR 1.0-2: a contributed package to the R project for statistical computing devoted to biological sequences retrieval and analysis.** *In Structural approaches to sequence evolution* (pp. 207-232). Springer, Berlin, Heidelberg. [https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10](https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10)
 
 Kiełbasa, S. M., Wan, R., Sato, K., Horton, P., & Frith, M. C. (2011). **Adaptive seeds tame genomic sequence comparison.** *Genome research*, 21(3), 487-493. [https://doi.org/10.1101/gr.113985.110](https://doi.org/10.1101/gr.113985.110)
 
+Li, W. H. (1993). **Unbiased estimation of the rates of synonymous and nonsynonymous substitution.** *Journal of molecular evolution*, 36(1), 96-99. [https://doi.org/10.1007/bf02407308](https://doi.org/10.1007/bf02407308)
+
+Pagès, H., Aboyoun, P., Gentleman, R., & DebRoy, S. (2017). **Biostrings: Efficient manipulation of biological strings.** *R package version*, 2(0).
+
 Rost, B. (1999). **Twilight zone of protein sequence alignments.** *Protein engineering*, 12(2), 85-94. [https://doi.org/10.1093/protein/12.2.85](https://doi.org/10.1093/protein/12.2.85)
 
-Charif, D., & Lobry, J. R. (2007). **SeqinR 1.0-2: a contributed package to the R project for statistical computing devoted to biological sequences retrieval and analysis.** *In Structural approaches to sequence evolution* (pp. 207-232). Springer, Berlin, Heidelberg. [https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10](https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10)
-
-Li, W. H. (1993). **Unbiased estimation of the rates of synonymous and nonsynonymous substitution.** *Journal of molecular evolution*, 36(1), 96-99. [https://doi.org/10.1007/bf02407308](https://doi.org/10.1007/bf02407308)
+Scott, C. (2017). **shmlast: an improved implementation of conditional reciprocal best hits with LAST and Python.** *Journal of Open Source Software*, 2(9), 142. [https://joss.theoj.org/papers/10.21105/joss.00142](https://joss.theoj.org/papers/10.21105/joss.00142)
 
 Yang, Z., & Nielsen, R. (2000). **Estimating synonymous and nonsynonymous substitution rates under realistic evolutionary models.** *Molecular biology and evolution*, 17(1), 32-43. [https://doi.org/10.1093/oxfordjournals.molbev.a026236](https://doi.org/10.1093/oxfordjournals.molbev.a026236)

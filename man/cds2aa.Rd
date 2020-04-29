@@ -20,6 +20,11 @@ This function translates a \code{DNAStringSet} into an \code{AAStringSet}.
 data("ath", package="CRBHits")
 cds2aa(ath)
 }
+\seealso{
+\code{\link[Biostrings]{DNAStringSet}},
+\code{\link[Biostrings]{AAStringSet}},
+\code{\link[seqinr]{translate}}
+}
 \author{
 Kristian K Ullrich
 }

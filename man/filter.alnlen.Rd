@@ -11,6 +11,9 @@ filter.alnlen(rbh, alnlen = 0)
 
 \item{alnlen}{alignment length [default: 0.0]}
 }
+\value{
+rbh matrix
+}
 \description{
 This function filters BLAST-like tabular output according to alignment length.
 }

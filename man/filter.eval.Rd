@@ -11,6 +11,9 @@ filter.eval(rbh, evalue = 0.001)
 
 \item{evalue}{evalue [default: 1e-3]}
 }
+\value{
+rbh matrix
+}
 \description{
 This function filters BLAST-like tabular output according to evalue.
 }

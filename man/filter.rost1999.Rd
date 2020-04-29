@@ -9,6 +9,9 @@ filter.rost1999(rbh)
 \arguments{
 \item{rbh}{BLAST-like tabular matrix [mandatory]}
 }
+\value{
+rbh matrix
+}
 \description{
 This function filters BLAST-like tabular output according to equation 2 of Rost 1999.
 }

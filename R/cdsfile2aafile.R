@@ -4,11 +4,14 @@
 #' @param infile cds fasta file [mandatory]
 #' @param outfile aa fasta file [mandatory]
 #' @return aa fasta file
-#' @importFrom Biostrings readDNAStringSet writeXStringSet
+#' @importFrom Biostrings readDNAStringSet readAAStringSet writeXStringSet
+#' @seealso \code{\link[CRBHits]{cds2aa}}
 #' @examples
 #' cdsfile <- system.file("fasta/ath.cds.fasta.gz", package = "CRBHits")
-#' aafile <- "/tmp/ath.aa.fa"
+#' aafile <- tempfile()
 #' cdsfile2aafile(cdsfile, aafile)
+#' aa <- Biostrings::readAAStringSet(aafile)
+#' aa
 #' @export cdsfile2aafile
 #' @author Kristian K Ullrich
 
