@@ -12,8 +12,6 @@ make.KaKs_Calculator2 <- function(){
   if(!dir.exists(kakscalcpath)){
     setwd(paste0(find.package("CRBHits"), "/extdata/"))
     system(paste0("tar -xvf KaKs_Calculator2.0.tar.gz"))
-  }
-  if(!file.exists(paste0(kakscalcpath, "KaKs_Calculator"))){
     setwd(paste0(find.package("CRBHits"), "/extdata/KaKs_Calculator2.0/src/"))
     system("make clean")
     system("make")

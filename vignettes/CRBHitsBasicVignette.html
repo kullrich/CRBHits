@@ -219,11 +219,77 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
+<p><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> is a reimplementation of the Conditional Reciprocal Best Hit algorithm <a href="https://github.com/cboursnell/crb-blast">crb-blast</a> in R.</p>
 <ol style="list-style-type: decimal">
 <li><a href="#install">Installation</a></li>
-<li><a href="#rbhmatrix">Reciprocal best hit matrix</a></li>
-<li><a href="#crbhmatrix">Conditional reciprocal best hit matrix</a></li>
 </ol>
+<p>see also here for the R package pages <a href="https://mpievolbio-it.pages.gwdg.de/crbhits/">https://mpievolbio-it.pages.gwdg.de/crbhits/</a></p>
+<div id="r-specific-installation-prerequisites" class="section level2">
+<h2>R specific installation prerequisites</h2>
+<div id="install-packages-from-cran" class="section level3">
+<h3>install packages from <a href="https://cran.r-project.org/web/packages/index.html">cran</a></h3>
+<p>In most cases you need to first install the following system-wide packages to be able to compile the R dependencies.</p>
+<p>Ubuntu/Debian</p>
+<pre><code>sudo apt-get install libcurl4-openssl-dev libssl-dev libxml2-dev</code></pre>
+<p>CentOS</p>
+<pre><code>sudo yum install libcurl-devel openssl-devel libxml2-devel</code></pre>
+<ul>
+<li><a href="https://cran.r-project.org/web/packages/devtools/index.html">devtools</a></li>
+<li><a href="https://cran.r-project.org/web/packages/testthat/index.html">testthat</a></li>
+<li><a href="https://cran.r-project.org/web/packages/seqinr/index.html">seqinr</a></li>
+<li><a href="https://cran.r-project.org/web/packages/foreach/index.html">foreach</a></li>
+<li><a href="https://cran.r-project.org/web/packages/doMC/index.html">doMC</a></li>
+<li><a href="https://cran.r-project.org/web/packages/magrittr/index.html">magrittr</a></li>
+</ul>
+<pre><code>install.packages(&quot;devtools&quot;)
+install.packages(&quot;testthat&quot;)
+install.packages(&quot;seqinr&quot;)
+install.packages(&quot;foreach&quot;)
+install.packages(&quot;doMC&quot;)
+install.packages(&quot;magrittr&quot;)</code></pre>
+</div>
+<div id="install-packages-from-bioconductor" class="section level3">
+<h3>install packages from <a href="https://www.bioconductor.org/">Bioconductor</a></h3>
+<pre><code>if (!requireNamespace(&quot;BiocManager&quot;, quietly = TRUE))
+    install.packages(&quot;BiocManager&quot;)
+
+BiocManager::install(&quot;Biostrings&quot;)</code></pre>
+</div>
+<div id="install-crbhits" class="section level3">
+<h3>install <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a></h3>
+<pre><code>library(devtools)
+install_gitlab(&quot;mpievolbio-it/crbhits&quot;, host = &quot;https://gitlab.gwdg.de&quot;)
+#install_github(&quot;kullrich/CRBHits&quot;, build_vignettes = TRUE, dependencies = FALSE)</code></pre>
+</div>
+</div>
+<div id="external-tools-installation-prerequisites" class="section level2">
+<h2>External tools installation prerequisites</h2>
+<p>The source code for both prerequisites (LAST, KaKs_Calculator2.0) are forked within <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a>.</p>
+<ul>
+<li><a href="http://last.cbrc.jp/">LAST</a> <a href="http://last.cbrc.jp/last-1060.zip">http://last.cbrc.jp/last-1060.zip</a></li>
+</ul>
+<pre><code>#setwd(paste0(find.package(&quot;CRBHits&quot;), &quot;/extdata/&quot;))
+#system(paste0(&quot;unzip last-1060.zip&quot;))
+#setwd(paste0(find.package(&quot;CRBHits&quot;), &quot;/extdata/last-1060/&quot;))
+## see more installation iformation here, if make fails
+## last-install-help: http://last.cbrc.jp/doc/last.html
+#system(&quot;make&quot;)
+make.last()</code></pre>
+<ul>
+<li><a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download">KaKs_Calculator2.0</a></li>
+</ul>
+<pre><code>#setwd(paste0(find.package(&quot;CRBHits&quot;), &quot;/extdata/&quot;))
+#system(paste0(&quot;tar -xvf KaKs_Calculator2.0.tar.gz&quot;))
+#setwd(paste0(find.package(&quot;CRBHits&quot;), &quot;/extdata/KaKs_Calculator2.0/src/&quot;))
+#system(&quot;make clean&quot;)
+#system(&quot;make&quot;)
+make.KaKs_Calculator2()</code></pre>
+<p>If you would like to install the latest version of both tools, you need to download the source code and compile again.</p>
+<ol start="2" style="list-style-type: decimal">
+<li><p><a href="#rbhpairs">Reciprocal best hit pairs</a></p></li>
+<li><p><a href="#crbhpairs">Conditional reciprocal best hit pairs</a></p></li>
+</ol>
+</div>
 
 
 
