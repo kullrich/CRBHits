@@ -101,7 +101,7 @@ make.last()
 make.KaKs_Calculator2()
 ```
 
-If you would like to install the latest version of both tools, you need to download the source code and compile again. 
+If you would like to install the latest version of both tools, you need to download the source code and compile again.
 
 ## Vignettes
 
