@@ -24,7 +24,7 @@ cds2kaks(
 vector of ka/ks values as specified by \code{seqinr::kaks} or \code{KaKs_Calculator2.0}
 }
 \description{
-This function calculates ka/ks (dN/dS; accoring to *Li 1993* or *Yang and Nielson 2000*) given two coding sequences \code{cds1} and \code{cds2} as \code{DNAStringSet} or \code{DNAString}.
+This function calculates ka/ks (dN/dS; accoring to \emph{Li (1993)} or \emph{Yang and Nielson (2000)} given two coding sequences \code{cds1} and \code{cds2} as \code{DNAStringSet} or \code{DNAString}.
 }
 \examples{
 ##load example sequence data

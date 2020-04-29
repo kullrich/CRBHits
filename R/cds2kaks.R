@@ -1,6 +1,6 @@
 #' @title cds2kaks
 #' @name cds2kaks
-#' @description This function calculates ka/ks (dN/dS; accoring to *Li 1993* or *Yang and Nielson 2000*) given two coding sequences \code{cds1} and \code{cds2} as \code{DNAStringSet} or \code{DNAString}.
+#' @description This function calculates ka/ks (dN/dS; accoring to \emph{Li (1993)} or \emph{Yang and Nielson (2000)} given two coding sequences \code{cds1} and \code{cds2} as \code{DNAStringSet} or \code{DNAString}.
 #' @param cds1 single cds1 sequence as \code{DNAStringSet} or \code{DNAString} [mandatory]
 #' @param cds2 single cds2 sequence as \code{DNAStringSet} or \code{DNAString} [mandatory]
 #' @param model specify codon model either "Li" or "YN" [default: Li]

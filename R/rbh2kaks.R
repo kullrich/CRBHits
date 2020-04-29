@@ -1,6 +1,6 @@
 #' @title rbh2kaks
 #' @name rbh2kaks
-#' @description This function calculates ka/ks (dN/dS; accoring to *Li 1993* or *Yang and Nielson 2000*) for each reciprocal best hit pair. The names of the \code{rbh} columns must match the names of the corresponding \code{cds1} and \code{cds2} \code{DNAStringSet} vectors.
+#' @description This function calculates ka/ks (dN/dS; accoring to \emph{Li (1993)} or \emph{Yang and Nielson (2000)} for each reciprocal best hit pair. The names of the \code{rbh} columns must match the names of the corresponding \code{cds1} and \code{cds2} \code{DNAStringSet} vectors.
 #' @param rbhpairs (conditional-)recirpocal best hit pair matrix [mandatory]
 #' @param cds1 cds1 sequences as \code{DNAStringSet} for first crbhpairs column [mandatory]
 #' @param cds2 cds2 sequences as \code{DNAStringSet} for second crbhpairs column [mandatory]
