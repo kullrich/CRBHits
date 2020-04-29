@@ -5,7 +5,10 @@
 #' @param alnlen alignment length [default: 0.0]
 #' @return rbh matrix
 #' @examples
-#' ##load sequence data
+#' ##load crbh data
+#' data(ath_aly_crbh)
+#' dim(ath_aly_crbh$crbh1)
+#' dim(filter.alnlen(ath_aly_crbh$crbh1, alnlen = 75))
 #' @export filter.alnlen
 #' @author Kristian K Ullrich
 

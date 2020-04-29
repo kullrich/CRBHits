@@ -21,4 +21,4 @@ PackageInstallArgs: --no-multiarch --with-keep.source --resave-data
 PackageBuildArgs: --resave-data
 PackageBuildBinaryArgs: --resave-data
 PackageCheckArgs: --no-build-vignettes --no-manual --as-cran
-PackageRoxygenize: rd,collate,namespace
+PackageRoxygenize: rd,collate,namespace,vignette

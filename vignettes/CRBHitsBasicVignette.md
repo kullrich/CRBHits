@@ -1,20 +1,15 @@
 ---
-title: "dNdS Clustering Vignette"
+title: "CRBHits Basic Vignette"
 author: "Vignette Author"
-date: "`r Sys.Date()`"
+date: "2020-04-29"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{dNdS Clustering Vignette}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{CRBHits Basic Vignette}
+  %\VignetteEngine{knitr::knitr}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
+
 
 1. [Installation](#install)
 2. [Reciprocal best hit matrix](#rbhmatrix)

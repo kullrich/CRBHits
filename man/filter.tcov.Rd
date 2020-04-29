@@ -18,7 +18,10 @@ rbh matrix
 This function filters BLAST-like tabular output according to percentage target coverage.
 }
 \examples{
-##load sequence data
+##load crbh data
+data(ath_aly_crbh)
+dim(ath_aly_crbh$crbh1)
+dim(filter.tcov(ath_aly_crbh$crbh1, tcov = 0.75))
 }
 \author{
 Kristian K Ullrich

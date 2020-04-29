@@ -5,7 +5,10 @@
 #' @return rbh matrix
 #' @references Rost B. (1999). Twilight zone of protein sequence alignments. \emph{Protein Engineering}, \bold{12(2)}, 85-94.
 #' @examples
-#' ##load sequence data
+#' ##load crbh data
+#' data(ath_aly_crbh)
+#' dim(ath_aly_crbh$crbh1)
+#' dim(filter.rost1999(ath_aly_crbh$crbh1))
 #' @export filter.rost1999
 #' @author Kristian K Ullrich
 

@@ -19,6 +19,13 @@ An object of class \code{alignemnt} which is a list with the following component
 \description{
 This function converts a \code{DNAStringSet} into an \code{seqinr} \code{alignment}.
 }
+\examples{
+##define two cds sequences
+cds1 <- Biostrings::DNAString("ATGCAACATTGC")
+cds2 <- Biostrings::DNAString("ATGCATTGC")
+cds1.cds2.aln <- cds2codonaln(cds1, cds2)
+dnastring2aln(cds1.cds2.aln)
+}
 \seealso{
 \code{\link[seqinr]{as.alignment}}
 }

@@ -5,12 +5,10 @@
 #' @param evalue evalue [default: 1e-3]
 #' @return rbh matrix
 #' @examples
-#' ##load sequence data
-#' data("blastTab", package="CRBHits")
-#' dim(blastTab)
-#' blastTab.filtered <- blastTab[apply(blastTab, 1, function(x){
-#' filter.eval(x, 1e-3)
-#' }), ,drop=FALSE]
+#' ##load crbh data
+#' data(ath_aly_crbh)
+#' dim(ath_aly_crbh$crbh1)
+#' dim(filter.eval(ath_aly_crbh$crbh1, evalue = 1e-100))
 #' @export filter.eval
 #' @author Kristian K Ullrich
 
