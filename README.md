@@ -132,7 +132,6 @@ head(ath_aly_crbh.kaks)
 ```
 
 ## Todo
-- self-blast
 - kaks-clustering
 
 ## License
