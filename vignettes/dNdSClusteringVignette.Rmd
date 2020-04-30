@@ -32,15 +32,39 @@ alyfile <- "ftp://ftp.ensemblgenomes.org/pub/plants/release-47/
 fasta/arabidopsis_lyrata/cds/Arabidopsis_lyrata.v.1.0.cds.all.fa.gz"
 ```
 
-The blast-like software [LAST](http://last.cbrc.jp/) is used to compare the translated coding sequences against each other and output a blast-like output table including the query and target length. Taking the length of the obtained pairwise protein alignment one can calculate for each hit pair the query coverage as $\frac{alignment length}{query length}$.
+The blast-like software [LAST](http://last.cbrc.jp/) is used to compare the translated coding sequences against each other and output a blast-like output table including the query and target length.
 
-Next toquery coverage the hit pairs will be additionally filtered for the twilight zone of protein sequence alignments according to [Rost B. (1999)](https://academic.oup.com/peds/article/12/2/85/1550637).
+Taking the length of the obtained pairwise protein alignment one can calculate for each hit pair the query coverage as $\frac{alignment length}{query length}$.
 
-The implemented filter uses `equation2` of the mentioned paper
+The data will be filtered with a query coverage of 50\% (`cdsfile2rbh(..., qcov = 0.5)`).
 
-$$f(k) = {n \choose k} p^{k} (1-p)^{n-k}$$.
+Next to query coverage, the hit pairs will be additionally filtered for the twilight zone of protein sequence alignments according to [Rost B. (1999)](https://academic.oup.com/peds/article/12/2/85/1550637) (`cdsfile2rbh(..., rost1999 = TRUE)`).
+
+The implemented filter uses `equation2` of [Rost B. (1999)](https://academic.oup.com/peds/article/12/2/85/1550637)
+
+$$f(x_{\text{hit pair}}) = \cases {100 \text{ , for } L_{\text{hit pair}} < 11 \\ 480 * () \text{ , for } L_{\text{hit pair}} <= 450 \\ 19.5 \text{ , for } L_{\text{hit pair}} > 450}$$
+, where $x_{\text{hit pair}}$ is the expected protein identity given the alignemnet length $L_{\text{hit pair}}$. If the actual $pident_{\text{hit pair}} >= f(x_{\text{hit pair}})$ the hit pair is retained.
 
 
+```{r}
+#plot expected pident by alignment length using eq2 from Rost (1999)
+get_pident_by_length <- function(x){
+  eq2 <- function(x){
+    if(x <= 11){return(100)}
+    if(x <= 450){return(480*(x^(-0.32*(1+(exp(-x/1000))))))}
+    if(x > 450){return(19.5)}
+  }
+  return(unlist(lapply(x, eq2)))
+}
+curve(get_pident_by_length, 11, 500, pch = 20, xlab = "alignment length", ylab = "pident",
+      main = "expected protein identity (eq2; Rost B. 19999)")
+```
+
+The conditional reciprocal best hit pairs can be generated with the function `cdsfile2rbh` using multiple threads.
+
+```{r}
+ath_aly_crbh <- cdsfile2rbh(athfile, alyfile, qcov = 0.5, rost1999 = TRUE, threads = 8)
+```
 
 2. [Reciprocal best hit matrix](#rbhmatrix)
 3. [Conditional reciprocal best hit matrix](#crbhmatrix)

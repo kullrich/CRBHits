@@ -15,10 +15,13 @@
 filter.rost1999 <- function(rbh){
   #internal function to calculate pident by length
   get_pident_by_length <- function(x){
-    if(x <= 11){return(100)}
-    if(x <= 450){return(480*(x^(-0.32*(1+(exp(-x/1000))))))}
-    if(x > 450){return(19.5)}
+    eq2 <- function(x){
+      if(x <= 11){return(100)}
+      if(x <= 450){return(480*(x^(-0.32*(1+(exp(-x/1000))))))}
+      if(x > 450){return(19.5)}
+    }
+    return(unlist(lapply(x, eq2)))
   }
-  pident_by_length <- lapply(as.numeric(rbh[,4]), get_pident_by_length)
+  pident_by_length <- get_pident_by_length(as.numeric(rbh[,4]))
   return(rbh[as.numeric(rbh[,3]) >= pident_by_length, , drop = FALSE])
 }
