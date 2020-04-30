@@ -154,6 +154,25 @@
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/seqinr/man/as.alignment.html'>as.alignment</a></code></p></div>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'>##define two cds sequences</span>
+<span class='no'>cds1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>Biostrings</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Biostrings/man/DNAString-class.html'>DNAString</a></span>(<span class='st'>"ATGCAACATTGC"</span>)
+<span class='no'>cds2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>Biostrings</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Biostrings/man/DNAString-class.html'>DNAString</a></span>(<span class='st'>"ATGCATTGC"</span>)
+<span class='no'>cds1.cds2.aln</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='cds2codonaln.html'>cds2codonaln</a></span>(<span class='no'>cds1</span>, <span class='no'>cds2</span>)
+<span class='fu'>dnastring2aln</span>(<span class='no'>cds1.cds2.aln</span>)</div><div class='output co'>#&gt; $nb
+#&gt; [1] 2
+#&gt; 
+#&gt; $nam
+#&gt; [1] "cds1" "cds2"
+#&gt; 
+#&gt; $seq
+#&gt; [1] "atgcaacattgc" "atg---cattgc"
+#&gt; 
+#&gt; $com
+#&gt; [1] NA
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "alignment"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

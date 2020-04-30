@@ -151,8 +151,9 @@
     <p>Rost B. (1999). Twilight zone of protein sequence alignments. <em>Protein Engineering</em>, <b>12(2)</b>, 85-94.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>##load sequence data
-</div></pre>
+    <pre class="examples"><div class='input'><span class='co'>##load crbh data</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ath_aly_crbh</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span>(<span class='no'>ath_aly_crbh</span>$<span class='no'>crbh1</span>)</div><div class='output co'>#&gt; [1] 798  16</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span>(<span class='fu'>filter.rost1999</span>(<span class='no'>ath_aly_crbh</span>$<span class='no'>crbh1</span>))</div><div class='output co'>#&gt; [1] 797  16</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

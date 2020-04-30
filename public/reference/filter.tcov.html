@@ -152,8 +152,9 @@
     <p>rbh matrix</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>##load sequence data
-</div></pre>
+    <pre class="examples"><div class='input'><span class='co'>##load crbh data</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ath_aly_crbh</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span>(<span class='no'>ath_aly_crbh</span>$<span class='no'>crbh1</span>)</div><div class='output co'>#&gt; [1] 798  16</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span>(<span class='fu'>filter.tcov</span>(<span class='no'>ath_aly_crbh</span>$<span class='no'>crbh1</span>, <span class='kw'>tcov</span> <span class='kw'>=</span> <span class='fl'>0.75</span>))</div><div class='output co'>#&gt; [1] 762  16</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

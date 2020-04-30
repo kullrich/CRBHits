@@ -41,8 +41,9 @@
 
 <meta property="og:title" content="cds2rbh — cds2rbh" />
 <meta property="og:description" content="This function calculates (conditional-)reciprocal best hit pair matrix from two DNAStringSet's.
-Conditional-reciprocal best hit pairs were introduced by *Aubry S, Kelly S et al. (2014)*.
-Sequence searches are performed with *last* ()." />
+Conditional-reciprocal best hit pairs were introduced by Aubry S, Kelly S et al. (2014).
+Sequence searches are performed with last Kiełbasa, SM et al. (2011).
+If one specifies cds1 and cds2 as the same input a selfblast is conducted." />
 
 
 
@@ -132,8 +133,9 @@ Sequence searches are performed with *last* ()." />
 
     <div class="ref-description">
     <p>This function calculates (conditional-)reciprocal best hit pair matrix from two <code>DNAStringSet</code>'s.
-Conditional-reciprocal best hit pairs were introduced by *Aubry S, Kelly S et al. (2014)*.
-Sequence searches are performed with *last* ().</p>
+Conditional-reciprocal best hit pairs were introduced by <em>Aubry S, Kelly S et al. (2014)</em>.
+Sequence searches are performed with <b>last</b> <em>Kiełbasa, SM et al. (2011)</em>.
+If one specifies cds1 and cds2 as the same input a selfblast is conducted.</p>
     </div>
 
     <pre class="usage"><span class='fu'>cds2rbh</span>(
@@ -256,8 +258,10 @@ Sequence searches are performed with *last* ().</p>
 <span class='no'>myfilter</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>rbh</span>, <span class='no'>value</span> <span class='kw'>=</span> <span class='fl'>500.0</span>){
 <span class='fu'><a href='https://rdrr.io/r/base/function.html'>return</a></span>(<span class='no'>rbh</span>[<span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='no'>rbh</span>[, <span class='fl'>12</span>]) <span class='kw'>&gt;=</span> <span class='no'>value</span> , , <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>])
 }
-<span class='no'>ath_aly_crbh.custom</span> <span class='kw'>&lt;-</span> <span class='fu'>cds2rbh</span>(<span class='no'>ath</span>, <span class='no'>aly</span>, <span class='kw'>filter</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"myfilter"</span>))</div><div class='output co'>#&gt; <span class='error'>Error in get(f): object 'myfilter' not found</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span>(<span class='no'>ath_aly_crbh.custom</span>$<span class='no'>crbh.pairs</span>)</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'ath_aly_crbh.custom' not found</span></div><div class='input'>#multiple filters can be given in filter param
-</div></pre>
+<span class='no'>ath_aly_crbh.custom</span> <span class='kw'>&lt;-</span> <span class='fu'>cds2rbh</span>(<span class='no'>ath</span>, <span class='no'>aly</span>, <span class='kw'>filter</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"myfilter"</span>))</div><div class='output co'>#&gt; <span class='error'>Error in get(f): object 'myfilter' not found</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span>(<span class='no'>ath_aly_crbh.custom</span>$<span class='no'>crbh.pairs</span>)</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'ath_aly_crbh.custom' not found</span></div><div class='input'><span class='co'>#multiple filters can be given in filter param</span>
+<span class='co'>#</span>
+<span class='co'>#selfblast</span>
+<span class='no'>ath_selfblast_crbh</span> <span class='kw'>&lt;-</span> <span class='fu'>cds2rbh</span>(<span class='no'>ath</span>, <span class='no'>ath</span>, <span class='kw'>plotCurve</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='cds2rbh-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -82,14 +82,17 @@
       </header><div class="row">
   <div class="contents col-md-9">
 
+
 <div id="crbhits---conditional-reciprocal-best-hits-in-r" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#crbhits---conditional-reciprocal-best-hits-in-r" class="anchor"></a>CRBHits - Conditional Reciprocal Best Hits in R</h1></div>
+<p>R package source code: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">https://gitlab.gwdg.de/mpievolbio-it/crbhits</a></p>
+<p>R package pages: <a href="https://mpievolbio-it.pages.gwdg.de/crbhits/">https://mpievolbio-it.pages.gwdg.de/crbhits/</a></p>
+<p>R packges issues: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues">https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues</a></p>
 </div>
 <div id="crbhits---description" class="section level1">
 <h1 class="hasAnchor">
 <a href="#crbhits---description" class="anchor"></a>CRBHits - Description</h1>
-<p>R package source code: <a href="">https://gitlab.gwdg.de/mpievolbio-it/crbhits</a> R package pages: <a href="https://mpievolbio-it.pages.gwdg.de/crbhits/">https://mpievolbio-it.pages.gwdg.de/crbhits/</a> R packges issues: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues">https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues</a></p>
 <p><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> is a reimplementation of the Conditional Reciprocal Best Hit algorithm <a href="https://github.com/cboursnell/crb-blast">crb-blast</a> in R.</p>
 <p>The algorithm was introduced by <a href="http://www.plosgenetics.org/article/info%3Adoi%2F10.1371%2Fjournal.pgen.1004365">Aubry S, Kelly S et al. (2014)</a> and ported to python <a href="https://pypi.org/project/shmlast/">shmlast</a> (<a href="https://joss.theoj.org/papers/10.21105/joss.00142">Scott C. 2017</a>) which benefits from the blast-like sequence search software <a href="http://last.cbrc.jp/">LAST</a> (<a href="https://genome.cshlp.org/content/21/3/487.long">Kiełbasa SM et al. 2011</a>).</p>
 <p>Like <a href="https://pypi.org/project/shmlast/">shmlast</a>, <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> plots the fitted model of the conditional reciprocal best hit evalue based algorithm. In addition users can filter the hit pairs prior fitting for other cirteria like evalue, protein identity and/or the twilight zone of protein sequence alignments according to <a href="https://academic.oup.com/peds/article/12/2/85/1550637">Rost B. (1999)</a>.</p>
@@ -114,12 +117,14 @@
 <pre><code>sudo yum install libcurl-devel openssl-devel libxml2-devel</code></pre>
 <ul>
 <li><a href="https://cran.r-project.org/web/packages/devtools/index.html">devtools</a></li>
+<li><a href="https://cran.r-project.org/web/packages/testthat/index.html">testthat</a></li>
 <li><a href="https://cran.r-project.org/web/packages/seqinr/index.html">seqinr</a></li>
 <li><a href="https://cran.r-project.org/web/packages/foreach/index.html">foreach</a></li>
 <li><a href="https://cran.r-project.org/web/packages/doMC/index.html">doMC</a></li>
 <li><a href="https://cran.r-project.org/web/packages/magrittr/index.html">magrittr</a></li>
 </ul>
 <pre><code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages("devtools")
+install.packages("testthat")
 install.packages("seqinr")
 install.packages("foreach")
 install.packages("doMC")
@@ -203,7 +208,6 @@ head(ath_aly_crbh.kaks)</a></code></pre>
 <h2 class="hasAnchor">
 <a href="#todo" class="anchor"></a>Todo</h2>
 <ul>
-<li>self-blast</li>
 <li>kaks-clustering</li>
 </ul>
 </div>
@@ -270,7 +274,14 @@ head(ath_aly_crbh.kaks)</a></code></pre>
 </ul>
 </div>
 
-  </div>
+  <div class="dev-status">
+<h2>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://travis-ci.com/kullrich/CRBHits"><img src="https://travis-ci.com/kullrich/CRBHits.svg?token=CdAqxcdzRKt5DsRtbcmR&amp;branch=master" alt="Build Status"></a></li>
+<li><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/commits/master"><img src="https://gitlab.gwdg.de/mpievolbio-it/crbhits/badges/master/pipeline.svg" alt="pipeline status"></a></li>
+</ul>
+</div>
+</div>
 </div>
 
 

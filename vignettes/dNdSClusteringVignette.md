@@ -1,20 +1,15 @@
 ---
 title: "dNdS Clustering Vignette"
 author: "Kristian K Ullrich"
-date: "`r Sys.Date()`"
+date: "2020-04-29"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{dNdS Clustering Vignette}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{knitr::knitr}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
+
 
 1. [Conditional reciprocal best hit pairs](#crbhpairs)
 
@@ -24,7 +19,8 @@ As an example, here the coding sequences from *Arabidopsis thaliana* and *Arabid
 
 The [release-47](ftp://ftp.ensemblgenomes.org/pub/plants/release-47/fasta/) is used.
 
-```{r}
+
+```r
 library(CRBHits)
 athfile <- "ftp://ftp.ensemblgenomes.org/pub/plants/release-47/
 fasta/arabidopsis_thaliana/cds/Arabidopsis_thaliana.TAIR10.cds.all.fa.gz"
@@ -38,7 +34,16 @@ Next toquery coverage the hit pairs will be additionally filtered for the twilig
 
 The implemented filter uses `equation2` of the mentioned paper
 
-$$f(k) = {n \choose k} p^{k} (1-p)^{n-k}$$.
+\begin{equation}
+u(x) = 
+\begin{cases} 
+\exp{(x)} & \text{if } x \geq 0 \\
+1         & \text{if } x < 0
+\end{cases}
+(\#eq:piece)
+\end{equation}
+
+$$f(k) = \begin{cases}{n \choose k} p^{k} (1-p)^{n-k};\end{cases}$$.
 
 
 

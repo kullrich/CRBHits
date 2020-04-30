@@ -40,7 +40,7 @@
 
 
 <meta property="og:title" content="rbh2kaks — rbh2kaks" />
-<meta property="og:description" content="This function calculates ka/ks (dN/dS; accoring to *Li 1993* or *Yang and Nielson 2000*) for each reciprocal best hit pair. The names of the rbh columns must match the names of the corresponding cds1 and cds2 DNAStringSet vectors." />
+<meta property="og:description" content="This function calculates ka/ks (dN/dS; accoring to Li (1993) or Yang and Nielson (2000) for each reciprocal best hit pair. The names of the rbh columns must match the names of the corresponding cds1 and cds2 DNAStringSet vectors." />
 
 
 
@@ -129,10 +129,17 @@
     </div>
 
     <div class="ref-description">
-    <p>This function calculates ka/ks (dN/dS; accoring to *Li 1993* or *Yang and Nielson 2000*) for each reciprocal best hit pair. The names of the <code>rbh</code> columns must match the names of the corresponding <code>cds1</code> and <code>cds2</code> <code>DNAStringSet</code> vectors.</p>
+    <p>This function calculates ka/ks (dN/dS; accoring to <em>Li (1993)</em> or <em>Yang and Nielson (2000)</em> for each reciprocal best hit pair. The names of the <code>rbh</code> columns must match the names of the corresponding <code>cds1</code> and <code>cds2</code> <code>DNAStringSet</code> vectors.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rbh2kaks</span>(<span class='no'>rbhpairs</span>, <span class='no'>cds1</span>, <span class='no'>cds2</span>, <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"Li"</span>, <span class='kw'>threads</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+    <pre class="usage"><span class='fu'>rbh2kaks</span>(
+  <span class='no'>rbhpairs</span>,
+  <span class='no'>cds1</span>,
+  <span class='no'>cds2</span>,
+  <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"Li"</span>,
+  <span class='kw'>threads</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>kakscalcpath</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/find.package.html'>find.package</a></span>(<span class='st'>"CRBHits"</span>), <span class='st'>"/extdata/KaKs_Calculator2.0/src/"</span>)
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

@@ -158,7 +158,20 @@
     <pre class="examples"><div class='input'><span class='no'>cdsfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"fasta/ath.cds.fasta.gz"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"CRBHits"</span>)
 <span class='no'>aafile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>()
 <span class='fu'>cdsfile2aafile</span>(<span class='no'>cdsfile</span>, <span class='no'>aafile</span>)
-<span class='no'>aa</span> <span class='kw'>&lt;-</span> <span class='fu'>readAAStringSet</span>(<span class='no'>aafile</span>)</div><div class='output co'>#&gt; <span class='error'>Error in readAAStringSet(aafile): could not find function "readAAStringSet"</span></div><div class='input'><span class='no'>aa</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'aa' not found</span></div></pre>
+<span class='no'>aa</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>Biostrings</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html'>readAAStringSet</a></span>(<span class='no'>aafile</span>)
+<span class='no'>aa</span></div><div class='output co'>#&gt; AAStringSet object of length 1000:
+#&gt;        width seq                                            names               
+#&gt;    [1]   430 MEDQVGFGFRPNDEELVGHYLR...NMIIGVLLFISVISWIILVG* AT1G01010.1
+#&gt;    [2]   199 MIIFIDLILHRPKVYRHVLYNA...IFLIQIGSLLQYMSYFFRIV* AT1G01020.5
+#&gt;    [3]   359 MDLSLAPTTTTSSDQEQDRDQE...GDDDQFAKKGKSSLSLNFNP* AT1G01030.1
+#&gt;    [4]  1910 MVMEDEPREATIKPSYWLDACE...KKAKDSAAVLLLELLNKTFS* AT1G01040.1
+#&gt;    [5]   213 MSEETKDNQRLQRPAPRLNERI...EAIQYSMDLYAEYILHTLRR* AT1G01050.1
+#&gt;    ...   ... ...
+#&gt;  [996]   914 MSLSHLLRRLCTTTTTTRSPLS...PGPSHECQETQEKKVVELRN* AT1G10270.1
+#&gt;  [997]   413 MARGGKEEGEKHIGLLKLAQTL...KFSPSALAPLMNLSSTVLGF* AT1G10280.1
+#&gt;  [998]   915 MEAIDELSQLSDSMKQAASLLA...RTTPNRLPPAPPPTGSAYRY* AT1G10290.1
+#&gt;  [999]   659 MVKYNFKKITVVPNGKQFVDIV...SLKPKHLFSGKRGNGKNQRR* AT1G10300.2
+#&gt; [1000]   243 MTMATPFSGAANSIVAARTVLI...KAATMILNLTAGDNGGSLTV* AT1G10310.1</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.com/kullrich/CRBHits.svg?token=CdAqxcdzRKt5DsRtbcmR&branch=master)](https://travis-ci.com/kullrich/CRBHits)
+[![pipeline status](https://gitlab.gwdg.de/mpievolbio-it/crbhits/badges/master/pipeline.svg)](https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/commits/master)
+
 CRBHits - Conditional Reciprocal Best Hits in R
 =========
 

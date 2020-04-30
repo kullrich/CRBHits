@@ -83,7 +83,7 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>dNdS Clustering Vignette</h1>
-                        <h4 class="author">Vignette Author</h4>
+                        <h4 class="author">Kristian K Ullrich</h4>
             
             <h4 class="date">2020-04-29</h4>
       
@@ -95,7 +95,21 @@
     
     
 <ol style="list-style-type: decimal">
-<li><a href="#install">Installation</a></li>
+<li><a href="#crbhpairs">Conditional reciprocal best hit pairs</a></li>
+</ol>
+<p>To calculate conditional reciprocal best hit pairs between two species, one can directly use an URL to access the coding sequences and calculate the conditional reciprocal best hit pair matrix (crbh).</p>
+<p>As an example, here the coding sequences from <em>Arabidopsis thaliana</em> and <em>Arabidopsis lyrata</em> are used as input sequences from the FTP server from <a href="https://plants.ensembl.org/index.html">EnsemblPlants</a>.</p>
+<p>The <a href="ftp://ftp.ensemblgenomes.org/pub/plants/release-47/fasta/">release-47</a> is used.</p>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">CRBHits</span>)
+<span class="no">athfile</span> <span class="kw">&lt;-</span> <span class="st">"ftp://ftp.ensemblgenomes.org/pub/plants/release-47/
+fasta/arabidopsis_thaliana/cds/Arabidopsis_thaliana.TAIR10.cds.all.fa.gz"</span>
+<span class="no">alyfile</span> <span class="kw">&lt;-</span> <span class="st">"ftp://ftp.ensemblgenomes.org/pub/plants/release-47/
+fasta/arabidopsis_lyrata/cds/Arabidopsis_lyrata.v.1.0.cds.all.fa.gz"</span></pre></body></html></div>
+<p>The blast-like software <a href="http://last.cbrc.jp/">LAST</a> is used to compare the translated coding sequences against each other and output a blast-like output table including the query and target length. Taking the length of the obtained pairwise protein alignment one can calculate for each hit pair the query coverage as <span class="math inline">\(\frac{alignment length}{query length}\)</span>.</p>
+<p>Next toquery coverage the hit pairs will be additionally filtered for the twilight zone of protein sequence alignments according to <a href="https://academic.oup.com/peds/article/12/2/85/1550637">Rost B. (1999)</a>.</p>
+<p>The implemented filter uses <code>equation2</code> of the mentioned paper</p>
+<p><span class="math display">\[f(k) = {n \choose k} p^{k} (1-p)^{n-k}\]</span>.</p>
+<ol start="2" style="list-style-type: decimal">
 <li><a href="#rbhmatrix">Reciprocal best hit matrix</a></li>
 <li><a href="#crbhmatrix">Conditional reciprocal best hit matrix</a></li>
 </ol>

@@ -1,6 +1,6 @@
 ---
 title: "CRBHits Basic Vignette"
-author: "Vignette Author"
+author: "Kristian K Ullrich"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
