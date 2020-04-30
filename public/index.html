@@ -157,22 +157,39 @@ install_gitlab("mpievolbio-it/crbhits", host = "https://gitlab.gwdg.de")
 <a href="http://last.cbrc.jp/">LAST</a> <a href="http://last.cbrc.jp/last-1060.zip">http://last.cbrc.jp/last-1060.zip</a>
 </li>
 </ul>
-<pre><code><a href="reference/make.last.html">#setwd(paste0(find.package("CRBHits"), "/extdata/"))
-#system(paste0("unzip last-1060.zip"))
-#setwd(paste0(find.package("CRBHits"), "/extdata/last-1060/"))
-## see more installation iformation here, if make fails
+<p>To compile the forked version of <a href="http://last.cbrc.jp/">LAST</a> within the <code>CRBHits</code> R package directory try to use the function <code><a href="reference/make.last.html">make.last()</a></code>:</p>
+<pre><code><a href="reference/make.last.html">## see more installation information here, if make fails
 ## last-install-help: http://last.cbrc.jp/doc/last.html
-#system("make")
 make.last()</a></code></pre>
+<p>To compile <a href="http://last.cbrc.jp/">LAST</a> yourself on Linux/Unix/macOS into another folder:</p>
+<pre><code>#create and change into the directory to install LAST
+#e.g.
+mkdir /tmp/last
+cd /tmp/last
+#donwload last-1060
+curl -O http://last.cbrc.jp/last-1060.zip
+unzip last-1060.zip
+cd last-1060
+#compile LAST
+make</code></pre>
+<p>To compile the forked version of <a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download">KaKs_Calculator2.0</a> within the <code>CRBHits</code> R package directory try to use the function <code><a href="reference/make.KaKs_Calculator2.html">make.KaKs_Calculator2()</a></code>:</p>
+<p><strong>Note:</strong> The original files can be downloaded here:</p>
 <ul>
 <li><a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download">KaKs_Calculator2.0</a></li>
 </ul>
-<pre><code><a href="reference/make.KaKs_Calculator2.html">#setwd(paste0(find.package("CRBHits"), "/extdata/"))
-#system(paste0("tar -xvf KaKs_Calculator2.0.tar.gz"))
-#setwd(paste0(find.package("CRBHits"), "/extdata/KaKs_Calculator2.0/src/"))
-#system("make clean")
-#system("make")
-make.KaKs_Calculator2()</a></code></pre>
+<pre><code><a href="reference/make.KaKs_Calculator2.html">make.KaKs_Calculator2()</a></code></pre>
+<p><strong>Note:</strong> Due to some chnages in the latest <strong>g++</strong> compilers the source code was altered to meet this changes, which are directly incorporated into the <code>KaKs_Calculator2.0.tar.gz</code> that is distributed with <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a>. It is recommended to compile from this file (see below):</p>
+<pre><code>#create and change into the directory to install KaKs_Calculator2
+#e.g.
+mkdir /tmp/KaKs_Calculator2
+cd /tmp/KaKs_Calculator2
+#donwload KaKs_Calculator2
+curl -O https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/raw/master/inst/extdata/KaKs_Calculator2.0.tar.gz
+tar -xvf KaKs_Calculator2.0.tar.gz
+cd KaKs_Calculator2.0/src
+#compile KaKs_Calculator2
+make clean
+make</code></pre>
 <p>If you would like to install the latest version of both tools, you need to download the source code and compile again.</p>
 </div>
 <div id="vignettes" class="section level2">

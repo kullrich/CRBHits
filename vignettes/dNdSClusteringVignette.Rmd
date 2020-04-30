@@ -18,13 +18,22 @@ knitr::opts_chunk$set(
 
 1. [Conditional reciprocal best hit pairs](#crbhpairs)
 
+[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) and its prerequisites needs to be installed (see here for details  [https://mpievolbio-it.pages.gwdg.de/crbhits/](https://mpievolbio-it.pages.gwdg.de/crbhits/)).
+
+```
+library(devtools)
+install_gitlab("mpievolbio-it/crbhits", host = "https://gitlab.gwdg.de")
+make.last()
+make.KaKs_Calculator2()
+```
+
 To calculate conditional reciprocal best hit pairs between two species, one can directly use an URL to access the coding sequences and calculate the conditional reciprocal best hit pair matrix (crbh).
 
 As an example, here the coding sequences from *Arabidopsis thaliana* and *Arabidopsis lyrata* are used as input sequences from the FTP server from [EnsemblPlants](https://plants.ensembl.org/index.html).
 
 The [release-47](ftp://ftp.ensemblgenomes.org/pub/plants/release-47/fasta/) is used.
 
-```{r}
+```
 library(CRBHits)
 athfile <- "ftp://ftp.ensemblgenomes.org/pub/plants/release-47/
 fasta/arabidopsis_thaliana/cds/Arabidopsis_thaliana.TAIR10.cds.all.fa.gz"
@@ -42,17 +51,17 @@ Next to query coverage, the hit pairs will be additionally filtered for the twil
 
 The implemented filter uses `equation2` of [Rost B. (1999)](https://academic.oup.com/peds/article/12/2/85/1550637)
 
-$$f(x_{\text{hit pair}}) = \cases {100 \text{ , for } L_{\text{hit pair}} < 11 \\ 480 * () \text{ , for } L_{\text{hit pair}} <= 450 \\ 19.5 \text{ , for } L_{\text{hit pair}} > 450}$$
+$$f(x_{\text{hit pair}}) = \cases {100 \text{ , for } L_{\text{hit pair}} < 11 \\ 480 * L^{-0.32 * (1 + e^{\frac{-L}{1000}})} \text{ , for } L_{\text{hit pair}} <= 450 \\ 19.5 \text{ , for } L_{\text{hit pair}} > 450}$$
 , where $x_{\text{hit pair}}$ is the expected protein identity given the alignemnet length $L_{\text{hit pair}}$. If the actual $pident_{\text{hit pair}} >= f(x_{\text{hit pair}})$ the hit pair is retained.
 
 
 ```{r}
 #plot expected pident by alignment length using eq2 from Rost (1999)
 get_pident_by_length <- function(x){
-  eq2 <- function(x){
-    if(x <= 11){return(100)}
-    if(x <= 450){return(480*(x^(-0.32*(1+(exp(-x/1000))))))}
-    if(x > 450){return(19.5)}
+  eq2 <- function(L){
+    if(L <= 11){return(100)}
+    if(L <= 450){return(480*(L^(-0.32*(1+(exp(-L/1000))))))}
+    if(L > 450){return(19.5)}
   }
   return(unlist(lapply(x, eq2)))
 }
@@ -62,8 +71,10 @@ curve(get_pident_by_length, 11, 500, pch = 20, xlab = "alignment length", ylab =
 
 The conditional reciprocal best hit pairs can be generated with the function `cdsfile2rbh` using multiple threads.
 
-```{r}
-ath_aly_crbh <- cdsfile2rbh(athfile, alyfile, qcov = 0.5, rost1999 = TRUE, threads = 8)
+```
+ath_aly_crbh <- cdsfile2rbh(athfile, alyfile,
+                             qcov = 0.5, rost1999 = TRUE, threads = 8,
+                             lastpath = vignette.paths[1])
 ```
 
 2. [Reciprocal best hit matrix](#rbhmatrix)

@@ -83,28 +83,68 @@ The source code for both prerequisites (LAST, KaKs_Calculator2.0) are forked wit
 
 - [LAST](http://last.cbrc.jp/) [http://last.cbrc.jp/last-1060.zip](http://last.cbrc.jp/last-1060.zip)
 
+To compile the forked version of [LAST](http://last.cbrc.jp/) within the `CRBHits` R package directory try to use the function `make.last()`:
+
 ```
-#setwd(paste0(find.package("CRBHits"), "/extdata/"))
-#system(paste0("unzip last-1060.zip"))
-#setwd(paste0(find.package("CRBHits"), "/extdata/last-1060/"))
-## see more installation iformation here, if make fails
+## see more installation information here, if make fails
 ## last-install-help: http://last.cbrc.jp/doc/last.html
-#system("make")
 make.last()
 ```
+
+To compile [LAST](http://last.cbrc.jp/) yourself on Linux/Unix/macOS into another folder:
+
+```
+#create and change into the directory to install LAST
+#e.g.
+mkdir /tmp/last
+cd /tmp/last
+#donwload last-1060
+curl -O http://last.cbrc.jp/last-1060.zip
+unzip last-1060.zip
+cd last-1060
+#compile LAST
+make
+```
+
+To compile the forked version of [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download) within the `CRBHits` R package directory try to use the function `make.KaKs_Calculator2()`:
+
+__Note:__ The original files can be downloaded here:
 
 - [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download)
 
 ```
-#setwd(paste0(find.package("CRBHits"), "/extdata/"))
-#system(paste0("tar -xvf KaKs_Calculator2.0.tar.gz"))
-#setwd(paste0(find.package("CRBHits"), "/extdata/KaKs_Calculator2.0/src/"))
-#system("make clean")
-#system("make")
 make.KaKs_Calculator2()
 ```
 
+__Note:__ Due to some changes in the latest **g++** compilers the source code was altered to meet this changes, which are directly incorporated into the `KaKs_Calculator2.0.tar.gz` that is distributed with [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits). It is recommended to compile from this file (see below):
+
+```
+#create and change into the directory to install KaKs_Calculator2
+#e.g.
+mkdir /tmp/KaKs_Calculator2
+cd /tmp/KaKs_Calculator2
+#donwload KaKs_Calculator2
+curl -O https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/raw/master/inst/extdata/KaKs_Calculator2.0.tar.gz
+tar -xvf KaKs_Calculator2.0.tar.gz
+cd KaKs_Calculator2.0/src
+#compile KaKs_Calculator2
+make clean
+make
+```
+
 If you would like to install the latest version of both tools, you need to download the source code and compile again.
+
+If you would like to use your own compiled versions of `LAST` and `KaKs_Calculator2.0` you need to set the correct `@param` in the corresponding functions of [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits).
+
+```
+#example how to use own compiled versions of LAST and KaKs_Calculator2.0
+my.lastpath <- "/tmp/last/last-1060/src"
+my.kakspath <- "/tmp/KaKs_Calculator2/KaKs_Calculator2.0/src"
+?cds2rbh
+cds2rbh(., ., lastpath = my.lastpath)
+?rbh2kaks
+rbh2kaks(., ., model = "YN", kakscalcpath = my.kakspaths)
+```
 
 ## Vignettes
 
@@ -124,14 +164,27 @@ data("ath", package="CRBHits")
 data("aly", package="CRBHits")
 ath_aly_crbh <- cds2rbh(ath, aly, plotCurve = TRUE)
 summary(ath_aly_crbh)
+?cds2rbh
 
 #kaks calculation
 ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh$crbh.pairs[1:20, ], ath, aly)
 head(ath_aly_crbh.kaks)
+?rbh2kaks
 
 #kaks calculation using multiple threads
 ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh$crbh.pairs[1:20, ], ath, aly, threads = 4)
 head(ath_aly_crbh.kaks)
+
+#example how to use own compiled versions of LAST
+my.lastpath <- "/tmp/last/last-1060/src"
+?cds2rbh
+ath_aly_crbh <- cds2rbh(ath, aly, plotCurve = TRUE, lastpath = my.lastpath)
+
+#example how to use own compiled versions of KaKs_Calculator2.0
+my.kakspath <- "/tmp/KaKs_Calculator2/KaKs_Calculator2.0/src"
+?rbh2kaks
+ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh$crbh.pairs[1:20, ],
+                              ath, aly, model = "YN", kakscalcpath = my.kakspath)
 ```
 
 ## Todo
