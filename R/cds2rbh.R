@@ -116,7 +116,8 @@ cds2rbh <- function(cds1, cds2,
   if(!file.exists(paste0(lastpath, "lastdb"))){stop("Error: lastdb binary does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make.last() function.")}
   if(!file.exists(paste0(lastpath, "lastal"))){stop("Error: lastal binary does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make.last() function.")}
   selfblast <- FALSE
-  if(any(cds1 == cds2)){
+  #suppressWarnings since if length of cds1 and cds2 differ, this will raise a warning
+  if(suppressWarnings(any(cds1 == cds2))){
     selfblast <- TRUE
   }
   aa1file <- tempfile("aa1_", outpath)
