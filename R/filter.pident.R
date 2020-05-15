@@ -3,6 +3,7 @@
 #' @description This function filters BLAST-like tabular output according to protein identity.
 #' @param rbh BLAST-like tabular matrix [mandatory]
 #' @param pident percent identity [default: 0.0]
+#' @param inverse specify if filter should keep the removed values [default: FALSE]
 #' @return rbh matrix
 #' @examples
 #' ##load crbh data
@@ -12,6 +13,10 @@
 #' @export filter.pident
 #' @author Kristian K Ullrich
 
-filter.pident <- function(rbh, pident = 0.0){
-  return(rbh[as.numeric(rbh[,3]) >= pident, , drop = FALSE])
+filter.pident <- function(rbh, pident = 0.0, inverse = FALSE){
+  if(inverse){
+    return(rbh[as.numeric(rbh[,3]) < pident, , drop = FALSE])
+  } else {
+    return(rbh[as.numeric(rbh[,3]) >= pident, , drop = FALSE])
+  }
 }

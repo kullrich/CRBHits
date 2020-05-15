@@ -2,6 +2,7 @@
 #' @name filter.rost1999
 #' @description This function filters BLAST-like tabular output according to equation 2 of Rost 1999.
 #' @param rbh BLAST-like tabular matrix [mandatory]
+#' @param inverse specify if filter should keep the removed values [default: FALSE]
 #' @return rbh matrix
 #' @references Rost B. (1999). Twilight zone of protein sequence alignments. \emph{Protein Engineering}, \bold{12(2)}, 85-94.
 #' @examples
@@ -12,7 +13,7 @@
 #' @export filter.rost1999
 #' @author Kristian K Ullrich
 
-filter.rost1999 <- function(rbh){
+filter.rost1999 <- function(rbh, inverse = FALSE){
   #internal function to calculate pident by length
   get_pident_by_length <- function(x){
     eq2 <- function(x){
@@ -23,5 +24,9 @@ filter.rost1999 <- function(rbh){
     return(unlist(lapply(x, eq2)))
   }
   pident_by_length <- get_pident_by_length(as.numeric(rbh[,4]))
-  return(rbh[as.numeric(rbh[,3]) >= pident_by_length, , drop = FALSE])
+  if(inverse){
+    return(rbh[as.numeric(rbh[,3]) < pident_by_length, , drop = FALSE])
+  } else {
+    return(rbh[as.numeric(rbh[,3]) >= pident_by_length, , drop = FALSE])
+  }
 }

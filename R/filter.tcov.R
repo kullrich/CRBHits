@@ -3,6 +3,7 @@
 #' @description This function filters BLAST-like tabular output according to percentage target coverage.
 #' @param rbh BLAST-like tabular matrix [mandatory]
 #' @param tcov target coverage [default: 0.0]
+#' @param inverse specify if filter should keep the removed values [default: FALSE]
 #' @return rbh matrix
 #' @examples
 #' ##load crbh data
@@ -12,6 +13,10 @@
 #' @export filter.tcov
 #' @author Kristian K Ullrich
 
-filter.tcov <- function(rbh, tcov = 0.0){
-  return(rbh[(as.numeric(rbh[,4])/as.numeric(rbh[,14])) >= tcov, , drop = FALSE])
+filter.tcov <- function(rbh, tcov = 0.0, inverse = FALSE){
+  if(inverse){
+    return(rbh[(as.numeric(rbh[,4])/as.numeric(rbh[,14])) < tcov, , drop = FALSE])
+  } else {
+    return(rbh[(as.numeric(rbh[,4])/as.numeric(rbh[,14])) >= tcov, , drop = FALSE])
+  }
 }
