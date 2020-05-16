@@ -35,8 +35,8 @@ data("ath", package="CRBHits")
 data("aly", package="CRBHits")
 ##load example conditional-reciprocal best hit pair results
 data("ath_aly_crbh", package="CRBHits")
-rbh.pairs <- ath_aly_crbh$crbh.pairs
-ath_aly_crbh.kaks <- rbh2kaks(rbh.pairs, ath, aly)
+ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh$crbh.pairs[1:20, ],
+                              ath, aly, model = "Li")
 head(ath_aly_crbh.kaks)
 }
 \references{

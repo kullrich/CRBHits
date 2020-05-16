@@ -188,22 +188,15 @@
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"aly"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"CRBHits"</span>)
 <span class='co'>##load example conditional-reciprocal best hit pair results</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"ath_aly_crbh"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"CRBHits"</span>)
-<span class='no'>rbh.pairs</span> <span class='kw'>&lt;-</span> <span class='no'>ath_aly_crbh</span>$<span class='no'>crbh.pairs</span>
-<span class='no'>ath_aly_crbh.kaks</span> <span class='kw'>&lt;-</span> <span class='fu'>rbh2kaks</span>(<span class='no'>rbh.pairs</span>, <span class='no'>ath</span>, <span class='no'>aly</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>ath_aly_crbh.kaks</span>)</div><div class='output co'>#&gt;                  aa1          aa2         ka        ks          vka
-#&gt; result.1 AT1G01010.1 AL1G11530.t1 0.10617227 0.2628911 2.637032e-04
-#&gt; result.2 AT1G01020.5 AL1G11510.t1 0.05027159 0.1076133 2.572181e-04
-#&gt; result.3 AT1G01030.1 AL1G11500.t1 0.05606632 0.2329670 1.808118e-04
-#&gt; result.4 AT1G01040.1 AL1G11480.t1 0.01388844 0.1121138 6.907144e-06
-#&gt; result.5 AT1G01050.1 AL1G11470.t1 0.00000000 0.1831839 0.000000e+00
-#&gt; result.6 AT1G01060.6 AL1G11460.t1 0.09054187 0.1854908 1.323098e-04
-#&gt;                   vks
-#&gt; result.1 0.0023637311
-#&gt; result.2 0.0017464252
-#&gt; result.3 0.0026270370
-#&gt; result.4 0.0001460956
-#&gt; result.5 0.0030223075
-#&gt; result.6 0.0007490874</div></pre>
+<span class='no'>ath_aly_crbh.kaks</span> <span class='kw'>&lt;-</span> <span class='fu'>rbh2kaks</span>(<span class='no'>ath_aly_crbh</span>$<span class='no'>crbh.pairs</span>[<span class='fl'>1</span>:<span class='fl'>20</span>, ],
+                              <span class='no'>ath</span>, <span class='no'>aly</span>, <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"Li"</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>ath_aly_crbh.kaks</span>)</div><div class='output co'>#&gt;           aa1          aa2         ka        ks          vka          vks
+#&gt; 1 AT1G01010.1 AL1G11530.t1 0.10617227 0.2628911 2.637032e-04 0.0023637311
+#&gt; 2 AT1G01020.5 AL1G11510.t1 0.05027159 0.1076133 2.572181e-04 0.0017464252
+#&gt; 3 AT1G01030.1 AL1G11500.t1 0.05606632 0.2329670 1.808118e-04 0.0026270370
+#&gt; 4 AT1G01040.1 AL1G11480.t1 0.01388844 0.1121138 6.907144e-06 0.0001460956
+#&gt; 5 AT1G01050.1 AL1G11470.t1 0.00000000 0.1831839 0.000000e+00 0.0030223075
+#&gt; 6 AT1G01060.6 AL1G11460.t1 0.09054187 0.1854908 1.323098e-04 0.0007490874</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

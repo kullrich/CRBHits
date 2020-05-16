@@ -115,9 +115,9 @@
 </h3>
 <p>In most cases you need to first install the following system-wide packages to be able to compile the R dependencies.</p>
 <p>Ubuntu/Debian</p>
-<pre><code>sudo apt-get install libcurl4-openssl-dev libssl-dev libxml2-dev</code></pre>
+<pre><code>sudo apt-get install libcurl4-openssl-dev libssl-dev libxml2-dev libglu1-mesa-dev</code></pre>
 <p>CentOS</p>
-<pre><code>sudo yum install libcurl-devel openssl-devel libxml2-devel</code></pre>
+<pre><code>sudo yum install libcurl-devel openssl-devel libxml2-devel mesa-libGLU-devel</code></pre>
 <ul>
 <li><a href="https://cran.r-project.org/web/packages/devtools/index.html">devtools</a></li>
 <li><a href="https://cran.r-project.org/web/packages/testthat/index.html">testthat</a></li>
@@ -151,8 +151,9 @@ BiocManager::install("Biostrings")</code></pre>
 <a href="#install-crbhits" class="anchor"></a>install <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a>
 </h3>
 <pre><code><a href="https://devtools.r-lib.org//reference">library(devtools)
-install_gitlab("mpievolbio-it/crbhits", host = "https://gitlab.gwdg.de", build_vignettes = TRUE, dependencies = FALSE)
-#install_github("kullrich/CRBHits", build_vignettes = TRUE, dependencies = FALSE)</a></code></pre>
+install_gitlab("mpievolbio-it/crbhits", host = "https://gitlab.gwdg.de",
+build_vignettes = FALSE, dependencies = FALSE)
+#install_github("kullrich/CRBHits", build_vignettes = FALSE, dependencies = FALSE)</a></code></pre>
 </div>
 </div>
 <div id="external-tools-installation-prerequisites" class="section level2">

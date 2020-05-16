@@ -88,7 +88,7 @@
       <h1 data-toc-skip>CRBHits Basic Vignette</h1>
                         <h4 class="author">Kristian K Ullrich</h4>
             
-            <h4 class="date">2020-05-15</h4>
+            <h4 class="date">2020-05-16</h4>
       
       <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/mastervignettes/CRBHitsBasicVignette.Rmd"><code>vignettes/CRBHitsBasicVignette.Rmd</code></a></small>
       <div class="hidden name"><code>CRBHitsBasicVignette.Rmd</code></div>
@@ -167,7 +167,8 @@ make.KaKs_Calculator2()</a></code></pre>
 <span class="co">#compile LAST and KaKs_Calculator2.0 for the vignette</span>
 <span class="no">vignette.paths</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/make.vignette.html">make.vignette</a></span>()
 <span class="co">#example how to check coding sequences if all are a mutiple of three</span>
-<span class="no">cdsfile</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"fasta/ath.cds.fasta.gz"</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"CRBHits"</span>)
+<span class="co">#cdsfile &lt;- paste0(system.file(package = "CRBHits"), "/fasta/ath.cds.fasta.gz")</span>
+<span class="no">cdsfile</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"fasta"</span>, <span class="st">"ath.cds.fasta.gz"</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"CRBHits"</span>)
 <span class="no">cds</span> <span class="kw">&lt;-</span> <span class="kw pkg">Biostrings</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html">readDNAStringSet</a></span>(<span class="no">cdsfile</span>)
 <span class="co">#the following statement should return TRUE, if all sequences are a mutiple of three</span>
 <span class="fu"><a href="https://rdrr.io/r/base/any.html">any</a></span>(<span class="kw pkg">Biostrings</span><span class="kw ns">::</span><span class="fu">width</span>(<span class="no">cds</span>) <span class="kw">%%</span> <span class="fl">3</span> <span class="kw">==</span> <span class="fl">0</span>)
@@ -180,8 +181,10 @@ make.KaKs_Calculator2()</a></code></pre>
 </h3>
 <p>Like <a href="https://pypi.org/project/shmlast/">shmlast</a>, <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> plots the fitted model of the conditional reciprocal best hit evalue based algorithm.</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="co">#example how to get crbh from two coding fasta files</span>
-<span class="no">cdsfile1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"fasta/ath.cds.fasta.gz"</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"CRBHits"</span>)
-<span class="no">cdsfile2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"fasta/aly.cds.fasta.gz"</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"CRBHits"</span>)
+<span class="co">#cdsfile1 &lt;- paste0(system.file(package = "CRBHits"), "/fasta/ath.cds.fasta.gz")</span>
+<span class="no">cdsfile1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"fasta"</span>, <span class="st">"ath.cds.fasta.gz"</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"CRBHits"</span>)
+<span class="co">#cdsfile2 &lt;- paste0(system.file(package = "CRBHits"), "/fasta/aly.cds.fasta.gz")</span>
+<span class="no">cdsfile2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"fasta"</span>, <span class="st">"aly.cds.fasta.gz"</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"CRBHits"</span>)
 <span class="no">cds1</span> <span class="kw">&lt;-</span> <span class="kw pkg">Biostrings</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html">readDNAStringSet</a></span>(<span class="no">cdsfile1</span>)
 <span class="no">cds2</span> <span class="kw">&lt;-</span> <span class="kw pkg">Biostrings</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html">readDNAStringSet</a></span>(<span class="no">cdsfile2</span>)
 <span class="co">#the following function calculates crbh matrix using one thread and plots the fitted curve</span>
@@ -303,7 +306,7 @@ make.KaKs_Calculator2()</a></code></pre>
 <span class="fu"><a href="https://rdrr.io/r/graphics/curve.html">curve</a></span>(<span class="no">get_pident_by_length</span>, <span class="fl">11</span>, <span class="fl">500</span>, <span class="kw">pch</span> <span class="kw">=</span> <span class="fl">20</span>, <span class="kw">xlab</span> <span class="kw">=</span> <span class="st">"alignment length"</span>, <span class="kw">ylab</span> <span class="kw">=</span> <span class="st">"pident"</span>,
       <span class="kw">main</span> <span class="kw">=</span> <span class="st">"expected protein identity (eq2; Rost B. 1999)"</span>)</pre></body></html></div>
 <p><img src="CRBHitsBasicVignette_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
-<p>This can be directly used by the <code>rost1999</code> <code>@param</code> set to <code>TRUE</code>.</p>
+<p>This can be directly used by the <code>@param</code> <code>rost1999</code> set to <code>TRUE</code>.</p>
 <div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="co">#example how to filter prior crbh for eq2 from Rost (1999)</span>
 <span class="no">ath_aly_crbh</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/cds2rbh.html">cds2rbh</a></span>(<span class="no">cds1</span>, <span class="no">cds2</span>, <span class="kw">plotCurve</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">rost1999</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
                         <span class="kw">lastpath</span> <span class="kw">=</span> <span class="no">vignette.paths</span>[<span class="fl">1</span>])</pre></body></html></div>

@@ -9,15 +9,18 @@ library(CRBHits)
 #compile LAST and KaKs_Calculator2.0 for the vignette
 vignette.paths <- make.vignette()
 #example how to check coding sequences if all are a mutiple of three
-cdsfile <- system.file("fasta/ath.cds.fasta.gz", package = "CRBHits")
+#cdsfile <- paste0(system.file(package = "CRBHits"), "/fasta/ath.cds.fasta.gz")
+cdsfile <- system.file("fasta", "ath.cds.fasta.gz", package = "CRBHits")
 cds <- Biostrings::readDNAStringSet(cdsfile)
 #the following statement should return TRUE, if all sequences are a mutiple of three
 any(Biostrings::width(cds) %% 3 == 0)
 
 ## -----------------------------------------------------------------------------
 #example how to get crbh from two coding fasta files
-cdsfile1 <- system.file("fasta/ath.cds.fasta.gz", package = "CRBHits")
-cdsfile2 <- system.file("fasta/aly.cds.fasta.gz", package = "CRBHits")
+#cdsfile1 <- paste0(system.file(package = "CRBHits"), "/fasta/ath.cds.fasta.gz")
+cdsfile1 <- system.file("fasta", "ath.cds.fasta.gz", package = "CRBHits")
+#cdsfile2 <- paste0(system.file(package = "CRBHits"), "/fasta/aly.cds.fasta.gz")
+cdsfile2 <- system.file("fasta", "aly.cds.fasta.gz", package = "CRBHits")
 cds1 <- Biostrings::readDNAStringSet(cdsfile1)
 cds2 <- Biostrings::readDNAStringSet(cdsfile2)
 #the following function calculates crbh matrix using one thread and plots the fitted curve
