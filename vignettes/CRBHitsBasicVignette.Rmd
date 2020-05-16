@@ -92,11 +92,11 @@ library(CRBHits)
 vignette.paths <- make.vignette()
 #example how to check coding sequences if all are a mutiple of three
 #cdsfile <- paste0(system.file(package = "CRBHits"), "/fasta/ath.cds.fasta.gz")
-#cdsfile <- system.file("fasta", "ath.cds.fasta.gz", package = "CRBHits")
+cdsfile <- system.file("fasta", "ath.cds.fasta.gz", package = "CRBHits")
+message(cdsfile)
 #cds <- Biostrings::readDNAStringSet(cdsfile)
 #the following statement should return TRUE, if all sequences are a mutiple of three
 #all(Biostrings::width(cds) %% 3 == 0)
-data("ath")
 ```
 
 The blast-like software [LAST](http://last.cbrc.jp/) is used to compare the translated coding sequences against each other and output a blast-like output table including the query and target length.

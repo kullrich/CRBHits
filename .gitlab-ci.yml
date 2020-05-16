@@ -21,6 +21,7 @@ before_script:
   - R -e "setwd(paste0(find.package('CRBHits'), '/extdata/')); system(paste0('tar -xvf KaKs_Calculator2.0.tar.gz')); setwd(paste0(find.package('CRBHits'), '/extdata/KaKs_Calculator2.0/src/')); system('make clean'); system('make')"
 
 pages:
+  stage: deploy
   script:
     - R -e "pkgdown::build_site()"
   artifacts:
