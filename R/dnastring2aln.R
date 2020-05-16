@@ -7,7 +7,7 @@
 #' \code{nam} a vector of strings containing the names of the aligned sequences\cr
 #' \code{seq} a vector of strings containing the aligned sequences\cr
 #' \code{com} a vector of strings containing the commentaries for each sequence or \code{NA} if there are no comments
-#' @importFrom Biostrings DNAStringSet
+#' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet readDNAStringSet readAAStringSet writeXStringSet width subseq
 #' @importFrom seqinr as.alignment
 #' @seealso \code{\link[seqinr]{as.alignment}}
 #' @examples

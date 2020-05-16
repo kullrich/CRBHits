@@ -5,6 +5,8 @@ bioc_required: true
 bioc_packages:
    - Biostrings
 sudo: true
+env:
+  - RGL_USE_NULL=true
 before_install:
   - sudo apt-get update
   - sudo apt-get -y install libcurl4-openssl-dev libssl-dev libxml2-dev pandoc

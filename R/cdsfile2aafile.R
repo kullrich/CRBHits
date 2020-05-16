@@ -4,7 +4,7 @@
 #' @param infile cds fasta file [mandatory]
 #' @param outfile aa fasta file [mandatory]
 #' @return aa fasta file
-#' @importFrom Biostrings readDNAStringSet readAAStringSet writeXStringSet
+#' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet readDNAStringSet readAAStringSet writeXStringSet width subseq
 #' @seealso \code{\link[CRBHits]{cds2aa}}
 #' @examples
 #' cdsfile <- system.file("fasta/ath.cds.fasta.gz", package = "CRBHits")

@@ -6,6 +6,7 @@
 #' @param model specify codon model either "Li" or "YN" [default: Li]
 #' @param kakscalcpath specify the PATH to the KaKs_Calculator binaries [default: /extdata/KaKs_Calculator2.0/src/]
 #' @return vector of ka/ks values as specified by \code{seqinr::kaks} or \code{KaKs_Calculator2.0}
+#' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet readDNAStringSet readAAStringSet writeXStringSet width subseq pairwiseAlignment
 #' @importFrom seqinr kaks
 #' @seealso \code{\link[seqinr]{kaks}}
 #' @references Li WH. (1993) Unbiased estimation of the rates of synonymous and nonsynonymous substitution. \emph{J. Mol. Evol.}, \bold{36}, 96-99.

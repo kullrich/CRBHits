@@ -9,7 +9,7 @@
 #' @param threads number of parallel threads [default: 1]
 #' @import foreach
 #' @import doMC
-#' @importFrom seqinr kaks
+#' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet readDNAStringSet readAAStringSet writeXStringSet width subseq
 #' @seealso \code{\link[CRBHits]{cds2kaks}}
 #' @references Li WH. (1993) Unbiased estimation of the rates of synonymous and nonsynonymous substitution. \emph{J. Mol. Evol.}, \bold{36}, 96-99.
 #' @references Wang D, Zhang Y et al. (2010) KaKs_Calculator 2.0: a toolkit incorporating gamma-series methods and sliding window strategies. \emph{Genomics Proteomics Bioinformatics.} \bold{8(1)}, 77-80.
@@ -20,8 +20,8 @@
 #' data("aly", package="CRBHits")
 #' ##load example conditional-reciprocal best hit pair results
 #' data("ath_aly_crbh", package="CRBHits")
-#' rbh.pairs <- ath_aly_crbh$crbh.pairs
-#' ath_aly_crbh.kaks <- rbh2kaks(rbh.pairs, ath, aly)
+#' ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh$crbh.pairs[1:20, ],
+#'                               ath, aly, model = "Li")
 #' head(ath_aly_crbh.kaks)
 #' @export rbh2kaks
 #' @author Kristian K Ullrich
@@ -40,7 +40,7 @@ rbh2kaks <- function(rbhpairs, cds1, cds2, model = "Li", threads = 1,
   names(cds2) <- unlist(lapply(strsplit(names(cds2), " "), function(x) x[1]))
   doMC::registerDoMC(threads)
   i <- NULL
-  rbh.kaks <- foreach::foreach(i = seq(from=1, to=dim(rbhpairs)[1]), .combine = rbind) %dopar% {
+  rbh.kaks <- foreach::foreach(i = seq(from = 1, to = dim(rbhpairs)[1]), .combine = rbind) %dopar% {
     cds2kaks(get_cds_by_name(rbhpairs[i,1], cds1), get_cds_by_name(rbhpairs[i,2], cds2), model = model, kakscalcpath = kakscalcpath)
   }
   return(cbind(rbhpairs, rbh.kaks))

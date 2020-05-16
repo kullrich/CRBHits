@@ -33,11 +33,11 @@
 #' 2: $crbh1 matrix; query > target\cr
 #' 3: $crbh2 matrix; target > query\cr
 #' 4: $rbh1_rbh2_fit; evalue fitting function
-#' @importFrom Biostrings writeXStringSet
+#' @import magrittr
+#' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet readDNAStringSet readAAStringSet writeXStringSet width subseq
 #' @importFrom graphics legend par points
 #' @importFrom stats median splinefun
 #' @importFrom utils read.table
-#' @import magrittr
 #' @seealso \code{\link[CRBHits]{cds2rbh}}
 #' @references Aubry S, Kelly S et al. (2014) Deep Evolutionary Comparison of Gene Expression Identifies Parallel Recruitment of Trans-Factors in Two Independent Origins of C4 Photosynthesis. \emph{PLOS Genetics}, \bold{10(6)} e1004365.
 #' @references Kiełbasa, SM et al. (2011) Adaptive seeds tame genomic sequence comparison. \emph{Genome research}, \bold{21(3)}, 487-493.

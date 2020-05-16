@@ -3,7 +3,7 @@
 #' @description This function translates a \code{DNAStringSet} into an \code{AAStringSet}.
 #' @param cds \code{DNAStringSet} [mandatory]
 #' @return \code{AAStringSet}
-#' @importFrom Biostrings DNAStringSet AAStringSet width
+#' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet readDNAStringSet readAAStringSet writeXStringSet width subseq
 #' @importFrom seqinr translate
 #' @seealso \code{\link[Biostrings]{DNAStringSet}},
 #' \code{\link[Biostrings]{AAStringSet}},

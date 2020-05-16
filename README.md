@@ -77,8 +77,9 @@ BiocManager::install("Biostrings")
 
 ```
 library(devtools)
-install_gitlab("mpievolbio-it/crbhits", host = "https://gitlab.gwdg.de", build_vignettes = TRUE, dependencies = FALSE)
-#install_github("kullrich/CRBHits", build_vignettes = TRUE, dependencies = FALSE)
+install_gitlab("mpievolbio-it/crbhits", host = "https://gitlab.gwdg.de",
+build_vignettes = FALSE, dependencies = FALSE)
+#install_github("kullrich/CRBHits", build_vignettes = FALSE, dependencies = FALSE)
 ```
 
 ## External tools installation prerequisites

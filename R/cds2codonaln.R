@@ -9,8 +9,7 @@
 #' @param gapExtension the incremental cost incurred along the length of the gap in the alignment (see \code{\link[Biostrings]{pairwiseAlignment}}) [default: 0.5]
 #' @param remove.gaps specify if gaps in the codon alignment should be removed [default: FALSE]
 #' @return codon alignment as \code{DNAStringSet}
-#' @importFrom Biostrings DNAString DNAStringSet pairwiseAlignment AAStringSet width
-#' @importFrom seqinr translate
+#' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet readDNAStringSet readAAStringSet writeXStringSet width subseq pairwiseAlignment
 #' @references Pagès, H et al. (2014) Biostrings: Efficient manipulation of biological strings. \emph{R package version}, \bold{2(0)}.
 #' @seealso \code{\link[Biostrings]{pairwiseAlignment}},
 #' \code{\link[Biostrings]{substitution.matrices}}
