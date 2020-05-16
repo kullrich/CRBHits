@@ -7,7 +7,7 @@
 #' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet readDNAStringSet readAAStringSet writeXStringSet width subseq
 #' @seealso \code{\link[CRBHits]{cds2aa}}
 #' @examples
-#' cdsfile <- system.file("fasta/ath.cds.fasta.gz", package = "CRBHits")
+#' cdsfile <- system.file("fasta", "ath.cds.fasta.gz", package = "CRBHits")
 #' aafile <- tempfile()
 #' cdsfile2aafile(cdsfile, aafile)
 #' aa <- Biostrings::readAAStringSet(aafile)

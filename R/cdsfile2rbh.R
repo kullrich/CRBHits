@@ -46,8 +46,8 @@
 #' ##compile last-1060 within CRBHits
 #' make.last()
 #' ##load example sequence data
-#' athfile <- system.file("fasta","ath.cds.fasta.gz",package = "CRBHits")
-#' alyfile <- system.file("fasta","aly.cds.fasta.gz",package = "CRBHits")
+#' athfile <- system.file("fasta", "ath.cds.fasta.gz", package = "CRBHits")
+#' alyfile <- system.file("fasta", "aly.cds.fasta.gz", package = "CRBHits")
 #' #conditional-reciprocal best hits
 #' ath_aly_crbh <- cdsfile2rbh(athfile, alyfile, plotCurve = TRUE)
 #' dim(ath_aly_crbh$crbh.pairs)
