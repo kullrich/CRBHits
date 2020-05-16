@@ -105,8 +105,8 @@ Like [shmlast](https://pypi.org/project/shmlast/), [CRBHits](https://gitlab.gwdg
 
 ```{r}
 #example how to get crbh from two coding fasta files
-cdsfile1 <- paste0(system.file(package = "CRBHits"), "fasta/ath.cds.fasta.gz")
-cdsfile2 <- paste0(system.file(package = "CRBHits"), "fasta/aly.cds.fasta.gz")
+cdsfile1 <- paste0(system.file(package = "CRBHits"), "/fasta/ath.cds.fasta.gz")
+cdsfile2 <- paste0(system.file(package = "CRBHits"), "/fasta/aly.cds.fasta.gz")
 cds1 <- Biostrings::readDNAStringSet(cdsfile1)
 cds2 <- Biostrings::readDNAStringSet(cdsfile2)
 #the following function calculates crbh matrix using one thread and plots the fitted curve
