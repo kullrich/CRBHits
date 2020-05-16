@@ -35,13 +35,13 @@ In most cases you need to first install the following system-wide packages to be
 Ubuntu/Debian
 
 ```
-sudo apt-get install libcurl4-openssl-dev libssl-dev libxml2-dev
+sudo apt-get install libcurl4-openssl-dev libssl-dev libxml2-dev libglu1-mesa-dev
 ```
 
 CentOS
 
 ```
-sudo yum install libcurl-devel openssl-devel libxml2-devel
+sudo yum install libcurl-devel openssl-devel libxml2-devel mesa-libGLU-devel
 ```
 
 - [devtools](https://cran.r-project.org/web/packages/devtools/index.html)
