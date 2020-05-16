@@ -92,9 +92,10 @@ library(CRBHits)
 vignette.paths <- make.vignette()
 #example how to check coding sequences if all are a mutiple of three
 #cdsfile <- paste0(system.file(package = "CRBHits"), "/fasta/ath.cds.fasta.gz")
-cdsfile <- system.file("fasta", "ath.cds.fasta.gz", package = "CRBHits")
-message(cdsfile)
+#cdsfile <- system.file("fasta", "ath.cds.fasta.gz", package = "CRBHits")
 #cds <- Biostrings::readDNAStringSet(cdsfile)
+cds <- Biostrings::readDNAStringSet(filepath = paste0(system.file(package = "CRBHits"),
+                                                      "/fasta/ath.cds.fasta.gz"))
 #the following statement should return TRUE, if all sequences are a mutiple of three
 #all(Biostrings::width(cds) %% 3 == 0)
 ```
