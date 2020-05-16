@@ -4,12 +4,14 @@
 \alias{filter.alnlen}
 \title{filter.alnlen}
 \usage{
-filter.alnlen(rbh, alnlen = 0)
+filter.alnlen(rbh, alnlen = 0, inverse = FALSE)
 }
 \arguments{
 \item{rbh}{BLAST-like tabular matrix [mandatory]}
 
 \item{alnlen}{alignment length [default: 0.0]}
+
+\item{inverse}{specify if filter should keep the removed values [default: FALSE]}
 }
 \value{
 rbh matrix

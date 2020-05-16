@@ -16,17 +16,26 @@
 #' @param pident percent identity [default: 0.0]
 #' @param alnlen alignment length [default: 0.0]
 #' @param rost1999 specifiy if hit pairs should be filter by equation 2 of Rost 1999 [default: FALSE]
-#' @param filter specify additonal custom filters to be applied on hit pairs [default: NULL]
+#' @param filter specify additonal custom filters as list to be applied on hit pairs [default: NULL]
 #' @param plotCurve specify if crbh fitting curve should be plotted [default: FALSE]
+#' @param fit.type specify if mean or median should be used for fitting [default: mean]
+#' @param fit.varweight factor for fitting function to consider neighborhood [default: 0.1]
+#' @param fit.min specify minimum neighborhood [default: 5]
 #' @param threads number of parallel threads [default: 1]
 #' @param remove specify if last result files should be removed [default: TRUE]
-#' @return List of three
-#' 1: $crbh.pairs (crbh = TRUE) or $rbh.pairs (crbh = FALSE)
-#' 2: $crbh1 matrix (crbh = TRUE) or $rbh1 (crbh = FALSE); query > target
-#' 3: $crbh2 matrix (crbh = TRUE) or $rbh2 (crbh = FALSE); target > query
+#' @return List of three (crbh = FALSE)\cr
+#' 1: $rbh.pairs\cr
+#' 2: $rbh1 matrix; query > target\cr
+#' 3: $rbh2 matrix; target > query\cr
+#' \cr
+#' List of four (crbh = TRUE)\cr
+#' 1: $crbh.pairs\cr
+#' 2: $crbh1 matrix; query > target\cr
+#' 3: $crbh2 matrix; target > query\cr
+#' 4: $rbh1_rbh2_fit; evalue fitting function
 #' @importFrom Biostrings writeXStringSet
 #' @importFrom graphics legend par points
-#' @importFrom stats splinefun
+#' @importFrom stats median splinefun
 #' @importFrom utils read.table
 #' @import magrittr
 #' @seealso \code{\link[CRBHits]{cds2rbh}}
@@ -66,10 +75,13 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
                     rost1999 = FALSE,
                     filter = NULL,
                     plotCurve = FALSE,
+                    fit.type = "mean",
+                    fit.varweight = 0.1,
+                    fit.min = 5,
                     threads = 1,
                     remove = TRUE){
   #internal function to fit evalue by length
-  fitSpline <- function(alnlength, evalue){
+  fitSpline <- function(alnlength, evalue, fit.type, fit.varweight, fit.min){
     log10evalue <- -log10(evalue)
     log10evalue[is.infinite(log10evalue)] <- 324
     x <- cbind(alnlength, log10evalue)
@@ -78,21 +90,28 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
     fitMatrix <- matrix(0, ncol = 2, nrow = x.max)
     for(i in seq(from = 1, to = x.max)){
       fitMatrix[i, 1] <- i
-      s <- round(i * 0.1)
-      if(s < 5){s <- 5}
+      s <- round(i * fit.varweight)
+      if(s < fit.min){s <- fit.min}
       smin <- i - s
       smax <- i + s
       s.idx <- which(x[,1] >= smin & x[,1] <= smax)
-      if(length(s.idx) == 0){s.mean <- 0}
-      if(length(s.idx) != 0){s.mean <- mean(x[s.idx, 2])}
+      if(length(s.idx) == 0){s.value <- 0}
+      if(length(s.idx) != 0){
+        if(fit.type == "mean"){
+          s.value <- mean(x[s.idx, 2])
+        }
+        if(fit.type == "median"){
+          s.value <- median(x[s.idx, 2])
+        }
+      }
       if(i == 1){
-        fitMatrix[i, 2] <- s.mean
+        fitMatrix[i, 2] <- s.value
       }
       if(i > 1){
-        if(fitMatrix[i-1, 2] <= s.mean){
-          fitMatrix[i, 2] <- s.mean
+        if(fitMatrix[i-1, 2] <= s.value){
+          fitMatrix[i, 2] <- s.value
         }
-        if(fitMatrix[i-1, 2] > s.mean){
+        if(fitMatrix[i-1, 2] > s.value){
           fitMatrix[i, 2] <- fitMatrix[i-1, 2]
         }
       }
@@ -152,8 +171,7 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
     aa2_aa1 <- aa2_aa1 %>% filter.rost1999
   }
   #apply additional filters on hit pairs
-  for(f in filter){
-    f_ <- get(f)
+  for(f_ in filter){
     aa1_aa2 <- aa1_aa2 %>% f_
     aa2_aa1 <- aa2_aa1 %>% f_
   }
@@ -183,10 +201,18 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
   if(crbh){
     #fit evalue by length
     if(!selfblast){
-      rbh1_rbh2_fit <- fitSpline(c(rbh1[,4], rbh2[,4]), c(rbh1[,11], rbh2[,11]))
+      rbh1_rbh2_fit <- fitSpline(c(rbh1[,4], rbh2[,4]),
+                                 c(rbh1[, 11], rbh2[, 11]),
+                                 fit.type,
+                                 fit.varweight,
+                                 fit.min)
     }
     if(selfblast){
-      rbh1_rbh2_fit <- fitSpline(c(rbh1[,4]), c(rbh1[,11]))
+      rbh1_rbh2_fit <- fitSpline(c(rbh1[,4]),
+                                 c(rbh1[, 11]),
+                                 fit.type,
+                                 fit.varweight,
+                                 fit.min)
     }
     #internal function to filter hit pairs using rbh1_rbh2_fit
     filter.crbh <- function(x){
@@ -234,29 +260,53 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
       log10alnlen <- log10(len)
       minuslog10evalue <- -log10(rbh1[, 11])
       minuslog10evalue[is.infinite(minuslog10evalue)] <- 324
-      par(mfrow=c(2,1))
-      plot(log10alnlen, minuslog10evalue, pch = 20, main = "Accept / Reject secondary hits as homologs", ylab = "-log10(evalue)", xlab = "log10(alnlength)")
-      points(x= log10(1:max(rbh1[, 4])), y=rbh1_rbh2_fit(1:max(rbh1[, 4])), type = "l", col = "blue")
-      points(log10(rbh1.sec[, 4]), -log10(rbh1.sec[, 11]), pch = 20, col = "red")
-      points(log10(single1[, 4]), -log10(single1[, 11]), pch = 20, col = "orange")
+      plot(x = log10alnlen, y = minuslog10evalue,
+           pch = 20,
+           main = "Accept / Reject secondary hits as homologs",
+           ylab = "-log10(evalue)",
+           xlab = "log10(alnlength)",
+           col = col2transparent("#8EBCB5", 50),
+           cex = 0.75)
+      points(x = log10(rbh1.sec[, 4]), y = -log10(rbh1.sec[, 11]),
+             pch = 21,
+             bg = col2transparent("#4D83AB", 25),
+             cex = 1)
+      points(x = log10(single1[, 4]), y = -log10(single1[, 11]),
+             pch = 21,
+             bg = col2transparent("#CBC106", 25),
+             cex = 1)
       if(selfblast){
-        legend("bottomright", legend = c("rbh", "sec", "single"), col = c("black", "red", "orange"), pch = 20)
+        points(x = log10(1:max(rbh1[, 4])),
+               y = rbh1_rbh2_fit(seq(from = 1, to = max(rbh1[, 4]))),
+               type = "l",
+               lwd = 2,
+               col = "#9E163C")
+        legend("bottomright",
+               legend = c("rbh", "sec", "single"),
+               col = c("#8EBCB5",
+                       col2transparent("#4D83AB", 25),
+                       col2transparent("#CBC106", 25)),
+               bty = "n",
+               pch = 20)
       }
       if(!selfblast){
-        points(log10(single2[, 4]), -log10(single2[, 11]), pch = 20, col = "cyan")
-        legend("bottomright", legend = c("rbh", "sec", "single1", "single2"), col = c("black", "red", "orange", "cyan"), pch = 20)
-      }
-      #
-      plot(len, minuslog10evalue, pch = 20, main = "Accept / Reject secondary hits as homologs", ylab = "-log10(evalue)", xlab = "alnlength")
-      points(x= 1:max(rbh1[, 4]), y=rbh1_rbh2_fit(1:max(rbh1[, 4])), type = "l", col = "blue")
-      points(rbh1.sec[, 4], -log10(rbh1.sec[, 11]), pch = 20, col = "red")
-      points(single1[, 4], -log10(single1[, 11]), pch = 20, col = "orange")
-      if(selfblast){
-        legend("bottomright", legend = c("rbh", "sec", "single"), col = c("black", "red", "orange"), pch = 20)
-      }
-      if(!selfblast){
-        points(single2[, 4], -log10(single2[, 11]), pch = 20, col = "cyan")
-        legend("bottomright", legend = c("rbh", "sec", "single1", "single2"), col = c("black", "red", "orange", "cyan"), pch = 20)
+        points(x = log10(single2[, 4]), y = -log10(single2[, 11]),
+               pch = 21,
+               bg = col2transparent("#CB7B26", 25),
+               cex = 1)
+        points(x = log10(1:max(rbh1[, 4])),
+               y = rbh1_rbh2_fit(seq(from = 1, to = max(rbh1[, 4]))),
+               type = "l",
+               lwd = 2,
+               col = "#9E163C")
+        legend("bottomright",
+               legend = c("rbh", "sec", "single1", "single2"),
+               col = c("#8EBCB5",
+                       col2transparent("#4D83AB", 25),
+                       col2transparent("#CBC106", 25),
+                       col2transparent("#CB7B26", 25)),
+               bty = "n",
+               pch = 20)
       }
     }
     #if no keepSingleDirection - done
@@ -267,8 +317,8 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
       colnames(crbh2)[16] <- "rbh_class"
       crbh <- crbh1[, 1:2]
       colnames(crbh) <- c("aa1", "aa2")
-      out <- list(crbh, crbh1, crbh2)
-      names(out) <- c("crbh.pairs", "crbh1", "crbh2")
+      out <- list(crbh, crbh1, crbh2, rbh1_rbh2_fit)
+      names(out) <- c("crbh.pairs", "crbh1", "crbh2", "rbh1_rbh2_fit")
       return(out)
     }
     #if keepSingleDirection - include single - done
@@ -279,8 +329,8 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
       colnames(crbh2)[16] <- "rbh_class"
       crbh <- data.frame(Map(c, crbh1[, 1:2], single1[, 1:2], single2[, c(2,1)]))
       colnames(crbh) <- c("aa1", "aa2")
-      out <- list(crbh, crbh1, crbh2)
-      names(out) <- c("crbh.pairs", "crbh1", "crbh2")
+      out <- list(crbh, crbh1, crbh2, rbh1_rbh2_fit)
+      names(out) <- c("crbh.pairs", "crbh1", "crbh2", "rbh1_rbh2_fit")
       return(out)
     }
   }

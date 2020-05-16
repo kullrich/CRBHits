@@ -16,9 +16,9 @@ rbh2kaks(
 \arguments{
 \item{rbhpairs}{(conditional-)recirpocal best hit pair matrix [mandatory]}
 
-\item{cds1}{cds1 sequences as \code{DNAStringSet} for first crbhpairs column [mandatory]}
+\item{cds1}{cds1 sequences as \code{DNAStringSet} or \code{url} for first crbhpairs column [mandatory]}
 
-\item{cds2}{cds2 sequences as \code{DNAStringSet} for second crbhpairs column [mandatory]}
+\item{cds2}{cds2 sequences as \code{DNAStringSet} or \code{url} for second crbhpairs column [mandatory]}
 
 \item{model}{specify codon model either "Li" or "YN" [default: Li]}
 

@@ -4,10 +4,12 @@
 \alias{filter.rost1999}
 \title{filter.rost1999}
 \usage{
-filter.rost1999(rbh)
+filter.rost1999(rbh, inverse = FALSE)
 }
 \arguments{
 \item{rbh}{BLAST-like tabular matrix [mandatory]}
+
+\item{inverse}{specify if filter should keep the removed values [default: FALSE]}
 }
 \value{
 rbh matrix

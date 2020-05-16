@@ -4,12 +4,14 @@
 \alias{filter.qcov}
 \title{filter.qcov}
 \usage{
-filter.qcov(rbh, qcov = 0)
+filter.qcov(rbh, qcov = 0, inverse = FALSE)
 }
 \arguments{
 \item{rbh}{BLAST-like tabular matrix [mandatory]}
 
 \item{qcov}{query coverage [default: 0.0]}
+
+\item{inverse}{specify if filter should keep the removed values [default: FALSE]}
 }
 \value{
 rbh matrix

@@ -18,7 +18,9 @@ Imports:
   seqinr,
   foreach,
   doMC,
-  magrittr
+  magrittr,
+  mclust,
+  feature
 Suggests:
   rmarkdown,
   knitr,

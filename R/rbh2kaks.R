@@ -2,8 +2,8 @@
 #' @name rbh2kaks
 #' @description This function calculates ka/ks (dN/dS; accoring to \emph{Li (1993)} or \emph{Yang and Nielson (2000)} for each reciprocal best hit pair. The names of the \code{rbh} columns must match the names of the corresponding \code{cds1} and \code{cds2} \code{DNAStringSet} vectors.
 #' @param rbhpairs (conditional-)recirpocal best hit pair matrix [mandatory]
-#' @param cds1 cds1 sequences as \code{DNAStringSet} for first crbhpairs column [mandatory]
-#' @param cds2 cds2 sequences as \code{DNAStringSet} for second crbhpairs column [mandatory]
+#' @param cds1 cds1 sequences as \code{DNAStringSet} or \code{url} for first crbhpairs column [mandatory]
+#' @param cds2 cds2 sequences as \code{DNAStringSet} or \code{url} for second crbhpairs column [mandatory]
 #' @param model specify codon model either "Li" or "YN" [default: Li]
 #' @param kakscalcpath specify the PATH to the KaKs_Calculator binaries [default: /extdata/KaKs_Calculator2.0/src/]
 #' @param threads number of parallel threads [default: 1]
@@ -34,6 +34,8 @@ rbh2kaks <- function(rbhpairs, cds1, cds2, model = "Li", threads = 1,
   get_cds_by_name <- function(x, cds){
     return(cds[names(cds)==x])
   }
+  if(class(cds1) == "character"){cds1 <- Biostrings::readDNAStringSet(cds1)}
+  if(class(cds2) == "character"){cds2 <- Biostrings::readDNAStringSet(cds2)}
   names(cds1) <- unlist(lapply(strsplit(names(cds1), " "), function(x) x[1]))
   names(cds2) <- unlist(lapply(strsplit(names(cds2), " "), function(x) x[1]))
   doMC::registerDoMC(threads)

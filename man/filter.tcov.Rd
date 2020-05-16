@@ -4,12 +4,14 @@
 \alias{filter.tcov}
 \title{filter.tcov}
 \usage{
-filter.tcov(rbh, tcov = 0)
+filter.tcov(rbh, tcov = 0, inverse = FALSE)
 }
 \arguments{
 \item{rbh}{BLAST-like tabular matrix [mandatory]}
 
 \item{tcov}{target coverage [default: 0.0]}
+
+\item{inverse}{specify if filter should keep the removed values [default: FALSE]}
 }
 \value{
 rbh matrix

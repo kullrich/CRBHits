@@ -57,6 +57,9 @@
       <a href="articles/CRBHitsBasicVignette.html">CRBHits Basic Vignette</a>
     </li>
     <li>
+      <a href="articles/WGDVignette.html">Paranome-based Whole Genome Duplication Vignette</a>
+    </li>
+    <li>
       <a href="articles/dNdSClusteringVignette.html">dNdS Clustering Vignette</a>
     </li>
   </ul>
@@ -96,7 +99,7 @@
 <p><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> is a reimplementation of the Conditional Reciprocal Best Hit algorithm <a href="https://github.com/cboursnell/crb-blast">crb-blast</a> in R.</p>
 <p>The algorithm was introduced by <a href="http://www.plosgenetics.org/article/info%3Adoi%2F10.1371%2Fjournal.pgen.1004365">Aubry S, Kelly S et al. (2014)</a> and ported to python <a href="https://pypi.org/project/shmlast/">shmlast</a> (<a href="https://joss.theoj.org/papers/10.21105/joss.00142">Scott C. 2017</a>) which benefits from the blast-like sequence search software <a href="http://last.cbrc.jp/">LAST</a> (<a href="https://genome.cshlp.org/content/21/3/487.long">Kiełbasa SM et al. 2011</a>).</p>
 <p>Like <a href="https://pypi.org/project/shmlast/">shmlast</a>, <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> plots the fitted model of the conditional reciprocal best hit evalue based algorithm. In addition users can filter the hit pairs prior fitting for other cirteria like evalue, protein identity and/or the twilight zone of protein sequence alignments according to <a href="https://academic.oup.com/peds/article/12/2/85/1550637">Rost B. (1999)</a>.</p>
-<p><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> only takes coding nucleotide sequences as the query and target inputs, since the primary aim of CRBHits is to calculate synonymous and non-synonymous substitutions with the R-package <a href="https://cran.r-project.org/web/packages/seqinr/index.html">seqinr</a> (<a href="https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10">Sharif D, Lobry JR. 2007</a>) or the external tool <a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download">KaKs_Calculator2.0</a> (<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5054116/">Wang D, Zhang Y et al. 2010</a>). This is in contrast to <a href="https://github.com/cboursnell/crb-blast">crb-blast</a>, which can take proteins or nucleotides as the target sequences and in contrast to <a href="https://pypi.org/project/shmlast/">shmlast</a>, which uses nucleotides as queries and proteins as target sequences.</p>
+<p><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> only takes coding nucleotide sequences as the query and target inputs, since the secondary aim of CRBHits is to calculate synonymous and non-synonymous substitutions with the R package <a href="https://cran.r-project.org/web/packages/seqinr/index.html">seqinr</a> (<a href="https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10">Sharif D, Lobry JR. 2007</a>) or the external tool <a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download">KaKs_Calculator2.0</a> (<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5054116/">Wang D, Zhang Y et al. 2010</a>). This is in contrast to <a href="https://github.com/cboursnell/crb-blast">crb-blast</a>, which can take proteins or nucleotides as the target sequences and in contrast to <a href="https://pypi.org/project/shmlast/">shmlast</a>, which uses nucleotides as queries and proteins as target sequences.</p>
 <p>The resultings conditional reciprocal best hit pair matrix can be used to obtain pairwise codon alignments, which are further used to calculate synonymous and nonsynonymous substitutions using parallelization. The ka/ks (dN/dS) values can be obtained either via the codon model of <a href="https://www.ncbi.nlm.nih.gov/pubmed/8433381">Li WH. (1999)</a> implemented in the R package <a href="https://cran.r-project.org/web/packages/seqinr/index.html">seqinr</a> or the model <a href="https://www.ncbi.nlm.nih.gov/pubmed/10666704">Yang Z and Nielson R. (2000)</a> implemented in <a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download">KaKs_Calculator2.0</a>.</p>
 </div>
 <div id="installation" class="section level1">
@@ -122,13 +125,17 @@
 <li><a href="https://cran.r-project.org/web/packages/foreach/index.html">foreach</a></li>
 <li><a href="https://cran.r-project.org/web/packages/doMC/index.html">doMC</a></li>
 <li><a href="https://cran.r-project.org/web/packages/magrittr/index.html">magrittr</a></li>
+<li><a href="https://cran.r-project.org/web/packages/mclust/index.html">mclust</a></li>
+<li><a href="https://cran.r-project.org/web/packages/feature/index.html">feature</a></li>
 </ul>
 <pre><code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages("devtools")
 install.packages("testthat")
 install.packages("seqinr")
 install.packages("foreach")
 install.packages("doMC")
-install.packages("magrittr")</a></code></pre>
+install.packages("magrittr")
+install.packages("mclust")
+install.packages("feature")</a></code></pre>
 </div>
 <div id="install-packages-from-bioconductor" class="section level3">
 <h3 class="hasAnchor">
@@ -144,7 +151,7 @@ BiocManager::install("Biostrings")</code></pre>
 <a href="#install-crbhits" class="anchor"></a>install <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a>
 </h3>
 <pre><code><a href="https://devtools.r-lib.org//reference">library(devtools)
-install_gitlab("mpievolbio-it/crbhits", host = "https://gitlab.gwdg.de")
+install_gitlab("mpievolbio-it/crbhits", host = "https://gitlab.gwdg.de", build_vignettes = TRUE, dependencies = FALSE)
 #install_github("kullrich/CRBHits", build_vignettes = TRUE, dependencies = FALSE)</a></code></pre>
 </div>
 </div>
@@ -178,7 +185,7 @@ make</code></pre>
 <li><a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download">KaKs_Calculator2.0</a></li>
 </ul>
 <pre><code><a href="reference/make.KaKs_Calculator2.html">make.KaKs_Calculator2()</a></code></pre>
-<p><strong>Note:</strong> Due to some chnages in the latest <strong>g++</strong> compilers the source code was altered to meet this changes, which are directly incorporated into the <code>KaKs_Calculator2.0.tar.gz</code> that is distributed with <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a>. It is recommended to compile from this file (see below):</p>
+<p><strong>Note:</strong> Due to some changes in the latest <strong>g++</strong> compilers the source code was altered to meet this changes, which are directly incorporated into the <code>KaKs_Calculator2.0.tar.gz</code> that is distributed with <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a>. It is recommended to compile from this file (see below):</p>
 <pre><code>#create and change into the directory to install KaKs_Calculator2
 #e.g.
 mkdir /tmp/KaKs_Calculator2
@@ -191,14 +198,26 @@ cd KaKs_Calculator2.0/src
 make clean
 make</code></pre>
 <p>If you would like to install the latest version of both tools, you need to download the source code and compile again.</p>
+<p>If you would like to use your own compiled versions of <code>LAST</code> and <code>KaKs_Calculator2.0</code> you need to set the correct <code>@param</code> in the corresponding functions of <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a>.</p>
+<pre><code>#example how to use own compiled versions of LAST and KaKs_Calculator2.0
+my.lastpath &lt;- "/tmp/last/last-1060/src"
+my.kakspath &lt;- "/tmp/KaKs_Calculator2/KaKs_Calculator2.0/src"
+?cds2rbh
+cds2rbh(., ., lastpath = my.lastpath)
+?rbh2kaks
+rbh2kaks(., ., model = "YN", kakscalcpath = my.kakspaths)</code></pre>
 </div>
 <div id="vignettes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#vignettes" class="anchor"></a>Vignettes</h2>
 <p>These vignettes introduce <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a></p>
 <ul>
-<li><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/blob/master/vignettes/CRBHitsBasicVignette.Rmd">CRBHits Basic Vignette</a></li>
-<li><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/blob/master/vignettes/dNdSClusteringVignette.Rmd">dNdS Clustering Vignette</a></li>
+<li>
+<a href="https://mpievolbio-it.pages.gwdg.de/crbhits/articles/CRBHitsBasicVignette.html">CRBHits Basic Vignette</a> - Basic Usage of CRBHits</li>
+<li>
+<a href="https://mpievolbio-it.pages.gwdg.de/crbhits/articles/dNdSClusteringVignette.html">dNdS Clustering Vignette</a> - dNdS Calculations between two species (<em>A. thalina</em> and <em>A. lyrata</em>)</li>
+<li>
+<a href="https://mpievolbio-it.pages.gwdg.de/crbhits/articles/WGDVignette.html">Paranome-based Whole Genome Duplication Vignette</a> - Selfblast and subsequent WGD prediction (<em>A. thaliana</em>)</li>
 </ul>
 </div>
 <div id="quick-guide" class="section level2">
@@ -212,14 +231,27 @@ data("ath", package="CRBHits")
 data("aly", package="CRBHits")
 ath_aly_crbh &lt;- cds2rbh(ath, aly, plotCurve = TRUE)
 summary(ath_aly_crbh)
+?cds2rbh
 
 #kaks calculation
 ath_aly_crbh.kaks &lt;- rbh2kaks(ath_aly_crbh$crbh.pairs[1:20, ], ath, aly)
 head(ath_aly_crbh.kaks)
+?rbh2kaks
 
 #kaks calculation using multiple threads
 ath_aly_crbh.kaks &lt;- rbh2kaks(ath_aly_crbh$crbh.pairs[1:20, ], ath, aly, threads = 4)
-head(ath_aly_crbh.kaks)</a></code></pre>
+head(ath_aly_crbh.kaks)
+
+#example how to use own compiled versions of LAST
+my.lastpath &lt;- "/tmp/last/last-1060/src"
+?cds2rbh
+ath_aly_crbh &lt;- cds2rbh(ath, aly, plotCurve = TRUE, lastpath = my.lastpath)
+
+#example how to use own compiled versions of KaKs_Calculator2.0
+my.kakspath &lt;- "/tmp/KaKs_Calculator2/KaKs_Calculator2.0/src"
+?rbh2kaks
+ath_aly_crbh.kaks &lt;- rbh2kaks(ath_aly_crbh$crbh.pairs[1:20, ],
+                              ath, aly, model = "YN", kakscalcpath = my.kakspath)</a></code></pre>
 </div>
 <div id="todo" class="section level2">
 <h2 class="hasAnchor">
@@ -253,14 +285,16 @@ head(ath_aly_crbh.kaks)</a></code></pre>
 <div id="references" class="section level2">
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
-<p>Aubry, S., Kelly, S., Kümpers, B. M., Smith-Unna, R. D., &amp; Hibberd, J. M. (2014). <strong>Deep evolutionary comparison of gene expression identifies parallel recruitment of trans-factors in two independent origins of C4 photosynthesis.</strong> <em>PLoS genetics</em>, <strong>10(6)</strong>. <a href="https://doi.org/10.1371/journal.pgen.1004365">https://doi.org/10.1371/journal.pgen.1004365</a></p>
-<p>Charif, D., &amp; Lobry, J. R. (2007). <strong>SeqinR 1.0-2: a contributed package to the R project for statistical computing devoted to biological sequences retrieval and analysis.</strong> <em>In Structural approaches to sequence evolution</em> (pp. 207-232). Springer, Berlin, Heidelberg. <a href="https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10">https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10</a></p>
-<p>Kiełbasa, S. M., Wan, R., Sato, K., Horton, P., &amp; Frith, M. C. (2011). <strong>Adaptive seeds tame genomic sequence comparison.</strong> <em>Genome research</em>, 21(3), 487-493. <a href="https://doi.org/10.1101/gr.113985.110">https://doi.org/10.1101/gr.113985.110</a></p>
-<p>Li, W. H. (1993). <strong>Unbiased estimation of the rates of synonymous and nonsynonymous substitution.</strong> <em>Journal of molecular evolution</em>, 36(1), 96-99. <a href="https://doi.org/10.1007/bf02407308">https://doi.org/10.1007/bf02407308</a></p>
-<p>Pagès, H., Aboyoun, P., Gentleman, R., &amp; DebRoy, S. (2017). <strong>Biostrings: Efficient manipulation of biological strings.</strong> <em>R package version</em>, 2(0).</p>
-<p>Rost, B. (1999). <strong>Twilight zone of protein sequence alignments.</strong> <em>Protein engineering</em>, 12(2), 85-94. <a href="https://doi.org/10.1093/protein/12.2.85">https://doi.org/10.1093/protein/12.2.85</a></p>
-<p>Scott, C. (2017). <strong>shmlast: an improved implementation of conditional reciprocal best hits with LAST and Python.</strong> <em>Journal of Open Source Software</em>, 2(9), 142. <a href="https://joss.theoj.org/papers/10.21105/joss.00142">https://joss.theoj.org/papers/10.21105/joss.00142</a></p>
-<p>Yang, Z., &amp; Nielsen, R. (2000). <strong>Estimating synonymous and nonsynonymous substitution rates under realistic evolutionary models.</strong> <em>Molecular biology and evolution</em>, 17(1), 32-43. <a href="https://doi.org/10.1093/oxfordjournals.molbev.a026236">https://doi.org/10.1093/oxfordjournals.molbev.a026236</a></p>
+<p>Aubry S., Kelly S., Kümpers B. M., Smith-Unna R. D., and Hibberd J. M. (2014). <strong>Deep evolutionary comparison of gene expression identifies parallel recruitment of trans-factors in two independent origins of C4 photosynthesis.</strong> <em>PLoS genetics</em>, <strong>10(6)</strong>. <a href="https://doi.org/10.1371/journal.pgen.1004365">https://doi.org/10.1371/journal.pgen.1004365</a></p>
+<p>Charif D., and Lobry J. R. (2007). <strong>SeqinR 1.0-2: a contributed package to the R project for statistical computing devoted to biological sequences retrieval and analysis.</strong> <em>In Structural approaches to sequence evolution</em> (pp. 207-232). Springer, Berlin, Heidelberg. <a href="https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10">https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10</a></p>
+<p>Kiełbasa S. M., Wan R., Sato K., Horton P., and Frith M. C. (2011). <strong>Adaptive seeds tame genomic sequence comparison.</strong> <em>Genome research</em>, 21(3), 487-493. <a href="https://doi.org/10.1101/gr.113985.110">https://doi.org/10.1101/gr.113985.110</a></p>
+<p>Li W. H. (1993). <strong>Unbiased estimation of the rates of synonymous and nonsynonymous substitution.</strong> <em>Journal of molecular evolution</em>, 36(1), 96-99. <a href="https://doi.org/10.1007/bf02407308">https://doi.org/10.1007/bf02407308</a></p>
+<p>Pagès H., Aboyoun P., Gentleman R., and DebRoy S. (2017). <strong>Biostrings: Efficient manipulation of biological strings.</strong> <em>R package version</em>, 2(0).</p>
+<p>Rost B. (1999). <strong>Twilight zone of protein sequence alignments.</strong> <em>Protein engineering</em>, 12(2), 85-94. <a href="https://doi.org/10.1093/protein/12.2.85">https://doi.org/10.1093/protein/12.2.85</a></p>
+<p>Scott C. (2017). <strong>shmlast: an improved implementation of conditional reciprocal best hits with LAST and Python.</strong> <em>Journal of Open Source Software</em>, 2(9), 142. <a href="https://joss.theoj.org/papers/10.21105/joss.00142">https://joss.theoj.org/papers/10.21105/joss.00142</a></p>
+<p>Scrucca L., Fop M., Murphy T. B., and Raftery A. E. (2016) <strong>mclust 5: clustering, classification and density estimation using Gaussian finite mixture models.</strong> <em>The R Journal</em>, 8(1), 289-317. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5096736/">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5096736/</a></p>
+<p>Duong T., and Wand M. (2015). <strong>feature: Local Inferential Feature Significance for Multivariate Kernel Density Estimation.</strong> <em>R package version 1.2.13</em>. <a href="https://cran.r-project.org/web/packages/feature/">https://cran.r-project.org/web/packages/feature/</a></p>
+<p>Yang Z., and Nielsen R. (2000). <strong>Estimating synonymous and nonsynonymous substitution rates under realistic evolutionary models.</strong> <em>Molecular biology and evolution</em>, 17(1), 32-43. <a href="https://doi.org/10.1093/oxfordjournals.molbev.a026236">https://doi.org/10.1093/oxfordjournals.molbev.a026236</a></p>
 </div>
 </div>
 

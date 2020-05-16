@@ -4,12 +4,14 @@
 \alias{filter.pident}
 \title{filter.pident}
 \usage{
-filter.pident(rbh, pident = 0)
+filter.pident(rbh, pident = 0, inverse = FALSE)
 }
 \arguments{
 \item{rbh}{BLAST-like tabular matrix [mandatory]}
 
 \item{pident}{percent identity [default: 0.0]}
+
+\item{inverse}{specify if filter should keep the removed values [default: FALSE]}
 }
 \value{
 rbh matrix

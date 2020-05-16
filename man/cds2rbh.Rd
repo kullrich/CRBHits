@@ -19,6 +19,9 @@ cds2rbh(
   rost1999 = FALSE,
   filter = NULL,
   plotCurve = FALSE,
+  fit.type = "mean",
+  fit.varweight = 0.1,
+  fit.min = 5,
   threads = 1,
   remove = TRUE
 )
@@ -48,19 +51,31 @@ cds2rbh(
 
 \item{rost1999}{specifiy if hit pairs should be filter by equation 2 of Rost 1999 [default: FALSE]}
 
-\item{filter}{specify additonal custom filters to be applied on hit pairs [default: NULL]}
+\item{filter}{specify additonal custom filters as list to be applied on hit pairs [default: NULL]}
 
 \item{plotCurve}{specify if crbh fitting curve should be plotted [default: FALSE]}
+
+\item{fit.type}{specify if mean or median should be used for fitting [default: mean]}
+
+\item{fit.varweight}{factor for fitting function to consider neighborhood [default: 0.1]}
+
+\item{fit.min}{specify minimum neighborhood [default: 5]}
 
 \item{threads}{number of parallel threads [default: 1]}
 
 \item{remove}{specify if last result files should be removed [default: TRUE]}
 }
 \value{
-List of three
-1: $crbh.pairs (crbh = TRUE) or $rbh.pairs (crbh = FALSE)
-2: $crbh1 matrix (crbh = TRUE) or $rbh1 (crbh = FALSE); query > target
-3: $crbh2 matrix (crbh = TRUE) or $rbh2 (crbh = FALSE); target > query
+List of three (crbh = FALSE)\cr
+1: $rbh.pairs\cr
+2: $rbh1 matrix; query > target\cr
+3: $rbh2 matrix; target > query\cr
+\cr
+List of four (crbh = TRUE)\cr
+1: $crbh.pairs\cr
+2: $crbh1 matrix; query > target\cr
+3: $crbh2 matrix; target > query\cr
+4: $rbh1_rbh2_fit; evalue fitting function
 }
 \description{
 This function calculates (conditional-)reciprocal best hit pair matrix from two \code{DNAStringSet}'s.
@@ -90,9 +105,9 @@ dim(ath_aly_crbh.qcov$crbh.pairs)
 myfilter <- function(rbh, value = 500.0){
 return(rbh[as.numeric(rbh[, 12]) >= value , , drop = FALSE])
 }
-ath_aly_crbh.custom <- cds2rbh(ath, aly, filter = c("myfilter"))
+ath_aly_crbh.custom <- cds2rbh(ath, aly, filter = list(myfilter))
 dim(ath_aly_crbh.custom$crbh.pairs)
-#multiple filters can be given in filter param
+#multiple filters can be given in filter param as list
 #
 #selfblast
 ath_selfblast_crbh <- cds2rbh(ath, ath, plotCurve = TRUE)

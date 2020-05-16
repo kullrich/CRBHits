@@ -101,6 +101,9 @@ If one specifies cdsfile1 and cdsfile2 as the same input a selfblast is conducte
       <a href="../articles/CRBHitsBasicVignette.html">CRBHits Basic Vignette</a>
     </li>
     <li>
+      <a href="../articles/WGDVignette.html">Paranome-based Whole Genome Duplication Vignette</a>
+    </li>
+    <li>
       <a href="../articles/dNdSClusteringVignette.html">dNdS Clustering Vignette</a>
     </li>
   </ul>
@@ -153,6 +156,9 @@ If one specifies cdsfile1 and cdsfile2 as the same input a selfblast is conducte
   <span class='kw'>rost1999</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>filter</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>plotCurve</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>fit.type</span> <span class='kw'>=</span> <span class='st'>"mean"</span>,
+  <span class='kw'>fit.varweight</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
+  <span class='kw'>fit.min</span> <span class='kw'>=</span> <span class='fl'>5</span>,
   <span class='kw'>threads</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 )</pre>
@@ -210,11 +216,23 @@ If one specifies cdsfile1 and cdsfile2 as the same input a selfblast is conducte
     </tr>
     <tr>
       <th>filter</th>
-      <td><p>specify additonal custom filters to be applied on hit pairs [default: NULL]</p></td>
+      <td><p>specify additonal custom filters as list to be applied on hit pairs [default: NULL]</p></td>
     </tr>
     <tr>
       <th>plotCurve</th>
       <td><p>specify if crbh fitting curve should be plotted [default: FALSE]</p></td>
+    </tr>
+    <tr>
+      <th>fit.type</th>
+      <td><p>specify if mean or median should be used for fitting [default: mean]</p></td>
+    </tr>
+    <tr>
+      <th>fit.varweight</th>
+      <td><p>factor for fitting function to consider neighborhood [default: 0.1]</p></td>
+    </tr>
+    <tr>
+      <th>fit.min</th>
+      <td><p>specify minimum neighborhood [default: 5]</p></td>
     </tr>
     <tr>
       <th>threads</th>
@@ -228,10 +246,16 @@ If one specifies cdsfile1 and cdsfile2 as the same input a selfblast is conducte
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>List of three
-1: $crbh.pairs (crbh = TRUE) or $rbh.pairs (crbh = FALSE)
-2: $crbh1 matrix (crbh = TRUE) or $rbh1 (crbh = FALSE); query &gt; target
-3: $crbh2 matrix (crbh = TRUE) or $rbh2 (crbh = FALSE); target &gt; query</p>
+    <p>List of three (crbh = FALSE)<br />
+1: $rbh.pairs<br />
+2: $rbh1 matrix; query &gt; target<br />
+3: $rbh2 matrix; target &gt; query<br />
+<br />
+List of four (crbh = TRUE)<br />
+1: $crbh.pairs<br />
+2: $crbh1 matrix; query &gt; target<br />
+3: $crbh2 matrix; target &gt; query<br />
+4: $rbh1_rbh2_fit; evalue fitting function</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Aubry S, Kelly S et al. (2014) Deep Evolutionary Comparison of Gene Expression Identifies Parallel Recruitment of Trans-Factors in Two Independent Origins of C4 Photosynthesis. <em>PLOS Genetics</em>, <b>10(6)</b> e1004365.</p>
