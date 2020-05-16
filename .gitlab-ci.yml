@@ -2,7 +2,7 @@ image: r-base
 
 before_script:
   - apt-get update
-  - apt-get -y install libcurl4-openssl-dev libssl-dev libxml2-dev pandoc
+  - apt-get -y install libcurl4-openssl-dev libssl-dev libxml2-dev pandoc libglu1-mesa-dev
   - R -e "dir()"
   - R -e "getwd()"
   - R -e "install.packages('devtools',repos='http://cran.rstudio.com')"
@@ -12,7 +12,7 @@ before_script:
   - R -e "install.packages('doMC',repos='http://cran.rstudio.com')"
   - R -e "install.packages('magrittr',repos='http://cran.rstudio.com')"
   - R -e "install.packages('mclust',repos='http://cran.rstudio.com')"
-  - R -e "Sys.setenv(RGL_USE_NULL = TRUE); install.packages('feature',repos='http://cran.rstudio.com')"
+  - R -e "install.packages('feature',repos='http://cran.rstudio.com')"
   - R -e "if (!requireNamespace('BiocManager', quietly = TRUE)) {install.packages('BiocManager')}"
   - R -e "BiocManager::install('Biostrings')"
   - R -e "install.packages('pkgdown')"
