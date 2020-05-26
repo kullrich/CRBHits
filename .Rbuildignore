@@ -8,3 +8,6 @@
 ^\.travis\.yml$
 ^doc$
 ^Meta$
+paper.bib
+paper.md
+figure1.png
