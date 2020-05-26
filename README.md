@@ -8,7 +8,7 @@ R package source code: [https://gitlab.gwdg.de/mpievolbio-it/crbhits](https://gi
 
 R package pages: [https://mpievolbio-it.pages.gwdg.de/crbhits/](https://mpievolbio-it.pages.gwdg.de/crbhits/)
 
-R packges issues: [https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues](https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues)
+R package issues: [https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues](https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues)
 
 # CRBHits - Description
 
