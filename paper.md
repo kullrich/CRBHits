@@ -21,7 +21,7 @@ bibliography: paper.bib
 
 # Summary
 
-[CRBHits](https://mpievolbio-it.pages.gwdg.de/) is a reimplementation of the 
+[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) is a reimplementation of the 
 Conditional Reciprocal Best Hit (CRBH) algorithm 
 [crb-blast](https://github.com/cboursnell/crb-blast) in 
 [R](https://cran.r-project.org/) [@team2013r]. The algorithm was introduced by 
@@ -44,7 +44,7 @@ blast-like search algorithm to speed up the analysis, while
 [shmlast](https://github.com/camillescott/shmlast) can not deal with IUPAC 
 code so far.
 
-[CRBHits](https://mpievolbio-it.pages.gwdg.de/) constitutes a new R package to 
+[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) constitutes a new R package to 
 build upon previous implementations and to improve CRBH by additional filter steps [@rost1999twilight] and the ability to directly create codon alignments 
 within R with the help of the R package 
 [Biostrings](https://bioconductor.org/packages/release/bioc/html/Biostrings.html) [@pages2017biostrings]. The resulting codon alignments can be subsequently used to calculate synonymous and nonsynonymous substitutions per sequence pair with the R package [seqinr](https://cran.r-project.org/web/packages/seqinr/index.html) [@charif2007seqinr] or [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download) [@wang2010kaks_calculator].
@@ -52,7 +52,7 @@ within R with the help of the R package
 # Implementation
 
 Like [shmlast](https://github.com/camillescott/shmlast), 
-[CRBHits](https://mpievolbio-it.pages.gwdg.de/) plots the fitted model of the 
+[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) plots the fitted model of the 
 CRBH evalue based algorithm. In addition, users can filter the hit pairs prior 
 CRBH fitting for other cirteria like query coverage, protein identity and/or 
 the twilight zone of protein sequence alignments according to 
@@ -66,7 +66,7 @@ $$f(x_{\text{hit pair}}) = \begin{cases}
 
 , where $x_{\text{hit pair}}$ is the expected protein identity given the alignemnet length $L_{\text{hit pair}}$. If the actual $pident_{\text{hit pair}} >= f(x_{\text{hit pair}})$ the hit pair is retained for CRBH calculation.
 
-In contrast to previous implementations, [CRBHits](https://mpievolbio-it.pages.gwdg.de/) only take coding nucleotide sequences (CDS) as the query and target inputs and translates them into protein sequences. This is due to the downstream functionality of [CRBHits](https://mpievolbio-it.pages.gwdg.de/) to directly calculate codon alignments within R, which rely on CDS. Its functions are completely coded in R and only the external prerequisites 
+In contrast to previous implementations, [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) only take coding nucleotide sequences (CDS) as the query and target inputs and translates them into protein sequences. This is due to the downstream functionality of [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) to directly calculate codon alignments within R, which rely on CDS. Its functions are completely coded in R and only the external prerequisites 
 ([LAST](http://last.cbrc.jp/) and 
 [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download)) 
 needs to be compiled. Further, users can create their own filters before CRBH 
@@ -110,11 +110,11 @@ Table: Performance comparison for CRBH and dNdS calculations (Intel Xeon CPU E5-
 
 # Conclusions
 
-[CRBHits](https://mpievolbio-it.pages.gwdg.de/) implements CRBH in [R](https://cran.r-project.org/) (see \autoref{fig:crbh}) and further can be used to calculate codon alignment based nucleotide diversities in a multithreaded fashion (see \autoref{tab:performance}).
+[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) implements CRBH in [R](https://cran.r-project.org/) (see \autoref{fig:crbh}) and further can be used to calculate codon alignment based nucleotide diversities in a multithreaded fashion (see \autoref{tab:performance}).
 
 # Availability
 
-[CRBHits](https://mpievolbio-it.pages.gwdg.de/) is an open source software made available under the MIT license. It can be installed from its gitlab repository using the devtools package.
+[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) is an open source software made available under the MIT license. It can be installed from its gitlab repository using the devtools package.
 
 ```r
 devtools::install_gitlab("mpievolbio-it/crbhits", 
