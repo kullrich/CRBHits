@@ -59,7 +59,7 @@ cdsfile2rbh(
 
 \item{fit.varweight}{factor for fitting function to consider neighborhood [default: 0.1]}
 
-\item{fit.min}{specify minimum neighborhood [default: 5]}
+\item{fit.min}{specify minimum neighborhood alignment length [default: 5]}
 
 \item{threads}{number of parallel threads [default: 1]}
 

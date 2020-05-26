@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CRBHits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
       </span>
     </div>
 
@@ -95,13 +95,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/CRBHitsBasicVignette.html">CRBHits Basic Vignette</a>
+      <a href="../articles/V01CRBHitsBasicVignette.html">CRBHits Basic Vignette</a>
     </li>
     <li>
-      <a href="../articles/WGDVignette.html">Paranome-based Whole Genome Duplication Vignette</a>
+      <a href="../articles/V02dNdSClusteringVignette.html">dNdS Clustering Vignette</a>
     </li>
     <li>
-      <a href="../articles/dNdSClusteringVignette.html">dNdS Clustering Vignette</a>
+      <a href="../articles/V03WGDVignette.html">Paranome-based Whole Genome Duplication Vignette</a>
     </li>
   </ul>
 </li>
@@ -139,7 +139,8 @@
   <span class='no'>cds1</span>,
   <span class='no'>cds2</span>,
   <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"Li"</span>,
-  <span class='kw'>kakscalcpath</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/find.package.html'>find.package</a></span>(<span class='st'>"CRBHits"</span>), <span class='st'>"/extdata/KaKs_Calculator2.0/src/"</span>)
+  <span class='kw'>kakscalcpath</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/find.package.html'>find.package</a></span>(<span class='st'>"CRBHits"</span>), <span class='st'>"/extdata/KaKs_Calculator2.0/src/"</span>),
+  <span class='no'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -160,6 +161,10 @@
     <tr>
       <th>kakscalcpath</th>
       <td><p>specify the PATH to the KaKs_Calculator binaries [default: /extdata/KaKs_Calculator2.0/src/]</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>other codon alignment parameters (see <code><a href='cds2codonaln.html'>cds2codonaln</a></code>)</p></td>
     </tr>
     </table>
 
@@ -183,7 +188,10 @@
 <span class='no'>cds1</span> <span class='kw'>&lt;-</span> <span class='no'>ath</span>[<span class='fl'>1</span>]
 <span class='no'>cds2</span> <span class='kw'>&lt;-</span> <span class='no'>aly</span>[<span class='fl'>282</span>]
 <span class='fu'>cds2kaks</span>(<span class='no'>cds1</span>, <span class='no'>cds2</span>, <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"Li"</span>)</div><div class='output co'>#&gt;           ka           ks          vka          vks 
-#&gt; 0.1061722655 0.2628911134 0.0002637032 0.0023637311 </div><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+#&gt; 0.1061722655 0.2628911134 0.0002637032 0.0023637311 </div><div class='input'><span class='co'>#using an alternative substitutionMatrix</span>
+<span class='fu'>cds2kaks</span>(<span class='no'>cds1</span>, <span class='no'>cds2</span>, <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"Li"</span>, <span class='kw'>substitutionMatrix</span> <span class='kw'>=</span> <span class='st'>"BLOSUM45"</span>)</div><div class='output co'>#&gt;           ka           ks          vka          vks 
+#&gt; 0.1070171100 0.2719592468 0.0002625809 0.0024722288 </div><div class='input'><span class='fu'>cds2kaks</span>(<span class='no'>cds1</span>, <span class='no'>cds2</span>, <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"Li"</span>, <span class='kw'>substitutionMatrix</span> <span class='kw'>=</span> <span class='st'>"BLOSUM80"</span>)</div><div class='output co'>#&gt;           ka           ks          vka          vks 
+#&gt; 0.1051449358 0.2596805423 0.0002591963 0.0023557429 </div><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='fu'>cds2kaks</span>(<span class='no'>cds1</span>, <span class='no'>cds2</span>, <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"YN"</span>)
 }</div></pre>
   </div>

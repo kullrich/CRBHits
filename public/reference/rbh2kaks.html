@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CRBHits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
       </span>
     </div>
 
@@ -95,13 +95,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/CRBHitsBasicVignette.html">CRBHits Basic Vignette</a>
+      <a href="../articles/V01CRBHitsBasicVignette.html">CRBHits Basic Vignette</a>
     </li>
     <li>
-      <a href="../articles/WGDVignette.html">Paranome-based Whole Genome Duplication Vignette</a>
+      <a href="../articles/V02dNdSClusteringVignette.html">dNdS Clustering Vignette</a>
     </li>
     <li>
-      <a href="../articles/dNdSClusteringVignette.html">dNdS Clustering Vignette</a>
+      <a href="../articles/V03WGDVignette.html">Paranome-based Whole Genome Duplication Vignette</a>
     </li>
   </ul>
 </li>
@@ -141,7 +141,8 @@
   <span class='no'>cds2</span>,
   <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"Li"</span>,
   <span class='kw'>threads</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>kakscalcpath</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/find.package.html'>find.package</a></span>(<span class='st'>"CRBHits"</span>), <span class='st'>"/extdata/KaKs_Calculator2.0/src/"</span>)
+  <span class='kw'>kakscalcpath</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/find.package.html'>find.package</a></span>(<span class='st'>"CRBHits"</span>), <span class='st'>"/extdata/KaKs_Calculator2.0/src/"</span>),
+  <span class='no'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -153,11 +154,11 @@
     </tr>
     <tr>
       <th>cds1</th>
-      <td><p>cds1 sequences as <code>DNAStringSet</code> or <code>url</code> for first crbhpairs column [mandatory]</p></td>
+      <td><p>cds1 sequences as <code>DNAStringSet</code> or <code>url</code> for first crbh pairs column [mandatory]</p></td>
     </tr>
     <tr>
       <th>cds2</th>
-      <td><p>cds2 sequences as <code>DNAStringSet</code> or <code>url</code> for second crbhpairs column [mandatory]</p></td>
+      <td><p>cds2 sequences as <code>DNAStringSet</code> or <code>url</code> for second crbh pairs column [mandatory]</p></td>
     </tr>
     <tr>
       <th>model</th>
@@ -170,6 +171,10 @@
     <tr>
       <th>kakscalcpath</th>
       <td><p>specify the PATH to the KaKs_Calculator binaries [default: /extdata/KaKs_Calculator2.0/src/]</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>other codon alignment parameters (see <code><a href='cds2codonaln.html'>cds2codonaln</a></code>)</p></td>
     </tr>
     </table>
 

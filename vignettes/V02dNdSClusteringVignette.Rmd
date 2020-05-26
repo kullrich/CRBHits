@@ -19,9 +19,10 @@ knitr::opts_chunk$set(
 ## Table of Contents
 
 1. [Quick Installation](#quickinstall)
-2. [Conditional Reciprocal Best Hits](#crbh)
+2. [Conditional Reciprocal Best Hits](#crbhpairs)
 3. [dN/dS Calculations](#dNdS)
-4. [References](#references)
+4. [dN/dS Clustering](#dNdSClustering)
+5. [References](#references)
 
 [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) is a reimplementation of the Conditional Reciprocal Best Hit algorithm [crb-blast](https://github.com/cboursnell/crb-blast) in R.
 
@@ -52,7 +53,7 @@ make.last()
 make.KaKs_Calculator2()
 ```
 
-1. [Conditional reciprocal best hit pairs](#crbhpairs)
+## 2. [Conditional reciprocal best hit pairs]{#crbhpairs}
 
 To calculate conditional reciprocal best hit pairs between two species, one can directly use an URL to access the coding sequences and calculate the conditional reciprocal best hit pair matrix (crbh).
 
@@ -101,8 +102,7 @@ ath_aly_crbh <- cdsfile2rbh(paste0(ensemblPlants,athfile), paste0(ensemblPlants,
                              qcov = 0.5, rost1999 = TRUE, threads = 8, plotCurve = TRUE)
 ```
 
-2. [ka/ks - dN/dS calculations](#dNdS)
-
+## 3. [dN/dS Calculations]{#dNdS}
 
  model = "Li"
 ```
@@ -128,12 +128,9 @@ ath_aly_crbh.kaks.YN <- rbh2kaks(ath_aly_crbh$crbh.pairs, cds1, cds2, model = "Y
                                  threads = 8)
 ```
 
+## 4. [dN/dS Clustering]{#dNdSClustering}
 
-
-3. [Conditional reciprocal best hit matrix](#crbhmatrix)
-
-
-## References
+## 5. [References]{#references}
 
 Aubry S., Kelly S., Kümpers B. M., Smith-Unna R. D., and Hibberd J. M. (2014). **Deep evolutionary comparison of gene expression identifies parallel recruitment of trans-factors in two independent origins of C4 photosynthesis.** *PLoS genetics*, **10(6)**. [https://doi.org/10.1371/journal.pgen.1004365](https://doi.org/10.1371/journal.pgen.1004365)
 
@@ -154,4 +151,3 @@ Scrucca L., Fop M., Murphy T. B., and Raftery A. E. (2016) **mclust 5: clusterin
 Duong T., and Wand M. (2015). **feature: Local Inferential Feature Significance for Multivariate Kernel Density Estimation.** *R package version 1.2.13*. [https://cran.r-project.org/web/packages/feature/](https://cran.r-project.org/web/packages/feature/) 
 
 Yang Z., and Nielsen R. (2000). **Estimating synonymous and nonsynonymous substitution rates under realistic evolutionary models.** *Molecular biology and evolution*, 17(1), 32-43. [https://doi.org/10.1093/oxfordjournals.molbev.a026236](https://doi.org/10.1093/oxfordjournals.molbev.a026236)
-

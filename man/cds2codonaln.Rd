@@ -19,7 +19,7 @@ cds2codonaln(
 
 \item{cds2}{single sequence \code{DNAStringSet} or \code{DNAString} [mandatory]}
 
-\item{type}{type    type of alignment (see \code{\link[Biostrings]{pairwiseAlignment}}) [default: global]}
+\item{type}{type of alignment (see \code{\link[Biostrings]{pairwiseAlignment}}) [default: global]}
 
 \item{substitutionMatrix}{substitution matrix representing the fixed substitution scores for an alignment (see \code{\link[Biostrings]{pairwiseAlignment}}) [default: BLOSUM62]}
 

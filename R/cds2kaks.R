@@ -5,6 +5,7 @@
 #' @param cds2 single cds2 sequence as \code{DNAStringSet} or \code{DNAString} [mandatory]
 #' @param model specify codon model either "Li" or "YN" [default: Li]
 #' @param kakscalcpath specify the PATH to the KaKs_Calculator binaries [default: /extdata/KaKs_Calculator2.0/src/]
+#' @param ... other codon alignment parameters (see \code{\link[CRBHits]{cds2codonaln}})
 #' @return vector of ka/ks values as specified by \code{seqinr::kaks} or \code{KaKs_Calculator2.0}
 #' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet readDNAStringSet readAAStringSet writeXStringSet width subseq pairwiseAlignment
 #' @importFrom seqinr kaks
@@ -20,6 +21,9 @@
 #' cds1 <- ath[1]
 #' cds2 <- aly[282]
 #' cds2kaks(cds1, cds2, model = "Li")
+#' #using an alternative substitutionMatrix
+#' cds2kaks(cds1, cds2, model = "Li", substitutionMatrix = "BLOSUM45")
+#' cds2kaks(cds1, cds2, model = "Li", substitutionMatrix = "BLOSUM80")
 #' \dontrun{
 #' cds2kaks(cds1, cds2, model = "YN")
 #' }
@@ -28,7 +32,8 @@
 
 cds2kaks <- function(cds1, cds2, model = "Li",
                      kakscalcpath = paste0(find.package("CRBHits"),
-                                           "/extdata/KaKs_Calculator2.0/src/")){
+                                           "/extdata/KaKs_Calculator2.0/src/"),
+                     ...){
   if(model == "YN"){
     if(!dir.exists(kakscalcpath)){stop("Error: KaKs_Calculator2.0 PATH does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make.KaKs_Calculator2() function.")}
     if(!file.exists(paste0(kakscalcpath, "AXTConvertor"))){stop("Error: AXTConvertor binary does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make.KaKs_Calculator2() function.")}
@@ -38,12 +43,12 @@ cds2kaks <- function(cds1, cds2, model = "Li",
   if(class(cds2) == "DNAStringSet" & length(cds2) != 1){stop("Error: cds2 needs to contain only one sequence")}
   if(!model %in% c("Li", "YN")){stop("Error: either choose model 'Li' or 'YN'")}
   if(model == "Li"){
-    cds1.cds2.kaks <- unlist(seqinr::kaks(dnastring2aln(cds2codonaln(cds1, cds2))))
+    cds1.cds2.kaks <- unlist(seqinr::kaks(dnastring2aln(cds2codonaln(cds1, cds2, ...))))
     return(cds1.cds2.kaks)
   }
   if(model == "YN"){
     tmp <- tempfile()
-    tmp.codonaln <- cds2codonaln(cds1, cds2)
+    tmp.codonaln <- cds2codonaln(cds1, cds2, ...)
     #create AXT file for KaKs_Calculator2.0
     sink(tmp)
     cat(paste0(names(tmp.codonaln), collapse="&"), "\n", sep="")

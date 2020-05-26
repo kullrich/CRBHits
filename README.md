@@ -155,9 +155,9 @@ rbh2kaks(., ., model = "YN", kakscalcpath = my.kakspaths)
 
 These vignettes introduce  [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits)
 
-- [CRBHits Basic Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/CRBHitsBasicVignette.html) - Basic Usage of CRBHits
-- [dNdS Clustering Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/dNdSClusteringVignette.html) - dNdS Calculations between two species (*A. thalina* and *A. lyrata*)
-- [Paranome-based Whole Genome Duplication Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/WGDVignette.html) - Selfblast and subsequent WGD prediction (*A. thaliana*)
+- [CRBHits Basic Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V01CRBHitsBasicVignette.html) - Basic Usage of CRBHits
+- [dNdS Clustering Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V02dNdSClusteringVignette.html) - dNdS Calculations between two species (*A. thalina* and *A. lyrata*)
+- [Paranome-based Whole Genome Duplication Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V03WGDVignette.html) - Selfblast and subsequent WGD prediction (*A. thaliana*)
 
 ## Quick-guide
 
@@ -194,7 +194,8 @@ ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh$crbh.pairs[1:20, ],
 ```
 
 ## Todo
-- kaks-clustering
+- dNdSClustering Vignette
+- WGD Vignette
 
 ## License
 

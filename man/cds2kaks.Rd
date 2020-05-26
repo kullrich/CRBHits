@@ -8,7 +8,8 @@ cds2kaks(
   cds1,
   cds2,
   model = "Li",
-  kakscalcpath = paste0(find.package("CRBHits"), "/extdata/KaKs_Calculator2.0/src/")
+  kakscalcpath = paste0(find.package("CRBHits"), "/extdata/KaKs_Calculator2.0/src/"),
+  ...
 )
 }
 \arguments{
@@ -19,6 +20,8 @@ cds2kaks(
 \item{model}{specify codon model either "Li" or "YN" [default: Li]}
 
 \item{kakscalcpath}{specify the PATH to the KaKs_Calculator binaries [default: /extdata/KaKs_Calculator2.0/src/]}
+
+\item{...}{other codon alignment parameters (see \code{\link[CRBHits]{cds2codonaln}})}
 }
 \value{
 vector of ka/ks values as specified by \code{seqinr::kaks} or \code{KaKs_Calculator2.0}
@@ -34,6 +37,9 @@ data("aly", package="CRBHits")
 cds1 <- ath[1]
 cds2 <- aly[282]
 cds2kaks(cds1, cds2, model = "Li")
+#using an alternative substitutionMatrix
+cds2kaks(cds1, cds2, model = "Li", substitutionMatrix = "BLOSUM45")
+cds2kaks(cds1, cds2, model = "Li", substitutionMatrix = "BLOSUM80")
 \dontrun{
 cds2kaks(cds1, cds2, model = "YN")
 }

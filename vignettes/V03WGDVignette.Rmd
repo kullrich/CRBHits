@@ -53,98 +53,13 @@ make.last()
 make.KaKs_Calculator2()
 ```
 
-1. [Conditional reciprocal best hit pairs](#crbhpairs)
+## 2. [Selfblast]{#selfblast}
 
-[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) and its prerequisites needs to be installed (see here for details  [https://mpievolbio-it.pages.gwdg.de/crbhits/](https://mpievolbio-it.pages.gwdg.de/crbhits/)).
+## 3. [dN/dS Calculations]{#dNdS}
 
-```
-library(devtools)
-install_gitlab("mpievolbio-it/crbhits", host = "https://gitlab.gwdg.de")
-make.last()
-make.KaKs_Calculator2()
-```
+## 4. [Paranome-based Whole Genome Duplication prediction]{#paranomeWGD}
 
-To calculate conditional reciprocal best hit pairs between two species, one can directly use an URL to access the coding sequences and calculate the conditional reciprocal best hit pair matrix (crbh).
-
-As an example, here the coding sequences from *Arabidopsis thaliana* and *Arabidopsis lyrata* are used as input sequences from the FTP server from [EnsemblPlants](https://plants.ensembl.org/index.html).
-
-The [release-47](ftp://ftp.ensemblgenomes.org/pub/plants/release-47/fasta/) is used.
-
-```
-library(CRBHits)
-ensemblPlants <- "ftp://ftp.ensemblgenomes.org/pub/plants/release-47/fasta/"
-athfile <- "arabidopsis_thaliana/cds/Arabidopsis_thaliana.TAIR10.cds.all.fa.gz"
-alyfile <- "arabidopsis_lyrata/cds/Arabidopsis_lyrata.v.1.0.cds.all.fa.gz"
-```
-
-The blast-like software [LAST](http://last.cbrc.jp/) is used to compare the translated coding sequences against each other and output a blast-like output table including the query and target length.
-
-Taking the length of the obtained pairwise protein alignment one can calculate for each hit pair the query coverage as $\frac{alignment length}{query length}$.
-
-The data will be filtered with a query coverage of 50\% (`cdsfile2rbh(..., qcov = 0.5)`).
-
-Next to query coverage, the hit pairs will be additionally filtered for the twilight zone of protein sequence alignments according to [Rost B. (1999)](https://academic.oup.com/peds/article/12/2/85/1550637) (`cdsfile2rbh(..., rost1999 = TRUE)`).
-
-The implemented filter uses `equation2` of [Rost B. (1999)](https://academic.oup.com/peds/article/12/2/85/1550637)
-
-$$f(x_{\text{hit pair}}) = \cases {100 \text{ , for } L_{\text{hit pair}} < 11 \\ 480 * L^{-0.32 * (1 + e^{\frac{-L}{1000}})} \text{ , for } L_{\text{hit pair}} <= 450 \\ 19.5 \text{ , for } L_{\text{hit pair}} > 450}$$
-, where $x_{\text{hit pair}}$ is the expected protein identity given the alignemnet length $L_{\text{hit pair}}$. If the actual $pident_{\text{hit pair}} >= f(x_{\text{hit pair}})$ the hit pair is retained.
-
-
-```{r}
-#plot expected pident by alignment length using eq2 from Rost (1999)
-get_pident_by_length <- function(x){
-  eq2 <- function(L){
-    if(L <= 11){return(100)}
-    if(L <= 450){return(480*(L^(-0.32*(1+(exp(-L/1000))))))}
-    if(L > 450){return(19.5)}
-  }
-  return(unlist(lapply(x, eq2)))
-}
-curve(get_pident_by_length, 11, 500, pch = 20, xlab = "alignment length", ylab = "pident",
-      main = "expected protein identity (eq2; Rost B. 1999)")
-```
-
-The conditional reciprocal best hit pairs can be generated with the function `cdsfile2rbh` using multiple threads.
-
-```
-ath_aly_crbh <- cdsfile2rbh(paste0(ensemblPlants,athfile), paste0(ensemblPlants,alyfile),
-                             qcov = 0.5, rost1999 = TRUE, threads = 8, plotCurve = TRUE)
-```
-
-2. [ka/ks - dN/dS calculations](#dNdS)
-
-
- model = "Li"
-```
-cds1 <- Biostrings::readDNAStringSet(paste0(ensemblPlants,athfile))
-cds2 <- Biostrings::readDNAStringSet(paste0(ensemblPlants,alyfile))
-ath_aly_crbh.kaks.Li <- rbh2kaks(ath_aly_crbh$crbh.pairs, cds1, cds2, model = "Li",
-                                 threads = 8)
-```
-
-In some cases the dNdS calculation fails, since e.g. there are no synonymous or nonsynonymous substitutions between cds1 and cds2 or one wants to get rid of high dS values due to substitution saturation. One can easily remove these cases before doing further analysis.
-
-```
-library(magrittr)
-#remove all values that are negative for either ka or ks
-ath_aly_crbh.kaks.Li.red <- ath_aly_crbh.kaks.Li %>%
-  subset(ka != 9.999999) %>% subset(ks != 9.999999)
-```
-
-model = "YN"
-
-```
-ath_aly_crbh.kaks.YN <- rbh2kaks(ath_aly_crbh$crbh.pairs, cds1, cds2, model = "YN",
-                                 threads = 8)
-```
-
-
-
-3. [Conditional reciprocal best hit matrix](#crbhmatrix)
-
-
-## References
+## 5. [References]{#references}
 
 Aubry S., Kelly S., Kümpers B. M., Smith-Unna R. D., and Hibberd J. M. (2014). **Deep evolutionary comparison of gene expression identifies parallel recruitment of trans-factors in two independent origins of C4 photosynthesis.** *PLoS genetics*, **10(6)**. [https://doi.org/10.1371/journal.pgen.1004365](https://doi.org/10.1371/journal.pgen.1004365)
 
@@ -165,4 +80,3 @@ Scrucca L., Fop M., Murphy T. B., and Raftery A. E. (2016) **mclust 5: clusterin
 Duong T., and Wand M. (2015). **feature: Local Inferential Feature Significance for Multivariate Kernel Density Estimation.** *R package version 1.2.13*. [https://cran.r-project.org/web/packages/feature/](https://cran.r-project.org/web/packages/feature/) 
 
 Yang Z., and Nielsen R. (2000). **Estimating synonymous and nonsynonymous substitution rates under realistic evolutionary models.** *Molecular biology and evolution*, 17(1), 32-43. [https://doi.org/10.1093/oxfordjournals.molbev.a026236](https://doi.org/10.1093/oxfordjournals.molbev.a026236)
-

@@ -20,7 +20,7 @@
 #' @param plotCurve specify if crbh fitting curve should be plotted [default: FALSE]
 #' @param fit.type specify if mean or median should be used for fitting [default: mean]
 #' @param fit.varweight factor for fitting function to consider neighborhood [default: 0.1]
-#' @param fit.min specify minimum neighborhood [default: 5]
+#' @param fit.min specify minimum neighborhood alignment length [default: 5]
 #' @param threads number of parallel threads [default: 1]
 #' @param remove specify if last result files should be removed [default: TRUE]
 #' @return List of three (crbh = FALSE)\cr

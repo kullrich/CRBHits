@@ -3,7 +3,7 @@
 #' @description This function takes two single sequence \code{DNAString}'s or two single sequence \code{DNAStringSet}'s, converts them into aa, calculates a global alignment and converts this alignment back into a codonalignment.
 #' @param cds1 single sequence \code{DNAStringSet} or \code{DNAString} [mandatory]
 #' @param cds2 single sequence \code{DNAStringSet} or \code{DNAString} [mandatory]
-#' @param type type	type of alignment (see \code{\link[Biostrings]{pairwiseAlignment}}) [default: global]
+#' @param type type of alignment (see \code{\link[Biostrings]{pairwiseAlignment}}) [default: global]
 #' @param substitutionMatrix substitution matrix representing the fixed substitution scores for an alignment (see \code{\link[Biostrings]{pairwiseAlignment}}) [default: BLOSUM62]
 #' @param gapOpening the cost for opening a gap in the alignment (see \code{\link[Biostrings]{pairwiseAlignment}}) [default: 10]
 #' @param gapExtension the incremental cost incurred along the length of the gap in the alignment (see \code{\link[Biostrings]{pairwiseAlignment}}) [default: 0.5]

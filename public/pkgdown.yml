@@ -2,8 +2,8 @@ pandoc: 2.3.1
 pkgdown: 1.5.1
 pkgdown_sha: ~
 articles:
-  CRBHitsBasicVignette: CRBHitsBasicVignette.html
-  WGDVignette: WGDVignette.html
-  dNdSClusteringVignette: dNdSClusteringVignette.html
-last_built: 2020-05-16T15:39Z
+  V01CRBHitsBasicVignette: V01CRBHitsBasicVignette.html
+  V02dNdSClusteringVignette: V02dNdSClusteringVignette.html
+  V03WGDVignette: V03WGDVignette.html
+last_built: 2020-05-26T14:20Z
 

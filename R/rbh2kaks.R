@@ -2,11 +2,12 @@
 #' @name rbh2kaks
 #' @description This function calculates ka/ks (dN/dS; accoring to \emph{Li (1993)} or \emph{Yang and Nielson (2000)} for each reciprocal best hit pair. The names of the \code{rbh} columns must match the names of the corresponding \code{cds1} and \code{cds2} \code{DNAStringSet} vectors.
 #' @param rbhpairs (conditional-)recirpocal best hit pair matrix [mandatory]
-#' @param cds1 cds1 sequences as \code{DNAStringSet} or \code{url} for first crbhpairs column [mandatory]
-#' @param cds2 cds2 sequences as \code{DNAStringSet} or \code{url} for second crbhpairs column [mandatory]
+#' @param cds1 cds1 sequences as \code{DNAStringSet} or \code{url} for first crbh pairs column [mandatory]
+#' @param cds2 cds2 sequences as \code{DNAStringSet} or \code{url} for second crbh pairs column [mandatory]
 #' @param model specify codon model either "Li" or "YN" [default: Li]
-#' @param kakscalcpath specify the PATH to the KaKs_Calculator binaries [default: /extdata/KaKs_Calculator2.0/src/]
 #' @param threads number of parallel threads [default: 1]
+#' @param kakscalcpath specify the PATH to the KaKs_Calculator binaries [default: /extdata/KaKs_Calculator2.0/src/]
+#' @param ... other codon alignment parameters (see \code{\link[CRBHits]{cds2codonaln}})
 #' @import foreach
 #' @import doMC
 #' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet readDNAStringSet readAAStringSet writeXStringSet width subseq
@@ -28,7 +29,8 @@
 
 rbh2kaks <- function(rbhpairs, cds1, cds2, model = "Li", threads = 1,
                      kakscalcpath = paste0(find.package("CRBHits"),
-                                           "/extdata/KaKs_Calculator2.0/src/")){
+                                           "/extdata/KaKs_Calculator2.0/src/"),
+                     ...){
   if(!model %in% c("Li", "YN")){stop("Error: either choose model 'Li' or 'YN'")}
   #internal function to get cds by name
   get_cds_by_name <- function(x, cds){
@@ -41,7 +43,7 @@ rbh2kaks <- function(rbhpairs, cds1, cds2, model = "Li", threads = 1,
   doMC::registerDoMC(threads)
   i <- NULL
   rbh.kaks <- foreach::foreach(i = seq(from = 1, to = dim(rbhpairs)[1]), .combine = rbind) %dopar% {
-    cds2kaks(get_cds_by_name(rbhpairs[i,1], cds1), get_cds_by_name(rbhpairs[i,2], cds2), model = model, kakscalcpath = kakscalcpath)
+    cds2kaks(get_cds_by_name(rbhpairs[i,1], cds1), get_cds_by_name(rbhpairs[i,2], cds2), model = model, kakscalcpath = kakscalcpath, ...)
   }
   return(cbind(rbhpairs, rbh.kaks))
 }

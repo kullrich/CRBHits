@@ -10,21 +10,24 @@ rbh2kaks(
   cds2,
   model = "Li",
   threads = 1,
-  kakscalcpath = paste0(find.package("CRBHits"), "/extdata/KaKs_Calculator2.0/src/")
+  kakscalcpath = paste0(find.package("CRBHits"), "/extdata/KaKs_Calculator2.0/src/"),
+  ...
 )
 }
 \arguments{
 \item{rbhpairs}{(conditional-)recirpocal best hit pair matrix [mandatory]}
 
-\item{cds1}{cds1 sequences as \code{DNAStringSet} or \code{url} for first crbhpairs column [mandatory]}
+\item{cds1}{cds1 sequences as \code{DNAStringSet} or \code{url} for first crbh pairs column [mandatory]}
 
-\item{cds2}{cds2 sequences as \code{DNAStringSet} or \code{url} for second crbhpairs column [mandatory]}
+\item{cds2}{cds2 sequences as \code{DNAStringSet} or \code{url} for second crbh pairs column [mandatory]}
 
 \item{model}{specify codon model either "Li" or "YN" [default: Li]}
 
 \item{threads}{number of parallel threads [default: 1]}
 
 \item{kakscalcpath}{specify the PATH to the KaKs_Calculator binaries [default: /extdata/KaKs_Calculator2.0/src/]}
+
+\item{...}{other codon alignment parameters (see \code{\link[CRBHits]{cds2codonaln}})}
 }
 \description{
 This function calculates ka/ks (dN/dS; accoring to \emph{Li (1993)} or \emph{Yang and Nielson (2000)} for each reciprocal best hit pair. The names of the \code{rbh} columns must match the names of the corresponding \code{cds1} and \code{cds2} \code{DNAStringSet} vectors.
