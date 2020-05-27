@@ -32,7 +32,7 @@ LAST [@kielbasa2011adaptive]. As described earlier
 [@aubry2014deep; @scott2017shmlast], CRBH builds upon the classical reciprocal 
 best hit (RBH) approach to find additional orthologous sequences between two sets of 
 sequences by fitting an expect-value cutoff per alignment length. Due to 
-evolutinary constraints in most cases protein coding sequences are used and 
+evolutionary constraints in most cases protein coding sequences are used and 
 compared between two species, whereas downstream analysis use RBH to cluster 
 and build orthologous groups like e.g. 
 [OrthoFinder](https://github.com/davidemms/OrthoFinder) [@emms2015orthofinder] 
@@ -41,7 +41,7 @@ and other tools.
 Unfortunately, as mentioned by @scott2017shmlast, the original implementation 
 of CRBH ([crb-blast](https://github.com/cboursnell/crb-blast)) lag improved 
 blast-like search algorithm to speed up the analysis, while 
-[shmlast](https://github.com/camillescott/shmlast) can not deal with IUPAC 
+[shmlast](https://github.com/camillescott/shmlast) cannot deal with IUPAC 
 code so far.
 
 [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) constitutes a new R package to 
@@ -54,7 +54,7 @@ within R with the help of the R package
 Like [shmlast](https://github.com/camillescott/shmlast), 
 [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) plots the fitted model of the 
 CRBH evalue based algorithm. In addition, users can filter the hit pairs prior 
-CRBH fitting for other cirteria like query coverage, protein identity and/or 
+CRBH fitting for other criteria like query coverage, protein identity and/or 
 the twilight zone of protein sequence alignments according to 
 @rost1999twilight. The implemented filter uses equation 2 [see @rost1999twilight]:
 
@@ -64,7 +64,7 @@ $$f(x_{\text{hit pair}}) = \begin{cases}
 19.5 \text{ , for } L_{\text{hit pair}} > 450
 \end{cases}$$
 
-, where $x_{\text{hit pair}}$ is the expected protein identity given the alignemnet length $L_{\text{hit pair}}$. If the actual $pident_{\text{hit pair}} >= f(x_{\text{hit pair}})$ the hit pair is retained for CRBH calculation.
+, where $x_{\text{hit pair}}$ is the expected protein identity given the alignment length $L_{\text{hit pair}}$. If the actual $pident_{\text{hit pair}} \geq f(x_{\text{hit pair}})$, the given hit pair is retained for subsequent CRBH calculation.
 
 In contrast to previous implementations, [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) only take coding nucleotide sequences (CDS) as the query and target inputs and translates them into protein sequences. This is due to the downstream functionality of [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) to directly calculate codon alignments within R, which rely on CDS. Its functions are completely coded in R and only the external prerequisites 
 ([LAST](http://last.cbrc.jp/) and 
@@ -114,7 +114,7 @@ Table: Performance comparison for CRBH and dNdS calculations (Intel Xeon CPU E5-
 
 # Availability
 
-[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) is an open source software made available under the MIT license. It can be installed from its gitlab repository using the devtools package.
+[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) is an open source software made available under the MIT license. It can be installed from its gitlab repository using the [devtools](https://devtools.r-lib.org) package.
 
 ```r
 devtools::install_gitlab("mpievolbio-it/crbhits", 
