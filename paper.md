@@ -53,8 +53,7 @@ within R with the help of the R package
 
 Like [shmlast](https://github.com/camillescott/shmlast), 
 [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) plots the fitted model of the 
-CRBH evalue based algorithm. In addition, users can filter the hit pairs prior 
-CRBH fitting for other criteria like query coverage, protein identity and/or 
+CRBH e-value based algorithm. In addition, users can filter the hit pairs prior to CRBH fitting for other criteria like query coverage, protein identity and/or 
 the twilight zone of protein sequence alignments according to 
 @rost1999twilight. The implemented filter uses equation 2 [see @rost1999twilight]:
 
@@ -64,12 +63,12 @@ $$f(x_{\text{hit pair}}) = \begin{cases}
 19.5 \text{ , for } L_{\text{hit pair}} > 450
 \end{cases}$$
 
-, where $x_{\text{hit pair}}$ is the expected protein identity given the alignment length $L_{\text{hit pair}}$. If the actual $pident_{\text{hit pair}} \geq f(x_{\text{hit pair}})$, the given hit pair is retained for subsequent CRBH calculation.
+where $x_{\text{hit pair}}$ is the expected protein identity given the alignment length $L_{\text{hit pair}}$. If the actual protein identity of a hit pair exceeds the expected protein identity ($pident_{\text{hit pair}} \geq f(x_{\text{hit pair}})$), it is retained for subsequent CRBH calculation.
 
-In contrast to previous implementations, [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) only take coding nucleotide sequences (CDS) as the query and target inputs and translates them into protein sequences. This is due to the downstream functionality of [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) to directly calculate codon alignments within R, which rely on CDS. Its functions are completely coded in R and only the external prerequisites 
+In contrast to previous implementations, [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) only take coding nucleotide sequences (CDS) as the query and target inputs. This is due to the downstream functionality of [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) to directly calculate codon alignments within R, which rely on CDS. The inputs are translated into protein sequences, aligned and converted into codon alignments. Functions are completely coded in R and only the external prerequisites 
 ([LAST](http://last.cbrc.jp/) and 
 [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download)) 
-needs to be compiled. Further, users can create their own filters before CRBH 
+need to be compiled. Further, users can create their own filters before CRBH 
 calculation.
 
 # Functions and Examples
@@ -88,7 +87,7 @@ cds1.cds2.crbh <- cdsfile2rbh(cds1, cds2, plotCurve = TRUE, threads = 4)
 
 ![Accepted secondary reciprocal best hits based on CRBH fitting.\label{fig:crbh}](figure1.png)
 
-The obtained CRBH can further be used to calculate synonymous (dS/ks) and nonsynonymous (dN/ka) substitutions per hit pair using either the model from @li1993unbiased or from @yang2000estimating.
+The obtained CRBH can also be used to calculate synonymous (dS/ks) and nonsynonymous (dN/ka) substitutions per hit pair using either the model from @li1993unbiased or from @yang2000estimating.
 
 ```r
 cds1 <- Biostrings::readDNAStringSet(cds1)
@@ -110,7 +109,7 @@ Table: Performance comparison for CRBH and dNdS calculations (Intel Xeon CPU E5-
 
 # Conclusions
 
-[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) implements CRBH in [R](https://cran.r-project.org/) (see \autoref{fig:crbh}) and further can be used to calculate codon alignment based nucleotide diversities in a multithreaded fashion (see \autoref{tab:performance}).
+[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) implements CRBH in [R](https://cran.r-project.org/) (see \autoref{fig:crbh}) and also can be used to calculate codon alignment based nucleotide diversities in a multithreaded fashion (see \autoref{tab:performance}).
 
 # Availability
 
