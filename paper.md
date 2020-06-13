@@ -34,8 +34,8 @@ analysed to evaluate protein family evolution, infer phylogenetic trees and to a
 protein function [@altenhoff2019inferring]. The initial sequence search step is classically 
 performed with the Basic Local Alignment Search Tool (blast) [@altschul1990basic] and due to 
 evolutionary constraints, in most cases protein coding sequences are compared between two 
-species. Downstream analysis use the resulting RBH to cluster sequence pairs and build so-
-called orthologous groups like e.g. [OrthoFinder](https://github.com/davidemms/OrthoFinder) 
+species. Downstream analysis use the resulting RBH to cluster sequence pairs and build so-called 
+orthologous groups like e.g. [OrthoFinder](https://github.com/davidemms/OrthoFinder) 
 [@emms2015orthofinder] and other tools.
 
 The CRBH algorithm was introduced by @aubry2014deep and builds upon the traditional 
