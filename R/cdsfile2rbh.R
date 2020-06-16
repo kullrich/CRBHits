@@ -94,7 +94,7 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
       if(s < fit.min){s <- fit.min}
       smin <- i - s
       smax <- i + s
-      s.idx <- which(x[,1] >= smin & x[,1] <= smax)
+      s.idx <- base::which(x[,1] >= smin & x[,1] <= smax)
       if(length(s.idx) == 0){s.value <- 0}
       if(length(s.idx) != 0){
         if(fit.type == "mean"){
@@ -183,8 +183,8 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
   aa1_aa2.dedup.idx <- paste0(aa1_aa2.dedup[, 1], "\t" , aa1_aa2.dedup[, 2])
   aa2_aa1.dedup.idx <- paste0(aa2_aa1.dedup[, 2], "\t" , aa2_aa1.dedup[, 1])
   #reduce to reciprocal best hits
-  rbh1 <- aa1_aa2.dedup[which(aa1_aa2.dedup.idx %in% aa2_aa1.dedup.idx), , drop = FALSE]
-  rbh2 <- aa2_aa1.dedup[which(aa2_aa1.dedup.idx %in% aa1_aa2.dedup.idx), , drop = FALSE]
+  rbh1 <- aa1_aa2.dedup[base::which(aa1_aa2.dedup.idx %in% aa2_aa1.dedup.idx), , drop = FALSE]
+  rbh2 <- aa2_aa1.dedup[base::which(aa2_aa1.dedup.idx %in% aa1_aa2.dedup.idx), , drop = FALSE]
   if(selfblast){
     rbh1 <- rbh1[!duplicated(apply(rbh1[, 1:2], 1, function(x) paste0(sort(x), collapse="\t"))), , drop = FALSE]
     rbh2 <- rbh2[!duplicated(apply(rbh2[, 1:2], 1, function(x) paste0(sort(x), collapse="\t"))), , drop = FALSE]
@@ -246,14 +246,14 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
     #split into reciprocal direction secondary hits (rbh.sec) and single direction (single)
     aa1_aa2.red.dedup.idx <- paste0(aa1_aa2.red.dedup[, 1], "\t" , aa1_aa2.red.dedup[, 2])
     aa2_aa1.red.dedup.idx <- paste0(aa2_aa1.red.dedup[, 2], "\t" , aa2_aa1.red.dedup[, 1])
-    rbh1.sec <- aa1_aa2.red.dedup[which(aa1_aa2.red.dedup.idx %in% aa2_aa1.red.dedup.idx), , drop = FALSE]
-    rbh2.sec <- aa2_aa1.red.dedup[which(aa2_aa1.red.dedup.idx %in% aa1_aa2.red.dedup.idx), , drop = FALSE]
+    rbh1.sec <- aa1_aa2.red.dedup[base::which(aa1_aa2.red.dedup.idx %in% aa2_aa1.red.dedup.idx), , drop = FALSE]
+    rbh2.sec <- aa2_aa1.red.dedup[base::which(aa2_aa1.red.dedup.idx %in% aa1_aa2.red.dedup.idx), , drop = FALSE]
     if(selfblast){
       rbh1.sec <- rbh1.sec[!duplicated(apply(rbh1.sec[, 1:2], 1, function(x) paste0(sort(x), collapse="\t"))), , drop = FALSE]
       rbh2.sec <- rbh2.sec[!duplicated(apply(rbh2.sec[, 1:2], 1, function(x) paste0(sort(x), collapse="\t"))), , drop = FALSE]
     }
-    single1 <- aa1_aa2.red.dedup[which(!aa1_aa2.red.dedup.idx %in% aa2_aa1.red.dedup.idx), , drop = FALSE]
-    single2 <- aa2_aa1.red.dedup[which(!aa2_aa1.red.dedup.idx %in% aa1_aa2.red.dedup.idx), , drop = FALSE]
+    single1 <- aa1_aa2.red.dedup[base::which(!aa1_aa2.red.dedup.idx %in% aa2_aa1.red.dedup.idx), , drop = FALSE]
+    single2 <- aa2_aa1.red.dedup[base::which(!aa2_aa1.red.dedup.idx %in% aa1_aa2.red.dedup.idx), , drop = FALSE]
     #if plotCurve plot fitting
     if(plotCurve){
       len <- rbh1[, 4]
