@@ -15,6 +15,7 @@ Depends:
   R (>= 3.6.0)
 Imports:
   Biostrings,
+  BiocGenerics,
   seqinr,
   foreach,
   doMC,
