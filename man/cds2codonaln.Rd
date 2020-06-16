@@ -45,8 +45,7 @@ cds2codonaln(cds1, cds2)
 Pagès, H et al. (2014) Biostrings: Efficient manipulation of biological strings. \emph{R package version}, \bold{2(0)}.
 }
 \seealso{
-\code{\link[Biostrings]{pairwiseAlignment}},
-\code{\link[Biostrings]{substitution.matrices}}
+\code{\link[Biostrings]{pairwiseAlignment}}
 }
 \author{
 Kristian K Ullrich

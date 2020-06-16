@@ -13,8 +13,7 @@ makePostalignedSeqs(x)
 This function is a fork from an internal function from \code{Biostrings}
 }
 \seealso{
-\code{\link[Biostrings]{pairwiseAlignment}},
-\code{\link[Biostrings]{substitution.matrices}}
+\code{\link[Biostrings]{pairwiseAlignment}}
 }
 \author{
 Kristian K Ullrich

@@ -5,7 +5,7 @@
 #' @docType data
 #' @usage data(ath)
 #' @format an object of class \code{DNAStringSet}
-#' see \code{\link[Biostrings]{DNAStringSet}}
+#' see \code{\link[Biostrings]{XStringSet}}
 #' @keywords datasets
 #' @examples
 #' data("ath", package="CRBHits")

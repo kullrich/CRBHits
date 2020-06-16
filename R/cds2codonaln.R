@@ -11,8 +11,7 @@
 #' @return codon alignment as \code{DNAStringSet}
 #' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet readDNAStringSet readAAStringSet writeXStringSet width subseq pairwiseAlignment
 #' @references Pagès, H et al. (2014) Biostrings: Efficient manipulation of biological strings. \emph{R package version}, \bold{2(0)}.
-#' @seealso \code{\link[Biostrings]{pairwiseAlignment}},
-#' \code{\link[Biostrings]{substitution.matrices}}
+#' @seealso \code{\link[Biostrings]{pairwiseAlignment}}
 #' @examples
 #' ##define two cds sequences
 #' cds1 <- Biostrings::DNAString("ATGCAACATTGC")

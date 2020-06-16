@@ -7,7 +7,7 @@
 \title{ath-data}
 \format{
 an object of class \code{DNAStringSet}
-see \code{\link[Biostrings]{DNAStringSet}}
+see \code{\link[Biostrings]{XStringSet}}
 }
 \usage{
 data(ath)
