@@ -5,7 +5,7 @@
 #' @return \code{AAStringSet}
 #' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet readDNAStringSet readAAStringSet writeXStringSet width subseq
 #' @importFrom seqinr translate
-#' @seealso \code{\link[Biostrings]{XStringSet}},
+#' @seealso \code{\link[Biostrings]{XStringSet-class}},
 #' \code{\link[seqinr]{translate}}
 #' @examples
 #' ##load example sequence data

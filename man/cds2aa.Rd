@@ -21,7 +21,7 @@ data("ath", package="CRBHits")
 cds2aa(ath)
 }
 \seealso{
-\code{\link[Biostrings]{XStringSet}},
+\code{\link[Biostrings]{XStringSet-class}},
 \code{\link[seqinr]{translate}}
 }
 \author{
