@@ -5,6 +5,7 @@
 #' @return \code{AAStringSet}
 #' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet readDNAStringSet readAAStringSet writeXStringSet width subseq
 #' @importFrom seqinr translate
+#' @importFrom BiocGenerics which
 #' @seealso \code{\link[Biostrings]{XStringSet-class}},
 #' \code{\link[seqinr]{translate}}
 #' @examples
@@ -19,7 +20,7 @@ cds2aa <- function(cds){
   if(!is.null(names(cds))){
     names(cds) <- unlist(lapply(strsplit(names(cds), " "), function(x) x[1]))
   }
-  cds_not_multiple_of_three.idx <- base::which(Biostrings::width(cds) %% 3 != 0)
+  cds_not_multiple_of_three.idx <- BiocGenerics::which(Biostrings::width(cds) %% 3 != 0)
   if(length(cds_not_multiple_of_three.idx) > 0){
     cds_not_multiple_of_three <- cds[cds_not_multiple_of_three.idx]
     cds <- cds[-cds_not_multiple_of_three.idx]

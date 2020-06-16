@@ -10,7 +10,7 @@ dnastring2aln(dna)
 \item{dna}{\code{DNAStringSet} [mandatory]}
 }
 \value{
-An object of class \code{alignemnt} which is a list with the following components:\cr
+An object of class \code{alignment} which is a list with the following components:\cr
 \code{nb} the number of aligned sequences\cr
 \code{nam} a vector of strings containing the names of the aligned sequences\cr
 \code{seq} a vector of strings containing the aligned sequences\cr

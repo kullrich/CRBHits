@@ -2,7 +2,7 @@
 #' @name dnastring2aln
 #' @description This function converts a \code{DNAStringSet} into an \code{seqinr} \code{alignment}.
 #' @param dna \code{DNAStringSet} [mandatory]
-#' @return An object of class \code{alignemnt} which is a list with the following components:\cr
+#' @return An object of class \code{alignment} which is a list with the following components:\cr
 #' \code{nb} the number of aligned sequences\cr
 #' \code{nam} a vector of strings containing the names of the aligned sequences\cr
 #' \code{seq} a vector of strings containing the aligned sequences\cr
