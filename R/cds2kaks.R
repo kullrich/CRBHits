@@ -57,6 +57,11 @@ cds2kaks <- function(cds1, cds2, model = "Li",
     sink(NULL)
     system(paste0(kakscalcpath, "KaKs_Calculator -i ", tmp, " -o ", tmp, ".YN -m YN"), ignore.stdout = TRUE, ignore.stderr = TRUE)
     cds1.cds2.kaks <- unlist(strsplit(readLines(paste0(tmp, ".YN"))[2], "\t"))
+    names(cds1.cds2.kaks) <- c("Sequence", "Method", "ka", "ks", "ka/ks", "pValue",
+                 "Length", "SSites", "NSites", "FoldSites",  "Substitutions",
+                 "SSubstitutions", "NSubstitutions", "FoldSSubstitutions",
+                 "FoldNSubstitutions", "DivergenceTime", "SubstitutionRateRatio",
+                 "GC", "MLScore", "AICc", "AkaikeWeight", "Model")
     system(paste0("rm ", tmp))
     system(paste0("rm ", tmp, ".YN"))
     return(cds1.cds2.kaks)
