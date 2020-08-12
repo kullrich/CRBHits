@@ -20,21 +20,28 @@ bioc_packages:
 
 matrix:
   include:
-    - os: linux
+    - name: linux-bionic-r-release
+      os: linux
       dist: bionic
-      r:
-        - release
-        - devel
+      r: release
       before_install:
         - sudo apt-get update
         - sudo apt-get -y install libcurl4-openssl-dev libssl-dev libxml2-dev pandoc libglu1-mesa-dev
       before_script:
         - R -e "sessionInfo()"
-    - os: osx
+    - name: linux-bionic-r-devel
+      os: linux
+      dist: bionic
+      r: devel
+      before_install:
+        - sudo apt-get update
+        - sudo apt-get -y install libcurl4-openssl-dev libssl-dev libxml2-dev pandoc libglu1-mesa-dev
+      before_script:
+        - R -e "sessionInfo()"
+    - name: osx-xcode12-r-release
+      os: osx
       osx_image: xcode12
-      r:
-        - release
-        - devel
+      r: release
       addons:
         homebrew:
           packages:
