@@ -2,10 +2,6 @@ language: r
 cache: packages
 warnings_are_errors: true
 
-r:
-  - release
-  - devel
-
 r_packages:
   - devtools
   - testthat
@@ -26,6 +22,9 @@ matrix:
   include:
     - os: linux
       dist: bionic
+      r:
+        - release
+        - devel
       before_install:
         - sudo apt-get update
         - sudo apt-get -y install libcurl4-openssl-dev libssl-dev libxml2-dev pandoc libglu1-mesa-dev
@@ -33,6 +32,9 @@ matrix:
         - R -e "sessionInfo()"
     - os: osx
       osx_image: xcode12
+      r:
+        - release
+        - devel
       addons:
         homebrew:
           packages:
