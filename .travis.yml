@@ -1,18 +1,11 @@
 language: r
 cache: packages
 warnings_are_errors: true
-bioc_required: true
-bioc_packages:
-   - DelayedArray
-   - BiocGenerics
-   - Biostrings
-os: linux
-dist: bionic
-before_install:
-  - sudo apt-get update
-  - sudo apt-get -y install libcurl4-openssl-dev libssl-dev libxml2-dev pandoc libglu1-mesa-dev
-before_script:
-  - R -e "sessionInfo()"
+
+r:
+  - release
+  - devel
+
 r_packages:
   - devtools
   - testthat
@@ -22,6 +15,29 @@ r_packages:
   - magrittr
   - mclust
   - feature
-r:
-  - release
-  - devel
+
+bioc_required: true
+bioc_packages:
+   - DelayedArray
+   - BiocGenerics
+   - Biostrings
+
+matrix:
+  include:
+    - os: linux
+      dist: bionic
+      before_install:
+        - sudo apt-get update
+        - sudo apt-get -y install libcurl4-openssl-dev libssl-dev libxml2-dev pandoc libglu1-mesa-dev
+      before_script:
+        - R -e "sessionInfo()"
+  - os: osx
+    osx_image: xcode12
+    addons:
+      homebrew:
+        packages:
+          - curl
+          - openssl
+          - xml2
+          - mesa
+  - os: windwos

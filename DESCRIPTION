@@ -1,5 +1,5 @@
 Package: CRBHits
-Title: CRBHits calculates conditional reciprocal best hits and subsequently can generate dNdS values
+Title: Conditional reciprocal best hits in R
 Version: 0.0.1
 Authors@R: 
     person(given = "Kristian K",
@@ -7,7 +7,8 @@ Authors@R:
            role = c("aut", "cre"),
            email = "ullrich@evolbio.mpg.de",
            comment = c(ORCID = "https://orcid.org/0000-0003-4308-9626"))
-Description: What the package does (one paragraph).
+Maintainer: Kristian K Ullrich <ullrich@evolbio.mpg.de>
+Description: CRBHits calculates conditional reciprocal best hits and subsequently can generate dNdS values.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -27,7 +28,8 @@ Suggests:
   devtools,
   testthat
 VignetteBuilder: knitr
-NeedsCompilation: no
-URL: https://gitlab.gwdg.de/mpievolbio-it/crbhits
+NeedsCompilation: yes
+SystemRequirements: LAST, KaKs_Calculator2.0, GNU make, libcurl (deb: libcurl4-openssl-dev or CentOS: libcurl-devel), openssl (deb: libssl-dev or CentOS: openssl-devel), libxml2 (deb: libxml2-dev or CentOS: libxml2-devel), libGLU (deb: libglu1-mesa-dev or CentOS: mesa-libGLU-devel)
+URL: https://gitlab.gwdg.de/mpievolbio-it/crbhits, https://mpievolbio-it.pages.gwdg.de/crbhits/
 BugReports: https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues
 RoxygenNote: 7.1.0
