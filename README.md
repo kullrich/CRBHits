@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.com/kullrich/CRBHits.svg?token=CdAqxcdzRKt5DsRtbcmR&branch=master)](https://travis-ci.com/kullrich/CRBHits)
 [![pipeline status](https://gitlab.gwdg.de/mpievolbio-it/crbhits/badges/master/pipeline.svg)](https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/commits/master)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
 
 CRBHits - Conditional Reciprocal Best Hits in R
 =========
@@ -211,11 +212,19 @@ GNU General Public License Version 3, 29 June 2007 [GPLv3](https://www.gnu.org/l
 
 The toolkit is freely available (licensed under [GPLv3](https://www.gnu.org/licenses/gpl-3.0.de.html)) online at [https://sourceforge.net/projects/kakscalculator2/](https://sourceforge.net/projects/kakscalculator2/).
 
+## Contributing Code
+
 ## Bug reports
 
 Please report any errors or requests regarding [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) to Kristian Ullrich (ullrich@evolbio.mpg.de)
 
 or use the issue tracker at [https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues](https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues)
+
+## Code Code of Conduct - Participation guidelines
+
+This repository adhere to [Contributor Covenant](http://contributor-covenant.org) code of conduct for in any ininteractions you have within this project.
+
+See also the policy against sexualized discremination, harassment and violence for the Max Planck Society [Code-of-Conduct](https://www.mpg.de/11961177/code-of-conduct-en.pdf).
 
 ## References
 
