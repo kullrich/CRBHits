@@ -221,9 +221,9 @@ Please report any errors or requests regarding [CRBHits](https://gitlab.gwdg.de/
 
 or use the issue tracker at [https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues](https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues)
 
-## Code Code of Conduct - Participation guidelines
+## Code of Conduct - Participation guidelines
 
-This repository adhere to [Contributor Covenant](http://contributor-covenant.org) code of conduct for in any ininteractions you have within this project.
+This repository adhere to [Contributor Covenant](http://contributor-covenant.org) code of conduct for in any interactions you have within this project. (see [Code of Conduct](https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/blob/master/CODE_OF_CONDUCT.md))
 
 See also the policy against sexualized discremination, harassment and violence for the Max Planck Society [Code-of-Conduct](https://www.mpg.de/11961177/code-of-conduct-en.pdf).
 
