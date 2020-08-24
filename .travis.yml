@@ -20,7 +20,7 @@ bioc_packages:
 
 matrix:
   include:
-      - name: linux-focal-r-release
+    - name: linux-focal-r-release
       os: linux
       dist: focal
       r: release
