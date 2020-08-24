@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 ## Table of Contents
 
-1. [Quick Installation](#quickinstall)
+1. [Installation](#install)
 2. [Conditional Reciprocal Best Hits](#crbh)
     1. [Conditional Reciprocal Best Hits - Algorithm](#crbhalgorithm)
     2. [Coding Sequences Input](#input)
@@ -34,7 +34,7 @@ knitr::opts_chunk$set(
 
 [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) is a reimplementation of the Conditional Reciprocal Best Hit algorithm [crb-blast](https://github.com/cboursnell/crb-blast) in R.
 
-## 1. [Quick Installation]{#quickinstall}
+## 1. [Installation]{#install}
 
 see here for the R package pages and a detailed description of the install process [https://mpievolbio-it.pages.gwdg.de/crbhits/](https://mpievolbio-it.pages.gwdg.de/crbhits/)
 

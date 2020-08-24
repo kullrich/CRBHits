@@ -215,6 +215,14 @@ The toolkit is freely available (licensed under [GPLv3](https://www.gnu.org/lice
 
 ## Contributing Code
 
+If you would like to contribute to CRBHits, please file an issue so that one can establish a statement of need, avoid redundant work, and track progress on your contribution.
+
+Before you do a pull request, you should always file an issue and make sure that someone from the CRBHits developer team agrees that it’s a problem, and is happy with your basic proposal for fixing it.
+
+Once an issue has been filed and we've identified how to best orient your contribution with package development as a whole, [fork](http://help.github.com/fork-a-repo/) the [main repo](https://gitlab.gwdg.de/mpievolbio-it/crbhits.git), branch off a [feature branch](https://www.google.com/search?q=git+feature+branches) from `master`, [commit](http://git-scm.com/docs/git-commit) and [push](http://git-scm.com/docs/git-push) your changes to your fork and submit a [pull request](http://help.github.com/send-pull-requests/) for `CRBHits:master`.
+
+By contributing to this project, you agree to abide by the Code of Conduct terms.
+
 ## Bug reports
 
 Please report any errors or requests regarding [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) to Kristian Ullrich (ullrich@evolbio.mpg.de)
@@ -226,6 +234,8 @@ or use the issue tracker at [https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues
 This repository adhere to [Contributor Covenant](http://contributor-covenant.org) code of conduct for in any interactions you have within this project. (see [Code of Conduct](https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/blob/master/CODE_OF_CONDUCT.md))
 
 See also the policy against sexualized discremination, harassment and violence for the Max Planck Society [Code-of-Conduct](https://www.mpg.de/11961177/code-of-conduct-en.pdf).
+
+By contributing to this project, you agree to abide by its terms.
 
 ## References
 
