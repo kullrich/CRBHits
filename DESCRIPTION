@@ -32,4 +32,4 @@ NeedsCompilation: yes
 SystemRequirements: LAST, KaKs_Calculator2.0, GNU make, libcurl (deb: libcurl4-openssl-dev or CentOS: libcurl-devel), openssl (deb: libssl-dev or CentOS: openssl-devel), libxml2 (deb: libxml2-dev or CentOS: libxml2-devel), libGLU (deb: libglu1-mesa-dev or CentOS: mesa-libGLU-devel)
 URL: https://gitlab.gwdg.de/mpievolbio-it/crbhits, https://mpievolbio-it.pages.gwdg.de/crbhits/
 BugReports: https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1

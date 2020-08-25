@@ -6,7 +6,7 @@ tags:
   - conditional reciprocal best hit
   - codon alignment
   - dN/dS
-  - ka/ks
+  - Ka/Ks
 authors:
   - name: Kristian K Ullrich
     orcid: 0000-0003-4308-9626
@@ -14,7 +14,7 @@ authors:
 affiliations:
  - name: Max Planck Institute for Evolutionary Biology, Scientific IT group, August Thienemann Str. 2, 24306 Plön
    index: 1
-date: 5 May 2020
+date: 25 Aug 2020
 bibliography: paper.bib
 
 ---
@@ -59,11 +59,11 @@ filter steps [@rost1999twilight] and the possibility to apply custom filters.
 
 # Downstream functionalities
 
-Calculating synonymous (dS) and nonsynonymous substitutions (dN) per orthologous sequence 
-pair is a common task for evolutionary biologists, since its ratio dN/dS can be used as an 
+Calculating synonymous (Ks) and nonsynonymous substitutions (Ka) per orthologous sequence 
+pair is a common task for evolutionary biologists, since its ratio Ka/Ks can be used as an 
 indicator of selective pressure acting on a protein [@kryazhimskiy2008population]. However, 
 this task is computational more demanding and consist of at least two steps, namely 
-codon sequence alignment creation and dN/dS calculation. Further, the codon sequence alignment 
+codon sequence alignment creation and Ka/Ks calculation. Further, the codon sequence alignment 
 step consist of three subtasks, namely coding nucleotide to protein sequence translation, 
 pairwise protein sequence alignment calculation and converting the protein 
 sequence alignment back into a codon based alignment.
@@ -121,7 +121,7 @@ cds1.cds2.crbh <- cdsfile2rbh(cds1, cds2, plotCurve = TRUE, threads = 4)
 
 ![Accepted secondary reciprocal best hits based on CRBH fitting.\label{fig:crbh}](figure1.png)
 
-The obtained CRBH can also be used to calculate synonymous (dS/ks) and nonsynonymous (dN/ka) substitutions per hit pair using either the model from @li1993unbiased or from @yang2000estimating.
+The obtained CRBH can also be used to calculate synonymous (Ks) and nonsynonymous (Ka) substitutions per hit pair using either the model from @li1993unbiased or from @yang2000estimating.
 
 ```r
 cds1 <- Biostrings::readDNAStringSet(cds1)
@@ -133,7 +133,7 @@ cds1.cds2.kaks.YN <- rbh2kaks(cds1.cds2.crbh$crbh.pairs, cds1, cds2,
                               model = "YN", threads = 4)
 ```
 
-Table: Performance comparison for CRBH and dN/dS calculations (Intel Xeon CPU E5-2620 v3 @ 2.40GHz; 3575 hit pairs).\label{tab:performance}
+Table: Performance comparison for CRBH and Ka/Ks calculations (Intel Xeon CPU E5-2620 v3 @ 2.40GHz; 3575 hit pairs).\label{tab:performance}
 
 | Number of Threads | 1 | 2 | 4 | 8 |
 | - | - | - | - | - | 

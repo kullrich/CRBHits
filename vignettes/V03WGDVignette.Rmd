@@ -18,48 +18,22 @@ knitr::opts_chunk$set(
 
 ## Table of Contents
 
-1. [Quick Installation](#quickinstall)
-2. [Selfblast](#selfblast)
-3. [dN/dS Calculations](#dNdS)
-4. [Paranome-based Whole Genome Duplication prediction](#paranomeWGD)
-5. [References](#references)
+1. [Selfblast](#selfblast)
+2. [dN/dS Calculations](#dNdS)
+3. [Paranome-based Whole Genome Duplication prediction](#paranomeWGD)
+4. [References](#references)
 
 [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) is a reimplementation of the Conditional Reciprocal Best Hit algorithm [crb-blast](https://github.com/cboursnell/crb-blast) in R.
 
-## 1. [Quick Installation]{#quickinstall}
+See the R package page for a detailed description of the install process and its dependencies [https://mpievolbio-it.pages.gwdg.de/crbhits/](https://mpievolbio-it.pages.gwdg.de/crbhits/) or have a look at the basic vignette.
 
-see here for the R package pages and a detailed description of the install process [https://mpievolbio-it.pages.gwdg.de/crbhits/](https://mpievolbio-it.pages.gwdg.de/crbhits/)
+## 1. [Selfblast]{#selfblast}
 
-```
-#see a detailed description of installation prerequisites at
-#https://mpievolbio-it.pages.gwdg.de/crbhits/
-library(devtools)
-#from gitlab
-install_gitlab("mpievolbio-it/crbhits", host = "https://gitlab.gwdg.de",
-               build_vignettes = TRUE, dependencies = FALSE)
-#from github
-install_github("kullrich/CRBHits", build_vignettes = TRUE, dependencies = FALSE)
-```
+## 2. [dN/dS Calculations]{#dNdS}
 
-[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) needs [LAST](http://last.cbrc.jp/) and [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download) to be installed before one can eficiently use it.
+## 3. [Paranome-based Whole Genome Duplication prediction]{#paranomeWGD}
 
-Both prerequisites (LAST, KaKs_Calculator2.0) are forked within [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) and can be compiled for Linux/Unix/macOS wiht the functions `make.last()` and `make.KaKs_Calculator2()`.
-
-```
-library(CRBHits)
-#compile last-1060
-make.last()
-#compile KaKs_Calculator2.0
-make.KaKs_Calculator2()
-```
-
-## 2. [Selfblast]{#selfblast}
-
-## 3. [dN/dS Calculations]{#dNdS}
-
-## 4. [Paranome-based Whole Genome Duplication prediction]{#paranomeWGD}
-
-## 5. [References]{#references}
+## 4. [References]{#references}
 
 Aubry S., Kelly S., Kümpers B. M., Smith-Unna R. D., and Hibberd J. M. (2014). **Deep evolutionary comparison of gene expression identifies parallel recruitment of trans-factors in two independent origins of C4 photosynthesis.** *PLoS genetics*, **10(6)**. [https://doi.org/10.1371/journal.pgen.1004365](https://doi.org/10.1371/journal.pgen.1004365)
 

@@ -12,10 +12,26 @@
 
 <meta name="author" content="Kristian K Ullrich" />
 
-<meta name="date" content="2020-05-26" />
+<meta name="date" content="2020-08-25" />
 
 <title>Paranome-based Whole Genome Duplication Vignette</title>
 
+<script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
+// v0.0.1
+// Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
+
+document.addEventListener('DOMContentLoaded', function() {
+  const codeList = document.getElementsByClassName("sourceCode");
+  for (var i = 0; i < codeList.length; i++) {
+    var linkList = codeList[i].getElementsByTagName('a');
+    for (var j = 0; j < linkList.length; j++) {
+      if (linkList[j].innerHTML === "") {
+        linkList[j].setAttribute('aria-hidden', 'true');
+      }
+    }
+  }
+});
+</script>
 
 
 
@@ -215,51 +231,32 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">Paranome-based Whole Genome Duplication Vignette</h1>
 <h4 class="author">Kristian K Ullrich</h4>
-<h4 class="date">2020-05-26</h4>
+<h4 class="date">2020-08-25</h4>
 
 
 
 <div id="table-of-contents" class="section level2">
 <h2>Table of Contents</h2>
 <ol style="list-style-type: decimal">
-<li><a href="#quickinstall">Quick Installation</a></li>
 <li><a href="#selfblast">Selfblast</a></li>
 <li><a href="#dNdS">dN/dS Calculations</a></li>
 <li><a href="#paranomeWGD">Paranome-based Whole Genome Duplication prediction</a></li>
 <li><a href="#references">References</a></li>
 </ol>
 <p><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> is a reimplementation of the Conditional Reciprocal Best Hit algorithm <a href="https://github.com/cboursnell/crb-blast">crb-blast</a> in R.</p>
-</div>
-<div id="quick-installation" class="section level2">
-<h2>1. <span id="quickinstall">Quick Installation</span></h2>
-<p>see here for the R package pages and a detailed description of the install process <a href="https://mpievolbio-it.pages.gwdg.de/crbhits/">https://mpievolbio-it.pages.gwdg.de/crbhits/</a></p>
-<pre><code>#see a detailed description of installation prerequisites at
-#https://mpievolbio-it.pages.gwdg.de/crbhits/
-library(devtools)
-#from gitlab
-install_gitlab(&quot;mpievolbio-it/crbhits&quot;, host = &quot;https://gitlab.gwdg.de&quot;,
-               build_vignettes = TRUE, dependencies = FALSE)
-#from github
-install_github(&quot;kullrich/CRBHits&quot;, build_vignettes = TRUE, dependencies = FALSE)</code></pre>
-<p><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> needs <a href="http://last.cbrc.jp/">LAST</a> and <a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download">KaKs_Calculator2.0</a> to be installed before one can eficiently use it.</p>
-<p>Both prerequisites (LAST, KaKs_Calculator2.0) are forked within <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> and can be compiled for Linux/Unix/macOS wiht the functions <code>make.last()</code> and <code>make.KaKs_Calculator2()</code>.</p>
-<pre><code>library(CRBHits)
-#compile last-1060
-make.last()
-#compile KaKs_Calculator2.0
-make.KaKs_Calculator2()</code></pre>
+<p>See the R package page for a detailed description of the install process and its dependencies <a href="https://mpievolbio-it.pages.gwdg.de/crbhits/">https://mpievolbio-it.pages.gwdg.de/crbhits/</a> or have a look at the basic vignette.</p>
 </div>
 <div id="selfblast" class="section level2">
-<h2>2. <span id="selfblast">Selfblast</span></h2>
+<h2>1. <span id="selfblast">Selfblast</span></h2>
 </div>
 <div id="dnds-calculations" class="section level2">
-<h2>3. <span id="dNdS">dN/dS Calculations</span></h2>
+<h2>2. <span id="dNdS">dN/dS Calculations</span></h2>
 </div>
 <div id="paranome-based-whole-genome-duplication-prediction" class="section level2">
-<h2>4. <span id="paranomeWGD">Paranome-based Whole Genome Duplication prediction</span></h2>
+<h2>3. <span id="paranomeWGD">Paranome-based Whole Genome Duplication prediction</span></h2>
 </div>
 <div id="references" class="section level2">
-<h2>5. <span id="references">References</span></h2>
+<h2>4. <span id="references">References</span></h2>
 <p>Aubry S., Kelly S., Kümpers B. M., Smith-Unna R. D., and Hibberd J. M. (2014). <strong>Deep evolutionary comparison of gene expression identifies parallel recruitment of trans-factors in two independent origins of C4 photosynthesis.</strong> <em>PLoS genetics</em>, <strong>10(6)</strong>. <a href="https://doi.org/10.1371/journal.pgen.1004365">https://doi.org/10.1371/journal.pgen.1004365</a></p>
 <p>Charif D., and Lobry J. R. (2007). <strong>SeqinR 1.0-2: a contributed package to the R project for statistical computing devoted to biological sequences retrieval and analysis.</strong> <em>In Structural approaches to sequence evolution</em> (pp. 207-232). Springer, Berlin, Heidelberg. <a href="https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10">https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10</a></p>
 <p>Kiełbasa S. M., Wan R., Sato K., Horton P., and Frith M. C. (2011). <strong>Adaptive seeds tame genomic sequence comparison.</strong> <em>Genome research</em>, 21(3), 487-493. <a href="https://doi.org/10.1101/gr.113985.110">https://doi.org/10.1101/gr.113985.110</a></p>

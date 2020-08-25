@@ -36,7 +36,7 @@ knitr::opts_chunk$set(
 
 ## 1. [Installation]{#install}
 
-see here for the R package pages and a detailed description of the install process [https://mpievolbio-it.pages.gwdg.de/crbhits/](https://mpievolbio-it.pages.gwdg.de/crbhits/)
+See the R package page for a detailed description of the install process and its dependencies [https://mpievolbio-it.pages.gwdg.de/crbhits/](https://mpievolbio-it.pages.gwdg.de/crbhits/).
 
 ```
 #see a detailed description of installation prerequisites at
@@ -49,13 +49,15 @@ install_gitlab("mpievolbio-it/crbhits", host = "https://gitlab.gwdg.de",
 install_github("kullrich/CRBHits", build_vignettes = TRUE, dependencies = FALSE)
 ```
 
-[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) needs [LAST](http://last.cbrc.jp/) and [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download) to be installed before one can eficiently use it.
+[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) needs [LAST](http://last.cbrc.jp/) and [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download) to be installed before one can efficiently use it.
 
-Both prerequisites (LAST, KaKs_Calculator2.0) are forked within [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) and can be compiled for Linux/Unix/macOS wiht the functions `make.last()` and `make.KaKs_Calculator2()`.
+Both prerequisites (LAST, KaKs_Calculator2.0) are forked within [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) and can be compiled for Linux/Unix/macOS with the functions `make.last()` and `make.KaKs_Calculator2()`.
+
+For the windows platform the user needs to use e.g. [https://www.cygwin.com/](https://www.cygwin.com/) to be able to compile both prerequisites.
 
 ```
 library(CRBHits)
-#compile last-1060
+#compile last-1080
 make.last()
 #compile KaKs_Calculator2.0
 make.KaKs_Calculator2()
@@ -65,7 +67,7 @@ __Note:__
 
 In this Vignette the `lastpath` is defined as `vignette.paths[1]` and the `kakscalcpath` as `vignette.paths[2]` to be able to build the Vignette.
 
-However, once you have compiled last-1060 and KaKs_Calculator2.0 with the functions `make.last()` and `make.KaKs_Calculator2()` you won't need to specify the paths anymore. Please remove them if you would like to repeat the examples.
+However, once you have compiled last-1080 and KaKs_Calculator2.0 with the functions `make.last()` and `make.KaKs_Calculator2()` you won't need to specify the paths anymore. Please remove them if you would like to repeat the examples.
 
 ## 2. [Conditional Reciprocal Best Hits]{#crbh}
 

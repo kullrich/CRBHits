@@ -82,13 +82,13 @@
 
       
 
-      </header><div class="row">
+      </header><script src="V02dNdSClusteringVignette_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>dNdS Clustering Vignette</h1>
                         <h4 class="author">Kristian K Ullrich</h4>
             
-            <h4 class="date">2020-05-26</h4>
+            <h4 class="date">2020-08-25</h4>
       
       <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/mastervignettes/V02dNdSClusteringVignette.Rmd"><code>vignettes/V02dNdSClusteringVignette.Rmd</code></a></small>
       <div class="hidden name"><code>V02dNdSClusteringVignette.Rmd</code></div>
@@ -101,38 +101,18 @@
 <h2 class="hasAnchor">
 <a href="#table-of-contents" class="anchor"></a>Table of Contents</h2>
 <ol style="list-style-type: decimal">
-<li><a href="#quickinstall">Quick Installation</a></li>
 <li><a href="#crbhpairs">Conditional Reciprocal Best Hits</a></li>
 <li><a href="#dNdS">dN/dS Calculations</a></li>
 <li><a href="#dNdSClustering">dN/dS Clustering</a></li>
 <li><a href="#references">References</a></li>
 </ol>
 <p><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> is a reimplementation of the Conditional Reciprocal Best Hit algorithm <a href="https://github.com/cboursnell/crb-blast">crb-blast</a> in R.</p>
-</div>
-<div id="quick-installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#quick-installation" class="anchor"></a>1. <span id="quickinstall">Quick Installation</span>
-</h2>
-<p>see here for the R package pages and a detailed description of the install process <a href="https://mpievolbio-it.pages.gwdg.de/crbhits/">https://mpievolbio-it.pages.gwdg.de/crbhits/</a></p>
-<pre><code><a href="https://devtools.r-lib.org//reference">#see a detailed description of installation prerequisites at
-#https://mpievolbio-it.pages.gwdg.de/crbhits/
-library(devtools)
-#from gitlab
-install_gitlab("mpievolbio-it/crbhits", host = "https://gitlab.gwdg.de",
-               build_vignettes = TRUE, dependencies = FALSE)
-#from github
-install_github("kullrich/CRBHits", build_vignettes = TRUE, dependencies = FALSE)</a></code></pre>
-<p><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> needs <a href="http://last.cbrc.jp/">LAST</a> and <a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download">KaKs_Calculator2.0</a> to be installed before one can eficiently use it.</p>
-<p>Both prerequisites (LAST, KaKs_Calculator2.0) are forked within <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> and can be compiled for Linux/Unix/macOS wiht the functions <code><a href="../reference/make.last.html">make.last()</a></code> and <code><a href="../reference/make.KaKs_Calculator2.html">make.KaKs_Calculator2()</a></code>.</p>
-<pre><code><a href="https://rdrr.io/pkg/CRBHits/man">library(CRBHits)
-#compile last-1060
-make.last()
-#compile KaKs_Calculator2.0
-make.KaKs_Calculator2()</a></code></pre>
+<p>See the R package page for a detailed description of the install process and its dependencies <a href="https://mpievolbio-it.pages.gwdg.de/crbhits/">https://mpievolbio-it.pages.gwdg.de/crbhits/</a> or have a look at the basic vignette.</p>
+<p>dN/dS calculation and clustering is used</p>
 </div>
 <div id="conditional-reciprocal-best-hit-pairs" class="section level2">
 <h2 class="hasAnchor">
-<a href="#conditional-reciprocal-best-hit-pairs" class="anchor"></a>2. <span id="crbhpairs">Conditional reciprocal best hit pairs</span>
+<a href="#conditional-reciprocal-best-hit-pairs" class="anchor"></a>1. <span id="crbhpairs">Conditional reciprocal best hit pairs</span>
 </h2>
 <p>To calculate conditional reciprocal best hit pairs between two species, one can directly use an URL to access the coding sequences and calculate the conditional reciprocal best hit pair matrix (crbh).</p>
 <p>As an example, here the coding sequences from <em>Arabidopsis thaliana</em> and <em>Arabidopsis lyrata</em> are used as input sequences from the FTP server from <a href="https://plants.ensembl.org/index.html">EnsemblPlants</a>.</p>
@@ -147,7 +127,7 @@ alyfile &lt;- "arabidopsis_lyrata/cds/Arabidopsis_lyrata.v.1.0.cds.all.fa.gz"</a
 <p>Next to query coverage, the hit pairs will be additionally filtered for the twilight zone of protein sequence alignments according to <a href="https://academic.oup.com/peds/article/12/2/85/1550637">Rost B. (1999)</a> (<code><a href="../reference/cdsfile2rbh.html">cdsfile2rbh(..., rost1999 = TRUE)</a></code>).</p>
 <p>The implemented filter uses <code>equation2</code> of <a href="https://academic.oup.com/peds/article/12/2/85/1550637">Rost B. (1999)</a></p>
 <p><span class="math display">\[f(x_{\text{hit pair}}) = \cases {100 \text{ , for } L_{\text{hit pair}} &lt; 11 \\ 480 * L^{-0.32 * (1 + e^{\frac{-L}{1000}})} \text{ , for } L_{\text{hit pair}} &lt;= 450 \\ 19.5 \text{ , for } L_{\text{hit pair}} &gt; 450}\]</span> , where <span class="math inline">\(x_{\text{hit pair}}\)</span> is the expected protein identity given the alignemnet length <span class="math inline">\(L_{\text{hit pair}}\)</span>. If the actual <span class="math inline">\(pident_{\text{hit pair}} &gt;= f(x_{\text{hit pair}})\)</span> the hit pair is retained.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="co">#plot expected pident by alignment length using eq2 from Rost (1999)</span>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="co">#plot expected pident by alignment length using eq2 from Rost (1999)</span>
 <span class="no">get_pident_by_length</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">x</span>){
   <span class="no">eq2</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">L</span>){
     <span class="kw">if</span>(<span class="no">L</span> <span class="kw">&lt;=</span> <span class="fl">11</span>){<span class="fu"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="fl">100</span>)}
@@ -165,7 +145,7 @@ alyfile &lt;- "arabidopsis_lyrata/cds/Arabidopsis_lyrata.v.1.0.cds.all.fa.gz"</a
 </div>
 <div id="dnds-calculations" class="section level2">
 <h2 class="hasAnchor">
-<a href="#dnds-calculations" class="anchor"></a>3. <span id="dNdS">dN/dS Calculations</span>
+<a href="#dnds-calculations" class="anchor"></a>2. <span id="dNdS">dN/dS Calculations</span>
 </h2>
 <p>model = “Li”</p>
 <pre><code>cds1 &lt;- Biostrings::readDNAStringSet(paste0(ensemblPlants,athfile))
@@ -183,12 +163,12 @@ ath_aly_crbh.kaks.Li.red &lt;- ath_aly_crbh.kaks.Li %&gt;%
 </div>
 <div id="dnds-clustering" class="section level2">
 <h2 class="hasAnchor">
-<a href="#dnds-clustering" class="anchor"></a>4. <span id="dNdSClustering">dN/dS Clustering</span>
+<a href="#dnds-clustering" class="anchor"></a>3. <span id="dNdSClustering">dN/dS Clustering</span>
 </h2>
 </div>
 <div id="references" class="section level2">
 <h2 class="hasAnchor">
-<a href="#references" class="anchor"></a>5. <span id="references">References</span>
+<a href="#references" class="anchor"></a>4. <span id="references">References</span>
 </h2>
 <p>Aubry S., Kelly S., Kümpers B. M., Smith-Unna R. D., and Hibberd J. M. (2014). <strong>Deep evolutionary comparison of gene expression identifies parallel recruitment of trans-factors in two independent origins of C4 photosynthesis.</strong> <em>PLoS genetics</em>, <strong>10(6)</strong>. <a href="https://doi.org/10.1371/journal.pgen.1004365">https://doi.org/10.1371/journal.pgen.1004365</a></p>
 <p>Charif D., and Lobry J. R. (2007). <strong>SeqinR 1.0-2: a contributed package to the R project for statistical computing devoted to biological sequences retrieval and analysis.</strong> <em>In Structural approaches to sequence evolution</em> (pp. 207-232). Springer, Berlin, Heidelberg. <a href="https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10">https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10</a></p>

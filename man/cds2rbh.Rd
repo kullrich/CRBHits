@@ -7,7 +7,7 @@
 cds2rbh(
   cds1,
   cds2,
-  lastpath = paste0(find.package("CRBHits"), "/extdata/last-1060/src/"),
+  lastpath = paste0(find.package("CRBHits"), "/extdata/last-1080/src/"),
   outpath = "/tmp",
   crbh = TRUE,
   keepSingleDirection = FALSE,
@@ -31,7 +31,7 @@ cds2rbh(
 
 \item{cds2}{cds2 sequences as \code{DNAStringSet} [mandatory]}
 
-\item{lastpath}{specify the PATH to the last binaries [default: /extdata/last-1060/src/]}
+\item{lastpath}{specify the PATH to the last binaries [default: /extdata/last-1080/src/]}
 
 \item{outpath}{specify the output PATH [default: /tmp]}
 
@@ -84,7 +84,7 @@ Sequence searches are performed with \bold{last} \emph{Kiełbasa, SM et al. (201
 If one specifies cds1 and cds2 as the same input a selfblast is conducted.
 }
 \examples{
-##compile last-1060 within CRBHits
+##compile last-1080 within CRBHits
 make.last()
 ##load example sequence data
 data("ath", package="CRBHits")
