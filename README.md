@@ -14,15 +14,15 @@ R package issues: [https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues](https://
 
 # CRBHits - Description
 
-[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) is a reimplementation of the Conditional Reciprocal Best Hit algorithm [crb-blast](https://github.com/cboursnell/crb-blast) in R.
+[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) is a reimplementation of the Conditional Reciprocal Best Hit (CRBH) algorithm [crb-blast](https://github.com/cboursnell/crb-blast) in R.
 
-The algorithm was introduced by [Aubry S, Kelly S et al. (2014)](http://www.plosgenetics.org/article/info%3Adoi%2F10.1371%2Fjournal.pgen.1004365) and ported to python [shmlast](https://pypi.org/project/shmlast/) ([Scott C. 2017](https://joss.theoj.org/papers/10.21105/joss.00142)) which benefits from the blast-like sequence search software [LAST](http://last.cbrc.jp/) ([Kiełbasa SM et al. 2011](https://genome.cshlp.org/content/21/3/487.long)).
+The CRBH algorithm was introduced by [Aubry S, Kelly S et al. (2014)](http://www.plosgenetics.org/article/info%3Adoi%2F10.1371%2Fjournal.pgen.1004365) and ported to python [shmlast](https://pypi.org/project/shmlast/) ([Scott C. 2017](https://joss.theoj.org/papers/10.21105/joss.00142)) which benefits from the blast-like sequence search software [LAST](http://last.cbrc.jp/) ([Kiełbasa SM et al. 2011](https://genome.cshlp.org/content/21/3/487.long)).
 
 Like [shmlast](https://pypi.org/project/shmlast/), [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) plots the fitted model of the conditional reciprocal best hit evalue based algorithm. In addition users can filter the hit pairs prior fitting for other cirteria like evalue, protein identity and/or the twilight zone of protein sequence alignments according to [Rost B. (1999)](https://academic.oup.com/peds/article/12/2/85/1550637).
 
 [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) only takes coding nucleotide sequences as the query and target inputs, since the secondary aim of CRBHits is to calculate synonymous and non-synonymous substitutions with the R package [seqinr](https://cran.r-project.org/web/packages/seqinr/index.html) ([Sharif D, Lobry JR. 2007](https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10)) or the external tool [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download) ([Wang D, Zhang Y et al. 2010](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5054116/)). This is in contrast to [crb-blast](https://github.com/cboursnell/crb-blast), which can take proteins or nucleotides as the target sequences and in contrast to [shmlast](https://pypi.org/project/shmlast/), which uses nucleotides as queries and proteins as target sequences.
 
-The resultings conditional reciprocal best hit pair matrix can be used to obtain pairwise codon alignments, which are further used to calculate synonymous and nonsynonymous substitutions using parallelization. The ka/ks (dN/dS) values can be obtained either via the codon model of [Li WH. (1999)](https://www.ncbi.nlm.nih.gov/pubmed/8433381) implemented in the R package [seqinr](https://cran.r-project.org/web/packages/seqinr/index.html) or the model [Yang Z and Nielson R. (2000)](https://www.ncbi.nlm.nih.gov/pubmed/10666704) implemented in [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download).
+The resultings conditional reciprocal best hit (CRBH) pair matrix can be used to obtain pairwise codon alignments, which are further used to calculate synonymous and nonsynonymous substitutions using parallelization. The ka/ks (dN/dS) values can be obtained either via the codon model of [Li WH. (1999)](https://www.ncbi.nlm.nih.gov/pubmed/8433381) implemented in the R package [seqinr](https://cran.r-project.org/web/packages/seqinr/index.html) or the model [Yang Z and Nielson R. (2000)](https://www.ncbi.nlm.nih.gov/pubmed/10666704) implemented in [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download).
 
 # Installation
 
@@ -52,6 +52,8 @@ sudo yum install libcurl-devel openssl-devel libxml2-devel mesa-libGLU-devel
 - [foreach](https://cran.r-project.org/web/packages/foreach/index.html)
 - [doMC](https://cran.r-project.org/web/packages/doMC/index.html)
 - [magrittr](https://cran.r-project.org/web/packages/magrittr/index.html)
+- [dplyr](https://cran.r-project.org/web/packages/dplyr/index.html)
+- [stringr](https://cran.r-project.org/web/packages/stringr/index.html)
 - [mclust](https://cran.r-project.org/web/packages/mclust/index.html)
 - [feature](https://cran.r-project.org/web/packages/feature/index.html)
 
@@ -62,6 +64,8 @@ install.packages("seqinr")
 install.packages("foreach")
 install.packages("doMC")
 install.packages("magrittr")
+install.packages("dplyr")
+install.packages("stringr")
 install.packages("mclust")
 install.packages("feature")
 ```
@@ -88,7 +92,7 @@ build_vignettes = FALSE, dependencies = FALSE)
 
 The source code for both prerequisites (LAST, KaKs_Calculator2.0) are forked within [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits). 
 
-- [LAST](http://last.cbrc.jp/) [http://last.cbrc.jp/last-1080.zip](http://last.cbrc.jp/last-1080.zip)
+- [LAST](http://last.cbrc.jp/) [http://last.cbrc.jp/last-1133.zip](http://last.cbrc.jp/last-1133.zip)
 
 To compile the forked version of [LAST](http://last.cbrc.jp/) within the `CRBHits` R package directory try to use the function `make.last()`:
 
@@ -105,10 +109,10 @@ To compile [LAST](http://last.cbrc.jp/) yourself on Linux/Unix/macOS into anothe
 #e.g.
 mkdir /tmp/last
 cd /tmp/last
-#donwload last-1080
-curl -O http://last.cbrc.jp/last-1080.zip
-unzip last-1080.zip
-cd last-1080
+#donwload last-1133
+curl -O http://last.cbrc.jp/last-1133.zip
+unzip last-1133.zip
+cd last-1133
 #compile LAST
 make
 ```
@@ -145,7 +149,7 @@ If you would like to use your own compiled versions of `LAST` and `KaKs_Calculat
 
 ```
 #example how to use own compiled versions of LAST and KaKs_Calculator2.0
-my.lastpath <- "/tmp/last/last-1080/src"
+my.lastpath <- "/tmp/last/last-1133/src"
 my.kakspath <- "/tmp/KaKs_Calculator2/KaKs_Calculator2.0/src"
 ?cds2rbh
 cds2rbh(., ., lastpath = my.lastpath)
@@ -158,14 +162,30 @@ rbh2kaks(., ., model = "YN", kakscalcpath = my.kakspaths)
 These vignettes introduce  [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits)
 
 - [CRBHits Basic Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V01CRBHitsBasicVignette.html) - Basic Usage of CRBHits
-- [dNdS Clustering Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V02dNdSClusteringVignette.html) - dNdS Calculations between two species (*A. thalina* and *A. lyrata*)
-- [Paranome-based Whole Genome Duplication Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V03WGDVignette.html) - Selfblast and subsequent WGD prediction (*A. thaliana*)
+    - includes CRBHit pair calculation
+    - includes CRBHit pair filtering
+    - includes Longest Isoform selection
+    - includes Codon alignments
+    - includes Ka/Ks calculations
+- [KaKs Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V02KaKsVignette.html) - KaKs Calculations between two species and subsequent data filter steps
+    - includes *A. thalina* and *A. lyrata* comparison
+    - includes *H. sapiens* and *P. troglodytes* comparison
+    - inlcudes Longest Isoform selection
+    - includes Gene/Isoform chromosomal position extraction
+    - includes Tandem Duplicate Assignment
+    - includes Ka/Ks colored Dot-Plot
+- [Paranome-based Whole Genome Duplication Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V03WGDVignette.html) - Selfblast and subsequent WGD prediction for *A. thaliana*
+    - includes *A. thalina* WGD prediction
+    - inlcudes Longest Isoform selection
+    - includes Gene/Isoform chromosomal position extraction
+    - includes Tandem Duplicate Assignment
+    - includes Ka/Ks clustering
 
 ## Quick-guide
 
 ```
 library(CRBHits)
-#compile last-1080
+#compile last-1133
 make.last()
 #conditional-reciprocal best hits
 data("ath", package="CRBHits")
@@ -184,7 +204,7 @@ ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh$crbh.pairs[1:20, ], ath, aly, threads
 head(ath_aly_crbh.kaks)
 
 #example how to use own compiled versions of LAST
-my.lastpath <- "/tmp/last/last-1080/src"
+my.lastpath <- "/tmp/last/last-1133/src"
 ?cds2rbh
 ath_aly_crbh <- cds2rbh(ath, aly, plotCurve = TRUE, lastpath = my.lastpath)
 
@@ -196,7 +216,6 @@ ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh$crbh.pairs[1:20, ],
 ```
 
 ## Todo
-- dNdSClustering Vignette
 - WGD Vignette
 
 ## License
@@ -205,7 +224,7 @@ MIT (see LICENSE)
 
 The [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) package includes source code that has been published under following licenses:
 
-### last-1080.zip
+### last-1133.zip
 
 GNU General Public License Version 3, 29 June 2007 [GPLv3](https://www.gnu.org/licenses/gpl-3.0.de.html)
 

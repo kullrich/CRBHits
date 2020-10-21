@@ -9,6 +9,8 @@ r_packages:
   - foreach
   - doMC
   - magrittr
+  - dplyr
+  - stringr
   - mclust
   - feature
 

@@ -8,7 +8,7 @@ Authors@R:
            email = "ullrich@evolbio.mpg.de",
            comment = c(ORCID = "https://orcid.org/0000-0003-4308-9626"))
 Maintainer: Kristian K Ullrich <ullrich@evolbio.mpg.de>
-Description: CRBHits calculates conditional reciprocal best hits and subsequently can generate dNdS values.
+Description: CRBHits calculates conditional reciprocal best hits (CRBH) and subsequently can generate Ka/Ks values.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -20,6 +20,8 @@ Imports:
   foreach,
   doMC,
   magrittr,
+  dplyr,
+  stringr,
   mclust,
   feature
 Suggests:
