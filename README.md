@@ -3,7 +3,7 @@
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
 [![MITlicense](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 
-CRBHits - Conditional Reciprocal Best Hits (CRBits) in R
+CRBHits - Conditional Reciprocal Best Hits (CRBits), Codon Alignments and Ka/Ks in R
 =========
 
 R package source code: [https://gitlab.gwdg.de/mpievolbio-it/crbhits](https://gitlab.gwdg.de/mpievolbio-it/crbhits)
@@ -30,9 +30,9 @@ The Ka/Ks (also sometimes denoted as dN/dS) values can be obtained either via th
 
 The following two images show the two main functions of the package `cds2rbh()` and `rbh2kaks()`, which are described in more detail in the package vignettes.
 
-![Figure: Overview of the `cds2rbh()` function](./vignettes/cds2rbhoverview.png | width=400)
+![Figure: Overview of the `cds2rbh()` function](./vignettes/cds2rbhoverview.png){width="400px"}
 
-![Figure: Overview of the `rbh2kaks()` function](./vignettes/rbh2kaksoverview.png | width=400)
+![Figure: Overview of the `rbh2kaks()` function](./vignettes/rbh2kaksoverview.png){width="400px"}
 
 # Installation
 
