@@ -1,6 +1,6 @@
 Package: CRBHits
 Title: Conditional reciprocal best hits (CRBHit) in R
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: 
     person(given = "Kristian K",
            family = "Ullrich",

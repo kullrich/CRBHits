@@ -2,7 +2,7 @@ image: r-base
 
 before_script:
   - apt-get update
-  - apt-get -y install libcurl4-openssl-dev libssl-dev libxml2-dev pandoc libglu1-mesa-dev
+  - apt-get -y install libcurl4-openssl-dev libssl-dev libxml2-dev pandoc libglu1-mesa-dev libssh2-1-dev
   - R -e "dir()"
   - R -e "getwd()"
   - R -e "install.packages('testthat',repos='http://cran.rstudio.com')"
