@@ -3,7 +3,7 @@
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
 [![MITlicense](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 
-CRBHits - Conditional Reciprocal Best Hits in R
+CRBHits - Conditional Reciprocal Best Hits (CRBits) in R
 =========
 
 R package source code: [https://gitlab.gwdg.de/mpievolbio-it/crbhits](https://gitlab.gwdg.de/mpievolbio-it/crbhits)
@@ -18,11 +18,21 @@ R package issues: [https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues](https://
 
 The CRBH algorithm was introduced by [Aubry S, Kelly S et al. (2014)](http://www.plosgenetics.org/article/info%3Adoi%2F10.1371%2Fjournal.pgen.1004365) and ported to python [shmlast](https://pypi.org/project/shmlast/) ([Scott C. 2017](https://joss.theoj.org/papers/10.21105/joss.00142)) which benefits from the blast-like sequence search software [LAST](http://last.cbrc.jp/) ([Kiełbasa SM et al. 2011](https://genome.cshlp.org/content/21/3/487.long)).
 
-Like [shmlast](https://pypi.org/project/shmlast/), [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) plots the fitted model of the conditional reciprocal best hit evalue based algorithm. In addition users can filter the hit pairs prior fitting for other cirteria like evalue, protein identity and/or the twilight zone of protein sequence alignments according to [Rost B. (1999)](https://academic.oup.com/peds/article/12/2/85/1550637).
+Like [shmlast](https://pypi.org/project/shmlast/), [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) plots the fitted model of the CRBHit evalue based algorithm. In addition users can filter the CRBHit pairs prior fitting for other criteria like evalue, protein identity and/or the twilight zone of protein sequence alignments according to [Rost B. (1999)](https://academic.oup.com/peds/article/12/2/85/1550637).
 
-[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) only takes coding nucleotide sequences as the query and target inputs, since the secondary aim of CRBHits is to calculate synonymous and non-synonymous substitutions with the R package [seqinr](https://cran.r-project.org/web/packages/seqinr/index.html) ([Sharif D, Lobry JR. 2007](https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10)) or the external tool [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download) ([Wang D, Zhang Y et al. 2010](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5054116/)). This is in contrast to [crb-blast](https://github.com/cboursnell/crb-blast), which can take proteins or nucleotides as the target sequences and in contrast to [shmlast](https://pypi.org/project/shmlast/), which uses nucleotides as queries and proteins as target sequences.
+[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) only takes coding nucleotide sequences as the query and target inputs, since the secondary aim of CRBHits is to calculate synonymous and non-synonymous substitutions with the R package [seqinr](https://cran.r-project.org/web/packages/seqinr/index.html) ([Sharif D, Lobry JR. 2007](https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10)) or the external tool [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download) ([Wang D, Zhang Y et al. 2010](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5054116/)).
 
-The resultings conditional reciprocal best hit (CRBH) pair matrix can be used to obtain pairwise codon alignments, which are further used to calculate synonymous and nonsynonymous substitutions using parallelization. The ka/ks (dN/dS) values can be obtained either via the codon model of [Li WH. (1999)](https://www.ncbi.nlm.nih.gov/pubmed/8433381) implemented in the R package [seqinr](https://cran.r-project.org/web/packages/seqinr/index.html) or the model [Yang Z and Nielson R. (2000)](https://www.ncbi.nlm.nih.gov/pubmed/10666704) implemented in [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download).
+This is in contrast to [crb-blast](https://github.com/cboursnell/crb-blast), which can take proteins or nucleotides as the target sequences and in contrast to [shmlast](https://pypi.org/project/shmlast/), which uses nucleotides as queries and proteins as target sequences.
+
+The resulting CRBHit pairs can be used to obtain pairwise codon alignments, which are further used to calculate synonymous and nonsynonymous substitutions using parallelization.
+
+The Ka/Ks (also sometimes denoted as dN/dS) values can be obtained either via the codon model of [Li WH. (1999)](https://www.ncbi.nlm.nih.gov/pubmed/8433381) as implemented in the R package [seqinr](https://cran.r-project.org/web/packages/seqinr/index.html) or the model of [Yang Z and Nielson R. (2000)](https://www.ncbi.nlm.nih.gov/pubmed/10666704) as implemented in [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download).
+
+The following two images show the two main functions of the package `cds2rbh()` and `rbh2kaks()`, which are described in more detail in the package vignettes.
+
+![Figure: Overview of the `cds2rbh()` function](./vignettes/cds2rbhoverview.png){width=600px}
+
+![Figure: Overview of the `rbh2kaks()` function](./vignettes/rbh2kaksoverview.png){width=600px}
 
 # Installation
 
@@ -48,11 +58,12 @@ sudo yum install libcurl-devel openssl-devel libxml2-devel mesa-libGLU-devel
 
 - [devtools](https://cran.r-project.org/web/packages/devtools/index.html)
 - [testthat](https://cran.r-project.org/web/packages/testthat/index.html)
+- [curl](https://cran.r-project.org/web/packages/curl/index.html)
 - [seqinr](https://cran.r-project.org/web/packages/seqinr/index.html)
 - [foreach](https://cran.r-project.org/web/packages/foreach/index.html)
 - [doMC](https://cran.r-project.org/web/packages/doMC/index.html)
-- [magrittr](https://cran.r-project.org/web/packages/magrittr/index.html)
 - [dplyr](https://cran.r-project.org/web/packages/dplyr/index.html)
+- [tidyr](https://cran.r-project.org/web/packages/tidyr/index.html)
 - [stringr](https://cran.r-project.org/web/packages/stringr/index.html)
 - [mclust](https://cran.r-project.org/web/packages/mclust/index.html)
 - [feature](https://cran.r-project.org/web/packages/feature/index.html)
@@ -60,17 +71,20 @@ sudo yum install libcurl-devel openssl-devel libxml2-devel mesa-libGLU-devel
 ```
 install.packages("devtools")
 install.packages("testthat")
+install.packages("curl")
 install.packages("seqinr")
 install.packages("foreach")
 install.packages("doMC")
-install.packages("magrittr")
 install.packages("dplyr")
+install.packages("tidyr")
 install.packages("stringr")
 install.packages("mclust")
 install.packages("feature")
 ```
 
 ### install packages from [Bioconductor](https://www.bioconductor.org/)
+
+- [Biostrings](http://bioconductor.org/packages/release/bioc/html/Biostrings.html)
 
 ```
 if (!requireNamespace("BiocManager", quietly = TRUE))
@@ -90,7 +104,7 @@ build_vignettes = FALSE, dependencies = FALSE)
 
 ## External tools installation prerequisites
 
-The source code for both prerequisites (LAST, KaKs_Calculator2.0) are forked within [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits). 
+The source code for the prerequisites (LAST, KaKs_Calculator2.0, DAGchainer) are forked within [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits). 
 
 - [LAST](http://last.cbrc.jp/) [http://last.cbrc.jp/last-1133.zip](http://last.cbrc.jp/last-1133.zip)
 
@@ -117,11 +131,9 @@ cd last-1133
 make
 ```
 
-To compile the forked version of [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download) within the `CRBHits` R package directory try to use the function `make.KaKs_Calculator2()`:
-
-__Note:__ The original files can be downloaded here:
-
 - [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download)
+
+To compile the forked version of [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download) within the `CRBHits` R package directory try to use the function `make.KaKs_Calculator2()`:
 
 ```
 make.KaKs_Calculator2()
@@ -143,18 +155,44 @@ make clean
 make
 ```
 
-If you would like to install the latest version of both tools, you need to download the source code and compile again.
+- [DAGchainer](http://dagchainer.sourceforge.net/)
 
-If you would like to use your own compiled versions of `LAST` and `KaKs_Calculator2.0` you need to set the correct `@param` in the corresponding functions of [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits).
+To compile the forked version of [DAGchainer](http://dagchainer.sourceforge.net/) within the `CRBHits` R package directory try to use the function `make.dagchainer()`:
 
 ```
-#example how to use own compiled versions of LAST and KaKs_Calculator2.0
+make.dagchainer()
+```
+
+__Note:__ Due to some changes in the latest **g++** compilers the source code was altered to meet this changes, which are directly incorporated into the `dagchainer.zip` that is distributed with [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits). It is recommended to compile from this file (see below):
+
+```
+#create and change into the directory to install DAGchainer
+#e.g.
+mkdir /tmp/DAGchainer
+cd /tmp/DAGchainer
+#donwload DAGchainer
+curl -O https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/raw/master/inst/extdata/dagchainer.zip
+unzip dagchainer.zip
+cd dagchainer
+#compile DAGchainer
+make
+```
+
+If you would like to install the latest version of the tools, you need to download the source code and compile again.
+
+If you would like to use your own compiled versions of `LAST`, `KaKs_Calculator2.0` and `DAGchainer` you need to set the correct `@param` in the corresponding functions of [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits).
+
+```
+#example how to use own compiled versions of LAST, KaKs_Calculator2.0 and DAGchainer
 my.lastpath <- "/tmp/last/last-1133/src"
 my.kakspath <- "/tmp/KaKs_Calculator2/KaKs_Calculator2.0/src"
+my.dagchainerpath <- "/tmp/dagcahiner"
 ?cds2rbh
 cds2rbh(., ., lastpath = my.lastpath)
 ?rbh2kaks
 rbh2kaks(., ., model = "YN", kakscalcpath = my.kakspaths)
+?rbh2dagchainer
+rbh2dagchainer(., ., dagchainerpath = my.dagchainerpath)
 ```
 
 ## Vignettes
@@ -168,17 +206,19 @@ These vignettes introduce  [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhit
     - includes Codon alignments
     - includes Ka/Ks calculations
 - [KaKs Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V02KaKsVignette.html) - KaKs Calculations between two species and subsequent data filter steps
-    - includes *A. thalina* and *A. lyrata* comparison
-    - includes *H. sapiens* and *P. troglodytes* comparison
+    - includes *A. thalina* and *A. lyrata* CRBHit pair calculation
+    - includes *H. sapiens* and *P. troglodytes* CRBHit pair calculation
     - inlcudes Longest Isoform selection
     - includes Gene/Isoform chromosomal position extraction
     - includes Tandem Duplicate Assignment
+    - includes Synteny Assignment
     - includes Ka/Ks colored Dot-Plot
 - [Paranome-based Whole Genome Duplication Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V03WGDVignette.html) - Selfblast and subsequent WGD prediction for *A. thaliana*
     - includes *A. thalina* WGD prediction
     - inlcudes Longest Isoform selection
     - includes Gene/Isoform chromosomal position extraction
     - includes Tandem Duplicate Assignment
+    - includes Synteny Assignment
     - includes Ka/Ks clustering
 
 ## Quick-guide
@@ -187,7 +227,7 @@ These vignettes introduce  [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhit
 library(CRBHits)
 #compile last-1133
 make.last()
-#conditional-reciprocal best hits
+#conditional reciprocal best hits (CRBHit pairs)
 data("ath", package="CRBHits")
 data("aly", package="CRBHits")
 ath_aly_crbh <- cds2rbh(ath, aly, plotCurve = TRUE)
@@ -200,7 +240,7 @@ head(ath_aly_crbh.kaks)
 ?rbh2kaks
 
 #kaks calculation using multiple threads
-ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh$crbh.pairs[1:20, ], ath, aly, threads = 4)
+ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh$crbh.pairs[1:20, ], ath, aly, threads = 2)
 head(ath_aly_crbh.kaks)
 
 #example how to use own compiled versions of LAST
@@ -215,9 +255,6 @@ ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh$crbh.pairs[1:20, ],
                               ath, aly, model = "YN", kakscalcpath = my.kakspath)
 ```
 
-## Todo
-- WGD Vignette
-
 ## License
 
 MIT (see LICENSE)
@@ -231,6 +268,10 @@ GNU General Public License Version 3, 29 June 2007 [GPLv3](https://www.gnu.org/l
 ### KaKs_Calculator2.0.tar.gz
 
 The toolkit is freely available (licensed under [GPLv3](https://www.gnu.org/licenses/gpl-3.0.de.html)) online at [https://sourceforge.net/projects/kakscalculator2/](https://sourceforge.net/projects/kakscalculator2/).
+
+### DAGchainer
+
+All of this software is open source, free of license restrictions. 
 
 ## Contributing Code
 
@@ -252,7 +293,7 @@ or use the issue tracker at [https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues
 
 This repository adhere to [Contributor Covenant](http://contributor-covenant.org) code of conduct for in any interactions you have within this project. (see [Code of Conduct](https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/blob/master/CODE_OF_CONDUCT.md))
 
-See also the policy against sexualized discremination, harassment and violence for the Max Planck Society [Code-of-Conduct](https://www.mpg.de/11961177/code-of-conduct-en.pdf).
+See also the policy against sexualized discrimination, harassment and violence for the Max Planck Society [Code-of-Conduct](https://www.mpg.de/11961177/code-of-conduct-en.pdf).
 
 By contributing to this project, you agree to abide by its terms.
 
@@ -262,11 +303,23 @@ Aubry S., Kelly S., Kümpers B. M., Smith-Unna R. D., and Hibberd J. M. (2014). 
 
 Charif D., and Lobry J. R. (2007). **SeqinR 1.0-2: a contributed package to the R project for statistical computing devoted to biological sequences retrieval and analysis.** *In Structural approaches to sequence evolution* (pp. 207-232). Springer, Berlin, Heidelberg. [https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10](https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10)
 
+Duong T., and Wand M. (2015). **feature: Local Inferential Feature Significance for Multivariate Kernel Density Estimation.** *R package version 1.2.13*. [https://cran.r-project.org/web/packages/feature/](https://cran.r-project.org/web/packages/feature/)
+
+Haas B. J., Delcher A. L., Wortman J. R., and Salzberg S. L. (2004). **DAGchainer: a tool for mining segmental genome duplications and synteny.** *Bioinformatics*, **20(18)**. [https://doi.org/10.1093/bioinformatics/bth397](https://doi.org/10.1093/bioinformatics/bth397)
+
+Haug-Baltzell A., Stephens S. A., Davey S., Scheidegger C. E., Lyons E. (2017). **SynMap2 and SynMap3D: web-based wholge-genome synteny browsers.** *Bioinformatics*, **33(14)**. [https://academic.oup.com/bioinformatics/article/33/14/2197/3072872](https://academic.oup.com/bioinformatics/article/33/14/2197/3072872)
+
 Kiełbasa S. M., Wan R., Sato K., Horton P., and Frith M. C. (2011). **Adaptive seeds tame genomic sequence comparison.** *Genome research*, 21(3), 487-493. [https://doi.org/10.1101/gr.113985.110](https://doi.org/10.1101/gr.113985.110)
 
 Li W. H. (1993). **Unbiased estimation of the rates of synonymous and nonsynonymous substitution.** *Journal of molecular evolution*, 36(1), 96-99. [https://doi.org/10.1007/bf02407308](https://doi.org/10.1007/bf02407308)
 
-Pagès H., Aboyoun P., Gentleman R., and DebRoy S. (2017). **Biostrings: Efficient manipulation of biological strings.** *R package version*, 2(0).
+Microsoft, and Weston S. (2020). **foreach: Provides Foreach Looping Construct.** *R package version*, 1.5.1. [foreach](https://cran.r-project.org/web/packages/foreach/index.html)
+
+Ooms J. (2019). **curl: A Modern and Flexible Web Client for R.** *R package version*, 4.3. [curl](https://cran.r-project.org/web/packages/curl/index.html)
+
+Pagès H., Aboyoun P., Gentleman R., and DebRoy S. (2017). **Biostrings: Efficient manipulation of biological strings.** *R package version*, 2.56.0. [Biostrings](http://bioconductor.org/packages/release/bioc/html/Biostrings.html)
+
+Revolution Analytics, and Weston S. (2020). **doMC: Foreach Parallel Adaptor for 'parallel'.** *R package version*, 1.3.7. [doMC](https://cran.r-project.org/web/packages/doMC/index.html)
 
 Rost B. (1999). **Twilight zone of protein sequence alignments.** *Protein engineering*, 12(2), 85-94. [https://doi.org/10.1093/protein/12.2.85](https://doi.org/10.1093/protein/12.2.85)
 
@@ -274,6 +327,14 @@ Scott C. (2017). **shmlast: an improved implementation of conditional reciprocal
 
 Scrucca L., Fop M., Murphy T. B., and Raftery A. E. (2016) **mclust 5: clustering, classification and density estimation using Gaussian finite mixture models.** *The R Journal*, 8(1), 289-317. [https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5096736/](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5096736/)
 
-Duong T., and Wand M. (2015). **feature: Local Inferential Feature Significance for Multivariate Kernel Density Estimation.** *R package version 1.2.13*. [https://cran.r-project.org/web/packages/feature/](https://cran.r-project.org/web/packages/feature/) 
+Wickham H. (2011). **testthat: Get Started with Testing.** *The R Journal*, 3(1), 5. [testthat](https://cran.r-project.org/web/packages/testthat/index.html)
+
+Wickham H. (2019). **stringr: Simple, Consistent Wrappers for Common String Operations.** *R package version*, 1.4.0. [stringr](https://cran.r-project.org/web/packages/stringr/index.html)
+
+Wickham H. (2020). **tidyr: Tidy Messy Data.** *R package version*, 1.1.2. [tidyr](https://cran.r-project.org/web/packages/tidyr/index.html)
+
+Wickham H., Hester J., and Chang W. (2020). **devtools: Tools to make Developing R Packages Easier.** *R package version*, (2.3.2). [devtools](https://cran.r-project.org/web/packages/devtools/index.html)
+
+Wickham H., François R., Henry L., and Müller K. (2020). **dplyr: A Grammar of Data Manipulation.** *R package version*, 1.0.2. [dplyr](https://cran.r-project.org/web/packages/dplyr/index.html)
 
 Yang Z., and Nielsen R. (2000). **Estimating synonymous and nonsynonymous substitution rates under realistic evolutionary models.** *Molecular biology and evolution*, 17(1), 32-43. [https://doi.org/10.1093/oxfordjournals.molbev.a026236](https://doi.org/10.1093/oxfordjournals.molbev.a026236)
