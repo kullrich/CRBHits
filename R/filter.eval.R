@@ -5,6 +5,7 @@
 #' @param evalue evalue [default: 1e-3]
 #' @param inverse specify if filter should keep the removed values [default: FALSE]
 #' @return rbh matrix
+#' @importFrom dplyr filter
 #' @examples
 #' ##load crbh data
 #' data(ath_aly_crbh)
@@ -13,10 +14,12 @@
 #' @export filter.eval
 #' @author Kristian K Ullrich
 
-filter.eval <- function(rbh, evalue = 1e-3, inverse = FALSE){
+filter.eval <- function(rbh, eval = 1e-3, inverse = FALSE){
   if(inverse){
-    return(rbh[as.numeric(rbh[,11]) > evalue, , drop = FALSE])
+    #return(rbh[as.numeric(rbh[,11]) > evalue, , drop = FALSE])
+    return(dplyr::filter(rbh, evalue > eval))
   } else {
-    return(rbh[as.numeric(rbh[,11]) <= evalue, , drop = FALSE])
+    #return(rbh[as.numeric(rbh[,11]) <= evalue, , drop = FALSE])
+    return(dplyr::filter(rbh, evalue <= eval))
   }
 }

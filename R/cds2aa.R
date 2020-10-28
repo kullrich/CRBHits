@@ -5,6 +5,7 @@
 #' @return \code{AAStringSet}
 #' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet readDNAStringSet readAAStringSet writeXStringSet width subseq
 #' @importFrom seqinr translate
+#' @importFrom stringr word
 #' @seealso \code{\link[Biostrings]{XStringSet-class}},
 #' \code{\link[seqinr]{translate}}
 #' @examples
@@ -17,7 +18,7 @@
 cds2aa <- function(cds){
   if(class(cds)!="DNAStringSet"){stop("Error: input needs to be a DNAStringSet")}
   if(!is.null(names(cds))){
-    names(cds) <- unlist(lapply(strsplit(names(cds), " "), function(x) x[1]))
+    names(cds) <- stringr::word(names(cds), 1)
   }
   cds_not_multiple_of_three.idx <- which(Biostrings::width(cds) %% 3 != 0)
   if(length(cds_not_multiple_of_three.idx) > 0){

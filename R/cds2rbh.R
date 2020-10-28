@@ -1,32 +1,34 @@
 #' @title cds2rbh
 #' @name cds2rbh
-#' @description This function calculates (conditional-)reciprocal best hit pair matrix from two \code{DNAStringSet}'s.
-#' Conditional-reciprocal best hit pairs were introduced by \emph{Aubry S, Kelly S et al. (2014)}.
+#' @description This function calculates (conditional-)reciprocal best hit (CRBHit) pairs from two CDS \code{DNAStringSet}'s.
+#' CRBHit pairs were introduced by \emph{Aubry S, Kelly S et al. (2014)}.
 #' Sequence searches are performed with \bold{last} \emph{Kiełbasa, SM et al. (2011)}.
 #' If one specifies cds1 and cds2 as the same input a selfblast is conducted.
 #' @param cds1 cds1 sequences as \code{DNAStringSet} [mandatory]
 #' @param cds2 cds2 sequences as \code{DNAStringSet} [mandatory]
-#' @param lastpath specify the PATH to the last binaries [default: /extdata/last-1080/src/]
+#' @param lastpath specify the PATH to the last binaries [default: /extdata/last-1133/src/]
 #' @param outpath specify the output PATH [default: /tmp]
 #' @param crbh specify if conditional-reciprocal hit pairs should be retained as secondary hits [default: TRUE]
 #' @param keepSingleDirection specify if single direction secondary hit pairs should be retained [default: FALSE]
-#' @param evalue evalue [default: 1e-3]
+#' @param eval evalue [default: 1e-3]
 #' @param qcov query coverage [default: 0.0]
 #' @param tcov target coverage [default: 0.0]
 #' @param pident percent identity [default: 0.0]
 #' @param alnlen alignment length [default: 0.0]
-#' @param rost1999 specifiy if hit pairs should be filter by equation 2 of Rost 1999 [default: FALSE]
-#' @param filter specify additonal custom filters as list to be applied on hit pairs [default: NULL]
+#' @param rost1999 specify if hit pairs should be filter by equation 2 of Rost 1999 [default: FALSE]
+#' @param filter specify additional custom filters as list to be applied on hit pairs [default: NULL]
 #' @param plotCurve specify if crbh fitting curve should be plotted [default: FALSE]
 #' @param fit.type specify if mean or median should be used for fitting [default: mean]
 #' @param fit.varweight factor for fitting function to consider neighborhood [default: 0.1]
 #' @param fit.min specify minimum neighborhood alignment length [default: 5]
+#' @param longest.isoform specify if cds sequences should be removed to the longest isoform (only possible if data was accessed from NCBI or ENSEMBL) [default: FALSE]
+#' @param isoform.source specify cds sequences source (either NCBI or ENSEMBL) [default: NCBI]
 #' @param threads number of parallel threads [default: 1]
 #' @param remove specify if last result files should be removed [default: TRUE]
 #' @return List of three (crbh = FALSE)\cr
-#' 1: $rbh.pairs\cr
-#' 2: $rbh1 matrix; query > target\cr
-#' 3: $rbh2 matrix; target > query\cr
+#' 1: $crbh.pairs\cr
+#' 2: $crbh1 matrix; query > target\cr
+#' 3: $crbh2 matrix; target > query\cr
 #' \cr
 #' List of four (crbh = TRUE)\cr
 #' 1: $crbh.pairs\cr
@@ -37,13 +39,14 @@
 #' @importFrom graphics legend par points
 #' @importFrom stats median splinefun
 #' @importFrom utils read.table
-#' @import magrittr
-#' @seealso \code{\link[CRBHits]{cdsfile2rbh}}
+#' @importFrom tidyr %>%
+#' @seealso \code{\link[CRBHits]{cdsfile2rbh}},
+#' \code{\link[CRBHits]{isoform2longest}}
 #' @references Aubry S, Kelly S et al. (2014) Deep Evolutionary Comparison of Gene Expression Identifies Parallel Recruitment of Trans-Factors in Two Independent Origins of C4 Photosynthesis. \emph{PLOS Genetics}, \bold{10(6)} e1004365.
 #' @references Kiełbasa, SM et al. (2011) Adaptive seeds tame genomic sequence comparison. \emph{Genome research}, \bold{21(3)}, 487-493.
 #' @references Rost B. (1999). Twilight zone of protein sequence alignments. \emph{Protein Engineering}, \bold{12(2)}, 85-94.
 #' @examples
-#' ##compile last-1080 within CRBHits
+#' ##compile last-1133 within CRBHits
 #' make.last()
 #' ##load example sequence data
 #' data("ath", package="CRBHits")
@@ -55,7 +58,7 @@
 #' ath_aly_rbh <- cds2rbh(ath, aly, crbh = FALSE)
 #' dim(ath_aly_rbh$rbh.pairs)
 #' #filter for evalue 1e-100
-#' ath_aly_crbh.eval100 <- cds2rbh(ath, aly, evalue = 1e-100)
+#' ath_aly_crbh.eval100 <- cds2rbh(ath, aly, eval = 1e-100)
 #' dim(ath_aly_crbh.eval100$crbh.pairs)
 #' #filter for query coverage
 #' ath_aly_crbh.qcov <- cds2rbh(ath, aly, qcov = 0.5)
@@ -75,11 +78,11 @@
 
 cds2rbh <- function(cds1, cds2,
                     lastpath = paste0(find.package("CRBHits"),
-                                              "/extdata/last-1080/src/"),
+                                              "/extdata/last-1133/src/"),
                     outpath = "/tmp",
                     crbh = TRUE,
                     keepSingleDirection = FALSE,
-                    evalue = 1e-3,
+                    eval = 1e-3,
                     qcov = 0.0,
                     tcov = 0.0,
                     pident = 0.0,
@@ -90,6 +93,8 @@ cds2rbh <- function(cds1, cds2,
                     fit.type = "mean",
                     fit.varweight = 0.1,
                     fit.min = 5,
+                    longest.isoform = FALSE,
+                    isoform.source = "NCBI",
                     threads = 1,
                     remove = TRUE){
   #internal function to fit evalue by length
@@ -145,8 +150,14 @@ cds2rbh <- function(cds1, cds2,
   aa2dbfile <- tempfile("aa2db_", outpath)
   aa2_aa1_lastout <- tempfile("aa2_aa1_lastout_", outpath)
   aa1_aa2_lastout <- tempfile("aa1_aa2_lastout_", outpath)
-  Biostrings::writeXStringSet(cds2aa(cds1), file = aa1file)
-  Biostrings::writeXStringSet(cds2aa(cds2), file = aa2file)
+  if(longest.isoform){
+    Biostrings::writeXStringSet(cds2aa(isoform2longest(cds1, isoform.source)), file = aa1file)
+    Biostrings::writeXStringSet(cds2aa(isoform2longest(cds2, isoform.source)), file = aa2file)
+  }
+  if(!longest.isoform){
+    Biostrings::writeXStringSet(cds2aa(cds1), file = aa1file)
+    Biostrings::writeXStringSet(cds2aa(cds2), file = aa2file)
+  }
   system(paste0(lastpath, "lastdb -p -cR01 -P ", threads," ", aa1dbfile, " ", aa1file))
   system(paste0(lastpath, "lastdb -p -cR01 -P ", threads," ", aa2dbfile, " ", aa2file))
   system(paste0(lastpath, "lastal -f BlastTab+ -P ", threads, " ", aa1dbfile, " ", aa2file, " > ", aa2_aa1_lastout))
@@ -173,10 +184,10 @@ cds2rbh <- function(cds1, cds2,
     aa2_aa1 <- aa2_aa1[aa2_aa1[, 1] != aa2_aa1[, 2], , drop = FALSE]
   }
   #apply standard filters on hit pairs
-  aa1_aa2 <- aa1_aa2 %>% filter.eval(evalue) %>% filter.qcov(qcov) %>%
+  aa1_aa2 <- aa1_aa2 %>% filter.eval(eval) %>% filter.qcov(qcov) %>%
                          filter.tcov(tcov) %>% filter.pident(pident) %>%
                          filter.alnlen(alnlen)
-  aa2_aa1 <- aa2_aa1 %>% filter.eval(evalue) %>% filter.qcov(qcov) %>%
+  aa2_aa1 <- aa2_aa1 %>% filter.eval(eval) %>% filter.qcov(qcov) %>%
                          filter.tcov(tcov) %>% filter.pident(pident) %>%
                          filter.alnlen(alnlen)
   if(rost1999){
@@ -205,9 +216,10 @@ cds2rbh <- function(cds1, cds2,
   #if no crbh - done
   if(!crbh){
     rbh <- rbh1[, 1:2]
-    colnames(rbh) <- c("aa1", "aa2")
+    rbh <- cbind(rbh, "rbh")
+    colnames(rbh) <- c("aa1", "aa2", "rbh_class")
     out <- list(rbh, cbind(rbh1, "rbh"), cbind(rbh2, "rbh"))
-    names(out) <- c("rbh.pairs", "rbh1", "rbh2")
+    names(out) <- c("crbh.pairs", "crbh1", "crbh2")
     return(out)
   }
   #if crbh - continue
@@ -220,6 +232,7 @@ cds2rbh <- function(cds1, cds2,
                                  fit.varweight,
                                  fit.min)
     }
+    #selfblast
     if(selfblast){
       rbh1_rbh2_fit <- fitSpline(c(rbh1[, 4]),
                                  c(rbh1[, 11]),
@@ -328,8 +341,8 @@ cds2rbh <- function(cds1, cds2,
       colnames(crbh1)[16] <- "rbh_class"
       crbh2 <- data.frame(Map(c ,cbind(rbh2, "rbh"), cbind(rbh2.sec[, 1:15], "sec")))
       colnames(crbh2)[16] <- "rbh_class"
-      crbh <- crbh1[, 1:2]
-      colnames(crbh) <- c("aa1", "aa2")
+      crbh <- crbh1[, c(1:2,16)]
+      colnames(crbh) <- c("aa1", "aa2", "rbh_class")
       out <- list(crbh, crbh1, crbh2, rbh1_rbh2_fit)
       names(out) <- c("crbh.pairs", "crbh1", "crbh2", "rbh1_rbh2_fit")
       return(out)
@@ -340,8 +353,8 @@ cds2rbh <- function(cds1, cds2,
       colnames(crbh1)[16] <- "rbh_class"
       crbh2 <- data.frame(Map(c, cbind(rbh2, "rbh"), cbind(rbh2.sec[, 1:15], "sec"), cbind(single2[, 1:15], "single")))
       colnames(crbh2)[16] <- "rbh_class"
-      crbh <- data.frame(Map(c, crbh1[, 1:2], single1[, 1:2], single2[, c(2, 1)]))
-      colnames(crbh) <- c("aa1", "aa2")
+      crbh <- data.frame(Map(c, crbh1[, c(1:2,16)], single1[, c(1:2,16)], single2[, c(2,1,16)]))
+      colnames(crbh) <- c("aa1", "aa2", "rbh_class")
       out <- list(crbh, crbh1, crbh2, rbh1_rbh2_fit)
       names(out) <- c("crbh.pairs", "crbh1", "crbh2", "rbh1_rbh2_fit")
       return(out)

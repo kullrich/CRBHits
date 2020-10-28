@@ -5,6 +5,7 @@
 #' @param pident percent identity [default: 0.0]
 #' @param inverse specify if filter should keep the removed values [default: FALSE]
 #' @return rbh matrix
+#' @importFrom dplyr filter
 #' @examples
 #' ##load crbh data
 #' data(ath_aly_crbh)
@@ -15,8 +16,10 @@
 
 filter.pident <- function(rbh, pident = 0.0, inverse = FALSE){
   if(inverse){
-    return(rbh[as.numeric(rbh[,3]) < pident, , drop = FALSE])
+    #return(rbh[as.numeric(rbh[,3]) < pident, , drop = FALSE])
+    return(dplyr::filter(rbh, perc_identity < pident))
   } else {
-    return(rbh[as.numeric(rbh[,3]) >= pident, , drop = FALSE])
+    #return(rbh[as.numeric(rbh[,3]) >= pident, , drop = FALSE])
+    return(dplyr::filter(rbh, perc_identity >= pident))
   }
 }

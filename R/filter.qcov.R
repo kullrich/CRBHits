@@ -5,6 +5,7 @@
 #' @param qcov query coverage [default: 0.0]
 #' @param inverse specify if filter should keep the removed values [default: FALSE]
 #' @return rbh matrix
+#' @importFrom dplyr filter
 #' @examples
 #' ##load crbh data
 #' data(ath_aly_crbh)
@@ -15,8 +16,10 @@
 
 filter.qcov <- function(rbh, qcov = 0.0, inverse = FALSE){
   if(inverse){
-    return(rbh[(as.numeric(rbh[,4])/as.numeric(rbh[,13])) < qcov, , drop = FALSE])
+    #return(rbh[(as.numeric(rbh[,4])/as.numeric(rbh[,13])) < qcov, , drop = FALSE])
+    return(dplyr::filter(rbh, (alignment_length / query_length) < qcov))
   } else {
-    return(rbh[(as.numeric(rbh[,4])/as.numeric(rbh[,13])) >= qcov, , drop = FALSE])
+    #return(rbh[(as.numeric(rbh[,4])/as.numeric(rbh[,13])) >= qcov, , drop = FALSE])
+    return(dplyr::filter(rbh, (alignment_length / query_length) >= qcov))
   }
 }

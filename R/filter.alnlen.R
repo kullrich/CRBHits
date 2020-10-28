@@ -5,6 +5,7 @@
 #' @param alnlen alignment length [default: 0.0]
 #' @param inverse specify if filter should keep the removed values [default: FALSE]
 #' @return rbh matrix
+#' @importFrom dplyr filter
 #' @examples
 #' ##load crbh data
 #' data(ath_aly_crbh)
@@ -15,8 +16,10 @@
 
 filter.alnlen <- function(rbh, alnlen = 0.0, inverse = FALSE){
   if(inverse){
-    return(rbh[as.numeric(rbh[,4]) < alnlen, , drop = FALSE])
+    #return(rbh[as.numeric(rbh[,4]) < alnlen, , drop = FALSE])
+    return(dplyr::filter(rbh, alignment_length < alnlen))
   } else {
-    return(rbh[as.numeric(rbh[,4]) >= alnlen, , drop = FALSE])
+    #return(rbh[as.numeric(rbh[,4]) >= alnlen, , drop = FALSE])
+    return(dplyr::filter(rbh, alignment_length >= alnlen))
   }
 }
