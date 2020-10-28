@@ -1,12 +1,12 @@
 ---
-title: 'CRBHits: Conditional Reciprocal Best Hits in R'
+title: 'CRBHits: Conditional Reciprocal Best Hits, Codon Alignments and Ka/Ks in R'
 tags:
   - R
   - reciprocal best hit
   - conditional reciprocal best hit
   - codon alignment
-  - dN/dS
   - Ka/Ks
+  - dN/dS
 authors:
   - name: Kristian K Ullrich
     orcid: 0000-0003-4308-9626
@@ -41,7 +41,8 @@ orthologous groups like e.g. [OrthoFinder](https://github.com/davidemms/OrthoFin
 The CRBH algorithm was introduced by @aubry2014deep and builds upon the traditional 
 RBH approach to find additional orthologous sequences between two sets of sequences. 
 As described earlier [@aubry2014deep; @scott2017shmlast], CRBH uses the sequence search 
-results to fit an expect-value (e-value) cutoff given each RBH to subsequently add sequence pairs 
+results to fit an expect value (E-value) cutoff given each RBH to subsequently add sequence pairs
+
 to the list of bona-fide orthologs given their alignment length.
 
 Unfortunately, as mentioned by @scott2017shmlast, the original 
@@ -84,7 +85,7 @@ use of an R external tool
 Like [shmlast](https://github.com/camillescott/shmlast), 
 [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) benefits from the blast-like sequence 
 search software [LAST](http://last.cbrc.jp/)[@kielbasa2011adaptive] and plots the fitted model 
-of the CRBH e-value based algorithm. In addition, users can filter the hit pairs prior to CRBH 
+of the CRBH E-value based algorithm. In addition, users can filter the hit pairs prior to CRBH 
 fitting for other criteria like query coverage, protein identity and/or 
 the twilight zone of protein sequence alignments according to 
 @rost1999twilight. The implemented filter uses equation 2 [see @rost1999twilight]:
@@ -105,40 +106,65 @@ Functions are completely coded in R and only the external prerequisites
 need to be compiled. Further, users can create their own filters before CRBH 
 calculation.
 
+![Main CRBHits functions overview: From CRBHit pairs to Ka/Ks values.\label{fig:functions}](figure1.png)
+
 # Functions and Examples
 
-The following example shows how to obtain CRBH between the coding sequences of *Schizosaccharomyces pombe* [@wood2012pombase] and *Nematostella vectensis* [@apweiler2004protein] by using two URLs as input strings and multiple threads for calculation.
+The following example shows how to obtain CRBHit pairs between the coding sequences of *Schizosaccharomyces pombe* [@wood2012pombase] and *Nematostella vectensis* [@apweiler2004protein] by using two URLs as input strings and multiple threads for calculation.
 
 ```r
 library(CRBHits)
-cds1 <- paste0("ftp://ftp.pombase.org/pombe/genome_sequence_and_features/",
-               "feature_sequences/cds.fa.gz")
-cds2 <- paste0("ftp://ftp.ebi.ac.uk/pub/databases/reference_proteomes/QfO/",
-               "Eukaryota/UP000001593_45351_DNA.fasta.gz")
+#set URLs for Schizosaccharomyces pombe and Nematostella vectensis from NCBI Genomes
+cds1 <- paste0("https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/002/945/",
+               "GCF_000002945.1_ASM294v2/GCF_000002945.1_ASM294v2_cds_from_genomic.fna.gz")
+cds2 <- paste0("https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/209/225/",
+               "GCF_000209225.1_ASM20922v1/GCF_000209225.1_ASM20922v1_cds_from_genomic.fna.gz")
+#calculate CBRBhit pairs
+cds1.cds2.crbh <- cdsfile2rbh(cds1, cds2, longest.isoform = TRUE,
+ isoform.source = "NCBI", plotCurve = TRUE, threads = 4)
 #get help ?cdsfile2rbh
-cds1.cds2.crbh <- cdsfile2rbh(cds1, cds2, plotCurve = TRUE, threads = 4)
 ```
 
-![Accepted secondary reciprocal best hits based on CRBH fitting.\label{fig:crbh}](figure1.png)
+![Accepted secondary reciprocal best hits based on CRBH fitting.\label{fig:crbh}](figure2.png)
 
-The obtained CRBH can also be used to calculate synonymous (Ks) and nonsynonymous (Ka) substitutions per hit pair using either the model from @li1993unbiased or from @yang2000estimating.
+The obtained CRBHit pairs can also be used to calculate synonymous (Ks) and nonsynonymous (Ka) substitutions per hit pair using either the model from @li1993unbiased or from @yang2000estimating.
 
 ```r
-cds1 <- Biostrings::readDNAStringSet(cds1)
-cds2 <- Biostrings::readDNAStringSet(cds2)
-#get help ?rbh2kaks
+#download and simultaneously get longest isoform for
+#Schizosaccharomyces pombe and Nematostella vectensis
+cds1 <- isoform2longest(Biostrings::readDNAStringSet(cds1))
+cds2 <- isoform2longest(Biostrings::readDNAStringSet(cds2))
+#calculate Ka/Ks values for each CRBHit pair
 cds1.cds2.kaks.Li <- rbh2kaks(cds1.cds2.crbh$crbh.pairs, cds1, cds2,
                               model = "Li", threads = 4)
 cds1.cds2.kaks.YN <- rbh2kaks(cds1.cds2.crbh$crbh.pairs, cds1, cds2,
                               model = "YN", threads = 4)
+#get help ?rbh2kaks
 ```
 
-Table: Performance comparison for CRBH and Ka/Ks calculations (Intel Xeon CPU E5-2620 v3 @ 2.40GHz; 3575 hit pairs).\label{tab:performance}
+Given the annotated chromosomal gene positions it is also possible to assign tandem duplicated genes per chromosome and directly compute chains of syntenic genes via the use of an R external tool [DAGchainer](http://dagchainer.sourceforge.net/)[@haas2004].
+
+```
+#extract gene position and chromosomal gene order
+cds1.genepos <- cds2genepos(cds1, source = "NCBI")
+cds2.genepos <- cds2genepos(cds2, source = "NCBI")
+#calculate selfblast CRBHit pairs
+cds1.selfblast.crbh <- cds2rbh(cds1, cds1, plotCurve = FALSE, threads = 4)
+cds2.selfblast.crbh <- cds2rbh(cds2, cds2, plotCurve = FALSE, threads = 4)
+#assign tandem duplicated genes
+cds1.tandemdups <- tandemdups(cds1, cds1.genepos, dupdist = 5)
+cds2.tandemdups <- tandemdups(cds2, cds2.genepos, dupdist = 5)
+#compute chains of syntenic genes
+cds1.cds2.synteny <- rbh2dagchainer(cds1.cds2.crbh, cds1.genepos, cds2.genepos,
+                                    plotDotPlot = TRUE)
+```
+
+Table: Performance comparison for CRBHit pair and Ka/Ks calculations (Intel Xeon CPU E5-2620 v3 @ 2.40GHz; 3575 hit pairs).\label{tab:performance}
 
 | Number of Threads | 1 | 2 | 4 | 8 |
 | - | - | - | - | - | 
-| Runtime of CRBH(shmlast) in sec| 38 (s)| 30 (s) | 28 (s) | 28 (s) |
-| Runtime of CRBH(CRBHits) in sec| 32 (s)| 26 (s) | 24 (s) | 22 (s) |
+| Runtime of CRBH(shmlast v1.6) in sec| 38 (s)| 25 (s) | 20 (s) | 16 (s) |
+| Runtime of CRBH(CRBHits) in sec| 32 (s)| 26 (s) | 24 (s) | 23 (s) |
 | Runtime of kaks.Li in sec| 357 (s)| 167 (s) | 87 (s) | 49 (s) | 
 | Runtime of kaks.YN in sec| 474 (s)| 230 (s) | 121 (s) | 63 (s) |
 
