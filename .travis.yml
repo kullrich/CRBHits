@@ -8,8 +8,8 @@ r_packages:
   - seqinr
   - foreach
   - doMC
-  - magrittr
   - dplyr
+  - tidyr
   - stringr
   - mclust
   - feature

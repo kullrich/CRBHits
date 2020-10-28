@@ -10,8 +10,8 @@ before_script:
   - R -e "install.packages('seqinr',repos='http://cran.rstudio.com')"
   - R -e "install.packages('foreach',repos='http://cran.rstudio.com')"
   - R -e "install.packages('doMC',repos='http://cran.rstudio.com')"
-  - R -e "install.packages('magrittr',repos='http://cran.rstudio.com')"
   - R -e "install.packages('dplyr',repos='http://cran.rstudio.com')"
+  - R -e "install.packages('tidyr',repos='http://cran.rstudio.com')"
   - R -e "install.packages('stringr',repos='http://cran.rstudio.com')"
   - R -e "install.packages('mclust',repos='http://cran.rstudio.com')"
   - R -e "install.packages('feature',repos='http://cran.rstudio.com')"
@@ -19,8 +19,9 @@ before_script:
   - R -e "BiocManager::install('Biostrings')"
   - R -e "install.packages('pkgdown')"
   - R -e "devtools::install_gitlab('mpievolbio-it/crbhits', host = 'https://gitlab.gwdg.de')"
-  - R -e "setwd(paste0(find.package('CRBHits'), '/extdata/')); system(paste0('unzip last-1080.zip')); setwd(paste0(find.package('CRBHits'), '/extdata/last-1080/')); system('make')"
+  - R -e "setwd(paste0(find.package('CRBHits'), '/extdata/')); system(paste0('unzip last-1133.zip')); setwd(paste0(find.package('CRBHits'), '/extdata/last-1133/')); system('make')"
   - R -e "setwd(paste0(find.package('CRBHits'), '/extdata/')); system(paste0('tar -xvf KaKs_Calculator2.0.tar.gz')); setwd(paste0(find.package('CRBHits'), '/extdata/KaKs_Calculator2.0/src/')); system('make clean'); system('make')"
+  - R -e "setwd(paste0(find.package('CRBHits'), '/extdata/')); system(paste0('unzip dagchainer.zip')); setwd(paste0(find.package('CRBHits'), '/extdata/dagchainer/')); system('make')"
 
 pages:
   stage: deploy
