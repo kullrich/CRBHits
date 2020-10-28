@@ -3,8 +3,7 @@
 #' @description This function translates a \code{DNAStringSet} into an \code{AAStringSet}.
 #' @param cds \code{DNAStringSet} [mandatory]
 #' @return \code{AAStringSet}
-#' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet readDNAStringSet readAAStringSet writeXStringSet width subseq
-#' @importFrom seqinr translate
+#' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet readDNAStringSet readAAStringSet writeXStringSet width subseq translate
 #' @importFrom stringr word
 #' @seealso \code{\link[Biostrings]{XStringSet-class}},
 #' \code{\link[seqinr]{translate}}
@@ -25,6 +24,8 @@ cds2aa <- function(cds){
     cds_not_multiple_of_three <- cds[cds_not_multiple_of_three.idx]
     cds <- cds[-cds_not_multiple_of_three.idx]
   }
-  aa <- Biostrings::AAStringSet(unlist(lapply(as.character(cds), function(x) paste0(seqinr::translate(unlist(strsplit(x, ""))), collapse=""))))
+  #aa <- Biostrings::AAStringSet(unlist(lapply(as.character(cds), function(x) paste0(seqinr::translate(unlist(strsplit(x, ""))), collapse=""))))
+  #aa <- Biostrings::AAStringSet(unlist(lapply(as.character(cds), function(x) seqinr::c2s(seqinr::translate(seqinr::s2c(x))))))
+  aa <- Biostrings::translate(cds, if.fuzzy.codon = "X")
   return(aa)
 }
