@@ -4,7 +4,7 @@
 \alias{filter.qcov}
 \title{filter.qcov}
 \usage{
-filter.qcov(rbh, qcov = 0, inverse = FALSE)
+\method{filter}{qcov}(rbh, qcov = 0, inverse = FALSE)
 }
 \arguments{
 \item{rbh}{BLAST-like tabular matrix [mandatory]}

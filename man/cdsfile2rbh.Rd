@@ -7,11 +7,11 @@
 cdsfile2rbh(
   cdsfile1,
   cdsfile2,
-  lastpath = paste0(find.package("CRBHits"), "/extdata/last-1080/src/"),
+  lastpath = paste0(find.package("CRBHits"), "/extdata/last-1133/src/"),
   outpath = "/tmp",
   crbh = TRUE,
   keepSingleDirection = FALSE,
-  evalue = 0.001,
+  eval = 0.001,
   qcov = 0,
   tcov = 0,
   pident = 0,
@@ -22,6 +22,8 @@ cdsfile2rbh(
   fit.type = "mean",
   fit.varweight = 0.1,
   fit.min = 5,
+  longest.isoform = FALSE,
+  isoform.source = "NCBI",
   threads = 1,
   remove = TRUE
 )
@@ -31,7 +33,7 @@ cdsfile2rbh(
 
 \item{cdsfile2}{cds2 fasta file [mandatory]}
 
-\item{lastpath}{specify the PATH to the last binaries [default: /extdata/last-1080/src/]}
+\item{lastpath}{specify the PATH to the last binaries [default: /extdata/last-1133/src/]}
 
 \item{outpath}{specify the output PATH [default: /tmp]}
 
@@ -39,7 +41,7 @@ cdsfile2rbh(
 
 \item{keepSingleDirection}{specify if single direction secondary hit pairs should be retained [default: FALSE]}
 
-\item{evalue}{evalue [default: 1e-3]}
+\item{eval}{evalue [default: 1e-3]}
 
 \item{qcov}{query coverage [default: 0.0]}
 
@@ -49,9 +51,9 @@ cdsfile2rbh(
 
 \item{alnlen}{alignment length [default: 0.0]}
 
-\item{rost1999}{specifiy if hit pairs should be filter by equation 2 of Rost 1999 [default: FALSE]}
+\item{rost1999}{specify if hit pairs should be filter by equation 2 of Rost 1999 [default: FALSE]}
 
-\item{filter}{specify additonal custom filters as list to be applied on hit pairs [default: NULL]}
+\item{filter}{specify additional custom filters as list to be applied on hit pairs [default: NULL]}
 
 \item{plotCurve}{specify if crbh fitting curve should be plotted [default: FALSE]}
 
@@ -61,15 +63,19 @@ cdsfile2rbh(
 
 \item{fit.min}{specify minimum neighborhood alignment length [default: 5]}
 
+\item{longest.isoform}{specify if cds sequences should be removed to the longest isoform (only possible if data was accessed from NCBI or ENSEMBL) [default: FALSE]}
+
+\item{isoform.source}{specify cds sequences source (either NCBI or ENSEMBL) [default: NCBI]}
+
 \item{threads}{number of parallel threads [default: 1]}
 
 \item{remove}{specify if last result files should be removed [default: TRUE]}
 }
 \value{
 List of three (crbh = FALSE)\cr
-1: $rbh.pairs\cr
-2: $rbh1 matrix; query > target\cr
-3: $rbh2 matrix; target > query\cr
+1: $crbh.pairs\cr
+2: $crbh1 matrix; query > target\cr
+3: $crbh2 matrix; target > query\cr
 \cr
 List of four (crbh = TRUE)\cr
 1: $crbh.pairs\cr
@@ -78,13 +84,13 @@ List of four (crbh = TRUE)\cr
 4: $rbh1_rbh2_fit; evalue fitting function
 }
 \description{
-This function calculates (conditional-)reciprocal best hit pair matrix from two two cds fasta file's.
+This function calculates (conditional-)reciprocal best hit (CRBHit) pairs from two two CDS fasta file's.
 Conditional-reciprocal best hit pairs were introduced by \emph{Aubry S, Kelly S et al. (2014)}.
 Sequence searches are performed with \bold{last} \emph{Kiełbasa, SM et al. (2011)}.
 If one specifies cdsfile1 and cdsfile2 as the same input a selfblast is conducted.
 }
 \examples{
-##compile last-1080 within CRBHits
+##compile last-1133 within CRBHits
 make.last()
 ##load example sequence data
 athfile <- system.file("fasta", "ath.cds.fasta.gz", package = "CRBHits")
@@ -108,7 +114,8 @@ Kiełbasa, SM et al. (2011) Adaptive seeds tame genomic sequence comparison. \em
 Rost B. (1999). Twilight zone of protein sequence alignments. \emph{Protein Engineering}, \bold{12(2)}, 85-94.
 }
 \seealso{
-\code{\link[CRBHits]{cds2rbh}}
+\code{\link[CRBHits]{cds2rbh}},
+\code{\link[CRBHits]{isoform2longest}}
 }
 \author{
 Kristian K Ullrich

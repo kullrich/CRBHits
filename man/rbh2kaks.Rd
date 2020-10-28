@@ -9,19 +9,34 @@ rbh2kaks(
   cds1,
   cds2,
   model = "Li",
+  plotDotPlot = FALSE,
+  gene.position.cds1 = NULL,
+  gene.position.cds2 = NULL,
+  tandem.dups.cds1 = NULL,
+  tandem.dups.cds2 = NULL,
   threads = 1,
   kakscalcpath = paste0(find.package("CRBHits"), "/extdata/KaKs_Calculator2.0/src/"),
   ...
 )
 }
 \arguments{
-\item{rbhpairs}{(conditional-)recirpocal best hit pair matrix [mandatory]}
+\item{rbhpairs}{(conditional-)recirpocal best hit (CRBHit) pairs (see \code{\link[CRBHits]{cds2rbh}}) [mandatory]}
 
 \item{cds1}{cds1 sequences as \code{DNAStringSet} or \code{url} for first crbh pairs column [mandatory]}
 
 \item{cds2}{cds2 sequences as \code{DNAStringSet} or \code{url} for second crbh pairs column [mandatory]}
 
 \item{model}{specify codon model either "Li" or "YN" [default: Li]}
+
+\item{plotDotPlot}{specify if dotplot should be plotted (mandatory to define \code{gene.position.cds1} and \code{gene.position.cds1}) [default: FALSE]}
+
+\item{gene.position.cds1}{specify gene position for cds1 sequences (see \code{\link[CRBHits]{cds2genepos}}) [default: NULL]}
+
+\item{gene.position.cds2}{specify gene position for cds2 sequences (see \code{\link[CRBHits]{cds2genepos}}) [default: NULL]}
+
+\item{tandem.dups.cds1}{specify tandem duplicates for cds1 sequences (see \code{\link[CRBHits]{tandemdups}}) [default: NULL]}
+
+\item{tandem.dups.cds2}{specify tandem duplicates for cds2 sequences (see \code{\link[CRBHits]{tandemdups}}) [default: NULL]}
 
 \item{threads}{number of parallel threads [default: 1]}
 
@@ -30,7 +45,7 @@ rbh2kaks(
 \item{...}{other codon alignment parameters (see \code{\link[CRBHits]{cds2codonaln}})}
 }
 \description{
-This function calculates ka/ks (dN/dS; accoring to \emph{Li (1993)} or \emph{Yang and Nielson (2000)} for each reciprocal best hit pair. The names of the \code{rbh} columns must match the names of the corresponding \code{cds1} and \code{cds2} \code{DNAStringSet} vectors.
+This function calculates Ka/Ks (dN/dS; accoring to \emph{Li (1993)} or \emph{Yang and Nielson (2000)} for each (conditional-)reciprocal best hit (CRBHit) pair. The names of the \code{rbh} columns must match the names of the corresponding \code{cds1} and \code{cds2} \code{DNAStringSet} vectors.
 }
 \examples{
 ##load example sequence data
@@ -50,7 +65,9 @@ Wang D, Zhang Y et al. (2010) KaKs_Calculator 2.0: a toolkit incorporating gamma
 Yang Z and Nielson R. (2000) Estimating synonymous and nonsynonymous substitution rates under realistic evolutionary models. \emph{Mol. Biol. Evol.}, \bold{17(1)}, 32-43.
 }
 \seealso{
-\code{\link[CRBHits]{cds2kaks}}
+\code{\link[CRBHits]{cds2kaks}},
+\code{\link[CRBHits]{isoform2longest}},
+\code{\link[CRBHits]{cds2genepos}}
 }
 \author{
 Kristian K Ullrich

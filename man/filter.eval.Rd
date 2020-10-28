@@ -4,14 +4,14 @@
 \alias{filter.eval}
 \title{filter.eval}
 \usage{
-filter.eval(rbh, evalue = 0.001, inverse = FALSE)
+\method{filter}{eval}(rbh, eval = 0.001, inverse = FALSE)
 }
 \arguments{
 \item{rbh}{BLAST-like tabular matrix [mandatory]}
 
-\item{evalue}{evalue [default: 1e-3]}
-
 \item{inverse}{specify if filter should keep the removed values [default: FALSE]}
+
+\item{evalue}{evalue [default: 1e-3]}
 }
 \value{
 rbh matrix

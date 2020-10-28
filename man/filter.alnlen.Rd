@@ -4,7 +4,7 @@
 \alias{filter.alnlen}
 \title{filter.alnlen}
 \usage{
-filter.alnlen(rbh, alnlen = 0, inverse = FALSE)
+\method{filter}{alnlen}(rbh, alnlen = 0, inverse = FALSE)
 }
 \arguments{
 \item{rbh}{BLAST-like tabular matrix [mandatory]}

@@ -4,7 +4,7 @@
 \alias{filter.tcov}
 \title{filter.tcov}
 \usage{
-filter.tcov(rbh, tcov = 0, inverse = FALSE)
+\method{filter}{tcov}(rbh, tcov = 0, inverse = FALSE)
 }
 \arguments{
 \item{rbh}{BLAST-like tabular matrix [mandatory]}

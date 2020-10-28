@@ -4,7 +4,7 @@
 \alias{filter.pident}
 \title{filter.pident}
 \usage{
-filter.pident(rbh, pident = 0, inverse = FALSE)
+\method{filter}{pident}(rbh, pident = 0, inverse = FALSE)
 }
 \arguments{
 \item{rbh}{BLAST-like tabular matrix [mandatory]}
