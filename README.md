@@ -30,9 +30,9 @@ The Ka/Ks (also sometimes denoted as dN/dS) values can be obtained either via th
 
 The following two images show the two main functions of the package `cds2rbh()` and `rbh2kaks()`, which are described in more detail in the package vignettes.
 
-![Figure: Overview of the `cds2rbh()` function](./vignettes/cds2rbhoverview.png){width=600px}
+![Figure: Overview of the `cds2rbh()` function](./vignettes/cds2rbhoverview.png | width=400)
 
-![Figure: Overview of the `rbh2kaks()` function](./vignettes/rbh2kaksoverview.png){width=600px}
+![Figure: Overview of the `rbh2kaks()` function](./vignettes/rbh2kaksoverview.png | width=400)
 
 # Installation
 
