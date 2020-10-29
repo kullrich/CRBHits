@@ -51,7 +51,7 @@ This function calculates Ka/Ks (dN/dS; accoring to \emph{Li (1993)} or \emph{Yan
 ##load example sequence data
 data("ath", package="CRBHits")
 data("aly", package="CRBHits")
-##load example conditional-reciprocal best hit pair results
+##load example CRBHit pairs
 data("ath_aly_crbh", package="CRBHits")
 ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh$crbh.pairs[1:20, ],
                               ath, aly, model = "Li")

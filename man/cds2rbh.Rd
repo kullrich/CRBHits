@@ -95,10 +95,10 @@ make.last()
 ##load example sequence data
 data("ath", package="CRBHits")
 data("aly", package="CRBHits")
-#conditional-reciprocal best hits
+#get CRBHit pairs
 ath_aly_crbh <- cds2rbh(ath, aly, plotCurve = TRUE)
 dim(ath_aly_crbh$crbh.pairs)
-#reciprocal best hits
+#get classical reciprocal best hit (RBHit) pairs
 ath_aly_rbh <- cds2rbh(ath, aly, crbh = FALSE)
 dim(ath_aly_rbh$rbh.pairs)
 #filter for evalue 1e-100

@@ -16,6 +16,7 @@
 #' @importFrom stringr word
 #' @importFrom dplyr select distinct mutate filter
 #' @importFrom tidyr %>% unite
+#' @importFrom curl curl_download
 #' @seealso \code{\link[CRBHits]{isoform2longest}}
 #' @examples
 #' \dontrun{
@@ -23,10 +24,12 @@
 #' #set EnsemblPlants URL
 #' ensemblPlants <- "ftp://ftp.ensemblgenomes.org/pub/plants/release-48/fasta/"
 #' #set Arabidopsis thaliana CDS URL
-#' ARATHA.file <- "arabidopsis_thaliana/cds/Arabidopsis_thaliana.TAIR10.cds.all.fa.gz"
-#' ARATHA.ENSEMBL.cds <- Biostrings::readDNAStringSet(paste0(ensemblPlants, ARATHA.file))
+#' ARATHA.cds.url <- paste0(ensemblPlants, "arabidopsis_thaliana/cds/Arabidopsis_thaliana.TAIR10.cds.all.fa.gz")
+#' ARATHA.cds.file <- tempfile()
+#' curl::curl_download(ARATHA.cds.url, ARATHA.cds.file)
+#' ARATHA.cds <- Biostrings::readDNAStringSet(ARATHA.file)
 #' #get gene position
-#' ARATHA.ENSEMBL.pos <- cds2genepos(ARATHA.ENSEMBL.cds, "ENSEMBL")
+#' ARATHA.cds.genepos <- cds2genepos(ARATHA.cds, "ENSEMBL")
 #' }
 #' @export cds2genepos
 #' @author Kristian K Ullrich

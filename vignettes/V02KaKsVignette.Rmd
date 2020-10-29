@@ -342,6 +342,16 @@ ARATHA.cds.longest.tandemdups <- tandemdups(ARATHA_selfblast_crbh,
                                             ARATHA.cds.longest.genepos,
                                             dupdist = 5)
 
+#assign tandem duplicates for A. lyrata
+ARALYR.cds.longest.tandemdups <- tandemdups(ARALYR_selfblast_crbh,
+                                            ARALYR.cds.longest.genepos,
+                                            dupdist = 5)
+```
+
+The resulting tandem duplicated genes detected can be plotted given their chromosomal gene position as follows:
+
+```{r}
+
 ```
 
 ### 1.6 [Synteny with DAGchainer]{#synteny}
@@ -373,6 +383,10 @@ ARATHA_ARALYR_crbh.dagchainer.bp <- rbh2dagchainer(crbh = ARATHA_ARALYR_crbh,
                                                 gap_length = 10000,
                                                 max_dist_allowed = 200000,
                                                 dagchainerpath = vignette.paths[3])
+```
+
+```{r}
+##example how to plot pairwise chromosomal syntenic groups (DAGchainer results)
 
 #plot DAGchainer results for each chromosome combination
 

@@ -32,10 +32,12 @@ This function extracts the gene position from either NCBI or ENSEMBL CDS input.
 #set EnsemblPlants URL
 ensemblPlants <- "ftp://ftp.ensemblgenomes.org/pub/plants/release-48/fasta/"
 #set Arabidopsis thaliana CDS URL
-ARATHA.file <- "arabidopsis_thaliana/cds/Arabidopsis_thaliana.TAIR10.cds.all.fa.gz"
-ARATHA.ENSEMBL.cds <- Biostrings::readDNAStringSet(paste0(ensemblPlants, ARATHA.file))
+ARATHA.cds.url <- paste0(ensemblPlants, "arabidopsis_thaliana/cds/Arabidopsis_thaliana.TAIR10.cds.all.fa.gz")
+ARATHA.cds.file <- tempfile()
+curl::curl_download(ARATHA.cds.url, ARATHA.cds.file)
+ARATHA.cds <- Biostrings::readDNAStringSet(ARATHA.file)
 #get gene position
-ARATHA.ENSEMBL.pos <- cds2genepos(ARATHA.ENSEMBL.cds, "ENSEMBL")
+ARATHA.cds.genepos <- cds2genepos(ARATHA.cds, "ENSEMBL")
 }
 }
 \seealso{
