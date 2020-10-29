@@ -58,7 +58,7 @@ ARATHA.CDS.url <- paste0(ensemblPlants, "arabidopsis_thaliana/cds/",
                       "Arabidopsis_thaliana.TAIR10.cds.all.fa.gz")
 #get Arabidopsis thaliana CDS
 ARATHA.CDS.file <- tempfile()
-curl::curl_download(ARATHA.CDS.url, ARATHA.CDS.file, quiet = FALSE)
+download.file(ARATHA.CDS.url, ARATHA.CDS.file, quiet = FALSE)
 ARATHA.cds <- Biostrings::readDNAStringSet(ARATHA.CDS.file)
 ```
 

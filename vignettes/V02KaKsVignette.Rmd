@@ -114,11 +114,11 @@ HOMSAP.cds.url <- paste0(ensembl, "homo_sapiens/cds/Homo_sapiens.GRCh38.cds.all.
 PANTRO.cds.url <- paste0(ensembl, "pan_troglodytes/cds/Pan_troglodytes.Pan_tro_3.0.cds.all.fa.gz")
 #get Homo sapiens CDS
 HOMSAP.cds.file <- tempfile()
-curl::curl_download(HOMSAP.cds.url, HOMSAP.cds.file, quiet = FALSE)
+download.file(HOMSAP.cds.url, HOMSAP.cds.file, quiet = FALSE)
 HOMSAP.cds <- Biostrings::readDNAStringSet(HOMSAP.cds.file)
 #get Pan troglodytes CDS
 PANTRO.cds.file <- tempfile()
-curl::curl_download(PANTRO.cds.url, PANTRO.cds.file, quiet = FALSE)
+download.file(PANTRO.cds.url, PANTRO.cds.file, quiet = FALSE)
 PANTRO.cds <- Biostrings::readDNAStringSet(PANTRO.cds.file)
 ```
 ### 1.2. [Get Longest Isoform from NCBI or ENSEMBL Input]{#isoform}
@@ -231,7 +231,7 @@ ARATHA.GFF.url <- paste0(ensemblPlants, "gff3/arabidopsis_thaliana/",
 #downlaod and gunzip file
 ARATHA.GFF.file <- tempfile()
 ARATHA.GFF.file.gz <- paste0(ARATHA.GFF.file, ".gz")
-curl::curl_download(ARATHA.GFF.url, ARATHA.GFF.file.gz, quiet = FALSE)
+download.file(ARATHA.GFF.url, ARATHA.GFF.file.gz, quiet = FALSE)
 system(paste0("gunzip -f ", ARATHA.GFF.file.gz))
 #read ARATHA.GFF.file
 ARATHA.gff <- read.table(ARATHA.GFF.file, sep = "\t", 
