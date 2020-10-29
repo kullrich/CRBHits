@@ -16,7 +16,6 @@ r_packages:
 
 bioc_required: true
 bioc_packages:
-   - DelayedArray
    - BiocGenerics
    - Biostrings
 
