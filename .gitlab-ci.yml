@@ -2,10 +2,13 @@ image: r-base
 
 before_script:
   - apt-get update
-  - apt-get -y install libcurl4-openssl-dev libssl-dev libxml2-dev pandoc libglu1-mesa-dev libssh2-1-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev r-cran-devtools r-cran-testthat r-cran-curl r-cran-seqinr r-cran-foreach r-cran-doMC r-cran-tidyverse r-cran-mclust r-cran-feature r-cran-pkgdown
+  - apt-get -y install libcurl4-openssl-dev libssl-dev libxml2-dev pandoc libglu1-mesa-dev libssh2-1-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev r-cran-devtools r-cran-testthat r-cran-curl r-cran-seqinr r-cran-foreach r-cran-tidyverse r-cran-mclust
   - R -e "dir()"
   - R -e "getwd()"
   - R -e "sessionInfo()"
+  - R -e "install.packages('doMC',repos='http://cran.rstudio.com')"
+  - R -e "install.packages('feature',repos='http://cran.rstudio.com')"
+  - R -e "install.packages('pkgdown',repos='http://cran.rstudio.com')"
   - R -e "if (!requireNamespace('BiocManager', quietly = TRUE)) {install.packages('BiocManager')}"
   - R -e "BiocManager::install('Biostrings')"
   - R -e "install.packages('pkgdown')"
