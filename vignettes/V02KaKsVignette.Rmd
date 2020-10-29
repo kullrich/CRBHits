@@ -108,13 +108,17 @@ The [Ensembl release-101](ftp://ftp.ensembl.org/pub/release-101/fasta/) is used.
 #set Ensembl URL
 ensembl <- "ftp://ftp.ensembl.org/pub/release-101/fasta/"
 #set Homo sapiens CDS URL
-HOMSAP.CDS.file <- "homo_sapiens/cds/Homo_sapiens.GRCh38.cds.all.fa.gz"
+HOMSAP.CDS.url <- "homo_sapiens/cds/Homo_sapiens.GRCh38.cds.all.fa.gz"
 #set Pan troglodytes CDS URL
-PANTRO.CDS.file <- "pan_troglodytes/cds/Pan_troglodytes.Pan_tro_3.0.cds.all.fa.gz"
+PANTRO.CDS.url <- "pan_troglodytes/cds/Pan_troglodytes.Pan_tro_3.0.cds.all.fa.gz"
 #get Homo sapiens CDS
-HOMSAP.cds <- Biostrings::readDNAStringSet(paste0(ensembl, HOMSAP.CDS.file))
+HOMSAP.cds.file <- tempfile()
+curl::curl_download(paste0(ensembl, HOMSAP.CDS.url), HOMSAP.CDS.file)
+HOMSAP.cds <- Biostrings::readDNAStringSet(HOMSAP.CDS.file)
 #get Pan troglodytes CDS
-PANTRO.cds <- Biostrings::readDNAStringSet(paste0(ensembl, PANTRO.CDS.file))
+PANTRO.cds.file <- tempfile()
+curl::curl_download(paste0(ensembl, PANTRO.CDS.url), PANTRO.CDS.file)
+PANTRO.cds <- Biostrings::readDNAStringSet(PANTRO.CDS.file)
 ```
 ### 1.2. [Get Longest Isoform from NCBI or ENSEMBL Input]{#isoform}
 
@@ -221,13 +225,15 @@ __Note:__ The GFF3 and GTF files can be very large and it might take some time u
 #set NCBI URL
 ensemblPlants <- "ftp://ftp.ensemblgenomes.org/pub/plants/release-48/"
 #set Arabidopsis thaliana GFF3 URL
-ARATHA.GFF.file <- paste0("gff3/arabidopsis_thaliana/",
+ARATHA.GFF.url <- paste0("gff3/arabidopsis_thaliana/",
                       "Arabidopsis_thaliana.TAIR10.48.gff3.gz")
 #downlaod and gunzip file
-curl::curl_download(paste0(ensemblPlants, ARATHA.GFF.file), "/tmp/tmp.gff.gz")
-system(paste0("gunzip -f /tmp/tmp.gff.gz"))
-#read /tmp/tmp.gff
-ARATHA.gff <- read.table("/tmp/tmp.gff", sep = "\t", 
+ARATHA.GFF.file <- tempfile()
+ARATHA.GFF.file.gz <- paste0(ARATHA.GFF.file, ".gz")
+curl::curl_download(paste0(ensemblPlants, ARATHA.GFF.url), ARATHA.GFF.file.gz)
+system(paste0("gunzip -f ", ARATHA.GFF.file.gz))
+#read ARATHA.GFF.file
+ARATHA.gff <- read.table(ARATHA.GFF.file, sep = "\t", 
                          quote = "", header = FALSE)
 colnames(ARATHA.gff) <- c("seqname", "source", "feature", "start", "end", "score", "strand", "frame", "attribute")
 

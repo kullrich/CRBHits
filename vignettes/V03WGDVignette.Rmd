@@ -40,6 +40,7 @@ suppressPackageStartupMessages(library(Biostrings))
 suppressPackageStartupMessages(library(tidyr))
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(stringr))
+suppressPackageStartupMessages(library(curl))
 #compile LAST and KaKs_Calculator2.0 for the vignette
 vignette.paths <- make.vignette()
 ```
@@ -53,10 +54,12 @@ vignette.paths <- make.vignette()
 #set Ensembl Plants URL
 ensemblPlants <- "ftp://ftp.ensemblgenomes.org/pub/plants/release-48/fasta/"
 #set Arabidopsis thaliana CDS URL
-ARATHA.CDS.file <- paste0("arabidopsis_thaliana/cds/",
+ARATHA.CDS.url <- paste0("arabidopsis_thaliana/cds/",
                       "Arabidopsis_thaliana.TAIR10.cds.all.fa.gz")
 #get Arabidopsis thaliana CDS
-ARATHA.cds <- Biostrings::readDNAStringSet(paste0(ensemblPlants, ARATHA.CDS.file))
+ARATHA.CDS.file <- tempfile()
+curl::curl_download(paste0(ensemblPlants, ARATHA.CDS.url), ARATHA.CDS.file)
+ARATHA.cds <- Biostrings::readDNAStringSet(ARATHA.CDS.file)
 ```
 
 ```{r}

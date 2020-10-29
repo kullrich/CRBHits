@@ -86,11 +86,11 @@ install_gitlab("mpievolbio-it/crbhits", host = "https://gitlab.gwdg.de",
 install_github("kullrich/CRBHits", build_vignettes = TRUE, dependencies = FALSE)
 ```
 
-[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) needs [LAST](http://last.cbrc.jp/) and [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download) to be installed before one can efficiently use it.
+[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) needs [LAST](http://last.cbrc.jp/), [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download) and [DAGchainer](http://dagchainer.sourceforge.net/) to be installed before one can efficiently use it.
 
-Both prerequisites (LAST, KaKs_Calculator2.0) are forked within [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) and can be compiled for Linux/Unix/macOS with the functions `make.last()` and `make.KaKs_Calculator2()`.
+All prerequisites (LAST, KaKs_Calculator2.0, DAGchainer) are forked within [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) and can be compiled for Linux/Unix/macOS with the functions `make.last()`, `make.KaKs_Calculator2()` and  `make.dagchainer()`.
 
-For the windows platform the user needs to use e.g. [https://www.cygwin.com/](https://www.cygwin.com/) to be able to compile both prerequisites.
+For the windows platform the user needs to use e.g. [https://www.cygwin.com/](https://www.cygwin.com/) to be able to compile the prerequisites.
 
 ```
 library(CRBHits)
@@ -98,11 +98,13 @@ library(CRBHits)
 make.last()
 #compile KaKs_Calculator2.0
 make.KaKs_Calculator2()
+#compile DAGchainer
+make.dagchainer()
 ```
 
 ## 2. [Conditional Reciprocal Best Hits - Algorithm]{#crbhalgorithm}
 
-![Figure: Overview of the `cds2rbh()` function](cds2rbhoverview.png){width=600px}
+![Figure: Overview of the `cds2rbh()` function](cds2rbhoverview.png){width=400px}
 
 The CRBH algorithm was introduced by [Aubry S, Kelly S et al. (2014)](http://www.plosgenetics.org/article/info%3Adoi%2F10.1371%2Fjournal.pgen.1004365) and ported to python [shmlast](https://pypi.org/project/shmlast/) ([Scott C. 2017](https://joss.theoj.org/papers/10.21105/joss.00142)) which benefits from the blast-like sequence search software [LAST](http://last.cbrc.jp/) ([Kiełbasa SM et al. 2011](https://genome.cshlp.org/content/21/3/487.long)).
 
@@ -116,7 +118,7 @@ All of these steps are combined in either the `cds2rbh()` function (R vector inp
 
 To activate/deactivate specific options use the parameters `@param` given and explained for each function (see `?cds2rbh()` and `?cdsfile2rbh()`). 
 
-![Figure: Individual steps of the `cds2rbh()` function](cds2rbh.png){width=600px}
+![Figure: Individual steps of the `cds2rbh()` function](cds2rbh.png){width=800px}
 
 ### 2.1. [1. step: sequence similarity search (last)]{#crbhstep1}
 
@@ -390,7 +392,7 @@ As described earlier, [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) fe
 
 ## 3. [Ka/Ks Calculations]{#KaKs}
 
-![Figure: Overview of the `rbh2kaks()` function steps](rbh2kaksoverview.png){width=600px}
+![Figure: Overview of the `rbh2kaks()` function steps](rbh2kaksoverview.png){width=800px}
 
 The resulting CRBHs (see #crbhalgorithm) can be further processed to e.g. filtered for Tandem Duplicates (see [CRBHits KaKs Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V02KaKsVignette.html)) and/or can be used to calculate Ka/Ks values for each CRBH pair (see #rbh2kaks and [CRBHits KaKs Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V02KaKsVignette.html)).
 
