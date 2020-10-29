@@ -47,13 +47,17 @@ In most cases you need to first install the following system-wide packages to be
 Ubuntu/Debian
 
 ```
-sudo apt-get install libcurl4-openssl-dev libssl-dev libxml2-dev libglu1-mesa-dev libssh2-1-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev
+sudo apt-get install libcurl4-openssl-dev libssl-dev libxml2-dev libglu1-mesa-dev
+#pkgdown dependencies
+sudo apt-get install libssh2-1-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev
 ```
 
 CentOS
 
 ```
-sudo yum install libcurl-devel openssl-devel libxml2-devel mesa-libGLU-devel libssh2-devel fontconfig-devel harfbuzz-devel fribidi-devel
+sudo yum install libcurl-devel openssl-devel libxml2-devel mesa-libGLU-devel
+#pkgdown dependencies
+sudo yum install libssh2-devel fontconfig-devel harfbuzz-devel fribidi-devel
 ```
 
 - [devtools](https://cran.r-project.org/web/packages/devtools/index.html)
@@ -62,9 +66,7 @@ sudo yum install libcurl-devel openssl-devel libxml2-devel mesa-libGLU-devel lib
 - [seqinr](https://cran.r-project.org/web/packages/seqinr/index.html)
 - [foreach](https://cran.r-project.org/web/packages/foreach/index.html)
 - [doMC](https://cran.r-project.org/web/packages/doMC/index.html)
-- [dplyr](https://cran.r-project.org/web/packages/dplyr/index.html)
-- [tidyr](https://cran.r-project.org/web/packages/tidyr/index.html)
-- [stringr](https://cran.r-project.org/web/packages/stringr/index.html)
+- [tidyverse](https://cran.r-project.org/web/packages/tidyverse/index.html)
 - [mclust](https://cran.r-project.org/web/packages/mclust/index.html)
 - [feature](https://cran.r-project.org/web/packages/feature/index.html)
 
@@ -75,9 +77,7 @@ install.packages("curl")
 install.packages("seqinr")
 install.packages("foreach")
 install.packages("doMC")
-install.packages("dplyr")
-install.packages("tidyr")
-install.packages("stringr")
+install.packages("tidyverse")
 install.packages("mclust")
 install.packages("feature")
 ```

@@ -164,7 +164,7 @@ Table: Performance comparison for CRBHit pair and Ka/Ks calculations (Intel Xeon
 | Number of Threads | 1 | 2 | 4 | 8 |
 | - | - | - | - | - | 
 | Runtime of CRBH(shmlast v1.6) in sec| 38 (s)| 25 (s) | 20 (s) | 16 (s) |
-| Runtime of CRBH(CRBHits) in sec| 32 (s)| 26 (s) | 24 (s) | 23 (s) |
+| Runtime of CRBH(CRBHits) in sec| 18 (s)| 10 (s) | 7 (s) | 6 (s) |
 | Runtime of kaks.Li in sec| 357 (s)| 167 (s) | 87 (s) | 49 (s) | 
 | Runtime of kaks.YN in sec| 474 (s)| 230 (s) | 121 (s) | 63 (s) |
 
