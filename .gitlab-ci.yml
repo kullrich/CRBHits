@@ -1,8 +1,8 @@
 image: r-base
 
 before_script:
-  - sudo apt-get update
-  - sudo apt-get -y install libcurl4-openssl-dev libssl-dev libxml2-dev pandoc libglu1-mesa-dev libssh2-1-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev
+  - apt-get update
+  - apt-get -y install libcurl4-openssl-dev libssl-dev libxml2-dev pandoc libglu1-mesa-dev libssh2-1-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev r-cran-fs
   - R -e "dir()"
   - R -e "getwd()"
   - R -e "sessionInfo()"
