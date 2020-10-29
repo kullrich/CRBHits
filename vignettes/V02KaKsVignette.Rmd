@@ -114,11 +114,11 @@ HOMSAP.cds.url <- paste0(ensembl, "homo_sapiens/cds/Homo_sapiens.GRCh38.cds.all.
 PANTRO.cds.url <- paste0(ensembl, "pan_troglodytes/cds/Pan_troglodytes.Pan_tro_3.0.cds.all.fa.gz")
 #get Homo sapiens CDS
 HOMSAP.cds.file <- tempfile()
-curl::curl_download(HOMSAP.cds.url, HOMSAP.cds.file)
+curl::curl_download(HOMSAP.cds.url, HOMSAP.cds.file, quiet = FALSE)
 HOMSAP.cds <- Biostrings::readDNAStringSet(HOMSAP.cds.file)
 #get Pan troglodytes CDS
 PANTRO.cds.file <- tempfile()
-curl::curl_download(PANTRO.cds.url, PANTRO.cds.file)
+curl::curl_download(PANTRO.cds.url, PANTRO.cds.file, quiet = FALSE)
 PANTRO.cds <- Biostrings::readDNAStringSet(PANTRO.cds.file)
 ```
 ### 1.2. [Get Longest Isoform from NCBI or ENSEMBL Input]{#isoform}
@@ -226,12 +226,12 @@ __Note:__ The GFF3 and GTF files can be very large and it might take some time u
 #set NCBI URL
 ensemblPlants <- "ftp://ftp.ensemblgenomes.org/pub/plants/release-48/"
 #set Arabidopsis thaliana GFF3 URL
-ARATHA.GFF.url <- paste0("gff3/arabidopsis_thaliana/",
+ARATHA.GFF.url <- paste0(ensemblPlants, "gff3/arabidopsis_thaliana/",
                       "Arabidopsis_thaliana.TAIR10.48.gff3.gz")
 #downlaod and gunzip file
 ARATHA.GFF.file <- tempfile()
 ARATHA.GFF.file.gz <- paste0(ARATHA.GFF.file, ".gz")
-curl::curl_download(paste0(ensemblPlants, ARATHA.GFF.url), ARATHA.GFF.file.gz)
+curl::curl_download(ARATHA.GFF.url, ARATHA.GFF.file.gz, quiet = FALSE)
 system(paste0("gunzip -f ", ARATHA.GFF.file.gz))
 #read ARATHA.GFF.file
 ARATHA.gff <- read.table(ARATHA.GFF.file, sep = "\t", 
@@ -351,6 +351,27 @@ ARALYR.cds.longest.tandemdups <- tandemdups(ARALYR_selfblast_crbh,
 The resulting tandem duplicated genes detected can be plotted given their chromosomal gene position as follows:
 
 ```{r}
+##example how to plot tandem duplicated gene groups
+
+#get tandem group size
+tandem_group_size <- ARATHA.cds.longest.tandemdups %>% dplyr::group_by(tandem_group) %>% dplyr::group_size()
+
+#use dplyr::mutate to assign group size
+ARATHA.cds.longest.tandemdups <- ARATHA.cds.longest.tandemdups %>%
+  dplyr::mutate(tandem_group_size = unlist(apply(cbind(tandem_group_size,
+                                                        tandem_group_size),1, function(x) rep(x[1], x[2]))))
+
+#use dplyr::group_by to plot group by chromosome and colored by group size
+
+
+#define alternating colors per tandem group
+tandem_group_col <- unlist(apply(cbind(rep_len(CRBHitsColors, length(tandem_group_size)),
+                                       tandem_group_size),1, function(x) rep(x[1], x[2])))
+
+#use dplyr::group_by to plot group by chromosome and colored by alternating colors
+ARATHA.cds.longest.tandemdups %>% dplyr::group_by(gene.chr) %>%
+  ggplot(aes(x = gene.mid, y = gene.mid)) + geom_point(shape = 20, col = tandem_group_col) + facet_wrap(~ gene.chr)
+
 
 ```
 

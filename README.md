@@ -48,16 +48,16 @@ Ubuntu/Debian
 
 ```
 sudo apt-get install libcurl4-openssl-dev libssl-dev libxml2-dev libglu1-mesa-dev libgit2-dev
-#pkgdown dependencies
-sudo apt-get install libssh2-1-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev
+#pkgdown dependencies - pkgdown is used to build R package pages
+#sudo apt-get install libssh2-1-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev
 ```
 
 CentOS
 
 ```
 sudo yum install libcurl-devel openssl-devel libxml2-devel mesa-libGLU-devel libgit2-devel
-#pkgdown dependencies
-sudo yum install libssh2-devel fontconfig-devel harfbuzz-devel fribidi-devel
+#pkgdown dependencies - pkgdown is used to build R package pages
+#sudo yum install libssh2-devel fontconfig-devel harfbuzz-devel fribidi-devel
 ```
 
 - [devtools](https://cran.r-project.org/web/packages/devtools/index.html)
