@@ -30,9 +30,9 @@ The Ka/Ks (also sometimes denoted as dN/dS) values can be obtained either via th
 
 The following two images show the two main functions of the package `cds2rbh()` and `rbh2kaks()`, which are described in more detail in the package vignettes.
 
-![Figure: Overview of the `cds2rbh()` function](./vignettes/cds2rbhoverview.png){width="400px"}
+<img src="./vignettes/cds2rbhoverview.png" alt="Figure: Overview of the `cds2rbh()` function" width="200">
 
-![Figure: Overview of the `rbh2kaks()` function](./vignettes/rbh2kaksoverview.png){width="400px"}
+<img src="./vignettes/rbh2kaksoverview.png" alt="Figure: Overview of the `rbh2kaks()` function" width="200">
 
 # Installation
 
@@ -47,7 +47,7 @@ In most cases you need to first install the following system-wide packages to be
 Ubuntu/Debian
 
 ```
-sudo apt-get install libcurl4-openssl-dev libssl-dev libxml2-dev libglu1-mesa-dev
+sudo apt-get install libcurl4-openssl-dev libssl-dev libxml2-dev libglu1-mesa-dev libgit2-dev
 #pkgdown dependencies
 sudo apt-get install libssh2-1-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev
 ```
@@ -55,7 +55,7 @@ sudo apt-get install libssh2-1-dev libfontconfig1-dev libharfbuzz-dev libfribidi
 CentOS
 
 ```
-sudo yum install libcurl-devel openssl-devel libxml2-devel mesa-libGLU-devel
+sudo yum install libcurl-devel openssl-devel libxml2-devel mesa-libGLU-devel libgit2-devel
 #pkgdown dependencies
 sudo yum install libssh2-devel fontconfig-devel harfbuzz-devel fribidi-devel
 ```

@@ -3,14 +3,13 @@ cache: packages
 warnings_are_errors: true
 
 r_packages:
+  - curl
   - devtools
   - testthat
   - seqinr
   - foreach
   - doMC
-  - dplyr
-  - tidyr
-  - stringr
+  - tidyverse
   - mclust
   - feature
 
@@ -27,7 +26,7 @@ matrix:
       r: release
       before_install:
         - sudo apt-get update
-        - sudo apt-get -y install libcurl4-openssl-dev libssl-dev libxml2-dev pandoc libglu1-mesa-dev libssh2-1-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev
+        - sudo apt-get -y install libcurl4-openssl-dev libssl-dev libxml2-dev pandoc libglu1-mesa-dev libssh2-1-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev libgit2-dev
       before_script:
         - R -e "sessionInfo()"
     - name: linux-focal-r-devel
