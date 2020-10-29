@@ -56,9 +56,7 @@ However, once you have compiled last-1133 and KaKs_Calculator2.0 with the functi
 #load vignette specific libraries
 library(CRBHits)
 suppressPackageStartupMessages(library(Biostrings))
-suppressPackageStartupMessages(library(tidyr))
-suppressPackageStartupMessages(library(dplyr))
-suppressPackageStartupMessages(library(stringr))
+suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(curl))
 #compile LAST and KaKs_Calculator2.0 for the vignette
 vignette.paths <- make.vignette()
@@ -354,25 +352,21 @@ The resulting tandem duplicated genes detected can be plotted given their chromo
 ##example how to plot tandem duplicated gene groups
 
 #get tandem group size
-tandem_group_size <- ARATHA.cds.longest.tandemdups %>% dplyr::group_by(tandem_group) %>% dplyr::group_size()
+tandem_group_size <- ARATHA.cds.longest.tandemdups %>%
+  dplyr::group_by(tandem_group) %>% dplyr::group_size()
+table(tandem_group_size)
 
 #use dplyr::mutate to assign group size
 ARATHA.cds.longest.tandemdups <- ARATHA.cds.longest.tandemdups %>%
   dplyr::mutate(tandem_group_size = unlist(apply(cbind(tandem_group_size,
-                                                        tandem_group_size),1, function(x) rep(x[1], x[2]))))
+  tandem_group_size), 1, function(x) rep(x[1], x[2]))))
 
 #use dplyr::group_by to plot group by chromosome and colored by group size
-
-
-#define alternating colors per tandem group
-tandem_group_col <- unlist(apply(cbind(rep_len(CRBHitsColors, length(tandem_group_size)),
-                                       tandem_group_size),1, function(x) rep(x[1], x[2])))
-
-#use dplyr::group_by to plot group by chromosome and colored by alternating colors
 ARATHA.cds.longest.tandemdups %>% dplyr::group_by(gene.chr) %>%
-  ggplot(aes(x = gene.mid, y = gene.mid)) + geom_point(shape = 20, col = tandem_group_col) + facet_wrap(~ gene.chr)
-
-
+  ggplot2::ggplot(aes(x = gene.mid, y = gene.mid)) +
+  ggplot2::geom_point(shape = 20, aes(col = as.factor(tandem_group_size))) +
+  ggplot2::facet_wrap(~ gene.chr) +
+  ggplot2::scale_colour_manual(values = CRBHitsColors(12))
 ```
 
 ### 1.6 [Synteny with DAGchainer]{#synteny}

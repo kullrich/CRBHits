@@ -64,9 +64,7 @@ However, once you have compiled last-1133 and KaKs_Calculator2.0 with the functi
 #load vignette specific libraries
 library(CRBHits)
 suppressPackageStartupMessages(library(Biostrings))
-suppressPackageStartupMessages(library(tidyr))
-suppressPackageStartupMessages(library(dplyr))
-suppressPackageStartupMessages(library(stringr))
+suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(curl))
 #compile LAST and KaKs_Calculator2.0 for the vignette
 vignette.paths <- make.vignette()
