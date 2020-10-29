@@ -67,6 +67,7 @@ suppressPackageStartupMessages(library(Biostrings))
 suppressPackageStartupMessages(library(tidyr))
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(stringr))
+suppressPackageStartupMessages(library(curl))
 #compile LAST and KaKs_Calculator2.0 for the vignette
 vignette.paths <- make.vignette()
 ```
@@ -154,18 +155,20 @@ It is also possible to use an URL to directly access coding sequences from [NCBI
 ##example how to access CDS from URL and get longest isoform
 
 #get coding sequences for Homo sapiens from NCBI
-HOMSAP.cds.NCBI <- Biostrings::readDNAStringSet(
-  paste0(
-  "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/001/405/",
+HOMSAP.cds.NCBI.url <- paste0(
+  "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/001/405/",
   "GCF_000001405.39_GRCh38.p13/",
-  "GCF_000001405.39_GRCh38.p13_cds_from_genomic.fna.gz"))
+  "GCF_000001405.39_GRCh38.p13_cds_from_genomic.fna.gz")
+HOMSAP.cds.NCBI <- Biostrings::readDNAStringSet(HOMSAP.cds.NCBI.url)
 #reduce to the longest isoform
 HOMSAP.cds.NCBI.longest <- isoform2longest(HOMSAP.cds.NCBI, "NCBI")
 #get coding sequences for Homo sapiens from ENSEMBL
-HOMSAP.cds.ENSEMBL <- Biostrings::readDNAStringSet(
-  paste0(
+HOMSAP.cds.ENSEMBL.url <- paste0(
   "ftp://ftp.ensembl.org/pub/release-101/fasta/",
-  "homo_sapiens/cds/Homo_sapiens.GRCh38.cds.all.fa.gz"))
+  "homo_sapiens/cds/Homo_sapiens.GRCh38.cds.all.fa.gz")
+HOMSAP.cds.ENSEMBL.file <- tempfile()
+curl::curl_download(HOMSAP.cds.ENSEMBL.url, HOMSAP.cds.ENSEMBL.file)
+HOMSAP.cds.ENSEMBL <- Biostrings::readDNAStringSet(HOMSAP.cds.ENSEMBL.file)
 #reduce to the longest isoform
 HOMSAP.cds.ENSEMBL.longest <- isoform2longest(HOMSAP.cds.ENSEMBL, "ENSEMBL")
 ````

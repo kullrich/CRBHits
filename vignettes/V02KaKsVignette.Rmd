@@ -87,15 +87,16 @@ As an alternative the [EnsemblPlants release-48](ftp://ftp.ensemblgenomes.org/pu
 #set NCBI URL
 NCBI <- "https://ftp.ncbi.nlm.nih.gov/genomes/all/"
 #set Arabidopsis thaliana CDS URL
-ARATHA.CDS.file <- paste0("GCF/000/001/735/GCF_000001735.4_TAIR10.1/",
+ARATHA.cds.url <- paste0(NCBI, "GCF/000/001/735/GCF_000001735.4_TAIR10.1/",
                       "GCF_000001735.4_TAIR10.1_cds_from_genomic.fna.gz")
+
 #set Arabidopsis lyrata CDS URL
-ARALYR.CDS.file <- paste0("GCF/000/004/255/GCF_000004255.2_v.1.0/",
+ARALYR.cds.url <- paste0(NCBI, "GCF/000/004/255/GCF_000004255.2_v.1.0/",
                       "GCF_000004255.2_v.1.0_cds_from_genomic.fna.gz")
 #get Arabidopsis thaliana CDS
-ARATHA.cds <- Biostrings::readDNAStringSet(paste0(NCBI, ARATHA.CDS.file))
+ARATHA.cds <- Biostrings::readDNAStringSet(ARATHA.cds.url)
 #get Arabidopsis lyrata CDS
-ARALYR.cds <- Biostrings::readDNAStringSet(paste0(NCBI, ARALYR.CDS.file))
+ARALYR.cds <- Biostrings::readDNAStringSet(ARALYR.cds.url)
 ```
 
 The second example compares the CDS from *Homo sapiens* and *Pan troglodytes*. The input sequences are from the FTP server from [Ensembl](https://ensembl.org/index.html).
@@ -108,17 +109,17 @@ The [Ensembl release-101](ftp://ftp.ensembl.org/pub/release-101/fasta/) is used.
 #set Ensembl URL
 ensembl <- "ftp://ftp.ensembl.org/pub/release-101/fasta/"
 #set Homo sapiens CDS URL
-HOMSAP.CDS.url <- "homo_sapiens/cds/Homo_sapiens.GRCh38.cds.all.fa.gz"
+HOMSAP.cds.url <- paste0(ensembl, "homo_sapiens/cds/Homo_sapiens.GRCh38.cds.all.fa.gz")
 #set Pan troglodytes CDS URL
-PANTRO.CDS.url <- "pan_troglodytes/cds/Pan_troglodytes.Pan_tro_3.0.cds.all.fa.gz"
+PANTRO.cds.url <- paste0(ensembl, "pan_troglodytes/cds/Pan_troglodytes.Pan_tro_3.0.cds.all.fa.gz")
 #get Homo sapiens CDS
 HOMSAP.cds.file <- tempfile()
-curl::curl_download(paste0(ensembl, HOMSAP.CDS.url), HOMSAP.CDS.file)
-HOMSAP.cds <- Biostrings::readDNAStringSet(HOMSAP.CDS.file)
+curl::curl_download(HOMSAP.cds.url, HOMSAP.cds.file)
+HOMSAP.cds <- Biostrings::readDNAStringSet(HOMSAP.cds.file)
 #get Pan troglodytes CDS
 PANTRO.cds.file <- tempfile()
-curl::curl_download(paste0(ensembl, PANTRO.CDS.url), PANTRO.CDS.file)
-PANTRO.cds <- Biostrings::readDNAStringSet(PANTRO.CDS.file)
+curl::curl_download(PANTRO.cds.url, PANTRO.cds.file)
+PANTRO.cds <- Biostrings::readDNAStringSet(PANTRO.cds.file)
 ```
 ### 1.2. [Get Longest Isoform from NCBI or ENSEMBL Input]{#isoform}
 
