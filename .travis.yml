@@ -24,27 +24,26 @@ matrix:
     - name: linux-focal-r-release
       os: linux
       dist: focal
-      r: release
+      r: release travis_wait 30
       before_install:
         - sudo apt-get update
         - sudo apt-get -y install libcurl4-openssl-dev libssl-dev libxml2-dev pandoc libglu1-mesa-dev libssh2-1-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev libgit2-dev
       before_script:
         - R -e "sessionInfo()"
-      install: travis_wait 30
+      install:
     - name: linux-focal-r-devel
       os: linux
       dist: focal
-      r: devel
+      r: devel travis_wait 30
       before_install:
         - sudo apt-get update
         - sudo apt-get -y install libcurl4-openssl-dev libssl-dev libxml2-dev pandoc libglu1-mesa-dev libssh2-1-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev
       before_script:
         - R -e "sessionInfo()"
-      install: travis_wait 30
     - name: osx-xcode12-r-release
       os: osx
       osx_image: xcode12
-      r: release
+      r: release travis_wait 30
       addons:
         homebrew:
           packages:
@@ -52,4 +51,3 @@ matrix:
             - openssl
             - xml2
             - mesa
-      install: travis_wait 30
