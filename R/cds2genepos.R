@@ -87,5 +87,6 @@ cds2genepos <- function(cds, source = "NCBI", keep.names = NULL){
   gene.idx <- gene.mid.idx.red$gene.idx[match(gene.mid.idx$gene.chr.mid,
                                               gene.mid.idx.red$gene.chr.mid)]
   gene.pos.df.ordered <- dplyr::mutate(gene.pos.df.ordered, gene.idx = gene.idx)
+  attr(gene.pos.df.ordered, "CRBHits.class") <- "genepos"
   return(gene.pos.df.ordered)
 }

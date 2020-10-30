@@ -7,7 +7,7 @@
 tandemdups(rbhpairs, genepos, dupdist = 5)
 }
 \arguments{
-\item{rbhpairs}{(conditional-)recirpocal best hit (CRBHit) pair matrix [mandatory]}
+\item{rbhpairs}{(conditional-)reciprocal best hit (CRBHit) pair result (see \code{\link[CRBHits]{cds2rbh}}) [mandatory]}
 
 \item{genepos}{Gene position matrix as obtained from \code{cds2genepos} [mandatory]}
 

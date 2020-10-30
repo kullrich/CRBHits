@@ -1,103 +1,120 @@
 #' @title rbh2dagchainer
 #' @name rbh2dagchainer
 #' @description This function runs DAGchainer (http://dagchainer.sourceforge.net/) given CRBHit pairs and gene positions for both cds1 and cds2. The default options are set to not compare gene positions in base pairs but instead using gene order (gene.idx).
-#' @param crbh see(\code{\link[CRBHits]{cds2rbh}} [mandatory]
+#' @param rbhpairs (conditional-)reciprocal best hit (CRBHit) pair result (see \code{\link[CRBHits]{cds2rbh}}) [mandatory]
 #' @param gene.position.cds1 specify gene position for cds1 sequences (see \code{\link[CRBHits]{cds2genepos}}) [default: NULL]
 #' @param gene.position.cds2 specify gene position for cds2 sequences (see \code{\link[CRBHits]{cds2genepos}}) [default: NULL]
-#' @param plotDotPlot specify if dotplot should be plotted [default: FALSE]
 #' @param dagchainerpath specify the PATH to the DAGchainer binaries [default: /extdata/dagchainer/]
 #' @param gap_open_penalty gap open penalty [default: 0]
 #' @param gap_extension_penalty gap extension penalty [default: -3]
-#' @param gap_length length of a gap (avgerage distance expected between two syntenic genes); if type is set to "bp" use 10000 [default: 1]
+#' @param gap_length length of a gap (avgerage distance expected between two syntenic genes); if type is set to "idx" use 1 [default: 10000]
 #' @param max_match_score Maximum match score [default: 50]
-#' @param max_dist_allowed maximum distance allowed between two matches; if type is set to "bp" use 200000 [default: 200000]
+#' @param max_dist_allowed maximum distance allowed between two matches; if type is set to "idx" use 20 [default: 200000]
 #' @param max_evalue Maximum E-value [default: 1e-3]
+#' @param ignore_tandem ignore tandem duplicates [default = TRUE]
 #' @param min_number_aligned_pairs Minimum number of Aligned Pairs [default: 5]
-#' @param type specify if gene order index "idx" or gene base pair position "bp" should be extracted and used with DAGchainer [default: idx]
-#' @return \code{DAGchanier} results if type == "bp"\cr
+#' @param type specify if gene order index "idx" or gene base pair position "bp" should be extracted and used with DAGchainer [default: bp]
+#' @param plotDotPlot specify if dotplot should be plotted [default: FALSE]
+#' @param DotPlotTitle specify DotPlot title [default: 'DAGchainer results']
+#' @param colorBy specify if dagchainer groups should be colored by "Ka", "Ks", "Ka/Ks" or "none" [default: none]
+#' @param kaks specify Ka/Ks input obtained via `rbh2kaks()` [default: NULL]
+#' @param ka.max specify max Ka to be filtered [default: 5]
+#' @param ks.max specify max Ks to be filtered [default: 5]
+#' @param ka.min specify min Ka to be filtered [default: 0]
+#' @param ks.min specify min Ks to be filtered [default: 0]
+#' @return \code{DAGchanier} results\cr
 #' 1: $gene1.chr\cr
 #' 2: $gene1.seq.id\cr
 #' 3: $gene1.start\cr
 #' 4: $gene1.end\cr
 #' 5: $gene1.mid\cr
-#' 6: $gene2.chr\cr
-#' 7: $gene2.seq.id\cr
-#' 8: $gene2.start\cr
-#' 9: $gene2.end\cr
-#' 10: $gene2.mid\cr
-#' 11: $evalue\cr
-#' 12: $score\cr
-#' \cr
-#' \code{DAGchanier} results if type == "idx"\cr
-#' 1: $gene1.chr\cr
-#' 2: $gene1.seq.id\cr
-#' 3: $gene1.idx1\cr
-#' 4: $gene1.idx2\cr
-#' 5: $gene1.idx\cr
-#' 6: $gene2.chr\cr
-#' 7: $gene2.seq.id\cr
-#' 8: $gene2.idx1\cr
-#' 9: $gene2.idx2\cr
-#' 10: $gene2.idx\cr
-#' 11: $evalue\cr
-#' 12: $score\cr
+#' 6: $gene1.idx\cr
+#' 7: $gene2.chr\cr
+#' 8: $gene2.seq.id\cr
+#' 9: $gene2.start\cr
+#' 10: $gene2.end\cr
+#' 11: $gene2.mid\cr
+#' 12: $gene2.idx\cr
+#' 13: $evalue\cr
+#' 14: $score\cr
 #' @importFrom tidyr %>%
 #' @importFrom dplyr bind_cols select group_by group_map group_keys mutate
 #' @importFrom stringr word
+#' @importFrom ggplot2 ggplot geom_point geom_abline facet_wrap
 #' @export rbh2dagchainer
 #' @author Kristian K Ullrich
 
-rbh2dagchainer <- function(crbh,
+rbh2dagchainer <- function(rbhpairs,
                            gene.position.cds1 = NULL,
                            gene.position.cds2 = NULL,
-                           plotDotPlot = FALSE,
                            dagchainerpath = paste0(find.package("CRBHits"),
                                              "/extdata/dagchainer/"),
                            gap_open_penalty = 0,
                            gap_extension_penalty = -3,
-                           gap_length = 1,
+                           gap_length = 10000,
                            max_match_score = 50,
-                           max_dist_allowed = 10,
+                           max_dist_allowed = 200000,
                            max_evalue = 1e-3,
+                           ignore_tandem = TRUE,
                            min_number_aligned_pairs = 5,
-                           type = "idx"
+                           type = "bp",
+                           plotDotPlot = FALSE,
+                           DotPlotTitle = "DAGchainer results",
+                           colorBy = "none",
+                           kaks = NULL,
+                           ka.max = 5,
+                           ks.max = 5,
+                           ka.min = 0,
+                           ks.min = 0
                            ){
+  if(attributes(rbhpairs)$CRBHits.class != "crbh"){
+    stop("Please obtain rbhpairs via the cds2rbh or the cdsfile2rbh function")
+  }
+  if(!is.null(gene.position.cds1)){
+    if(attributes(gene.position.cds1)$CRBHits.class != "genepos"){
+      stop("Please obtain gene position via the cds2genepos() function or add a 'genepos' class attribute")
+    }
+  }
+  if(!is.null(gene.position.cds2)){
+    if(attributes(gene.position.cds2)$CRBHits.class != "genepos"){
+      stop("Please obtain gene position via the cds2genepos() function or add a 'genepos' class attribute")
+    }
+  }
   if(!dir.exists(dagchainerpath)){stop("Error: DAGchainer PATH does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make.dagchainer() function.")}
   if(!file.exists(paste0(dagchainerpath, "dagchainer"))){stop("Error: dagchainer binary does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make.dagchainer() function.")}
   if(!file.exists(paste0(dagchainerpath, "run_DAG_chainer.pl"))){stop("Error: run_DAG_chainer.pl does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make.dagchainer() function.")}
+  selfblast <- attributes(rbhpairs)$selfblast
   genepos.colnames <- c("gene.seq.id", "gene.chr", "gene.start", "gene.end",
                         "gene.mid", "gene.strand", "gene.idx")
-  if(!is.null(gene.position.cds1) & !is.null(gene.position.cds2)){
-    genepos.colnames <- c("gene.seq.id", "gene.chr", "gene.start", "gene.end",
-                          "gene.mid", "gene.strand", "gene.idx")
-    if(any(colnames(gene.position.cds1) != genepos.colnames) | any(colnames(gene.position.cds2) != genepos.colnames)){
-      stop("Error: Please specify gene.position.cds1 and gene.position.cds2 as indicated in cds2genepos()")
+  if(colorBy == "Ka" | colorBy == "Ks" | colorBy == "Ka/Ks"){
+    if(is.null(kaks)){
+      stop("Please provide Ka/Ks input as obtained via rbh2kaks()")
     }
   }
   if(type == "bp"){
-    aa1.genepos <- gene.position.cds1[match(crbh$crbh.pairs$aa1,
+    aa1.genepos <- gene.position.cds1[match(rbhpairs$crbh.pairs$aa1,
                                             gene.position.cds1$gene.seq.id), , drop =FALSE] %>%
       dplyr::select(gene.chr, gene.seq.id, gene.start, gene.end)
-    aa2.genepos <- gene.position.cds2[match(crbh$crbh.pairs$aa2,
+    aa2.genepos <- gene.position.cds2[match(rbhpairs$crbh.pairs$aa2,
                                             gene.position.cds2$gene.seq.id), , drop =FALSE] %>%
       dplyr::select(gene.chr, gene.seq.id, gene.start, gene.end)
     dagchainer.input <- cbind(aa1.genepos, aa2.genepos)
     colnames(dagchainer.input) <- c("gene1.chr", "gene1.seq.id", "gene1.start", "gene1.end",
                                     "gene2.chr", "gene2.seq.id", "gene2.start", "gene2.end")
-    dagchainer.evalue <- crbh$crbh1[match(dagchainer.input$gene1.seq.id, crbh$crbh1$query_id), , drop =FALSE]$evalue
+    dagchainer.evalue <- rbhpairs$crbh1[match(dagchainer.input$gene1.seq.id, rbhpairs$crbh1$query_id), , drop =FALSE]$evalue
     dagchainer.input <- cbind(dagchainer.input, evalue = dagchainer.evalue)
   }
   if(type == "idx"){
-    aa1.genepos <- gene.position.cds1[match(crbh$crbh.pairs$aa1,
+    aa1.genepos <- gene.position.cds1[match(rbhpairs$crbh.pairs$aa1,
                                             gene.position.cds1$gene.seq.id), , drop =FALSE] %>%
       dplyr::select(gene.chr, gene.seq.id, gene.idx1 = gene.idx, gene.idx2 = gene.idx)
-    aa2.genepos <- gene.position.cds2[match(crbh$crbh.pairs$aa2,
+    aa2.genepos <- gene.position.cds2[match(rbhpairs$crbh.pairs$aa2,
                                             gene.position.cds2$gene.seq.id), , drop =FALSE] %>%
       dplyr::select(gene.chr, gene.seq.id, gene.idx1 = gene.idx, gene.idx2 = gene.idx)
     dagchainer.input <- cbind(aa1.genepos, aa2.genepos)
     colnames(dagchainer.input) <- c("gene1.chr", "gene1.seq.id", "gene1.idx1", "gene1.idx2",
                                     "gene2.chr", "gene2.seq.id", "gene2.idx1", "gene2.idx2")
-    dagchainer.evalue <- crbh$crbh1[match(dagchainer.input$gene1.seq.id, crbh$crbh1$query_id), , drop =FALSE]$evalue
+    dagchainer.evalue <- rbhpairs$crbh1[match(dagchainer.input$gene1.seq.id, rbhpairs$crbh1$query_id), , drop =FALSE]$evalue
     dagchainer.input <- cbind(dagchainer.input, evalue = dagchainer.evalue)
   }
   tmp <- tempfile()
@@ -105,15 +122,42 @@ rbh2dagchainer <- function(crbh,
               sep="\t", quote = FALSE,
               col.names = FALSE, row.names = FALSE,
               file = tmp)
-  system(paste0(dagchainerpath, "run_DAG_chainer.pl -i ", tmp,
-                " -o ", sprintf("%0i",gap_open_penalty),
-                " -e ", sprintf("%0i",gap_extension_penalty),
-                " -g ", sprintf("%0i",gap_length),
-                " -M ", sprintf("%0i",max_match_score),
-                " -D ", sprintf("%0i",max_dist_allowed),
-                " -E ", max_evalue,
-                " -A ", sprintf("%0i",min_number_aligned_pairs)), ignore.stdout = TRUE, ignore.stderr = TRUE)
+  dagchainercmd <- paste0(dagchainerpath, "run_DAG_chainer.pl -i ", tmp,
+                          " -o ", sprintf("%0i",gap_open_penalty),
+                          " -e ", sprintf("%0i",gap_extension_penalty),
+                          " -g ", sprintf("%0i",gap_length),
+                          " -M ", sprintf("%0i",max_match_score),
+                          " -D ", sprintf("%0i",max_dist_allowed),
+                          " -E ", max_evalue,
+                          " -A ", sprintf("%0i",min_number_aligned_pairs))
+  if(selfblast){
+    if(ignore_tandem){
+      system(paste0(dagchainercmd, " -s -I"), ignore.stdout = TRUE, ignore.stderr = TRUE)
+    } else{
+      system(paste0(dagchainercmd, " -s"), ignore.stdout = TRUE, ignore.stderr = TRUE)
+    }
+  } else {
+    if(ignore_tandem){
+      system(paste0(dagchainercmd, " -I"), ignore.stdout = TRUE, ignore.stderr = TRUE)
+    } else{
+      system(dagchainercmd, ignore.stdout = TRUE, ignore.stderr = TRUE)
+    }
+  }
   dagchainer.results <- read.table(paste0(tmp, ".aligncoords"), sep = "\t", header = FALSE)
+  dagchainer.groups <- readLines(paste0(tmp, ".aligncoords"))
+  dagchainer.groups <- dagchainer.groups[grep("num aligned pairs", dagchainer.groups)]
+  dagchainer.groups.len <- as.numeric(stringr::str_split_fixed(stringr::str_split_fixed(dagchainer.groups,
+                         "num aligned pairs: ", 2)[,2],"\\)",2)[,1])
+  dagchainer.groups.chr1 <- stringr::str_split_fixed(stringr::str_split_fixed(dagchainer.groups,
+                                                                              "alignment ", 2)[,2]," ",2)[,1]
+  dagchainer.groups.chr2 <- stringr::str_split_fixed(stringr::str_split_fixed(dagchainer.groups,
+                                                                              "vs. ", 2)[,2]," ",2)[,1]
+  dagchainer.groups.idx <- stringr::str_split_fixed(stringr::str_split_fixed(dagchainer.groups,
+                                                                             "Alignment #", 2)[,2]," ",2)[,1]
+  dagchainer.groups.id <- paste0(dagchainer.groups.chr1,":",dagchainer.groups.chr2,":",dagchainer.groups.idx)
+  dagchainer.groups.out <- unlist(apply(cbind(dagchainer.groups.id,
+                                                     dagchainer.groups.len),1,
+                                               function(x) rep(x[1], x[2])))
   if(type == "bp"){
     colnames(dagchainer.results) <- c("gene1.chr", "gene1.seq.id", "gene1.start", "gene1.end",
                                       "gene2.chr", "gene2.seq.id", "gene2.start", "gene2.end",
@@ -124,6 +168,16 @@ rbh2dagchainer <- function(crbh,
                     gene2.mid = (gene2.start + gene2.end)/2) %>%
       dplyr::select(gene1.chr, gene1.seq.id, gene1.start, gene1.end, gene1.mid,
                     gene2.chr, gene2.seq.id, gene2.start, gene2.end, gene2.mid,
+                    evalue, score)
+    gene1.idx <- gene.position.cds1$gene.idx[match(dagchainer.results$gene1.seq.id,
+                                                   gene.position.cds1$gene.seq.id)]
+    gene2.idx <- gene.position.cds2$gene.idx[match(dagchainer.results$gene2.seq.id,
+                                                   gene.position.cds2$gene.seq.id)]
+    dagchainer.results <- dagchainer.results %>%
+      dplyr::mutate(gene1.idx = gene1.idx,
+                    gene2.idx = gene2.idx) %>%
+      dplyr::select(gene1.chr, gene1.seq.id, gene1.start, gene1.end, gene1.mid, gene1.idx,
+                    gene2.chr, gene2.seq.id, gene2.start, gene2.end, gene2.mid, gene2.idx,
                     evalue, score)
   }
   if(type == "idx"){
@@ -137,9 +191,36 @@ rbh2dagchainer <- function(crbh,
       dplyr::select(gene1.chr, gene1.seq.id, gene1.idx1, gene1.idx2, gene1.idx,
                     gene2.chr, gene2.seq.id, gene2.idx1, gene2.idx2, gene2.idx,
                     evalue, score)
+    gene1.start <- gene.position.cds1$gene.start[match(dagchainer.results$gene1.seq.id,
+                                                   gene.position.cds1$gene.seq.id)]
+    gene2.start <- gene.position.cds2$gene.start[match(dagchainer.results$gene2.seq.id,
+                                                   gene.position.cds2$gene.seq.id)]
+    gene1.end <- gene.position.cds1$gene.end[match(dagchainer.results$gene1.seq.id,
+                                                       gene.position.cds1$gene.seq.id)]
+    gene2.end <- gene.position.cds2$gene.end[match(dagchainer.results$gene2.seq.id,
+                                                       gene.position.cds2$gene.seq.id)]
+    gene1.mid <- gene.position.cds1$gene.mid[match(dagchainer.results$gene1.seq.id,
+                                                   gene.position.cds1$gene.seq.id)]
+    gene2.mid <- gene.position.cds2$gene.mid[match(dagchainer.results$gene2.seq.id,
+                                                   gene.position.cds2$gene.seq.id)]
+    dagchainer.results <- dagchainer.results %>%
+      dplyr::mutate(gene1.start = gene1.start,
+                    gene2.start = gene2.start,
+                    gene1.end = gene1.end,
+                    gene2.end = gene2.end,
+                    gene1.mid = gene1.mid,
+                    gene2.mid = gene2.mid) %>%
+      dplyr::select(gene1.chr, gene1.seq.id, gene1.start, gene1.end, gene1.mid, gene1.idx,
+                    gene2.chr, gene2.seq.id, gene2.start, gene2.end, gene2.mid, gene2.idx,
+                    evalue, score)
   }
+  #add dagchainer group
+  dagchainer.results <- dagchainer.results %>%
+    dplyr::mutate(dagchainer_group = dagchainer.groups.out)
+  attr(dagchainer.results, "CRBHits.class") <- "dagchainer"
+  attr(dagchainer.results, "selfblast") <- selfblast
   if(plotDotPlot){
-
+    plot.dagchainer(dagchainer.results , DotPlotTitle = DotPlotTitle, colorBy = colorBy, kaks = kaks, ka.max = ka.max, ks.max = ks.max)
   }
   return(dagchainer.results)
 }

@@ -2,7 +2,7 @@
 #' @name tandemdups
 #' @description This function assigns tandem duplicates given (conditional-)reciprocal best hit (CRBHit) pairs and their chromosomal gene position.
 #' The function is ported into R from Haug-Baltzell et al. (2017) https://github.com/LyonsLab/coge/blob/master/bin/dagchainer/tandems.py
-#' @param rbhpairs (conditional-)recirpocal best hit (CRBHit) pair matrix [mandatory]
+#' @param rbhpairs (conditional-)reciprocal best hit (CRBHit) pair result (see \code{\link[CRBHits]{cds2rbh}}) [mandatory]
 #' @param genepos Gene position matrix as obtained from \code{cds2genepos} [mandatory]
 #' @param dupdist Maximum distance between 2 gene positions on the same chromosome which will call them as a pair of local duplicates. If they are farther apart than \code{dipdist}, but share a common hit within \code{dupdist} of both, then they will still be in the same set of local duplicates. [default: 5]
 #' @return \code{matrix}
@@ -23,6 +23,12 @@
 #' @export tandemdups
 #' @author Kristian K Ullrich
 tandemdups <- function(rbhpairs, genepos, dupdist = 5){
+  if(attributes(rbhpairs)$CRBHits.class != "crbh"){
+    stop("Please obtain rbhpairs via the cds2rbh() or the cdsfile2rbh() function")
+  }
+  if(attributes(genepos)$CRBHits.class != "genepos"){
+    stop("Please obtain gene position via the cds2genepos() function or add a genepos class attribute")
+  }
   if(dupdist < 1){
     stop("dupdist must be at least 1")
   }
@@ -159,5 +165,6 @@ tandemdups <- function(rbhpairs, genepos, dupdist = 5){
    gene.mid = gene2.mid, gene.strand = gene2.strand, gene.idx = gene2.idx,
    tandem_group = gene2.tandem_group)) %>% dplyr::distinct(gene.seq.id, .keep_all =TRUE) %>%
    dplyr::filter(!is.na(tandem_group)) %>% dplyr::arrange(gene.chr, gene.idx)
+  attr(tandemdups, "CRBHits.class") <- "tandemdups"
   return(tandemdups)
 }

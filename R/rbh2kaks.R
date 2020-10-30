@@ -1,7 +1,7 @@
 #' @title rbh2kaks
 #' @name rbh2kaks
 #' @description This function calculates Ka/Ks (dN/dS; accoring to \emph{Li (1993)} or \emph{Yang and Nielson (2000)} for each (conditional-)reciprocal best hit (CRBHit) pair. The names of the \code{rbh} columns must match the names of the corresponding \code{cds1} and \code{cds2} \code{DNAStringSet} vectors.
-#' @param rbhpairs (conditional-)recirpocal best hit (CRBHit) pairs (see \code{\link[CRBHits]{cds2rbh}}) [mandatory]
+#' @param rbhpairs (conditional-)reciprocal best hit (CRBHit) pair result (see \code{\link[CRBHits]{cds2rbh}}) [mandatory]
 #' @param cds1 cds1 sequences as \code{DNAStringSet} or \code{url} for first crbh pairs column [mandatory]
 #' @param cds2 cds2 sequences as \code{DNAStringSet} or \code{url} for second crbh pairs column [mandatory]
 #' @param model specify codon model either "Li" or "YN" [default: Li]
@@ -45,17 +45,33 @@ rbh2kaks <- function(rbhpairs, cds1, cds2, model = "Li",
                      kakscalcpath = paste0(find.package("CRBHits"),
                                            "/extdata/KaKs_Calculator2.0/src/"),
                      ...){
+  if(attributes(rbhpairs)$CRBHits.class != "crbh"){
+    stop("Please obtain rbhpairs via the cds2rbh() or the cdsfile2rbh() function")
+  }
+  if(!is.null(gene.position.cds1)){
+    if(attributes(gene.position.cds1)$CRBHits.class != "genepos"){
+      stop("Please obtain gene position via the cds2genepos() function or add a 'genepos' class attribute")
+    }
+  }
+  if(!is.null(gene.position.cds2)){
+    if(attributes(gene.position.cds2)$CRBHits.class != "genepos"){
+      stop("Please obtain gene position via the cds2genepos() function or add a 'genepos' class attribute")
+    }
+  }
+  if(!is.null(tandem.dups.cds1)){
+    if(attributes(tandem.dups.cds1)$CRBHits.class != "tandemdups"){
+      stop("Please obtain tandem duplicates via the tandemdups() function or add a 'tandemdups' class attribute")
+    }
+  }
+  if(!is.null(tandem.dups.cds2)){
+    if(attributes(tandem.dups.cds2)$CRBHits.class != "tandemdups"){
+      stop("Please obtain tandem duplicates via the tandemdups() function or add a 'tandemdups' class attribute")
+    }
+  }
   if(!model %in% c("Li", "YN")){stop("Error: either choose model 'Li' or 'YN'")}
   if(plotDotPlot){
     if(is.null(gene.position.cds1) & is.null(gene.position.cds2)){
       stop("Error: Please specify gene.position.cds1 and gene.position.cds2")
-    }
-    if(!is.null(gene.position.cds1) & !is.null(gene.position.cds2)){
-      genepos.colnames <- c("gene.seq.id", "gene.chr", "gene.start", "gene.end",
-                            "gene.mid", "gene.strand", "gene.idx")
-      if(any(colnames(gene.position.cds1) != genepos.colnames) | any(colnames(gene.position.cds2) != genepos.colnames)){
-        stop("Error: Please specify gene.position.cds1 and gene.position.cds2 as indicated in cds2genepos()")
-      }
     }
   }
   #internal function to get cds by name
@@ -68,8 +84,16 @@ rbh2kaks <- function(rbhpairs, cds1, cds2, model = "Li",
   names(cds2) <- stringr::word(names(cds2), 1)
   doMC::registerDoMC(threads)
   i <- NULL
-  rbh.kaks <- foreach::foreach(i = seq(from = 1, to = dim(rbhpairs)[1]), .combine = rbind) %dopar% {
-    cds2kaks(get_cds_by_name(rbhpairs[i,1], cds1), get_cds_by_name(rbhpairs[i,2], cds2), model = model, kakscalcpath = kakscalcpath, ...)
+  rbh.kaks <- foreach::foreach(i = seq(from = 1, to = dim(rbhpairs$crbh.pairs)[1]), .combine = rbind) %dopar% {
+    cds2kaks(get_cds_by_name(rbhpairs$crbh.pairs[i,1], cds1), get_cds_by_name(rbhpairs$crbh.pairs[i,2], cds2), model = model, kakscalcpath = kakscalcpath, ...)
   }
-  return(cbind(rbhpairs, rbh.kaks))
+  out <- cbind(rbhpairs$crbh.pairs, rbh.kaks)
+  attr(out, "CRBHits.class") <- "kaks"
+  if(model == "Li"){
+    attr(out, "CRBHits.model") <- "Li"
+  }
+  if(model == "YN"){
+    attr(out, "CRBHits.model") <- "YN"
+  }
+  return(out)
 }

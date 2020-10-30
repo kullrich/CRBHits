@@ -20,7 +20,7 @@ rbh2kaks(
 )
 }
 \arguments{
-\item{rbhpairs}{(conditional-)recirpocal best hit (CRBHit) pairs (see \code{\link[CRBHits]{cds2rbh}}) [mandatory]}
+\item{rbhpairs}{(conditional-)reciprocal best hit (CRBHit) pair result (see \code{\link[CRBHits]{cds2rbh}}) [mandatory]}
 
 \item{cds1}{cds1 sequences as \code{DNAStringSet} or \code{url} for first crbh pairs column [mandatory]}
 

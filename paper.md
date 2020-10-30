@@ -1,5 +1,5 @@
 ---
-title: 'CRBHits: Conditional Reciprocal Best Hits, Codon Alignments and Ka/Ks in R'
+title: 'CRBHits: From Conditional Reciprocal Best Hits to Codon Alignments and Ka/Ks in R'
 tags:
   - R
   - reciprocal best hit
@@ -7,6 +7,7 @@ tags:
   - codon alignment
   - Ka/Ks
   - dN/dS
+  - synteny
 authors:
   - name: Kristian K Ullrich
     orcid: 0000-0003-4308-9626
@@ -41,9 +42,7 @@ orthologous groups like e.g. [OrthoFinder](https://github.com/davidemms/OrthoFin
 The CRBH algorithm was introduced by @aubry2014deep and builds upon the traditional 
 RBH approach to find additional orthologous sequences between two sets of sequences. 
 As described earlier [@aubry2014deep; @scott2017shmlast], CRBH uses the sequence search 
-results to fit an expect value (E-value) cutoff given each RBH to subsequently add sequence pairs
-
-to the list of bona-fide orthologs given their alignment length.
+results to fit an expect value (E-value) cutoff given each RBH to subsequently add sequence pairs to the list of bona-fide orthologs given their alignment length.
 
 Unfortunately, as mentioned by @scott2017shmlast, the original 
 implementation of CRBH ([crb-blast](https://github.com/cboursnell/crb-blast)) lag improved 
@@ -110,56 +109,70 @@ calculation.
 
 # Functions and Examples
 
-The following example shows how to obtain CRBHit pairs between the coding sequences of *Schizosaccharomyces pombe* [@wood2012pombase] and *Nematostella vectensis* [@apweiler2004protein] by using two URLs as input strings and multiple threads for calculation.
+The following example shows how to obtain CRBHit pairs between the coding sequences of *Schizosaccharomyces pombe* (fission yeast) [@wood2012pombase] and *Nematostella vectensis* (starlet sea anemone) [@apweiler2004protein] by using two URLs as input strings and multiple threads for calculation.
 
 ```r
 library(CRBHits)
-#set URLs for Schizosaccharomyces pombe and Nematostella vectensis from NCBI Genomes
-cds1 <- paste0("https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/002/945/",
-               "GCF_000002945.1_ASM294v2/GCF_000002945.1_ASM294v2_cds_from_genomic.fna.gz")
-cds2 <- paste0("https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/209/225/",
-               "GCF_000209225.1_ASM20922v1/GCF_000209225.1_ASM20922v1_cds_from_genomic.fna.gz")
+#set URLs for Schizosaccharomyces pombe (fission yeast)
+#and Nematostella vectensis (starlet sea anemone) from NCBI Genomes
+cds1.url <- paste0("https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/002/945/",
+               "GCF_000002945.1_ASM294v2/",
+               "GCF_000002945.1_ASM294v2_cds_from_genomic.fna.gz")
+cds2.url <- paste0("https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/209/225/",
+               "GCF_000209225.1_ASM20922v1/",
+               "GCF_000209225.1_ASM20922v1_cds_from_genomic.fna.gz")
 #calculate CBRBhit pairs
-cds1.cds2.crbh <- cdsfile2rbh(cds1, cds2, longest.isoform = TRUE,
- isoform.source = "NCBI", plotCurve = TRUE, threads = 4)
+cds1.cds2.crbh <- cdsfile2rbh(cds1.url, cds2.url, longest.isoform = TRUE,
+                              isoform.source = "NCBI", plotCurve = TRUE,
+                              threads = 8)
 #get help ?cdsfile2rbh
 ```
 
-![Accepted secondary reciprocal best hits based on CRBH fitting.\label{fig:crbh}](figure2.png)
+![Accepted condition reciprocal best hits based on RBH fitting.\label{fig:crbh}](figure2.png)
 
 The obtained CRBHit pairs can also be used to calculate synonymous (Ks) and nonsynonymous (Ka) substitutions per hit pair using either the model from @li1993unbiased or from @yang2000estimating.
 
 ```r
 #download and simultaneously get longest isoform for
-#Schizosaccharomyces pombe and Nematostella vectensis
-cds1 <- isoform2longest(Biostrings::readDNAStringSet(cds1))
-cds2 <- isoform2longest(Biostrings::readDNAStringSet(cds2))
+#Schizosaccharomyces pombe (fission yeast) and Nematostella vectensis (starlet sea anemone)
+cds1 <- isoform2longest(Biostrings::readDNAStringSet(cds1.url))
+cds2 <- isoform2longest(Biostrings::readDNAStringSet(cds2.url))
 #calculate Ka/Ks values for each CRBHit pair
 cds1.cds2.kaks.Li <- rbh2kaks(cds1.cds2.crbh$crbh.pairs, cds1, cds2,
-                              model = "Li", threads = 4)
+                              model = "Li", threads = 8)
 cds1.cds2.kaks.YN <- rbh2kaks(cds1.cds2.crbh$crbh.pairs, cds1, cds2,
-                              model = "YN", threads = 4)
+                              model = "YN", threads = 8)
 #get help ?rbh2kaks
 ```
 
-Given the annotated chromosomal gene positions it is also possible to assign tandem duplicated genes per chromosome and directly compute chains of syntenic genes via the use of an R external tool [DAGchainer](http://dagchainer.sourceforge.net/)[@haas2004].
+Given the annotated chromosomal gene positions it is also possible to assign tandem duplicated genes per chromosome and directly compute chains of syntenic genes via the use of an R external tool [DAGchainer](http://dagchainer.sourceforge.net/)[@haas2004]. Here, *Arabidopsis thaliana* is compared to itself (so called selfblast) and syntenic groups vsiualized by their Ks values.
 
-```
+```r
+#download and simultaneously get longest isoform for
+#Arabidopsis thaliana
+cds3.url <- paste0("ftp://ftp.ensemblgenomes.org/pub/plants/release-48/fasta/",
+               "arabidopsis_thaliana/cds/",
+               "Arabidopsis_thaliana.TAIR10.cds.all.fa.gz")
+cds3 <- isoform2longest(Biostrings::readDNAStringSet(cds3.url), "ENSEMBL")
+#calculate CBRBhit pairs
+cds3.selfblast.crbh <- cds2rbh(cds3, cds3, longest.isoform = TRUE,
+                               isoform.source = "ENSEMBL", plotCurve = TRUE,
+                               threads = 8)
+#calculate Ka/Ks values for each CRBHit pair
+cds3.selfblast.kaks.Li <- rbh2kaks(cds3.selfblast.crbh$crbh.pairs, cds3, cds3,
+                                   model = "Li", threads = 8)
 #extract gene position and chromosomal gene order
-cds1.genepos <- cds2genepos(cds1, source = "NCBI")
-cds2.genepos <- cds2genepos(cds2, source = "NCBI")
-#calculate selfblast CRBHit pairs
-cds1.selfblast.crbh <- cds2rbh(cds1, cds1, plotCurve = FALSE, threads = 4)
-cds2.selfblast.crbh <- cds2rbh(cds2, cds2, plotCurve = FALSE, threads = 4)
-#assign tandem duplicated genes
-cds1.tandemdups <- tandemdups(cds1, cds1.genepos, dupdist = 5)
-cds2.tandemdups <- tandemdups(cds2, cds2.genepos, dupdist = 5)
+cds3.genepos <- cds2genepos(cds3, source = "ENSEMBL")
 #compute chains of syntenic genes
-cds1.cds2.synteny <- rbh2dagchainer(cds1.cds2.crbh, cds1.genepos, cds2.genepos,
-                                    plotDotPlot = TRUE)
+cds3.selfblast.synteny <- rbh2dagchainer(cds3.selfblast.crbh,
+                                         cds3.genepos, cds3.genepos,
+                                         selfblast = TRUE,
+                                         kaks = cds3.selfblast.kaks.Li,
+                                         plotDotPlot = TRUE)
+#?get help ?rbh2dagchainer
 ```
 
-Table: Performance comparison for CRBHit pair and Ka/Ks calculations (Intel Xeon CPU E5-2620 v3 @ 2.40GHz; 3575 hit pairs).\label{tab:performance}
+Table: Performance comparison for CRBHit pair (*Schizosaccharomyces pombe* vs. *Nematostella vectensis*) and Ka/Ks calculations (Intel Xeon CPU E5-2620 v3 @ 2.40GHz; 3575 hit pairs).\label{tab:performance}
 
 | Number of Threads | 1 | 2 | 4 | 8 |
 | - | - | - | - | - | 
