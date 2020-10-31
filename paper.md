@@ -187,7 +187,7 @@ Table: Performance comparison for CRBHit pair (*Schizosaccharomyces pombe* vs. *
 
 # Conclusions
 
-[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) implements CRBH in [R](https://cran.r-project.org/) (see \autoref{fig:crbh}), can be used to calculate codon alignment based nucleotide diversities (Ka/Ks) and synteny in a multithreaded fashion (see \autoref{tab:performance}).
+[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) implements CRBH in [R](https://cran.r-project.org/) (see \autoref{fig:crbh}), can be used to calculate codon alignment based nucleotide diversities (Ka/Ks) and synteny, in a multithreaded fashion (see \autoref{tab:performance}).
 
 # Availability
 
