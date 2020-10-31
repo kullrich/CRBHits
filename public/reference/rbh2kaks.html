@@ -40,7 +40,7 @@
 
 
 <meta property="og:title" content="rbh2kaks — rbh2kaks" />
-<meta property="og:description" content="This function calculates ka/ks (dN/dS; accoring to Li (1993) or Yang and Nielson (2000) for each reciprocal best hit pair. The names of the rbh columns must match the names of the corresponding cds1 and cds2 DNAStringSet vectors." />
+<meta property="og:description" content="This function calculates Ka/Ks (dN/dS; accoring to Li (1993) or Yang and Nielson (2000) for each (conditional-)reciprocal best hit (CRBHit) pair. The names of the rbh columns must match the names of the corresponding cds1 and cds2 DNAStringSet vectors." />
 
 
 
@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CRBHits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
       </span>
     </div>
 
@@ -98,10 +98,7 @@
       <a href="../articles/V01CRBHitsBasicVignette.html">CRBHits Basic Vignette</a>
     </li>
     <li>
-      <a href="../articles/V02dNdSClusteringVignette.html">dNdS Clustering Vignette</a>
-    </li>
-    <li>
-      <a href="../articles/V03WGDVignette.html">Paranome-based Whole Genome Duplication Vignette</a>
+      <a href="../articles/V02KaKsVignette.html">KaKs Vignette</a>
     </li>
   </ul>
 </li>
@@ -132,25 +129,30 @@
     </div>
 
     <div class="ref-description">
-    <p>This function calculates ka/ks (dN/dS; accoring to <em>Li (1993)</em> or <em>Yang and Nielson (2000)</em> for each reciprocal best hit pair. The names of the <code>rbh</code> columns must match the names of the corresponding <code>cds1</code> and <code>cds2</code> <code>DNAStringSet</code> vectors.</p>
+    <p>This function calculates Ka/Ks (dN/dS; accoring to <em>Li (1993)</em> or <em>Yang and Nielson (2000)</em> for each (conditional-)reciprocal best hit (CRBHit) pair. The names of the <code>rbh</code> columns must match the names of the corresponding <code>cds1</code> and <code>cds2</code> <code>DNAStringSet</code> vectors.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rbh2kaks</span>(
-  <span class='no'>rbhpairs</span>,
-  <span class='no'>cds1</span>,
-  <span class='no'>cds2</span>,
-  <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"Li"</span>,
-  <span class='kw'>threads</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>kakscalcpath</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/find.package.html'>find.package</a></span>(<span class='st'>"CRBHits"</span>), <span class='st'>"/extdata/KaKs_Calculator2.0/src/"</span>),
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>rbh2kaks</span><span class='op'>(</span>
+  <span class='va'>rbhpairs</span>,
+  <span class='va'>cds1</span>,
+  <span class='va'>cds2</span>,
+  model <span class='op'>=</span> <span class='st'>"Li"</span>,
+  plotDotPlot <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  gene.position.cds1 <span class='op'>=</span> <span class='cn'>NULL</span>,
+  gene.position.cds2 <span class='op'>=</span> <span class='cn'>NULL</span>,
+  tandem.dups.cds1 <span class='op'>=</span> <span class='cn'>NULL</span>,
+  tandem.dups.cds2 <span class='op'>=</span> <span class='cn'>NULL</span>,
+  threads <span class='op'>=</span> <span class='fl'>1</span>,
+  kakscalcpath <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/find.package.html'>find.package</a></span><span class='op'>(</span><span class='st'>"CRBHits"</span><span class='op'>)</span>, <span class='st'>"/extdata/KaKs_Calculator2.0/src/"</span><span class='op'>)</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>rbhpairs</th>
-      <td><p>(conditional-)recirpocal best hit pair matrix [mandatory]</p></td>
+      <td><p>(conditional-)reciprocal best hit (CRBHit) pair result (see <code><a href='cds2rbh.html'>cds2rbh</a></code>) [mandatory]</p></td>
     </tr>
     <tr>
       <th>cds1</th>
@@ -163,6 +165,26 @@
     <tr>
       <th>model</th>
       <td><p>specify codon model either "Li" or "YN" [default: Li]</p></td>
+    </tr>
+    <tr>
+      <th>plotDotPlot</th>
+      <td><p>specify if dotplot should be plotted (mandatory to define <code>gene.position.cds1</code> and <code>gene.position.cds1</code>) [default: FALSE]</p></td>
+    </tr>
+    <tr>
+      <th>gene.position.cds1</th>
+      <td><p>specify gene position for cds1 sequences (see <code><a href='cds2genepos.html'>cds2genepos</a></code>) [default: NULL]</p></td>
+    </tr>
+    <tr>
+      <th>gene.position.cds2</th>
+      <td><p>specify gene position for cds2 sequences (see <code><a href='cds2genepos.html'>cds2genepos</a></code>) [default: NULL]</p></td>
+    </tr>
+    <tr>
+      <th>tandem.dups.cds1</th>
+      <td><p>specify tandem duplicates for cds1 sequences (see <code><a href='tandemdups.html'>tandemdups</a></code>) [default: NULL]</p></td>
+    </tr>
+    <tr>
+      <th>tandem.dups.cds2</th>
+      <td><p>specify tandem duplicates for cds2 sequences (see <code><a href='tandemdups.html'>tandemdups</a></code>) [default: NULL]</p></td>
     </tr>
     <tr>
       <th>threads</th>
@@ -185,23 +207,38 @@
 <p>Yang Z and Nielson R. (2000) Estimating synonymous and nonsynonymous substitution rates under realistic evolutionary models. <em>Mol. Biol. Evol.</em>, <b>17(1)</b>, 32-43.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='cds2kaks.html'>cds2kaks</a></code></p></div>
+    <div class='dont-index'><p><code><a href='cds2kaks.html'>cds2kaks</a></code>,
+<code><a href='isoform2longest.html'>isoform2longest</a></code>,
+<code><a href='cds2genepos.html'>cds2genepos</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Kristian K Ullrich</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>##load example sequence data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"ath"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"CRBHits"</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"aly"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"CRBHits"</span>)
-<span class='co'>##load example conditional-reciprocal best hit pair results</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"ath_aly_crbh"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"CRBHits"</span>)
-<span class='no'>ath_aly_crbh.kaks</span> <span class='kw'>&lt;-</span> <span class='fu'>rbh2kaks</span>(<span class='no'>ath_aly_crbh</span>$<span class='no'>crbh.pairs</span>[<span class='fl'>1</span>:<span class='fl'>20</span>, ],
-                              <span class='no'>ath</span>, <span class='no'>aly</span>, <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"Li"</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>ath_aly_crbh.kaks</span>)</div><div class='output co'>#&gt;           aa1          aa2         ka        ks          vka          vks
-#&gt; 1 AT1G01010.1 AL1G11530.t1 0.10617227 0.2628911 2.637032e-04 0.0023637311
-#&gt; 2 AT1G01020.5 AL1G11510.t1 0.05027159 0.1076133 2.572181e-04 0.0017464252
-#&gt; 3 AT1G01030.1 AL1G11500.t1 0.05606632 0.2329670 1.808118e-04 0.0026270370
-#&gt; 4 AT1G01040.1 AL1G11480.t1 0.01388844 0.1121138 6.907144e-06 0.0001460956
-#&gt; 5 AT1G01050.1 AL1G11470.t1 0.00000000 0.1831839 0.000000e+00 0.0030223075
-#&gt; 6 AT1G01060.6 AL1G11460.t1 0.09054187 0.1854908 1.323098e-04 0.0007490874</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"ath"</span>, package<span class='op'>=</span><span class='st'>"CRBHits"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"aly"</span>, package<span class='op'>=</span><span class='st'>"CRBHits"</span><span class='op'>)</span>
+<span class='co'>##load example CRBHit pairs</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"ath_aly_crbh"</span>, package<span class='op'>=</span><span class='st'>"CRBHits"</span><span class='op'>)</span>
+<span class='co'>##only analyse subset of CRBHit pairs</span>
+<span class='va'>ath_aly_crbh</span><span class='op'>$</span><span class='va'>crbh.pairs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>ath_aly_crbh</span><span class='op'>$</span><span class='va'>crbh.pairs</span><span class='op'>)</span>
+<span class='va'>ath_aly_crbh.kaks</span> <span class='op'>&lt;-</span> <span class='fu'>rbh2kaks</span><span class='op'>(</span>rbhpairs <span class='op'>=</span> <span class='va'>ath_aly_crbh</span>,
+                              cds1 <span class='op'>=</span> <span class='va'>ath</span>, cds2 <span class='op'>=</span> <span class='va'>aly</span>, model <span class='op'>=</span> <span class='st'>"Li"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>ath_aly_crbh.kaks</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;           aa1          aa2 rbh_class         ka        ks          vka
+#&gt; 1 AT1G01010.1 AL1G11530.t1       rbh 0.10617227 0.2628911 2.637032e-04
+#&gt; 2 AT1G01020.5 AL1G11510.t1       rbh 0.05027159 0.1076133 2.572181e-04
+#&gt; 3 AT1G01030.1 AL1G11500.t1       rbh 0.05606632 0.2329670 1.808118e-04
+#&gt; 4 AT1G01040.1 AL1G11480.t1       rbh 0.01388844 0.1121138 6.907144e-06
+#&gt; 5 AT1G01050.1 AL1G11470.t1       rbh 0.00000000 0.1831839 0.000000e+00
+#&gt; 6 AT1G01060.6 AL1G11460.t1       rbh 0.09054187 0.1854908 1.323098e-04
+#&gt;            vks
+#&gt; 1 0.0023637311
+#&gt; 2 0.0017464252
+#&gt; 3 0.0026270370
+#&gt; 4 0.0001460956
+#&gt; 5 0.0030223075
+#&gt; 6 0.0007490874</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -217,7 +254,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

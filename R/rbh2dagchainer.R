@@ -86,9 +86,16 @@ rbh2dagchainer <- function(rbhpairs,
   selfblast <- attributes(rbhpairs)$selfblast
   genepos.colnames <- c("gene.seq.id", "gene.chr", "gene.start", "gene.end",
                         "gene.mid", "gene.strand", "gene.idx")
-  if(colorBy == "Ka" | colorBy == "Ks" | colorBy == "Ka/Ks"){
-    if(is.null(kaks)){
-      stop("Please provide Ka/Ks input as obtained via rbh2kaks()")
+  if(plotDotPlot){
+    if(colorBy == "Ka" | colorBy == "Ks" | colorBy == "Ka/Ks"){
+      if(is.null(kaks)){
+        stop("Please provide Ka/Ks input as obtained via rbh2kaks()")
+      }
+      if(!is.null(kaks)){
+        if(attributes(kaks)$CRBHits.class != "kaks"){
+          stop("Please obtain Ka/Ks input via the rbh2kaks() function or add a 'kaks' class attribute")
+        }
+      }
     }
   }
   if(type == "bp"){
@@ -220,7 +227,10 @@ rbh2dagchainer <- function(rbhpairs,
   attr(dagchainer.results, "CRBHits.class") <- "dagchainer"
   attr(dagchainer.results, "selfblast") <- selfblast
   if(plotDotPlot){
-    plot.dagchainer(dagchainer.results , DotPlotTitle = DotPlotTitle, colorBy = colorBy, kaks = kaks, ka.max = ka.max, ks.max = ks.max)
+    plot.dagchainer(dagchainer.results, DotPlotTitle = DotPlotTitle,
+                    colorBy = colorBy, kaks = kaks,
+                    ka.max = ka.max, ks.max = ks.max,
+                    ka.min = ka.min, ks.min = ks.min)
   }
   return(dagchainer.results)
 }

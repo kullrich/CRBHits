@@ -53,8 +53,10 @@ data("ath", package="CRBHits")
 data("aly", package="CRBHits")
 ##load example CRBHit pairs
 data("ath_aly_crbh", package="CRBHits")
-ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh$crbh.pairs[1:20, ],
-                              ath, aly, model = "Li")
+##only analyse subset of CRBHit pairs
+ath_aly_crbh$crbh.pairs <- head(ath_aly_crbh$crbh.pairs)
+ath_aly_crbh.kaks <- rbh2kaks(rbhpairs = ath_aly_crbh,
+                              cds1 = ath, cds2 = aly, model = "Li")
 head(ath_aly_crbh.kaks)
 }
 \references{

@@ -7,6 +7,7 @@ tags:
   - codon alignment
   - Ka/Ks
   - dN/dS
+  - tandem duplicated genes
   - synteny
 authors:
   - name: Kristian K Ullrich
@@ -22,11 +23,9 @@ bibliography: paper.bib
 
 # Summary
 
-[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) is a reimplementation of the 
-Conditional Reciprocal Best Hit (CRBH) algorithm 
-[crb-blast](https://github.com/cboursnell/crb-blast) in [R](https://cran.r-project.org/) 
-[@team2013r]. The new R package targets ecology, population and evolutionary biologists 
-working in the field of comparative genomics.
+[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) is a coding sequence (CDS) analysis pipeline in [R](https://cran.r-project.org/) 
+[@team2013r]. It reimplements the Conditional Reciprocal Best Hit (CRBH) algorithm 
+[crb-blast](https://github.com/cboursnell/crb-blast) and covers all necessary steps from sequence similarity searches, codon alignments to Ka/Ks calculations and synteny. The new R package targets ecology, population and evolutionary biologists working in the field of comparative genomics.
 
 The Reciprocal Best Hit (RBH) approach is commonly used in bioinformatics to show that two 
 sequences evolved from a common ancestral gene. In other words, RBH tries to find orthologous 
@@ -55,7 +54,9 @@ code so far.
 build upon previous implementations and ports CRBH into the [R](https://cran.r-project.org/) 
 environment, which is popular among biologists. 
 [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) improve CRBH by additional implemented 
-filter steps [@rost1999twilight] and the possibility to apply custom filters.
+filter steps [@rost1999twilight] and the possibility to apply custom filters prior E-value fitting. Further, the resulting CRBH pairs can be evaluated for the presence of tandem duplicated genes, gene order based syntenic groups and evolutionary rates.
+
+![Overview of the two main pipeline function and its subtasks. cds2rbh(): from CDS to CRBHit pairs; rbh2kaks(): from CRBHit pairs to Ka/Ks values.\label{fig:functions}](figure1.png)
 
 # Downstream functionalities
 
@@ -105,8 +106,6 @@ Functions are completely coded in R and only the external prerequisites
 need to be compiled. Further, users can create their own filters before CRBH 
 calculation.
 
-![Main CRBHits functions overview: From CRBHit pairs to Ka/Ks values.\label{fig:functions}](figure1.png)
-
 # Functions and Examples
 
 The following example shows how to obtain CRBHit pairs between the coding sequences of *Schizosaccharomyces pombe* (fission yeast) [@wood2012pombase] and *Nematostella vectensis* (starlet sea anemone) [@apweiler2004protein] by using two URLs as input strings and multiple threads for calculation.
@@ -138,10 +137,9 @@ The obtained CRBHit pairs can also be used to calculate synonymous (Ks) and nons
 cds1 <- isoform2longest(Biostrings::readDNAStringSet(cds1.url))
 cds2 <- isoform2longest(Biostrings::readDNAStringSet(cds2.url))
 #calculate Ka/Ks values for each CRBHit pair
-cds1.cds2.kaks.Li <- rbh2kaks(cds1.cds2.crbh$crbh.pairs, cds1, cds2,
+cds1.cds2.kaks.Li <- rbh2kaks(cds1.cds2.crbh, cds1, cds2,
                               model = "Li", threads = 8)
-cds1.cds2.kaks.YN <- rbh2kaks(cds1.cds2.crbh$crbh.pairs, cds1, cds2,
-                              model = "YN", threads = 8)
+                              
 #get help ?rbh2kaks
 ```
 
@@ -154,22 +152,22 @@ cds3.url <- paste0("ftp://ftp.ensemblgenomes.org/pub/plants/release-48/fasta/",
                "arabidopsis_thaliana/cds/",
                "Arabidopsis_thaliana.TAIR10.cds.all.fa.gz")
 cds3 <- isoform2longest(Biostrings::readDNAStringSet(cds3.url), "ENSEMBL")
-#calculate CBRBhit pairs
-cds3.selfblast.crbh <- cds2rbh(cds3, cds3, longest.isoform = TRUE,
-                               isoform.source = "ENSEMBL", plotCurve = TRUE,
-                               threads = 8)
-#calculate Ka/Ks values for each CRBHit pair
-cds3.selfblast.kaks.Li <- rbh2kaks(cds3.selfblast.crbh$crbh.pairs, cds3, cds3,
-                                   model = "Li", threads = 8)
 #extract gene position and chromosomal gene order
 cds3.genepos <- cds2genepos(cds3, source = "ENSEMBL")
+#calculate CBRBhit pairs
+cds3.selfblast.crbh <- cds2rbh(cds3, cds3, longest.isoform = TRUE,
+                               qcov = 0.5, rost1999 = TRUE,
+                               isoform.source = "ENSEMBL", plotCurve = TRUE,
+                               threads = 8)
 #compute chains of syntenic genes
 cds3.selfblast.synteny <- rbh2dagchainer(cds3.selfblast.crbh,
                                          cds3.genepos, cds3.genepos,
-                                         selfblast = TRUE,
-                                         kaks = cds3.selfblast.kaks.Li,
                                          plotDotPlot = TRUE)
-#?get help ?rbh2dagchainer
+#calculate Ka/Ks values for each CRBHit pair
+cds3.selfblast.kaks.Li <- rbh2kaks(cds3.selfblast.crbh, cds3, cds3,
+                                   model = "YN", threads = 8)
+
+#get help ?rbh2dagchainer
 ```
 
 Table: Performance comparison for CRBHit pair (*Schizosaccharomyces pombe* vs. *Nematostella vectensis*) and Ka/Ks calculations (Intel Xeon CPU E5-2620 v3 @ 2.40GHz; 3575 hit pairs).\label{tab:performance}

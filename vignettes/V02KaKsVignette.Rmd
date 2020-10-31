@@ -38,11 +38,12 @@ knitr::opts_chunk$set(
     6. [Synteny with DAGchainer](#synteny)
 2. [Ka/Ks Calculation](#KaKs)
 3. [Ka/Ks Filtering and Visualisation](#KaKsFiltering)
-4. [References](#references)
+4. [*Homo sapiens* vs. *Pan troglodytes* example](#homosapiens)
+5. [References](#references)
 
-This vignette is supposed to explain in more detail Ka/Ks calculation and it's downstream filtering.
+This vignette is supposed to explain in more detail Ka/Ks calculation and it's downstream filtering and visualization. The Ka/Ks ratio was originally developed for the analysis of genetic sequences from divergent species ([Kimura (1977)](https://www.nature.com/articles/267275a0), [Yang and Nielson (2000)]((https://doi.org/10.1093/oxfordjournals.molbev.a026236))). In short, the Ka/Ks ratio quantifies the mode and strength of selection by comparing synonymous substitution rates (Ks) (assumed to be evolutionary neutral) with nonsynonymous rates (Ka), which are exposed to selection as they change the amino acid composition of a protein ([Mugal et al (2014)](https://academic.oup.com/mbe/article/31/1/212/1049986)).
 
-[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) is a reimplementation of the Conditional Reciprocal Best Hit (CRBH) algorithm [crb-blast](https://github.com/cboursnell/crb-blast) in R.
+[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) is a reimplementation of the Conditional Reciprocal Best Hit (CRBH) algorithm [crb-blast](https://github.com/cboursnell/crb-blast) in R. The CRBHit pairs can be directly used to calculate Ka/Ks ratios and to filter for tandem duplicates or syntenic groups. 
 
 See the R package page for a detailed description of the install process and its dependencies [https://mpievolbio-it.pages.gwdg.de/crbhits/](https://mpievolbio-it.pages.gwdg.de/crbhits/) or have a look at the [CRBHits Basic Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V01CRBHitsBasicVignette.html).
 
@@ -62,7 +63,6 @@ suppressPackageStartupMessages(library(curl))
 vignette.paths <- make.vignette()
 ```
 
-
 ## 1. [Conditional reciprocal best hit pairs]{#crbhpairs}
 
 The CRBH algorithm builds upon the classical reciprocal best hit (RBH) approach to find orthologous sequences between two sets of sequences by defining an expect-value cutoff per alignment length. Further, this cutoff is used to retain secondary hits as additional *bona-fide* homologues.
@@ -76,6 +76,8 @@ To calculate CRBHit pairs between two species, one can directly use an URL to ac
 Two examples are given in this vignette.
 
 The first example compares the coding sequences from *Arabidopsis thaliana* and *Arabidopsis lyrata*. The input sequences are from the FTP server from [NCBI Genomes](ftp://ftp.ncbi.nlm.nih.gov/genomes/all/).
+
+The second example compares the CDS from *Homo sapiens* and *Pan troglodytes* (see [*Homo sapiens* vs. *Pan troglodytes* example](#homosapiens)).
 
 As an alternative the [EnsemblPlants release-48](ftp://ftp.ensemblgenomes.org/pub/plants/release-48/fasta/) can used.
 
@@ -97,28 +99,6 @@ ARATHA.cds <- Biostrings::readDNAStringSet(ARATHA.cds.url)
 ARALYR.cds <- Biostrings::readDNAStringSet(ARALYR.cds.url)
 ```
 
-The second example compares the CDS from *Homo sapiens* and *Pan troglodytes*. The input sequences are from the FTP server from [Ensembl](https://ensembl.org/index.html).
-
-The [Ensembl release-101](ftp://ftp.ensembl.org/pub/release-101/fasta/) is used.
-
-```{r}
-##set URLs for Homo sapiens and Pan troglodytes from Ensembl
-
-#set Ensembl URL
-ensembl <- "ftp://ftp.ensembl.org/pub/release-101/fasta/"
-#set Homo sapiens CDS URL
-HOMSAP.cds.url <- paste0(ensembl, "homo_sapiens/cds/Homo_sapiens.GRCh38.cds.all.fa.gz")
-#set Pan troglodytes CDS URL
-PANTRO.cds.url <- paste0(ensembl, "pan_troglodytes/cds/Pan_troglodytes.Pan_tro_3.0.cds.all.fa.gz")
-#get Homo sapiens CDS
-HOMSAP.cds.file <- tempfile()
-download.file(HOMSAP.cds.url, HOMSAP.cds.file, quiet = FALSE)
-HOMSAP.cds <- Biostrings::readDNAStringSet(HOMSAP.cds.file)
-#get Pan troglodytes CDS
-PANTRO.cds.file <- tempfile()
-download.file(PANTRO.cds.url, PANTRO.cds.file, quiet = FALSE)
-PANTRO.cds <- Biostrings::readDNAStringSet(PANTRO.cds.file)
-```
 ### 1.2. [Get Longest Isoform from NCBI or ENSEMBL Input]{#isoform}
 
 Prior CRBHit pairs calculation, the longest isoforms can be selected, if the data was downloaded from NCBI or Ensembl.
@@ -131,8 +111,8 @@ __Note:__ This is an important step. If e.g. isoforms are used, the Ka/Ks calcul
 #get longest isoform
 ARATHA.cds.longest <- isoform2longest(ARATHA.cds, "NCBI")
 ARALYR.cds.longest <- isoform2longest(ARALYR.cds, "NCBI")
-HOMSAP.cds.longest <- isoform2longest(HOMSAP.cds, "ENSEMBL")
-PANTRO.cds.longest <- isoform2longest(PANTRO.cds, "ENSEMBL")
+
+#get help ?cds2longest
 ```
 
 ### 1.3. [Calculate/Filter CRBHit pairs]{#crbhfilter}
@@ -159,24 +139,8 @@ ARATHA_ARALYR_crbh <- cds2rbh(ARATHA.cds,
                               isoform.source = "NCBI",
                               threads = 2, plotCurve = TRUE,
                               lastpath = vignette.paths[1])
-```
 
-The same steps can be easily performed for the second example and input data from Ensembl.
-
-```{r}
-##calculate CRBHit pairs for H. sapiens and P. troglodytes using 2 threads
-
-#input from CDS obtained from Ensembl
-#longest isoform selection
-#query coverage >= 50%
-#rost199 filter
-HOMSAP_PANTRO_crbh <- cds2rbh(HOMSAP.cds,
-                              PANTRO.cds,
-                              qcov = 0.5, rost1999 = TRUE,
-                              longest.isoform = TRUE,
-                              isoform.source = "ENSEMBL",
-                              threads = 2, plotCurve = TRUE,
-                              lastpath = vignette.paths[1])
+#get help ?cds2rbh
 ```
 
 ### 1.4. [Extract Gene/Isoform chromosomal position]{#extractposition}
@@ -204,6 +168,8 @@ head(ARATHA.cds.longest.genepos)
 #get number of gene isoforms with same index
 table(table(ARATHA.cds.genepos$gene.idx))
 table(table(ARATHA.cds.longest.genepos$gene.idx))
+
+#get help ?cds2genepos
 ```
 
 #### 1.4.2. [Use GTF/GFF3 file to obtain gene position]{#gff2genepos}
@@ -291,6 +257,8 @@ ARATHA.gff.genepos <- ARATHA.gff.mRNA.longest %>% dplyr::select(
   gene.mid = gene.mid,
   gene.strand = strand,
   gene.idx = gene.idx)
+#set attribute
+attr(ARATHA.gff.genepos, "CRBHits.class") <- "genepos"
 #show first entries of generated gene position
 head(ARATHA.gff.genepos)
 ```
@@ -344,6 +312,7 @@ ARATHA.cds.longest.tandemdups <- tandemdups(ARATHA_selfblast_crbh,
 ARALYR.cds.longest.tandemdups <- tandemdups(ARALYR_selfblast_crbh,
                                             ARALYR.cds.longest.genepos,
                                             dupdist = 5)
+#get help ?tandemdups
 ```
 
 The resulting tandem duplicated genes detected can be plotted given their chromosomal gene position as follows:
@@ -383,20 +352,23 @@ The following example shows how one can run [DAGchainer](http://dagchainer.sourc
 ```{r}
 ##example how to run DAGchainer on CRBHit pairs and gene positions
 
-#DAGchainer using gene index (gene order)
-ARATHA_ARALYR_crbh.dagchainer.idx <- rbh2dagchainer(crbh = ARATHA_ARALYR_crbh, 
-                                                gene.position.cds1 = ARATHA.cds.longest.genepos,
-                                                gene.position.cds2 = ARALYR.cds.longest.genepos,
-                                                dagchainerpath = vignette.paths[3])
-
 #DAGchainer using gene base pair (gene bp start end)
 #Note: change parameter to fit bp option
-ARATHA_ARALYR_crbh.dagchainer.bp <- rbh2dagchainer(crbh = ARATHA_ARALYR_crbh, 
+ARATHA_ARALYR_crbh.dagchainer.bp <- rbh2dagchainer(rbhpairs = ARATHA_ARALYR_crbh, 
                                                 gene.position.cds1 = ARATHA.cds.longest.genepos,
                                                 gene.position.cds2 = ARALYR.cds.longest.genepos,
                                                 type = "bp",
                                                 gap_length = 10000,
                                                 max_dist_allowed = 200000,
+                                                dagchainerpath = vignette.paths[3])
+
+#DAGchainer using gene index (gene order)
+ARATHA_ARALYR_crbh.dagchainer.idx <- rbh2dagchainer(rbhpairs = ARATHA_ARALYR_crbh, 
+                                                gene.position.cds1 = ARATHA.cds.longest.genepos,
+                                                gene.position.cds2 = ARALYR.cds.longest.genepos,
+                                                type = "idx",
+                                                gap_length = 1,
+                                                max_dist_allowed = 20,
                                                 dagchainerpath = vignette.paths[3])
 ```
 
@@ -404,7 +376,7 @@ ARATHA_ARALYR_crbh.dagchainer.bp <- rbh2dagchainer(crbh = ARATHA_ARALYR_crbh,
 ##example how to plot pairwise chromosomal syntenic groups (DAGchainer results)
 
 #plot DAGchainer results for each chromosome combination
-
+plot.dagchainer(ARATHA_ARALYR_crbh.dagchainer.bp)
 ```
 
 ## 2. [Ka/Ks Calculation]{#KaKs}
@@ -416,12 +388,6 @@ ARATHA.cds <- Biostrings::readDNAStringSet(paste0(ensemblPlants, ARATHA.CDS.file
 ARALYR.cds <- Biostrings::readDNAStringSet(paste0(ensemblPlants, ARALYR.CDS.file))
 ARATHA_ARALYR_crbh.kaks.Li <- rbh2kaks(ARATHA_ARALYR_crbh$crbh.pairs,
                                        ARATHA.cds, ARALYR.cds, model = "Li",
-                                       threads = 4)
-
-HOMSAP.cds <- Biostrings::readDNAStringSet(paste0(ensembl, HOMSAP.CDS.file))
-PANTRO.cds <- Biostrings::readDNAStringSet(paste0(ensembl, PANTRO.CDS.file))
-HOMSAP_PANTRO_crbh.kaks.Li <- rbh2kaks(HOMSAP_PANTRO_crbh$crbh.pairs,
-                                       HOMSAP.cds, PANTRO.cds, model = "Li",
                                        threads = 4)
 ```
 
@@ -445,7 +411,62 @@ ath_aly_crbh.kaks.Li.red <- ath_aly_crbh.kaks.Li %>%
   subset(ka != 9.999999) %>% subset(ks != 9.999999)
 ```
 
-## 4. [References]{#references}
+## 4. [*Homo sapiens* vs. *Pan troglodytes* example]{#homosapiens}
+
+The second example compares the CDS from *Homo sapiens* and *Pan troglodytes*. The input sequences are from the FTP server from [Ensembl](https://ensembl.org/index.html).
+
+The [Ensembl release-101](ftp://ftp.ensembl.org/pub/release-101/fasta/) is used.
+
+```{r}
+###example comparing Homo sapiens and Pan troglodytes
+
+##set URLs for Homo sapiens and Pan troglodytes from Ensembl
+
+#set Ensembl URL
+ensembl <- "ftp://ftp.ensembl.org/pub/release-101/fasta/"
+#set Homo sapiens CDS URL
+HOMSAP.cds.url <- paste0(ensembl, "homo_sapiens/cds/Homo_sapiens.GRCh38.cds.all.fa.gz")
+#set Pan troglodytes CDS URL
+PANTRO.cds.url <- paste0(ensembl, "pan_troglodytes/cds/Pan_troglodytes.Pan_tro_3.0.cds.all.fa.gz")
+
+#get Homo sapiens CDS
+HOMSAP.cds.file <- tempfile()
+download.file(HOMSAP.cds.url, HOMSAP.cds.file, quiet = FALSE)
+HOMSAP.cds <- Biostrings::readDNAStringSet(HOMSAP.cds.file)
+
+#get Pan troglodytes CDS
+PANTRO.cds.file <- tempfile()
+download.file(PANTRO.cds.url, PANTRO.cds.file, quiet = FALSE)
+PANTRO.cds <- Biostrings::readDNAStringSet(PANTRO.cds.file)
+
+#get longest isoform
+HOMSAP.cds.longest <- isoform2longest(HOMSAP.cds, "ENSEMBL")
+PANTRO.cds.longest <- isoform2longest(PANTRO.cds, "ENSEMBL")
+
+##calculate CRBHit pairs for H. sapiens and P. troglodytes using 2 threads
+
+#input from CDS obtained from Ensembl
+#longest isoform selection
+#query coverage >= 50%
+#rost199 filter
+HOMSAP_PANTRO_crbh <- cds2rbh(HOMSAP.cds,
+                              PANTRO.cds,
+                              qcov = 0.5, rost1999 = TRUE,
+                              longest.isoform = TRUE,
+                              isoform.source = "ENSEMBL",
+                              threads = 2, plotCurve = TRUE,
+                              lastpath = vignette.paths[1])
+```
+
+```
+HOMSAP.cds <- Biostrings::readDNAStringSet(paste0(ensembl, HOMSAP.CDS.file))
+PANTRO.cds <- Biostrings::readDNAStringSet(paste0(ensembl, PANTRO.CDS.file))
+HOMSAP_PANTRO_crbh.kaks.Li <- rbh2kaks(HOMSAP_PANTRO_crbh$crbh.pairs,
+                                       HOMSAP.cds, PANTRO.cds, model = "Li",
+                                       threads = 4)
+```
+
+## 5. [References]{#references}
 
 Aubry S., Kelly S., Kümpers B. M., Smith-Unna R. D., and Hibberd J. M. (2014). **Deep evolutionary comparison of gene expression identifies parallel recruitment of trans-factors in two independent origins of C4 photosynthesis.** *PLoS genetics*, **10(6)**. [https://doi.org/10.1371/journal.pgen.1004365](https://doi.org/10.1371/journal.pgen.1004365)
 
@@ -457,9 +478,13 @@ Haug-Baltzell A., Stephens S. A., Davey S., Scheidegger C. E., Lyons E. (2017). 
 
 Kiełbasa S. M., Wan R., Sato K., Horton P., and Frith M. C. (2011). **Adaptive seeds tame genomic sequence comparison.** *Genome research*, 21(3), 487-493. [https://doi.org/10.1101/gr.113985.110](https://doi.org/10.1101/gr.113985.110)
 
+Kimura M. (1977). **Preponderance of synonymous changes as evidence for the neutral theory of molecular evolution.** *Nature*, 267, 275-276.
+
 Li W. H. (1993). **Unbiased estimation of the rates of synonymous and nonsynonymous substitution.** *Journal of molecular evolution*, 36(1), 96-99. [https://doi.org/10.1007/bf02407308](https://doi.org/10.1007/bf02407308)
 
 Microsoft, and Weston S. (2020). **foreach: Provides Foreach Looping Construct.** *R package version*, 1.5.1. [foreach](https://cran.r-project.org/web/packages/foreach/index.html)
+
+Mugal C. F., Wolf J. B. W., Kaj I. (2014). **Why Time Matters: Codon Evolution and the Temproal Dynamics of dN/dS.** *Molecular Biology and Evolution*, 31(1), 212-231.
 
 Ooms J. (2019). **curl: A Modern and Flexible Web Client for R.** *R package version*, 4.3. [curl](https://cran.r-project.org/web/packages/curl/index.html)
 

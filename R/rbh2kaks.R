@@ -29,8 +29,10 @@
 #' data("aly", package="CRBHits")
 #' ##load example CRBHit pairs
 #' data("ath_aly_crbh", package="CRBHits")
-#' ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh$crbh.pairs[1:20, ],
-#'                               ath, aly, model = "Li")
+#' ##only analyse subset of CRBHit pairs
+#' ath_aly_crbh$crbh.pairs <- head(ath_aly_crbh$crbh.pairs)
+#' ath_aly_crbh.kaks <- rbh2kaks(rbhpairs = ath_aly_crbh,
+#'                               cds1 = ath, cds2 = aly, model = "Li")
 #' head(ath_aly_crbh.kaks)
 #' @export rbh2kaks
 #' @author Kristian K Ullrich
@@ -84,10 +86,11 @@ rbh2kaks <- function(rbhpairs, cds1, cds2, model = "Li",
   names(cds2) <- stringr::word(names(cds2), 1)
   doMC::registerDoMC(threads)
   i <- NULL
-  rbh.kaks <- foreach::foreach(i = seq(from = 1, to = dim(rbhpairs$crbh.pairs)[1]), .combine = rbind) %dopar% {
-    cds2kaks(get_cds_by_name(rbhpairs$crbh.pairs[i,1], cds1), get_cds_by_name(rbhpairs$crbh.pairs[i,2], cds2), model = model, kakscalcpath = kakscalcpath, ...)
+  rbhpairs.crbh.pairs <- rbhpairs$crbh.pairs
+  rbh.kaks <- foreach::foreach(i = seq(from = 1, to = dim(rbhpairs.crbh.pairs)[1]), .combine = rbind) %dopar% {
+    cds2kaks(get_cds_by_name(rbhpairs.crbh.pairs[i,1], cds1), get_cds_by_name(rbhpairs.crbh.pairs[i,2], cds2), model = model, kakscalcpath = kakscalcpath, ...)
   }
-  out <- cbind(rbhpairs$crbh.pairs, rbh.kaks)
+  out <- cbind(rbhpairs.crbh.pairs, rbh.kaks)
   attr(out, "CRBHits.class") <- "kaks"
   if(model == "Li"){
     attr(out, "CRBHits.model") <- "Li"

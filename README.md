@@ -67,6 +67,7 @@ sudo yum install libcurl-devel openssl-devel libxml2-devel mesa-libGLU-devel lib
 - [foreach](https://cran.r-project.org/web/packages/foreach/index.html)
 - [doMC](https://cran.r-project.org/web/packages/doMC/index.html)
 - [tidyverse](https://cran.r-project.org/web/packages/tidyverse/index.html)
+- [gridExtra](https://cran.r-project.org/web/packages/gridExtra/index.html)
 - [mclust](https://cran.r-project.org/web/packages/mclust/index.html)
 - [feature](https://cran.r-project.org/web/packages/feature/index.html)
 
@@ -78,6 +79,7 @@ install.packages("seqinr")
 install.packages("foreach")
 install.packages("doMC")
 install.packages("tidyverse")
+install.packages("gridExtra")
 install.packages("mclust")
 install.packages("feature")
 ```
@@ -304,9 +306,13 @@ Haug-Baltzell A., Stephens S. A., Davey S., Scheidegger C. E., Lyons E. (2017). 
 
 Kiełbasa S. M., Wan R., Sato K., Horton P., and Frith M. C. (2011). **Adaptive seeds tame genomic sequence comparison.** *Genome research*, 21(3), 487-493. [https://doi.org/10.1101/gr.113985.110](https://doi.org/10.1101/gr.113985.110)
 
+Kimura M. (1977). **Preponderance of synonymous changes as evidence for the neutral theory of molecular evolution.** *Nature*, 267, 275-276.
+
 Li W. H. (1993). **Unbiased estimation of the rates of synonymous and nonsynonymous substitution.** *Journal of molecular evolution*, 36(1), 96-99. [https://doi.org/10.1007/bf02407308](https://doi.org/10.1007/bf02407308)
 
 Microsoft, and Weston S. (2020). **foreach: Provides Foreach Looping Construct.** *R package version*, 1.5.1. [foreach](https://cran.r-project.org/web/packages/foreach/index.html)
+
+Mugal C. F., Wolf J. B. W., Kaj I. (2014). **Why Time Matters: Codon Evolution and the Temproal Dynamics of dN/dS.** *Molecular Biology and Evolution*, 31(1), 212-231.
 
 Ooms J. (2019). **curl: A Modern and Flexible Web Client for R.** *R package version*, 4.3. [curl](https://cran.r-project.org/web/packages/curl/index.html)
 

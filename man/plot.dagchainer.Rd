@@ -20,7 +20,7 @@
 
 \item{DotPlotTitle}{specify DotPlot title [default: DAGchainer results]}
 
-\item{colorBy}{specify if dagchainer groups should be colored by "Ka", "Ks", "Ka/KS" or "none" [default: none]}
+\item{colorBy}{specify if dagchainer groups should be colored by "Ka", "Ks", "Ka/Ks" or "none" [default: none]}
 
 \item{kaks}{specify Ka/Ks input obtained via `rbh2kaks()` [default: NULL]}
 

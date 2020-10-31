@@ -169,6 +169,8 @@ download.file(HOMSAP.cds.ENSEMBL.url, HOMSAP.cds.ENSEMBL.file, quiet = FALSE)
 HOMSAP.cds.ENSEMBL <- Biostrings::readDNAStringSet(HOMSAP.cds.ENSEMBL.file)
 #reduce to the longest isoform
 HOMSAP.cds.ENSEMBL.longest <- isoform2longest(HOMSAP.cds.ENSEMBL, "ENSEMBL")
+
+#get help ?isoform2longest
 ````
 
 __Note:__ It is also possible to obtain and select the longest/primary isoform from CDS Input sources other than NCBI or Ensembl. This can be achieved by parsing a GTF/GFF3 file. This special case is handled in the [CRBHits KaKs Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V02KaKsVignette.html) under point 1.4.2.
@@ -195,6 +197,8 @@ ath_aly_rbh <- cds2rbh(cds1, cds2, crbh = FALSE,
                        lastpath = vignette.paths[1])
 #show summary
 summary(ath_aly_rbh)
+
+#get help ?cds2rbh
 ```
 
 Like [shmlast](https://pypi.org/project/shmlast/), [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) plots the fitted model of the CRBH e-value based algorithm. The CRBH algorithm can be performed and visualized as follows:
@@ -207,6 +211,8 @@ ath_aly_crbh <- cds2rbh(cds1, cds2, plotCurve = TRUE,
                         lastpath = vignette.paths[1])
 #show summary
 summary(ath_aly_crbh)
+
+#get help ?cds2rbh
 ```
 
 Both, `cdsfile2rbh()` and `cds2rbh()` function, return a list of three `data.frame`'s which contain the CRBH pairs (`$crbh.pairs`) retained, the query > target blast-like output matrix (`$crbh1`) and the target > query blast-like output matrix (`$crbh2`). For each matrix the `$rbh_class` indicates if the hit is a Reciprocal Best Hit (`rbh`) or if it is a conditional secondary hit retained because of RBH fitting (CRBH algorithm) (`sec`). 
@@ -253,6 +259,8 @@ ath_aly_crbh <- cds2rbh(cds1, cds2, plotCurve = TRUE,
 table(ath_aly_crbh$crbh1$rbh_class)
 table(ath_aly_crbh$crbh2$rbh_class)
 dim(ath_aly_crbh)
+
+#get help ?cds2rbh
 ```
 
 ### 2.2. [2. step: filter hits + RBH extraction]{#crbhstep2}
@@ -283,6 +291,8 @@ The data will be filtered with a query coverage of 50\% using the `@param` `qcov
 ath_aly_crbh <- cds2rbh(cds1, cds2, plotCurve = TRUE, qcov = 0.5,
                         lastpath = vignette.paths[1])
 dim(ath_aly_crbh$crbh.pairs)
+
+#get help ?cds2rbh
 ```
 
 In addition, the users can filter for the **twilight zone of protein sequence alignments** according to [Rost B. (1999)](https://academic.oup.com/peds/article/12/2/85/1550637). This **twilight zone** indicates proteins, which might share a common ancestor (homologue genes) but have diverged from each other through time so that similarity is no longer detectable. Here, a certain alignment length and protein identity is at least necessary to indicate *bona-fide* homologues.
@@ -321,6 +331,14 @@ This **twilight zone** filter can be directly used by the `@param` `rost1999` se
 ath_aly_crbh <- cds2rbh(cds1, cds2, plotCurve = TRUE, rost1999 = TRUE,
                         lastpath = vignette.paths[1])
 dim(ath_aly_crbh$crbh.pairs)
+
+#get help ?cds2rbh
+#get help ?filter.alnlen
+#get help ?filter.eval
+#get help ?filter.pident
+#get help ?filter.qcov
+#get help ?filter.rost1999
+#get help ?filter.tcov
 ```
 
 #### 2.2.2. [Custom Filter]{#filters}
@@ -387,6 +405,8 @@ The user can now alter between `mean` and `median` using the `@param` `fit.type 
 ath_aly_crbh <- cds2rbh(cds1, cds2, plotCurve = TRUE,
                         fit.type = "median",
                         lastpath = vignette.paths[1])
+
+#get help ?cds2rbh
 ```
 
 As described earlier, [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) features downstream anaylsis like batch calculating synonymous (Ks) and nonsynonymous substitutions (Ka) per orthologous sequence pair. The following sections will give more details about these downstream functionalities.
@@ -419,6 +439,8 @@ cds1 <- Biostrings::DNAString("ATGCAACATTGC")
 cds2 <- Biostrings::DNAString("ATGCATTGC")
 #get codon alignment
 cds2codonaln(cds1, cds2)
+
+#get help ?cds2codonaln
 ```
 
 The user can alter some `@param` to change the alignment parameters, like `type`, `substitutionMatrix`, `gapOpening` and `gapExtension` costs as defined by the `pairwiseAlignment()` function from the `Biostrings` R package.
@@ -457,6 +479,8 @@ cds1 <- ath[1]
 cds2 <- aly[282]
 #calculate Ka/Ks values on two CDS using Li model
 cds2kaks(cds1, cds2, model = "Li")
+
+#get help ?cds2kaks
 ```
 
 All parameters which can be used by the `cds2codonaln()` function can be overgiven to e.g. use an alternative `substitutionMatrix`.
@@ -484,36 +508,46 @@ However, since one should directly use the same input `DNAStringSet` vector or i
 cdsfile1 <- system.file("fasta", "ath.cds.fasta.gz", package = "CRBHits")
 cdsfile2 <- system.file("fasta", "aly.cds.fasta.gz", package = "CRBHits")
 
-cds1 <- Biostrings::readDNAStringSet(cdsfile1)
-cds2 <- Biostrings::readDNAStringSet(cdsfile2)
+ath <- Biostrings::readDNAStringSet(cdsfile1)
+aly <- Biostrings::readDNAStringSet(cdsfile2)
 
 #the following function calculates CRBHit pairs using one thread and plots the fitted curve
-ath_aly_crbh <- cds2rbh(cds1, cds2,
+ath_aly_crbh <- cds2rbh(cds1 = ath, cds2 = aly,
                         lastpath = vignette.paths[1])
 
 #calculate Ka/Ks using the CRBHit pairs
-ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh$crbh.pairs[1:20, ],
-                              cds1, cds2, model = "Li")
+ath_aly_crbh$crbh.pairs <- head(ath_aly_crbh$crbh.pairs)
+ath_aly_crbh.kaks <- rbh2kaks(rbhpairs = ath_aly_crbh,
+                              cds1 = ath, cds2 = aly,
+                              model = "Li")
 head(ath_aly_crbh.kaks)
+
+#get help ?rbh2kaks
 ```
 
 The Ka/Ks calculations can be parallelized.
 
 ```{r}
 #calculate Ka/Ks using the CRBHit pairs and multiple threads
-ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh$crbh.pairs[1:20, ],
-                              cds1, cds2, model = "Li", threads = 2)
+ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh,
+                              cds1 = ath, cds2 = aly,
+                              model = "Li", threads = 2)
 head(ath_aly_crbh.kaks)
+
+#get help ?rbh2kaks
 ```
 
 Like for the `cds2kaks()` function, all parameters which can be used by the `cds2codonaln()` function can be overgiven to e.g. use an alternative `substitutionMatrix`.
 
 ```{r}
 #calculate Ka/Ks usign the CRBHit pairs and multiple threads
-ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh$crbh.pairs[1:20, ],
-                              cds1, cds2, model = "Li", threads = 2,
+ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh,
+                              cds1 = ath, cds2 = aly,
+                              model = "Li", threads = 2,
                               substitutionMatrix = "BLOSUM45")
 head(ath_aly_crbh.kaks)
+
+#get help ?rbh2kaks
 ```
 
 ## 4. [References]{#references}
@@ -530,9 +564,13 @@ Haug-Baltzell A., Stephens S. A., Davey S., Scheidegger C. E., Lyons E. (2017). 
 
 Kiełbasa S. M., Wan R., Sato K., Horton P., and Frith M. C. (2011). **Adaptive seeds tame genomic sequence comparison.** *Genome research*, 21(3), 487-493. [https://doi.org/10.1101/gr.113985.110](https://doi.org/10.1101/gr.113985.110)
 
+Kimura M. (1977). **Preponderance of synonymous changes as evidence for the neutral theory of molecular evolution.** *Nature*, 267, 275-276.
+
 Li W. H. (1993). **Unbiased estimation of the rates of synonymous and nonsynonymous substitution.** *Journal of molecular evolution*, 36(1), 96-99. [https://doi.org/10.1007/bf02407308](https://doi.org/10.1007/bf02407308)
 
 Microsoft, and Weston S. (2020). **foreach: Provides Foreach Looping Construct.** *R package version*, 1.5.1. [foreach](https://cran.r-project.org/web/packages/foreach/index.html)
+
+Mugal C. F., Wolf J. B. W., Kaj I. (2014). **Why Time Matters: Codon Evolution and the Temproal Dynamics of dN/dS.** *Molecular Biology and Evolution*, 31(1), 212-231.
 
 Ooms J. (2019). **curl: A Modern and Flexible Web Client for R.** *R package version*, 4.3. [curl](https://cran.r-project.org/web/packages/curl/index.html)
 

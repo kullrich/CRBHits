@@ -8,6 +8,8 @@ CRBHitsColors(n, alpha.perc = 0)
 }
 \arguments{
 \item{n}{The number of colors (≥ 1) to be in the palette [mandatory]}
+
+\item{alpha.perc}{an alpha-transparency level in percent [default: 0]}
 }
 \value{
 CRBHits specific color palette

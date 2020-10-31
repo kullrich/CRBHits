@@ -221,14 +221,14 @@ cds2rbh <- function(cds1, cds2,
     out <- list(rbh, cbind(rbh1, "rbh"), cbind(rbh2, "rbh"))
     names(out) <- c("crbh.pairs", "crbh1", "crbh2")
     if(!selfblast){
-      attr(out, "class") <- "crbh"
+      attr(out, "CRBHits.class") <- "crbh"
       attr(out, "crbh") <- FALSE
       attr(out, "keepSingleDirection") <- FALSE
       attr(out, "selfblast") <- selfblast
       return(out)
     }
     if(selfblast){
-      attr(out, "class") <- "crbh"
+      attr(out, "CRBHits.class") <- "crbh"
       attr(out, "crbh") <- FALSE
       attr(out, "keepSingleDirection") <- FALSE
       attr(out, "selfblast") <- selfblast
@@ -358,7 +358,7 @@ cds2rbh <- function(cds1, cds2,
       colnames(crbh) <- c("aa1", "aa2", "rbh_class")
       out <- list(crbh, crbh1, crbh2, rbh1_rbh2_fit)
       names(out) <- c("crbh.pairs", "crbh1", "crbh2", "rbh1_rbh2_fit")
-      attr(out, "class") <- "crbh"
+      attr(out, "CRBHits.class") <- "crbh"
       attr(out, "crbh") <- TRUE
       attr(out, "keepSingleDirection") <- FALSE
       attr(out, "selfblast") <- selfblast

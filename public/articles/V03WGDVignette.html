@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CRBHits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
       </span>
     </div>
 
@@ -57,7 +57,7 @@
       <a href="../articles/V01CRBHitsBasicVignette.html">CRBHits Basic Vignette</a>
     </li>
     <li>
-      <a href="../articles/V02dNdSClusteringVignette.html">dNdS Clustering Vignette</a>
+      <a href="../articles/V02KaKsVignette.html">KaKs Vignette</a>
     </li>
     <li>
       <a href="../articles/V03WGDVignette.html">Paranome-based Whole Genome Duplication Vignette</a>
@@ -82,13 +82,14 @@
 
       
 
-      </header><script src="V03WGDVignette_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="V03WGDVignette_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="V03WGDVignette_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="V03WGDVignette_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Paranome-based Whole Genome Duplication Vignette</h1>
                         <h4 class="author">Kristian K Ullrich</h4>
             
-            <h4 class="date">2020-08-25</h4>
+            <h4 class="date">2020-10-29</h4>
       
       <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/mastervignettes/V03WGDVignette.Rmd"><code>vignettes/V03WGDVignette.Rmd</code></a></small>
       <div class="hidden name"><code>V03WGDVignette.Rmd</code></div>
@@ -97,26 +98,81 @@
 
     
     
+<p><a href="https://doi.org/10.1073/pnas.0501102102" class="uri">https://doi.org/10.1073/pnas.0501102102</a></p>
+<p><a href="https://academic.oup.com/gigascience/article/9/2/giaa004/5733640" class="uri">https://academic.oup.com/gigascience/article/9/2/giaa004/5733640</a></p>
+<p><a href="https://pubmed.ncbi.nlm.nih.gov/15568988/" class="uri">https://pubmed.ncbi.nlm.nih.gov/15568988/</a></p>
 <div id="table-of-contents" class="section level2">
 <h2 class="hasAnchor">
 <a href="#table-of-contents" class="anchor"></a>Table of Contents</h2>
 <ol style="list-style-type: decimal">
 <li><a href="#selfblast">Selfblast</a></li>
-<li><a href="#dNdS">dN/dS Calculations</a></li>
+<li><a href="#KaKs">Ka/Ks Calculations</a></li>
 <li><a href="#paranomeWGD">Paranome-based Whole Genome Duplication prediction</a></li>
 <li><a href="#references">References</a></li>
 </ol>
 <p><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> is a reimplementation of the Conditional Reciprocal Best Hit algorithm <a href="https://github.com/cboursnell/crb-blast">crb-blast</a> in R.</p>
 <p>See the R package page for a detailed description of the install process and its dependencies <a href="https://mpievolbio-it.pages.gwdg.de/crbhits/">https://mpievolbio-it.pages.gwdg.de/crbhits/</a> or have a look at the basic vignette.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="co">#load vignette specific libraries</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">Biostrings</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://stringr.tidyverse.org">stringr</a></span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://jeroen.cran.dev/curl">curl</a></span><span class="op">)</span><span class="op">)</span>
+<span class="co">#compile LAST and KaKs_Calculator2.0 for the vignette</span>
+<span class="va">vignette.paths</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make.vignette.html">make.vignette</a></span><span class="op">(</span><span class="op">)</span></pre></div>
 </div>
 <div id="selfblast" class="section level2">
 <h2 class="hasAnchor">
 <a href="#selfblast" class="anchor"></a>1. <span id="selfblast">Selfblast</span>
 </h2>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="co">##set URLs for Arabidopis thaliana from Ensembl Plants</span>
+
+<span class="co">#set Ensembl Plants URL</span>
+<span class="va">ensemblPlants</span> <span class="op">&lt;-</span> <span class="st">"ftp://ftp.ensemblgenomes.org/pub/plants/release-48/fasta/"</span>
+<span class="co">#set Arabidopsis thaliana CDS URL</span>
+<span class="va">ARATHA.CDS.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"arabidopsis_thaliana/cds/"</span>,
+                      <span class="st">"Arabidopsis_thaliana.TAIR10.cds.all.fa.gz"</span><span class="op">)</span>
+<span class="co">#get Arabidopsis thaliana CDS</span>
+<span class="va">ARATHA.CDS.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempfile</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu">curl</span><span class="fu">::</span><span class="fu"><a href="https://jeroen.cran.dev/curl/reference/curl_download.html">curl_download</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">ensemblPlants</span>, <span class="va">ARATHA.CDS.url</span><span class="op">)</span>, <span class="va">ARATHA.CDS.file</span><span class="op">)</span>
+<span class="va">ARATHA.cds</span> <span class="op">&lt;-</span> <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html">readDNAStringSet</a></span><span class="op">(</span><span class="va">ARATHA.CDS.file</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="co">##get longest isoforms</span>
+
+<span class="co">#get longest isoform</span>
+<span class="va">ARATHA.cds.longest</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/isoform2longest.html">isoform2longest</a></span><span class="op">(</span><span class="va">ARATHA.cds</span>, <span class="st">"ENSEMBL"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="co">##example to assign tandem duplicates given selfblast CRBHit pairs and gene position</span>
+
+<span class="co">#get selfblast CRBHit pairs for A. thaliana</span>
+<span class="va">ARATHA_selfblast_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">ARATHA.cds</span>,
+                             <span class="va">ARATHA.cds</span>,
+                             qcov <span class="op">=</span> <span class="fl">0.5</span>, rost1999 <span class="op">=</span> <span class="cn">TRUE</span>,
+                             longest.isoform <span class="op">=</span> <span class="cn">TRUE</span>,
+                             isoform.source <span class="op">=</span> <span class="st">"ENSEMBL"</span>,
+                             threads <span class="op">=</span> <span class="fl">2</span>, plotCurve <span class="op">=</span> <span class="cn">TRUE</span>,
+                             lastpath <span class="op">=</span> <span class="va">vignette.paths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></pre></div>
+<p><img src="V03WGDVignette_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="co">#extract gene position from longest isoform CDS</span>
+<span class="va">ARATHA.cds.longest.genepos</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2genepos.html">cds2genepos</a></span><span class="op">(</span><span class="va">ARATHA.cds.longest</span>, source <span class="op">=</span> <span class="st">"ENSEMBL"</span><span class="op">)</span>
+<span class="co">#assign tandem duplicates for A. thaliana using a maximal duplicate distance of 5</span>
+<span class="va">ARATHA.cds.longest.tandemdups</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tandemdups.html">tandemdups</a></span><span class="op">(</span><span class="va">ARATHA_selfblast_crbh</span>,
+                                            <span class="va">ARATHA.cds.longest.genepos</span>,
+                                            dupdist <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></pre></div>
+<p>model = “Li”</p>
+<pre><code>
+ARATHA_ARATHA_crbh.kaks.Li &lt;- rbh2kaks(ARATHA_selfblast_crbh$crbh.pairs,
+                                       ARATHA.cds.longest, ARATHA.cds.longest,
+                                       model = "Li",
+                                       threads = 4)</code></pre>
 </div>
-<div id="dnds-calculations" class="section level2">
+<div id="kaks-calculations" class="section level2">
 <h2 class="hasAnchor">
-<a href="#dnds-calculations" class="anchor"></a>2. <span id="dNdS">dN/dS Calculations</span>
+<a href="#kaks-calculations" class="anchor"></a>2. <span id="KaKs">Ka/Ks Calculations</span>
 </h2>
 </div>
 <div id="paranome-based-whole-genome-duplication-prediction" class="section level2">
@@ -130,13 +186,22 @@
 </h2>
 <p>Aubry S., Kelly S., Kümpers B. M., Smith-Unna R. D., and Hibberd J. M. (2014). <strong>Deep evolutionary comparison of gene expression identifies parallel recruitment of trans-factors in two independent origins of C4 photosynthesis.</strong> <em>PLoS genetics</em>, <strong>10(6)</strong>. <a href="https://doi.org/10.1371/journal.pgen.1004365">https://doi.org/10.1371/journal.pgen.1004365</a></p>
 <p>Charif D., and Lobry J. R. (2007). <strong>SeqinR 1.0-2: a contributed package to the R project for statistical computing devoted to biological sequences retrieval and analysis.</strong> <em>In Structural approaches to sequence evolution</em> (pp. 207-232). Springer, Berlin, Heidelberg. <a href="https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10">https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10</a></p>
+<p>Duong T., and Wand M. (2015). <strong>feature: Local Inferential Feature Significance for Multivariate Kernel Density Estimation.</strong> <em>R package version 1.2.13</em>. <a href="https://cran.r-project.org/web/packages/feature/">https://cran.r-project.org/web/packages/feature/</a></p>
+<p>Haug-Baltzell A., Stephens S. A., Davey S., Scheidegger C. E., Lyons E. (2017). <strong>SynMap2 and SynMap3D: web-based wholge-genome synteny browsers.</strong> <em>Bioinformatics</em>, <strong>33(14)</strong>. <a href="https://academic.oup.com/bioinformatics/article/33/14/2197/3072872">https://academic.oup.com/bioinformatics/article/33/14/2197/3072872</a></p>
 <p>Kiełbasa S. M., Wan R., Sato K., Horton P., and Frith M. C. (2011). <strong>Adaptive seeds tame genomic sequence comparison.</strong> <em>Genome research</em>, 21(3), 487-493. <a href="https://doi.org/10.1101/gr.113985.110">https://doi.org/10.1101/gr.113985.110</a></p>
 <p>Li W. H. (1993). <strong>Unbiased estimation of the rates of synonymous and nonsynonymous substitution.</strong> <em>Journal of molecular evolution</em>, 36(1), 96-99. <a href="https://doi.org/10.1007/bf02407308">https://doi.org/10.1007/bf02407308</a></p>
-<p>Pagès H., Aboyoun P., Gentleman R., and DebRoy S. (2017). <strong>Biostrings: Efficient manipulation of biological strings.</strong> <em>R package version</em>, 2(0).</p>
+<p>Microsoft, and Weston S. (2020). <strong>foreach: Provides Foreach Looping Construct.</strong> <em>R package version</em>, 1.5.1. <a href="https://cran.r-project.org/web/packages/foreach/index.html">foreach</a></p>
+<p>Ooms J. (2019). <strong>curl: A Modern and Flexible Web Client for R.</strong> <em>R package version</em>, 4.3. <a href="https://cran.r-project.org/web/packages/curl/index.html">curl</a></p>
+<p>Pagès H., Aboyoun P., Gentleman R., and DebRoy S. (2017). <strong>Biostrings: Efficient manipulation of biological strings.</strong> <em>R package version</em>, 2.56.0. <a href="http://bioconductor.org/packages/release/bioc/html/Biostrings.html">Biostrings</a></p>
+<p>Revolution Analytics, and Weston S. (2020). <strong>doMC: Foreach Parallel Adaptor for ‘parallel’.</strong> <em>R package version</em>, 1.3.7. <a href="https://cran.r-project.org/web/packages/doMC/index.html">doMC</a></p>
 <p>Rost B. (1999). <strong>Twilight zone of protein sequence alignments.</strong> <em>Protein engineering</em>, 12(2), 85-94. <a href="https://doi.org/10.1093/protein/12.2.85">https://doi.org/10.1093/protein/12.2.85</a></p>
 <p>Scott C. (2017). <strong>shmlast: an improved implementation of conditional reciprocal best hits with LAST and Python.</strong> <em>Journal of Open Source Software</em>, 2(9), 142. <a href="https://joss.theoj.org/papers/10.21105/joss.00142">https://joss.theoj.org/papers/10.21105/joss.00142</a></p>
 <p>Scrucca L., Fop M., Murphy T. B., and Raftery A. E. (2016) <strong>mclust 5: clustering, classification and density estimation using Gaussian finite mixture models.</strong> <em>The R Journal</em>, 8(1), 289-317. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5096736/">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5096736/</a></p>
-<p>Duong T., and Wand M. (2015). <strong>feature: Local Inferential Feature Significance for Multivariate Kernel Density Estimation.</strong> <em>R package version 1.2.13</em>. <a href="https://cran.r-project.org/web/packages/feature/">https://cran.r-project.org/web/packages/feature/</a></p>
+<p>Wickham H. (2011). <strong>testthat: Get Started with Testing.</strong> <em>The R Journal</em>, 3(1), 5. <a href="https://cran.r-project.org/web/packages/testthat/index.html">testthat</a></p>
+<p>Wickham H. (2019). <strong>stringr: Simple, Consistent Wrappers for Common String Operations.</strong> <em>R package version</em>, 1.4.0. <a href="https://cran.r-project.org/web/packages/stringr/index.html">stringr</a></p>
+<p>Wickham H. (2020). <strong>tidyr: Tidy Messy Data.</strong> <em>R package version</em>, 1.1.2. <a href="https://cran.r-project.org/web/packages/tidyr/index.html">tidyr</a></p>
+<p>Wickham H., Hester J., and Chang W. (2020). <strong>devtools: Tools to make Developing R Packages Easier.</strong> <em>R package version</em>, (2.3.2). <a href="https://cran.r-project.org/web/packages/devtools/index.html">devtools</a></p>
+<p>Wickham H., François R., Henry L., and Müller K. (2020). <strong>dplyr: A Grammar of Data Manipulation.</strong> <em>R package version</em>, 1.0.2. <a href="https://cran.r-project.org/web/packages/dplyr/index.html">dplyr</a></p>
 <p>Yang Z., and Nielsen R. (2000). <strong>Estimating synonymous and nonsynonymous substitution rates under realistic evolutionary models.</strong> <em>Molecular biology and evolution</em>, 17(1), 32-43. <a href="https://doi.org/10.1093/oxfordjournals.molbev.a026236">https://doi.org/10.1093/oxfordjournals.molbev.a026236</a></p>
 </div>
   </div>
@@ -156,7 +221,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

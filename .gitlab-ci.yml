@@ -6,6 +6,7 @@ before_script:
   - R -e "dir()"
   - R -e "getwd()"
   - R -e "sessionInfo()"
+  - R -e "install.packages('gridExtra',repos='http://cran.rstudio.com')"
   - R -e "install.packages('feature',repos='http://cran.rstudio.com')"
   - R -e "install.packages('pkgdown',repos='http://cran.rstudio.com')"
   - R -e "devtools::install_gitlab('mpievolbio-it/crbhits', host = 'https://gitlab.gwdg.de')"

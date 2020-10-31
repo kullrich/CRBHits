@@ -2,7 +2,7 @@
 #' @name CRBHitsColors
 #' @description CRBHits specific color palette.
 #' @param n The number of colors (≥ 1) to be in the palette [mandatory]
-#' @paprm alpha.perc an alpha-transparency level in percent [default: 0]
+#' @param alpha.perc an alpha-transparency level in percent [default: 0]
 #' @return CRBHits specific color palette
 #' @importFrom grDevices col2rgb palette rgb colorRampPalette
 #' @seealso \code{\link[grDevices]{palette}}
