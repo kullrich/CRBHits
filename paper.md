@@ -101,9 +101,8 @@ where $x_{\text{hit pair}}$ is the expected protein identity given the alignment
 In contrast to previous implementations, [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) only take coding nucleotide sequences (CDS) as the query and target inputs. This is due to the downstream functionality of [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) to directly calculate codon alignments within R, which rely on CDS. The inputs are translated into protein sequences, aligned globally [@smith1981identification] and converted into codon alignments. 
 
 Functions are completely coded in R and only the external prerequisites 
-([LAST](http://last.cbrc.jp/) and 
-[KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download)) 
-need to be compiled. Further, users can create their own filters before CRBH 
+([LAST](http://last.cbrc.jp/), [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download)) and [DAGchainer](http://dagchainer.sourceforge.net/) 
+need to be compiled. However, all of them are forked within [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) and can be easily build with the dedicated R functions `make.last()`, `make.KaKs_Calculator2()` and `make.dagchainer()`. Further, users can create their own RBH filters before CRBH 
 calculation.
 
 # Functions and Examples
@@ -139,11 +138,13 @@ cds2 <- isoform2longest(Biostrings::readDNAStringSet(cds2.url))
 #calculate Ka/Ks values for each CRBHit pair
 cds1.cds2.kaks.Li <- rbh2kaks(cds1.cds2.crbh, cds1, cds2,
                               model = "Li", threads = 8)
+cds1.cds2.kaks.YN <- rbh2kaks(cds1.cds2.crbh, cds1, cds2,
+                              model = "YN", threads = 8)
                               
 #get help ?rbh2kaks
 ```
 
-Given the annotated chromosomal gene positions it is also possible to assign tandem duplicated genes per chromosome and directly compute chains of syntenic genes via the use of an R external tool [DAGchainer](http://dagchainer.sourceforge.net/)[@haas2004]. Here, *Arabidopsis thaliana* is compared to itself (so called selfblast) and syntenic groups vsiualized by their Ks values.
+Given the annotated chromosomal gene positions it is also possible to assign tandem duplicated genes per chromosome and directly compute chains of syntenic genes via the use of the R external tool [DAGchainer](http://dagchainer.sourceforge.net/)[@haas2004]. Here, *Arabidopsis thaliana* is compared to itself (so called selfblast) and syntenic groups vsiualized by their Ks values.
 
 ```r
 #download and simultaneously get longest isoform for
@@ -159,16 +160,19 @@ cds3.selfblast.crbh <- cds2rbh(cds3, cds3, longest.isoform = TRUE,
                                qcov = 0.5, rost1999 = TRUE,
                                isoform.source = "ENSEMBL", plotCurve = TRUE,
                                threads = 8)
-#compute chains of syntenic genes
+#compute chains of syntenic genes and plor chr1, chr2, chr3, chr4, chr5
 cds3.selfblast.synteny <- rbh2dagchainer(cds3.selfblast.crbh,
                                          cds3.genepos, cds3.genepos,
-                                         plotDotPlot = TRUE)
+                                         plotDotPlot = TRUE,
+                                         select.chr = c("1", "2", "3", "4", "5"))
 #calculate Ka/Ks values for each CRBHit pair
 cds3.selfblast.kaks.Li <- rbh2kaks(cds3.selfblast.crbh, cds3, cds3,
-                                   model = "YN", threads = 8)
+                                   model = "Li", threads = 8)
 
 #get help ?rbh2dagchainer
 ```
+
+![Selfblast CRBHit pair results for *Arabidopsis thaliana*. (A) DAGchainer dotplot per chromosome colored by syntenic group and (B) colored by Ks. (C) Histogram of Ks values colored by syntenic group.\label{fig:functions}](figure3.png)
 
 Table: Performance comparison for CRBHit pair (*Schizosaccharomyces pombe* vs. *Nematostella vectensis*) and Ka/Ks calculations (Intel Xeon CPU E5-2620 v3 @ 2.40GHz; 3575 hit pairs).\label{tab:performance}
 
@@ -181,7 +185,7 @@ Table: Performance comparison for CRBHit pair (*Schizosaccharomyces pombe* vs. *
 
 # Conclusions
 
-[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) implements CRBH in [R](https://cran.r-project.org/) (see \autoref{fig:crbh}) and also can be used to calculate codon alignment based nucleotide diversities in a multithreaded fashion (see \autoref{tab:performance}).
+[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) implements CRBH in [R](https://cran.r-project.org/) (see \autoref{fig:crbh}) and also can be used to calculate codon alignment based nucleotide diversities and Ka/Ks values in a multithreaded fashion (see \autoref{tab:performance}).
 
 # Availability
 
