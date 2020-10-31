@@ -172,6 +172,8 @@ cds3.selfblast.kaks.Li <- rbh2kaks(cds3.selfblast.crbh, cds3, cds3,
                                    model = "Li", threads = 8)
 
 #get help ?rbh2dagchainer
+#get help ?plot.dagchainer
+#get help ?plot.kaks
 ```
 
 ![Selfblast CRBHit pair results for *Arabidopsis thaliana*. (A) DAGchainer dotplot per chromosome colored by syntenic group and (B) colored by Ks. (C) Histogram of Ks values colored by syntenic group.\label{fig:synteny}](figure3.png)
