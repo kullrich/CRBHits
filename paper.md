@@ -101,8 +101,7 @@ where $x_{\text{hit pair}}$ is the expected protein identity given the alignment
 In contrast to previous implementations, [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) only take coding nucleotide sequences (CDS) as the query and target inputs. This is due to the downstream functionality of [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) to directly calculate codon alignments within R, which rely on CDS. The inputs are translated into protein sequences, aligned globally [@smith1981identification] and converted into codon alignments. 
 
 Functions are completely coded in R and only the external prerequisites 
-([LAST](http://last.cbrc.jp/), [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download)) and [DAGchainer](http://dagchainer.sourceforge.net/) 
-need to be compiled. However, all of them are forked within [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) and can be easily build with the dedicated R functions `make.last()`, `make.KaKs_Calculator2()` and `make.dagchainer()`. Further, users can create their own RBH filters before CRBH 
+([LAST](http://last.cbrc.jp/), [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download) and [DAGchainer](http://dagchainer.sourceforge.net/)) need to be compiled. However, all of them are forked within [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) and can be easily build with the dedicated R functions `make.last()`, `make.KaKs_Calculator2()` and `make.dagchainer()`. Further, users can create their own RBH filters before CRBH 
 calculation.
 
 # Functions and Examples
@@ -186,7 +185,7 @@ Table: Performance comparison for CRBHit pair (*Schizosaccharomyces pombe* vs. *
 
 # Conclusions
 
-[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) implements CRBH in [R](https://cran.r-project.org/) (see \autoref{fig:crbh}) and also can be used to calculate codon alignment based nucleotide diversities and Ka/Ks values in a multithreaded fashion (see \autoref{tab:performance}).
+[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) implements CRBH in [R](https://cran.r-project.org/) (see \autoref{fig:crbh}), can be used to calculate codon alignment based nucleotide diversities (Ka/Ks) and synteny in a multithreaded fashion (see \autoref{tab:performance}).
 
 # Availability
 
