@@ -58,7 +58,7 @@ filter steps [@rost1999twilight] and the possibility to apply custom filters pri
 
 ![Overview of the two main pipeline function and its subtasks. cds2rbh(): from CDS to CRBHit pairs; rbh2kaks(): from CRBHit pairs to Ka/Ks values.\label{fig:functions}](figure1.png)
 
-# Downstream functionalities
+# Coding sequence analysis and synteny
 
 Calculating synonymous (Ks) and nonsynonymous substitutions (Ka) per orthologous sequence 
 pair is a common task for evolutionary biologists, since its ratio Ka/Ks can be used as an 
