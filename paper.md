@@ -132,7 +132,8 @@ The obtained CRBHit pairs can also be used to calculate synonymous (Ks) and nons
 
 ```r
 #download and simultaneously get longest isoform for
-#Schizosaccharomyces pombe (fission yeast) and Nematostella vectensis (starlet sea anemone)
+#Schizosaccharomyces pombe (fission yeast) and
+#Nematostella vectensis (starlet sea anemone)
 cds1 <- isoform2longest(Biostrings::readDNAStringSet(cds1.url))
 cds2 <- isoform2longest(Biostrings::readDNAStringSet(cds2.url))
 #calculate Ka/Ks values for each CRBHit pair
