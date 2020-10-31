@@ -98,7 +98,7 @@ plot.dagchainer <- function(dag,
           ggplot2::facet_grid(c("gene2.chr", "gene1.chr"), scales = "free") +
           ggplot2::geom_point(data = subset(g$data, gene1.chr == gene2.chr),
                               shape = 20, aes(x = gene1.mid, y = gene2.mid, col = ka)) +
-          geom_abline(data = subset(g$data, gene1.chr == gene2.chr),
+          ggplot2::geom_abline(data = subset(g$data, gene1.chr == gene2.chr),
                       aes(slope = 1, intercept = 0)) +
           ggplot2::scale_colour_continuous(type = "viridis") +
           ggplot2::ggtitle(DotPlotTitle)
@@ -122,7 +122,7 @@ plot.dagchainer <- function(dag,
           ggplot2::facet_grid(c("gene2.chr", "gene1.chr"), scales = "free") +
           ggplot2::geom_point(data = subset(g$data, gene1.chr == gene2.chr),
                               shape = 20, aes(x = gene1.mid, y = gene2.mid, col = ks)) +
-          geom_abline(data = subset(g$data, gene1.chr == gene2.chr),
+          ggplot2::geom_abline(data = subset(g$data, gene1.chr == gene2.chr),
                       aes(slope = 1, intercept = 0)) +
           ggplot2::scale_colour_continuous(type = "viridis") +
           ggplot2::ggtitle(DotPlotTitle)
@@ -146,7 +146,7 @@ plot.dagchainer <- function(dag,
           ggplot2::facet_grid(c("gene2.chr", "gene1.chr"), scales = "free") +
           ggplot2::geom_point(data = subset(g$data, gene1.chr == gene2.chr),
                               shape = 20, aes(x = gene1.mid, y = gene2.mid, col = kaks)) +
-          geom_abline(data = subset(g$data, gene1.chr == gene2.chr),
+          ggplot2::geom_abline(data = subset(g$data, gene1.chr == gene2.chr),
                       aes(slope = 1, intercept = 0)) +
           ggplot2::scale_colour_continuous(type = "viridis") +
           ggplot2::ggtitle(DotPlotTitle)
