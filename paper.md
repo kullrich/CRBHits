@@ -80,6 +80,8 @@ pair and is implemented in a multithreaded fashion either via the R package
 use of an R external tool 
 [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download) [@wang2010kaks_calculator].
 
+As gene duplication is one driving force in evolution [@ohno1970evolution], the classification of genes as duplicates is one important step to provide us with insights into the molecular events responsible for the current genome architecture of species [@haas2004]. New long-read sequencing technology make more and more chromosome scale assemblies for model and non-model species  available. The resulting chromosomal gene order information can be used with sequence similarity scores to classify genes into different types of duplication events, like tandem duplicates or chromosomal segments (syntenic regions) derived from e.g. whole-genome duplication. [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) features this classification step via the integration of the R external tool [DAGchainer](http://dagchainer.sourceforge.net/) [@haas2004] and offers the possibility to directly link it with evolutionary rate estimations (see \autoref{fig:synteny}).
+
 # Implementation
 
 Like [shmlast](https://github.com/camillescott/shmlast), 
@@ -172,7 +174,7 @@ cds3.selfblast.kaks.Li <- rbh2kaks(cds3.selfblast.crbh, cds3, cds3,
 #get help ?rbh2dagchainer
 ```
 
-![Selfblast CRBHit pair results for *Arabidopsis thaliana*. (A) DAGchainer dotplot per chromosome colored by syntenic group and (B) colored by Ks. (C) Histogram of Ks values colored by syntenic group.\label{fig:functions}](figure3.png)
+![Selfblast CRBHit pair results for *Arabidopsis thaliana*. (A) DAGchainer dotplot per chromosome colored by syntenic group and (B) colored by Ks. (C) Histogram of Ks values colored by syntenic group.\label{fig:synteny}](figure3.png)
 
 Table: Performance comparison for CRBHit pair (*Schizosaccharomyces pombe* vs. *Nematostella vectensis*) and Ka/Ks calculations (Intel Xeon CPU E5-2620 v3 @ 2.40GHz; 3575 hit pairs).\label{tab:performance}
 
