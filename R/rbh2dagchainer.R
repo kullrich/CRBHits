@@ -22,6 +22,7 @@
 #' @param ks.max specify max Ks to be filtered [default: 5]
 #' @param ka.min specify min Ka to be filtered [default: 0]
 #' @param ks.min specify min Ks to be filtered [default: 0]
+#' @param select.chr filter results for chromosome names [default: NULL]
 #' @return \code{DAGchanier} results\cr
 #' 1: $gene1.chr\cr
 #' 2: $gene1.seq.id\cr
@@ -65,7 +66,8 @@ rbh2dagchainer <- function(rbhpairs,
                            ka.max = 5,
                            ks.max = 5,
                            ka.min = 0,
-                           ks.min = 0
+                           ks.min = 0,
+                           select.chr = NULL
                            ){
   if(attributes(rbhpairs)$CRBHits.class != "crbh"){
     stop("Please obtain rbhpairs via the cds2rbh or the cdsfile2rbh function")
@@ -227,10 +229,11 @@ rbh2dagchainer <- function(rbhpairs,
   attr(dagchainer.results, "CRBHits.class") <- "dagchainer"
   attr(dagchainer.results, "selfblast") <- selfblast
   if(plotDotPlot){
-    plot.dagchainer(dagchainer.results, DotPlotTitle = DotPlotTitle,
+    print(plot.dagchainer(dagchainer.results, DotPlotTitle = DotPlotTitle,
                     colorBy = colorBy, kaks = kaks,
                     ka.max = ka.max, ks.max = ks.max,
-                    ka.min = ka.min, ks.min = ks.min)
+                    ka.min = ka.min, ks.min = ks.min,
+                    select.chr = select.chr))
   }
   return(dagchainer.results)
 }
