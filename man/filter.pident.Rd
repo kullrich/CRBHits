@@ -20,7 +20,7 @@ rbh matrix
 This function filters BLAST-like tabular output according to protein identity.
 }
 \examples{
-##load crbh data
+## load crbh data
 data(ath_aly_crbh)
 dim(ath_aly_crbh$crbh1)
 dim(filter.pident(ath_aly_crbh$crbh1, pident = 75))

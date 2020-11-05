@@ -18,8 +18,11 @@ aa fasta file
 This function translates a cds fasta file into an aa fasta file.
 }
 \examples{
+## define file path
 cdsfile <- system.file("fasta", "ath.cds.fasta.gz", package = "CRBHits")
+## create empty temp file
 aafile <- tempfile()
+## convert input CDS fasta file into AA fasta file
 cdsfile2aafile(cdsfile, aafile)
 aa <- Biostrings::readAAStringSet(aafile)
 aa

@@ -18,11 +18,12 @@ knitr::opts_chunk$set(
 
 # Ka/Ks Vignette
 
-- includes *A. thalina* and *A. lyrata* CRBHit pair calculation
-- includes *H. sapiens* and *P. troglodytes* CRBHit pair calculation
+- includes *Arabidopsis thalina* and *Arabidopsis lyrata* CRBHit pair calculation
+- includes *Homo sapiens* and *Pan troglodytes* CRBHit pair calculation
 - inlcudes Longest Isoform selection
 - includes Gene/Isoform chromosomal position extraction
 - includes Tandem Duplicate Assignment
+- includes Synteny Assignment
 - includes Ka/Ks colored Dot-Plot
 
 ## Table of Contents
@@ -54,12 +55,13 @@ In this Vignette the `lastpath` is defined as `vignette.paths[1]` and the `kaksc
 However, once you have compiled last-1133 and KaKs_Calculator2.0 with the functions `make.last()` and `make.KaKs_Calculator2()` you won't need to specify the paths anymore. Please remove them if you would like to repeat the examples.
 
 ```{r}
-#load vignette specific libraries
+## load vignette specific libraries
 library(CRBHits)
 suppressPackageStartupMessages(library(Biostrings))
 suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(gridExtra))
 suppressPackageStartupMessages(library(curl))
-#compile LAST and KaKs_Calculator2.0 for the vignette
+## compile LAST, KaKs_Calculator2.0 and DAGchainer for the vignette
 vignette.paths <- make.vignette()
 ```
 
@@ -82,20 +84,20 @@ The second example compares the CDS from *Homo sapiens* and *Pan troglodytes* (s
 As an alternative the [EnsemblPlants release-48](ftp://ftp.ensemblgenomes.org/pub/plants/release-48/fasta/) can used.
 
 ```{r}
-##set URLs for Arabidopis thaliana and Arabidopsis lyrata from NCBI Genomes
+## set URLs for Arabidopis thaliana and Arabidopsis lyrata from NCBI Genomes
 
-#set NCBI URL
+## set NCBI URL
 NCBI <- "https://ftp.ncbi.nlm.nih.gov/genomes/all/"
-#set Arabidopsis thaliana CDS URL
+## set Arabidopsis thaliana CDS URL
 ARATHA.cds.url <- paste0(NCBI, "GCF/000/001/735/GCF_000001735.4_TAIR10.1/",
                       "GCF_000001735.4_TAIR10.1_cds_from_genomic.fna.gz")
 
-#set Arabidopsis lyrata CDS URL
+## set Arabidopsis lyrata CDS URL
 ARALYR.cds.url <- paste0(NCBI, "GCF/000/004/255/GCF_000004255.2_v.1.0/",
                       "GCF_000004255.2_v.1.0_cds_from_genomic.fna.gz")
-#get Arabidopsis thaliana CDS
+## get Arabidopsis thaliana CDS
 ARATHA.cds <- Biostrings::readDNAStringSet(ARATHA.cds.url)
-#get Arabidopsis lyrata CDS
+## get Arabidopsis lyrata CDS
 ARALYR.cds <- Biostrings::readDNAStringSet(ARALYR.cds.url)
 ```
 
@@ -106,13 +108,14 @@ Prior CRBHit pairs calculation, the longest isoforms can be selected, if the dat
 __Note:__ This is an important step. If e.g. isoforms are used, the Ka/Ks calculations might show biased values inspecting mean or median Ka/Ks values grouped per query sequence.
 
 ```{r}
-##get longest isoforms
+## get longest isoforms
 
-#get longest isoform
+## get longest isoform
 ARATHA.cds.longest <- isoform2longest(ARATHA.cds, "NCBI")
 ARALYR.cds.longest <- isoform2longest(ARALYR.cds, "NCBI")
 
-#get help ?cds2longest
+## get help
+#?cds2longest
 ```
 
 ### 1.3. [Calculate/Filter CRBHit pairs]{#crbhfilter}
@@ -126,12 +129,12 @@ The CRBhit pairs can be calculated directly from the URLs with the function `cds
 For a detailed description of the `cdsfile2rbh()` function and the `cds2rbh()` function with its individual filtering steps prior CRBH algorithm fitting see the [CRBHits Basic Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V01CRBHitsBasicVignette.html).
 
 ```{r}
-##calculate CRBHit pairs for A. thaliana and A. lyrata using 2 threads
+## calculate CRBHit pairs for A. thaliana and A. lyrata using 2 threads
 
-#input from CDS obtained from NCBI
-#longest isoform selection
-#query coverage >= 50%
-#rost199 filter
+## input from CDS obtained from NCBI
+## longest isoform selection
+## query coverage >= 50%
+## rost199 filter
 ARATHA_ARALYR_crbh <- cds2rbh(ARATHA.cds,
                               ARALYR.cds,
                               qcov = 0.5, rost1999 = TRUE,
@@ -140,7 +143,8 @@ ARATHA_ARALYR_crbh <- cds2rbh(ARATHA.cds,
                               threads = 2, plotCurve = TRUE,
                               lastpath = vignette.paths[1])
 
-#get help ?cds2rbh
+## get help
+#?cds2rbh
 ```
 
 ### 1.4. [Extract Gene/Isoform chromosomal position]{#extractposition}
@@ -156,20 +160,21 @@ __Note:__ It is also possible to obtain and define chromosomal gene positions fr
 If the CDS Input was obtained from NCBI or ENSEMBL, the gene position can be directly extracted from the `DNAStringSet` as follows.
 
 ```{r}
-##get gene position idx from NCBI CDS
+## get gene position idx from NCBI CDS
 
-#extract gene position from CDS
+## extract gene position from CDS
 ARATHA.cds.genepos <- cds2genepos(ARATHA.cds, source = "NCBI")
-#extract gene position from longest isoform CDS
+## extract gene position from longest isoform CDS
 ARATHA.cds.longest.genepos <- cds2genepos(ARATHA.cds.longest, source = "NCBI")
-#show first entries
+## show first entries
 head(ARATHA.cds.genepos)
 head(ARATHA.cds.longest.genepos)
-#get number of gene isoforms with same index
+## get number of gene isoforms with same index
 table(table(ARATHA.cds.genepos$gene.idx))
 table(table(ARATHA.cds.longest.genepos$gene.idx))
 
-#get help ?cds2genepos
+##get help
+#?cds2genepos
 ```
 
 #### 1.4.2. [Use GTF/GFF3 file to obtain gene position]{#gff2genepos}
@@ -185,70 +190,70 @@ Here, as an example, the GFF3 file for the species *Arabidopsis thaliana* is obt
 __Note:__ The GFF3 and GTF files can be very large and it might take some time until this data is loaded into memory.
 
 ```{r}
-##get gene position idx from GTF/GFF3
+## get gene position idx from GTF/GFF3
 
-#set NCBI URL
+## set NCBI URL
 ensemblPlants <- "ftp://ftp.ensemblgenomes.org/pub/plants/release-48/"
-#set Arabidopsis thaliana GFF3 URL
+## set Arabidopsis thaliana GFF3 URL
 ARATHA.GFF.url <- paste0(ensemblPlants, "gff3/arabidopsis_thaliana/",
                       "Arabidopsis_thaliana.TAIR10.48.gff3.gz")
-#downlaod and gunzip file
+## downlaod and gunzip file
 ARATHA.GFF.file <- tempfile()
 ARATHA.GFF.file.gz <- paste0(ARATHA.GFF.file, ".gz")
 download.file(ARATHA.GFF.url, ARATHA.GFF.file.gz, quiet = FALSE)
 system(paste0("gunzip -f ", ARATHA.GFF.file.gz))
-#read ARATHA.GFF.file
+## read ARATHA.GFF.file
 ARATHA.gff <- read.table(ARATHA.GFF.file, sep = "\t", 
                          quote = "", header = FALSE)
 colnames(ARATHA.gff) <- c("seqname", "source", "feature", "start", "end", "score", "strand", "frame", "attribute")
 
-#extract gene
+## extract gene
 ARATHA.gff.gene <- ARATHA.gff %>% dplyr::filter(feature == "gene")
-#get gene ID
+## get gene ID
 ARATHA.gff.gene.id <- gsub("ID\\=", "", 
                            stringr::word(ARATHA.gff.gene$attribute,
                            1, sep=";"))
-#extract mRNA
+## extract mRNA
 ARATHA.gff.mRNA <- ARATHA.gff %>% dplyr::filter(feature == "mRNA")
-#get mRNA ID
+## get mRNA ID
 ARATHA.gff.mRNA.id <- gsub("ID\\=", "", 
                            stringr::word(ARATHA.gff.mRNA$attribute,
                            1, sep=";"))
-#get mRNA based gene ID
+## get mRNA based gene ID
 ARATHA.gff.mRNA.parent.id <- gsub("Parent\\=", "", 
                                   stringr::word(ARATHA.gff.mRNA$attribute,
                                   2, sep=";"))
-#add mRNA ID and mRNA based gene ID
+## add mRNA ID and mRNA based gene ID
 ARATHA.gff.mRNA <- ARATHA.gff.mRNA %>% 
                      dplyr::mutate(gene.id = ARATHA.gff.mRNA.parent.id,
                                    mRNA.id = ARATHA.gff.mRNA.id)
-#extract CDS
+## extract CDS
 ARATHA.gff.CDS <- ARATHA.gff %>% dplyr::filter(feature == "CDS")
-#get CDS based mRNA ID
+## get CDS based mRNA ID
 ARATHA.gff.CDS.parent.id <- gsub("Parent\\=", "", 
                                  stringr::word(ARATHA.gff.CDS$attribute,
                                  2, sep=";"))
-#add CDS based mRNA ID
+## add CDS based mRNA ID
 ARATHA.gff.CDS <- ARATHA.gff.CDS %>%
                     dplyr::mutate(mRNA.id = ARATHA.gff.CDS.parent.id)
-#get width per mRNA isoform
+## get width per mRNA isoform
 ARATHA.gff.mRNA.len <- ARATHA.gff.CDS %>% dplyr::group_by(mRNA.id) %>%
                          dplyr::summarise(mRNA.id = unique(mRNA.id),
                                           len = sum(end-start))
-#add mRNA isoform width
+## add mRNA isoform width
 ARATHA.gff.mRNA <- ARATHA.gff.mRNA %>% 
                     dplyr::mutate(mRNA.len = 
                     ARATHA.gff.mRNA.len$len[
                         match(ARATHA.gff.mRNA$mRNA.id, 
                               ARATHA.gff.mRNA.len$mRNA.id)])
-#retain only longest mRNA isoform
+## retain only longest mRNA isoform
 ARATHA.gff.mRNA.longest <- ARATHA.gff.mRNA %>% dplyr::arrange(seqname, start,
   gene.id, desc(mRNA.len)) %>% dplyr::distinct(gene.id, .keep_all = TRUE) %>% 
   dplyr::mutate(gene.mid = (start+end)/2)
-#add gene idx
+## add gene idx
 ARATHA.gff.mRNA.longest <- ARATHA.gff.mRNA.longest %>% 
   dplyr::mutate(gene.idx = seq(from = 1, to = dim(ARATHA.gff.mRNA.longest)[1]))
-#create gene position matrix to be used for downstream analysis
+## create gene position matrix to be used for downstream analysis
 ARATHA.gff.genepos <- ARATHA.gff.mRNA.longest %>% dplyr::select(
   gene.seq.id = mRNA.id,
   gene.chr = seqname,
@@ -257,9 +262,9 @@ ARATHA.gff.genepos <- ARATHA.gff.mRNA.longest %>% dplyr::select(
   gene.mid = gene.mid,
   gene.strand = strand,
   gene.idx = gene.idx)
-#set attribute
+## set attribute
 attr(ARATHA.gff.genepos, "CRBHits.class") <- "genepos"
-#show first entries of generated gene position
+## show first entries of generated gene position
 head(ARATHA.gff.genepos)
 ```
 
@@ -278,64 +283,65 @@ The following example shows how one can:
 3. assign tandem duplicates
 
 ```{r}
-##example to assign tandem duplicates given selfblast CRBHit pairs and gene position
+## example to assign tandem duplicates given selfblast CRBHit pairs and gene position
 
-#get selfblast CRBHit pairs for A. thaliana
+## get selfblast CRBHit pairs for A. thaliana
 ARATHA_selfblast_crbh <- cds2rbh(ARATHA.cds,
-                              ARATHA.cds,
-                              qcov = 0.5, rost1999 = TRUE,
-                              longest.isoform = TRUE,
-                              isoform.source = "NCBI",
-                              threads = 2, plotCurve = TRUE,
-                              lastpath = vignette.paths[1])
+                                 ARATHA.cds,
+                                 qcov = 0.5, rost1999 = TRUE,
+                                 longest.isoform = TRUE,
+                                 isoform.source = "NCBI",
+                                 threads = 2, plotCurve = TRUE,
+                                 lastpath = vignette.paths[1])
 
-#get selfblast CRBHit pairs for A. lyrata
+## get selfblast CRBHit pairs for A. lyrata
 ARALYR_selfblast_crbh <- cds2rbh(ARALYR.cds,
-                              ARALYR.cds,
-                              qcov = 0.5, rost1999 = TRUE,
-                              longest.isoform = TRUE,
-                              isoform.source = "NCBI",
-                              threads = 2, plotCurve = TRUE,
-                              lastpath = vignette.paths[1])
+                                 ARALYR.cds,
+                                 qcov = 0.5, rost1999 = TRUE,
+                                 longest.isoform = TRUE,
+                                 isoform.source = "NCBI",
+                                 threads = 2, plotCurve = TRUE,
+                                 lastpath = vignette.paths[1])
 
-#get gene position for A. thaliana longest isoforms
+## get gene position for A. thaliana longest isoforms
 ARATHA.cds.longest.genepos <- cds2genepos(ARATHA.cds.longest, source = "NCBI")
-#get gene position for A. lyrata longest isoforms
+## get gene position for A. lyrata longest isoforms
 ARALYR.cds.longest.genepos <- cds2genepos(ARALYR.cds.longest, source = "NCBI")
 
-#assign tandem duplicates for A. thaliana
-ARATHA.cds.longest.tandemdups <- tandemdups(ARATHA_selfblast_crbh,
-                                            ARATHA.cds.longest.genepos,
+## assign tandem duplicates for A. thaliana
+ARATHA.cds.longest.tandemdups <- tandemdups(rbhpairs = ARATHA_selfblast_crbh,
+                                            genepos = ARATHA.cds.longest.genepos,
                                             dupdist = 5)
 
-#assign tandem duplicates for A. lyrata
-ARALYR.cds.longest.tandemdups <- tandemdups(ARALYR_selfblast_crbh,
-                                            ARALYR.cds.longest.genepos,
+## assign tandem duplicates for A. lyrata
+ARALYR.cds.longest.tandemdups <- tandemdups(rbhpairs = ARALYR_selfblast_crbh,
+                                            genepos = ARALYR.cds.longest.genepos,
                                             dupdist = 5)
-#get help ?tandemdups
+## get help
+#?tandemdups
 ```
 
 The resulting tandem duplicated genes detected can be plotted given their chromosomal gene position as follows:
 
 ```{r}
-##example how to plot tandem duplicated gene groups
+## example how to plot tandem duplicated gene groups
 
-#get tandem group size
+## get tandem group size
 tandem_group_size <- ARATHA.cds.longest.tandemdups %>%
   dplyr::group_by(tandem_group) %>% dplyr::group_size()
 table(tandem_group_size)
 
-#use dplyr::mutate to assign group size
+## use dplyr::mutate to assign group size
 ARATHA.cds.longest.tandemdups <- ARATHA.cds.longest.tandemdups %>%
   dplyr::mutate(tandem_group_size = unlist(apply(cbind(tandem_group_size,
   tandem_group_size), 1, function(x) rep(x[1], x[2]))))
 
-#use dplyr::group_by to plot group by chromosome and colored by group size
+## use dplyr::group_by to plot group by chromosome and colored by group size
 ARATHA.cds.longest.tandemdups %>% dplyr::group_by(gene.chr) %>%
   ggplot2::ggplot(aes(x = gene.mid, y = gene.mid)) +
   ggplot2::geom_point(shape = 20, aes(col = as.factor(tandem_group_size))) +
   ggplot2::facet_wrap(~ gene.chr) +
-  ggplot2::scale_colour_manual(values = CRBHitsColors(12))
+  ggplot2::scale_colour_manual(values = CRBHitsColors(length(table(tandem_group_size))))
 ```
 
 ### 1.6 [Synteny with DAGchainer]{#synteny}
@@ -350,65 +356,159 @@ The following example shows how one can run [DAGchainer](http://dagchainer.sourc
 
 
 ```{r}
-##example how to run DAGchainer on CRBHit pairs and gene positions
+## example how to run DAGchainer on CRBHit pairs and gene positions
 
-#DAGchainer using gene base pair (gene bp start end)
-#Note: change parameter to fit bp option
+## DAGchainer using gene base pair (gene bp start end)
+## Note: change parameter to fit bp option
 ARATHA_ARALYR_crbh.dagchainer.bp <- rbh2dagchainer(rbhpairs = ARATHA_ARALYR_crbh, 
-                                                gene.position.cds1 = ARATHA.cds.longest.genepos,
-                                                gene.position.cds2 = ARALYR.cds.longest.genepos,
-                                                type = "bp",
-                                                gap_length = 10000,
-                                                max_dist_allowed = 200000,
-                                                dagchainerpath = vignette.paths[3])
+                                      gene.position.cds1 = ARATHA.cds.longest.genepos,
+                                      gene.position.cds2 = ARALYR.cds.longest.genepos,
+                                      type = "bp",
+                                      gap_length = 10000,
+                                      max_dist_allowed = 200000,
+                                      dagchainerpath = vignette.paths[3])
 
-#DAGchainer using gene index (gene order)
+## DAGchainer using gene index (gene order)
 ARATHA_ARALYR_crbh.dagchainer.idx <- rbh2dagchainer(rbhpairs = ARATHA_ARALYR_crbh, 
-                                                gene.position.cds1 = ARATHA.cds.longest.genepos,
-                                                gene.position.cds2 = ARALYR.cds.longest.genepos,
-                                                type = "idx",
-                                                gap_length = 1,
-                                                max_dist_allowed = 20,
-                                                dagchainerpath = vignette.paths[3])
+                                       gene.position.cds1 = ARATHA.cds.longest.genepos,
+                                       gene.position.cds2 = ARALYR.cds.longest.genepos,
+                                       type = "idx",
+                                       gap_length = 1,
+                                       max_dist_allowed = 20,
+                                       dagchainerpath = vignette.paths[3])
+
+## get help
+#?rbh2dagchainer
 ```
 
-```{r}
-##example how to plot pairwise chromosomal syntenic groups (DAGchainer results)
+A plotting function `plot.dagchainer()` is integrated and can be directly applied on the DAGchainer results.
 
-#plot DAGchainer results for each chromosome combination
+```{r}
+## example how to plot pairwise chromosomal syntenic groups (DAGchainer results)
+
+## plot DAGchainer results for each chromosome combination
 plot.dagchainer(ARATHA_ARALYR_crbh.dagchainer.bp)
+
+## plot DAGchainer results selected chromosomes
+g <- plot.dagchainer(ARATHA_ARALYR_crbh.dagchainer.bp,
+                     select.chr = c("NC_003070.9", "NC_003071.7", "NC_003074.8",
+                                    "NC_003075.7", "NC_003076.8",
+                                    "NW_003302551.1", "NW_003302554.1",
+                                    "NW_003302553.1", "NW_003302552.1",
+                                    "NW_003302551.1", "NW_003302550.1",
+                                    "NW_003302549.1", "NW_003302548.1"))
+g
+## change title size
+g + ggplot2::theme(title = element_text(size = 16))
+## change axis title size (gene1.mid; gene2.mid)
+g + ggplot2::theme(axis.title.x = element_text(size = 16),
+                   axis.title.y = element_text(size = 16))
+## change grid title size
+g + theme(strip.text.x = element_text(size = 16), strip.text.y = element_text(size = 16))
+## change grid axis size and angle
+g + theme(axis.text.x = element_text(size = 12, angle = 90))
+
+## get help
+#?plot.dagchainer
 ```
 
 ## 2. [Ka/Ks Calculation]{#KaKs}
 
-model = "Li"
+The second part of this vignette describes how to calculate synonymous (Ks) and nonsynonymous substitution rates (Ka) given a set of CRBHit pairs (see [Calculate/Filter CRBHit pairs](#crbhfilter) section how to obtain CRBHit pairs).
+
+The `rbh2kaks()` function is used to obtain pairwise codon alignments and directly calculate synonymous (Ks) and nonsynonymous (Ka) substitutions in a parallel fashion. One can choose either to use the model by [Li (1993)](https://doi.org/10.1007/bf02407308) or the model by [Yang and Nielson (2000)](https://doi.org/10.1093/oxfordjournals.molbev.a026236).
+
+__Note:__
+
+It is important, that the names of the `rbh` columns must match the names of the corresponding `cds1` and `cds2` `DNAStringSet` vectors.
+
+However, since one should directly use the same input `DNAStringSet` vector or input `url` to calculate the CRBHit pairs with the `cds2rbh()` or the `cdsfile2rbh()` function, this should not be a problem (see the [Get Longest Isoform from NCBI or ENSEMBL Input](#isoform) section how to obtain the CDS for the next example).
+ 
+To calculate Ka/Ks values based on the model by [Li (1993)](https://doi.org/10.1007/bf02407308), do the following:
+
+__Note:__ The following example can take some time and is not calculated by the vignette building process.
 
 ```
-ARATHA.cds <- Biostrings::readDNAStringSet(paste0(ensemblPlants, ARATHA.CDS.file))
-ARALYR.cds <- Biostrings::readDNAStringSet(paste0(ensemblPlants, ARALYR.CDS.file))
-ARATHA_ARALYR_crbh.kaks.Li <- rbh2kaks(ARATHA_ARALYR_crbh$crbh.pairs,
-                                       ARATHA.cds, ARALYR.cds, model = "Li",
+## example how to calculate Ka/Ks values with model "Li"
+
+## calculate Ka/Ks using the CRBHit pairs and multiple threads
+ARATHA_ARALYR_crbh.kaks.Li <- rbh2kaks(rbhpairs = ARATHA_ARALYR_crbh,
+                                       cds1 = ARATHA.cds.longest,
+                                       cds2 = ARALYR.cds.longest,
+                                       model = "Li",
                                        threads = 4)
 ```
 
+To calculate Ka/Ks values based on the model by [Yang and Nielson (2000)](https://doi.org/10.1093/oxfordjournals.molbev.a026236), do the following:
 
-
-model = "YN"
+__Note:__ The following example can take some time and is not calculated by the vignette building process.
 
 ```
-HOMSAP_PANTRO_crbh.kaks.YN <- rbh2kaks(HOMSAP_PANTRO_crbh$crbh.pairs,
-                                       HOMSAP.cds, PANTRO.cds, model = "YN",
-                                       threads = 8)
+## example how to calculate Ka/Ks values with model "YN"
+
+## calculate Ka/Ks using the CRBHit pairs and multiple threads
+ARATHA_ARALYR_crbh.kaks.Li <- rbh2kaks(rbhpairs = ARATHA_ARALYR_crbh,
+                                       cds1 = ARATHA.cds.longest,
+                                       cds2 = ARALYR.cds.longest,
+                                       model = "YN",
+                                       threads = 4)
 ```
 
 ## 3. [Ka/Ks Filtering and Visualisation]{#KaKsFiltering}
 
 In some cases the Ka/Ks calculation fails, since e.g. there are no synonymous (Ks) or nonsynonymous substitutions (Ka) between cds1 and cds2 or one wants to get rid of high Ks values due to substitution saturation. One can easily remove these cases before doing further analysis.
 
+A plotting function `plot.kaks()` is integrated and can be applied on the Ka/Ks results. 
+
+```{r}
+## load example Ka/Ks values (see above commands above how to obtain them)
+data("ath_aly_ncbi_kaks", package="CRBHits")
+
+## plot Ka/Ks results as histogram colored by Ka/Ks values
+g <- plot.kaks(ath_aly_ncbi_kaks)
+
+## plot Ka/Ks results as histogram filter for ka.min, ka.max, ks.min, ks.max
+g.min_max <- plot.kaks(ath_aly_ncbi_kaks, ka.min = 0, ka.max = 1, ks.min = 0, ks.max = 1)
+
+## select subset of chromosomes - needs gene position information
+head(ARATHA.cds.longest.genepos)
+head(ARALYR.cds.longest.genepos)
+g.subset <- plot.kaks(ath_aly_ncbi_kaks,
+                      gene.position.cds1 = ARATHA.cds.longest.genepos,
+                      gene.position.cds2 = ARALYR.cds.longest.genepos,
+                      select.chr = c("NC_003070.9", "NC_003071.7",
+                        "NW_003302551.1", "NW_003302554.1"))
+
+## plot Ka/Ks results and split by chromosome - needs gene position information
+
+g.split <- plot.kaks(ath_aly_ncbi_kaks,
+                     gene.position.cds1 = ARATHA.cds.longest.genepos,
+                     gene.position.cds2 = ARALYR.cds.longest.genepos,
+                     select.chr = c("NC_003070.9", "NC_003071.7",
+                        "NW_003302551.1", "NW_003302554.1"),
+                     splitByChr = TRUE)
 ```
-#remove all values that are negative for either ka or ks
-ath_aly_crbh.kaks.Li.red <- ath_aly_crbh.kaks.Li %>%
-  subset(ka != 9.999999) %>% subset(ks != 9.999999)
+
+__Note:__ Default **data.frame** handling with the **dplyr** package is possible on the original Ka/Ks results as well as on the resulting plot objects.
+
+Apply `dplyr::filter()` and `dplyr::mutate()` function:
+
+```{r}
+## examples how to filter and mutate Ka/Ks results
+
+## filter for Ks values < 2 on original Ka/Ks results
+head(ath_aly_ncbi_kaks)
+dim(ath_aly_ncbi_kaks)
+dim(ath_aly_ncbi_kaks %>% dplyr::filter(ks < 2))
+
+## filter for Ks values < 2 on plot object
+head(g.split$g.kaks$data)
+dim(g.split$g.kaks$data)
+dim(g.split$g.kaks$data %>% dplyr::filter(ks < 2))
+
+## filter for Ks values < 1 on plot object and plot
+g.split$g.kaks$data %>% dplyr::filter(ks < 1) %>%
+  ggplot2::ggplot() + ggplot2::geom_histogram(binwidth = 0.1, aes(x = ks))
 ```
 
 ## 4. [*Homo sapiens* vs. *Pan troglodytes* example]{#homosapiens}
@@ -418,37 +518,37 @@ The second example compares the CDS from *Homo sapiens* and *Pan troglodytes*. T
 The [Ensembl release-101](ftp://ftp.ensembl.org/pub/release-101/fasta/) is used.
 
 ```{r}
-###example comparing Homo sapiens and Pan troglodytes
+## example comparing Homo sapiens and Pan troglodytes
 
-##set URLs for Homo sapiens and Pan troglodytes from Ensembl
+## set URLs for Homo sapiens and Pan troglodytes from Ensembl
 
-#set Ensembl URL
+## set Ensembl URL
 ensembl <- "ftp://ftp.ensembl.org/pub/release-101/fasta/"
-#set Homo sapiens CDS URL
+## set Homo sapiens CDS URL
 HOMSAP.cds.url <- paste0(ensembl, "homo_sapiens/cds/Homo_sapiens.GRCh38.cds.all.fa.gz")
-#set Pan troglodytes CDS URL
+## set Pan troglodytes CDS URL
 PANTRO.cds.url <- paste0(ensembl, "pan_troglodytes/cds/Pan_troglodytes.Pan_tro_3.0.cds.all.fa.gz")
 
-#get Homo sapiens CDS
+## get Homo sapiens CDS
 HOMSAP.cds.file <- tempfile()
 download.file(HOMSAP.cds.url, HOMSAP.cds.file, quiet = FALSE)
 HOMSAP.cds <- Biostrings::readDNAStringSet(HOMSAP.cds.file)
 
-#get Pan troglodytes CDS
+## get Pan troglodytes CDS
 PANTRO.cds.file <- tempfile()
 download.file(PANTRO.cds.url, PANTRO.cds.file, quiet = FALSE)
 PANTRO.cds <- Biostrings::readDNAStringSet(PANTRO.cds.file)
 
-#get longest isoform
+## get longest isoform
 HOMSAP.cds.longest <- isoform2longest(HOMSAP.cds, "ENSEMBL")
 PANTRO.cds.longest <- isoform2longest(PANTRO.cds, "ENSEMBL")
 
-##calculate CRBHit pairs for H. sapiens and P. troglodytes using 2 threads
+## calculate CRBHit pairs for H. sapiens and P. troglodytes using 2 threads
 
-#input from CDS obtained from Ensembl
-#longest isoform selection
-#query coverage >= 50%
-#rost199 filter
+## input from CDS obtained from Ensembl
+## longest isoform selection
+## query coverage >= 50%
+## rost199 filter
 HOMSAP_PANTRO_crbh <- cds2rbh(HOMSAP.cds,
                               PANTRO.cds,
                               qcov = 0.5, rost1999 = TRUE,
@@ -456,35 +556,68 @@ HOMSAP_PANTRO_crbh <- cds2rbh(HOMSAP.cds,
                               isoform.source = "ENSEMBL",
                               threads = 2, plotCurve = TRUE,
                               lastpath = vignette.paths[1])
+
+## get gene position for H. sapiens longest isoforms
+HOMSAP.cds.longest.genepos <- cds2genepos(HOMSAP.cds.longest, source = "ENSEMBL")
+## get gene position for P. troglodytes longest isoforms
+PANTRO.cds.longest.genepos <- cds2genepos(PANTRO.cds.longest, source = "ENSEMBL")
+
+## DAGchainer using gene base pair (gene bp start end)
+## Note: change parameter to fit bp option
+HOMSAP_PANTRO_crbh.dagchainer.bp <- rbh2dagchainer(rbhpairs = HOMSAP_PANTRO_crbh, 
+                                      gene.position.cds1 = HOMSAP.cds.longest.genepos,
+                                      gene.position.cds2 = PANTRO.cds.longest.genepos,
+                                      type = "bp",
+                                      gap_length = 10000,
+                                      max_dist_allowed = 200000,
+                                      dagchainerpath = vignette.paths[3])
+
+## plot DAGchainer results for selected chromosome combinations
+plot.dagchainer(HOMSAP_PANTRO_crbh.dagchainer.bp, select.chr = c("1","2","3","4","5","14"))
 ```
 
+__Note:__ The following example can take some time and is not calculated by the vignette building process.
+
 ```
-HOMSAP.cds <- Biostrings::readDNAStringSet(paste0(ensembl, HOMSAP.CDS.file))
-PANTRO.cds <- Biostrings::readDNAStringSet(paste0(ensembl, PANTRO.CDS.file))
-HOMSAP_PANTRO_crbh.kaks.Li <- rbh2kaks(HOMSAP_PANTRO_crbh$crbh.pairs,
-                                       HOMSAP.cds, PANTRO.cds, model = "Li",
+## example how to calculate Ka/Ks values with model "Li"
+
+## calculate Ka/Ks using the CRBHit pairs and multiple threads
+HOMSAP_PANTRO_crbh.kaks.Li <- rbh2kaks(HOMSAP_PANTRO_crbh,
+                                       HOMSAP.cds.longest,
+                                       PANTRO.cds.longest,
+                                       model = "Li",
                                        threads = 4)
+```
+
+```{r}
+## load example Ka/Ks values (see above commands above how to obtain them)
+data("hom_pan_ensembl_kaks", package="CRBHits")
+
+## plot Ka/Ks results as histogram colored by Ka/Ks values
+g <- plot.kaks(hom_pan_ensembl_kaks)
 ```
 
 ## 5. [References]{#references}
 
-Aubry S., Kelly S., Kümpers B. M., Smith-Unna R. D., and Hibberd J. M. (2014). **Deep evolutionary comparison of gene expression identifies parallel recruitment of trans-factors in two independent origins of C4 photosynthesis.** *PLoS genetics*, **10(6)**. [https://doi.org/10.1371/journal.pgen.1004365](https://doi.org/10.1371/journal.pgen.1004365)
+Aubry S., Kelly S., Kümpers B. M., Smith-Unna R. D., and Hibberd J. M. (2014). **Deep evolutionary comparison of gene expression identifies parallel recruitment of trans-factors in two independent origins of C4 photosynthesis.** *PLoS Genetics*, **10(6)**. [https://doi.org/10.1371/journal.pgen.1004365](https://doi.org/10.1371/journal.pgen.1004365)
 
 Charif D., and Lobry J. R. (2007). **SeqinR 1.0-2: a contributed package to the R project for statistical computing devoted to biological sequences retrieval and analysis.** *In Structural approaches to sequence evolution* (pp. 207-232). Springer, Berlin, Heidelberg. [https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10](https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10)
 
-Haas B. J., Delcher A. L., Wortman J. R., and Salzberg S. L. (2004). **DAGchainer: a tool for mining segmental genome duplications and synteny.** *Bioinformatics*, **20(18)**. [https://doi.org/10.1093/bioinformatics/bth397](https://doi.org/10.1093/bioinformatics/bth397)
+Duong T., and Wand M. (2015). **feature: Local Inferential Feature Significance for Multivariate Kernel Density Estimation.** *R package version 1.2.13*. [https://cran.r-project.org/web/packages/feature/](https://cran.r-project.org/web/packages/feature/)
 
-Haug-Baltzell A., Stephens S. A., Davey S., Scheidegger C. E., Lyons E. (2017). **SynMap2 and SynMap3D: web-based wholge-genome synteny browsers.** *Bioinformatics*, **33(14)**. [https://academic.oup.com/bioinformatics/article/33/14/2197/3072872](https://academic.oup.com/bioinformatics/article/33/14/2197/3072872)
+Haas B. J., Delcher A. L., Wortman J. R., and Salzberg S. L. (2004). **DAGchainer: a tool for mining segmental genome duplications and synteny.** *Bioinformatics*, **20(18)**, 3643-3646. [https://doi.org/10.1093/bioinformatics/bth397](https://doi.org/10.1093/bioinformatics/bth397)
 
-Kiełbasa S. M., Wan R., Sato K., Horton P., and Frith M. C. (2011). **Adaptive seeds tame genomic sequence comparison.** *Genome research*, 21(3), 487-493. [https://doi.org/10.1101/gr.113985.110](https://doi.org/10.1101/gr.113985.110)
+Haug-Baltzell A., Stephens S. A., Davey S., Scheidegger C. E., Lyons E. (2017). **SynMap2 and SynMap3D: web-based wholge-genome synteny browsers.** *Bioinformatics*, **33(14)**, 2197-2198. [https://academic.oup.com/bioinformatics/article/33/14/2197/3072872](https://academic.oup.com/bioinformatics/article/33/14/2197/3072872)
 
-Kimura M. (1977). **Preponderance of synonymous changes as evidence for the neutral theory of molecular evolution.** *Nature*, 267, 275-276.
+Kiełbasa S. M., Wan R., Sato K., Horton P., and Frith M. C. (2011). **Adaptive seeds tame genomic sequence comparison.** *Genome Research*, **21(3)**, 487-493. [https://doi.org/10.1101/gr.113985.110](https://doi.org/10.1101/gr.113985.110)
 
-Li W. H. (1993). **Unbiased estimation of the rates of synonymous and nonsynonymous substitution.** *Journal of molecular evolution*, 36(1), 96-99. [https://doi.org/10.1007/bf02407308](https://doi.org/10.1007/bf02407308)
+Kimura M. (1977). **Preponderance of synonymous changes as evidence for the neutral theory of molecular evolution.** *Nature*, **267**, 275-276.
+
+Li W. H. (1993). **Unbiased estimation of the rates of synonymous and nonsynonymous substitution.** *Journal of Molecular Evolution*, **36(1)**, 96-99. [https://doi.org/10.1007/bf02407308](https://doi.org/10.1007/bf02407308)
 
 Microsoft, and Weston S. (2020). **foreach: Provides Foreach Looping Construct.** *R package version*, 1.5.1. [foreach](https://cran.r-project.org/web/packages/foreach/index.html)
 
-Mugal C. F., Wolf J. B. W., Kaj I. (2014). **Why Time Matters: Codon Evolution and the Temproal Dynamics of dN/dS.** *Molecular Biology and Evolution*, 31(1), 212-231.
+Mugal C. F., Wolf J. B. W., Kaj I. (2014). **Why Time Matters: Codon Evolution and the Temproal Dynamics of dN/dS.** *Molecular Biology and Evolution*, **31(1)**, 212-231.
 
 Ooms J. (2019). **curl: A Modern and Flexible Web Client for R.** *R package version*, 4.3. [curl](https://cran.r-project.org/web/packages/curl/index.html)
 
@@ -492,13 +625,11 @@ Pagès H., Aboyoun P., Gentleman R., and DebRoy S. (2017). **Biostrings: Efficie
 
 Revolution Analytics, and Weston S. (2020). **doMC: Foreach Parallel Adaptor for 'parallel'.** *R package version*, 1.3.7. [doMC](https://cran.r-project.org/web/packages/doMC/index.html)
 
-Rost B. (1999). **Twilight zone of protein sequence alignments.** *Protein engineering*, 12(2), 85-94. [https://doi.org/10.1093/protein/12.2.85](https://doi.org/10.1093/protein/12.2.85)
+Rost B. (1999). **Twilight zone of protein sequence alignments.** *Protein Engineering*, **12(2)**, 85-94. [https://doi.org/10.1093/protein/12.2.85](https://doi.org/10.1093/protein/12.2.85)
 
-Scott C. (2017). **shmlast: an improved implementation of conditional reciprocal best hits with LAST and Python.** *Journal of Open Source Software*, 2(9), 142. [https://joss.theoj.org/papers/10.21105/joss.00142](https://joss.theoj.org/papers/10.21105/joss.00142)
+Scott C. (2017). **shmlast: an improved implementation of conditional reciprocal best hits with LAST and Python.** *Journal of Open Source Software*, **2(9)**, 142. [https://joss.theoj.org/papers/10.21105/joss.00142](https://joss.theoj.org/papers/10.21105/joss.00142)
 
 Scrucca L., Fop M., Murphy T. B., and Raftery A. E. (2016) **mclust 5: clustering, classification and density estimation using Gaussian finite mixture models.** *The R Journal*, 8(1), 289-317. [https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5096736/](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5096736/)
-
-Duong T., and Wand M. (2015). **feature: Local Inferential Feature Significance for Multivariate Kernel Density Estimation.** *R package version 1.2.13*. [https://cran.r-project.org/web/packages/feature/](https://cran.r-project.org/web/packages/feature/) 
 
 Wickham H. (2011). **testthat: Get Started with Testing.** *The R Journal*, 3(1), 5. [testthat](https://cran.r-project.org/web/packages/testthat/index.html)
 
@@ -510,4 +641,4 @@ Wickham H., Hester J., and Chang W. (2020). **devtools: Tools to make Developing
 
 Wickham H., François R., Henry L., and Müller K. (2020). **dplyr: A Grammar of Data Manipulation.** *R package version*, 1.0.2. [dplyr](https://cran.r-project.org/web/packages/dplyr/index.html)
 
-Yang Z., and Nielsen R. (2000). **Estimating synonymous and nonsynonymous substitution rates under realistic evolutionary models.** *Molecular biology and evolution*, 17(1), 32-43. [https://doi.org/10.1093/oxfordjournals.molbev.a026236](https://doi.org/10.1093/oxfordjournals.molbev.a026236)
+Yang Z., and Nielsen R. (2000). **Estimating synonymous and nonsynonymous substitution rates under realistic evolutionary models.** *Molecular Biology and Evolution*, **17(1)**, 32-43. [https://doi.org/10.1093/oxfordjournals.molbev.a026236](https://doi.org/10.1093/oxfordjournals.molbev.a026236)

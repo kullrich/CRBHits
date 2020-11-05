@@ -36,7 +36,7 @@ codon alignment as \code{DNAStringSet}
 This function takes two single sequence \code{DNAString}'s or two single sequence \code{DNAStringSet}'s, converts them into aa, calculates a global alignment and converts this alignment back into a codonalignment.
 }
 \examples{
-##define two cds sequences
+## define two cds sequences
 cds1 <- Biostrings::DNAString("ATGCAACATTGC")
 cds2 <- Biostrings::DNAString("ATGCATTGC")
 cds2codonaln(cds1, cds2)

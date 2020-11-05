@@ -17,6 +17,11 @@ CRBHits specific color palette
 \description{
 CRBHits specific color palette.
 }
+\examples{
+plot(1:9, pch = 20, col = CRBHitsColors(9), cex = 3)
+## use alpha
+plot(1:9, pch = 20, col = CRBHitsColors(9, 50), cex = 3)
+}
 \seealso{
 \code{\link[grDevices]{palette}}
 }

@@ -20,7 +20,7 @@ rbh matrix
 This function filters BLAST-like tabular output according to alignment length.
 }
 \examples{
-##load crbh data
+## load crbh data
 data(ath_aly_crbh)
 dim(ath_aly_crbh$crbh1)
 dim(filter.alnlen(ath_aly_crbh$crbh1, alnlen = 75))

@@ -25,7 +25,8 @@ rbh2dagchainer(
   ka.max = 5,
   ks.max = 5,
   ka.min = 0,
-  ks.min = 0
+  ks.min = 0,
+  select.chr = NULL
 )
 }
 \arguments{
@@ -70,6 +71,8 @@ rbh2dagchainer(
 \item{ka.min}{specify min Ka to be filtered [default: 0]}
 
 \item{ks.min}{specify min Ks to be filtered [default: 0]}
+
+\item{select.chr}{filter results for chromosome names [default: NULL]}
 }
 \value{
 \code{DAGchanier} results\cr
@@ -90,6 +93,27 @@ rbh2dagchainer(
 }
 \description{
 This function runs DAGchainer (http://dagchainer.sourceforge.net/) given CRBHit pairs and gene positions for both cds1 and cds2. The default options are set to not compare gene positions in base pairs but instead using gene order (gene.idx).
+}
+\references{
+Haas BJ et al. (2004) DAGchainer: a tool for mining segmental genome duplications and synteny. \emph{Bioinformatics.} \bold{20(18)}, 3643-3646.
+## load example sequence data
+data("ath", package="CRBHits")
+## get selfhits CRBHit pairs
+ath_selfhits_crbh <- cds2rbh(ath, ath, plotCurve = TRUE)
+## get gene position
+ath.genepos <- cds2genepos(ath, "ENSEMBL")
+## get DAGchainer results
+ath_selfblast_crbh.dagchainer <- rbh2dagchainer(ath_selfhits_crbh,
+                                                ath.genepos, ath.genepos)
+head(ath_selfblast_crbh.dagchainer)
+## plot dagchainer
+plot.dagchainer(ath_selfblast_crbh.dagchainer)
+}
+\seealso{
+\code{\link[CRBHits]{plot.dagchainer}},
+\code{\link[CRBHits]{cds2genepos}},
+\code{\link[CRBHits]{tandemdups}},
+\code{\link[CRBHits]{rbh2kaks}}
 }
 \author{
 Kristian K Ullrich

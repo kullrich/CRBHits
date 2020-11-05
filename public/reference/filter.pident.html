@@ -100,9 +100,6 @@
     <li>
       <a href="../articles/V02KaKsVignette.html">KaKs Vignette</a>
     </li>
-    <li>
-      <a href="../articles/V03WGDVignette.html">Paranome-based Whole Genome Duplication Vignette</a>
-    </li>
   </ul>
 </li>
       </ul>
@@ -136,7 +133,7 @@
     </div>
 
     <pre class="usage"><span class='co'># S3 method for pident</span>
-<span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>rbh</span>, pident <span class='op'>=</span> <span class='fl'>0</span>, inverse <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+<span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>rbh</span>, pident <span class='op'>=</span> <span class='fl'>0</span>, inverse <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -163,11 +160,11 @@
     <p>Kristian K Ullrich</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>##load crbh data</span>
+    <pre class="examples"><div class='input'><span class='co'>## load crbh data</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ath_aly_crbh</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>ath_aly_crbh</span><span class='op'>$</span><span class='va'>crbh1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 798  16</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='fu'>filter.pident</span><span class='op'>(</span><span class='va'>ath_aly_crbh</span><span class='op'>$</span><span class='va'>crbh1</span>, pident <span class='op'>=</span> <span class='fl'>75</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 763  16</div></pre>
+</div><div class='output co'>#&gt; [1] 211  16</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='fu'>filter.pident</span><span class='op'>(</span><span class='va'>ath_aly_crbh</span><span class='op'>$</span><span class='va'>crbh1</span>, pident <span class='op'>=</span> <span class='fl'>75</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 96 16</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -90,32 +90,31 @@ Sequence searches are performed with \bold{last} \emph{Kiełbasa, SM et al. (201
 If one specifies cds1 and cds2 as the same input a selfblast is conducted.
 }
 \examples{
-##compile last-1133 within CRBHits
+## compile last-1133 within CRBHits
 make.last()
-##load example sequence data
+## load example sequence data
 data("ath", package="CRBHits")
 data("aly", package="CRBHits")
-#get CRBHit pairs
+## get CRBHit pairs
 ath_aly_crbh <- cds2rbh(ath, aly, plotCurve = TRUE)
 dim(ath_aly_crbh$crbh.pairs)
-#get classical reciprocal best hit (RBHit) pairs
+## get classical reciprocal best hit (RBHit) pairs
 ath_aly_rbh <- cds2rbh(ath, aly, crbh = FALSE)
 dim(ath_aly_rbh$rbh.pairs)
-#filter for evalue 1e-100
+## filter for evalue 1e-100
 ath_aly_crbh.eval100 <- cds2rbh(ath, aly, eval = 1e-100)
 dim(ath_aly_crbh.eval100$crbh.pairs)
-#filter for query coverage
+## filter for query coverage
 ath_aly_crbh.qcov <- cds2rbh(ath, aly, qcov = 0.5)
 dim(ath_aly_crbh.qcov$crbh.pairs)
-#custom filter for e.g. bit score (column 12)
+## custom filter for e.g. bit score (column 12)
+## Note: multiple filters can be given in filter param as list
 myfilter <- function(rbh, value = 500.0){
 return(rbh[as.numeric(rbh[, 12]) >= value , , drop = FALSE])
 }
 ath_aly_crbh.custom <- cds2rbh(ath, aly, filter = list(myfilter))
 dim(ath_aly_crbh.custom$crbh.pairs)
-#multiple filters can be given in filter param as list
-#
-#selfblast
+## selfblast
 ath_selfblast_crbh <- cds2rbh(ath, ath, plotCurve = TRUE)
 }
 \references{

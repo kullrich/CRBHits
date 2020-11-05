@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CRBHits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
       </span>
     </div>
 
@@ -98,10 +98,7 @@
       <a href="../articles/V01CRBHitsBasicVignette.html">CRBHits Basic Vignette</a>
     </li>
     <li>
-      <a href="../articles/V02dNdSClusteringVignette.html">dNdS Clustering Vignette</a>
-    </li>
-    <li>
-      <a href="../articles/V03WGDVignette.html">Paranome-based Whole Genome Duplication Vignette</a>
+      <a href="../articles/V02KaKsVignette.html">KaKs Vignette</a>
     </li>
   </ul>
 </li>
@@ -135,7 +132,7 @@
     <p>This function converts a <code>DNAStringSet</code> into an <code>seqinr</code> <code>alignment</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>dnastring2aln</span>(<span class='no'>dna</span>)</pre>
+    <pre class="usage"><span class='fu'>dnastring2aln</span><span class='op'>(</span><span class='va'>dna</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -148,7 +145,7 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An object of class <code>alignemnt</code> which is a list with the following components:<br />
+    <p>An object of class <code>alignment</code> which is a list with the following components:<br />
 <code>nb</code> the number of aligned sequences<br />
 <code>nam</code> a vector of strings containing the names of the aligned sequences<br />
 <code>seq</code> a vector of strings containing the aligned sequences<br />
@@ -156,13 +153,18 @@
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/seqinr/man/as.alignment.html'>as.alignment</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Kristian K Ullrich</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>##define two cds sequences</span>
-<span class='no'>cds1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>Biostrings</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Biostrings/man/DNAString-class.html'>DNAString</a></span>(<span class='st'>"ATGCAACATTGC"</span>)
-<span class='no'>cds2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>Biostrings</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Biostrings/man/DNAString-class.html'>DNAString</a></span>(<span class='st'>"ATGCATTGC"</span>)
-<span class='no'>cds1.cds2.aln</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='cds2codonaln.html'>cds2codonaln</a></span>(<span class='no'>cds1</span>, <span class='no'>cds2</span>)
-<span class='fu'>dnastring2aln</span>(<span class='no'>cds1.cds2.aln</span>)</div><div class='output co'>#&gt; $nb
+    <pre class="examples"><div class='input'><span class='co'>## define two cds sequences</span>
+<span class='va'>cds1</span> <span class='op'>&lt;-</span> <span class='fu'>Biostrings</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Biostrings/man/DNAString-class.html'>DNAString</a></span><span class='op'>(</span><span class='st'>"ATGCAACATTGC"</span><span class='op'>)</span>
+<span class='va'>cds2</span> <span class='op'>&lt;-</span> <span class='fu'>Biostrings</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Biostrings/man/DNAString-class.html'>DNAString</a></span><span class='op'>(</span><span class='st'>"ATGCATTGC"</span><span class='op'>)</span>
+<span class='va'>cds1.cds2.aln</span> <span class='op'>&lt;-</span> <span class='fu'><a href='cds2codonaln.html'>cds2codonaln</a></span><span class='op'>(</span><span class='va'>cds1</span>, <span class='va'>cds2</span><span class='op'>)</span>
+<span class='co'>## convert into alignment</span>
+<span class='fu'>dnastring2aln</span><span class='op'>(</span><span class='va'>cds1.cds2.aln</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $nb
 #&gt; [1] 2
 #&gt; 
 #&gt; $nam
@@ -191,7 +193,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

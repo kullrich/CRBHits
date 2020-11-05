@@ -16,7 +16,7 @@ seqid(x)
 This function returns the first whitespace separated names value of a \code{XStringSet}.
 }
 \examples{
-##load example sequence data
+## load example sequence data
 data("ath", package="CRBHits")
 seqid(ath)
 }

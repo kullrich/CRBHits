@@ -7,13 +7,21 @@
 \method{plot}{kaks}(
   kaks,
   dag = NULL,
-  tandems = NULL,
+  gene.position.cds1 = NULL,
+  gene.position.cds2 = NULL,
+  tandem.dups.cds1 = NULL,
+  tandem.dups.cds2 = NULL,
   PlotTitle = "Ka/Ks results",
+  PlotType = "h",
+  binw = 0.05,
+  splitByChr = FALSE,
   colorBy = "none",
   ka.max = 5,
   ks.max = 5,
   ka.min = 0,
-  ks.min = 0
+  ks.min = 0,
+  select.chr = NULL,
+  doPlot = TRUE
 )
 }
 \arguments{
@@ -21,11 +29,23 @@
 
 \item{dag}{specify DAGchainer results as obtained via `rbh2dagchainer()` [default: NULL]}
 
-\item{tandems}{specify tandem duplicates results as obtained via `tandemdups()` [default: NULL]}
+\item{gene.position.cds1}{specify gene position for cds1 sequences (see \code{\link[CRBHits]{cds2genepos}}) [default: NULL]}
+
+\item{gene.position.cds2}{specify gene position for cds2 sequences (see \code{\link[CRBHits]{cds2genepos}}) [default: NULL]}
+
+\item{tandem.dups.cds1}{specify tandem duplicates for cds1 sequences (see \code{\link[CRBHits]{tandemdups}}) [default: NULL]}
+
+\item{tandem.dups.cds2}{specify tandem duplicates for cds2 sequences (see \code{\link[CRBHits]{tandemdups}}) [default: NULL]}
 
 \item{PlotTitle}{specify Plot title [default: Ka/Ks results]}
 
-\item{colorBy}{specify if Ka/Ks gene pairs should be colored by "rbh_class", dagchainer", "tandemdups" or "none" [default: none]}
+\item{PlotType}{specify Plot type: "h" histogram or "d" dotplot [default: h]}
+
+\item{binw}{specify binwidth (see \code{\link[ggplot2]{geom_histogram}}) [default: 0.05]}
+
+\item{splitByChr}{specify if plot should be split by chromosome [default: FALSE]}
+
+\item{colorBy}{specify if Ka/Ks gene pairs should be colored by "rbh_class", dagchainer", "tandemdups" or "none" [default: rbh_class]}
 
 \item{ka.max}{specify max Ka to be filtered [default: 5]}
 
@@ -34,9 +54,19 @@
 \item{ka.min}{specify min Ka to be filtered [default: 0]}
 
 \item{ks.min}{specify min Ks to be filtered [default: 0]}
+
+\item{select.chr}{filter results for chromosome names [default: NULL]}
+
+\item{doPlot}{specify plot [default: TRUE]}
 }
 \description{
 This function plots Ka/Ks results obtained via `rbh2kaks()` function.
+}
+\examples{
+## load example sequence data
+data("ath_aly_ncbi_kaks", package="CRBHits")
+## plot Ka/Ks values - default
+g <- plot.kaks(ath_aly_ncbi_kaks)
 }
 \author{
 Kristian K Ullrich

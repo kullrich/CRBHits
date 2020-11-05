@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CRBHits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
       </span>
     </div>
 
@@ -98,10 +98,7 @@
       <a href="../articles/V01CRBHitsBasicVignette.html">CRBHits Basic Vignette</a>
     </li>
     <li>
-      <a href="../articles/V02dNdSClusteringVignette.html">dNdS Clustering Vignette</a>
-    </li>
-    <li>
-      <a href="../articles/V03WGDVignette.html">Paranome-based Whole Genome Duplication Vignette</a>
+      <a href="../articles/V02KaKsVignette.html">KaKs Vignette</a>
     </li>
   </ul>
 </li>
@@ -135,15 +132,15 @@
     <p>This function takes two single sequence <code>DNAString</code>'s or two single sequence <code>DNAStringSet</code>'s, converts them into aa, calculates a global alignment and converts this alignment back into a codonalignment.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>cds2codonaln</span>(
-  <span class='no'>cds1</span>,
-  <span class='no'>cds2</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"global"</span>,
-  <span class='kw'>substitutionMatrix</span> <span class='kw'>=</span> <span class='st'>"BLOSUM62"</span>,
-  <span class='kw'>gapOpening</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-  <span class='kw'>gapExtension</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>remove.gaps</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>cds2codonaln</span><span class='op'>(</span>
+  <span class='va'>cds1</span>,
+  <span class='va'>cds2</span>,
+  type <span class='op'>=</span> <span class='st'>"global"</span>,
+  substitutionMatrix <span class='op'>=</span> <span class='st'>"BLOSUM62"</span>,
+  gapOpening <span class='op'>=</span> <span class='fl'>10</span>,
+  gapExtension <span class='op'>=</span> <span class='fl'>0.5</span>,
+  remove.gaps <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -186,14 +183,17 @@
     <p>Pagès, H et al. (2014) Biostrings: Efficient manipulation of biological strings. <em>R package version</em>, <b>2(0)</b>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/Biostrings/man/pairwiseAlignment.html'>pairwiseAlignment</a></code>,
-<code><a href='https://rdrr.io/pkg/Biostrings/man/substitution_matrices.html'>substitution.matrices</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/Biostrings/man/pairwiseAlignment.html'>pairwiseAlignment</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Kristian K Ullrich</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>##define two cds sequences</span>
-<span class='no'>cds1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>Biostrings</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Biostrings/man/DNAString-class.html'>DNAString</a></span>(<span class='st'>"ATGCAACATTGC"</span>)
-<span class='no'>cds2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>Biostrings</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Biostrings/man/DNAString-class.html'>DNAString</a></span>(<span class='st'>"ATGCATTGC"</span>)
-<span class='fu'>cds2codonaln</span>(<span class='no'>cds1</span>, <span class='no'>cds2</span>)</div><div class='output co'>#&gt; DNAStringSet object of length 2:
+    <pre class="examples"><div class='input'><span class='co'>## define two cds sequences</span>
+<span class='va'>cds1</span> <span class='op'>&lt;-</span> <span class='fu'>Biostrings</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Biostrings/man/DNAString-class.html'>DNAString</a></span><span class='op'>(</span><span class='st'>"ATGCAACATTGC"</span><span class='op'>)</span>
+<span class='va'>cds2</span> <span class='op'>&lt;-</span> <span class='fu'>Biostrings</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Biostrings/man/DNAString-class.html'>DNAString</a></span><span class='op'>(</span><span class='st'>"ATGCATTGC"</span><span class='op'>)</span>
+<span class='fu'>cds2codonaln</span><span class='op'>(</span><span class='va'>cds1</span>, <span class='va'>cds2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; DNAStringSet object of length 2:
 #&gt;     width seq                                               names               
 #&gt; [1]    12 <span style='color: #000000;background-color: #BBBBBB;'>ATGCAACATTGC</span><span>                                      cds1
 #&gt; [2]    12 </span><span style='color: #000000;background-color: #BBBBBB;'>ATG</span><span>---</span><span style='color: #000000;background-color: #BBBBBB;'>CATTGC</span><span>                                      cds2</div></span></pre>
@@ -212,7 +212,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

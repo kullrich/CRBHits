@@ -166,7 +166,17 @@ The function is ported into R from Haug-Baltzell et al. (2017) https://github.co
 8: $tandem_group<br /></p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Haug-Beltzell A et al. (2017) SynMap2 and SynMap3D: web-based whole-genome synteny browsers. <em>Bioinformatics</em> <b>33(14)</b>, 2197-2198.</p>
+    <p>Haug-Beltzell A et al. (2017) SynMap2 and SynMap3D: web-based whole-genome synteny browsers. <em>Bioinformatics</em> <b>33(14)</b>, 2197-2198.
+## load example sequence data
+data("ath", package="CRBHits")
+## get selfhits CRBHit pairs
+ath_selfhits_crbh &lt;- cds2rbh(ath, ath, plotCurve = TRUE)
+## get gene position
+ath.genepos &lt;- cds2genepos(ath, "ENSEMBL")
+## get tandem duplicate results
+ath_selfblast_crbh.tandemdups &lt;- tandemdups(ath_selfhits_crbh,
+                                            ath.genepos)
+head(ath_selfblast_crbh.tandemdups)</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='isoform2longest.html'>isoform2longest</a></code></p></div>

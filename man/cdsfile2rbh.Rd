@@ -90,21 +90,20 @@ Sequence searches are performed with \bold{last} \emph{Kiełbasa, SM et al. (201
 If one specifies cdsfile1 and cdsfile2 as the same input a selfblast is conducted.
 }
 \examples{
-##compile last-1133 within CRBHits
+## compile last-1133 within CRBHits
 make.last()
-##load example sequence data
+## load example sequence data
 athfile <- system.file("fasta", "ath.cds.fasta.gz", package = "CRBHits")
 alyfile <- system.file("fasta", "aly.cds.fasta.gz", package = "CRBHits")
-#get CRBHit pairs
+## get CRBHit pairs
 ath_aly_crbh <- cdsfile2rbh(athfile, alyfile, plotCurve = TRUE)
 dim(ath_aly_crbh$crbh.pairs)
-#get classical reciprocal best hit (RBHit) pairs
+## get classical reciprocal best hit (RBHit) pairs
 ath_aly_rbh <- cdsfile2rbh(athfile, alyfile, crbh = FALSE)
 dim(ath_aly_rbh$rbh.pairs)
-#see ?cds2rb for more examples
-#
-#selfblast
+## selfblast
 ath_selfblast_crbh <- cdsfile2rbh(athfile, athfile, plotCurve = TRUE)
+## see ?cds2rbh for more examples
 }
 \references{
 Aubry S, Kelly S et al. (2014) Deep Evolutionary Comparison of Gene Expression Identifies Parallel Recruitment of Trans-Factors in Two Independent Origins of C4 Photosynthesis. \emph{PLOS Genetics}, \bold{10(6)} e1004365.

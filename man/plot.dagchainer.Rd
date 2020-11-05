@@ -12,7 +12,8 @@
   ka.max = 5,
   ks.max = 5,
   ka.min = 0,
-  ks.min = 0
+  ks.min = 0,
+  select.chr = NULL
 )
 }
 \arguments{
@@ -31,9 +32,17 @@
 \item{ka.min}{specify min Ka to be filtered [default: 0]}
 
 \item{ks.min}{specify min Ks to be filtered [default: 0]}
+
+\item{select.chr}{filter results for chromosome names [default: NULL]}
 }
 \description{
 This function plots DAGchainer (http://dagchainer.sourceforge.net/) results obtained via `rbh2dagchainer()` function.
+}
+\examples{
+## load example sequence data
+data("ath_aly_ncbi_dagchainer", package="CRBHits")
+## plot DAGchainer results - default
+plot.kaks(ath_aly_ncbi_dagchainer)
 }
 \author{
 Kristian K Ullrich

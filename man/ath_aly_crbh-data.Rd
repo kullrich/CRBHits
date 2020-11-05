@@ -12,7 +12,7 @@ an object of class \code{list}
 data(ath_aly_crbh)
 }
 \description{
-Example conditional-reciprocal best hit pair results.
+Example conditional-reciprocal best hit (CRBHit) pair results.
 }
 \examples{
 data("ath_aly_crbh", package="CRBHits")

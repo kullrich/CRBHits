@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CRBHits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
       </span>
     </div>
 
@@ -98,10 +98,7 @@
       <a href="../articles/V01CRBHitsBasicVignette.html">CRBHits Basic Vignette</a>
     </li>
     <li>
-      <a href="../articles/V02dNdSClusteringVignette.html">dNdS Clustering Vignette</a>
-    </li>
-    <li>
-      <a href="../articles/V03WGDVignette.html">Paranome-based Whole Genome Duplication Vignette</a>
+      <a href="../articles/V02KaKsVignette.html">KaKs Vignette</a>
     </li>
   </ul>
 </li>
@@ -135,7 +132,7 @@
     <p>This function translates a cds fasta file into an aa fasta file.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>cdsfile2aafile</span>(<span class='no'>infile</span>, <span class='no'>outfile</span>)</pre>
+    <pre class="usage"><span class='fu'>cdsfile2aafile</span><span class='op'>(</span><span class='va'>infile</span>, <span class='va'>outfile</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -156,13 +153,20 @@
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='cds2aa.html'>cds2aa</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Kristian K Ullrich</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>cdsfile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"fasta"</span>, <span class='st'>"ath.cds.fasta.gz"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"CRBHits"</span>)
-<span class='no'>aafile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>()
-<span class='fu'>cdsfile2aafile</span>(<span class='no'>cdsfile</span>, <span class='no'>aafile</span>)
-<span class='no'>aa</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>Biostrings</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html'>readAAStringSet</a></span>(<span class='no'>aafile</span>)
-<span class='no'>aa</span></div><div class='output co'>#&gt; AAStringSet object of length 1000:
+    <pre class="examples"><div class='input'><span class='co'>## define file path</span>
+<span class='va'>cdsfile</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"fasta"</span>, <span class='st'>"ath.cds.fasta.gz"</span>, package <span class='op'>=</span> <span class='st'>"CRBHits"</span><span class='op'>)</span>
+<span class='co'>## create empty temp file</span>
+<span class='va'>aafile</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='co'>## convert input CDS fasta file into AA fasta file</span>
+<span class='fu'>cdsfile2aafile</span><span class='op'>(</span><span class='va'>cdsfile</span>, <span class='va'>aafile</span><span class='op'>)</span>
+<span class='va'>aa</span> <span class='op'>&lt;-</span> <span class='fu'>Biostrings</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html'>readAAStringSet</a></span><span class='op'>(</span><span class='va'>aafile</span><span class='op'>)</span>
+<span class='va'>aa</span>
+</div><div class='output co'>#&gt; AAStringSet object of length 1000:
 #&gt;        width seq                                            names               
 #&gt;    [1]   430 MEDQVGFGFRPNDEELVGHYLR...NMIIGVLLFISVISWIILVG* AT1G01010.1
 #&gt;    [2]   199 MIIFIDLILHRPKVYRHVLYNA...IFLIQIGSLLQYMSYFFRIV* AT1G01020.5
@@ -190,7 +194,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -9,7 +9,7 @@
 #' @param tandem.dups.cds2 specify tandem duplicates for cds2 sequences (see \code{\link[CRBHits]{tandemdups}}) [default: NULL]
 #' @param PlotTitle specify Plot title [default: Ka/Ks results]
 #' @param PlotType specify Plot type: "h" histogram or "d" dotplot [default: h]
-#' @param binw specify binwidth (see \code[\link[ggplot2]{geom_histogram}]) [default: 0.05]
+#' @param binw specify binwidth (see \code{\link[ggplot2]{geom_histogram}}) [default: 0.05]
 #' @param splitByChr specify if plot should be split by chromosome [default: FALSE]
 #' @param colorBy specify if Ka/Ks gene pairs should be colored by "rbh_class", dagchainer", "tandemdups" or "none" [default: rbh_class]
 #' @param ka.max specify max Ka to be filtered [default: 5]

@@ -153,7 +153,8 @@
   ka.max <span class='op'>=</span> <span class='fl'>5</span>,
   ks.max <span class='op'>=</span> <span class='fl'>5</span>,
   ka.min <span class='op'>=</span> <span class='fl'>0</span>,
-  ks.min <span class='op'>=</span> <span class='fl'>0</span>
+  ks.min <span class='op'>=</span> <span class='fl'>0</span>,
+  select.chr <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -243,6 +244,10 @@
       <th>ks.min</th>
       <td><p>specify min Ks to be filtered [default: 0]</p></td>
     </tr>
+    <tr>
+      <th>select.chr</th>
+      <td><p>filter results for chromosome names [default: NULL]</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -262,6 +267,27 @@
 12: $gene2.idx<br />
 13: $evalue<br />
 14: $score<br /></p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Haas BJ et al. (2004) DAGchainer: a tool for mining segmental genome duplications and synteny. <em>Bioinformatics.</em> <b>20(18)</b>, 3643-3646.
+## load example sequence data
+data("ath", package="CRBHits")
+## get selfhits CRBHit pairs
+ath_selfhits_crbh &lt;- cds2rbh(ath, ath, plotCurve = TRUE)
+## get gene position
+ath.genepos &lt;- cds2genepos(ath, "ENSEMBL")
+## get DAGchainer results
+ath_selfblast_crbh.dagchainer &lt;- rbh2dagchainer(ath_selfhits_crbh,
+                                                ath.genepos, ath.genepos)
+head(ath_selfblast_crbh.dagchainer)
+## plot dagchainer
+plot.dagchainer(ath_selfblast_crbh.dagchainer)</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='plot.dagchainer.html'>plot.dagchainer</a></code>,
+<code><a href='cds2genepos.html'>cds2genepos</a></code>,
+<code><a href='tandemdups.html'>tandemdups</a></code>,
+<code><a href='rbh2kaks.html'>rbh2kaks</a></code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Kristian K Ullrich</p>

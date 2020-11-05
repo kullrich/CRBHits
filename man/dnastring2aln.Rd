@@ -20,10 +20,11 @@ An object of class \code{alignment} which is a list with the following component
 This function converts a \code{DNAStringSet} into an \code{seqinr} \code{alignment}.
 }
 \examples{
-##define two cds sequences
+## define two cds sequences
 cds1 <- Biostrings::DNAString("ATGCAACATTGC")
 cds2 <- Biostrings::DNAString("ATGCATTGC")
 cds1.cds2.aln <- cds2codonaln(cds1, cds2)
+## convert into alignment
 dnastring2aln(cds1.cds2.aln)
 }
 \seealso{

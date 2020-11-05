@@ -16,7 +16,7 @@ cds2aa(cds)
 This function translates a \code{DNAStringSet} into an \code{AAStringSet}.
 }
 \examples{
-##load example sequence data
+## load example sequence data
 data("ath", package="CRBHits")
 cds2aa(ath)
 }

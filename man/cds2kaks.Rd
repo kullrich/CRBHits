@@ -30,14 +30,14 @@ vector of ka/ks values as specified by \code{seqinr::kaks} or \code{KaKs_Calcula
 This function calculates Ka/Ks (dN/dS; accoring to \emph{Li (1993)} or \emph{Yang and Nielson (2000)} given two coding sequences \code{cds1} and \code{cds2} as \code{DNAStringSet} or \code{DNAString}.
 }
 \examples{
-##load example sequence data
+## load example sequence data
 data("ath", package="CRBHits")
 data("aly", package="CRBHits")
-##select a sequence pair according to a best hit pair (done for you)
+## select a sequence pair according to a best hit pair (done for you)
 cds1 <- ath[1]
 cds2 <- aly[282]
 cds2kaks(cds1, cds2, model = "Li")
-#using an alternative substitutionMatrix
+## using an alternative substitutionMatrix
 cds2kaks(cds1, cds2, model = "Li", substitutionMatrix = "BLOSUM45")
 cds2kaks(cds1, cds2, model = "Li", substitutionMatrix = "BLOSUM80")
 \dontrun{

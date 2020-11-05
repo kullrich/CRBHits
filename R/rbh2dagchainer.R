@@ -132,6 +132,10 @@ rbh2dagchainer <- function(rbhpairs,
                                     "gene2.chr", "gene2.seq.id", "gene2.start", "gene2.end")
     dagchainer.evalue <- rbhpairs$crbh1[match(dagchainer.input$gene1.seq.id, rbhpairs$crbh1$query_id), , drop =FALSE]$evalue
     dagchainer.input <- cbind(dagchainer.input, evalue = dagchainer.evalue)
+    if(!selfblast){
+      dagchainer.input$gene1.chr<-paste0("AA1:",dagchainer.input$gene1.chr)
+      dagchainer.input$gene2.chr<-paste0("AA2:",dagchainer.input$gene2.chr)
+    }
   }
   if(type == "idx"){
     aa1.genepos <- gene.position.cds1[match(rbhpairs$crbh.pairs$aa1,
@@ -145,6 +149,10 @@ rbh2dagchainer <- function(rbhpairs,
                                     "gene2.chr", "gene2.seq.id", "gene2.idx1", "gene2.idx2")
     dagchainer.evalue <- rbhpairs$crbh1[match(dagchainer.input$gene1.seq.id, rbhpairs$crbh1$query_id), , drop =FALSE]$evalue
     dagchainer.input <- cbind(dagchainer.input, evalue = dagchainer.evalue)
+    if(!selfblast){
+      dagchainer.input$gene1.chr<-paste0("AA1:",dagchainer.input$gene1.chr)
+      dagchainer.input$gene2.chr<-paste0("AA2:",dagchainer.input$gene2.chr)
+    }
   }
   tmp <- tempfile()
   write.table(dagchainer.input,
@@ -187,10 +195,18 @@ rbh2dagchainer <- function(rbhpairs,
   dagchainer.groups.out <- unlist(apply(cbind(dagchainer.groups.id,
                                                      dagchainer.groups.len),1,
                                                function(x) rep(x[1], x[2])))
+  if(!selfblast){
+    dagchainer.groups.out <- gsub("AA1:", "", dagchainer.groups.out)
+    dagchainer.groups.out <- gsub("AA2:", "", dagchainer.groups.out)
+  }
   if(type == "bp"){
     colnames(dagchainer.results) <- c("gene1.chr", "gene1.seq.id", "gene1.start", "gene1.end",
                                       "gene2.chr", "gene2.seq.id", "gene2.start", "gene2.end",
                                       "evalue", "score")
+    if(!selfblast){
+      dagchainer.results$gene1.chr <- gsub("AA1:", "", dagchainer.results$gene1.chr)
+      dagchainer.results$gene2.chr <- gsub("AA2:", "", dagchainer.results$gene2.chr)
+    }
     #add gene1.mid and gene2.mid for plotting
     dagchainer.results <- dagchainer.results %>%
       dplyr::mutate(gene1.mid = (gene1.start + gene1.end)/2,
@@ -213,6 +229,10 @@ rbh2dagchainer <- function(rbhpairs,
     colnames(dagchainer.results) <- c("gene1.chr", "gene1.seq.id", "gene1.idx1", "gene1.idx2",
                                       "gene2.chr", "gene2.seq.id", "gene2.idx1", "gene2.idx2",
                                       "evalue", "score")
+    if(!selfblast){
+      dagchainer.results$gene1.chr <- gsub("AA1:", "", dagchainer.results$gene1.chr)
+      dagchainer.results$gene2.chr <- gsub("AA2:", "", dagchainer.results$gene2.chr)
+    }
     #add gene1.mid and gene2.mid for plotting
     dagchainer.results <- dagchainer.results %>%
       dplyr::mutate(gene1.idx = gene1.idx1,

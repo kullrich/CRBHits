@@ -159,25 +159,27 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'>##load example sequence data</span>
-<span class='co'>#set NCBI URL</span>
+<span class='co'>## load example sequence data</span>
+<span class='co'>## set NCBI URL</span>
 <span class='va'>NCBI</span> <span class='op'>&lt;-</span> <span class='st'>"ftp://ftp.ncbi.nlm.nih.gov/genomes/all/"</span>
 <span class='va'>HOMSAP.NCBI.cds.url</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='va'>NCBI</span>, <span class='st'>"GCF/000/001/405/GCF_000001405.39_GRCh38.p13/GCF_000001405.39_GRCh38.p13_cds_from_genomic.fna.gz"</span><span class='op'>)</span>
 <span class='va'>HOMSAP.NCBI.cds.file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='co'>## download CDS file</span>
 <span class='fu'>curl</span><span class='fu'>::</span><span class='fu'><a href='https://jeroen.cran.dev/curl/reference/curl_download.html'>curl_download</a></span><span class='op'>(</span><span class='va'>HOMSAP.NCBI.cds.url</span>, <span class='va'>HOMSAP.NCBI.cds.file</span><span class='op'>)</span>
 <span class='va'>HOMSAP.NCBI.cds</span> <span class='op'>&lt;-</span> <span class='fu'>Biostrings</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html'>readDNAStringSet</a></span><span class='op'>(</span><span class='va'>HOMSAP.NCBI.cds.file</span><span class='op'>)</span>
-<span class='co'>#get longest isoform</span>
+<span class='co'>## get longest isoform</span>
 <span class='va'>HOMSAP.NCBI.cds.longest</span> <span class='op'>&lt;-</span> <span class='fu'>isoform2longest</span><span class='op'>(</span><span class='va'>HOMSAP.NCBI.cds</span>, <span class='st'>"NCBI"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>HOMSAP.NCBI.cds</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>HOMSAP.NCBI.cds.longest</span><span class='op'>)</span>
-<span class='co'>#set ENSEMBL URL</span>
+<span class='co'>## set ENSEMBL URL</span>
 <span class='va'>ensembl</span> <span class='op'>&lt;-</span> <span class='st'>"ftp://ftp.ensembl.org/pub/release-101/fasta/"</span>
-<span class='co'>#set Homo sapiens CDS URL</span>
+<span class='co'>## set Homo sapiens CDS URL</span>
 <span class='va'>HOMSAP.ENSEMBL.cds.url</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='va'>ensembl</span>, <span class='st'>"homo_sapiens/cds/Homo_sapiens.GRCh38.cds.all.fa.gz"</span><span class='op'>)</span>
 <span class='va'>HOMSAP.ENSEMBL.cds.file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='co'>## download CDS file</span>
 <span class='fu'>curl</span><span class='fu'>::</span><span class='fu'><a href='https://jeroen.cran.dev/curl/reference/curl_download.html'>curl_download</a></span><span class='op'>(</span><span class='va'>HOMSAP.ENSEMBL.cds.url</span>, <span class='va'>HOMSAP.ENSEMBL.cds.file</span><span class='op'>)</span>
 <span class='va'>HOMSAP.ENSEMBL.cds</span> <span class='op'>&lt;-</span> <span class='fu'>Biostrings</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html'>readDNAStringSet</a></span><span class='op'>(</span><span class='va'>HOMSAP.ENSEMBL.cds.file</span><span class='op'>)</span>
-<span class='co'>#get longest isoform</span>
+<span class='co'>## get longest isoform</span>
 <span class='va'>HOMSAP.ENSEMBL.cds.longest</span><span class='op'>&lt;-</span><span class='fu'>isoform2longest</span><span class='op'>(</span><span class='va'>HOMSAP.ENSEMBL.cds</span>, <span class='st'>"ENSEMBL"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>HOMSAP.ENSEMBL.cds</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>HOMSAP.ENSEMBL.cds.longest</span><span class='op'>)</span>

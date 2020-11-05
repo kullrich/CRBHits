@@ -137,11 +137,14 @@
   <span class='va'>cds1</span>,
   <span class='va'>cds2</span>,
   model <span class='op'>=</span> <span class='st'>"Li"</span>,
+  plotHistPlot <span class='op'>=</span> <span class='cn'>FALSE</span>,
   plotDotPlot <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  dag <span class='op'>=</span> <span class='cn'>NULL</span>,
   gene.position.cds1 <span class='op'>=</span> <span class='cn'>NULL</span>,
   gene.position.cds2 <span class='op'>=</span> <span class='cn'>NULL</span>,
   tandem.dups.cds1 <span class='op'>=</span> <span class='cn'>NULL</span>,
   tandem.dups.cds2 <span class='op'>=</span> <span class='cn'>NULL</span>,
+  colorBy <span class='op'>=</span> <span class='st'>"none"</span>,
   threads <span class='op'>=</span> <span class='fl'>1</span>,
   kakscalcpath <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/find.package.html'>find.package</a></span><span class='op'>(</span><span class='st'>"CRBHits"</span><span class='op'>)</span>, <span class='st'>"/extdata/KaKs_Calculator2.0/src/"</span><span class='op'>)</span>,
   <span class='va'>...</span>
@@ -167,8 +170,16 @@
       <td><p>specify codon model either "Li" or "YN" [default: Li]</p></td>
     </tr>
     <tr>
+      <th>plotHistPlot</th>
+      <td><p>specify if histogram should be plotted [default: TRUE]</p></td>
+    </tr>
+    <tr>
       <th>plotDotPlot</th>
       <td><p>specify if dotplot should be plotted (mandatory to define <code>gene.position.cds1</code> and <code>gene.position.cds1</code>) [default: FALSE]</p></td>
+    </tr>
+    <tr>
+      <th>dag</th>
+      <td><p>specify DAGchainer results as obtained via `rbh2dagchainer()` [default: NULL]</p></td>
     </tr>
     <tr>
       <th>gene.position.cds1</th>
@@ -187,6 +198,10 @@
       <td><p>specify tandem duplicates for cds2 sequences (see <code><a href='tandemdups.html'>tandemdups</a></code>) [default: NULL]</p></td>
     </tr>
     <tr>
+      <th>colorBy</th>
+      <td><p>specify if Ka/Ks gene pairs should be colored by "rbh_class", dagchainer", "tandemdups" or "none" [default: none]</p></td>
+    </tr>
+    <tr>
       <th>threads</th>
       <td><p>number of parallel threads [default: 1]</p></td>
     </tr>
@@ -196,7 +211,7 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>other codon alignment parameters (see <code><a href='cds2codonaln.html'>cds2codonaln</a></code>)</p></td>
+      <td><p>other codon alignment parameters (see <code><a href='cds2codonaln.html'>cds2codonaln</a></code>) and other plot.kaks parameters (see <code><a href='plot.kaks.html'>plot.kaks</a></code>)</p></td>
     </tr>
     </table>
 
@@ -209,36 +224,41 @@
 
     <div class='dont-index'><p><code><a href='cds2kaks.html'>cds2kaks</a></code>,
 <code><a href='isoform2longest.html'>isoform2longest</a></code>,
-<code><a href='cds2genepos.html'>cds2genepos</a></code></p></div>
+<code><a href='cds2genepos.html'>cds2genepos</a></code>,
+<code><a href='plot.kaks.html'>plot.kaks</a></code>,
+<code><a href='rbh2dagchainer.html'>rbh2dagchainer</a></code>,
+<code><a href='tandemdups.html'>tandemdups</a></code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Kristian K Ullrich</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>##load example sequence data</span>
+    <pre class="examples"><div class='input'><span class='co'>## load example sequence data</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"ath"</span>, package<span class='op'>=</span><span class='st'>"CRBHits"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"aly"</span>, package<span class='op'>=</span><span class='st'>"CRBHits"</span><span class='op'>)</span>
-<span class='co'>##load example CRBHit pairs</span>
+<span class='co'>## load example CRBHit pairs</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"ath_aly_crbh"</span>, package<span class='op'>=</span><span class='st'>"CRBHits"</span><span class='op'>)</span>
-<span class='co'>##only analyse subset of CRBHit pairs</span>
+<span class='co'>## only analyse subset of CRBHit pairs</span>
 <span class='va'>ath_aly_crbh</span><span class='op'>$</span><span class='va'>crbh.pairs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>ath_aly_crbh</span><span class='op'>$</span><span class='va'>crbh.pairs</span><span class='op'>)</span>
 <span class='va'>ath_aly_crbh.kaks</span> <span class='op'>&lt;-</span> <span class='fu'>rbh2kaks</span><span class='op'>(</span>rbhpairs <span class='op'>=</span> <span class='va'>ath_aly_crbh</span>,
                               cds1 <span class='op'>=</span> <span class='va'>ath</span>, cds2 <span class='op'>=</span> <span class='va'>aly</span>, model <span class='op'>=</span> <span class='st'>"Li"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>ath_aly_crbh.kaks</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;           aa1          aa2 rbh_class         ka        ks          vka
-#&gt; 1 AT1G01010.1 AL1G11530.t1       rbh 0.10617227 0.2628911 2.637032e-04
-#&gt; 2 AT1G01020.5 AL1G11510.t1       rbh 0.05027159 0.1076133 2.572181e-04
-#&gt; 3 AT1G01030.1 AL1G11500.t1       rbh 0.05606632 0.2329670 1.808118e-04
-#&gt; 4 AT1G01040.1 AL1G11480.t1       rbh 0.01388844 0.1121138 6.907144e-06
-#&gt; 5 AT1G01050.1 AL1G11470.t1       rbh 0.00000000 0.1831839 0.000000e+00
-#&gt; 6 AT1G01060.6 AL1G11460.t1       rbh 0.09054187 0.1854908 1.323098e-04
-#&gt;            vks
-#&gt; 1 0.0023637311
-#&gt; 2 0.0017464252
-#&gt; 3 0.0026270370
-#&gt; 4 0.0001460956
-#&gt; 5 0.0030223075
-#&gt; 6 0.0007490874</div></pre>
+</div><div class='output co'>#&gt;           aa1                   aa2 rbh_class         ka        ks          vka
+#&gt; 1 AT1G01040.1 Al_scaffold_0001_3256       rbh 0.74651201 9.9999990 0.0032172312
+#&gt; 2 AT1G01050.1  Al_scaffold_0001_128       rbh 0.00000000 0.1831839 0.0000000000
+#&gt; 3 AT1G01080.3  Al_scaffold_0001_125       rbh 0.05680851 0.1390746 0.0001612571
+#&gt; 4 AT1G01180.1  Al_scaffold_0001_114       rbh 0.03656808 0.1543978 0.0001014973
+#&gt; 5 AT1G01190.2 Al_scaffold_0001_4419       rbh 0.75036088 9.9999990 0.0093948533
+#&gt; 6 AT1G01260.3 Al_scaffold_0001_1326       rbh 0.78228833 9.9999990 0.0051807370
+#&gt;           vks
+#&gt; 1 9.999999000
+#&gt; 2 0.003022307
+#&gt; 3 0.001531756
+#&gt; 4 0.001249826
+#&gt; 5 9.999999000
+#&gt; 6 9.999999000</div><div class='input'><span class='co'>## plot kaks</span>
+<span class='va'>g.kaks</span> <span class='op'>&lt;-</span> <span class='fu'><a href='plot.kaks.html'>plot.kaks</a></span><span class='op'>(</span><span class='va'>ath_aly_crbh.kaks</span><span class='op'>)</span>
+</div><div class='img'><img src='rbh2kaks-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
