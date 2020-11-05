@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>make.KaKs_Calculator2 — make.KaKs_Calculator2 • CRBHits</title>
+<title>filter_rost1999 — filter_rost1999 • CRBHits</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="make.KaKs_Calculator2 — make.KaKs_Calculator2" />
-<meta property="og:description" content="This function tries to build the prerequisite KaKs_calculator2.0 from source code forked within CRBHits" />
+<meta property="og:title" content="filter_rost1999 — filter_rost1999" />
+<meta property="og:description" content="This function filters BLAST-like tabular output according to equation 2 of Rost 1999." />
 
 
 
@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CRBHits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
       </span>
     </div>
 
@@ -98,10 +98,7 @@
       <a href="../articles/V01CRBHitsBasicVignette.html">CRBHits Basic Vignette</a>
     </li>
     <li>
-      <a href="../articles/V02dNdSClusteringVignette.html">dNdS Clustering Vignette</a>
-    </li>
-    <li>
-      <a href="../articles/V03WGDVignette.html">Paranome-based Whole Genome Duplication Vignette</a>
+      <a href="../articles/V02KaKsVignette.html">KaKs Vignette</a>
     </li>
   </ul>
 </li>
@@ -126,22 +123,46 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>make.KaKs_Calculator2</h1>
-    <small class="dont-index">Source: <a href='https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/masterR/make.KaKs_Calculator2.R'><code>R/make.KaKs_Calculator2.R</code></a></small>
-    <div class="hidden name"><code>make.KaKs_Calculator2.Rd</code></div>
+    <h1>filter_rost1999</h1>
+    <small class="dont-index">Source: <a href='https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/masterR/filter_rost1999.R'><code>R/filter_rost1999.R</code></a></small>
+    <div class="hidden name"><code>filter_rost1999.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function tries to build the prerequisite KaKs_calculator2.0 from source code forked within CRBHits</p>
+    <p>This function filters BLAST-like tabular output according to equation 2 of Rost 1999.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>make.KaKs_Calculator2</span>()</pre>
+    <pre class="usage"><span class='fu'>filter_rost1999</span><span class='op'>(</span><span class='va'>rbh</span>, inverse <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>rbh</th>
+      <td><p>BLAST-like tabular matrix [mandatory]</p></td>
+    </tr>
+    <tr>
+      <th>inverse</th>
+      <td><p>specify if filter should keep the removed values [default: FALSE]</p></td>
+    </tr>
+    </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>rbh matrix</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Wang D, Zhang Y et al. (2010) KaKs_Calculator 2.0: a toolkit incorporating gamma-series methods and sliding window strategies. <em>Genomics Proteomics Bioinformatics.</em> <b>8(1)</b>, 77-80.</p>
+    <p>Rost B. (1999). Twilight zone of protein sequence alignments. <em>Protein Engineering</em>, <b>12(2)</b>, 85-94.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
+    <p>Kristian K Ullrich</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'>## load crbh data</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ath_aly_crbh</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>ath_aly_crbh</span><span class='op'>$</span><span class='va'>crbh1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 211  16</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='fu'>filter_rost1999</span><span class='op'>(</span><span class='va'>ath_aly_crbh</span><span class='op'>$</span><span class='va'>crbh1</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 208  16</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -157,7 +178,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

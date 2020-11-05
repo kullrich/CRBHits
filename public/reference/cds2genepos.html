@@ -174,7 +174,8 @@
 <span class='co'>## set EnsemblPlants URL</span>
 <span class='va'>ensemblPlants</span> <span class='op'>&lt;-</span> <span class='st'>"ftp://ftp.ensemblgenomes.org/pub/plants/release-48/fasta/"</span>
 <span class='co'>## set Arabidopsis thaliana CDS URL</span>
-<span class='va'>ARATHA.cds.url</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='va'>ensemblPlants</span>, <span class='st'>"arabidopsis_thaliana/cds/Arabidopsis_thaliana.TAIR10.cds.all.fa.gz"</span><span class='op'>)</span>
+<span class='va'>ARATHA.cds.url</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='va'>ensemblPlants</span>,
+ <span class='st'>"arabidopsis_thaliana/cds/Arabidopsis_thaliana.TAIR10.cds.all.fa.gz"</span><span class='op'>)</span>
 <span class='va'>ARATHA.cds.file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='co'>## download CDS</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/download.file.html'>download.file</a></span><span class='op'>(</span><span class='va'>ARATHA.cds.url</span>, <span class='va'>ARATHA.cds.file</span>, quiet <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>

@@ -153,8 +153,8 @@
 <p>CRBH uses the sequence search results to fit an expect-value (e-value) cutoff given each RBH to subsequently add sequence pairs to the list of <em>bona-fide</em> orthologs given their alignment length. The sequence similarity results can be filtered by common criteria like e-value, query-coverage and more. If chromosome annotations are available for the protein-coding genes (protein order), this information can be directly used to assign tandem duplicates before conducting further processing steps.</p>
 <p><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> features downstream anaylsis like batch calculating synonymous (Ks) and nonsynonymous substitutions (Ka) per orthologous sequence pair. The codon sequence alignment step consist of three subtasks, namely coding nucleotide to protein sequence translation, pairwise protein sequence alignment calculation and converting the protein sequence alignment back into a codon based alignment.</p>
 <p><strong>Note:</strong></p>
-<p>In this Vignette the <code>lastpath</code> is defined as <code>vignette.paths[1]</code> and the <code>kakscalcpath</code> as <code>vignette.paths[2]</code> to be able to build the Vignette.</p>
-<p>However, once you have compiled last-1133 and KaKs_Calculator2.0 with the functions <code><a href="../reference/make.last.html">make.last()</a></code> and <code><a href="../reference/make.KaKs_Calculator2.html">make.KaKs_Calculator2()</a></code> you won’t need to specify the paths anymore. Please remove them if you would like to repeat the examples.</p>
+<p>In this Vignette the <code>lastpath</code> is defined as <code>vignette.paths[1]</code>, the <code>kakscalcpath</code> as <code>vignette.paths[2]</code> and the <code>dagchainerpath</code> as <code>vignette.paths[3]</code> to be able to build the Vignette.</p>
+<p>However, once you have compiled last-1133, KaKs_Calculator2.0 and DAGchainer with the functions <code><a href="../reference/make_last.html">make_last()</a></code>, <code><a href="../reference/make_KaKs_Calculator2.html">make_KaKs_Calculator2()</a></code> and <code><a href="../reference/make_dagchainer.html">make_dagchainer()</a></code> you won’t need to specify the paths anymore. Please remove them if you would like to repeat the examples.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
 <span class="co">## load vignette specific libraries</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a></span><span class="op">)</span>
@@ -163,7 +163,7 @@
 <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://jeroen.cran.dev/curl">curl</a></span><span class="op">)</span><span class="op">)</span>
 <span class="co">## compile LAST, KaKs_Calculator2.0 and DAGchainer for the vignette</span>
-<span class="va">vignette.paths</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make.vignette.html">make.vignette</a></span><span class="op">(</span><span class="op">)</span></pre></div>
+<span class="va">vignette.paths</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_vignette.html">make_vignette</a></span><span class="op">(</span><span class="op">)</span></pre></div>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
@@ -179,7 +179,7 @@ install_gitlab("mpievolbio-it/crbhits", host = "https://gitlab.gwdg.de",
 ## from github
 install_github("kullrich/CRBHits", build_vignettes = TRUE, dependencies = FALSE)</a></code></pre>
 <p><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> needs <a href="http://last.cbrc.jp/">LAST</a>, <a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download">KaKs_Calculator2.0</a> and <a href="http://dagchainer.sourceforge.net/">DAGchainer</a> to be installed before one can efficiently use it.</p>
-<p>All prerequisites (LAST, KaKs_Calculator2.0, DAGchainer) are forked within <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> and can be compiled for Linux/Unix/macOS with the functions <code><a href="../reference/make.last.html">make.last()</a></code>, <code><a href="../reference/make.KaKs_Calculator2.html">make.KaKs_Calculator2()</a></code> and <code><a href="../reference/make.dagchainer.html">make.dagchainer()</a></code>.</p>
+<p>All prerequisites (LAST, KaKs_Calculator2.0, DAGchainer) are forked within <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> and can be compiled for Linux/Unix/macOS with the functions <code><a href="../reference/make_last.html">make_last()</a></code>, <code><a href="../reference/make_KaKs_Calculator2.html">make_KaKs_Calculator2()</a></code> and <code><a href="../reference/make_dagchainer.html">make_dagchainer()</a></code>.</p>
 <p>For the windows platform the user needs to use e.g. <a href="https://www.cygwin.com/">https://www.cygwin.com/</a> to be able to compile the prerequisites.</p>
 <pre><code><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">library(CRBHits)
 ## compile last-1133

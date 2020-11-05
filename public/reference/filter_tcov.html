@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>filter.qcov — filter.qcov • CRBHits</title>
+<title>filter_tcov — filter_tcov • CRBHits</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="filter.qcov — filter.qcov" />
-<meta property="og:description" content="This function filters BLAST-like tabular output according to percentage query coverage." />
+<meta property="og:title" content="filter_tcov — filter_tcov" />
+<meta property="og:description" content="This function filters BLAST-like tabular output according to percentage target coverage." />
 
 
 
@@ -123,17 +123,16 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>filter.qcov</h1>
-    <small class="dont-index">Source: <a href='https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/masterR/filter.qcov.R'><code>R/filter.qcov.R</code></a></small>
-    <div class="hidden name"><code>filter.qcov.Rd</code></div>
+    <h1>filter_tcov</h1>
+    <small class="dont-index">Source: <a href='https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/masterR/filter_tcov.R'><code>R/filter_tcov.R</code></a></small>
+    <div class="hidden name"><code>filter_tcov.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function filters BLAST-like tabular output according to percentage query coverage.</p>
+    <p>This function filters BLAST-like tabular output according to percentage target coverage.</p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for qcov</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>rbh</span>, qcov <span class='op'>=</span> <span class='fl'>0</span>, inverse <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>filter_tcov</span><span class='op'>(</span><span class='va'>rbh</span>, tcov <span class='op'>=</span> <span class='fl'>0</span>, inverse <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -143,8 +142,8 @@
       <td><p>BLAST-like tabular matrix [mandatory]</p></td>
     </tr>
     <tr>
-      <th>qcov</th>
-      <td><p>query coverage [default: 0.0]</p></td>
+      <th>tcov</th>
+      <td><p>target coverage [default: 0.0]</p></td>
     </tr>
     <tr>
       <th>inverse</th>
@@ -163,8 +162,8 @@
     <pre class="examples"><div class='input'><span class='co'>## load crbh data</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ath_aly_crbh</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>ath_aly_crbh</span><span class='op'>$</span><span class='va'>crbh1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 211  16</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='fu'>filter.qcov</span><span class='op'>(</span><span class='va'>ath_aly_crbh</span><span class='op'>$</span><span class='va'>crbh1</span>, qcov <span class='op'>=</span> <span class='fl'>0.75</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 146  16</div></pre>
+</div><div class='output co'>#&gt; [1] 211  16</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='fu'>filter_tcov</span><span class='op'>(</span><span class='va'>ath_aly_crbh</span><span class='op'>$</span><span class='va'>crbh1</span>, tcov <span class='op'>=</span> <span class='fl'>0.75</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 140  16</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

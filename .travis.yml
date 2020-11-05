@@ -25,9 +25,7 @@ matrix:
     - name: linux-focal-r-release
       os: linux
       dist: focal
-      r: release
-      r_build_args: --no-resave-data --no-build-vignettes
-      r_check_args: --as-cran --no-build-vignettes
+      r: travis_wait 30 release
       before_install:
         - sudo apt-get update
         - sudo apt-get -y install libcurl4-openssl-dev libssl-dev libxml2-dev pandoc libglu1-mesa-dev libssh2-1-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev libgit2-dev
@@ -37,8 +35,6 @@ matrix:
       os: linux
       dist: focal
       r: devel
-      r_build_args: --no-resave-data --no-build-vignettes
-      r_check_args: --as-cran --no-build-vignettes
       before_install:
         - sudo apt-get update
         - sudo apt-get -y install libcurl4-openssl-dev libssl-dev libxml2-dev pandoc libglu1-mesa-dev libssh2-1-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev
@@ -48,8 +44,6 @@ matrix:
       os: osx
       osx_image: xcode12
       r: release
-      r_build_args: --no-resave-data --no-build-vignettes
-      r_check_args: --as-cran --no-build-vignettes
       addons:
         homebrew:
           packages:
@@ -57,3 +51,11 @@ matrix:
             - openssl
             - xml2
             - mesa
+
+install:
+- travis_wait 30 R -e 'devtools::install_deps(dep = T)'
+
+script:
+- travis_wait 30 R CMD build .
+- travis_wait 30 R CMD check *tar.gz
+

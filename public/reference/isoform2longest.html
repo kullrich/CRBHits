@@ -162,7 +162,9 @@
 <span class='co'>## load example sequence data</span>
 <span class='co'>## set NCBI URL</span>
 <span class='va'>NCBI</span> <span class='op'>&lt;-</span> <span class='st'>"ftp://ftp.ncbi.nlm.nih.gov/genomes/all/"</span>
-<span class='va'>HOMSAP.NCBI.cds.url</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='va'>NCBI</span>, <span class='st'>"GCF/000/001/405/GCF_000001405.39_GRCh38.p13/GCF_000001405.39_GRCh38.p13_cds_from_genomic.fna.gz"</span><span class='op'>)</span>
+<span class='va'>HOMSAP.NCBI.cds.url</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='va'>NCBI</span>,
+ <span class='st'>"GCF/000/001/405/GCF_000001405.39_GRCh38.p13/"</span>,
+ <span class='st'>"GCF_000001405.39_GRCh38.p13_cds_from_genomic.fna.gz"</span><span class='op'>)</span>
 <span class='va'>HOMSAP.NCBI.cds.file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='co'>## download CDS file</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/download.file.html'>download.file</a></span><span class='op'>(</span><span class='va'>HOMSAP.NCBI.cds.url</span>, <span class='va'>HOMSAP.NCBI.cds.file</span>, quiet <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>

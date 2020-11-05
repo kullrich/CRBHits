@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>filter.eval — filter.eval • CRBHits</title>
+<title>plot_dagchainer — plot_dagchainer • CRBHits</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="filter.eval — filter.eval" />
-<meta property="og:description" content="This function filters BLAST-like tabular output according to evalue." />
+<meta property="og:title" content="plot_dagchainer — plot_dagchainer" />
+<meta property="og:description" content="This function plots DAGchainer (http://dagchainer.sourceforge.net/) results obtained via `rbh2dagchainer()` function." />
 
 
 
@@ -123,48 +123,78 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>filter.eval</h1>
-    <small class="dont-index">Source: <a href='https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/masterR/filter.eval.R'><code>R/filter.eval.R</code></a></small>
-    <div class="hidden name"><code>filter.eval.Rd</code></div>
+    <h1>plot_dagchainer</h1>
+    <small class="dont-index">Source: <a href='https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/masterR/plot_dagchainer.R'><code>R/plot_dagchainer.R</code></a></small>
+    <div class="hidden name"><code>plot_dagchainer.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function filters BLAST-like tabular output according to evalue.</p>
+    <p>This function plots DAGchainer (http://dagchainer.sourceforge.net/) results obtained via `rbh2dagchainer()` function.</p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for eval</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>rbh</span>, eval <span class='op'>=</span> <span class='fl'>0.001</span>, inverse <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>plot_dagchainer</span><span class='op'>(</span>
+  <span class='va'>dag</span>,
+  DotPlotTitle <span class='op'>=</span> <span class='st'>"DAGchainer results"</span>,
+  colorBy <span class='op'>=</span> <span class='st'>"none"</span>,
+  kaks <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ka.max <span class='op'>=</span> <span class='fl'>5</span>,
+  ks.max <span class='op'>=</span> <span class='fl'>5</span>,
+  ka.min <span class='op'>=</span> <span class='fl'>0</span>,
+  ks.min <span class='op'>=</span> <span class='fl'>0</span>,
+  select.chr <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>rbh</th>
-      <td><p>BLAST-like tabular matrix [mandatory]</p></td>
+      <th>dag</th>
+      <td><p>specify DAGchainer results as obtained via `rbh2dagchainer()` [mandatory]</p></td>
     </tr>
     <tr>
-      <th>inverse</th>
-      <td><p>specify if filter should keep the removed values [default: FALSE]</p></td>
+      <th>DotPlotTitle</th>
+      <td><p>specify DotPlot title [default: DAGchainer results]</p></td>
     </tr>
     <tr>
-      <th>evalue</th>
-      <td><p>evalue [default: 1e-3]</p></td>
+      <th>colorBy</th>
+      <td><p>specify if dagchainer groups should be colored by "Ka", "Ks", "Ka/Ks" or "none" [default: none]</p></td>
+    </tr>
+    <tr>
+      <th>kaks</th>
+      <td><p>specify Ka/Ks input obtained via `rbh2kaks()` [default: NULL]</p></td>
+    </tr>
+    <tr>
+      <th>ka.max</th>
+      <td><p>specify max Ka to be filtered [default: 5]</p></td>
+    </tr>
+    <tr>
+      <th>ks.max</th>
+      <td><p>specify max Ks to be filtered [default: 5]</p></td>
+    </tr>
+    <tr>
+      <th>ka.min</th>
+      <td><p>specify min Ka to be filtered [default: 0]</p></td>
+    </tr>
+    <tr>
+      <th>ks.min</th>
+      <td><p>specify min Ks to be filtered [default: 0]</p></td>
+    </tr>
+    <tr>
+      <th>select.chr</th>
+      <td><p>filter results for chromosome names [default: NULL]</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>rbh matrix</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Kristian K Ullrich</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>## load crbh data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ath_aly_crbh</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>ath_aly_crbh</span><span class='op'>$</span><span class='va'>crbh1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 211  16</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='fu'>filter.eval</span><span class='op'>(</span><span class='va'>ath_aly_crbh</span><span class='op'>$</span><span class='va'>crbh1</span>, evalue <span class='op'>=</span> <span class='fl'>1e-100</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in filter.eval(ath_aly_crbh$crbh1, evalue = 1e-100): unused argument (evalue = 1e-100)</span></div></pre>
+    <pre class="examples"><div class='input'><span class='co'>## load example sequence data</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"ath_aly_ncbi_dagchainer"</span>, package<span class='op'>=</span><span class='st'>"CRBHits"</span><span class='op'>)</span>
+<span class='co'>## plot DAGchainer results - default</span>
+<span class='fu'>plot_dagchainer</span><span class='op'>(</span><span class='va'>ath_aly_ncbi_dagchainer</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_dagchainer-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
