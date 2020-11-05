@@ -14,6 +14,11 @@
 #' @importFrom dplyr bind_cols select group_by group_map group_keys mutate
 #' @importFrom stringr word
 #' @importFrom ggplot2 ggplot geom_point geom_abline facet_wrap scale_colour_manual scale_colour_continuous
+#' @examples
+#' ## load example sequence data
+#' data("ath_aly_ncbi_dagchainer", package="CRBHits")
+#' ## plot DAGchainer results - default
+#' plot.kaks(ath_aly_ncbi_dagchainer)
 #' @export plot.dagchainer
 #' @author Kristian K Ullrich
 

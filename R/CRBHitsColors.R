@@ -6,6 +6,10 @@
 #' @return CRBHits specific color palette
 #' @importFrom grDevices col2rgb palette rgb colorRampPalette
 #' @seealso \code{\link[grDevices]{palette}}
+#' @examples
+#' plot(1:9, pch = 20, col = CRBHitsColors(9), cex = 3)
+#' ## use alpha
+#' plot(1:9, pch = 20, col = CRBHitsColors(9, 50), cex = 3)
 #' @export CRBHitsColors
 #' @author Kristian K Ullrich
 

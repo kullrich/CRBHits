@@ -42,6 +42,23 @@
 #' @importFrom dplyr bind_cols select group_by group_map group_keys mutate
 #' @importFrom stringr word
 #' @importFrom ggplot2 ggplot geom_point geom_abline facet_wrap
+#' @seealso \code{\link[CRBHits]{plot.dagchainer}},
+#' \code{\link[CRBHits]{cds2genepos}},
+#' \code{\link[CRBHits]{tandemdups}},
+#' \code{\link[CRBHits]{rbh2kaks}}
+#' @references Haas BJ et al. (2004) DAGchainer: a tool for mining segmental genome duplications and synteny. \emph{Bioinformatics.} \bold{20(18)}, 3643-3646.
+#' ## load example sequence data
+#' data("ath", package="CRBHits")
+#' ## get selfhits CRBHit pairs
+#' ath_selfhits_crbh <- cds2rbh(ath, ath, plotCurve = TRUE)
+#' ## get gene position
+#' ath.genepos <- cds2genepos(ath, "ENSEMBL")
+#' ## get DAGchainer results
+#' ath_selfblast_crbh.dagchainer <- rbh2dagchainer(ath_selfhits_crbh,
+#'                                                 ath.genepos, ath.genepos)
+#' head(ath_selfblast_crbh.dagchainer)
+#' ## plot dagchainer
+#' plot.dagchainer(ath_selfblast_crbh.dagchainer)
 #' @export rbh2dagchainer
 #' @author Kristian K Ullrich
 
@@ -71,6 +88,9 @@ rbh2dagchainer <- function(rbhpairs,
                            ){
   if(attributes(rbhpairs)$CRBHits.class != "crbh"){
     stop("Please obtain rbhpairs via the cds2rbh or the cdsfile2rbh function")
+  }
+  if(is.null(gene.position.cds1) | is.null(gene.position.cds2)){
+    stop("Please provide gene position information. Can be obtained via the cds2genepos() function")
   }
   if(!is.null(gene.position.cds1)){
     if(attributes(gene.position.cds1)$CRBHits.class != "genepos"){

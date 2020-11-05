@@ -11,10 +11,11 @@
 #' @importFrom seqinr as.alignment
 #' @seealso \code{\link[seqinr]{as.alignment}}
 #' @examples
-#' ##define two cds sequences
+#' ## define two cds sequences
 #' cds1 <- Biostrings::DNAString("ATGCAACATTGC")
 #' cds2 <- Biostrings::DNAString("ATGCATTGC")
 #' cds1.cds2.aln <- cds2codonaln(cds1, cds2)
+#' ## convert into alignment
 #' dnastring2aln(cds1.cds2.aln)
 #' @export dnastring2aln
 #' @author Kristian K Ullrich

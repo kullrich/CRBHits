@@ -10,25 +10,27 @@
 #' @seealso \code{\link[Biostrings]{XStringSet-class}}
 #' @examples
 #' \dontrun{
-#' ##load example sequence data
-#' #set NCBI URL
+#' ## load example sequence data
+#' ## set NCBI URL
 #' NCBI <- "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/"
 #' HOMSAP.NCBI.cds.url <- paste0(NCBI, "GCF/000/001/405/GCF_000001405.39_GRCh38.p13/GCF_000001405.39_GRCh38.p13_cds_from_genomic.fna.gz")
 #' HOMSAP.NCBI.cds.file <- tempfile()
+#' ## download CDS file
 #' curl::curl_download(HOMSAP.NCBI.cds.url, HOMSAP.NCBI.cds.file)
 #' HOMSAP.NCBI.cds <- Biostrings::readDNAStringSet(HOMSAP.NCBI.cds.file)
-#' #get longest isoform
+#' ## get longest isoform
 #' HOMSAP.NCBI.cds.longest <- isoform2longest(HOMSAP.NCBI.cds, "NCBI")
 #' length(HOMSAP.NCBI.cds)
 #' length(HOMSAP.NCBI.cds.longest)
-#' #set ENSEMBL URL
+#' ## set ENSEMBL URL
 #' ensembl <- "ftp://ftp.ensembl.org/pub/release-101/fasta/"
-#' #set Homo sapiens CDS URL
+#' ## set Homo sapiens CDS URL
 #' HOMSAP.ENSEMBL.cds.url <- paste0(ensembl, "homo_sapiens/cds/Homo_sapiens.GRCh38.cds.all.fa.gz")
 #' HOMSAP.ENSEMBL.cds.file <- tempfile()
+#' ## download CDS file
 #' curl::curl_download(HOMSAP.ENSEMBL.cds.url, HOMSAP.ENSEMBL.cds.file)
 #' HOMSAP.ENSEMBL.cds <- Biostrings::readDNAStringSet(HOMSAP.ENSEMBL.cds.file)
-#' #get longest isoform
+#' ## get longest isoform
 #' HOMSAP.ENSEMBL.cds.longest<-isoform2longest(HOMSAP.ENSEMBL.cds, "ENSEMBL")
 #' length(HOMSAP.ENSEMBL.cds)
 #' length(HOMSAP.ENSEMBL.cds.longest)

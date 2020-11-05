@@ -14,14 +14,14 @@
 #' @references Wang D, Zhang Y et al. (2010) KaKs_Calculator 2.0: a toolkit incorporating gamma-series methods and sliding window strategies. \emph{Genomics Proteomics Bioinformatics.} \bold{8(1)}, 77-80.
 #' @references Yang Z and Nielson R. (2000) Estimating synonymous and nonsynonymous substitution rates under realistic evolutionary models. \emph{Mol. Biol. Evol.}, \bold{17(1)}, 32-43.
 #' @examples
-#' ##load example sequence data
+#' ## load example sequence data
 #' data("ath", package="CRBHits")
 #' data("aly", package="CRBHits")
-#' ##select a sequence pair according to a best hit pair (done for you)
+#' ## select a sequence pair according to a best hit pair (done for you)
 #' cds1 <- ath[1]
 #' cds2 <- aly[282]
 #' cds2kaks(cds1, cds2, model = "Li")
-#' #using an alternative substitutionMatrix
+#' ## using an alternative substitutionMatrix
 #' cds2kaks(cds1, cds2, model = "Li", substitutionMatrix = "BLOSUM45")
 #' cds2kaks(cds1, cds2, model = "Li", substitutionMatrix = "BLOSUM80")
 #' \dontrun{

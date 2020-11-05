@@ -46,21 +46,20 @@
 #' @references Kiełbasa, SM et al. (2011) Adaptive seeds tame genomic sequence comparison. \emph{Genome research}, \bold{21(3)}, 487-493.
 #' @references Rost B. (1999). Twilight zone of protein sequence alignments. \emph{Protein Engineering}, \bold{12(2)}, 85-94.
 #' @examples
-#' ##compile last-1133 within CRBHits
+#' ## compile last-1133 within CRBHits
 #' make.last()
-#' ##load example sequence data
+#' ## load example sequence data
 #' athfile <- system.file("fasta", "ath.cds.fasta.gz", package = "CRBHits")
 #' alyfile <- system.file("fasta", "aly.cds.fasta.gz", package = "CRBHits")
-#' #get CRBHit pairs
+#' ## get CRBHit pairs
 #' ath_aly_crbh <- cdsfile2rbh(athfile, alyfile, plotCurve = TRUE)
 #' dim(ath_aly_crbh$crbh.pairs)
-#' #get classical reciprocal best hit (RBHit) pairs
+#' ## get classical reciprocal best hit (RBHit) pairs
 #' ath_aly_rbh <- cdsfile2rbh(athfile, alyfile, crbh = FALSE)
 #' dim(ath_aly_rbh$rbh.pairs)
-#' #see ?cds2rb for more examples
-#' #
-#' #selfblast
+#' ## selfblast
 #' ath_selfblast_crbh <- cdsfile2rbh(athfile, athfile, plotCurve = TRUE)
+#' ## see ?cds2rbh for more examples
 #' @export cdsfile2rbh
 #' @author Kristian K Ullrich
 

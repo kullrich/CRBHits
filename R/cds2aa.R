@@ -8,7 +8,7 @@
 #' @seealso \code{\link[Biostrings]{XStringSet-class}},
 #' \code{\link[seqinr]{translate}}
 #' @examples
-#' ##load example sequence data
+#' ## load example sequence data
 #' data("ath", package="CRBHits")
 #' cds2aa(ath)
 #' @export cds2aa

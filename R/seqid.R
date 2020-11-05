@@ -6,7 +6,7 @@
 #' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet readDNAStringSet readAAStringSet writeXStringSet width subseq
 #' @importFrom stringr word
 #' @examples
-#' ##load example sequence data
+#' ## load example sequence data
 #' data("ath", package="CRBHits")
 #' seqid(ath)
 #' @export seqid

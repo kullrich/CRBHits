@@ -7,7 +7,7 @@
 #' @return rbh matrix
 #' @importFrom dplyr filter
 #' @examples
-#' ##load crbh data
+#' ## load crbh data
 #' data(ath_aly_crbh)
 #' dim(ath_aly_crbh$crbh1)
 #' dim(filter.eval(ath_aly_crbh$crbh1, evalue = 1e-100))

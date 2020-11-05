@@ -5,44 +5,55 @@
 #' @param cds1 cds1 sequences as \code{DNAStringSet} or \code{url} for first crbh pairs column [mandatory]
 #' @param cds2 cds2 sequences as \code{DNAStringSet} or \code{url} for second crbh pairs column [mandatory]
 #' @param model specify codon model either "Li" or "YN" [default: Li]
+#' @param plotHistPlot specify if histogram should be plotted [default: TRUE]
 #' @param plotDotPlot specify if dotplot should be plotted (mandatory to define \code{gene.position.cds1} and \code{gene.position.cds1}) [default: FALSE]
+#' @param dag specify DAGchainer results as obtained via `rbh2dagchainer()` [default: NULL]
 #' @param gene.position.cds1 specify gene position for cds1 sequences (see \code{\link[CRBHits]{cds2genepos}}) [default: NULL]
 #' @param gene.position.cds2 specify gene position for cds2 sequences (see \code{\link[CRBHits]{cds2genepos}}) [default: NULL]
 #' @param tandem.dups.cds1 specify tandem duplicates for cds1 sequences (see \code{\link[CRBHits]{tandemdups}}) [default: NULL]
 #' @param tandem.dups.cds2 specify tandem duplicates for cds2 sequences (see \code{\link[CRBHits]{tandemdups}}) [default: NULL]
+#' @param colorBy specify if Ka/Ks gene pairs should be colored by "rbh_class", dagchainer", "tandemdups" or "none" [default: none]
 #' @param threads number of parallel threads [default: 1]
 #' @param kakscalcpath specify the PATH to the KaKs_Calculator binaries [default: /extdata/KaKs_Calculator2.0/src/]
-#' @param ... other codon alignment parameters (see \code{\link[CRBHits]{cds2codonaln}})
+#' @param ... other codon alignment parameters (see \code{\link[CRBHits]{cds2codonaln}}) and other plot.kaks parameters (see \code{\link[CRBHits]{plot.kaks}})
 #' @importFrom doMC registerDoMC
 #' @importFrom foreach foreach %dopar%
 #' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet readDNAStringSet readAAStringSet writeXStringSet width subseq
 #' @importFrom stringr word
 #' @seealso \code{\link[CRBHits]{cds2kaks}},
 #' \code{\link[CRBHits]{isoform2longest}},
-#' \code{\link[CRBHits]{cds2genepos}}
+#' \code{\link[CRBHits]{cds2genepos}},
+#' \code{\link[CRBHits]{plot.kaks}},
+#' \code{\link[CRBHits]{rbh2dagchainer}},
+#' \code{\link[CRBHits]{tandemdups}}
 #' @references Li WH. (1993) Unbiased estimation of the rates of synonymous and nonsynonymous substitution. \emph{J. Mol. Evol.}, \bold{36}, 96-99.
 #' @references Wang D, Zhang Y et al. (2010) KaKs_Calculator 2.0: a toolkit incorporating gamma-series methods and sliding window strategies. \emph{Genomics Proteomics Bioinformatics.} \bold{8(1)}, 77-80.
 #' @references Yang Z and Nielson R. (2000) Estimating synonymous and nonsynonymous substitution rates under realistic evolutionary models. \emph{Mol. Biol. Evol.}, \bold{17(1)}, 32-43.
 #' @examples
-#' ##load example sequence data
+#' ## load example sequence data
 #' data("ath", package="CRBHits")
 #' data("aly", package="CRBHits")
-#' ##load example CRBHit pairs
+#' ## load example CRBHit pairs
 #' data("ath_aly_crbh", package="CRBHits")
-#' ##only analyse subset of CRBHit pairs
+#' ## only analyse subset of CRBHit pairs
 #' ath_aly_crbh$crbh.pairs <- head(ath_aly_crbh$crbh.pairs)
 #' ath_aly_crbh.kaks <- rbh2kaks(rbhpairs = ath_aly_crbh,
 #'                               cds1 = ath, cds2 = aly, model = "Li")
 #' head(ath_aly_crbh.kaks)
+#' ## plot kaks
+#' g.kaks <- plot.kaks(ath_aly_crbh.kaks)
 #' @export rbh2kaks
 #' @author Kristian K Ullrich
 
 rbh2kaks <- function(rbhpairs, cds1, cds2, model = "Li",
+                     plotHistPlot = FALSE,
                      plotDotPlot = FALSE,
+                     dag = NULL,
                      gene.position.cds1 = NULL,
                      gene.position.cds2 = NULL,
                      tandem.dups.cds1 = NULL,
                      tandem.dups.cds2 = NULL,
+                     colorBy = "none",
                      threads = 1,
                      kakscalcpath = paste0(find.package("CRBHits"),
                                            "/extdata/KaKs_Calculator2.0/src/"),
@@ -50,6 +61,7 @@ rbh2kaks <- function(rbhpairs, cds1, cds2, model = "Li",
   if(attributes(rbhpairs)$CRBHits.class != "crbh"){
     stop("Please obtain rbhpairs via the cds2rbh() or the cdsfile2rbh() function")
   }
+  selfblast <- attributes(rbhpairs)$selfblast
   if(!is.null(gene.position.cds1)){
     if(attributes(gene.position.cds1)$CRBHits.class != "genepos"){
       stop("Please obtain gene position via the cds2genepos() function or add a 'genepos' class attribute")
@@ -97,6 +109,32 @@ rbh2kaks <- function(rbhpairs, cds1, cds2, model = "Li",
   }
   if(model == "YN"){
     attr(out, "CRBHits.model") <- "YN"
+  }
+  if(model == "YN"){
+    attr(out, "CRBHits.model") <- "YN"
+  }
+  attr(out, "selfblast") <- selfblast
+  if(plotHistPlot){
+    plot.out <- plot.kaks(out,
+                     dag = dag,
+                     gene.position.cds1 = gene.position.cds1,
+                     gene.position.cds2 = gene.position.cds2,
+                     tandem.dups.cds1 = tandem.dups.cds1,
+                     tandem.dups.cds2 = tandem.dups.cds2,
+                     PlotType = "h",
+                     colorBy = colorBy,
+                     ...)
+  }
+  if(plotDotPlot){
+    plot.out <- plot.kaks(out,
+                     dag = dag,
+                     gene.position.cds1 = gene.position.cds1,
+                     gene.position.cds2 = gene.position.cds2,
+                     tandem.dups.cds1 = tandem.dups.cds1,
+                     tandem.dups.cds2 = tandem.dups.cds2,
+                     PlotType = "d",
+                     colorBy = colorBy,
+                     ...)
   }
   return(out)
 }

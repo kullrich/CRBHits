@@ -13,7 +13,7 @@
 #' @references Pagès, H et al. (2014) Biostrings: Efficient manipulation of biological strings. \emph{R package version}, \bold{2(0)}.
 #' @seealso \code{\link[Biostrings]{pairwiseAlignment}}
 #' @examples
-#' ##define two cds sequences
+#' ## define two cds sequences
 #' cds1 <- Biostrings::DNAString("ATGCAACATTGC")
 #' cds2 <- Biostrings::DNAString("ATGCATTGC")
 #' cds2codonaln(cds1, cds2)
