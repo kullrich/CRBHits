@@ -69,6 +69,10 @@ suppressPackageStartupMessages(library(gridExtra))
 suppressPackageStartupMessages(library(curl))
 ## compile LAST, KaKs_Calculator2.0 and DAGchainer for the vignette
 vignette.paths <- make_vignette()
+## set FTP handle due to travis-ci
+ftp_handle <- curl::new_handle( ftp_use_epsv = FALSE,
+                                crlf = TRUE,
+                                ssl_verifypeer = FALSE)
 ```
 
 ## 1. [Installation]{#install}
@@ -166,7 +170,11 @@ HOMSAP.cds.ENSEMBL.url <- paste0(
   "ftp://ftp.ensembl.org/pub/release-101/fasta/",
   "homo_sapiens/cds/Homo_sapiens.GRCh38.cds.all.fa.gz")
 HOMSAP.cds.ENSEMBL.file <- tempfile()
-download.file(HOMSAP.cds.ENSEMBL.url, HOMSAP.cds.ENSEMBL.file, quiet = FALSE)
+#download.file(HOMSAP.cds.ENSEMBL.url, HOMSAP.cds.ENSEMBL.file, quiet = FALSE)
+curl::curl_download(url = HOMSAP.cds.ENSEMBL.url,
+                    handle = ftp_handle,
+                    mode = "wb",
+                    destfile = HOMSAP.cds.ENSEMBL.file)
 HOMSAP.cds.ENSEMBL <- Biostrings::readDNAStringSet(HOMSAP.cds.ENSEMBL.file)
 ## reduce to the longest isoform
 HOMSAP.cds.ENSEMBL.longest <- isoform2longest(HOMSAP.cds.ENSEMBL, "ENSEMBL")

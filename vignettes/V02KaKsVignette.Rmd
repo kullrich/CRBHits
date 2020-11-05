@@ -63,6 +63,10 @@ suppressPackageStartupMessages(library(gridExtra))
 suppressPackageStartupMessages(library(curl))
 ## compile LAST, KaKs_Calculator2.0 and DAGchainer for the vignette
 vignette.paths <- make_vignette()
+## set FTP handle due to travis-ci
+ftp_handle <- curl::new_handle( ftp_use_epsv = FALSE,
+                                crlf = TRUE,
+                                ssl_verifypeer = FALSE)
 ```
 
 ## 1. [Conditional reciprocal best hit pairs]{#crbhpairs}
@@ -200,7 +204,11 @@ ARATHA.GFF.url <- paste0(ensemblPlants, "gff3/arabidopsis_thaliana/",
 ## downlaod and gunzip file
 ARATHA.GFF.file <- tempfile()
 ARATHA.GFF.file.gz <- paste0(ARATHA.GFF.file, ".gz")
-download.file(ARATHA.GFF.url, ARATHA.GFF.file.gz, quiet = FALSE)
+#download.file(ARATHA.GFF.url, ARATHA.GFF.file.gz, quiet = FALSE)
+curl::curl_download(url = ARATHA.GFF.url,
+                    handle = ftp_handle,
+                    mode = "wb",
+                    destfile = ARATHA.GFF.file.gz)
 system(paste0("gunzip -f ", ARATHA.GFF.file.gz))
 ## read ARATHA.GFF.file
 ARATHA.gff <- read.table(ARATHA.GFF.file, sep = "\t", 
@@ -531,12 +539,20 @@ PANTRO.cds.url <- paste0(ensembl, "pan_troglodytes/cds/Pan_troglodytes.Pan_tro_3
 
 ## get Homo sapiens CDS
 HOMSAP.cds.file <- tempfile()
-download.file(HOMSAP.cds.url, HOMSAP.cds.file, quiet = FALSE)
+#download.file(HOMSAP.cds.url, HOMSAP.cds.file, quiet = FALSE)
+curl::curl_download(url = HOMSAP.cds.url,
+                    handle = ftp_handle,
+                    mode = "wb",
+                    destfile = HOMSAP.cds.file)
 HOMSAP.cds <- Biostrings::readDNAStringSet(HOMSAP.cds.file)
 
 ## get Pan troglodytes CDS
 PANTRO.cds.file <- tempfile()
-download.file(PANTRO.cds.url, PANTRO.cds.file, quiet = FALSE)
+#download.file(PANTRO.cds.url, PANTRO.cds.file, quiet = FALSE)
+curl::curl_download(url = PANTRO.cds.url,
+                    handle = ftp_handle,
+                    mode = "wb",
+                    destfile = PANTRO.cds.file)
 PANTRO.cds <- Biostrings::readDNAStringSet(PANTRO.cds.file)
 
 ## get longest isoform
