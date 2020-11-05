@@ -1,4 +1,3 @@
-[![Build Status](https://travis-ci.com/kullrich/CRBHits.svg?token=CdAqxcdzRKt5DsRtbcmR&branch=master)](https://travis-ci.com/kullrich/CRBHits)
 [![pipeline status](https://gitlab.gwdg.de/mpievolbio-it/crbhits/badges/master/pipeline.svg)](https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/commits/master)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
 [![MITlicense](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
