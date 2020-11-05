@@ -5,14 +5,14 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CRBHits calculates conditional reciprocal best hits and subsequently can generate dNdS values • CRBHits</title>
+<title>Conditional reciprocal best hits (CRBHit) in R • CRBHits</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="CRBHits calculates conditional reciprocal best hits and subsequently can generate dNdS values">
-<meta property="og:description" content="What the package does (one paragraph).">
+<script src="pkgdown.js"></script><meta property="og:title" content="Conditional reciprocal best hits (CRBHit) in R">
+<meta property="og:description" content="CRBHits calculates conditional reciprocal best hit (CRBHit) pairs and subsequently can classify tandem duplicates, assign syntney groups and calculate Ka/Ks values.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">CRBHits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
       </span>
     </div>
 
@@ -57,10 +57,7 @@
       <a href="articles/V01CRBHitsBasicVignette.html">CRBHits Basic Vignette</a>
     </li>
     <li>
-      <a href="articles/V02dNdSClusteringVignette.html">dNdS Clustering Vignette</a>
-    </li>
-    <li>
-      <a href="articles/V03WGDVignette.html">Paranome-based Whole Genome Duplication Vignette</a>
+      <a href="articles/V02KaKsVignette.html">KaKs Vignette</a>
     </li>
   </ul>
 </li>
@@ -86,21 +83,26 @@
   <div class="contents col-md-9">
 
 
-<div id="crbhits---conditional-reciprocal-best-hits-in-r" class="section level1">
+<div id="crbhits---from-conditional-reciprocal-best-hits-to-codon-alignments-and-kaks-in-r" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#crbhits---conditional-reciprocal-best-hits-in-r" class="anchor"></a>CRBHits - Conditional Reciprocal Best Hits in R</h1></div>
+<a href="#crbhits---from-conditional-reciprocal-best-hits-to-codon-alignments-and-kaks-in-r" class="anchor"></a>CRBHits - From Conditional Reciprocal Best Hits to Codon Alignments and Ka/Ks in R</h1></div>
 <p>R package source code: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">https://gitlab.gwdg.de/mpievolbio-it/crbhits</a></p>
 <p>R package pages: <a href="https://mpievolbio-it.pages.gwdg.de/crbhits/">https://mpievolbio-it.pages.gwdg.de/crbhits/</a></p>
-<p>R packges issues: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues">https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues</a></p>
+<p>R package issues: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues">https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues</a></p>
 </div>
 <div id="crbhits---description" class="section level1">
 <h1 class="hasAnchor">
 <a href="#crbhits---description" class="anchor"></a>CRBHits - Description</h1>
-<p><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> is a reimplementation of the Conditional Reciprocal Best Hit algorithm <a href="https://github.com/cboursnell/crb-blast">crb-blast</a> in R.</p>
-<p>The algorithm was introduced by <a href="http://www.plosgenetics.org/article/info%3Adoi%2F10.1371%2Fjournal.pgen.1004365">Aubry S, Kelly S et al. (2014)</a> and ported to python <a href="https://pypi.org/project/shmlast/">shmlast</a> (<a href="https://joss.theoj.org/papers/10.21105/joss.00142">Scott C. 2017</a>) which benefits from the blast-like sequence search software <a href="http://last.cbrc.jp/">LAST</a> (<a href="https://genome.cshlp.org/content/21/3/487.long">Kiełbasa SM et al. 2011</a>).</p>
-<p>Like <a href="https://pypi.org/project/shmlast/">shmlast</a>, <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> plots the fitted model of the conditional reciprocal best hit evalue based algorithm. In addition users can filter the hit pairs prior fitting for other cirteria like evalue, protein identity and/or the twilight zone of protein sequence alignments according to <a href="https://academic.oup.com/peds/article/12/2/85/1550637">Rost B. (1999)</a>.</p>
-<p><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> only takes coding nucleotide sequences as the query and target inputs, since the secondary aim of CRBHits is to calculate synonymous and non-synonymous substitutions with the R package <a href="https://cran.r-project.org/web/packages/seqinr/index.html">seqinr</a> (<a href="https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10">Sharif D, Lobry JR. 2007</a>) or the external tool <a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download">KaKs_Calculator2.0</a> (<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5054116/">Wang D, Zhang Y et al. 2010</a>). This is in contrast to <a href="https://github.com/cboursnell/crb-blast">crb-blast</a>, which can take proteins or nucleotides as the target sequences and in contrast to <a href="https://pypi.org/project/shmlast/">shmlast</a>, which uses nucleotides as queries and proteins as target sequences.</p>
-<p>The resultings conditional reciprocal best hit pair matrix can be used to obtain pairwise codon alignments, which are further used to calculate synonymous and nonsynonymous substitutions using parallelization. The ka/ks (dN/dS) values can be obtained either via the codon model of <a href="https://www.ncbi.nlm.nih.gov/pubmed/8433381">Li WH. (1999)</a> implemented in the R package <a href="https://cran.r-project.org/web/packages/seqinr/index.html">seqinr</a> or the model <a href="https://www.ncbi.nlm.nih.gov/pubmed/10666704">Yang Z and Nielson R. (2000)</a> implemented in <a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download">KaKs_Calculator2.0</a>.</p>
+<p><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> is a reimplementation of the Conditional Reciprocal Best Hit (CRBH) algorithm <a href="https://github.com/cboursnell/crb-blast">crb-blast</a> in R. It covers all necessary steps from CRBHit pair calculation to Codon Alignments and Ka/Ks.</p>
+<p>The CRBH algorithm was introduced by <a href="http://www.plosgenetics.org/article/info%3Adoi%2F10.1371%2Fjournal.pgen.1004365">Aubry S, Kelly S et al. (2014)</a> and ported to python <a href="https://pypi.org/project/shmlast/">shmlast</a> (<a href="https://joss.theoj.org/papers/10.21105/joss.00142">Scott C. 2017</a>) which benefits from the blast-like sequence search software <a href="http://last.cbrc.jp/">LAST</a> (<a href="https://genome.cshlp.org/content/21/3/487.long">Kiełbasa SM et al. 2011</a>).</p>
+<p>Like <a href="https://pypi.org/project/shmlast/">shmlast</a>, <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> plots the fitted model of the CRBHit evalue based algorithm. In addition users can filter the CRBHit pairs prior fitting for other criteria like evalue, protein identity and/or the twilight zone of protein sequence alignments according to <a href="https://academic.oup.com/peds/article/12/2/85/1550637">Rost B. (1999)</a>.</p>
+<p><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> only takes coding nucleotide sequences as the query and target inputs, since the secondary aim of CRBHits is to calculate synonymous and non-synonymous substitutions with the R package <a href="https://cran.r-project.org/web/packages/seqinr/index.html">seqinr</a> (<a href="https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10">Sharif D, Lobry JR. 2007</a>) or the external tool <a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download">KaKs_Calculator2.0</a> (<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5054116/">Wang D, Zhang Y et al. 2010</a>).</p>
+<p>This is in contrast to <a href="https://github.com/cboursnell/crb-blast">crb-blast</a>, which can take proteins or nucleotides as the target sequences and in contrast to <a href="https://pypi.org/project/shmlast/">shmlast</a>, which uses nucleotides as queries and proteins as target sequences.</p>
+<p>The resulting CRBHit pairs can be used to obtain pairwise codon alignments, which are further used to calculate synonymous and nonsynonymous substitutions using parallelization.</p>
+<p>The Ka/Ks (also sometimes denoted as dN/dS) values can be obtained either via the codon model of <a href="https://www.ncbi.nlm.nih.gov/pubmed/8433381">Li WH. (1999)</a> as implemented in the R package <a href="https://cran.r-project.org/web/packages/seqinr/index.html">seqinr</a> or the model of <a href="https://www.ncbi.nlm.nih.gov/pubmed/10666704">Yang Z and Nielson R. (2000)</a> as implemented in <a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download">KaKs_Calculator2.0</a>.</p>
+<p>The following two images show the two main functions of the package <code><a href="reference/cds2rbh.html">cds2rbh()</a></code> and <code><a href="reference/rbh2kaks.html">rbh2kaks()</a></code>, which are described in more detail in the package vignettes.</p>
+<p><img src="./vignettes/cds2rbhoverview.png" alt="Figure: Overview of the `cds2rbh()` function" width="200"></p>
+<p><img src="./vignettes/rbh2kaksoverview.png" alt="Figure: Overview of the `rbh2kaks()` function" width="200"></p>
 </div>
 <div id="installation" class="section level1">
 <h1 class="hasAnchor">
@@ -115,25 +117,33 @@
 </h3>
 <p>In most cases you need to first install the following system-wide packages to be able to compile the R dependencies.</p>
 <p>Ubuntu/Debian</p>
-<pre><code>sudo apt-get install libcurl4-openssl-dev libssl-dev libxml2-dev libglu1-mesa-dev</code></pre>
+<pre><code>sudo apt-get install libcurl4-openssl-dev libssl-dev libxml2-dev libglu1-mesa-dev libgit2-dev
+#pkgdown dependencies - pkgdown is used to build R package pages
+#sudo apt-get install libssh2-1-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev</code></pre>
 <p>CentOS</p>
-<pre><code>sudo yum install libcurl-devel openssl-devel libxml2-devel mesa-libGLU-devel</code></pre>
+<pre><code>sudo yum install libcurl-devel openssl-devel libxml2-devel mesa-libGLU-devel libgit2-devel
+#pkgdown dependencies - pkgdown is used to build R package pages
+#sudo yum install libssh2-devel fontconfig-devel harfbuzz-devel fribidi-devel</code></pre>
 <ul>
 <li><a href="https://cran.r-project.org/web/packages/devtools/index.html">devtools</a></li>
 <li><a href="https://cran.r-project.org/web/packages/testthat/index.html">testthat</a></li>
+<li><a href="https://cran.r-project.org/web/packages/curl/index.html">curl</a></li>
 <li><a href="https://cran.r-project.org/web/packages/seqinr/index.html">seqinr</a></li>
 <li><a href="https://cran.r-project.org/web/packages/foreach/index.html">foreach</a></li>
 <li><a href="https://cran.r-project.org/web/packages/doMC/index.html">doMC</a></li>
-<li><a href="https://cran.r-project.org/web/packages/magrittr/index.html">magrittr</a></li>
+<li><a href="https://cran.r-project.org/web/packages/tidyverse/index.html">tidyverse</a></li>
+<li><a href="https://cran.r-project.org/web/packages/gridExtra/index.html">gridExtra</a></li>
 <li><a href="https://cran.r-project.org/web/packages/mclust/index.html">mclust</a></li>
 <li><a href="https://cran.r-project.org/web/packages/feature/index.html">feature</a></li>
 </ul>
 <pre><code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages("devtools")
 install.packages("testthat")
+install.packages("curl")
 install.packages("seqinr")
 install.packages("foreach")
 install.packages("doMC")
-install.packages("magrittr")
+install.packages("tidyverse")
+install.packages("gridExtra")
 install.packages("mclust")
 install.packages("feature")</a></code></pre>
 </div>
@@ -141,6 +151,9 @@ install.packages("feature")</a></code></pre>
 <h3 class="hasAnchor">
 <a href="#install-packages-from-bioconductor" class="anchor"></a>install packages from <a href="https://www.bioconductor.org/">Bioconductor</a>
 </h3>
+<ul>
+<li><a href="http://bioconductor.org/packages/release/bioc/html/Biostrings.html">Biostrings</a></li>
+</ul>
 <pre><code>if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
@@ -150,7 +163,7 @@ BiocManager::install("Biostrings")</code></pre>
 <h3 class="hasAnchor">
 <a href="#install-crbhits" class="anchor"></a>install <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a>
 </h3>
-<pre><code><a href="https://devtools.r-lib.org//reference">library(devtools)
+<pre><code><a href="https://devtools.r-lib.org/">library(devtools)
 install_gitlab("mpievolbio-it/crbhits", host = "https://gitlab.gwdg.de",
 build_vignettes = FALSE, dependencies = FALSE)
 #install_github("kullrich/CRBHits", build_vignettes = FALSE, dependencies = FALSE)</a></code></pre>
@@ -159,54 +172,77 @@ build_vignettes = FALSE, dependencies = FALSE)
 <div id="external-tools-installation-prerequisites" class="section level2">
 <h2 class="hasAnchor">
 <a href="#external-tools-installation-prerequisites" class="anchor"></a>External tools installation prerequisites</h2>
-<p>The source code for both prerequisites (LAST, KaKs_Calculator2.0) are forked within <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a>.</p>
+<p>The source code for the prerequisites (LAST, KaKs_Calculator2.0, DAGchainer) are forked within <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a>.</p>
 <ul>
 <li>
-<a href="http://last.cbrc.jp/">LAST</a> <a href="http://last.cbrc.jp/last-1060.zip">http://last.cbrc.jp/last-1060.zip</a>
+<a href="http://last.cbrc.jp/">LAST</a> <a href="http://last.cbrc.jp/last-1133.zip">http://last.cbrc.jp/last-1133.zip</a>
 </li>
 </ul>
-<p>To compile the forked version of <a href="http://last.cbrc.jp/">LAST</a> within the <code>CRBHits</code> R package directory try to use the function <code><a href="reference/make.last.html">make.last()</a></code>:</p>
-<pre><code><a href="reference/make.last.html">## see more installation information here, if make fails
+<p>To compile the forked version of <a href="http://last.cbrc.jp/">LAST</a> within the <code>CRBHits</code> R package directory try to use the function <code><a href="reference/make_last.html">make_last()</a></code>:</p>
+<pre><code><a href="reference/make_last.html">## see more installation information here, if make fails
 ## last-install-help: http://last.cbrc.jp/doc/last.html
-make.last()</a></code></pre>
+make_last()</a></code></pre>
 <p>To compile <a href="http://last.cbrc.jp/">LAST</a> yourself on Linux/Unix/macOS into another folder:</p>
-<pre><code>#create and change into the directory to install LAST
-#e.g.
+<pre><code>## create and change into the directory to install LAST
+## e.g.
 mkdir /tmp/last
 cd /tmp/last
-#donwload last-1060
-curl -O http://last.cbrc.jp/last-1060.zip
-unzip last-1060.zip
-cd last-1060
-#compile LAST
+## donwload last-1133
+curl -O http://last.cbrc.jp/last-1133.zip
+unzip last-1133.zip
+cd last-1133
+## compile LAST
 make</code></pre>
-<p>To compile the forked version of <a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download">KaKs_Calculator2.0</a> within the <code>CRBHits</code> R package directory try to use the function <code><a href="reference/make.KaKs_Calculator2.html">make.KaKs_Calculator2()</a></code>:</p>
-<p><strong>Note:</strong> The original files can be downloaded here:</p>
 <ul>
 <li><a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download">KaKs_Calculator2.0</a></li>
 </ul>
-<pre><code><a href="reference/make.KaKs_Calculator2.html">make.KaKs_Calculator2()</a></code></pre>
+<p>To compile the forked version of <a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download">KaKs_Calculator2.0</a> within the <code>CRBHits</code> R package directory try to use the function <code><a href="reference/make_KaKs_Calculator2.html">make_KaKs_Calculator2()</a></code>:</p>
+<pre><code><a href="reference/make_KaKs_Calculator2.html">## compile KaKs_Calculator2
+make_KaKs_Calculator2()</a></code></pre>
 <p><strong>Note:</strong> Due to some changes in the latest <strong>g++</strong> compilers the source code was altered to meet this changes, which are directly incorporated into the <code>KaKs_Calculator2.0.tar.gz</code> that is distributed with <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a>. It is recommended to compile from this file (see below):</p>
-<pre><code>#create and change into the directory to install KaKs_Calculator2
-#e.g.
+<pre><code>## create and change into the directory to install KaKs_Calculator2
+## e.g.
 mkdir /tmp/KaKs_Calculator2
 cd /tmp/KaKs_Calculator2
-#donwload KaKs_Calculator2
+## donwload KaKs_Calculator2
 curl -O https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/raw/master/inst/extdata/KaKs_Calculator2.0.tar.gz
 tar -xvf KaKs_Calculator2.0.tar.gz
 cd KaKs_Calculator2.0/src
-#compile KaKs_Calculator2
+## compile KaKs_Calculator2
 make clean
 make</code></pre>
-<p>If you would like to install the latest version of both tools, you need to download the source code and compile again.</p>
-<p>If you would like to use your own compiled versions of <code>LAST</code> and <code>KaKs_Calculator2.0</code> you need to set the correct <code>@param</code> in the corresponding functions of <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a>.</p>
-<pre><code>#example how to use own compiled versions of LAST and KaKs_Calculator2.0
-my.lastpath &lt;- "/tmp/last/last-1060/src"
+<ul>
+<li><a href="http://dagchainer.sourceforge.net/">DAGchainer</a></li>
+</ul>
+<p>To compile the forked version of <a href="http://dagchainer.sourceforge.net/">DAGchainer</a> within the <code>CRBHits</code> R package directory try to use the function <code><a href="reference/make_dagchainer.html">make_dagchainer()</a></code>:</p>
+<pre><code><a href="reference/make_dagchainer.html">## compile DAGchainer
+make_dagchainer()</a></code></pre>
+<p><strong>Note:</strong> Due to some changes in the latest <strong>g++</strong> compilers the source code was altered to meet this changes, which are directly incorporated into the <code>dagchainer.zip</code> that is distributed with <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a>. It is recommended to compile from this file (see below):</p>
+<pre><code>## create and change into the directory to install DAGchainer
+## e.g.
+mkdir /tmp/DAGchainer
+cd /tmp/DAGchainer
+## donwload DAGchainer
+curl -O https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/raw/master/inst/extdata/dagchainer.zip
+unzip dagchainer.zip
+cd dagchainer
+## compile DAGchainer
+make</code></pre>
+<p>If you would like to install the latest version of the tools, you need to download the source code and compile again.</p>
+<p>If you would like to use your own compiled versions of <code>LAST</code>, <code>KaKs_Calculator2.0</code> and <code>DAGchainer</code> you need to set the correct <code>@param</code> in the corresponding functions of <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a>.</p>
+<pre><code>## example how to use own compiled versions of LAST, KaKs_Calculator2.0 and DAGchainer
+my.lastpath &lt;- "/tmp/last/last-1133/src"
 my.kakspath &lt;- "/tmp/KaKs_Calculator2/KaKs_Calculator2.0/src"
+my.dagchainerpath &lt;- "/tmp/dagcahiner"
+
 ?cds2rbh
 cds2rbh(., ., lastpath = my.lastpath)
+
 ?rbh2kaks
-rbh2kaks(., ., model = "YN", kakscalcpath = my.kakspaths)</code></pre>
+rbh2kaks(., ., model = "YN", kakscalcpath = my.kakspaths)
+
+?rbh2dagchainer
+rbh2dagchainer(., ., dagchainerpath = my.dagchainerpath)</code></pre>
 </div>
 <div id="vignettes" class="section level2">
 <h2 class="hasAnchor">
@@ -214,69 +250,103 @@ rbh2kaks(., ., model = "YN", kakscalcpath = my.kakspaths)</code></pre>
 <p>These vignettes introduce <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a></p>
 <ul>
 <li>
-<a href="https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V01CRBHitsBasicVignette.html">CRBHits Basic Vignette</a> - Basic Usage of CRBHits</li>
+<a href="https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V01CRBHitsBasicVignette.html">CRBHits Basic Vignette</a> - Basic Usage of CRBHits
+<ul>
+<li>includes CRBHit pair calculation</li>
+<li>includes CRBHit pair filtering</li>
+<li>includes Longest Isoform selection</li>
+<li>includes Codon alignments</li>
+<li>includes Ka/Ks calculations</li>
+</ul>
+</li>
 <li>
-<a href="https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V02dNdSClusteringVignette.html">dNdS Clustering Vignette</a> - dNdS Calculations between two species (<em>A. thalina</em> and <em>A. lyrata</em>)</li>
-<li>
-<a href="https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V03WGDVignette.html">Paranome-based Whole Genome Duplication Vignette</a> - Selfblast and subsequent WGD prediction (<em>A. thaliana</em>)</li>
+<a href="https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V02KaKsVignette.html">KaKs Vignette</a> - KaKs Calculations between two species and subsequent data filter steps
+<ul>
+<li>includes <em>Arabidopsis thalina</em> and <em>Arabidopsis lyrata</em> CRBHit pair calculation</li>
+<li>includes <em>Homo sapiens</em> and <em>Pan troglodytes</em> CRBHit pair calculation</li>
+<li>inlcudes Longest Isoform selection</li>
+<li>includes Gene/Isoform chromosomal position extraction</li>
+<li>includes Tandem Duplicate Assignment</li>
+<li>includes Synteny Assignment</li>
+<li>includes Ka/Ks colored Dot-Plot</li>
+</ul>
+</li>
 </ul>
 </div>
 <div id="quick-guide" class="section level2">
 <h2 class="hasAnchor">
 <a href="#quick-guide" class="anchor"></a>Quick-guide</h2>
-<pre><code><a href="https://rdrr.io/pkg/CRBHits/man">library(CRBHits)
-#compile last-1060
-make.last()
-#conditional-reciprocal best hits
+<pre><code><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">library(CRBHits)
+## compile last-1133
+make_last()
+## conditional reciprocal best hits (CRBHit pairs)
 data("ath", package="CRBHits")
 data("aly", package="CRBHits")
 ath_aly_crbh &lt;- cds2rbh(ath, aly, plotCurve = TRUE)
 summary(ath_aly_crbh)
+
 ?cds2rbh
 
-#kaks calculation
-ath_aly_crbh.kaks &lt;- rbh2kaks(ath_aly_crbh$crbh.pairs[1:20, ], ath, aly)
+# #kaks calculation - subset model "Li"
+ath_aly_crbh$crbh.pairs &lt;- head(ath_aly_crbh$crbh.pairs, 20)
+ath_aly_crbh.kaks &lt;- rbh2kaks(ath_aly_crbh,
+                              ath, aly, model = "Li")
 head(ath_aly_crbh.kaks)
 ?rbh2kaks
 
-#kaks calculation using multiple threads
-ath_aly_crbh.kaks &lt;- rbh2kaks(ath_aly_crbh$crbh.pairs[1:20, ], ath, aly, threads = 4)
+## plot kaks
+g.kaks &lt;- plot_kaks(ath_aly_crbh.kaks)
+?plot_kaks
+
+## kaks calculation - subset model "YN"
+ath_aly_crbh.kaks &lt;- rbh2kaks(ath_aly_crbh,
+                              ath, aly, model = "YN")
+
+## kaks calculation using multiple threads
+ath_aly_crbh.kaks &lt;- rbh2kaks(ath_aly_crbh, ath, aly, threads = 2)
 head(ath_aly_crbh.kaks)
 
-#example how to use own compiled versions of LAST
-my.lastpath &lt;- "/tmp/last/last-1060/src"
+## example how to use own compiled versions of LAST
+my.lastpath &lt;- "/tmp/last/last-1133/src"
+ath_aly_crbh &lt;- cds2rbh(ath, aly, plotCurve = TRUE,
+                        lastpath = my.lastpath)
 ?cds2rbh
-ath_aly_crbh &lt;- cds2rbh(ath, aly, plotCurve = TRUE, lastpath = my.lastpath)
 
-#example how to use own compiled versions of KaKs_Calculator2.0
+## example how to use own compiled versions of KaKs_Calculator2.0
 my.kakspath &lt;- "/tmp/KaKs_Calculator2/KaKs_Calculator2.0/src"
-?rbh2kaks
-ath_aly_crbh.kaks &lt;- rbh2kaks(ath_aly_crbh$crbh.pairs[1:20, ],
-                              ath, aly, model = "YN", kakscalcpath = my.kakspath)</a></code></pre>
-</div>
-<div id="todo" class="section level2">
-<h2 class="hasAnchor">
-<a href="#todo" class="anchor"></a>Todo</h2>
-<ul>
-<li>dNdSClustering Vignette</li>
-<li>WGD Vignette</li>
-</ul>
+ath_aly_crbh.kaks &lt;- rbh2kaks(ath_aly_crbh,
+                              ath, aly, model = "YN",
+                              kakscalcpath = my.kakspath)
+?rbh2kaks</a></code></pre>
 </div>
 <div id="license" class="section level2">
 <h2 class="hasAnchor">
 <a href="#license" class="anchor"></a>License</h2>
 <p>MIT (see LICENSE)</p>
 <p>The <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> package includes source code that has been published under following licenses:</p>
-<div id="last-1060-zip" class="section level3">
+<div id="last-1133zip" class="section level3">
 <h3 class="hasAnchor">
-<a href="#last-1060-zip" class="anchor"></a>last-1060.zip</h3>
+<a href="#last-1133zip" class="anchor"></a>last-1133.zip</h3>
 <p>GNU General Public License Version 3, 29 June 2007 <a href="https://www.gnu.org/licenses/gpl-3.0.de.html">GPLv3</a></p>
 </div>
-<div id="kaks_calculator2-0-tar-gz" class="section level3">
+<div id="kaks_calculator20targz" class="section level3">
 <h3 class="hasAnchor">
-<a href="#kaks_calculator2-0-tar-gz" class="anchor"></a>KaKs_Calculator2.0.tar.gz</h3>
+<a href="#kaks_calculator20targz" class="anchor"></a>KaKs_Calculator2.0.tar.gz</h3>
 <p>The toolkit is freely available (licensed under <a href="https://www.gnu.org/licenses/gpl-3.0.de.html">GPLv3</a>) online at <a href="https://sourceforge.net/projects/kakscalculator2/">https://sourceforge.net/projects/kakscalculator2/</a>.</p>
 </div>
+<div id="dagchainer" class="section level3">
+<h3 class="hasAnchor">
+<a href="#dagchainer" class="anchor"></a>DAGchainer</h3>
+<p>All of this software is open source, free of license restrictions.</p>
+</div>
+</div>
+<div id="contributing-code" class="section level2">
+<h2 class="hasAnchor">
+<a href="#contributing-code" class="anchor"></a>Contributing Code</h2>
+<p>If you would like to contribute to CRBHits, please file an issue so that one can establish a statement of need, avoid redundant work, and track progress on your contribution.</p>
+<p>Before you do a pull request, you should always file an issue and make sure that someone from the CRBHits developer team agrees that it’s a problem, and is happy with your basic proposal for fixing it.</p>
+<p>Once an issue has been filed and we’ve identified how to best orient your contribution with package development as a whole, <a href="https://docs.github.com/en/github/getting-started-with-github/fork-a-repo">fork</a> the <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits.git">main repo</a>, branch off a <a href="https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-branches">feature branch</a> from <code>master</code>, <a href="https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/committing-and-reviewing-changes-to-your-project">commit</a> and <a href="https://docs.github.com/en/github/using-git/pushing-commits-to-a-remote-repository">push</a> your changes to your fork and submit a <a href="https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/proposing-changes-to-your-work-with-pull-requests">pull request</a> for <code>CRBHits:master</code>.</p>
+<p>By contributing to this project, you agree to abide by the Code of Conduct terms.</p>
 </div>
 <div id="bug-reports" class="section level2">
 <h2 class="hasAnchor">
@@ -284,19 +354,38 @@ ath_aly_crbh.kaks &lt;- rbh2kaks(ath_aly_crbh$crbh.pairs[1:20, ],
 <p>Please report any errors or requests regarding <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> to Kristian Ullrich (<a href="mailto:ullrich@evolbio.mpg.de" class="email">ullrich@evolbio.mpg.de</a>)</p>
 <p>or use the issue tracker at <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues">https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues</a></p>
 </div>
+<div id="code-of-conduct---participation-guidelines" class="section level2">
+<h2 class="hasAnchor">
+<a href="#code-of-conduct---participation-guidelines" class="anchor"></a>Code of Conduct - Participation guidelines</h2>
+<p>This repository adhere to <a href="http://contributor-covenant.org">Contributor Covenant</a> code of conduct for in any interactions you have within this project. (see <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a>)</p>
+<p>See also the policy against sexualized discrimination, harassment and violence for the Max Planck Society <a href="https://www.mpg.de/11961177/code-of-conduct-en.pdf">Code-of-Conduct</a>.</p>
+<p>By contributing to this project, you agree to abide by its terms.</p>
+</div>
 <div id="references" class="section level2">
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
-<p>Aubry S., Kelly S., Kümpers B. M., Smith-Unna R. D., and Hibberd J. M. (2014). <strong>Deep evolutionary comparison of gene expression identifies parallel recruitment of trans-factors in two independent origins of C4 photosynthesis.</strong> <em>PLoS genetics</em>, <strong>10(6)</strong>. <a href="https://doi.org/10.1371/journal.pgen.1004365">https://doi.org/10.1371/journal.pgen.1004365</a></p>
+<p>Aubry S., Kelly S., Kümpers B. M., Smith-Unna R. D., and Hibberd J. M. (2014). <strong>Deep evolutionary comparison of gene expression identifies parallel recruitment of trans-factors in two independent origins of C4 photosynthesis.</strong> <em>PLoS Genetics</em>, <strong>10(6)</strong>. <a href="https://doi.org/10.1371/journal.pgen.1004365">https://doi.org/10.1371/journal.pgen.1004365</a></p>
 <p>Charif D., and Lobry J. R. (2007). <strong>SeqinR 1.0-2: a contributed package to the R project for statistical computing devoted to biological sequences retrieval and analysis.</strong> <em>In Structural approaches to sequence evolution</em> (pp. 207-232). Springer, Berlin, Heidelberg. <a href="https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10">https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10</a></p>
-<p>Kiełbasa S. M., Wan R., Sato K., Horton P., and Frith M. C. (2011). <strong>Adaptive seeds tame genomic sequence comparison.</strong> <em>Genome research</em>, 21(3), 487-493. <a href="https://doi.org/10.1101/gr.113985.110">https://doi.org/10.1101/gr.113985.110</a></p>
-<p>Li W. H. (1993). <strong>Unbiased estimation of the rates of synonymous and nonsynonymous substitution.</strong> <em>Journal of molecular evolution</em>, 36(1), 96-99. <a href="https://doi.org/10.1007/bf02407308">https://doi.org/10.1007/bf02407308</a></p>
-<p>Pagès H., Aboyoun P., Gentleman R., and DebRoy S. (2017). <strong>Biostrings: Efficient manipulation of biological strings.</strong> <em>R package version</em>, 2(0).</p>
-<p>Rost B. (1999). <strong>Twilight zone of protein sequence alignments.</strong> <em>Protein engineering</em>, 12(2), 85-94. <a href="https://doi.org/10.1093/protein/12.2.85">https://doi.org/10.1093/protein/12.2.85</a></p>
-<p>Scott C. (2017). <strong>shmlast: an improved implementation of conditional reciprocal best hits with LAST and Python.</strong> <em>Journal of Open Source Software</em>, 2(9), 142. <a href="https://joss.theoj.org/papers/10.21105/joss.00142">https://joss.theoj.org/papers/10.21105/joss.00142</a></p>
-<p>Scrucca L., Fop M., Murphy T. B., and Raftery A. E. (2016) <strong>mclust 5: clustering, classification and density estimation using Gaussian finite mixture models.</strong> <em>The R Journal</em>, 8(1), 289-317. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5096736/">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5096736/</a></p>
 <p>Duong T., and Wand M. (2015). <strong>feature: Local Inferential Feature Significance for Multivariate Kernel Density Estimation.</strong> <em>R package version 1.2.13</em>. <a href="https://cran.r-project.org/web/packages/feature/">https://cran.r-project.org/web/packages/feature/</a></p>
-<p>Yang Z., and Nielsen R. (2000). <strong>Estimating synonymous and nonsynonymous substitution rates under realistic evolutionary models.</strong> <em>Molecular biology and evolution</em>, 17(1), 32-43. <a href="https://doi.org/10.1093/oxfordjournals.molbev.a026236">https://doi.org/10.1093/oxfordjournals.molbev.a026236</a></p>
+<p>Haas B. J., Delcher A. L., Wortman J. R., and Salzberg S. L. (2004). <strong>DAGchainer: a tool for mining segmental genome duplications and synteny.</strong> <em>Bioinformatics</em>, <strong>20(18)</strong>, 3643-3646. <a href="https://doi.org/10.1093/bioinformatics/bth397">https://doi.org/10.1093/bioinformatics/bth397</a></p>
+<p>Haug-Baltzell A., Stephens S. A., Davey S., Scheidegger C. E., Lyons E. (2017). <strong>SynMap2 and SynMap3D: web-based wholge-genome synteny browsers.</strong> <em>Bioinformatics</em>, <strong>33(14)</strong>, 2197-2198. <a href="https://academic.oup.com/bioinformatics/article/33/14/2197/3072872">https://academic.oup.com/bioinformatics/article/33/14/2197/3072872</a></p>
+<p>Kiełbasa S. M., Wan R., Sato K., Horton P., and Frith M. C. (2011). <strong>Adaptive seeds tame genomic sequence comparison.</strong> <em>Genome Research</em>, <strong>21(3)</strong>, 487-493. <a href="https://doi.org/10.1101/gr.113985.110">https://doi.org/10.1101/gr.113985.110</a></p>
+<p>Kimura M. (1977). <strong>Preponderance of synonymous changes as evidence for the neutral theory of molecular evolution.</strong> <em>Nature</em>, <strong>267</strong>, 275-276.</p>
+<p>Li W. H. (1993). <strong>Unbiased estimation of the rates of synonymous and nonsynonymous substitution.</strong> <em>Journal of Molecular Evolution</em>, <strong>36(1)</strong>, 96-99. <a href="https://doi.org/10.1007/bf02407308">https://doi.org/10.1007/bf02407308</a></p>
+<p>Microsoft, and Weston S. (2020). <strong>foreach: Provides Foreach Looping Construct.</strong> <em>R package version</em>, 1.5.1. <a href="https://cran.r-project.org/web/packages/foreach/index.html">foreach</a></p>
+<p>Mugal C. F., Wolf J. B. W., Kaj I. (2014). <strong>Why Time Matters: Codon Evolution and the Temproal Dynamics of dN/dS.</strong> <em>Molecular Biology and Evolution</em>, <strong>31(1)</strong>, 212-231.</p>
+<p>Ooms J. (2019). <strong>curl: A Modern and Flexible Web Client for R.</strong> <em>R package version</em>, 4.3. <a href="https://cran.r-project.org/web/packages/curl/index.html">curl</a></p>
+<p>Pagès H., Aboyoun P., Gentleman R., and DebRoy S. (2017). <strong>Biostrings: Efficient manipulation of biological strings.</strong> <em>R package version</em>, 2.56.0. <a href="http://bioconductor.org/packages/release/bioc/html/Biostrings.html">Biostrings</a></p>
+<p>Revolution Analytics, and Weston S. (2020). <strong>doMC: Foreach Parallel Adaptor for ‘parallel’.</strong> <em>R package version</em>, 1.3.7. <a href="https://cran.r-project.org/web/packages/doMC/index.html">doMC</a></p>
+<p>Rost B. (1999). <strong>Twilight zone of protein sequence alignments.</strong> <em>Protein Engineering</em>, <strong>12(2)</strong>, 85-94. <a href="https://doi.org/10.1093/protein/12.2.85">https://doi.org/10.1093/protein/12.2.85</a></p>
+<p>Scott C. (2017). <strong>shmlast: an improved implementation of conditional reciprocal best hits with LAST and Python.</strong> <em>Journal of Open Source Software</em>, <strong>2(9)</strong>, 142. <a href="https://joss.theoj.org/papers/10.21105/joss.00142">https://joss.theoj.org/papers/10.21105/joss.00142</a></p>
+<p>Scrucca L., Fop M., Murphy T. B., and Raftery A. E. (2016) <strong>mclust 5: clustering, classification and density estimation using Gaussian finite mixture models.</strong> <em>The R Journal</em>, 8(1), 289-317. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5096736/">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5096736/</a></p>
+<p>Wickham H. (2011). <strong>testthat: Get Started with Testing.</strong> <em>The R Journal</em>, 3(1), 5. <a href="https://cran.r-project.org/web/packages/testthat/index.html">testthat</a></p>
+<p>Wickham H. (2019). <strong>stringr: Simple, Consistent Wrappers for Common String Operations.</strong> <em>R package version</em>, 1.4.0. <a href="https://cran.r-project.org/web/packages/stringr/index.html">stringr</a></p>
+<p>Wickham H. (2020). <strong>tidyr: Tidy Messy Data.</strong> <em>R package version</em>, 1.1.2. <a href="https://cran.r-project.org/web/packages/tidyr/index.html">tidyr</a></p>
+<p>Wickham H., Hester J., and Chang W. (2020). <strong>devtools: Tools to make Developing R Packages Easier.</strong> <em>R package version</em>, (2.3.2). <a href="https://cran.r-project.org/web/packages/devtools/index.html">devtools</a></p>
+<p>Wickham H., François R., Henry L., and Müller K. (2020). <strong>dplyr: A Grammar of Data Manipulation.</strong> <em>R package version</em>, 1.0.2. <a href="https://cran.r-project.org/web/packages/dplyr/index.html">dplyr</a></p>
+<p>Yang Z., and Nielsen R. (2000). <strong>Estimating synonymous and nonsynonymous substitution rates under realistic evolutionary models.</strong> <em>Molecular Biology and Evolution</em>, <strong>17(1)</strong>, 32-43. <a href="https://doi.org/10.1093/oxfordjournals.molbev.a026236">https://doi.org/10.1093/oxfordjournals.molbev.a026236</a></p>
 </div>
 </div>
 
@@ -320,6 +409,12 @@ ath_aly_crbh.kaks &lt;- rbh2kaks(ath_aly_crbh$crbh.pairs[1:20, ],
 </li>
 </ul>
 </div>
+<div class="community">
+<h2>Community</h2>
+<ul class="list-unstyled">
+<li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
+</ul>
+</div>
 <div class="developers">
 <h2>Developers</h2>
 <ul class="list-unstyled">
@@ -330,8 +425,9 @@ ath_aly_crbh.kaks &lt;- rbh2kaks(ath_aly_crbh$crbh.pairs[1:20, ],
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://travis-ci.com/kullrich/CRBHits"><img src="https://travis-ci.com/kullrich/CRBHits.svg?token=CdAqxcdzRKt5DsRtbcmR&amp;branch=master" alt="Build Status"></a></li>
 <li><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/commits/master"><img src="https://gitlab.gwdg.de/mpievolbio-it/crbhits/badges/master/pipeline.svg" alt="pipeline status"></a></li>
+<li><a href="CODE_OF_CONDUCT.html"><img src="https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg" alt="Contributor Covenant"></a></li>
+<li><a href="http://opensource.org/licenses/MIT"><img src="http://img.shields.io/badge/license-MIT-brightgreen.svg" alt="MITlicense"></a></li>
 </ul>
 </div>
 </div>
@@ -343,7 +439,7 @@ ath_aly_crbh.kaks &lt;- rbh2kaks(ath_aly_crbh$crbh.pairs[1:20, ],
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
