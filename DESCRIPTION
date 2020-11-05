@@ -21,6 +21,10 @@ Imports:
   foreach,
   doMC,
   tidyverse,
+  tidyr,
+  stringr,
+  dplyr,
+  ggplot2,
   gridExtra,
   mclust,
   feature
