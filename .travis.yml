@@ -53,9 +53,9 @@ matrix:
             - mesa
 
 install:
-- travis_wait 30 R -e 'devtools::install_deps(dep = T)'
+  - travis_wait 30 R -e 'devtools::install_deps(dep = T)'
 
 script:
-- travis_wait 30 R CMD build .
-- travis_wait 30 R CMD check *tar.gz
+  - travis_wait 30 R CMD build .
+  - travis_wait 30 R CMD check *tar.gz
 
