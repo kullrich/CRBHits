@@ -107,10 +107,10 @@ ath_selfblast_crbh.dagchainer <- rbh2dagchainer(ath_selfhits_crbh,
                                                 ath.genepos, ath.genepos)
 head(ath_selfblast_crbh.dagchainer)
 ## plot dagchainer
-plot.dagchainer(ath_selfblast_crbh.dagchainer)
+plot_dagchainer(ath_selfblast_crbh.dagchainer)
 }
 \seealso{
-\code{\link[CRBHits]{plot.dagchainer}},
+\code{\link[CRBHits]{plot_dagchainer}},
 \code{\link[CRBHits]{cds2genepos}},
 \code{\link[CRBHits]{tandemdups}},
 \code{\link[CRBHits]{rbh2kaks}}

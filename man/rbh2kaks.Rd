@@ -51,7 +51,7 @@ rbh2kaks(
 
 \item{kakscalcpath}{specify the PATH to the KaKs_Calculator binaries [default: /extdata/KaKs_Calculator2.0/src/]}
 
-\item{...}{other codon alignment parameters (see \code{\link[CRBHits]{cds2codonaln}}) and other plot.kaks parameters (see \code{\link[CRBHits]{plot.kaks}})}
+\item{...}{other codon alignment parameters (see \code{\link[CRBHits]{cds2codonaln}}) and other plot_kaks parameters (see \code{\link[CRBHits]{plot_kaks}})}
 }
 \description{
 This function calculates Ka/Ks (dN/dS; accoring to \emph{Li (1993)} or \emph{Yang and Nielson (2000)} for each (conditional-)reciprocal best hit (CRBHit) pair. The names of the \code{rbh} columns must match the names of the corresponding \code{cds1} and \code{cds2} \code{DNAStringSet} vectors.
@@ -68,7 +68,7 @@ ath_aly_crbh.kaks <- rbh2kaks(rbhpairs = ath_aly_crbh,
                               cds1 = ath, cds2 = aly, model = "Li")
 head(ath_aly_crbh.kaks)
 ## plot kaks
-g.kaks <- plot.kaks(ath_aly_crbh.kaks)
+g.kaks <- plot_kaks(ath_aly_crbh.kaks)
 }
 \references{
 Li WH. (1993) Unbiased estimation of the rates of synonymous and nonsynonymous substitution. \emph{J. Mol. Evol.}, \bold{36}, 96-99.
@@ -81,7 +81,7 @@ Yang Z and Nielson R. (2000) Estimating synonymous and nonsynonymous substitutio
 \code{\link[CRBHits]{cds2kaks}},
 \code{\link[CRBHits]{isoform2longest}},
 \code{\link[CRBHits]{cds2genepos}},
-\code{\link[CRBHits]{plot.kaks}},
+\code{\link[CRBHits]{plot_kaks}},
 \code{\link[CRBHits]{rbh2dagchainer}},
 \code{\link[CRBHits]{tandemdups}}
 }

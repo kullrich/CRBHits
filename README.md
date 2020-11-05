@@ -110,12 +110,12 @@ The source code for the prerequisites (LAST, KaKs_Calculator2.0, DAGchainer) are
 
 - [LAST](http://last.cbrc.jp/) [http://last.cbrc.jp/last-1133.zip](http://last.cbrc.jp/last-1133.zip)
 
-To compile the forked version of [LAST](http://last.cbrc.jp/) within the `CRBHits` R package directory try to use the function `make.last()`:
+To compile the forked version of [LAST](http://last.cbrc.jp/) within the `CRBHits` R package directory try to use the function `make_last()`:
 
 ```
 ## see more installation information here, if make fails
 ## last-install-help: http://last.cbrc.jp/doc/last.html
-make.last()
+make_last()
 ```
 
 To compile [LAST](http://last.cbrc.jp/) yourself on Linux/Unix/macOS into another folder:
@@ -135,11 +135,11 @@ make
 
 - [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download)
 
-To compile the forked version of [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download) within the `CRBHits` R package directory try to use the function `make.KaKs_Calculator2()`:
+To compile the forked version of [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download) within the `CRBHits` R package directory try to use the function `make_KaKs_Calculator2()`:
 
 ```
 ## compile KaKs_Calculator2
-make.KaKs_Calculator2()
+make_KaKs_Calculator2()
 ```
 
 __Note:__ Due to some changes in the latest **g++** compilers the source code was altered to meet this changes, which are directly incorporated into the `KaKs_Calculator2.0.tar.gz` that is distributed with [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits). It is recommended to compile from this file (see below):
@@ -160,11 +160,11 @@ make
 
 - [DAGchainer](http://dagchainer.sourceforge.net/)
 
-To compile the forked version of [DAGchainer](http://dagchainer.sourceforge.net/) within the `CRBHits` R package directory try to use the function `make.dagchainer()`:
+To compile the forked version of [DAGchainer](http://dagchainer.sourceforge.net/) within the `CRBHits` R package directory try to use the function `make_dagchainer()`:
 
 ```
 ## compile DAGchainer
-make.dagchainer()
+make_dagchainer()
 ```
 
 __Note:__ Due to some changes in the latest **g++** compilers the source code was altered to meet this changes, which are directly incorporated into the `dagchainer.zip` that is distributed with [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits). It is recommended to compile from this file (see below):
@@ -226,7 +226,7 @@ These vignettes introduce  [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhit
 ```
 library(CRBHits)
 ## compile last-1133
-make.last()
+make_last()
 ## conditional reciprocal best hits (CRBHit pairs)
 data("ath", package="CRBHits")
 data("aly", package="CRBHits")
@@ -243,8 +243,8 @@ head(ath_aly_crbh.kaks)
 ?rbh2kaks
 
 ## plot kaks
-g.kaks <- plot.kaks(ath_aly_crbh.kaks)
-?plot.kaks
+g.kaks <- plot_kaks(ath_aly_crbh.kaks)
+?plot_kaks
 
 ## kaks calculation - subset model "YN"
 ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh,

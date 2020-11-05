@@ -91,7 +91,7 @@ If one specifies cdsfile1 and cdsfile2 as the same input a selfblast is conducte
 }
 \examples{
 ## compile last-1133 within CRBHits
-make.last()
+make_last()
 ## load example sequence data
 athfile <- system.file("fasta", "ath.cds.fasta.gz", package = "CRBHits")
 alyfile <- system.file("fasta", "aly.cds.fasta.gz", package = "CRBHits")

@@ -47,7 +47,7 @@
 #' @references Rost B. (1999). Twilight zone of protein sequence alignments. \emph{Protein Engineering}, \bold{12(2)}, 85-94.
 #' @examples
 #' ## compile last-1133 within CRBHits
-#' make.last()
+#' make_last()
 #' ## load example sequence data
 #' athfile <- system.file("fasta", "ath.cds.fasta.gz", package = "CRBHits")
 #' alyfile <- system.file("fasta", "aly.cds.fasta.gz", package = "CRBHits")
@@ -123,9 +123,9 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
     fitMatrixfun <- splinefun(fitMatrix[,1], fitMatrix[,2])
     return(fitMatrixfun)
   }
-  if(!dir.exists(lastpath)){stop("Error: last PATH does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make.last() function.")}
-  if(!file.exists(paste0(lastpath, "lastdb"))){stop("Error: lastdb binary does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make.last() function.")}
-  if(!file.exists(paste0(lastpath, "lastal"))){stop("Error: lastal binary does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make.last() function.")}
+  if(!dir.exists(lastpath)){stop("Error: last PATH does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make_last() function.")}
+  if(!file.exists(paste0(lastpath, "lastdb"))){stop("Error: lastdb binary does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make_last() function.")}
+  if(!file.exists(paste0(lastpath, "lastal"))){stop("Error: lastal binary does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make_last() function.")}
   selfblast <- FALSE
   if(cdsfile1 == cdsfile2){
     selfblast <- TRUE
@@ -172,15 +172,15 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
     aa2_aa1 <- aa2_aa1[aa2_aa1[,1] != aa2_aa1[,2], , drop = FALSE]
   }
   #apply standard filters on hit pairs
-  aa1_aa2 <- aa1_aa2 %>% filter.eval(eval) %>% filter.qcov(qcov) %>%
-    filter.tcov(tcov) %>% filter.pident(pident) %>%
-    filter.alnlen(alnlen)
-  aa2_aa1 <- aa2_aa1 %>% filter.eval(eval) %>% filter.qcov(qcov) %>%
-    filter.tcov(tcov) %>% filter.pident(pident) %>%
-    filter.alnlen(alnlen)
+  aa1_aa2 <- aa1_aa2 %>% filter_eval(eval) %>% filter_qcov(qcov) %>%
+    filter_tcov(tcov) %>% filter_pident(pident) %>%
+    filter_alnlen(alnlen)
+  aa2_aa1 <- aa2_aa1 %>% filter_eval(eval) %>% filter_qcov(qcov) %>%
+    filter_tcov(tcov) %>% filter_pident(pident) %>%
+    filter_alnlen(alnlen)
   if(rost1999){
-    aa1_aa2 <- aa1_aa2 %>% filter.rost1999
-    aa2_aa1 <- aa2_aa1 %>% filter.rost1999
+    aa1_aa2 <- aa1_aa2 %>% filter_rost1999
+    aa2_aa1 <- aa2_aa1 %>% filter_rost1999
   }
   #apply additional filters on hit pairs
   for(f_ in filter){
@@ -241,7 +241,7 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
                                  fit.min)
     }
     #internal function to filter hit pairs using rbh1_rbh2_fit
-    filter.crbh <- function(x){
+    filter_crbh <- function(x){
       minuslog10evalue_by_fit <- lapply(as.numeric(x[,4]), rbh1_rbh2_fit)
       return(x[as.numeric(x[,16]) >= minuslog10evalue_by_fit, , drop = FALSE])
     }
@@ -262,8 +262,8 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
     aa2_aa1.red <- cbind(aa2_aa1.red, -log10(aa2_aa1.red[,11]))
     aa2_aa1.red[is.infinite(aa2_aa1.red[, 16]), 16] <- 324
     #filter retained hit pairs with rbh1_rbh2_fit
-    aa1_aa2.red <- filter.crbh(aa1_aa2.red)
-    aa2_aa1.red <- filter.crbh(aa2_aa1.red)
+    aa1_aa2.red <- filter_crbh(aa1_aa2.red)
+    aa2_aa1.red <- filter_crbh(aa2_aa1.red)
     aa1_aa2.red.idx <- paste0(aa1_aa2.red[, 1], "\t" , aa1_aa2.red[, 2])
     aa2_aa1.red.idx <- paste0(aa2_aa1.red[, 2], "\t" , aa2_aa1.red[, 1])
     #deduplicate hit pairs and only retain the best hit per HSP

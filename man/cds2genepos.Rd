@@ -32,7 +32,8 @@ This function extracts the gene position from either NCBI or ENSEMBL CDS input.
 ## set EnsemblPlants URL
 ensemblPlants <- "ftp://ftp.ensemblgenomes.org/pub/plants/release-48/fasta/"
 ## set Arabidopsis thaliana CDS URL
-ARATHA.cds.url <- paste0(ensemblPlants, "arabidopsis_thaliana/cds/Arabidopsis_thaliana.TAIR10.cds.all.fa.gz")
+ARATHA.cds.url <- paste0(ensemblPlants,
+ "arabidopsis_thaliana/cds/Arabidopsis_thaliana.TAIR10.cds.all.fa.gz")
 ARATHA.cds.file <- tempfile()
 ## download CDS
 download.file(ARATHA.cds.url, ARATHA.cds.file, quiet = FALSE)

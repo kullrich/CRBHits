@@ -22,7 +22,9 @@ This function extracts the longest isoform from either NCBI or ENSEMBL CDS input
 ## load example sequence data
 ## set NCBI URL
 NCBI <- "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/"
-HOMSAP.NCBI.cds.url <- paste0(NCBI, "GCF/000/001/405/GCF_000001405.39_GRCh38.p13/GCF_000001405.39_GRCh38.p13_cds_from_genomic.fna.gz")
+HOMSAP.NCBI.cds.url <- paste0(NCBI,
+ "GCF/000/001/405/GCF_000001405.39_GRCh38.p13/",
+ "GCF_000001405.39_GRCh38.p13_cds_from_genomic.fna.gz")
 HOMSAP.NCBI.cds.file <- tempfile()
 ## download CDS file
 download.file(HOMSAP.NCBI.cds.url, HOMSAP.NCBI.cds.file, quiet = FALSE)

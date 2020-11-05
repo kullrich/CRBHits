@@ -91,7 +91,7 @@ If one specifies cds1 and cds2 as the same input a selfblast is conducted.
 }
 \examples{
 ## compile last-1133 within CRBHits
-make.last()
+make_last()
 ## load example sequence data
 data("ath", package="CRBHits")
 data("aly", package="CRBHits")

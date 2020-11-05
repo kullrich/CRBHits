@@ -35,9 +35,9 @@ cds2kaks <- function(cds1, cds2, model = "Li",
                                            "/extdata/KaKs_Calculator2.0/src/"),
                      ...){
   if(model == "YN"){
-    if(!dir.exists(kakscalcpath)){stop("Error: KaKs_Calculator2.0 PATH does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make.KaKs_Calculator2() function.")}
-    if(!file.exists(paste0(kakscalcpath, "AXTConvertor"))){stop("Error: AXTConvertor binary does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make.KaKs_Calculator2() function.")}
-    if(!file.exists(paste0(kakscalcpath, "KaKs_Calculator"))){stop("Error: KaKs_Calculator binary does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make.KaKs_Calculator2() function.")}
+    if(!dir.exists(kakscalcpath)){stop("Error: KaKs_Calculator2.0 PATH does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make_KaKs_Calculator2() function.")}
+    if(!file.exists(paste0(kakscalcpath, "AXTConvertor"))){stop("Error: AXTConvertor binary does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make_KaKs_Calculator2() function.")}
+    if(!file.exists(paste0(kakscalcpath, "KaKs_Calculator"))){stop("Error: KaKs_Calculator binary does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make_KaKs_Calculator2() function.")}
   }
   if(class(cds1) == "DNAStringSet" & length(cds1) != 1){stop("Error: cds1 needs to contain only one sequence")}
   if(class(cds2) == "DNAStringSet" & length(cds2) != 1){stop("Error: cds2 needs to contain only one sequence")}
