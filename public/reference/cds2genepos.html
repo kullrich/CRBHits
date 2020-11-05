@@ -177,7 +177,7 @@
 <span class='va'>ARATHA.cds.url</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='va'>ensemblPlants</span>, <span class='st'>"arabidopsis_thaliana/cds/Arabidopsis_thaliana.TAIR10.cds.all.fa.gz"</span><span class='op'>)</span>
 <span class='va'>ARATHA.cds.file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='co'>## download CDS</span>
-<span class='fu'>curl</span><span class='fu'>::</span><span class='fu'><a href='https://jeroen.cran.dev/curl/reference/curl_download.html'>curl_download</a></span><span class='op'>(</span><span class='va'>ARATHA.cds.url</span>, <span class='va'>ARATHA.cds.file</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/download.file.html'>download.file</a></span><span class='op'>(</span><span class='va'>ARATHA.cds.url</span>, <span class='va'>ARATHA.cds.file</span>, quiet <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='va'>ARATHA.cds</span> <span class='op'>&lt;-</span> <span class='fu'>Biostrings</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html'>readDNAStringSet</a></span><span class='op'>(</span><span class='va'>ARATHA.cds.file</span><span class='op'>)</span>
 <span class='co'>## get gene position</span>
 <span class='va'>ARATHA.cds.genepos</span> <span class='op'>&lt;-</span> <span class='fu'>cds2genepos</span><span class='op'>(</span><span class='va'>ARATHA.cds</span>, <span class='st'>"ENSEMBL"</span><span class='op'>)</span>

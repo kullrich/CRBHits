@@ -27,7 +27,7 @@
 #' ARATHA.cds.url <- paste0(ensemblPlants, "arabidopsis_thaliana/cds/Arabidopsis_thaliana.TAIR10.cds.all.fa.gz")
 #' ARATHA.cds.file <- tempfile()
 #' ## download CDS
-#' curl::curl_download(ARATHA.cds.url, ARATHA.cds.file)
+#' download.file(ARATHA.cds.url, ARATHA.cds.file, quiet = FALSE)
 #' ARATHA.cds <- Biostrings::readDNAStringSet(ARATHA.cds.file)
 #' ## get gene position
 #' ARATHA.cds.genepos <- cds2genepos(ARATHA.cds, "ENSEMBL")

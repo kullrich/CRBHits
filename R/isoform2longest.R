@@ -16,7 +16,7 @@
 #' HOMSAP.NCBI.cds.url <- paste0(NCBI, "GCF/000/001/405/GCF_000001405.39_GRCh38.p13/GCF_000001405.39_GRCh38.p13_cds_from_genomic.fna.gz")
 #' HOMSAP.NCBI.cds.file <- tempfile()
 #' ## download CDS file
-#' curl::curl_download(HOMSAP.NCBI.cds.url, HOMSAP.NCBI.cds.file)
+#' download.file(HOMSAP.NCBI.cds.url, HOMSAP.NCBI.cds.file, quiet = FALSE)
 #' HOMSAP.NCBI.cds <- Biostrings::readDNAStringSet(HOMSAP.NCBI.cds.file)
 #' ## get longest isoform
 #' HOMSAP.NCBI.cds.longest <- isoform2longest(HOMSAP.NCBI.cds, "NCBI")
@@ -28,7 +28,7 @@
 #' HOMSAP.ENSEMBL.cds.url <- paste0(ensembl, "homo_sapiens/cds/Homo_sapiens.GRCh38.cds.all.fa.gz")
 #' HOMSAP.ENSEMBL.cds.file <- tempfile()
 #' ## download CDS file
-#' curl::curl_download(HOMSAP.ENSEMBL.cds.url, HOMSAP.ENSEMBL.cds.file)
+#' download.file(HOMSAP.ENSEMBL.cds.url, HOMSAP.ENSEMBL.cds.file, quiet = FALSE)
 #' HOMSAP.ENSEMBL.cds <- Biostrings::readDNAStringSet(HOMSAP.ENSEMBL.cds.file)
 #' ## get longest isoform
 #' HOMSAP.ENSEMBL.cds.longest<-isoform2longest(HOMSAP.ENSEMBL.cds, "ENSEMBL")
