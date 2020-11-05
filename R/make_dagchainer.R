@@ -1,11 +1,11 @@
-#' @title make.dagchainer
-#' @name make.dagchainer
+#' @title make_dagchainer
+#' @name make_dagchainer
 #' @description This function tries to build the DAGchainer from source code forked within CRBHits
 #' @references Haas BJ et al. (2004) DAGchainer: a tool for mining segmental genome duplications and synteny. \bold{Bioinformatics} \bold{20} \bold{(18)}, 3643-6.
-#' @export make.dagchainer
+#' @export make_dagchainer
 #' @author Kristian K Ullrich
 
-make.dagchainer <- function(){
+make_dagchainer <- function(){
   curwd <- getwd()
   dagchainerpath <- paste0(find.package("CRBHits"),
          "/extdata/dagchainer/")

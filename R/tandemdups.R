@@ -18,6 +18,8 @@
 #' @importFrom dplyr bind_cols select group_by group_map group_keys
 #' @importFrom foreach foreach %do%
 #' @importFrom stringr str_sub
+#' @importFrom stats setNames
+#' @importFrom utils stack
 #' @seealso \code{\link[CRBHits]{isoform2longest}}
 #' @references Haug-Beltzell A et al. (2017) SynMap2 and SynMap3D: web-based whole-genome synteny browsers. \emph{Bioinformatics} \bold{33(14)}, 2197-2198.
 #' ## load example sequence data
@@ -33,6 +35,30 @@
 #' @export tandemdups
 #' @author Kristian K Ullrich
 tandemdups <- function(rbhpairs, genepos, dupdist = 5){
+  gene.seq.id <- NULL
+  gene1.seq.id <- NULL
+  gene2.seq.id <- NULL
+  gene.chr <- NULL
+  gene1.chr <- NULL
+  gene2.chr <- NULL
+  gene.start <- NULL
+  gene1.start <- NULL
+  gene2.start <- NULL
+  gene.end <- NULL
+  gene1.end <- NULL
+  gene2.end <- NULL
+  gene.mid <- NULL
+  gene1.mid <- NULL
+  gene2.mid <- NULL
+  gene.strand <- NULL
+  gene1.strand <- NULL
+  gene2.strand <- NULL
+  gene.idx <- NULL
+  gene1.idx <- NULL
+  gene2.idx <- NULL
+  gene1.tandem_group <- NULL
+  gene2.tandem_group <- NULL
+  tandem_group <- NULL
   if(attributes(rbhpairs)$CRBHits.class != "crbh"){
     stop("Please obtain rbhpairs via the cds2rbh() or the cdsfile2rbh() function")
   }
@@ -43,6 +69,10 @@ tandemdups <- function(rbhpairs, genepos, dupdist = 5){
     stop("dupdist must be at least 1")
   }
   localdups <- function(selfhits_per_chr, dupdist){
+    gene1.idx <- NULL
+    gene2.idx <- NULL
+    gene.dist <- NULL
+    seendups <- NULL
     #define tandem duplicate group prefix
     tandem.group.prefix <- paste0("TDG-",unique(selfhits_per_chr$gene1.chr))
     #parent duplicate is defined as the first hit based on gene.idx

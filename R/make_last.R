@@ -1,11 +1,11 @@
-#' @title make.last
-#' @name make.last
+#' @title make_last
+#' @name make_last
 #' @description This function tries to build the prerequisite last-1133 from source code forked within CRBHits
 #' @references Kiełbasa SM et al. (2011) Adaptive seeds tame genomic sequence comparison. \bold{Genome Res.} \bold{21} \bold{(3)}, 487-93.
-#' @export make.last
+#' @export make_last
 #' @author Kristian K Ullrich
 
-make.last <- function(){
+make_last <- function(){
   curwd <- getwd()
   lastpath <- paste0(find.package("CRBHits"),
          "/extdata/last-1133/src/")

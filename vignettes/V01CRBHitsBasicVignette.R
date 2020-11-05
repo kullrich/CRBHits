@@ -12,7 +12,7 @@ suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(gridExtra))
 suppressPackageStartupMessages(library(curl))
 ## compile LAST, KaKs_Calculator2.0 and DAGchainer for the vignette
-vignette.paths <- make.vignette()
+vignette.paths <- make_vignette()
 
 ## -----------------------------------------------------------------------------
 ## example how to check coding sequences if all are a mutiple of three

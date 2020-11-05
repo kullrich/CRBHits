@@ -1,5 +1,5 @@
-#' @title plot.kaks
-#' @name plot.kaks
+#' @title plot_kaks
+#' @name plot_kaks
 #' @description This function plots Ka/Ks results obtained via `rbh2kaks()` function.
 #' @param kaks specify Ka/Ks input obtained via `rbh2kaks()` [mandatory]
 #' @param dag specify DAGchainer results as obtained via `rbh2dagchainer()` [default: NULL]
@@ -21,17 +21,17 @@
 #' @importFrom tidyr %>%
 #' @importFrom dplyr bind_cols select group_by group_map group_keys mutate
 #' @importFrom stringr word
-#' @importFrom ggplot2 ggplot geom_point geom_abline facet_wrap geom_histogram
+#' @importFrom ggplot2 ggplot geom_point geom_abline facet_wrap scale_colour_manual scale_colour_continuous aes geom_histogram ggtitle
 #' @importFrom gridExtra grid.arrange
 #' @examples
 #' ## load example sequence data
 #' data("ath_aly_ncbi_kaks", package="CRBHits")
 #' ## plot Ka/Ks values - default
-#' g <- plot.kaks(ath_aly_ncbi_kaks)
-#' @export plot.kaks
+#' g <- plot_kaks(ath_aly_ncbi_kaks)
+#' @export plot_kaks
 #' @author Kristian K Ullrich
 
-plot.kaks <- function(kaks,
+plot_kaks <- function(kaks,
                       dag = NULL,
                       gene.position.cds1 = NULL,
                       gene.position.cds2 = NULL,
@@ -48,6 +48,13 @@ plot.kaks <- function(kaks,
                       ks.min = 0,
                       select.chr = NULL,
                       doPlot = TRUE){
+  gene1.chr <- NULL
+  gene2.chr <- NULL
+  gene1.mid <- NULL
+  gene2.mid <- NULL
+  ka <- NULL
+  ks <- NULL
+  rbh_class <- NULL
   if(attributes(kaks)$CRBHits.class != "kaks"){
     stop("Please obtain Ka/Ks via the rbh2kaks() function or add a 'kaks' class attribute")
   }

@@ -56,9 +56,9 @@ CRBH uses the sequence search results to fit an expect-value (e-value) cutoff gi
 
 __Note:__
 
-In this Vignette the `lastpath` is defined as `vignette.paths[1]` and the `kakscalcpath` as `vignette.paths[2]` to be able to build the Vignette.
+In this Vignette the `lastpath` is defined as `vignette.paths[1]`, the `kakscalcpath` as `vignette.paths[2]` and the `dagchainerpath` as `vignette.paths[3]` to be able to build the Vignette.
 
-However, once you have compiled last-1133 and KaKs_Calculator2.0 with the functions `make.last()` and `make.KaKs_Calculator2()` you won't need to specify the paths anymore. Please remove them if you would like to repeat the examples.
+However, once you have compiled last-1133, KaKs_Calculator2.0 and DAGchainer with the functions `make_last()`, `make_KaKs_Calculator2()` and `make_dagchainer()` you won't need to specify the paths anymore. Please remove them if you would like to repeat the examples.
 
 ```{r}
 ## load vignette specific libraries
@@ -68,7 +68,7 @@ suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(gridExtra))
 suppressPackageStartupMessages(library(curl))
 ## compile LAST, KaKs_Calculator2.0 and DAGchainer for the vignette
-vignette.paths <- make.vignette()
+vignette.paths <- make_vignette()
 ```
 
 ## 1. [Installation]{#install}
@@ -88,7 +88,7 @@ install_github("kullrich/CRBHits", build_vignettes = TRUE, dependencies = FALSE)
 
 [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) needs [LAST](http://last.cbrc.jp/), [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download) and [DAGchainer](http://dagchainer.sourceforge.net/) to be installed before one can efficiently use it.
 
-All prerequisites (LAST, KaKs_Calculator2.0, DAGchainer) are forked within [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) and can be compiled for Linux/Unix/macOS with the functions `make.last()`, `make.KaKs_Calculator2()` and  `make.dagchainer()`.
+All prerequisites (LAST, KaKs_Calculator2.0, DAGchainer) are forked within [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) and can be compiled for Linux/Unix/macOS with the functions `make_last()`, `make_KaKs_Calculator2()` and  `make_dagchainer()`.
 
 For the windows platform the user needs to use e.g. [https://www.cygwin.com/](https://www.cygwin.com/) to be able to compile the prerequisites.
 

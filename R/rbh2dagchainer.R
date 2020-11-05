@@ -42,7 +42,8 @@
 #' @importFrom dplyr bind_cols select group_by group_map group_keys mutate
 #' @importFrom stringr word
 #' @importFrom ggplot2 ggplot geom_point geom_abline facet_wrap
-#' @seealso \code{\link[CRBHits]{plot.dagchainer}},
+#' @importFrom utils write.table
+#' @seealso \code{\link[CRBHits]{plot_dagchainer}},
 #' \code{\link[CRBHits]{cds2genepos}},
 #' \code{\link[CRBHits]{tandemdups}},
 #' \code{\link[CRBHits]{rbh2kaks}}
@@ -58,7 +59,7 @@
 #'                                                 ath.genepos, ath.genepos)
 #' head(ath_selfblast_crbh.dagchainer)
 #' ## plot dagchainer
-#' plot.dagchainer(ath_selfblast_crbh.dagchainer)
+#' plot_dagchainer(ath_selfblast_crbh.dagchainer)
 #' @export rbh2dagchainer
 #' @author Kristian K Ullrich
 
@@ -86,6 +87,21 @@ rbh2dagchainer <- function(rbhpairs,
                            ks.min = 0,
                            select.chr = NULL
                            ){
+  gene.seq.id <- NULL
+  gene1.seq.id <- NULL
+  gene2.seq.id <- NULL
+  gene.chr <- NULL
+  gene1.chr <- NULL
+  gene2.chr <- NULL
+  gene.start <- NULL
+  gene.end <- NULL
+  gene.idx <- NULL
+  gene1.idx1 <- NULL
+  gene1.idx2 <- NULL
+  gene2.idx1 <- NULL
+  gene2.idx2 <- NULL
+  evalue <- NULL
+  score <- NULL
   if(attributes(rbhpairs)$CRBHits.class != "crbh"){
     stop("Please obtain rbhpairs via the cds2rbh or the cdsfile2rbh function")
   }
@@ -102,9 +118,9 @@ rbh2dagchainer <- function(rbhpairs,
       stop("Please obtain gene position via the cds2genepos() function or add a 'genepos' class attribute")
     }
   }
-  if(!dir.exists(dagchainerpath)){stop("Error: DAGchainer PATH does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make.dagchainer() function.")}
-  if(!file.exists(paste0(dagchainerpath, "dagchainer"))){stop("Error: dagchainer binary does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make.dagchainer() function.")}
-  if(!file.exists(paste0(dagchainerpath, "run_DAG_chainer.pl"))){stop("Error: run_DAG_chainer.pl does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make.dagchainer() function.")}
+  if(!dir.exists(dagchainerpath)){stop("Error: DAGchainer PATH does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make_dagchainer() function.")}
+  if(!file.exists(paste0(dagchainerpath, "dagchainer"))){stop("Error: dagchainer binary does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make_dagchainer() function.")}
+  if(!file.exists(paste0(dagchainerpath, "run_DAG_chainer.pl"))){stop("Error: run_DAG_chainer.pl does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make_dagchainer() function.")}
   selfblast <- attributes(rbhpairs)$selfblast
   genepos.colnames <- c("gene.seq.id", "gene.chr", "gene.start", "gene.end",
                         "gene.mid", "gene.strand", "gene.idx")
@@ -269,7 +285,7 @@ rbh2dagchainer <- function(rbhpairs,
   attr(dagchainer.results, "CRBHits.class") <- "dagchainer"
   attr(dagchainer.results, "selfblast") <- selfblast
   if(plotDotPlot){
-    print(plot.dagchainer(dagchainer.results, DotPlotTitle = DotPlotTitle,
+    print(plot_dagchainer(dagchainer.results, DotPlotTitle = DotPlotTitle,
                     colorBy = colorBy, kaks = kaks,
                     ka.max = ka.max, ks.max = ks.max,
                     ka.min = ka.min, ks.min = ks.min,

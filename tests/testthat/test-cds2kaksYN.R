@@ -3,7 +3,7 @@ test_that("cds2kaks(., ., model = 'YN') calculates correct value", {
   #KaKsCalcTempDir <- tempdir()
   #system(paste0("tar -C ", KaKsCalcTempDir, " -xvf ", CRBHits_root, "/extdata/KaKs_Calculator2.0.tar.gz"))
   #system(paste0("cd ", KaKsCalcTempDir, "/KaKs_Calculator2.0/src/; make clean; make"))
-  tmp.paths <- make.vignette()
+  tmp.paths <- make_vignette()
   cds1 <- Biostrings::DNAStringSet("ATGCAACATTGC")
   cds2 <- Biostrings::DNAStringSet("ATGTATTGC")
   #cds1.cds2.kaks1 <- cds2kaks(cds1, cds2, model = "YN", kakscalcpath = paste0(KaKsCalcTempDir, "/KaKs_Calculator2.0/src/"))

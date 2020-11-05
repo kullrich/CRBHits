@@ -12,7 +12,7 @@ suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(gridExtra))
 suppressPackageStartupMessages(library(curl))
 ## compile LAST, KaKs_Calculator2.0 and DAGchainer for the vignette
-vignette.paths <- make.vignette()
+vignette.paths <- make_vignette()
 
 ## -----------------------------------------------------------------------------
 ## set URLs for Arabidopis thaliana and Arabidopsis lyrata from NCBI Genomes
@@ -241,10 +241,10 @@ ARATHA_ARALYR_crbh.dagchainer.idx <- rbh2dagchainer(rbhpairs = ARATHA_ARALYR_crb
 ## example how to plot pairwise chromosomal syntenic groups (DAGchainer results)
 
 ## plot DAGchainer results for each chromosome combination
-plot.dagchainer(ARATHA_ARALYR_crbh.dagchainer.bp)
+plot_dagchainer(ARATHA_ARALYR_crbh.dagchainer.bp)
 
 ## plot DAGchainer results selected chromosomes
-g <- plot.dagchainer(ARATHA_ARALYR_crbh.dagchainer.bp,
+g <- plot_dagchainer(ARATHA_ARALYR_crbh.dagchainer.bp,
                      select.chr = c("NC_003070.9", "NC_003071.7", "NC_003074.8",
                                     "NC_003075.7", "NC_003076.8",
                                     "NW_003302551.1", "NW_003302554.1",
@@ -263,22 +263,22 @@ g + theme(strip.text.x = element_text(size = 16), strip.text.y = element_text(si
 g + theme(axis.text.x = element_text(size = 12, angle = 90))
 
 ## get help
-#?plot.dagchainer
+#?plot_dagchainer
 
 ## -----------------------------------------------------------------------------
 ## load example Ka/Ks values (see above commands above how to obtain them)
 data("ath_aly_ncbi_kaks", package="CRBHits")
 
 ## plot Ka/Ks results as histogram colored by Ka/Ks values
-g <- plot.kaks(ath_aly_ncbi_kaks)
+g <- plot_kaks(ath_aly_ncbi_kaks)
 
 ## plot Ka/Ks results as histogram filter for ka.min, ka.max, ks.min, ks.max
-g.min_max <- plot.kaks(ath_aly_ncbi_kaks, ka.min = 0, ka.max = 1, ks.min = 0, ks.max = 1)
+g.min_max <- plot_kaks(ath_aly_ncbi_kaks, ka.min = 0, ka.max = 1, ks.min = 0, ks.max = 1)
 
 ## select subset of chromosomes - needs gene position information
 head(ARATHA.cds.longest.genepos)
 head(ARALYR.cds.longest.genepos)
-g.subset <- plot.kaks(ath_aly_ncbi_kaks,
+g.subset <- plot_kaks(ath_aly_ncbi_kaks,
                       gene.position.cds1 = ARATHA.cds.longest.genepos,
                       gene.position.cds2 = ARALYR.cds.longest.genepos,
                       select.chr = c("NC_003070.9", "NC_003071.7",
@@ -286,7 +286,7 @@ g.subset <- plot.kaks(ath_aly_ncbi_kaks,
 
 ## plot Ka/Ks results and split by chromosome - needs gene position information
 
-g.split <- plot.kaks(ath_aly_ncbi_kaks,
+g.split <- plot_kaks(ath_aly_ncbi_kaks,
                      gene.position.cds1 = ARATHA.cds.longest.genepos,
                      gene.position.cds2 = ARALYR.cds.longest.genepos,
                      select.chr = c("NC_003070.9", "NC_003071.7",
@@ -366,12 +366,12 @@ HOMSAP_PANTRO_crbh.dagchainer.bp <- rbh2dagchainer(rbhpairs = HOMSAP_PANTRO_crbh
                                       dagchainerpath = vignette.paths[3])
 
 ## plot DAGchainer results for selected chromosome combinations
-plot.dagchainer(HOMSAP_PANTRO_crbh.dagchainer.bp, select.chr = c("1","2","3","4","5","14"))
+plot_dagchainer(HOMSAP_PANTRO_crbh.dagchainer.bp, select.chr = c("1","2","3","4","5","14"))
 
 ## -----------------------------------------------------------------------------
 ## load example Ka/Ks values (see above commands above how to obtain them)
 data("hom_pan_ensembl_kaks", package="CRBHits")
 
 ## plot Ka/Ks results as histogram colored by Ka/Ks values
-g <- plot.kaks(hom_pan_ensembl_kaks)
+g <- plot_kaks(hom_pan_ensembl_kaks)
 

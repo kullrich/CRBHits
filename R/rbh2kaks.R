@@ -15,7 +15,7 @@
 #' @param colorBy specify if Ka/Ks gene pairs should be colored by "rbh_class", dagchainer", "tandemdups" or "none" [default: none]
 #' @param threads number of parallel threads [default: 1]
 #' @param kakscalcpath specify the PATH to the KaKs_Calculator binaries [default: /extdata/KaKs_Calculator2.0/src/]
-#' @param ... other codon alignment parameters (see \code{\link[CRBHits]{cds2codonaln}}) and other plot.kaks parameters (see \code{\link[CRBHits]{plot.kaks}})
+#' @param ... other codon alignment parameters (see \code{\link[CRBHits]{cds2codonaln}}) and other plot_kaks parameters (see \code{\link[CRBHits]{plot_kaks}})
 #' @importFrom doMC registerDoMC
 #' @importFrom foreach foreach %dopar%
 #' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet readDNAStringSet readAAStringSet writeXStringSet width subseq
@@ -23,7 +23,7 @@
 #' @seealso \code{\link[CRBHits]{cds2kaks}},
 #' \code{\link[CRBHits]{isoform2longest}},
 #' \code{\link[CRBHits]{cds2genepos}},
-#' \code{\link[CRBHits]{plot.kaks}},
+#' \code{\link[CRBHits]{plot_kaks}},
 #' \code{\link[CRBHits]{rbh2dagchainer}},
 #' \code{\link[CRBHits]{tandemdups}}
 #' @references Li WH. (1993) Unbiased estimation of the rates of synonymous and nonsynonymous substitution. \emph{J. Mol. Evol.}, \bold{36}, 96-99.
@@ -41,7 +41,7 @@
 #'                               cds1 = ath, cds2 = aly, model = "Li")
 #' head(ath_aly_crbh.kaks)
 #' ## plot kaks
-#' g.kaks <- plot.kaks(ath_aly_crbh.kaks)
+#' g.kaks <- plot_kaks(ath_aly_crbh.kaks)
 #' @export rbh2kaks
 #' @author Kristian K Ullrich
 
@@ -115,7 +115,7 @@ rbh2kaks <- function(rbhpairs, cds1, cds2, model = "Li",
   }
   attr(out, "selfblast") <- selfblast
   if(plotHistPlot){
-    plot.out <- plot.kaks(out,
+    plot.out <- plot_kaks(out,
                      dag = dag,
                      gene.position.cds1 = gene.position.cds1,
                      gene.position.cds2 = gene.position.cds2,
@@ -126,7 +126,7 @@ rbh2kaks <- function(rbhpairs, cds1, cds2, model = "Li",
                      ...)
   }
   if(plotDotPlot){
-    plot.out <- plot.kaks(out,
+    plot.out <- plot_kaks(out,
                      dag = dag,
                      gene.position.cds1 = gene.position.cds1,
                      gene.position.cds2 = gene.position.cds2,

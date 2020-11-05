@@ -1,5 +1,5 @@
-#' @title plot.dagchainer
-#' @name plot.dagchainer
+#' @title plot_dagchainer
+#' @name plot_dagchainer
 #' @description This function plots DAGchainer (http://dagchainer.sourceforge.net/) results obtained via `rbh2dagchainer()` function.
 #' @param dag specify DAGchainer results as obtained via `rbh2dagchainer()` [mandatory]
 #' @param DotPlotTitle specify DotPlot title [default: DAGchainer results]
@@ -11,18 +11,18 @@
 #' @param ks.min specify min Ks to be filtered [default: 0]
 #' @param select.chr filter results for chromosome names [default: NULL]
 #' @importFrom tidyr %>%
-#' @importFrom dplyr bind_cols select group_by group_map group_keys mutate
+#' @importFrom dplyr bind_cols select group_by group_map group_keys mutate group_split
 #' @importFrom stringr word
-#' @importFrom ggplot2 ggplot geom_point geom_abline facet_wrap scale_colour_manual scale_colour_continuous
+#' @importFrom ggplot2 ggplot geom_point geom_abline facet_wrap scale_colour_manual scale_colour_continuous aes geom_histogram ggtitle
 #' @examples
 #' ## load example sequence data
 #' data("ath_aly_ncbi_dagchainer", package="CRBHits")
 #' ## plot DAGchainer results - default
-#' plot.kaks(ath_aly_ncbi_dagchainer)
-#' @export plot.dagchainer
+#' plot_dagchainer(ath_aly_ncbi_dagchainer)
+#' @export plot_dagchainer
 #' @author Kristian K Ullrich
 
-plot.dagchainer <- function(dag,
+plot_dagchainer <- function(dag,
                             DotPlotTitle = "DAGchainer results",
                             colorBy = "none",
                             kaks = NULL,
@@ -31,6 +31,14 @@ plot.dagchainer <- function(dag,
                             ka.min = 0,
                             ks.min = 0,
                             select.chr = NULL){
+  #set global variable
+  gene1.chr <- NULL
+  gene2.chr <- NULL
+  gene1.mid <- NULL
+  gene2.mid <- NULL
+  ka <- NULL
+  ks <- NULL
+  dagchainer_group <- NULL
   if(attributes(dag)$CRBHits.class != "dagchainer"){
     stop("Please obtain DAGchainer results via the rbh2dagchainer() function or add a 'dagchainer' class attribute")
   }
