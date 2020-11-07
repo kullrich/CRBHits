@@ -2,7 +2,7 @@
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
 [![MITlicense](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 
-CRBHits - From Conditional Reciprocal Best Hits to Codon Alignments and Ka/Ks in R
+CRBHits - From Conditional Reciprocal Best Hits to Codon Alignments and Ka/Ks in R <img src="inst/CRBHitsLogo.png" align="right" height="160" />
 =========
 
 R package source code: [https://gitlab.gwdg.de/mpievolbio-it/crbhits](https://gitlab.gwdg.de/mpievolbio-it/crbhits)
