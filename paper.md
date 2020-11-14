@@ -178,14 +178,14 @@ cds3.selfblast.kaks.Li <- rbh2kaks(cds3.selfblast.crbh, cds3, cds3,
 
 ![Selfblast CRBHit pair results for *Arabidopsis thaliana*. (A) DAGchainer dotplot per chromosome colored by syntenic group and (B) colored by Ks. (C) Histogram of Ks values colored by syntenic group.\label{fig:synteny}](figure3.png)
 
-Table: Performance comparison for CRBHit pair (*Schizosaccharomyces pombe* vs. *Nematostella vectensis*) and Ka/Ks calculations (Intel Xeon CPU E5-2620 v3 @ 2.40GHz; 3575 hit pairs).\label{tab:performance}
+Table: Performance comparison for CRBHit pair (*Schizosaccharomyces pombe* vs. *Nematostella vectensis*) and Ka/Ks calculations (Intel Xeon CPU E5-2620 v3 @ 2.40GHz; 3411 hit pairs; 2 x Threads).\label{tab:performance}
 
 | Number of Threads | 1 | 2 | 4 | 8 |
 | - | - | - | - | - | 
-| Runtime of CRBH(shmlast v1.6) in sec| 38 (s)| 25 (s) | 20 (s) | 16 (s) |
+| Runtime of CRBH(shmlast v1.6) in sec| 36 (s)| 24 (s) | 18 (s) | 16 (s) |
 | Runtime of CRBH(CRBHits) in sec| 18 (s)| 10 (s) | 7 (s) | 6 (s) |
-| Runtime of kaks.Li in sec| 357 (s)| 167 (s) | 87 (s) | 49 (s) | 
-| Runtime of kaks.YN in sec| 474 (s)| 230 (s) | 121 (s) | 63 (s) |
+| Runtime of kaks.Li in sec| 586 (s)| 327 (s) | 190 (s) | 128 (s) | 
+| Runtime of kaks.YN in sec| 667 (s)| 361 (s) | 202 (s) | 133 (s) |
 
 # Conclusions
 
