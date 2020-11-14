@@ -201,6 +201,18 @@ rbh2kaks(., ., model = "YN", kakscalcpath = my.kakspaths)
 rbh2dagchainer(., ., dagchainerpath = my.dagchainerpath)
 ```
 
+### install external tools via [bioconda](https://bioconda.github.io/)
+
+```
+conda config --add channels defaults
+conda config --add channels bioconda
+conda config --add channels conda-forge
+
+conda install last
+conda install kakscalculator2
+conda install dagchainer
+```
+
 ## Vignettes
 
 These vignettes introduce  [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits)
