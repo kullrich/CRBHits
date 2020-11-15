@@ -1,6 +1,7 @@
 [![pipeline status](https://gitlab.gwdg.de/mpievolbio-it/crbhits/badges/master/pipeline.svg)](https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/commits/master)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
 [![MITlicense](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.02424/status.svg)](https://doi.org/10.21105/joss.02424)
 
 CRBHits - From Conditional Reciprocal Best Hits to Codon Alignments and Ka/Ks in R <img src="inst/CRBHitsLogo.png" align="right" height="160" />
 =========
