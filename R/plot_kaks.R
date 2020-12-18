@@ -11,7 +11,7 @@
 #' @param PlotType specify Plot type: "h" histogram or "d" dotplot [default: h]
 #' @param binw specify binwidth (see \code{\link[ggplot2]{geom_histogram}}) [default: 0.05]
 #' @param splitByChr specify if plot should be split by chromosome [default: FALSE]
-#' @param colorBy specify if Ka/Ks gene pairs should be colored by "rbh_class", dagchainer", "tandemdups" or "none" [default: rbh_class]
+#' @param colorBy specify if Ka/Ks gene pairs should be colored by "rbh_class", "dagchainer", "tandemdups" or "none" [default: rbh_class]
 #' @param ka.max specify max Ka to be filtered [default: 5]
 #' @param ks.max specify max Ks to be filtered [default: 5]
 #' @param ka.min specify min Ka to be filtered [default: 0]
