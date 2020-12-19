@@ -45,7 +45,7 @@ plot_kaks(
 
 \item{splitByChr}{specify if plot should be split by chromosome [default: FALSE]}
 
-\item{colorBy}{specify if Ka/Ks gene pairs should be colored by "rbh_class", dagchainer", "tandemdups" or "none" [default: rbh_class]}
+\item{colorBy}{specify if Ka/Ks gene pairs should be colored by "rbh_class", "dagchainer", "tandemdups" or "none" [default: rbh_class]}
 
 \item{ka.max}{specify max Ka to be filtered [default: 5]}
 

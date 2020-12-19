@@ -12,7 +12,7 @@
 
 <meta name="author" content="Kristian K Ullrich" />
 
-<meta name="date" content="2020-11-05" />
+<meta name="date" content="2020-12-19" />
 
 <title>CRBHits Basic Vignette</title>
 
@@ -30,45 +30,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
   }
-});
-</script>
-<style type="text/css">
-a.anchor-section {margin-left: 10px; visibility: hidden; color: inherit;}
-a.anchor-section::before {content: '#';}
-.hasAnchor:hover a.anchor-section {visibility: visible;}
-</style>
-<script>// Anchor sections v1.0 written by Atsushi Yasumoto on Oct 3rd, 2020.
-document.addEventListener('DOMContentLoaded', function() {
-  // Do nothing if AnchorJS is used
-  if (typeof window.anchors === 'object' && anchors.hasOwnProperty('hasAnchorJSLink')) {
-    return;
-  }
-
-  const h = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
-
-  // Do nothing if sections are already anchored
-  if (Array.from(h).some(x => x.classList.contains('hasAnchor'))) {
-    return null;
-  }
-
-  // Use section id when pandoc runs with --section-divs
-  const section_id = function(x) {
-    return ((x.classList.contains('section') || (x.tagName === 'SECTION'))
-            ? x.id : '');
-  };
-
-  // Add anchors
-  h.forEach(function(x) {
-    const id = x.id || section_id(x.parentElement);
-    if (id === '') {
-      return null;
-    }
-    let anchor = document.createElement('a');
-    anchor.href = '#' + id;
-    anchor.classList = ['anchor-section'];
-    x.classList.add('hasAnchor');
-    x.appendChild(anchor);
-  });
 });
 </script>
 
@@ -170,6 +131,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 })();
 </script>
+
 
 
 
@@ -367,7 +329,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">CRBHits Basic Vignette</h1>
 <h4 class="author">Kristian K Ullrich</h4>
-<h4 class="date">2020-11-05</h4>
+<h4 class="date">2020-12-19</h4>
 
 
 
@@ -426,11 +388,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb1-5"><a href="#cb1-5"></a><span class="kw">suppressPackageStartupMessages</span>(<span class="kw">library</span>(gridExtra))</span>
 <span id="cb1-6"><a href="#cb1-6"></a><span class="kw">suppressPackageStartupMessages</span>(<span class="kw">library</span>(curl))</span>
 <span id="cb1-7"><a href="#cb1-7"></a><span class="co">## compile LAST, KaKs_Calculator2.0 and DAGchainer for the vignette</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a>vignette.paths &lt;-<span class="st"> </span><span class="kw">make_vignette</span>()</span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="co">## set FTP handle due to travis-ci</span></span>
-<span id="cb1-10"><a href="#cb1-10"></a>ftp_handle &lt;-<span class="st"> </span>curl<span class="op">::</span><span class="kw">new_handle</span>( <span class="dt">ftp_use_epsv =</span> <span class="ot">FALSE</span>,</span>
-<span id="cb1-11"><a href="#cb1-11"></a>                                <span class="dt">crlf =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb1-12"><a href="#cb1-12"></a>                                <span class="dt">ssl_verifypeer =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<span id="cb1-8"><a href="#cb1-8"></a>vignette.paths &lt;-<span class="st"> </span><span class="kw">make_vignette</span>()</span></code></pre></div>
 </div>
 <div id="installation" class="section level2">
 <h2>1. <span id="install">Installation</span></h2>
@@ -510,17 +468,13 @@ make.dagchainer()</code></pre>
 <span id="cb5-13"><a href="#cb5-13"></a>  <span class="st">&quot;ftp://ftp.ensembl.org/pub/release-101/fasta/&quot;</span>,</span>
 <span id="cb5-14"><a href="#cb5-14"></a>  <span class="st">&quot;homo_sapiens/cds/Homo_sapiens.GRCh38.cds.all.fa.gz&quot;</span>)</span>
 <span id="cb5-15"><a href="#cb5-15"></a>HOMSAP.cds.ENSEMBL.file &lt;-<span class="st"> </span><span class="kw">tempfile</span>()</span>
-<span id="cb5-16"><a href="#cb5-16"></a><span class="co">#download.file(HOMSAP.cds.ENSEMBL.url, HOMSAP.cds.ENSEMBL.file, quiet = FALSE)</span></span>
-<span id="cb5-17"><a href="#cb5-17"></a>curl<span class="op">::</span><span class="kw">curl_download</span>(<span class="dt">url =</span> HOMSAP.cds.ENSEMBL.url,</span>
-<span id="cb5-18"><a href="#cb5-18"></a>                    <span class="dt">handle =</span> ftp_handle,</span>
-<span id="cb5-19"><a href="#cb5-19"></a>                    <span class="dt">mode =</span> <span class="st">&quot;wb&quot;</span>,</span>
-<span id="cb5-20"><a href="#cb5-20"></a>                    <span class="dt">destfile =</span> HOMSAP.cds.ENSEMBL.file)</span>
-<span id="cb5-21"><a href="#cb5-21"></a>HOMSAP.cds.ENSEMBL &lt;-<span class="st"> </span>Biostrings<span class="op">::</span><span class="kw">readDNAStringSet</span>(HOMSAP.cds.ENSEMBL.file)</span>
-<span id="cb5-22"><a href="#cb5-22"></a><span class="co">## reduce to the longest isoform</span></span>
-<span id="cb5-23"><a href="#cb5-23"></a>HOMSAP.cds.ENSEMBL.longest &lt;-<span class="st"> </span><span class="kw">isoform2longest</span>(HOMSAP.cds.ENSEMBL, <span class="st">&quot;ENSEMBL&quot;</span>)</span>
-<span id="cb5-24"><a href="#cb5-24"></a></span>
-<span id="cb5-25"><a href="#cb5-25"></a><span class="co">## get help</span></span>
-<span id="cb5-26"><a href="#cb5-26"></a><span class="co">#?isoform2longest</span></span></code></pre></div>
+<span id="cb5-16"><a href="#cb5-16"></a><span class="kw">download.file</span>(HOMSAP.cds.ENSEMBL.url, HOMSAP.cds.ENSEMBL.file, <span class="dt">quiet =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb5-17"><a href="#cb5-17"></a>HOMSAP.cds.ENSEMBL &lt;-<span class="st"> </span>Biostrings<span class="op">::</span><span class="kw">readDNAStringSet</span>(HOMSAP.cds.ENSEMBL.file)</span>
+<span id="cb5-18"><a href="#cb5-18"></a><span class="co">## reduce to the longest isoform</span></span>
+<span id="cb5-19"><a href="#cb5-19"></a>HOMSAP.cds.ENSEMBL.longest &lt;-<span class="st"> </span><span class="kw">isoform2longest</span>(HOMSAP.cds.ENSEMBL, <span class="st">&quot;ENSEMBL&quot;</span>)</span>
+<span id="cb5-20"><a href="#cb5-20"></a></span>
+<span id="cb5-21"><a href="#cb5-21"></a><span class="co">## get help</span></span>
+<span id="cb5-22"><a href="#cb5-22"></a><span class="co">#?isoform2longest</span></span></code></pre></div>
 <p><strong>Note:</strong> It is also possible to obtain and select the longest/primary isoform from CDS Input sources other than NCBI or Ensembl. This can be achieved by parsing a GTF/GFF3 file. This special case is handled in the <a href="https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V02KaKsVignette.html">CRBHits KaKs Vignette</a> under point 1.4.2.</p>
 </div>
 <div id="sequence-similarity-search" class="section level4">
