@@ -324,20 +324,12 @@ PANTRO.cds.url <- paste0(ensembl, "pan_troglodytes/cds/Pan_troglodytes.Pan_tro_3
 
 ## get Homo sapiens CDS
 HOMSAP.cds.file <- tempfile()
-#download.file(HOMSAP.cds.url, HOMSAP.cds.file, quiet = FALSE)
-curl::curl_download(url = HOMSAP.cds.url,
-                    handle = ftp_handle,
-                    mode = "wb",
-                    destfile = HOMSAP.cds.file)
+download.file(HOMSAP.cds.url, HOMSAP.cds.file, quiet = FALSE)
 HOMSAP.cds <- Biostrings::readDNAStringSet(HOMSAP.cds.file)
 
 ## get Pan troglodytes CDS
 PANTRO.cds.file <- tempfile()
-#download.file(PANTRO.cds.url, PANTRO.cds.file, quiet = FALSE)
-curl::curl_download(url = PANTRO.cds.url,
-                    handle = ftp_handle,
-                    mode = "wb",
-                    destfile = PANTRO.cds.file)
+download.file(PANTRO.cds.url, PANTRO.cds.file, quiet = FALSE)
 PANTRO.cds <- Biostrings::readDNAStringSet(PANTRO.cds.file)
 
 ## get longest isoform

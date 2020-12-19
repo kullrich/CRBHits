@@ -10,7 +10,7 @@ before_script:
   - R -e "install.packages('feature',repos='http://cran.rstudio.com')"
   - R -e "install.packages('pkgdown',repos='http://cran.rstudio.com')"
   - R -e "devtools::install_gitlab('mpievolbio-it/crbhits', host = 'https://gitlab.gwdg.de')"
-  - R -e "setwd(paste0(find.package('CRBHits'), '/extdata/')); system(paste0('unzip last-1133.zip')); setwd(paste0(find.package('CRBHits'), '/extdata/last-1133/')); system('make')"
+  - R -e "setwd(paste0(find.package('CRBHits'), '/extdata/')); system(paste0('unzip last-1168.zip')); setwd(paste0(find.package('CRBHits'), '/extdata/last-1168/')); system('make')"
   - R -e "setwd(paste0(find.package('CRBHits'), '/extdata/')); system(paste0('tar -xvf KaKs_Calculator2.0.tar.gz')); setwd(paste0(find.package('CRBHits'), '/extdata/KaKs_Calculator2.0/src/')); system('make clean'); system('make')"
   - R -e "setwd(paste0(find.package('CRBHits'), '/extdata/')); system(paste0('unzip dagchainer.zip')); setwd(paste0(find.package('CRBHits'), '/extdata/dagchainer/')); system('make')"
 
