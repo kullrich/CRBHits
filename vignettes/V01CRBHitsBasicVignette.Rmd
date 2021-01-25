@@ -195,10 +195,10 @@ cds1 <- Biostrings::readDNAStringSet(cdsfile1)
 ## get CDS2
 cds2 <- Biostrings::readDNAStringSet(cdsfile2)
 ## example how to perform classical RBH
-ath_aly_rbh <- cds2rbh(cds1, cds2, crbh = FALSE,
+ath_aly_crbh <- cds2rbh(cds1, cds2, crbh = FALSE,
                        lastpath = vignette.paths[1])
 ## show summary
-summary(ath_aly_rbh)
+summary(ath_aly_crbh)
 
 ## get help
 #?cds2rbh
@@ -385,7 +385,7 @@ To extract just the RBHs one can subset based on the `rbh_class` columns as foll
 ## example to extract CRBHit pairs classified as rbh
 
 ## reduce to rbh_class rbh
-data("ath_aly_rbh", package = "CRBHits")
+data("ath_aly_crbh", package = "CRBHits")
 head(dplyr::filter(ath_aly_crbh$crbh1, rbh_class == "rbh"))
 head(dplyr::filter(ath_aly_crbh$crbh2, rbh_class == "rbh"))
 ```

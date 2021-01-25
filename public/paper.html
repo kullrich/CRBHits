@@ -8,6 +8,13 @@
 
 <title>Summary • CRBHits</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -40,6 +47,7 @@
 
 
 <meta property="og:title" content="Summary" />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -79,7 +87,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -105,7 +113,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -169,14 +177,14 @@
 \end{cases}$$</span><br></p>
 <p>where <span class="math inline"><em>x</em><sub>hit pair</sub></span> is the expected protein identity given the alignment length <span class="math inline"><em>L</em><sub>hit pair</sub></span>. If the actual protein identity of a hit pair exceeds the expected protein identity (<span class="math inline"><em>p</em><em>i</em><em>d</em><em>e</em><em>n</em><em>t</em><sub>hit pair</sub> ≥ <em>f</em>(<em>x</em><sub>hit pair</sub>)</span>), it is retained for subsequent CRBH calculation.</p>
 <p>In contrast to previous implementations, <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> only take coding nucleotide sequences (CDS) as the query and target inputs. This is due to the downstream functionality of <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> to directly calculate codon alignments within R, which rely on CDS. The inputs are translated into protein sequences, aligned globally [@smith1981identification] and converted into codon alignments.</p>
-<p>Functions are completely coded in R and only the external prerequisites (<a href="http://last.cbrc.jp/">LAST</a>, <a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download">KaKs_Calculator2.0</a> and <a href="http://dagchainer.sourceforge.net/">DAGchainer</a>) need to be compiled. However, all of them are forked within <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> and can be easily build with the dedicated R functions <code>make.last()</code>, <code>make.KaKs_Calculator2()</code> and <code>make.dagchainer()</code>. Further, users can create their own RBH filters before CRBH calculation.</p>
+<p>Functions are completely coded in R and only the external prerequisites (<a href="http://last.cbrc.jp/">LAST</a>, <a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download">KaKs_Calculator2.0</a> and <a href="http://dagchainer.sourceforge.net/">DAGchainer</a>) need to be compiled. However, all of them are forked within <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> and can be easily build with the dedicated R functions <code><a href="reference/make_last.html">make_last()</a></code>, <code><a href="reference/make_KaKs_Calculator2.html">make_KaKs_Calculator2()</a></code> and <code><a href="reference/make_dagchainer.html">make_dagchainer()</a></code>. Further, users can create their own RBH filters before CRBH calculation.</p>
 </div>
 <div id="functions-and-examples" class="section level1">
 <h1 class="hasAnchor">
 <a href="#functions-and-examples" class="anchor"></a>Functions and Examples</h1>
 <p>The following example shows how to obtain CRBHit pairs between the coding sequences of <em>Schizosaccharomyces pombe</em> (fission yeast) [@wood2012pombase] and <em>Nematostella vectensis</em> (starlet sea anemone) [@apweiler2004protein] by using two URLs as input strings and multiple threads for calculation.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a></span><span class="op">)</span>
 <span class="co">#set URLs for Schizosaccharomyces pombe (fission yeast)</span>
 <span class="co">#and Nematostella vectensis (starlet sea anemone) from NCBI Genomes</span>
 <span class="va">cds1.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/002/945/"</span>,
@@ -189,11 +197,11 @@
 <span class="va">cds1.cds2.crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cdsfile2rbh.html">cdsfile2rbh</a></span><span class="op">(</span><span class="va">cds1.url</span>, <span class="va">cds2.url</span>, longest.isoform <span class="op">=</span> <span class="cn">TRUE</span>,
                               isoform.source <span class="op">=</span> <span class="st">"NCBI"</span>, plotCurve <span class="op">=</span> <span class="cn">TRUE</span>,
                               threads <span class="op">=</span> <span class="fl">8</span><span class="op">)</span>
-<span class="co">#get help ?cdsfile2rbh</span></pre></div>
+<span class="co">#get help ?cdsfile2rbh</span></code></pre></div>
 <p><img src="figure2.png" alt="Accepted condition reciprocal best hits based on RBH fitting.\label{fig:crbh}"></p>
 <p>The obtained CRBHit pairs can also be used to calculate synonymous (Ks) and nonsynonymous (Ka) substitutions per hit pair using either the model from @li1993unbiased or from @yang2000estimating.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="co">#download and simultaneously get longest isoform for</span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#download and simultaneously get longest isoform for</span>
 <span class="co">#Schizosaccharomyces pombe (fission yeast) and</span>
 <span class="co">#Nematostella vectensis (starlet sea anemone)</span>
 <span class="va">cds1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/isoform2longest.html">isoform2longest</a></span><span class="op">(</span><span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html">readDNAStringSet</a></span><span class="op">(</span><span class="va">cds1.url</span><span class="op">)</span><span class="op">)</span>
@@ -204,10 +212,10 @@
 <span class="va">cds1.cds2.kaks.YN</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span><span class="va">cds1.cds2.crbh</span>, <span class="va">cds1</span>, <span class="va">cds2</span>,
                               model <span class="op">=</span> <span class="st">"YN"</span>, threads <span class="op">=</span> <span class="fl">8</span><span class="op">)</span>
                               
-<span class="co">#get help ?rbh2kaks</span></pre></div>
+<span class="co">#get help ?rbh2kaks</span></code></pre></div>
 <p>Given the annotated chromosomal gene positions it is also possible to assign tandem duplicated genes per chromosome and directly compute chains of syntenic genes via the use of the R external tool <a href="http://dagchainer.sourceforge.net/">DAGchainer</a>[@haas2004]. Here, <em>Arabidopsis thaliana</em> is compared to itself (so called selfblast) and syntenic groups vsiualized by their Ks values.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="co">#download and simultaneously get longest isoform for</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#download and simultaneously get longest isoform for</span>
 <span class="co">#Arabidopsis thaliana</span>
 <span class="va">cds3.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"ftp://ftp.ensemblgenomes.org/pub/plants/release-48/fasta/"</span>,
                <span class="st">"arabidopsis_thaliana/cds/"</span>,
@@ -220,7 +228,7 @@
                                qcov <span class="op">=</span> <span class="fl">0.5</span>, rost1999 <span class="op">=</span> <span class="cn">TRUE</span>,
                                isoform.source <span class="op">=</span> <span class="st">"ENSEMBL"</span>, plotCurve <span class="op">=</span> <span class="cn">TRUE</span>,
                                threads <span class="op">=</span> <span class="fl">8</span><span class="op">)</span>
-<span class="co">#compute chains of syntenic genes and plor chr1, chr2, chr3, chr4, chr5</span>
+<span class="co">#compute chains of syntenic genes and plot chr1, chr2, chr3, chr4, chr5</span>
 <span class="va">cds3.selfblast.synteny</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rbh2dagchainer.html">rbh2dagchainer</a></span><span class="op">(</span><span class="va">cds3.selfblast.crbh</span>,
                                          <span class="va">cds3.genepos</span>, <span class="va">cds3.genepos</span>,
                                          plotDotPlot <span class="op">=</span> <span class="cn">TRUE</span>,
@@ -231,9 +239,9 @@
 
 <span class="co">#get help ?rbh2dagchainer</span>
 <span class="co">#get help ?plot.dagchainer</span>
-<span class="co">#get help ?plot.kaks</span></pre></div>
+<span class="co">#get help ?plot.kaks</span></code></pre></div>
 <p><img src="figure3.png" alt="Selfblast CRBHit pair results for Arabidopsis thaliana. (A) DAGchainer dotplot per chromosome colored by syntenic group and (B) colored by Ks. (C) Histogram of Ks values colored by syntenic group.\label{fig:synteny}"></p>
-<p>Table: Performance comparison for CRBHit pair (<em>Schizosaccharomyces pombe</em> vs. <em>Nematostella vectensis</em>) and Ka/Ks calculations (Intel Xeon CPU E5-2620 v3 @ 2.40GHz; 3575 hit pairs).\label{tab:performance}</p>
+<p>Table: Performance comparison for CRBHit pair (<em>Schizosaccharomyces pombe</em> vs. <em>Nematostella vectensis</em>) and Ka/Ks calculations (Intel Xeon CPU E5-2620 v3 @ 2.40GHz; 3411 hit pairs; 2 x Threads).\label{tab:performance}</p>
 <table>
 <thead><tr class="header">
 <th>Number of Threads</th>
@@ -245,9 +253,9 @@
 <tbody>
 <tr class="odd">
 <td>Runtime of CRBH(shmlast v1.6) in sec</td>
-<td>38 (s)</td>
-<td>25 (s)</td>
-<td>20 (s)</td>
+<td>36 (s)</td>
+<td>24 (s)</td>
+<td>18 (s)</td>
 <td>16 (s)</td>
 </tr>
 <tr class="even">
@@ -259,17 +267,17 @@
 </tr>
 <tr class="odd">
 <td>Runtime of kaks.Li in sec</td>
-<td>357 (s)</td>
-<td>167 (s)</td>
-<td>87 (s)</td>
-<td>49 (s)</td>
+<td>586 (s)</td>
+<td>327 (s)</td>
+<td>190 (s)</td>
+<td>128 (s)</td>
 </tr>
 <tr class="even">
 <td>Runtime of kaks.YN in sec</td>
-<td>474 (s)</td>
-<td>230 (s)</td>
-<td>121 (s)</td>
-<td>63 (s)</td>
+<td>667 (s)</td>
+<td>361 (s)</td>
+<td>202 (s)</td>
+<td>133 (s)</td>
 </tr>
 </tbody>
 </table>
