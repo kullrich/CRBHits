@@ -58,7 +58,7 @@ __Note:__
 
 In this Vignette the `lastpath` is defined as `vignette.paths[1]`, the `kakscalcpath` as `vignette.paths[2]` and the `dagchainerpath` as `vignette.paths[3]` to be able to build the Vignette.
 
-However, once you have compiled last-1168, KaKs_Calculator2.0 and DAGchainer with the functions `make_last()`, `make_KaKs_Calculator2()` and `make_dagchainer()` you won't need to specify the paths anymore. Please remove them if you would like to repeat the examples.
+However, once you have compiled last-1177, KaKs_Calculator2.0 and DAGchainer with the functions `make_last()`, `make_KaKs_Calculator2()` and `make_dagchainer()` you won't need to specify the paths anymore. Please remove them if you would like to repeat the examples.
 
 ```{r}
 ## load vignette specific libraries
@@ -94,7 +94,7 @@ For the windows platform the user needs to use e.g. [https://www.cygwin.com/](ht
 
 ```
 library(CRBHits)
-## compile last-1168
+## compile last-1177
 make.last()
 ## compile KaKs_Calculator2.0
 make.KaKs_Calculator2()

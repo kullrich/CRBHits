@@ -108,7 +108,7 @@ build_vignettes = FALSE, dependencies = FALSE)
 
 The source code for the prerequisites (LAST, KaKs_Calculator2.0, DAGchainer) are forked within [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits). 
 
-- [LAST](http://last.cbrc.jp/) [http://last.cbrc.jp/last-1168.zip](http://last.cbrc.jp/last-1168.zip)
+- [LAST](http://last.cbrc.jp/) [http://last.cbrc.jp/last-1177.zip](http://last.cbrc.jp/last-1177.zip)
 
 To compile the forked version of [LAST](http://last.cbrc.jp/) within the `CRBHits` R package directory try to use the function `make_last()`:
 
@@ -125,10 +125,10 @@ To compile [LAST](http://last.cbrc.jp/) yourself on Linux/Unix/macOS into anothe
 ## e.g.
 mkdir /tmp/last
 cd /tmp/last
-## donwload last-1168
-curl -O http://last.cbrc.jp/last-1168.zip
-unzip last-1168.zip
-cd last-1168
+## donwload last-1177
+curl -O http://last.cbrc.jp/last-1177.zip
+unzip last-1177.zip
+cd last-1177
 ## compile LAST
 make
 ```
@@ -188,7 +188,7 @@ If you would like to use your own compiled versions of `LAST`, `KaKs_Calculator2
 
 ```
 ## example how to use own compiled versions of LAST, KaKs_Calculator2.0 and DAGchainer
-my.lastpath <- "/tmp/last/last-1168/src"
+my.lastpath <- "/tmp/last/last-1177/src"
 my.kakspath <- "/tmp/KaKs_Calculator2/KaKs_Calculator2.0/src"
 my.dagchainerpath <- "/tmp/dagcahiner"
 
@@ -237,7 +237,7 @@ These vignettes introduce  [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhit
 
 ```
 library(CRBHits)
-## compile last-1168
+## compile last-1177
 make_last()
 ## conditional reciprocal best hits (CRBHit pairs)
 data("ath", package="CRBHits")
@@ -267,7 +267,7 @@ ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh, ath, aly, threads = 2)
 head(ath_aly_crbh.kaks)
 
 ## example how to use own compiled versions of LAST
-my.lastpath <- "/tmp/last/last-1168/src"
+my.lastpath <- "/tmp/last/last-1177/src"
 ath_aly_crbh <- cds2rbh(ath, aly, plotCurve = TRUE,
                         lastpath = my.lastpath)
 ?cds2rbh
@@ -286,7 +286,7 @@ MIT (see LICENSE)
 
 The [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) package includes source code that has been published under following licenses:
 
-### last-1168.zip
+### last-1177.zip
 
 GNU General Public License Version 3, 29 June 2007 [GPLv3](https://www.gnu.org/licenses/gpl-3.0.de.html)
 
