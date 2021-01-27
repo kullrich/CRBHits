@@ -243,29 +243,28 @@ make.dagchainer()</a></code></pre>
 <a href="#get-longest-isoform-from-ncbi-or-ensembl-input-optional" class="anchor"></a>2.1.2. <span id="isoform">Get Longest Isoform from NCBI or ENSEMBL Input (optional)</span>
 </h4>
 <p>It is also possible to use an URL to directly access coding sequences from <a href="https://www.ncbi.nlm.nih.gov/genome">NCBI</a> or <a href="ftp://ftp.ensembl.org/pub/current_fasta">ENSEMBL</a> and reduce this input to the longest annotated isoform.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## example how to access CDS from URL and get longest isoform</span>
+<pre><code>## example how to access CDS from URL and get longest isoform
 
-<span class="co">## get coding sequences for Homo sapiens from NCBI</span>
-<span class="va">HOMSAP.cds.NCBI.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span>
-  <span class="st">"https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/001/405/"</span>,
-  <span class="st">"GCF_000001405.39_GRCh38.p13/"</span>,
-  <span class="st">"GCF_000001405.39_GRCh38.p13_cds_from_genomic.fna.gz"</span><span class="op">)</span>
-<span class="va">HOMSAP.cds.NCBI</span> <span class="op">&lt;-</span> <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html">readDNAStringSet</a></span><span class="op">(</span><span class="va">HOMSAP.cds.NCBI.url</span><span class="op">)</span>
-<span class="co">## reduce to the longest isoform</span>
-<span class="va">HOMSAP.cds.NCBI.longest</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/isoform2longest.html">isoform2longest</a></span><span class="op">(</span><span class="va">HOMSAP.cds.NCBI</span>, <span class="st">"NCBI"</span><span class="op">)</span>
-<span class="co">## get coding sequences for Homo sapiens from ENSEMBL</span>
-<span class="va">HOMSAP.cds.ENSEMBL.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span>
-  <span class="st">"ftp://ftp.ensembl.org/pub/release-101/fasta/"</span>,
-  <span class="st">"homo_sapiens/cds/Homo_sapiens.GRCh38.cds.all.fa.gz"</span><span class="op">)</span>
-<span class="va">HOMSAP.cds.ENSEMBL.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempfile</a></span><span class="op">(</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/download.file.html">download.file</a></span><span class="op">(</span><span class="va">HOMSAP.cds.ENSEMBL.url</span>, <span class="va">HOMSAP.cds.ENSEMBL.file</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="va">HOMSAP.cds.ENSEMBL</span> <span class="op">&lt;-</span> <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html">readDNAStringSet</a></span><span class="op">(</span><span class="va">HOMSAP.cds.ENSEMBL.file</span><span class="op">)</span>
-<span class="co">## reduce to the longest isoform</span>
-<span class="va">HOMSAP.cds.ENSEMBL.longest</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/isoform2longest.html">isoform2longest</a></span><span class="op">(</span><span class="va">HOMSAP.cds.ENSEMBL</span>, <span class="st">"ENSEMBL"</span><span class="op">)</span>
+## get coding sequences for Homo sapiens from NCBI
+HOMSAP.cds.NCBI.url &lt;- paste0(
+  "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/001/405/",
+  "GCF_000001405.39_GRCh38.p13/",
+  "GCF_000001405.39_GRCh38.p13_cds_from_genomic.fna.gz")
+HOMSAP.cds.NCBI &lt;- Biostrings::readDNAStringSet(HOMSAP.cds.NCBI.url)
+## reduce to the longest isoform
+HOMSAP.cds.NCBI.longest &lt;- isoform2longest(HOMSAP.cds.NCBI, "NCBI")
+## get coding sequences for Homo sapiens from ENSEMBL
+HOMSAP.cds.ENSEMBL.url &lt;- paste0(
+  "ftp://ftp.ensembl.org/pub/release-101/fasta/",
+  "homo_sapiens/cds/Homo_sapiens.GRCh38.cds.all.fa.gz")
+HOMSAP.cds.ENSEMBL.file &lt;- tempfile()
+download.file(HOMSAP.cds.ENSEMBL.url, HOMSAP.cds.ENSEMBL.file, quiet = FALSE)
+HOMSAP.cds.ENSEMBL &lt;- Biostrings::readDNAStringSet(HOMSAP.cds.ENSEMBL.file)
+## reduce to the longest isoform
+HOMSAP.cds.ENSEMBL.longest &lt;- isoform2longest(HOMSAP.cds.ENSEMBL, "ENSEMBL")
 
-<span class="co">## get help</span>
-<span class="co">#?isoform2longest</span></code></pre></div>
+## get help
+#?isoform2longest</code></pre>
 <p><strong>Note:</strong> It is also possible to obtain and select the longest/primary isoform from CDS Input sources other than NCBI or Ensembl. This can be achieved by parsing a GTF/GFF3 file. This special case is handled in the <a href="https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V02KaKsVignette.html">CRBHits KaKs Vignette</a> under point 1.4.2.</p>
 </div>
 <div id="sequence-similarity-search" class="section level4">
@@ -304,7 +303,7 @@ make.dagchainer()</a></code></pre>
 <span class="co">## example how to perform CRBH</span>
 <span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">cds1</span>, <span class="va">cds2</span>, plotCurve <span class="op">=</span> <span class="cn">TRUE</span>,
                         lastpath <span class="op">=</span> <span class="va">vignette.paths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></code></pre></div>
-<p><img src="V01CRBHitsBasicVignette_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
+<p><img src="V01CRBHitsBasicVignette_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## show summary</span>
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">)</span>
@@ -376,7 +375,7 @@ make.dagchainer()</a></code></pre>
       xlab <span class="op">=</span> <span class="st">"alnlength"</span>,
       ylab <span class="op">=</span> <span class="st">"-log10(evalue)"</span>,
       main <span class="op">=</span> <span class="st">"CRBH fitting"</span><span class="op">)</span></code></pre></div>
-<p><img src="V01CRBHitsBasicVignette_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
+<p><img src="V01CRBHitsBasicVignette_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 <p>One can also specify if a hit pair which is only found in one direction should be retained, which will be classified as (<code>single</code>).</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## example how to retain single direction secondary homologs</span>
@@ -385,7 +384,7 @@ make.dagchainer()</a></code></pre>
 <span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">cds1</span>, <span class="va">cds2</span>, plotCurve <span class="op">=</span> <span class="cn">TRUE</span>,
                         keepSingleDirection <span class="op">=</span> <span class="cn">TRUE</span>,
                         lastpath <span class="op">=</span> <span class="va">vignette.paths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></code></pre></div>
-<p><img src="V01CRBHitsBasicVignette_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
+<p><img src="V01CRBHitsBasicVignette_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## get the number of CRBHit classified as rbh and sec hit pairs</span>
 <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh1</span><span class="op">$</span><span class="va">rbh_class</span><span class="op">)</span>
@@ -430,7 +429,7 @@ make.dagchainer()</a></code></pre>
 <span class="co">## get CRBHit pairs with direct query coverage filter</span>
 <span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">cds1</span>, <span class="va">cds2</span>, plotCurve <span class="op">=</span> <span class="cn">TRUE</span>, qcov <span class="op">=</span> <span class="fl">0.5</span>,
                         lastpath <span class="op">=</span> <span class="va">vignette.paths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></code></pre></div>
-<p><img src="V01CRBHitsBasicVignette_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
+<p><img src="V01CRBHitsBasicVignette_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span><span class="op">)</span>
 <span class="co">#&gt; [1] 777   3</span>
@@ -457,7 +456,7 @@ make.dagchainer()</a></code></pre>
 <span class="co">## plot expected pident by alignment length using eq2 from Rost (1999)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/curve.html">curve</a></span><span class="op">(</span><span class="va">get_pident_by_length</span>, <span class="fl">11</span>, <span class="fl">500</span>, pch <span class="op">=</span> <span class="fl">20</span>, xlab <span class="op">=</span> <span class="st">"alignment length"</span>, ylab <span class="op">=</span> <span class="st">"pident"</span>,
       main <span class="op">=</span> <span class="st">"expected protein identity (eq2; Rost B. 1999)"</span><span class="op">)</span></code></pre></div>
-<p><img src="V01CRBHitsBasicVignette_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
+<p><img src="V01CRBHitsBasicVignette_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
 <p>This <strong>twilight zone</strong> filter can be directly used by the <code>@param</code> <code>rost1999</code> set to <code>TRUE</code>.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## example how to filter prior crbh for eq2 from Rost (1999)</span>
@@ -465,7 +464,7 @@ make.dagchainer()</a></code></pre>
 <span class="co">## get CRBHit pairs with direct twilight-zone filter</span>
 <span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">cds1</span>, <span class="va">cds2</span>, plotCurve <span class="op">=</span> <span class="cn">TRUE</span>, rost1999 <span class="op">=</span> <span class="cn">TRUE</span>,
                         lastpath <span class="op">=</span> <span class="va">vignette.paths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></code></pre></div>
-<p><img src="V01CRBHitsBasicVignette_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
+<p><img src="V01CRBHitsBasicVignette_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span><span class="op">)</span>
 <span class="co">#&gt; [1] 798   3</span>
@@ -505,7 +504,7 @@ make.dagchainer()</a></code></pre>
 <span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">cds1</span>, <span class="va">cds2</span>, plotCurve <span class="op">=</span> <span class="cn">TRUE</span>,
                         filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">myfilter1</span>, <span class="va">myfilter2</span><span class="op">)</span>,
                         lastpath <span class="op">=</span> <span class="va">vignette.paths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></code></pre></div>
-<p><img src="V01CRBHitsBasicVignette_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
+<p><img src="V01CRBHitsBasicVignette_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span><span class="op">)</span>
 <span class="co">#&gt; [1] 563   3</span></code></pre></div>
@@ -590,7 +589,7 @@ make.dagchainer()</a></code></pre>
 <span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">cds1</span>, <span class="va">cds2</span>, plotCurve <span class="op">=</span> <span class="cn">TRUE</span>,
                         fit.type <span class="op">=</span> <span class="st">"median"</span>,
                         lastpath <span class="op">=</span> <span class="va">vignette.paths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></code></pre></div>
-<p><img src="V01CRBHitsBasicVignette_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
+<p><img src="V01CRBHitsBasicVignette_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="co">## get help</span>

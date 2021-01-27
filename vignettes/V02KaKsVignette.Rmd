@@ -54,7 +54,7 @@ In this Vignette the `lastpath` is defined as `vignette.paths[1]`, the `kakscalc
 
 However, once you have compiled last-1177, KaKs_Calculator2.0 and DAGchainer with the functions `make_last()`, `make_KaKs_Calculator2()` and `make_dagchainer()` you won't need to specify the paths anymore. Please remove them if you would like to repeat the examples.
 
-```{r}
+```
 ## load vignette specific libraries
 library(CRBHits)
 suppressPackageStartupMessages(library(Biostrings))
@@ -83,7 +83,7 @@ The second example compares the CDS from *Homo sapiens* and *Pan troglodytes* (s
 
 As an alternative the [EnsemblPlants release-48](ftp://ftp.ensemblgenomes.org/pub/plants/release-48/fasta/) can used.
 
-```{r}
+```
 ## set URLs for Arabidopis thaliana and Arabidopsis lyrata from NCBI Genomes
 
 ## set NCBI URL
@@ -107,7 +107,7 @@ Prior CRBHit pairs calculation, the longest isoforms can be selected, if the dat
 
 __Note:__ This is an important step. If e.g. isoforms are used, the Ka/Ks calculations might show biased values inspecting mean or median Ka/Ks values grouped per query sequence.
 
-```{r}
+```
 ## get longest isoforms
 
 ## get longest isoform
@@ -128,7 +128,7 @@ The CRBhit pairs can be calculated directly from the URLs with the function `cds
 
 For a detailed description of the `cdsfile2rbh()` function and the `cds2rbh()` function with its individual filtering steps prior CRBH algorithm fitting see the [CRBHits Basic Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V01CRBHitsBasicVignette.html).
 
-```{r}
+```
 ## calculate CRBHit pairs for A. thaliana and A. lyrata using 2 threads
 
 ## input from CDS obtained from NCBI
@@ -147,6 +147,8 @@ ARATHA_ARALYR_crbh <- cds2rbh(ARATHA.cds,
 #?cds2rbh
 ```
 
+![Figure: CRBHit pairs between A. thaliana and A. lyrata](V02-unnamed-chunk-4-1.png)
+
 ### 1.4. [Extract Gene/Isoform chromosomal position]{#extractposition}
 
 To be able to filter for *Tandem Duplicates* and to plot a dotplot, one needs to have annotated gene positions per chromosome/contig. With the `cds2genepos()` function it is possible to directly access this information if the data was obtained from NCBI or Ensembl.
@@ -159,7 +161,7 @@ __Note:__ It is also possible to obtain and define chromosomal gene positions fr
 
 If the CDS Input was obtained from NCBI or ENSEMBL, the gene position can be directly extracted from the `DNAStringSet` as follows.
 
-```{r}
+```
 ## get gene position idx from NCBI CDS
 
 ## extract gene position from CDS
@@ -189,7 +191,7 @@ Here, as an example, the GFF3 file for the species *Arabidopsis thaliana* is obt
 
 __Note:__ The GFF3 and GTF files can be very large and it might take some time until this data is loaded into memory.
 
-```{r}
+```
 ## get gene position idx from GTF/GFF3
 
 ## set NCBI URL
@@ -282,7 +284,7 @@ The following example shows how one can:
 2. get gene positions
 3. assign tandem duplicates
 
-```{r}
+```
 ## example to assign tandem duplicates given selfblast CRBHit pairs and gene position
 
 ## get selfblast CRBHit pairs for A. thaliana
@@ -293,7 +295,11 @@ ARATHA_selfblast_crbh <- cds2rbh(ARATHA.cds,
                                  isoform.source = "NCBI",
                                  threads = 2, plotCurve = TRUE,
                                  lastpath = vignette.paths[1])
+```
 
+![Figure: selfblast CRBHit pairs between of A. thaliana](V02-unnamed-chunk-7-1.png)
+
+```
 ## get selfblast CRBHit pairs for A. lyrata
 ARALYR_selfblast_crbh <- cds2rbh(ARALYR.cds,
                                  ARALYR.cds,
@@ -302,7 +308,11 @@ ARALYR_selfblast_crbh <- cds2rbh(ARALYR.cds,
                                  isoform.source = "NCBI",
                                  threads = 2, plotCurve = TRUE,
                                  lastpath = vignette.paths[1])
+```
 
+![Figure: selfblast CRBHit pairs between of A. lyrata](V02-unnamed-chunk-7-2.png)
+
+```
 ## get gene position for A. thaliana longest isoforms
 ARATHA.cds.longest.genepos <- cds2genepos(ARATHA.cds.longest, source = "NCBI")
 ## get gene position for A. lyrata longest isoforms
@@ -323,7 +333,7 @@ ARALYR.cds.longest.tandemdups <- tandemdups(rbhpairs = ARALYR_selfblast_crbh,
 
 The resulting tandem duplicated genes detected can be plotted given their chromosomal gene position as follows:
 
-```{r}
+```
 ## example how to plot tandem duplicated gene groups
 
 ## get tandem group size
@@ -344,6 +354,8 @@ ARATHA.cds.longest.tandemdups %>% dplyr::group_by(gene.chr) %>%
   ggplot2::scale_colour_manual(values = CRBHitsColors(length(table(tandem_group_size))))
 ```
 
+![Figure: Tandem duplicates between A. thaliana and A. lyrata](V02-unnamed-chunk-8-1.png)
+
 ### 1.6 [Synteny with DAGchainer]{#synteny}
 
 Chains of collinear gene pairs can represent segmentally duplicated regions and genes within a single genome or syntenic regions between related genomes ([Haas et al., 2004](https://doi.org/10.1093/bioinformatics/bth397)).
@@ -355,7 +367,7 @@ Within CRBHits the tool [DAGchainer](http://dagchainer.sourceforge.net/) publish
 The following example shows how one can run [DAGchainer](http://dagchainer.sourceforge.net/) on CRBHit pairs and gene positions to get syntenic information about the CRBHit pairs.
 
 
-```{r}
+```
 ## example how to run DAGchainer on CRBHit pairs and gene positions
 
 ## DAGchainer using gene base pair (gene bp start end)
@@ -383,12 +395,16 @@ ARATHA_ARALYR_crbh.dagchainer.idx <- rbh2dagchainer(rbhpairs = ARATHA_ARALYR_crb
 
 A plotting function `plot_dagchainer()` is integrated and can be directly applied on the DAGchainer results.
 
-```{r}
+```
 ## example how to plot pairwise chromosomal syntenic groups (DAGchainer results)
 
 ## plot DAGchainer results for each chromosome combination
 plot_dagchainer(ARATHA_ARALYR_crbh.dagchainer.bp)
+```
 
+![Figure: Dagchainer results of A. thaliana and A. lyrata](V02-unnamed-chunk-10-1.png)
+
+```
 ## plot DAGchainer results selected chromosomes
 g <- plot_dagchainer(ARATHA_ARALYR_crbh.dagchainer.bp,
                      select.chr = c("NC_003070.9", "NC_003071.7", "NC_003074.8",
@@ -398,16 +414,40 @@ g <- plot_dagchainer(ARATHA_ARALYR_crbh.dagchainer.bp,
                                     "NW_003302551.1", "NW_003302550.1",
                                     "NW_003302549.1", "NW_003302548.1"))
 g
+```
+
+![Figure: Dagchainer results selected chromosomes](V02-unnamed-chunk-10-2.png)
+
+```
 ## change title size
 g + ggplot2::theme(title = element_text(size = 16))
+```
+
+![Figure: Dagchainer results altered title size](V02-unnamed-chunk-10-3.png)
+
+```
 ## change axis title size (gene1.mid; gene2.mid)
 g + ggplot2::theme(axis.title.x = element_text(size = 16),
                    axis.title.y = element_text(size = 16))
+```
+
+![Figure: Dagchainer results altered axis title size](V02-unnamed-chunk-10-4.png)
+
+```
 ## change grid title size
 g + theme(strip.text.x = element_text(size = 16), strip.text.y = element_text(size = 16))
+```
+
+![Figure: Dagchainer results altered grid title size](V02-unnamed-chunk-10-5.png)
+
+```
 ## change grid axis size and angle
 g + theme(axis.text.x = element_text(size = 12, angle = 90))
+```
 
+![Figure: Dagchainer results altered grid angle](V02-unnamed-chunk-10-6.png)
+
+```
 ## get help
 #?plot_dagchainer
 ```
@@ -460,16 +500,24 @@ In some cases the Ka/Ks calculation fails, since e.g. there are no synonymous (K
 
 A plotting function `plot_kaks()` is integrated and can be applied on the Ka/Ks results. 
 
-```{r}
+```
 ## load example Ka/Ks values (see above commands above how to obtain them)
 data("ath_aly_ncbi_kaks", package="CRBHits")
 
 ## plot Ka/Ks results as histogram colored by Ka/Ks values
 g <- plot_kaks(ath_aly_ncbi_kaks)
+```
 
+![Figure: Ka/Ks results as histogram colored by Ka/ks](V02-unnamed-chunk-11-1.png)
+
+```
 ## plot Ka/Ks results as histogram filter for ka.min, ka.max, ks.min, ks.max
 g.min_max <- plot_kaks(ath_aly_ncbi_kaks, ka.min = 0, ka.max = 1, ks.min = 0, ks.max = 1)
+```
 
+![Figure: Ka/Ks results filtered for ka.min, ka.max, ks.max](V02-unnamed-chunk-11-2.png)
+
+```
 ## select subset of chromosomes - needs gene position information
 head(ARATHA.cds.longest.genepos)
 head(ARALYR.cds.longest.genepos)
@@ -478,7 +526,11 @@ g.subset <- plot_kaks(ath_aly_ncbi_kaks,
                       gene.position.cds2 = ARALYR.cds.longest.genepos,
                       select.chr = c("NC_003070.9", "NC_003071.7",
                         "NW_003302551.1", "NW_003302554.1"))
+```
 
+![Figure: Ka/Ks results filtered for chromosomes](V02-unnamed-chunk-11-3.png)
+
+```
 ## plot Ka/Ks results and split by chromosome - needs gene position information
 
 g.split <- plot_kaks(ath_aly_ncbi_kaks,
@@ -489,11 +541,13 @@ g.split <- plot_kaks(ath_aly_ncbi_kaks,
                      splitByChr = TRUE)
 ```
 
+![Figure: Ka/Ks results split by chromosomes](V02-unnamed-chunk-11-4.png)
+
 __Note:__ Default **data.frame** handling with the **dplyr** package is possible on the original Ka/Ks results as well as on the resulting plot objects.
 
 Apply `dplyr::filter()` and `dplyr::mutate()` function:
 
-```{r}
+```
 ## examples how to filter and mutate Ka/Ks results
 
 ## filter for Ks values < 2 on original Ka/Ks results
@@ -511,13 +565,15 @@ g.split$g.kaks$data %>% dplyr::filter(ks < 1) %>%
   ggplot2::ggplot() + ggplot2::geom_histogram(binwidth = 0.1, aes(x = ks))
 ```
 
+![Figure: Ks results as histogram](V02-unnamed-chunk-12-1.png)
+
 ## 4. [*Homo sapiens* vs. *Pan troglodytes* example]{#homosapiens}
 
 The second example compares the CDS from *Homo sapiens* and *Pan troglodytes*. The input sequences are from the FTP server from [Ensembl](https://ensembl.org/index.html).
 
 The [Ensembl release-101](ftp://ftp.ensembl.org/pub/release-101/fasta/) is used.
 
-```{r}
+```
 ## example comparing Homo sapiens and Pan troglodytes
 
 ## set URLs for Homo sapiens and Pan troglodytes from Ensembl
@@ -556,7 +612,11 @@ HOMSAP_PANTRO_crbh <- cds2rbh(HOMSAP.cds,
                               isoform.source = "ENSEMBL",
                               threads = 2, plotCurve = TRUE,
                               lastpath = vignette.paths[1])
+```
 
+![Figure: CRBHit pairs of H. sapiens and P. troglodytes](V02-unnamed-chunk-13-1.png)
+
+```
 ## get gene position for H. sapiens longest isoforms
 HOMSAP.cds.longest.genepos <- cds2genepos(HOMSAP.cds.longest, source = "ENSEMBL")
 ## get gene position for P. troglodytes longest isoforms
@@ -576,6 +636,8 @@ HOMSAP_PANTRO_crbh.dagchainer.bp <- rbh2dagchainer(rbhpairs = HOMSAP_PANTRO_crbh
 plot_dagchainer(HOMSAP_PANTRO_crbh.dagchainer.bp, select.chr = c("1","2","3","4","5","14"))
 ```
 
+![Figure: Dagchainer results of H. sapiens and P. troglodytes](V02-unnamed-chunk-13-2.png)
+
 __Note:__ The following example can take some time and is not calculated by the vignette building process.
 
 ```
@@ -589,13 +651,15 @@ HOMSAP_PANTRO_crbh.kaks.Li <- rbh2kaks(HOMSAP_PANTRO_crbh,
                                        threads = 4)
 ```
 
-```{r}
+```
 ## load example Ka/Ks values (see above commands above how to obtain them)
 data("hom_pan_ensembl_kaks", package="CRBHits")
 
 ## plot Ka/Ks results as histogram colored by Ka/Ks values
 g <- plot_kaks(hom_pan_ensembl_kaks)
 ```
+
+![Figure: Ka/Ks results of H. sapiens and P. troglodytes](V02-unnamed-chunk-14-1.png)
 
 ## 5. [References]{#references}
 

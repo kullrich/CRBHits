@@ -150,7 +150,7 @@ all(Biostrings::width(cds) %% 3 == 0)
 
 It is also possible to use an URL to directly access coding sequences from [NCBI](https://www.ncbi.nlm.nih.gov/genome) or [ENSEMBL](ftp://ftp.ensembl.org/pub/current_fasta) and reduce this input to the longest annotated isoform.
 
-````{r}
+````
 ## example how to access CDS from URL and get longest isoform
 
 ## get coding sequences for Homo sapiens from NCBI
