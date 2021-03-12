@@ -369,7 +369,7 @@ cds2rbh <- function(cds1, cds2,
       colnames(crbh1)[16] <- "rbh_class"
       crbh2 <- data.frame(Map(c, cbind(rbh2, "rbh"), cbind(rbh2.sec[, 1:15], "sec"), cbind(single2[, 1:15], "single")))
       colnames(crbh2)[16] <- "rbh_class"
-      crbh <- data.frame(Map(c, crbh1[, c(1:2,16)], single1[, c(1:2,16)], single2[, c(2,1,16)]))
+      crbh <- data.frame(Map(c, crbh1[, c(1:2, 16)], crbh2[crbh2$rbh_class == "single", , drop = FALSE][, c(2, 1, 16)]))
       colnames(crbh) <- c("aa1", "aa2", "rbh_class")
       out <- list(crbh, crbh1, crbh2, rbh1_rbh2_fit)
       names(out) <- c("crbh.pairs", "crbh1", "crbh2", "rbh1_rbh2_fit")
