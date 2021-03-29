@@ -332,6 +332,8 @@ Charif D., and Lobry J. R. (2007). **SeqinR 1.0-2: a contributed package to the 
 
 Duong T., and Wand M. (2015). **feature: Local Inferential Feature Significance for Multivariate Kernel Density Estimation.** *R package version 1.2.13*. [https://cran.r-project.org/web/packages/feature/](https://cran.r-project.org/web/packages/feature/)
 
+Ganeshan S., Dickover RE., Korber BT., Bryson YJ., Wolinsky SM. (1997). **Human immunodeficiency virus type 1 genetic evolution in children with different rates of development of disease.** *Journal of Virology*, **71(1)**, 663-677.
+
 Haas B. J., Delcher A. L., Wortman J. R., and Salzberg S. L. (2004). **DAGchainer: a tool for mining segmental genome duplications and synteny.** *Bioinformatics*, **20(18)**, 3643-3646. [https://doi.org/10.1093/bioinformatics/bth397](https://doi.org/10.1093/bioinformatics/bth397)
 
 Haug-Baltzell A., Stephens S. A., Davey S., Scheidegger C. E., Lyons E. (2017). **SynMap2 and SynMap3D: web-based wholge-genome synteny browsers.** *Bioinformatics*, **33(14)**, 2197-2198. [https://academic.oup.com/bioinformatics/article/33/14/2197/3072872](https://academic.oup.com/bioinformatics/article/33/14/2197/3072872)
@@ -346,7 +348,11 @@ Microsoft, and Weston S. (2020). **foreach: Provides Foreach Looping Construct.*
 
 Mugal C. F., Wolf J. B. W., Kaj I. (2014). **Why Time Matters: Codon Evolution and the Temproal Dynamics of dN/dS.** *Molecular Biology and Evolution*, **31(1)**, 212-231.
 
+Nei M. and Gojobori T. (1986). **Simple methods for estimating the numbers of synonymous and nonsynonymous nucleotide substitutions.** *Molecular Biology and Evolution*, **3(5)**, 418-426. [https://doi.org/10.1093/oxfordjournals.molbev.a040410](https://doi.org/10.1093/oxfordjournals.molbev.a040410)
+
 Ooms J. (2019). **curl: A Modern and Flexible Web Client for R.** *R package version*, 4.3. [curl](https://cran.r-project.org/web/packages/curl/index.html)
+
+Ota T. and Nei M. (1994). **Variance and covariances of the numbers of synonymous and nonsynonymous substitutions per site .** *Molecular Biology and Evolution*, **11(4)**, 613-619. [https://doi.org/10.1093/oxfordjournals.molbev.a040140](https://doi.org/10.1093/oxfordjournals.molbev.a040140)
 
 Pagès H., Aboyoun P., Gentleman R., and DebRoy S. (2017). **Biostrings: Efficient manipulation of biological strings.** *R package version*, 2.56.0. [Biostrings](http://bioconductor.org/packages/release/bioc/html/Biostrings.html)
 
@@ -369,3 +375,5 @@ Wickham H., Hester J., and Chang W. (2020). **devtools: Tools to make Developing
 Wickham H., François R., Henry L., and Müller K. (2020). **dplyr: A Grammar of Data Manipulation.** *R package version*, 1.0.2. [dplyr](https://cran.r-project.org/web/packages/dplyr/index.html)
 
 Yang Z., and Nielsen R. (2000). **Estimating synonymous and nonsynonymous substitution rates under realistic evolutionary models.** *Molecular Biology and Evolution*, **17(1)**, 32-43. [https://doi.org/10.1093/oxfordjournals.molbev.a026236](https://doi.org/10.1093/oxfordjournals.molbev.a026236)
+
+Yang Z., Nielsen R., Goldman N., Pedersen AM. (2000). **Codon-substitution models for heterogeneous selection pressure at amino acid sites.** *Genetics*, **155(1)**, 431-449. [https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1461088](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1461088)

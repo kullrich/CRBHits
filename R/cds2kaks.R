@@ -1,9 +1,9 @@
 #' @title cds2kaks
 #' @name cds2kaks
-#' @description This function calculates Ka/Ks (dN/dS; accoring to \emph{Li (1993)} or \emph{Yang and Nielson (2000)} given two coding sequences \code{cds1} and \code{cds2} as \code{DNAStringSet} or \code{DNAString}.
+#' @description This function calculates Ka/Ks (dN/dS; accoring to \emph{Li (1993)} or \emph{Yang and Nielson (2000)} or \emph{Nei and Gojobori (1986)} given two coding sequences \code{cds1} and \code{cds2} as \code{DNAStringSet} or \code{DNAString}.
 #' @param cds1 single cds1 sequence as \code{DNAStringSet} or \code{DNAString} [mandatory]
 #' @param cds2 single cds2 sequence as \code{DNAStringSet} or \code{DNAString} [mandatory]
-#' @param model specify codon model either "Li" or "YN" [default: Li]
+#' @param model specify codon model either "Li" or "YN" or "NG86" [default: Li]
 #' @param kakscalcpath specify the PATH to the KaKs_Calculator binaries [default: /extdata/KaKs_Calculator2.0/src/]
 #' @param ... other codon alignment parameters (see \code{\link[CRBHits]{cds2codonaln}})
 #' @return vector of ka/ks values as specified by \code{seqinr::kaks} or \code{KaKs_Calculator2.0}
@@ -13,6 +13,7 @@
 #' @references Li WH. (1993) Unbiased estimation of the rates of synonymous and nonsynonymous substitution. \emph{J. Mol. Evol.}, \bold{36}, 96-99.
 #' @references Wang D, Zhang Y et al. (2010) KaKs_Calculator 2.0: a toolkit incorporating gamma-series methods and sliding window strategies. \emph{Genomics Proteomics Bioinformatics.} \bold{8(1)}, 77-80.
 #' @references Yang Z and Nielson R. (2000) Estimating synonymous and nonsynonymous substitution rates under realistic evolutionary models. \emph{Mol. Biol. Evol.}, \bold{17(1)}, 32-43.
+#' @references Nei and Gojobori. (1986) Simple methods for estimating the numbers of synonymous and nonsynonymous nucleotide substitutions. \emph{Mol. Biol. Evol.}, \bold{3(5)}, 418-426.
 #' @examples
 #' ## load example sequence data
 #' data("ath", package="CRBHits")
@@ -26,6 +27,9 @@
 #' cds2kaks(cds1, cds2, model = "Li", substitutionMatrix = "BLOSUM80")
 #' \dontrun{
 #' cds2kaks(cds1, cds2, model = "YN")
+#' }
+#' \dontrun{
+#' cds2kaks(cds1, cds2, model = "NG86")
 #' }
 #' @export cds2kaks
 #' @author Kristian K Ullrich
@@ -41,9 +45,13 @@ cds2kaks <- function(cds1, cds2, model = "Li",
   }
   if(class(cds1) == "DNAStringSet" & length(cds1) != 1){stop("Error: cds1 needs to contain only one sequence")}
   if(class(cds2) == "DNAStringSet" & length(cds2) != 1){stop("Error: cds2 needs to contain only one sequence")}
-  if(!model %in% c("Li", "YN")){stop("Error: either choose model 'Li' or 'YN'")}
+  if(!model %in% c("Li", "YN", "NG86")){stop("Error: either choose model 'Li' or 'YN' or 'NG86'")}
   if(model == "Li"){
     cds1.cds2.kaks <- unlist(seqinr::kaks(dnastring2aln(cds2codonaln(cds1, cds2, ...))))
+    return(cds1.cds2.kaks)
+  }
+  if(model == "NG86"){
+    cds1.cds2.kaks <- codonmat2pnps(dnastring2codonmat(cds2codonaln(cds1, cds2, ...)))
     return(cds1.cds2.kaks)
   }
   if(model == "YN"){

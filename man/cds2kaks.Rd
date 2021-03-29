@@ -17,7 +17,7 @@ cds2kaks(
 
 \item{cds2}{single cds2 sequence as \code{DNAStringSet} or \code{DNAString} [mandatory]}
 
-\item{model}{specify codon model either "Li" or "YN" [default: Li]}
+\item{model}{specify codon model either "Li" or "YN" or "NG86" [default: Li]}
 
 \item{kakscalcpath}{specify the PATH to the KaKs_Calculator binaries [default: /extdata/KaKs_Calculator2.0/src/]}
 
@@ -27,7 +27,7 @@ cds2kaks(
 vector of ka/ks values as specified by \code{seqinr::kaks} or \code{KaKs_Calculator2.0}
 }
 \description{
-This function calculates Ka/Ks (dN/dS; accoring to \emph{Li (1993)} or \emph{Yang and Nielson (2000)} given two coding sequences \code{cds1} and \code{cds2} as \code{DNAStringSet} or \code{DNAString}.
+This function calculates Ka/Ks (dN/dS; accoring to \emph{Li (1993)} or \emph{Yang and Nielson (2000)} or \emph{Nei and Gojobori (1986)} given two coding sequences \code{cds1} and \code{cds2} as \code{DNAStringSet} or \code{DNAString}.
 }
 \examples{
 ## load example sequence data
@@ -43,6 +43,9 @@ cds2kaks(cds1, cds2, model = "Li", substitutionMatrix = "BLOSUM80")
 \dontrun{
 cds2kaks(cds1, cds2, model = "YN")
 }
+\dontrun{
+cds2kaks(cds1, cds2, model = "NG86")
+}
 }
 \references{
 Li WH. (1993) Unbiased estimation of the rates of synonymous and nonsynonymous substitution. \emph{J. Mol. Evol.}, \bold{36}, 96-99.
@@ -50,6 +53,8 @@ Li WH. (1993) Unbiased estimation of the rates of synonymous and nonsynonymous s
 Wang D, Zhang Y et al. (2010) KaKs_Calculator 2.0: a toolkit incorporating gamma-series methods and sliding window strategies. \emph{Genomics Proteomics Bioinformatics.} \bold{8(1)}, 77-80.
 
 Yang Z and Nielson R. (2000) Estimating synonymous and nonsynonymous substitution rates under realistic evolutionary models. \emph{Mol. Biol. Evol.}, \bold{17(1)}, 32-43.
+
+Nei and Gojobori. (1986) Simple methods for estimating the numbers of synonymous and nonsynonymous nucleotide substitutions. \emph{Mol. Biol. Evol.}, \bold{3(5)}, 418-426.
 }
 \seealso{
 \code{\link[seqinr]{kaks}}
