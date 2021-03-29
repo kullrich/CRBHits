@@ -61,9 +61,11 @@ codonmat2pnps <- function(codonmat){
   ## but are not identical
   syn_codons <- 0
   nonsyn_codons <- 0
-  syn_nonsyn_codons <- apply(codonmat, 1, function(x) compareCodons(x[1], x[2]))
-  syn_codons <- syn_codons + sum(syn_nonsyn_codons[1, ])
-  nonsyn_codons <- nonsyn_codons + sum(syn_nonsyn_codons[2, ])
+  if(nrow(codonmat) > 0){
+    syn_nonsyn_codons <- apply(codonmat, 1, function(x) compareCodons(x[1], x[2]))
+    syn_codons <- syn_codons + sum(syn_nonsyn_codons[1, ])
+    nonsyn_codons <- nonsyn_codons + sum(syn_nonsyn_codons[2, ])    
+  }
   count_ambiguous_codons <- count_insertions + count_Ns
   count_compared_codons <- count_codons - count_ambiguous_codons
   potential_syn <- ((SA_Nei / 3) + (SB_Nei / 3)) / 2
