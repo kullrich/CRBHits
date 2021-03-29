@@ -66,6 +66,7 @@ sudo yum install libcurl-devel openssl-devel libxml2-devel mesa-libGLU-devel lib
 - [testthat](https://cran.r-project.org/web/packages/testthat/index.html)
 - [curl](https://cran.r-project.org/web/packages/curl/index.html)
 - [seqinr](https://cran.r-project.org/web/packages/seqinr/index.html)
+- [ape](https://cran.r-project.org/web/packages/ape/index.html)
 - [foreach](https://cran.r-project.org/web/packages/foreach/index.html)
 - [doMC](https://cran.r-project.org/web/packages/doMC/index.html)
 - [tidyverse](https://cran.r-project.org/web/packages/tidyverse/index.html)
@@ -78,6 +79,7 @@ install.packages("devtools")
 install.packages("testthat")
 install.packages("curl")
 install.packages("seqinr")
+install.packages("ape")
 install.packages("foreach")
 install.packages("doMC")
 install.packages("tidyverse")
@@ -355,6 +357,8 @@ Ooms J. (2019). **curl: A Modern and Flexible Web Client for R.** *R package ver
 Ota T. and Nei M. (1994). **Variance and covariances of the numbers of synonymous and nonsynonymous substitutions per site .** *Molecular Biology and Evolution*, **11(4)**, 613-619. [https://doi.org/10.1093/oxfordjournals.molbev.a040140](https://doi.org/10.1093/oxfordjournals.molbev.a040140)
 
 Pagès H., Aboyoun P., Gentleman R., and DebRoy S. (2017). **Biostrings: Efficient manipulation of biological strings.** *R package version*, 2.56.0. [Biostrings](http://bioconductor.org/packages/release/bioc/html/Biostrings.html)
+
+Paradis E., Schliep K. (2019). **ape 5.0: an environment for modern phylogenetics and evolutionary analyses in R.** *Bioinformatics*, **35**, 526-528.
 
 Revolution Analytics, and Weston S. (2020). **doMC: Foreach Parallel Adaptor for 'parallel'.** *R package version*, 1.3.7. [doMC](https://cran.r-project.org/web/packages/doMC/index.html)
 

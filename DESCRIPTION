@@ -18,6 +18,7 @@ Imports:
   curl,
   Biostrings,
   seqinr,
+  ape,
   foreach,
   doMC,
   tidyverse,
