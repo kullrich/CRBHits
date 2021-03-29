@@ -2,10 +2,10 @@
 % Please edit documentation in R/GENETIC_CODE_TCAG.R
 \name{GENETIC_CODE_TCAG}
 \alias{GENETIC_CODE_TCAG}
-\alias{codon2numberTCAG}
+\alias{codon2number}
 \title{GENETIC_CODE_TCAG}
 \usage{
-codon2numberTCAG(codon)
+codon2number(codon)
 }
 \value{
 An object of class \code{numeric}

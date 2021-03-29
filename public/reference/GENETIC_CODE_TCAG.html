@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>dnastring2aln — dnastring2aln • CRBHits</title>
+<title>GENETIC_CODE_TCAG — GENETIC_CODE_TCAG • CRBHits</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="dnastring2aln — dnastring2aln" />
-<meta property="og:description" content="This function converts a DNAStringSet into an seqinr alignment." />
+<meta property="og:title" content="GENETIC_CODE_TCAG — GENETIC_CODE_TCAG" />
+<meta property="og:description" content="GENETIC_CODE from Biostrings extended by codon number and number of syn sites." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -131,61 +131,95 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>dnastring2aln</h1>
-    <small class="dont-index">Source: <a href='https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/masterR/dnastring2aln.R'><code>R/dnastring2aln.R</code></a></small>
-    <div class="hidden name"><code>dnastring2aln.Rd</code></div>
+    <h1>GENETIC_CODE_TCAG</h1>
+    <small class="dont-index">Source: <a href='https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/masterR/GENETIC_CODE_TCAG.R'><code>R/GENETIC_CODE_TCAG.R</code></a></small>
+    <div class="hidden name"><code>GENETIC_CODE_TCAG.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function converts a <code>DNAStringSet</code> into an <code>seqinr</code> <code>alignment</code>.</p>
+    <p><code>GENETIC_CODE</code> from <code>Biostrings</code> extended by codon number and number of syn sites.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>dnastring2aln</span><span class='op'>(</span><span class='va'>dna</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>codon2number</span><span class='op'>(</span><span class='va'>codon</span><span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>dna</th>
-      <td><p><code>DNAStringSet</code> [mandatory]</p></td>
-    </tr>
-    </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An object of class <code>alignment</code> which is a list with the following components:<br />
-<code>nb</code> the number of aligned sequences<br />
-<code>nam</code> a vector of strings containing the names of the aligned sequences<br />
-<code>seq</code> a vector of strings containing the aligned sequences<br />
-<code>com</code> a vector of strings containing the commentaries for each sequence or <code>NA</code> if there are no comments</p>
+    <p>An object of class <code>numeric</code></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/seqinr/man/as.alignment.html'>as.alignment</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/Biostrings/man/GENETIC_CODE.html'>GENETIC_CODE</a></code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Kristian K Ullrich</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>## define two cds sequences</span>
-<span class='va'>cds1</span> <span class='op'>&lt;-</span> <span class='fu'>Biostrings</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Biostrings/man/DNAString-class.html'>DNAString</a></span><span class='op'>(</span><span class='st'>"ATGCAACATTGC"</span><span class='op'>)</span>
-<span class='va'>cds2</span> <span class='op'>&lt;-</span> <span class='fu'>Biostrings</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Biostrings/man/DNAString-class.html'>DNAString</a></span><span class='op'>(</span><span class='st'>"ATGCATTGC"</span><span class='op'>)</span>
-<span class='va'>cds1.cds2.aln</span> <span class='op'>&lt;-</span> <span class='fu'><a href='cds2codonaln.html'>cds2codonaln</a></span><span class='op'>(</span><span class='va'>cds1</span>, <span class='va'>cds2</span><span class='op'>)</span>
-<span class='co'>## convert into alignment</span>
-<span class='fu'>dnastring2aln</span><span class='op'>(</span><span class='va'>cds1.cds2.aln</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $nb
-#&gt; [1] 2
-#&gt; 
-#&gt; $nam
-#&gt; [1] "cds1" "cds2"
-#&gt; 
-#&gt; $seq
-#&gt; [1] "atgcaacattgc" "atg---cattgc"
-#&gt; 
-#&gt; $com
-#&gt; [1] NA
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "alignment"</div></pre>
+    <pre class="examples"><div class='input'><span class='va'>GENETIC_CODE_TCAG</span>
+</div><div class='output co'>#&gt;     CODON GENETIC_CODE CODON_NUMBER SYN_SITES
+#&gt; TTT   TTT            F            1         1
+#&gt; TTC   TTC            F            2         1
+#&gt; TTA   TTA            L            3         2
+#&gt; TTG   TTG            L            4         2
+#&gt; CTT   CTT            L            5         3
+#&gt; CTC   CTC            L            6         3
+#&gt; CTA   CTA            L            7         4
+#&gt; CTG   CTG            L            8         4
+#&gt; ATT   ATT            I            9         2
+#&gt; ATC   ATC            I           10         2
+#&gt; ATA   ATA            I           11         2
+#&gt; ATG   ATG            M           12         0
+#&gt; GTT   GTT            V           13         3
+#&gt; GTC   GTC            V           14         3
+#&gt; GTA   GTA            V           15         3
+#&gt; GTG   GTG            V           16         3
+#&gt; TCT   TCT            S           17         3
+#&gt; TCC   TCC            S           18         3
+#&gt; TCA   TCA            S           19         3
+#&gt; TCG   TCG            S           20         3
+#&gt; CCT   CCT            P           21         3
+#&gt; CCC   CCC            P           22         3
+#&gt; CCA   CCA            P           23         3
+#&gt; CCG   CCG            P           24         3
+#&gt; ACT   ACT            T           25         3
+#&gt; ACC   ACC            T           26         3
+#&gt; ACA   ACA            T           27         3
+#&gt; ACG   ACG            T           28         3
+#&gt; GCT   GCT            A           29         3
+#&gt; GCC   GCC            A           30         3
+#&gt; GCA   GCA            A           31         3
+#&gt; GCG   GCG            A           32         3
+#&gt; TAT   TAT            Y           33         1
+#&gt; TAC   TAC            Y           34         1
+#&gt; TAA   TAA            *           35         2
+#&gt; TAG   TAG            *           36         1
+#&gt; CAT   CAT            H           37         1
+#&gt; CAC   CAC            H           38         1
+#&gt; CAA   CAA            Q           39         1
+#&gt; CAG   CAG            Q           40         1
+#&gt; AAT   AAT            N           41         1
+#&gt; AAC   AAC            N           42         1
+#&gt; AAA   AAA            K           43         1
+#&gt; AAG   AAG            K           44         1
+#&gt; GAT   GAT            D           45         1
+#&gt; GAC   GAC            D           46         1
+#&gt; GAA   GAA            E           47         1
+#&gt; GAG   GAG            E           48         1
+#&gt; TGT   TGT            C           49         1
+#&gt; TGC   TGC            C           50         1
+#&gt; TGA   TGA            *           51         1
+#&gt; TGG   TGG            W           52         0
+#&gt; CGT   CGT            R           53         3
+#&gt; CGC   CGC            R           54         3
+#&gt; CGA   CGA            R           55         4
+#&gt; CGG   CGG            R           56         4
+#&gt; AGT   AGT            S           57         1
+#&gt; AGC   AGC            S           58         1
+#&gt; AGA   AGA            R           59         2
+#&gt; AGG   AGG            R           60         2
+#&gt; GGT   GGT            G           61         3
+#&gt; GGC   GGC            G           62         3
+#&gt; GGA   GGA            G           63         3
+#&gt; GGG   GGG            G           64         3</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

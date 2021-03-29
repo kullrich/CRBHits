@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>dnastring2aln — dnastring2aln • CRBHits</title>
+<title>dnastring2codonmat — dnastring2codonmat • CRBHits</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="dnastring2aln — dnastring2aln" />
-<meta property="og:description" content="This function converts a DNAStringSet into an seqinr alignment." />
+<meta property="og:title" content="dnastring2codonmat — dnastring2codonmat" />
+<meta property="og:description" content="This function converts a DNAStringSet into an codon matrix." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -131,22 +131,22 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>dnastring2aln</h1>
-    <small class="dont-index">Source: <a href='https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/masterR/dnastring2aln.R'><code>R/dnastring2aln.R</code></a></small>
-    <div class="hidden name"><code>dnastring2aln.Rd</code></div>
+    <h1>dnastring2codonmat</h1>
+    <small class="dont-index">Source: <a href='https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/masterR/dnastring2codonmat.R'><code>R/dnastring2codonmat.R</code></a></small>
+    <div class="hidden name"><code>dnastring2codonmat.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function converts a <code>DNAStringSet</code> into an <code>seqinr</code> <code>alignment</code>.</p>
+    <p>This function converts a <code>DNAStringSet</code> into an <code>codon matrix</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>dnastring2aln</span><span class='op'>(</span><span class='va'>dna</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>dnastring2codonmat</span><span class='op'>(</span><span class='va'>cds</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>dna</th>
+      <th>cds</th>
       <td><p><code>DNAStringSet</code> [mandatory]</p></td>
     </tr>
     </table>
@@ -171,21 +171,12 @@
 <span class='va'>cds2</span> <span class='op'>&lt;-</span> <span class='fu'>Biostrings</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Biostrings/man/DNAString-class.html'>DNAString</a></span><span class='op'>(</span><span class='st'>"ATGCATTGC"</span><span class='op'>)</span>
 <span class='va'>cds1.cds2.aln</span> <span class='op'>&lt;-</span> <span class='fu'><a href='cds2codonaln.html'>cds2codonaln</a></span><span class='op'>(</span><span class='va'>cds1</span>, <span class='va'>cds2</span><span class='op'>)</span>
 <span class='co'>## convert into alignment</span>
-<span class='fu'>dnastring2aln</span><span class='op'>(</span><span class='va'>cds1.cds2.aln</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $nb
-#&gt; [1] 2
-#&gt; 
-#&gt; $nam
-#&gt; [1] "cds1" "cds2"
-#&gt; 
-#&gt; $seq
-#&gt; [1] "atgcaacattgc" "atg---cattgc"
-#&gt; 
-#&gt; $com
-#&gt; [1] NA
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "alignment"</div></pre>
+<span class='fu'>dnastring2codonmat</span><span class='op'>(</span><span class='va'>cds1.cds2.aln</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      cds1  cds2 
+#&gt; [1,] "ATG" "ATG"
+#&gt; [2,] "CAA" "---"
+#&gt; [3,] "CAT" "CAT"
+#&gt; [4,] "TGC" "TGC"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

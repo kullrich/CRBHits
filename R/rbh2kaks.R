@@ -82,7 +82,7 @@ rbh2kaks <- function(rbhpairs, cds1, cds2, model = "Li",
       stop("Please obtain tandem duplicates via the tandemdups() function or add a 'tandemdups' class attribute")
     }
   }
-  if(!model %in% c("Li", "YN")){stop("Error: either choose model 'Li' or 'YN'")}
+  if(!model %in% c("Li", "YN", "NG86")){stop("Error: either choose model 'Li' or 'YN'")}
   if(plotDotPlot){
     if(is.null(gene.position.cds1) & is.null(gene.position.cds2)){
       stop("Error: Please specify gene.position.cds1 and gene.position.cds2")
@@ -110,8 +110,8 @@ rbh2kaks <- function(rbhpairs, cds1, cds2, model = "Li",
   if(model == "YN"){
     attr(out, "CRBHits.model") <- "YN"
   }
-  if(model == "YN"){
-    attr(out, "CRBHits.model") <- "YN"
+  if(model == "NG86"){
+    attr(out, "CRBHits.model") <- "NG86"
   }
   attr(out, "selfblast") <- selfblast
   if(plotHistPlot){

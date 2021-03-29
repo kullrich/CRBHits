@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>dnastring2aln — dnastring2aln • CRBHits</title>
+<title>dnastring2dnabin — dnastring2dnabin • CRBHits</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="dnastring2aln — dnastring2aln" />
-<meta property="og:description" content="This function converts a DNAStringSet into an seqinr alignment." />
+<meta property="og:title" content="dnastring2dnabin — dnastring2dnabin" />
+<meta property="og:description" content="This function converts a DNAStringSet into an ape DNAbin." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -131,16 +131,16 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>dnastring2aln</h1>
-    <small class="dont-index">Source: <a href='https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/masterR/dnastring2aln.R'><code>R/dnastring2aln.R</code></a></small>
-    <div class="hidden name"><code>dnastring2aln.Rd</code></div>
+    <h1>dnastring2dnabin</h1>
+    <small class="dont-index">Source: <a href='https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/masterR/dnastring2dnabin.R'><code>R/dnastring2dnabin.R</code></a></small>
+    <div class="hidden name"><code>dnastring2dnabin.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function converts a <code>DNAStringSet</code> into an <code>seqinr</code> <code>alignment</code>.</p>
+    <p>This function converts a <code>DNAStringSet</code> into an <code>ape</code> <code>DNAbin</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>dnastring2aln</span><span class='op'>(</span><span class='va'>dna</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>dnastring2dnabin</span><span class='op'>(</span><span class='va'>dna</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -153,14 +153,10 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An object of class <code>alignment</code> which is a list with the following components:<br />
-<code>nb</code> the number of aligned sequences<br />
-<code>nam</code> a vector of strings containing the names of the aligned sequences<br />
-<code>seq</code> a vector of strings containing the aligned sequences<br />
-<code>com</code> a vector of strings containing the commentaries for each sequence or <code>NA</code> if there are no comments</p>
+    <p>An object of class <code>DNAbin</code></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/seqinr/man/as.alignment.html'>as.alignment</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/seqinr/man/as.alignment.html'>as.alignment</a></code> <code><a href='https://rdrr.io/pkg/ape/man/as.alignment.html'>as.DNAbin.alignment</a></code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Kristian K Ullrich</p>
@@ -171,21 +167,19 @@
 <span class='va'>cds2</span> <span class='op'>&lt;-</span> <span class='fu'>Biostrings</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Biostrings/man/DNAString-class.html'>DNAString</a></span><span class='op'>(</span><span class='st'>"ATGCATTGC"</span><span class='op'>)</span>
 <span class='va'>cds1.cds2.aln</span> <span class='op'>&lt;-</span> <span class='fu'><a href='cds2codonaln.html'>cds2codonaln</a></span><span class='op'>(</span><span class='va'>cds1</span>, <span class='va'>cds2</span><span class='op'>)</span>
 <span class='co'>## convert into alignment</span>
-<span class='fu'>dnastring2aln</span><span class='op'>(</span><span class='va'>cds1.cds2.aln</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $nb
-#&gt; [1] 2
+<span class='fu'>dnastring2dnabin</span><span class='op'>(</span><span class='va'>cds1.cds2.aln</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 2 DNA sequences in binary format stored in a matrix.
 #&gt; 
-#&gt; $nam
-#&gt; [1] "cds1" "cds2"
+#&gt; All sequences of same length: 12 
 #&gt; 
-#&gt; $seq
-#&gt; [1] "atgcaacattgc" "atg---cattgc"
+#&gt; Labels:
+#&gt; cds1
+#&gt; cds2
 #&gt; 
-#&gt; $com
-#&gt; [1] NA
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "alignment"</div></pre>
+#&gt; Base composition:
+#&gt;     a     c     g     t 
+#&gt; 0.286 0.238 0.190 0.286 
+#&gt; (Total: 24 bases)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

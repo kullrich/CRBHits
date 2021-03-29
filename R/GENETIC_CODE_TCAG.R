@@ -9,7 +9,7 @@
 #' @export GENETIC_CODE_TCAG
 #' @author Kristian K Ullrich
 
-codon2numberTCAG <- function(codon){
+codon2number <- function(codon){
   baseNumber <- setNames(c(0, 1, 2, 3), c("T", "C", "A", "G"))
   left <- baseNumber[str_sub(codon, 1, 1)]
   mid <- baseNumber[str_sub(codon, 2, 2)]
@@ -20,7 +20,7 @@ codon2numberTCAG <- function(codon){
 }
 
 TMP_GENETIC_CODE <- Biostrings::GENETIC_CODE
-TMP_CODON_NUMBER <- unlist(lapply(names(TMP_GENETIC_CODE), codon2numberTCAG))
+TMP_CODON_NUMBER <- unlist(lapply(names(TMP_GENETIC_CODE), codon2number))
 TMP_GENETIC_CODE <- TMP_GENETIC_CODE[order(TMP_CODON_NUMBER)]
 TMP_CODON_NUMBER <- TMP_CODON_NUMBER[order(TMP_CODON_NUMBER)]
 TMP_SYN_SITES <- setNames(c(1,1,2,2,

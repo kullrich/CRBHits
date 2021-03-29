@@ -47,7 +47,7 @@
 
 
 <meta property="og:title" content="cds2kaks — cds2kaks" />
-<meta property="og:description" content="This function calculates Ka/Ks (dN/dS; accoring to Li (1993) or Yang and Nielson (2000) given two coding sequences cds1 and cds2 as DNAStringSet or DNAString." />
+<meta property="og:description" content="This function calculates Ka/Ks (dN/dS; accoring to Li (1993) or Yang and Nielson (2000) or Nei and Gojobori (1986) given two coding sequences cds1 and cds2 as DNAStringSet or DNAString." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CRBHits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3</span>
       </span>
     </div>
 
@@ -137,7 +137,7 @@
     </div>
 
     <div class="ref-description">
-    <p>This function calculates Ka/Ks (dN/dS; accoring to <em>Li (1993)</em> or <em>Yang and Nielson (2000)</em> given two coding sequences <code>cds1</code> and <code>cds2</code> as <code>DNAStringSet</code> or <code>DNAString</code>.</p>
+    <p>This function calculates Ka/Ks (dN/dS; accoring to <em>Li (1993)</em> or <em>Yang and Nielson (2000)</em> or <em>Nei and Gojobori (1986)</em> given two coding sequences <code>cds1</code> and <code>cds2</code> as <code>DNAStringSet</code> or <code>DNAString</code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>cds2kaks</span><span class='op'>(</span>
@@ -161,7 +161,7 @@
     </tr>
     <tr>
       <th>model</th>
-      <td><p>specify codon model either "Li" or "YN" [default: Li]</p></td>
+      <td><p>specify codon model either "Li" or "YN" or "NG86" [default: Li]</p></td>
     </tr>
     <tr>
       <th>kakscalcpath</th>
@@ -181,6 +181,7 @@
     <p>Li WH. (1993) Unbiased estimation of the rates of synonymous and nonsynonymous substitution. <em>J. Mol. Evol.</em>, <b>36</b>, 96-99.</p>
 <p>Wang D, Zhang Y et al. (2010) KaKs_Calculator 2.0: a toolkit incorporating gamma-series methods and sliding window strategies. <em>Genomics Proteomics Bioinformatics.</em> <b>8(1)</b>, 77-80.</p>
 <p>Yang Z and Nielson R. (2000) Estimating synonymous and nonsynonymous substitution rates under realistic evolutionary models. <em>Mol. Biol. Evol.</em>, <b>17(1)</b>, 32-43.</p>
+<p>Nei and Gojobori. (1986) Simple methods for estimating the numbers of synonymous and nonsynonymous nucleotide substitutions. <em>Mol. Biol. Evol.</em>, <b>3(5)</b>, 418-426.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/seqinr/man/kaks.html'>kaks</a></code></p></div>
@@ -204,6 +205,9 @@
 </div><div class='output co'>#&gt;          ka          ks         vka         vks 
 #&gt; 0.814370837 9.999999000 0.009489614 9.999999000 </div><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='fu'>cds2kaks</span><span class='op'>(</span><span class='va'>cds1</span>, <span class='va'>cds2</span>, model <span class='op'>=</span> <span class='st'>"YN"</span><span class='op'>)</span>
+<span class='op'>}</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>cds2kaks</span><span class='op'>(</span><span class='va'>cds1</span>, <span class='va'>cds2</span>, model <span class='op'>=</span> <span class='st'>"NG86"</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>

@@ -78,5 +78,6 @@ codonmat2pnps <- function(codonmat){
   if(pn != 0 & ps != 0 & !is.na(pn) & !is.na(ps)){ pnps <- pn/ps}
   codonmat_out <- setNames(c(seq1_name, seq2_name, count_codons, count_compared_codons, count_ambiguous_codons, count_insertions, count_Ns, syn_codons, nonsyn_codons, potential_syn, potential_nonsyn, ps, pn, pnps, ds, dn, dnds),
                            c("seq1", "seq2", "Codons", "Compared", "Ambigiuous", "Indels", "Ns", "Sd", "Sn", "S", "N", "ps", "pn", "pn/ps", "ds", "dn", "dn/ds"))
+  attr(codonmat_out, "class") <- "pnps"
   return(codonmat_out)
 }
