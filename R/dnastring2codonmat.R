@@ -30,6 +30,17 @@ dnastring2codonmat <- function(cds){
     cds_not_multiple_of_three <- cds[cds_not_multiple_of_three.idx]
     cds <- cds[-cds_not_multiple_of_three.idx]
   }
+  # remove IUPAC chars
+  cds <- Biostrings::DNAStringSet(gsub("R", "N", cds))
+  cds <- Biostrings::DNAStringSet(gsub("Y", "N", cds))
+  cds <- Biostrings::DNAStringSet(gsub("S", "N", cds))
+  cds <- Biostrings::DNAStringSet(gsub("W", "N", cds))
+  cds <- Biostrings::DNAStringSet(gsub("K", "N", cds))
+  cds <- Biostrings::DNAStringSet(gsub("M", "N", cds))
+  cds <- Biostrings::DNAStringSet(gsub("B", "N", cds))
+  cds <- Biostrings::DNAStringSet(gsub("D", "N", cds))
+  cds <- Biostrings::DNAStringSet(gsub("H", "N", cds))
+  cds <- Biostrings::DNAStringSet(gsub("V", "N", cds))
   cds.codonmat <- apply(cbind(Biostrings::width(cds), as.character(cds)), 1,
                         function(x) {stringi::stri_sub(x[2], seq(1, as.numeric(x[1]), by = 3),
                                                        length = 3)})
