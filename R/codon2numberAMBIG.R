@@ -5,6 +5,7 @@
 #' @return An object of class \code{numeric}
 #' @importFrom Biostrings GENETIC_CODE
 #' @importFrom stringr str_sub
+#' @importFrom stats setNames
 #' @seealso \code{\link[Biostrings]{GENETIC_CODE}}
 #' @examples
 #' unlist(lapply(names(Biostrings::GENETIC_CODE), codon2numberAMBIG))

@@ -17,7 +17,7 @@
 #' @param kakscalcpath specify the PATH to the KaKs_Calculator binaries [default: /extdata/KaKs_Calculator2.0/src/]
 #' @param ... other codon alignment parameters (see \code{\link[CRBHits]{cds2codonaln}}) and other plot_kaks parameters (see \code{\link[CRBHits]{plot_kaks}})
 #' @importFrom doMC registerDoMC
-#' @importFrom foreach foreach %dopar%
+#' @importFrom foreach foreach %do% %dopar%
 #' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet readDNAStringSet readAAStringSet writeXStringSet width subseq
 #' @importFrom stringr word
 #' @seealso \code{\link[CRBHits]{cds2kaks}},

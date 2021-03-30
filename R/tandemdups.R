@@ -16,7 +16,7 @@
 #' 8: $tandem_group\cr
 #' @importFrom tidyr %>%
 #' @importFrom dplyr bind_cols select group_by group_map group_keys
-#' @importFrom foreach foreach %do%
+#' @importFrom foreach foreach %do% %dopar%
 #' @importFrom stringr str_sub
 #' @importFrom stats setNames
 #' @importFrom utils stack

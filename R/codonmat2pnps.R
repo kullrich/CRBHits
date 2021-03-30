@@ -22,6 +22,7 @@
 #' \code{dnds} sequence2 name\cr
 #' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet readDNAStringSet readAAStringSet writeXStringSet width subseq pairwiseAlignment
 #' @importFrom seqinr kaks
+#' @importFrom stats setNames
 #' @seealso \code{\link[seqinr]{kaks}}
 #' @references Nei and Gojobori. (1986) Simple methods for estimating the numbers of synonymous and nonsynonymous nucleotide substitutions. \emph{Mol. Biol. Evol.}, \bold{3(5)}, 418-426.
 #' @references Ganeshan et al. (1997) Human immunodeficiency virus type 1 genetic evolution in children with different rates of development of disease. \emph{J. Virology.} \bold{71(1)}, 663-677.
@@ -64,7 +65,7 @@ codonmat2pnps <- function(codonmat){
   if(nrow(codonmat) > 0){
     syn_nonsyn_codons <- apply(codonmat, 1, function(x) compareCodons(x[1], x[2]))
     syn_codons <- syn_codons + sum(syn_nonsyn_codons[1, ])
-    nonsyn_codons <- nonsyn_codons + sum(syn_nonsyn_codons[2, ])    
+    nonsyn_codons <- nonsyn_codons + sum(syn_nonsyn_codons[2, ])
   }
   count_ambiguous_codons <- count_insertions + count_Ns
   count_compared_codons <- count_codons - count_ambiguous_codons

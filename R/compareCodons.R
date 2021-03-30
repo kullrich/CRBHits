@@ -23,18 +23,29 @@
 
 compareCodons <- function(codA, codB){
   type <- "syn"
-  if(GENETIC_CODE_TCAG[codA, 2] != GENETIC_CODE_TCAG[codB, 2]){
-    type <- "nonsyn"
+  if(codA == codB){
+    return(c(0, 0, 0))
   }
   codAsplit <- strsplit(codA, "")[[1]]
   codBsplit <- strsplit(codB, "")[[1]]
+  if("N" %in% codAsplit | "N" %in% codBsplit){
+    type <- "Ns"
+    return(c(NA, NA, NA))
+  }
+  if("-" %in% codAsplit | "-" %in% codBsplit){
+    type <- "indel"
+    return(c(0, 0, 1))
+  }
+  if(GENETIC_CODE_TCAG[codA, 2] != GENETIC_CODE_TCAG[codB, 2]){
+    type <- "nonsyn"
+  }
   codAcodB_diff_idx <- which(codAsplit != codBsplit)
   if(length(codAcodB_diff_idx) == 1){
     if(type == "syn"){
-      return(c(1, 0))
+      return(c(1, 0, 0))
     }
     if(type == "nonsyn"){
-      return(c(0, 1))
+      return(c(0, 1, 0))
     }
   }
   if(length(codAcodB_diff_idx) == 2){
@@ -68,7 +79,7 @@ compareCodons <- function(codA, codB){
       tmp_syn <- tmp_syn + 1
     }
     tmp_syn <- tmp_syn / 2
-    return(c(tmp_syn, 2 - tmp_syn))
+    return(c(tmp_syn, 2 - tmp_syn, 0))
   }
   if(length(codAcodB_diff_idx) == 3){
     ## AAA -> TTT
@@ -116,6 +127,6 @@ compareCodons <- function(codA, codB){
       tmp_syn <- tmp_syn + 0.5
     }
     tmp_syn <- tmp_syn / 3
-    return(c(tmp_syn, 3 - tmp_syn))
+    return(c(tmp_syn, 3 - tmp_syn, 0))
   }
 }
