@@ -270,6 +270,15 @@ ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh,
 ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh, ath, aly, threads = 2)
 head(ath_aly_crbh.kaks)
 
+## example how to calculate all pairwise kaks values given a MSA
+data(hiv)
+hiv_kaks <- dnastring2kaks(hiv, model = "Li")
+g <- plot_kaks(hiv_kaks)
+
+data(hiv)
+hiv_kaks <- dnastring2kaks(hiv, model = "NG86")
+g <- plot_kaks(hiv_kaks)
+
 ## example how to use own compiled versions of LAST
 my.lastpath <- "/tmp/last/last-1177/src"
 ath_aly_crbh <- cds2rbh(ath, aly, plotCurve = TRUE,

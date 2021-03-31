@@ -28,6 +28,10 @@
 #' data("ath_aly_ncbi_kaks", package="CRBHits")
 #' ## plot Ka/Ks values - default
 #' g <- plot_kaks(ath_aly_ncbi_kaks)
+#' ## Calculate Ka/Ks values based on MSA
+#' data("hiv", package="CRBHits")
+#' hiv_kaks <- dnastring2kaks(hiv)
+#' g <- plot_kaks(hiv_kaks)
 #' @export plot_kaks
 #' @author Kristian K Ullrich
 
@@ -48,6 +52,63 @@ plot_kaks <- function(kaks,
                       ks.min = 0,
                       select.chr = NULL,
                       doPlot = TRUE){
+  if(attributes(kaks)$CRBHits.class != "kaks" & attributes(kaks)$CRBHits.class != "dnastring2kaks"){
+    stop("Please obtain Ka/Ks via the rbh2kaks() function or via the dnastring2kaks() function or add a 'kaks' class attribute")
+  }
+  if(attributes(kaks)$CRBHits.class == "dnastring2kaks"){
+    if(attributes(kaks)$model == "Li"){
+      kaks$ka <- unlist(lapply(kaks$ka, function(x) ifelse(x > ka.max, NA, x)))
+      kaks$ka <- unlist(lapply(kaks$ka, function(x) ifelse(x < ka.min, NA, x)))
+      kaks$ks <- unlist(lapply(kaks$ks, function(x) ifelse(x > ks.max, NA, x)))
+      kaks$ks <- unlist(lapply(kaks$ks, function(x) ifelse(x < ks.min, NA, x)))
+      kaks <- kaks %>% dplyr::mutate(kaks = kaks$ka / kaks$ks)
+      kaks$kaks[is.infinite(kaks$kaks)] <- NA
+      g <- kaks %>% subset(!is.na(ka)) %>% subset(!is.na(ks)) %>%
+        subset(!is.na(kaks)) %>%
+        ggplot2::ggplot()
+      g.kaks <- g + ggplot2::geom_point(shape = 20, aes(x = ks, y = ka, col = kaks)) +
+        ggplot2::scale_colour_continuous(type = "viridis") +
+        ggplot2::ggtitle(PlotTitle)
+      g.ka <- kaks %>% subset(!is.na(ka)) %>% ggplot2::ggplot()
+      g.ka <- g.ka + ggplot2::geom_histogram(binwidth = binw, aes(x = ka)) +
+        ggplot2::ggtitle("Ka")
+      g.ks <- kaks %>% subset(!is.na(ks)) %>% ggplot2::ggplot()
+      g.ks <- g.ks + ggplot2::geom_histogram(binwidth = binw, aes(x = ks)) +
+        ggplot2::ggtitle("Ks")
+      out <- list(g.kaks, g.ka, g.ks)
+      names(out) <- c("g.kaks", "g.ka", "g.ks")
+      if(doPlot){
+        gE <- gridExtra::grid.arrange(g.kaks, g.ka, g.ks, nrow = 1)
+      }
+      return(out)
+    }
+    if(attributes(kaks)$model == "NG86"){
+      kaks$dn <- unlist(lapply(as.numeric(kaks$dn), function(x) ifelse(x > ka.max, NA, x)))
+      kaks$dn <- unlist(lapply(as.numeric(kaks$dn), function(x) ifelse(x < ka.min, NA, x)))
+      kaks$ds <- unlist(lapply(as.numeric(kaks$ds), function(x) ifelse(x > ks.max, NA, x)))
+      kaks$ds <- unlist(lapply(as.numeric(kaks$ds), function(x) ifelse(x < ks.min, NA, x)))
+      kaks <- kaks %>% dplyr::mutate(kaks = kaks$dn / kaks$ds)
+      kaks$kaks[is.infinite(kaks$kaks)] <- NA
+      g <- kaks %>% subset(!is.na(dn)) %>% subset(!is.na(ds)) %>%
+        subset(!is.na(kaks)) %>%
+        ggplot2::ggplot()
+      g.kaks <- g + ggplot2::geom_point(shape = 20, aes(x = ds, y = dn, col = kaks)) +
+        ggplot2::scale_colour_continuous(type = "viridis") +
+        ggplot2::ggtitle(PlotTitle)
+      g.ka <- kaks %>% subset(!is.na(dn)) %>% ggplot2::ggplot()
+      g.ka <- g.ka + ggplot2::geom_histogram(binwidth = binw, aes(x = dn)) +
+        ggplot2::ggtitle("Ka")
+      g.ks <- kaks %>% subset(!is.na(ds)) %>% ggplot2::ggplot()
+      g.ks <- g.ks + ggplot2::geom_histogram(binwidth = binw, aes(x = ds)) +
+        ggplot2::ggtitle("Ks")
+      out <- list(g.kaks, g.ka, g.ks)
+      names(out) <- c("g.kaks", "g.ka", "g.ks")
+      if(doPlot){
+        gE <- gridExtra::grid.arrange(g.kaks, g.ka, g.ks, nrow = 1)
+      }
+      return(out)
+    }
+  }
   gene1.chr <- NULL
   gene2.chr <- NULL
   gene1.mid <- NULL
@@ -55,9 +116,6 @@ plot_kaks <- function(kaks,
   ka <- NULL
   ks <- NULL
   rbh_class <- NULL
-  if(attributes(kaks)$CRBHits.class != "kaks"){
-    stop("Please obtain Ka/Ks via the rbh2kaks() function or add a 'kaks' class attribute")
-  }
   selfblast <- attributes(kaks)$selfblast
   if(!is.null(dag)){
     if(attributes(dag)$CRBHits.class != "dagchainer"){
@@ -176,7 +234,7 @@ plot_kaks <- function(kaks,
     if(PlotType == "h"){
       if(!splitByChr){
         g <- kaks %>% subset(!is.na(ka)) %>%
-          subset(!is.na(ka)) %>% subset(!is.na(kaks)) %>%
+          subset(!is.na(ks)) %>% subset(!is.na(kaks)) %>%
           ggplot2::ggplot()
         g.kaks <- g + ggplot2::geom_point(shape = 20, aes(x = ks, y = ka, col = kaks)) +
           ggplot2::scale_colour_continuous(type = "viridis") +
@@ -196,7 +254,7 @@ plot_kaks <- function(kaks,
       }
       if(splitByChr){
         g <- kaks %>% subset(!is.na(ka)) %>%
-          subset(!is.na(ka)) %>% subset(!is.na(kaks)) %>%
+          subset(!is.na(ks)) %>% subset(!is.na(kaks)) %>%
           dplyr::group_by(gene1.chr, gene2.chr) %>%
           ggplot2::ggplot()
         g.kaks <- g + ggplot2::geom_point(shape = 20, aes(x = ks, y = ka, col = kaks)) +
@@ -225,7 +283,7 @@ plot_kaks <- function(kaks,
     }
     if(PlotType == "d"){
       g <- kaks %>% subset(!is.na(ka)) %>%
-        subset(!is.na(ka)) %>% subset(!is.na(kaks)) %>%
+        subset(!is.na(ks)) %>% subset(!is.na(kaks)) %>%
         dplyr::group_by(gene1.chr, gene2.chr) %>%
         ggplot2::ggplot()
       g.kaks <- g + ggplot2::geom_point(shape = 20,
@@ -267,7 +325,7 @@ plot_kaks <- function(kaks,
     if(PlotType == "h"){
       if(!splitByChr){
         g <- kaks %>% subset(!is.na(ka)) %>%
-          subset(!is.na(ka)) %>% subset(!is.na(kaks)) %>%
+          subset(!is.na(ks)) %>% subset(!is.na(kaks)) %>%
           ggplot2::ggplot()
         g.kaks <- g + ggplot2::geom_point(shape = 20, aes(x = ks, y = ka, col = rbh_class)) +
           ggplot2::scale_colour_manual(

@@ -56,6 +56,7 @@ dnastring2kaks <- function(cds,
     OUT <- as.data.frame(OUT)
     attr(OUT, "model") <- "Li"
     attr(OUT, "align") <- "FALSE"
+    attr(OUT, "CRBHits.class") <- "dnastring2kaks"
     return(OUT)
   }
   if(model == "Li" & align == TRUE){
@@ -72,6 +73,7 @@ dnastring2kaks <- function(cds,
     OUT <- as.data.frame(OUT)
     attr(OUT, "model") <- "Li"
     attr(OUT, "align") <- "TRUE"
+    attr(OUT, "CRBHits.class") <- "dnastring2kaks"
     return(OUT)
   }
   if(model == "NG86" & align == FALSE){
@@ -87,6 +89,7 @@ dnastring2kaks <- function(cds,
     OUT <- as.data.frame(OUT)
     attr(OUT, "model") <- "NG86"
     attr(OUT, "align") <- "FALSE"
+    attr(OUT, "CRBHits.class") <- "dnastring2kaks"
     return(OUT)
   }
   if(model == "NG86" & align == TRUE){
@@ -103,6 +106,7 @@ dnastring2kaks <- function(cds,
     OUT <- as.data.frame(OUT)
     attr(OUT, "model") <- "NG86"
     attr(OUT, "align") <- "TRUE"
+    attr(OUT, "CRBHits.class") <- "dnastring2kaks"
     return(OUT)
   }
 }

@@ -67,6 +67,10 @@ This function plots Ka/Ks results obtained via `rbh2kaks()` function.
 data("ath_aly_ncbi_kaks", package="CRBHits")
 ## plot Ka/Ks values - default
 g <- plot_kaks(ath_aly_ncbi_kaks)
+## Calculate Ka/Ks values based on MSA
+data("hiv", package="CRBHits")
+hiv_kaks <- dnastring2kaks(hiv)
+g <- plot_kaks(hiv_kaks)
 }
 \author{
 Kristian K Ullrich
