@@ -287,8 +287,8 @@ List of four (crbh = TRUE)<br />
 </div><div class='img'><img src='aafile2rbh-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>ath_aly_crbh</span><span class='op'>$</span><span class='va'>crbh.pairs</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 211   3</div><div class='input'><span class='co'>## get classical reciprocal best hit (RBHit) pairs</span>
 <span class='va'>ath_aly_rbh</span> <span class='op'>&lt;-</span> <span class='fu'>aafile2rbh</span><span class='op'>(</span><span class='va'>athfile</span>, <span class='va'>alyfile</span>, crbh <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>ath_aly_rbh</span><span class='op'>$</span><span class='va'>rbh.pairs</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; NULL</div><div class='input'><span class='co'>## selfblast</span>
+<span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>ath_aly_rbh</span><span class='op'>$</span><span class='va'>crbh.pairs</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 181   3</div><div class='input'><span class='co'>## selfblast</span>
 <span class='va'>ath_selfblast_crbh</span> <span class='op'>&lt;-</span> <span class='fu'>aafile2rbh</span><span class='op'>(</span><span class='va'>athfile</span>, <span class='va'>athfile</span>, plotCurve <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='img'><img src='aafile2rbh-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>## see ?cds2rbh for more examples</span>
 </div></pre>
