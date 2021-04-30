@@ -18,11 +18,9 @@
 #' ## load example sequence data
 #' data("ath_aly_ncbi_dagchainer", package="CRBHits")
 #' ## plot DAGchainer results - default
-#' \dontrun{
 #' plot_dagchainer(ath_aly_ncbi_dagchainer)
-#' plot_dagchainer(ath_aly_ncbi_dagchainer, select.chr = c("NC_000932.1", "NC_034379.1"))
-#' }
 #' ## chromosome subset
+#' plot_dagchainer(ath_aly_ncbi_dagchainer, select.chr = c("NC_000932.1", "NC_034379.1"))
 #' @export plot_dagchainer
 #' @author Kristian K Ullrich
 
