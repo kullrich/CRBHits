@@ -15,7 +15,6 @@
 #' @author Kristian K Ullrich
 
 dnabin2dnastring <- function(dnabin){
-  dna <- DNAStringSet(apply(ape::as.character.DNAbin(dnabin), 1,
-                                function(x) paste0(x, collapse="")))
+  dna <- setNames(Biostrings::DNAStringSet(ape::as.alignment(dnabin)$seq), labels(dnabin))
   return(dna)
 }

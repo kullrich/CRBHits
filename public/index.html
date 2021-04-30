@@ -106,7 +106,7 @@
 <h1 class="hasAnchor">
 <a href="#crbhits---description" class="anchor"></a>CRBHits - Description</h1>
 <p><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> is a reimplementation of the Conditional Reciprocal Best Hit (CRBH) algorithm <a href="https://github.com/cboursnell/crb-blast">crb-blast</a> in R. It covers all necessary steps from CRBHit pair calculation to Codon Alignments and Ka/Ks.</p>
-<p>The CRBH algorithm was introduced by <a href="http://www.plosgenetics.org/article/info%3Adoi%2F10.1371%2Fjournal.pgen.1004365">Aubry S, Kelly S et al. (2014)</a> and ported to python <a href="https://pypi.org/project/shmlast/">shmlast</a> (<a href="https://joss.theoj.org/papers/10.21105/joss.00142">Scott C. 2017</a>) which benefits from the blast-like sequence search software <a href="http://last.cbrc.jp/">LAST</a> (<a href="https://genome.cshlp.org/content/21/3/487.long">Kiełbasa SM et al. 2011</a>).</p>
+<p>The CRBH algorithm was introduced by <a href="http://www.plosgenetics.org/article/info%3Adoi%2F10.1371%2Fjournal.pgen.1004365">Aubry S, Kelly S et al. (2014)</a> and ported to python <a href="https://pypi.org/project/shmlast/">shmlast</a> (<a href="https://joss.theoj.org/papers/10.21105/joss.00142">Scott C. 2017</a>) which benefits from the blast-like sequence search software <a href="https://gitlab.com/mcfrith/last">LAST</a> (<a href="https://genome.cshlp.org/content/21/3/487.long">Kiełbasa SM et al. 2011</a>).</p>
 <p>Like <a href="https://pypi.org/project/shmlast/">shmlast</a>, <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> plots the fitted model of the CRBHit evalue based algorithm. In addition users can filter the CRBHit pairs prior fitting for other criteria like evalue, protein identity and/or the twilight zone of protein sequence alignments according to <a href="https://academic.oup.com/peds/article/12/2/85/1550637">Rost B. (1999)</a>.</p>
 <p><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> only takes coding nucleotide sequences as the query and target inputs, since the secondary aim of CRBHits is to calculate synonymous and non-synonymous substitutions with the R package <a href="https://cran.r-project.org/web/packages/seqinr/index.html">seqinr</a> (<a href="https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10">Sharif D, Lobry JR. 2007</a>) or the external tool <a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download">KaKs_Calculator2.0</a> (<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5054116/">Wang D, Zhang Y et al. 2010</a>).</p>
 <p>This is in contrast to <a href="https://github.com/cboursnell/crb-blast">crb-blast</a>, which can take proteins or nucleotides as the target sequences and in contrast to <a href="https://pypi.org/project/shmlast/">shmlast</a>, which uses nucleotides as queries and proteins as target sequences.</p>
@@ -189,22 +189,22 @@ build_vignettes = FALSE, dependencies = FALSE)
 <p>The source code for the prerequisites (LAST, KaKs_Calculator2.0, DAGchainer) are forked within <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a>.</p>
 <ul>
 <li>
-<a href="http://last.cbrc.jp/">LAST</a> <a href="http://last.cbrc.jp/last-1177.zip">http://last.cbrc.jp/last-1177.zip</a>
+<a href="https://gitlab.com/mcfrith/last">LAST</a> <a href="https://gitlab.com/mcfrith/last/-/archive/1219/last-1219.zip">https://gitlab.com/mcfrith/last/-/archive/1219/last-1219.zip</a>
 </li>
 </ul>
-<p>To compile the forked version of <a href="http://last.cbrc.jp/">LAST</a> within the <code>CRBHits</code> R package directory try to use the function <code><a href="reference/make_last.html">make_last()</a></code>:</p>
+<p>To compile the forked version of <a href="https://gitlab.com/mcfrith/last">LAST</a> within the <code>CRBHits</code> R package directory try to use the function <code><a href="reference/make_last.html">make_last()</a></code>:</p>
 <pre><code><a href="reference/make_last.html">## see more installation information here, if make fails
-## last-install-help: http://last.cbrc.jp/doc/last.html
+## last-install-help: https://gitlab.com/mcfrith/last
 make_last()</a></code></pre>
-<p>To compile <a href="http://last.cbrc.jp/">LAST</a> yourself on Linux/Unix/macOS into another folder:</p>
+<p>To compile <a href="https://gitlab.com/mcfrith/last">LAST</a> yourself on Linux/Unix/macOS into another folder:</p>
 <pre><code>## create and change into the directory to install LAST
 ## e.g.
 mkdir /tmp/last
 cd /tmp/last
-## donwload last-1177
-curl -O http://last.cbrc.jp/last-1177.zip
-unzip last-1177.zip
-cd last-1177
+## donwload last-1219
+curl -O https://gitlab.com/mcfrith/last/-/archive/1219/last-1219.zip
+unzip last-1219.zip
+cd last-1219
 ## compile LAST
 make</code></pre>
 <ul>
@@ -245,7 +245,7 @@ make</code></pre>
 <p>If you would like to install the latest version of the tools, you need to download the source code and compile again.</p>
 <p>If you would like to use your own compiled versions of <code>LAST</code>, <code>KaKs_Calculator2.0</code> and <code>DAGchainer</code> you need to set the correct <code>@param</code> in the corresponding functions of <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a>.</p>
 <pre><code>## example how to use own compiled versions of LAST, KaKs_Calculator2.0 and DAGchainer
-my.lastpath &lt;- "/tmp/last/last-1177/src"
+my.lastpath &lt;- "/tmp/last/last-1219/src"
 my.kakspath &lt;- "/tmp/KaKs_Calculator2/KaKs_Calculator2.0/src"
 my.dagchainerpath &lt;- "/tmp/dagcahiner"
 
@@ -303,7 +303,7 @@ conda install dagchainer</code></pre>
 <h2 class="hasAnchor">
 <a href="#quick-guide" class="anchor"></a>Quick-guide</h2>
 <pre><code><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">library(CRBHits)
-## compile last-1177
+## compile last-1219
 make_last()
 ## conditional reciprocal best hits (CRBHit pairs)
 data("ath", package="CRBHits")
@@ -342,7 +342,7 @@ hiv_kaks &lt;- dnastring2kaks(hiv, model = "NG86")
 g &lt;- plot_kaks(hiv_kaks)
 
 ## example how to use own compiled versions of LAST
-my.lastpath &lt;- "/tmp/last/last-1177/src"
+my.lastpath &lt;- "/tmp/last/last-1219/bin"
 ath_aly_crbh &lt;- cds2rbh(ath, aly, plotCurve = TRUE,
                         lastpath = my.lastpath)
 ?cds2rbh
@@ -359,9 +359,9 @@ ath_aly_crbh.kaks &lt;- rbh2kaks(ath_aly_crbh,
 <a href="#license" class="anchor"></a>License</h2>
 <p>MIT (see LICENSE)</p>
 <p>The <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> package includes source code that has been published under following licenses:</p>
-<div id="last-1177zip" class="section level3">
+<div id="last-1219zip" class="section level3">
 <h3 class="hasAnchor">
-<a href="#last-1177zip" class="anchor"></a>last-1177.zip</h3>
+<a href="#last-1219zip" class="anchor"></a>last-1219.zip</h3>
 <p>GNU General Public License Version 3, 29 June 2007 <a href="https://www.gnu.org/licenses/gpl-3.0.de.html">GPLv3</a></p>
 </div>
 <div id="kaks_calculator20targz" class="section level3">

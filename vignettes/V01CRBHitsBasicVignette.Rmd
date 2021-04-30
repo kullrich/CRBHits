@@ -58,7 +58,7 @@ __Note:__
 
 In this Vignette the `lastpath` is defined as `vignette.paths[1]`, the `kakscalcpath` as `vignette.paths[2]` and the `dagchainerpath` as `vignette.paths[3]` to be able to build the Vignette.
 
-However, once you have compiled last-1177, KaKs_Calculator2.0 and DAGchainer with the functions `make_last()`, `make_KaKs_Calculator2()` and `make_dagchainer()` you won't need to specify the paths anymore. Please remove them if you would like to repeat the examples.
+However, once you have compiled last-1219, KaKs_Calculator2.0 and DAGchainer with the functions `make_last()`, `make_KaKs_Calculator2()` and `make_dagchainer()` you won't need to specify the paths anymore. Please remove them if you would like to repeat the examples.
 
 ```{r}
 ## load vignette specific libraries
@@ -86,7 +86,7 @@ install_gitlab("mpievolbio-it/crbhits", host = "https://gitlab.gwdg.de",
 install_github("kullrich/CRBHits", build_vignettes = TRUE, dependencies = FALSE)
 ```
 
-[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) needs [LAST](http://last.cbrc.jp/), [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download) and [DAGchainer](http://dagchainer.sourceforge.net/) to be installed before one can efficiently use it.
+[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) needs [LAST](https://gitlab.com/mcfrith/last), [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download) and [DAGchainer](http://dagchainer.sourceforge.net/) to be installed before one can efficiently use it.
 
 All prerequisites (LAST, KaKs_Calculator2.0, DAGchainer) are forked within [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) and can be compiled for Linux/Unix/macOS with the functions `make_last()`, `make_KaKs_Calculator2()` and  `make_dagchainer()`.
 
@@ -94,12 +94,12 @@ For the windows platform the user needs to use e.g. [https://www.cygwin.com/](ht
 
 ```
 library(CRBHits)
-## compile last-1177
-make.last()
+## compile last-1219
+make_last()
 ## compile KaKs_Calculator2.0
-make.KaKs_Calculator2()
+make_KaKs_Calculator2()
 ## compile DAGchainer
-make.dagchainer()
+make_dagchainer()
 ```
 
 ## 2. [Conditional Reciprocal Best Hits - Algorithm]{#crbhalgorithm}

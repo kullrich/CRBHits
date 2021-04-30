@@ -92,7 +92,7 @@
       <h1 data-toc-skip>CRBHits Basic Vignette</h1>
                         <h4 class="author">Kristian K Ullrich</h4>
             
-            <h4 class="date">2021-03-31</h4>
+            <h4 class="date">2021-04-30</h4>
       
       <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/mastervignettes/V01CRBHitsBasicVignette.Rmd"><code>vignettes/V01CRBHitsBasicVignette.Rmd</code></a></small>
       <div class="hidden name"><code>V01CRBHitsBasicVignette.Rmd</code></div>
@@ -160,7 +160,7 @@
 <p><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> features downstream anaylsis like batch calculating synonymous (Ks) and nonsynonymous substitutions (Ka) per orthologous sequence pair. The codon sequence alignment step consist of three subtasks, namely coding nucleotide to protein sequence translation, pairwise protein sequence alignment calculation and converting the protein sequence alignment back into a codon based alignment.</p>
 <p><strong>Note:</strong></p>
 <p>In this Vignette the <code>lastpath</code> is defined as <code>vignette.paths[1]</code>, the <code>kakscalcpath</code> as <code>vignette.paths[2]</code> and the <code>dagchainerpath</code> as <code>vignette.paths[3]</code> to be able to build the Vignette.</p>
-<p>However, once you have compiled last-1177, KaKs_Calculator2.0 and DAGchainer with the functions <code><a href="../reference/make_last.html">make_last()</a></code>, <code><a href="../reference/make_KaKs_Calculator2.html">make_KaKs_Calculator2()</a></code> and <code><a href="../reference/make_dagchainer.html">make_dagchainer()</a></code> you won’t need to specify the paths anymore. Please remove them if you would like to repeat the examples.</p>
+<p>However, once you have compiled last-1219, KaKs_Calculator2.0 and DAGchainer with the functions <code><a href="../reference/make_last.html">make_last()</a></code>, <code><a href="../reference/make_KaKs_Calculator2.html">make_KaKs_Calculator2()</a></code> and <code><a href="../reference/make_dagchainer.html">make_dagchainer()</a></code> you won’t need to specify the paths anymore. Please remove them if you would like to repeat the examples.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## load vignette specific libraries</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a></span><span class="op">)</span>
@@ -184,16 +184,16 @@ install_gitlab("mpievolbio-it/crbhits", host = "https://gitlab.gwdg.de",
                build_vignettes = TRUE, dependencies = FALSE)
 ## from github
 install_github("kullrich/CRBHits", build_vignettes = TRUE, dependencies = FALSE)</a></code></pre>
-<p><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> needs <a href="http://last.cbrc.jp/">LAST</a>, <a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download">KaKs_Calculator2.0</a> and <a href="http://dagchainer.sourceforge.net/">DAGchainer</a> to be installed before one can efficiently use it.</p>
+<p><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> needs <a href="https://gitlab.com/mcfrith/last">LAST</a>, <a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download">KaKs_Calculator2.0</a> and <a href="http://dagchainer.sourceforge.net/">DAGchainer</a> to be installed before one can efficiently use it.</p>
 <p>All prerequisites (LAST, KaKs_Calculator2.0, DAGchainer) are forked within <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> and can be compiled for Linux/Unix/macOS with the functions <code><a href="../reference/make_last.html">make_last()</a></code>, <code><a href="../reference/make_KaKs_Calculator2.html">make_KaKs_Calculator2()</a></code> and <code><a href="../reference/make_dagchainer.html">make_dagchainer()</a></code>.</p>
 <p>For the windows platform the user needs to use e.g. <a href="https://www.cygwin.com/">https://www.cygwin.com/</a> to be able to compile the prerequisites.</p>
 <pre><code><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">library(CRBHits)
-## compile last-1177
-make.last()
+## compile last-1219
+make_last()
 ## compile KaKs_Calculator2.0
-make.KaKs_Calculator2()
+make_KaKs_Calculator2()
 ## compile DAGchainer
-make.dagchainer()</a></code></pre>
+make_dagchainer()</a></code></pre>
 </div>
 <div id="conditional-reciprocal-best-hits---algorithm" class="section level2">
 <h2 class="hasAnchor">
@@ -321,49 +321,49 @@ HOMSAP.cds.ENSEMBL.longest &lt;- isoform2longest(HOMSAP.cds.ENSEMBL, "ENSEMBL")
 
 <span class="co">## show dimension and first parts of retained hit pairs</span>
 <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span><span class="op">)</span>
-<span class="co">#&gt; [1] 799   3</span>
+<span class="co">#&gt; [1] 211   3</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span><span class="op">)</span>
-<span class="co">#&gt;           aa1          aa2 rbh_class</span>
-<span class="co">#&gt; 1 AT1G01010.1 AL1G11530.t1       rbh</span>
-<span class="co">#&gt; 2 AT1G01020.5 AL1G11510.t1       rbh</span>
-<span class="co">#&gt; 3 AT1G01030.1 AL1G11500.t1       rbh</span>
-<span class="co">#&gt; 4 AT1G01040.1 AL1G11480.t1       rbh</span>
-<span class="co">#&gt; 5 AT1G01050.1 AL1G11470.t1       rbh</span>
-<span class="co">#&gt; 6 AT1G01060.6 AL1G11460.t1       rbh</span>
+<span class="co">#&gt;           aa1                   aa2 rbh_class</span>
+<span class="co">#&gt; 1 AT1G01040.1 Al_scaffold_0001_3256       rbh</span>
+<span class="co">#&gt; 2 AT1G01050.1  Al_scaffold_0001_128       rbh</span>
+<span class="co">#&gt; 3 AT1G01080.3  Al_scaffold_0001_125       rbh</span>
+<span class="co">#&gt; 4 AT1G01180.1  Al_scaffold_0001_114       rbh</span>
+<span class="co">#&gt; 5 AT1G01190.2 Al_scaffold_0001_4419       rbh</span>
+<span class="co">#&gt; 6 AT1G01260.3 Al_scaffold_0001_1326       rbh</span>
 
 <span class="co">## show first retained hit pairs for the query &gt; target matrix</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh1</span><span class="op">)</span>
-<span class="co">#&gt;      query_id   subject_id perc_identity alignment_length mismatches gap_opens</span>
-<span class="co">#&gt; 1 AT1G01010.1 AL1G11530.t1         71.61              472         86         8</span>
-<span class="co">#&gt; 2 AT1G01020.5 AL1G11510.t1         88.94              199         22         0</span>
-<span class="co">#&gt; 3 AT1G01030.1 AL1G11500.t1         96.31              298          8         1</span>
-<span class="co">#&gt; 4 AT1G01040.1 AL1G11480.t1         96.39             1909         58         6</span>
-<span class="co">#&gt; 5 AT1G01050.1 AL1G11470.t1        100.00              213          0         0</span>
-<span class="co">#&gt; 6 AT1G01060.6 AL1G11460.t1         86.51              593         63         7</span>
-<span class="co">#&gt;   q_start q_end s_start s_end   evalue bit_score query_length subject_length</span>
-<span class="co">#&gt; 1       1   430       1   466 7.7e-224       696          430            466</span>
-<span class="co">#&gt; 2       1   199      48   246 2.6e-124       389          199            246</span>
-<span class="co">#&gt; 3       1   298       1   295 9.1e-221       680          359            323</span>
-<span class="co">#&gt; 4       6  1910       4  1905  0.0e+00      4180         1910           1905</span>
-<span class="co">#&gt; 5       1   213       1   213 2.0e-160       493          213            213</span>
-<span class="co">#&gt; 6      60   644      62   645  0.0e+00      1130          644            645</span>
-<span class="co">#&gt;   raw_score rbh_class</span>
-<span class="co">#&gt; 1      1570       rbh</span>
-<span class="co">#&gt; 2       874       rbh</span>
-<span class="co">#&gt; 3      1534       rbh</span>
-<span class="co">#&gt; 4      9471       rbh</span>
-<span class="co">#&gt; 5      1110       rbh</span>
-<span class="co">#&gt; 6      2557       rbh</span>
+<span class="co">#&gt;      query_id            subject_id perc_identity alignment_length mismatches</span>
+<span class="co">#&gt; 1 AT1G01040.1 Al_scaffold_0001_3256         31.09              119         73</span>
+<span class="co">#&gt; 2 AT1G01050.1  Al_scaffold_0001_128        100.00              213          0</span>
+<span class="co">#&gt; 3 AT1G01080.3  Al_scaffold_0001_125         90.75              281         19</span>
+<span class="co">#&gt; 4 AT1G01180.1  Al_scaffold_0001_114         92.88              309         19</span>
+<span class="co">#&gt; 5 AT1G01190.2 Al_scaffold_0001_4419         33.33               81         51</span>
+<span class="co">#&gt; 6 AT1G01260.3 Al_scaffold_0001_1326         44.94               89         41</span>
+<span class="co">#&gt;   gap_opens q_start q_end s_start s_end   evalue bit_score query_length</span>
+<span class="co">#&gt; 1         2     650   768     354   463  4.0e-06      47.0         1910</span>
+<span class="co">#&gt; 2         0       1   213       1   213 1.5e-160     493.0          213</span>
+<span class="co">#&gt; 3         3       1   275       1   280 5.9e-178     551.0          287</span>
+<span class="co">#&gt; 4         1       1   306       1   309 2.9e-218     668.0          308</span>
+<span class="co">#&gt; 5         2     450   529      91   169  9.6e-09      53.6          541</span>
+<span class="co">#&gt; 6         1     409   497     251   331  3.4e-16      78.3          591</span>
+<span class="co">#&gt;   subject_length raw_score rbh_class</span>
+<span class="co">#&gt; 1            540        99       rbh</span>
+<span class="co">#&gt; 2            213      1110       rbh</span>
+<span class="co">#&gt; 3            299      1240       rbh</span>
+<span class="co">#&gt; 4            316      1505       rbh</span>
+<span class="co">#&gt; 5            189       114       rbh</span>
+<span class="co">#&gt; 6            451       170       rbh</span>
 
 <span class="co">## get the number of CRBHit classified as rbh and sec hit pairs</span>
 <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh1</span><span class="op">$</span><span class="va">rbh_class</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; rbh sec </span>
-<span class="co">#&gt; 745  54</span>
+<span class="co">#&gt; 181  30</span>
 <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh2</span><span class="op">$</span><span class="va">rbh_class</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; rbh sec </span>
-<span class="co">#&gt; 745  54</span></code></pre></div>
+<span class="co">#&gt; 181  30</span></code></pre></div>
 <p>If the <code>@param</code> <code>crbh</code> was set to <code>TRUE</code>, the CRBH algorithm was applied and the fitting function will also be returned. The fitting function can than be used for manual plotting as follows:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## example how to use the fitting function for manual plotting</span>
@@ -390,11 +390,11 @@ HOMSAP.cds.ENSEMBL.longest &lt;- isoform2longest(HOMSAP.cds.ENSEMBL, "ENSEMBL")
 <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh1</span><span class="op">$</span><span class="va">rbh_class</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;    rbh    sec single </span>
-<span class="co">#&gt;    745     54      3</span>
+<span class="co">#&gt;    181     30      1</span>
 <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh2</span><span class="op">$</span><span class="va">rbh_class</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;    rbh    sec single </span>
-<span class="co">#&gt;    745     54      4</span>
+<span class="co">#&gt;    181     30      2</span>
 <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">)</span>
 <span class="co">#&gt; NULL</span>
 
@@ -432,7 +432,7 @@ HOMSAP.cds.ENSEMBL.longest &lt;- isoform2longest(HOMSAP.cds.ENSEMBL, "ENSEMBL")
 <p><img src="V01CRBHitsBasicVignette_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span><span class="op">)</span>
-<span class="co">#&gt; [1] 777   3</span>
+<span class="co">#&gt; [1] 145   3</span>
 
 <span class="co">## get help</span>
 <span class="co">#?cds2rbh</span></code></pre></div>
@@ -467,7 +467,7 @@ HOMSAP.cds.ENSEMBL.longest &lt;- isoform2longest(HOMSAP.cds.ENSEMBL, "ENSEMBL")
 <p><img src="V01CRBHitsBasicVignette_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span><span class="op">)</span>
-<span class="co">#&gt; [1] 798   3</span>
+<span class="co">#&gt; [1] 208   3</span>
 
 <span class="co">## get help</span>
 <span class="co">#?cds2rbh</span>
@@ -507,7 +507,7 @@ HOMSAP.cds.ENSEMBL.longest &lt;- isoform2longest(HOMSAP.cds.ENSEMBL, "ENSEMBL")
 <p><img src="V01CRBHitsBasicVignette_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span><span class="op">)</span>
-<span class="co">#&gt; [1] 563   3</span></code></pre></div>
+<span class="co">#&gt; [1] 58  3</span></code></pre></div>
 </div>
 <div id="extract-rbhs" class="section level4">
 <h4 class="hasAnchor">
@@ -713,20 +713,20 @@ HOMSAP.cds.ENSEMBL.longest &lt;- isoform2longest(HOMSAP.cds.ENSEMBL, "ENSEMBL")
                               cds1 <span class="op">=</span> <span class="va">ath</span>, cds2 <span class="op">=</span> <span class="va">aly</span>,
                               model <span class="op">=</span> <span class="st">"Li"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh.kaks</span><span class="op">)</span>
-<span class="co">#&gt;           aa1          aa2 rbh_class         ka        ks          vka</span>
-<span class="co">#&gt; 1 AT1G01010.1 AL1G11530.t1       rbh 0.10617227 0.2628911 2.637032e-04</span>
-<span class="co">#&gt; 2 AT1G01020.5 AL1G11510.t1       rbh 0.05027159 0.1076133 2.572181e-04</span>
-<span class="co">#&gt; 3 AT1G01030.1 AL1G11500.t1       rbh 0.05606632 0.2329670 1.808118e-04</span>
-<span class="co">#&gt; 4 AT1G01040.1 AL1G11480.t1       rbh 0.01388844 0.1121138 6.907144e-06</span>
-<span class="co">#&gt; 5 AT1G01050.1 AL1G11470.t1       rbh 0.00000000 0.1831839 0.000000e+00</span>
-<span class="co">#&gt; 6 AT1G01060.6 AL1G11460.t1       rbh 0.09054187 0.1854908 1.323098e-04</span>
-<span class="co">#&gt;            vks</span>
-<span class="co">#&gt; 1 0.0023637311</span>
-<span class="co">#&gt; 2 0.0017464252</span>
-<span class="co">#&gt; 3 0.0026270370</span>
-<span class="co">#&gt; 4 0.0001460956</span>
-<span class="co">#&gt; 5 0.0030223075</span>
-<span class="co">#&gt; 6 0.0007490874</span>
+<span class="co">#&gt;           aa1                   aa2 rbh_class         ka        ks          vka</span>
+<span class="co">#&gt; 1 AT1G01040.1 Al_scaffold_0001_3256       rbh 0.74651201 9.9999990 0.0032172312</span>
+<span class="co">#&gt; 2 AT1G01050.1  Al_scaffold_0001_128       rbh 0.00000000 0.1831839 0.0000000000</span>
+<span class="co">#&gt; 3 AT1G01080.3  Al_scaffold_0001_125       rbh 0.05680851 0.1390746 0.0001612571</span>
+<span class="co">#&gt; 4 AT1G01180.1  Al_scaffold_0001_114       rbh 0.03656808 0.1543978 0.0001014973</span>
+<span class="co">#&gt; 5 AT1G01190.2 Al_scaffold_0001_4419       rbh 0.75036088 9.9999990 0.0093948533</span>
+<span class="co">#&gt; 6 AT1G01260.3 Al_scaffold_0001_1326       rbh 0.78228833 9.9999990 0.0051807370</span>
+<span class="co">#&gt;           vks</span>
+<span class="co">#&gt; 1 9.999999000</span>
+<span class="co">#&gt; 2 0.003022307</span>
+<span class="co">#&gt; 3 0.001531756</span>
+<span class="co">#&gt; 4 0.001249826</span>
+<span class="co">#&gt; 5 9.999999000</span>
+<span class="co">#&gt; 6 9.999999000</span>
 
 <span class="co">## get help</span>
 <span class="co">#?rbh2kaks</span></code></pre></div>
@@ -737,20 +737,20 @@ HOMSAP.cds.ENSEMBL.longest &lt;- isoform2longest(HOMSAP.cds.ENSEMBL, "ENSEMBL")
                               cds1 <span class="op">=</span> <span class="va">ath</span>, cds2 <span class="op">=</span> <span class="va">aly</span>,
                               model <span class="op">=</span> <span class="st">"Li"</span>, threads <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh.kaks</span><span class="op">)</span>
-<span class="co">#&gt;           aa1          aa2 rbh_class         ka        ks          vka</span>
-<span class="co">#&gt; 1 AT1G01010.1 AL1G11530.t1       rbh 0.10617227 0.2628911 2.637032e-04</span>
-<span class="co">#&gt; 2 AT1G01020.5 AL1G11510.t1       rbh 0.05027159 0.1076133 2.572181e-04</span>
-<span class="co">#&gt; 3 AT1G01030.1 AL1G11500.t1       rbh 0.05606632 0.2329670 1.808118e-04</span>
-<span class="co">#&gt; 4 AT1G01040.1 AL1G11480.t1       rbh 0.01388844 0.1121138 6.907144e-06</span>
-<span class="co">#&gt; 5 AT1G01050.1 AL1G11470.t1       rbh 0.00000000 0.1831839 0.000000e+00</span>
-<span class="co">#&gt; 6 AT1G01060.6 AL1G11460.t1       rbh 0.09054187 0.1854908 1.323098e-04</span>
-<span class="co">#&gt;            vks</span>
-<span class="co">#&gt; 1 0.0023637311</span>
-<span class="co">#&gt; 2 0.0017464252</span>
-<span class="co">#&gt; 3 0.0026270370</span>
-<span class="co">#&gt; 4 0.0001460956</span>
-<span class="co">#&gt; 5 0.0030223075</span>
-<span class="co">#&gt; 6 0.0007490874</span>
+<span class="co">#&gt;           aa1                   aa2 rbh_class         ka        ks          vka</span>
+<span class="co">#&gt; 1 AT1G01040.1 Al_scaffold_0001_3256       rbh 0.74651201 9.9999990 0.0032172312</span>
+<span class="co">#&gt; 2 AT1G01050.1  Al_scaffold_0001_128       rbh 0.00000000 0.1831839 0.0000000000</span>
+<span class="co">#&gt; 3 AT1G01080.3  Al_scaffold_0001_125       rbh 0.05680851 0.1390746 0.0001612571</span>
+<span class="co">#&gt; 4 AT1G01180.1  Al_scaffold_0001_114       rbh 0.03656808 0.1543978 0.0001014973</span>
+<span class="co">#&gt; 5 AT1G01190.2 Al_scaffold_0001_4419       rbh 0.75036088 9.9999990 0.0093948533</span>
+<span class="co">#&gt; 6 AT1G01260.3 Al_scaffold_0001_1326       rbh 0.78228833 9.9999990 0.0051807370</span>
+<span class="co">#&gt;           vks</span>
+<span class="co">#&gt; 1 9.999999000</span>
+<span class="co">#&gt; 2 0.003022307</span>
+<span class="co">#&gt; 3 0.001531756</span>
+<span class="co">#&gt; 4 0.001249826</span>
+<span class="co">#&gt; 5 9.999999000</span>
+<span class="co">#&gt; 6 9.999999000</span>
 
 <span class="co">## get help</span>
 <span class="co">#?rbh2kaks</span></code></pre></div>
@@ -762,20 +762,20 @@ HOMSAP.cds.ENSEMBL.longest &lt;- isoform2longest(HOMSAP.cds.ENSEMBL, "ENSEMBL")
                               model <span class="op">=</span> <span class="st">"Li"</span>, threads <span class="op">=</span> <span class="fl">2</span>,
                               substitutionMatrix <span class="op">=</span> <span class="st">"BLOSUM45"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh.kaks</span><span class="op">)</span>
-<span class="co">#&gt;           aa1          aa2 rbh_class         ka        ks          vka</span>
-<span class="co">#&gt; 1 AT1G01010.1 AL1G11530.t1       rbh 0.10701711 0.2719592 2.625809e-04</span>
-<span class="co">#&gt; 2 AT1G01020.5 AL1G11510.t1       rbh 0.05027159 0.1076133 2.572181e-04</span>
-<span class="co">#&gt; 3 AT1G01030.1 AL1G11500.t1       rbh 0.05537564 0.2580275 1.783063e-04</span>
-<span class="co">#&gt; 4 AT1G01040.1 AL1G11480.t1       rbh 0.01388844 0.1121138 6.907144e-06</span>
-<span class="co">#&gt; 5 AT1G01050.1 AL1G11470.t1       rbh 0.00000000 0.1831839 0.000000e+00</span>
-<span class="co">#&gt; 6 AT1G01060.6 AL1G11460.t1       rbh 0.09140582 0.1860964 1.322842e-04</span>
-<span class="co">#&gt;            vks</span>
-<span class="co">#&gt; 1 0.0024722288</span>
-<span class="co">#&gt; 2 0.0017464252</span>
-<span class="co">#&gt; 3 0.0029488815</span>
-<span class="co">#&gt; 4 0.0001460956</span>
-<span class="co">#&gt; 5 0.0030223075</span>
-<span class="co">#&gt; 6 0.0007557110</span>
+<span class="co">#&gt;           aa1                   aa2 rbh_class         ka        ks          vka</span>
+<span class="co">#&gt; 1 AT1G01040.1 Al_scaffold_0001_3256       rbh 0.69109360 9.9999990 0.0029376709</span>
+<span class="co">#&gt; 2 AT1G01050.1  Al_scaffold_0001_128       rbh 0.00000000 0.1831839 0.0000000000</span>
+<span class="co">#&gt; 3 AT1G01080.3  Al_scaffold_0001_125       rbh 0.05638742 0.1366968 0.0001613461</span>
+<span class="co">#&gt; 4 AT1G01180.1  Al_scaffold_0001_114       rbh 0.03656808 0.1543978 0.0001014973</span>
+<span class="co">#&gt; 5 AT1G01190.2 Al_scaffold_0001_4419       rbh 0.66169565 9.9999990 0.0073901048</span>
+<span class="co">#&gt; 6 AT1G01260.3 Al_scaffold_0001_1326       rbh 0.75382109 9.9999990 0.0047473367</span>
+<span class="co">#&gt;           vks</span>
+<span class="co">#&gt; 1 9.999999000</span>
+<span class="co">#&gt; 2 0.003022307</span>
+<span class="co">#&gt; 3 0.001436133</span>
+<span class="co">#&gt; 4 0.001249826</span>
+<span class="co">#&gt; 5 9.999999000</span>
+<span class="co">#&gt; 6 9.999999000</span>
 
 <span class="co">## get help</span>
 <span class="co">#?rbh2kaks</span></code></pre></div>

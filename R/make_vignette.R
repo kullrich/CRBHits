@@ -10,15 +10,15 @@
 make_vignette <- function(){
   CRBHits_root <- system.file(package = "CRBHits")
   LastTempDir <- tempdir()
-  system(paste0("unzip -o ", CRBHits_root, "/extdata/last-1177.zip -d ", LastTempDir))
-  system(paste0("cd ", LastTempDir, "/last-1177/; make"))
+  system(paste0("unzip -o ", CRBHits_root, "/extdata/last-1219.zip -d ", LastTempDir))
+  system(paste0("cd ", LastTempDir, "/last-1219/; make"))
   KaKsCalcTempDir <- tempdir()
   system(paste0("tar -C ", KaKsCalcTempDir, " -xvf ", CRBHits_root, "/extdata/KaKs_Calculator2.0.tar.gz"))
   system(paste0("cd ", KaKsCalcTempDir, "/KaKs_Calculator2.0/src/; make clean; make"))
   DAGchainerTempDir <- tempdir()
   system(paste0("unzip -o ", CRBHits_root, "/extdata/dagchainer.zip -d ", DAGchainerTempDir))
   system(paste0("cd ", DAGchainerTempDir, "/dagchainer/; make"))
-  return(c(paste0(LastTempDir, "/last-1177/src/"),
+  return(c(paste0(LastTempDir, "/last-1219/bin/"),
            paste0(KaKsCalcTempDir, "/KaKs_Calculator2.0/src/"),
            paste0(DAGchainerTempDir, "/dagchainer/")))
 }

@@ -6,7 +6,7 @@
 #' If one specifies cds1 and cds2 as the same input a selfblast is conducted.
 #' @param cds1 cds1 sequences as \code{DNAStringSet} [mandatory]
 #' @param cds2 cds2 sequences as \code{DNAStringSet} [mandatory]
-#' @param lastpath specify the PATH to the last binaries [default: /extdata/last-1177/src/]
+#' @param lastpath specify the PATH to the last binaries [default: /extdata/last-1219/bin/]
 #' @param outpath specify the output PATH [default: /tmp]
 #' @param crbh specify if conditional-reciprocal hit pairs should be retained as secondary hits [default: TRUE]
 #' @param keepSingleDirection specify if single direction secondary hit pairs should be retained [default: FALSE]
@@ -46,7 +46,7 @@
 #' @references Kiełbasa, SM et al. (2011) Adaptive seeds tame genomic sequence comparison. \emph{Genome research}, \bold{21(3)}, 487-493.
 #' @references Rost B. (1999). Twilight zone of protein sequence alignments. \emph{Protein Engineering}, \bold{12(2)}, 85-94.
 #' @examples
-#' ## compile last-1177 within CRBHits
+#' ## compile last-1219 within CRBHits
 #' make_last()
 #' ## load example sequence data
 #' data("ath", package="CRBHits")
@@ -77,7 +77,7 @@
 
 cds2rbh <- function(cds1, cds2,
                     lastpath = paste0(find.package("CRBHits"),
-                                              "/extdata/last-1177/src/"),
+                                              "/extdata/last-1219/bin/"),
                     outpath = "/tmp",
                     crbh = TRUE,
                     keepSingleDirection = FALSE,
