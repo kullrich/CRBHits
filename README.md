@@ -192,7 +192,7 @@ If you would like to use your own compiled versions of `LAST`, `KaKs_Calculator2
 
 ```
 ## example how to use own compiled versions of LAST, KaKs_Calculator2.0 and DAGchainer
-my.lastpath <- "/tmp/last/last-1219/src"
+my.lastpath <- "/tmp/last/last-1219/bin"
 my.kakspath <- "/tmp/KaKs_Calculator2/KaKs_Calculator2.0/src"
 my.dagchainerpath <- "/tmp/dagcahiner"
 
