@@ -56,7 +56,7 @@
 #' dim(ath_aly_crbh$crbh.pairs)
 #' ## get classical reciprocal best hit (RBHit) pairs
 #' ath_aly_rbh <- cds2rbh(ath, aly, crbh = FALSE)
-#' dim(ath_aly_rbh$rbh.pairs)
+#' dim(ath_aly_rbh$crbh.pairs)
 #' ## filter for evalue 1e-100
 #' ath_aly_crbh.eval100 <- cds2rbh(ath, aly, eval = 1e-100)
 #' dim(ath_aly_crbh.eval100$crbh.pairs)

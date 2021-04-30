@@ -56,7 +56,7 @@
 #' dim(ath_aly_crbh$crbh.pairs)
 #' ## get classical reciprocal best hit (RBHit) pairs
 #' ath_aly_rbh <- cdsfile2rbh(athfile, alyfile, crbh = FALSE)
-#' dim(ath_aly_rbh$rbh.pairs)
+#' dim(ath_aly_rbh$crbh.pairs)
 #' ## selfblast
 #' ath_selfblast_crbh <- cdsfile2rbh(athfile, athfile, plotCurve = TRUE)
 #' ## see ?cds2rbh for more examples
