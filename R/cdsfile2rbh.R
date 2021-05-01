@@ -170,6 +170,9 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
   if(selfblast){
     aa1_aa2 <- aa1_aa2[aa1_aa2[,1] != aa1_aa2[,2], , drop = FALSE]
     aa2_aa1 <- aa2_aa1[aa2_aa1[,1] != aa2_aa1[,2], , drop = FALSE]
+    if(dim(aa1_aa2)[1] == 0 & dim(aa2_aa1)[1] == 0){
+      {stop("No recirpocal best hits!")}
+    }
   }
   #apply standard filters on hit pairs
   aa1_aa2 <- aa1_aa2 %>% filter_eval(eval) %>% filter_qcov(qcov) %>%
@@ -186,6 +189,9 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
   for(f_ in filter){
     aa1_aa2 <- aa1_aa2 %>% f_
     aa2_aa1 <- aa2_aa1 %>% f_
+  }
+  if(dim(aa1_aa2)[1] == 0 & dim(aa2_aa1)[1] == 0){
+    {stop("No recirpocal best hits!")}
   }
   aa1_aa2.idx <- paste0(aa1_aa2[, 1], "\t" , aa1_aa2[, 2])
   aa2_aa1.idx <- paste0(aa2_aa1[, 2], "\t" , aa2_aa1[, 1])

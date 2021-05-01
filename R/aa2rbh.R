@@ -135,8 +135,8 @@ aa2rbh <- function(aa1, aa2,
   aa2dbfile <- tempfile("aa2db_", outpath)
   aa2_aa1_lastout <- tempfile("aa2_aa1_lastout_", outpath)
   aa1_aa2_lastout <- tempfile("aa1_aa2_lastout_", outpath)
-  names(aa1) <- str_split_fixed(names(aa1), " ", 2)[, 1]
-  names(aa2) <- str_split_fixed(names(aa2), " ", 2)[, 1]
+  names(aa1) <- stringr::str_split_fixed(names(aa1), " ", 2)[, 1]
+  names(aa2) <- stringr::str_split_fixed(names(aa2), " ", 2)[, 1]
   Biostrings::writeXStringSet(aa1, file = aa1file)
   Biostrings::writeXStringSet(aa2, file = aa2file)
   system(paste0(lastpath, "lastdb -p -cR01 -P ", threads," ", aa1dbfile, " ", aa1file))
@@ -163,6 +163,9 @@ aa2rbh <- function(aa1, aa2,
   if(selfblast){
     aa1_aa2 <- aa1_aa2[aa1_aa2[,1] != aa1_aa2[,2], , drop = FALSE]
     aa2_aa1 <- aa2_aa1[aa2_aa1[,1] != aa2_aa1[,2], , drop = FALSE]
+    if(dim(aa1_aa2)[1] == 0 & dim(aa2_aa1)[1] == 0){
+      {stop("No recirpocal best hits!")}
+    }
   }
   #apply standard filters on hit pairs
   aa1_aa2 <- aa1_aa2 %>% filter_eval(eval) %>% filter_qcov(qcov) %>%
@@ -179,6 +182,9 @@ aa2rbh <- function(aa1, aa2,
   for(f_ in filter){
     aa1_aa2 <- aa1_aa2 %>% f_
     aa2_aa1 <- aa2_aa1 %>% f_
+  }
+  if(dim(aa1_aa2)[1] == 0 & dim(aa2_aa1)[1] == 0){
+    {stop("No recirpocal best hits!")}
   }
   aa1_aa2.idx <- paste0(aa1_aa2[, 1], "\t" , aa1_aa2[, 2])
   aa2_aa1.idx <- paste0(aa2_aa1[, 2], "\t" , aa2_aa1[, 1])
