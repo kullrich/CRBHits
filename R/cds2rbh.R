@@ -7,6 +7,7 @@
 #' @param cds1 cds1 sequences as \code{DNAStringSet} [mandatory]
 #' @param cds2 cds2 sequences as \code{DNAStringSet} [mandatory]
 #' @param lastpath specify the PATH to the last binaries [default: /extdata/last-1219/bin/]
+#' @param lastD last option D: query letters per random alignment [default: 1e6]
 #' @param outpath specify the output PATH [default: /tmp]
 #' @param crbh specify if conditional-reciprocal hit pairs should be retained as secondary hits [default: TRUE]
 #' @param keepSingleDirection specify if single direction secondary hit pairs should be retained [default: FALSE]
@@ -78,6 +79,7 @@
 cds2rbh <- function(cds1, cds2,
                     lastpath = paste0(find.package("CRBHits"),
                                               "/extdata/last-1219/bin/"),
+                    lastD = 1e6,
                     outpath = "/tmp",
                     crbh = TRUE,
                     keepSingleDirection = FALSE,
@@ -159,8 +161,8 @@ cds2rbh <- function(cds1, cds2,
   }
   system(paste0(lastpath, "lastdb -p -cR01 -P ", threads," ", aa1dbfile, " ", aa1file))
   system(paste0(lastpath, "lastdb -p -cR01 -P ", threads," ", aa2dbfile, " ", aa2file))
-  system(paste0(lastpath, "lastal -f BlastTab+ -P ", threads, " ", aa1dbfile, " ", aa2file, " > ", aa2_aa1_lastout))
-  system(paste0(lastpath, "lastal -f BlastTab+ -P ", threads, " ", aa2dbfile, " ", aa1file, " > ", aa1_aa2_lastout))
+  system(paste0(lastpath, "lastal -f BlastTab+ -P ", threads, " -D", lastD, " ", aa1dbfile, " ", aa2file, " > ", aa2_aa1_lastout))
+  system(paste0(lastpath, "lastal -f BlastTab+ -P ", threads, " -D", lastD, " ", aa2dbfile, " ", aa1file, " > ", aa1_aa2_lastout))
   aa1_aa2 <- read.table(aa1_aa2_lastout, sep = "\t", header = FALSE, stringsAsFactors = FALSE)
   aa2_aa1 <- read.table(aa2_aa1_lastout, sep = "\t", header = FALSE, stringsAsFactors = FALSE)
   colnames(aa1_aa2) <- colnames(aa2_aa1) <- c("query_id", "subject_id", "perc_identity",

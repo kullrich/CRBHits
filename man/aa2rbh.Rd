@@ -8,6 +8,7 @@ aa2rbh(
   aa1,
   aa2,
   lastpath = paste0(find.package("CRBHits"), "/extdata/last-1219/bin/"),
+  lastD = 1e+06,
   outpath = "/tmp",
   crbh = TRUE,
   keepSingleDirection = FALSE,
@@ -32,6 +33,8 @@ aa2rbh(
 \item{aa2}{aa2 sequences as \code{AAStringSet} [mandatory]}
 
 \item{lastpath}{specify the PATH to the last binaries [default: /extdata/last-1219/bin/]}
+
+\item{lastD}{last option D: query letters per random alignment [default: 1e6]}
 
 \item{outpath}{specify the output PATH [default: /tmp]}
 

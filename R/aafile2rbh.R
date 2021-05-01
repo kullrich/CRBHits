@@ -7,6 +7,7 @@
 #' @param aafile1 aa1 fasta file [mandatory]
 #' @param aafile2 aa2 fasta file [mandatory]
 #' @param lastpath specify the PATH to the last binaries [default: /extdata/last-1219/bin/]
+#' @param lastD last option D: query letters per random alignment [default: 1e6]
 #' @param outpath specify the output PATH [default: /tmp]
 #' @param crbh specify if conditional-reciprocal hit pairs should be retained as secondary hits [default: TRUE]
 #' @param keepSingleDirection specify if single direction secondary hit pairs should be retained [default: FALSE]
@@ -65,6 +66,7 @@
 aafile2rbh <- function(aafile1, aafile2,
                     lastpath = paste0(find.package("CRBHits"),
                                       "/extdata/last-1219/bin/"),
+                    lastD = 1e6,
                     outpath = "/tmp",
                     crbh = TRUE,
                     keepSingleDirection = FALSE,
@@ -141,8 +143,8 @@ aafile2rbh <- function(aafile1, aafile2,
   Biostrings::writeXStringSet(aa2, file = aa2file)
   system(paste0(lastpath, "lastdb -p -cR01 -P ", threads," ", aa1dbfile, " ", aa1file))
   system(paste0(lastpath, "lastdb -p -cR01 -P ", threads," ", aa2dbfile, " ", aa2file))
-  system(paste0(lastpath, "lastal -f BlastTab+ -P ", threads, " ", aa1dbfile, " ", aa2file, " > ", aa2_aa1_lastout))
-  system(paste0(lastpath, "lastal -f BlastTab+ -P ", threads, " ", aa2dbfile, " ", aa1file, " > ", aa1_aa2_lastout))
+  system(paste0(lastpath, "lastal -f BlastTab+ -P ", threads, " -D", lastD, " ", aa1dbfile, " ", aa2file, " > ", aa2_aa1_lastout))
+  system(paste0(lastpath, "lastal -f BlastTab+ -P ", threads, " -D", lastD, " ", aa2dbfile, " ", aa1file, " > ", aa1_aa2_lastout))
   aa1_aa2 <- read.table(aa1_aa2_lastout, sep = "\t", header = FALSE, stringsAsFactors = FALSE)
   aa2_aa1 <- read.table(aa2_aa1_lastout, sep = "\t", header = FALSE, stringsAsFactors = FALSE)
   colnames(aa1_aa2) <- colnames(aa2_aa1) <- c("query_id", "subject_id", "perc_identity",
@@ -336,10 +338,20 @@ aafile2rbh <- function(aafile1, aafile2,
     }
     #if no keepSingleDirection - done
     if(!keepSingleDirection){
-      crbh1 <- data.frame(Map(c ,cbind(rbh1, "rbh"), cbind(rbh1.sec[, 1:15], "sec")))
-      colnames(crbh1)[16] <- "rbh_class"
-      crbh2 <- data.frame(Map(c ,cbind(rbh2, "rbh"), cbind(rbh2.sec[, 1:15], "sec")))
-      colnames(crbh2)[16] <- "rbh_class"
+      if(dim(rbh1.sec)[1] == 0){
+        crbh1 <- data.frame(Map(c ,cbind(rbh1, "rbh")))
+        colnames(crbh1)[16] <- "rbh_class"
+      } else{
+        crbh1 <- data.frame(Map(c ,cbind(rbh1, "rbh"), cbind(rbh1.sec[, 1:15], "sec")))
+        colnames(crbh1)[16] <- "rbh_class"
+      }
+      if(dim(rbh2.sec)[1] == 0){
+        crbh2 <- data.frame(Map(c ,cbind(rbh2, "rbh")))
+        colnames(crbh2)[16] <- "rbh_class"
+      } else{
+        crbh2 <- data.frame(Map(c ,cbind(rbh2, "rbh"), cbind(rbh2.sec[, 1:15], "sec")))
+        colnames(crbh2)[16] <- "rbh_class"
+      }
       crbh <- crbh1[, c(1:2,16)]
       colnames(crbh) <- c("aa1", "aa2", "rbh_class")
       out <- list(crbh, crbh1, crbh2, rbh1_rbh2_fit)
@@ -352,10 +364,36 @@ aafile2rbh <- function(aafile1, aafile2,
     }
     #if keepSingleDirection - include single - done
     if(keepSingleDirection){
-      crbh1 <- data.frame(Map(c, cbind(rbh1, "rbh"), cbind(rbh1.sec[, 1:15], "sec"), cbind(single1[, 1:15], "single")))
-      colnames(crbh1)[16] <- "rbh_class"
-      crbh2 <- data.frame(Map(c, cbind(rbh2, "rbh"), cbind(rbh2.sec[, 1:15], "sec"), cbind(single2[, 1:15], "single")))
-      colnames(crbh2)[16] <- "rbh_class"
+      if(dim(rbh1.sec)[1] == 0 & dim(single1)[1] == 0){
+        crbh1 <- data.frame(Map(c, cbind(rbh1, "rbh")))
+        colnames(crbh1)[16] <- "rbh_class"
+      }
+      if(dim(rbh1.sec)[1] != 0 & dim(single1)[1] == 0){
+        crbh1 <- data.frame(Map(c, cbind(rbh1, "rbh"), cbind(rbh1.sec[, 1:15], "sec")))
+        colnames(crbh1)[16] <- "rbh_class"
+      }
+      if(dim(rbh1.sec)[1] == 0 & dim(single1)[1] != 0){
+        crbh1 <- data.frame(Map(c, cbind(rbh1, "rbh"), cbind(single1[, 1:15], "single")))
+        colnames(crbh1)[16] <- "rbh_class"
+      } else{
+        crbh1 <- data.frame(Map(c, cbind(rbh1, "rbh"), cbind(rbh1.sec[, 1:15], "sec"), cbind(single1[, 1:15], "single")))
+        colnames(crbh1)[16] <- "rbh_class"
+      }
+      if(dim(rbh2.sec)[1] == 0 & dim(single2)[1] == 0){
+        crbh2 <- data.frame(Map(c, cbind(rbh2, "rbh")))
+        colnames(crbh2)[16] <- "rbh_class"
+      }
+      if(dim(rbh2.sec)[1] != 0 & dim(single2)[1] == 0){
+        crbh2 <- data.frame(Map(c, cbind(rbh2, "rbh"), cbind(rbh2.sec[, 1:15], "sec")))
+        colnames(crbh2)[16] <- "rbh_class"
+      }
+      if(dim(rbh2.sec)[1] == 0 & dim(single2)[1] != 0){
+        crbh2 <- data.frame(Map(c, cbind(rbh2, "rbh"), cbind(single2[, 1:15], "single")))
+        colnames(crbh2)[16] <- "rbh_class"
+      } else{
+        crbh2 <- data.frame(Map(c, cbind(rbh2, "rbh"), cbind(rbh2.sec[, 1:15], "sec"), cbind(single2[, 1:15], "single")))
+        colnames(crbh2)[16] <- "rbh_class"
+      }
       crbh <- data.frame(Map(c, crbh1[, c(1:2,16)], single1[, c(1:2,16)], single2[, c(2,1,16)]))
       colnames(crbh) <- c("aa1", "aa2", "rbh_class")
       out <- list(crbh, crbh1, crbh2, rbh1_rbh2_fit)
