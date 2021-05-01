@@ -54,17 +54,17 @@ plot_dagchainer <- function(dag,
     dag <- dag %>% dplyr::filter(gene1.chr %in% select.chr) %>% dplyr::filter(gene2.chr %in% select.chr)
   }
   if(colorBy == "none"){
-    dagchainer.results.split <- dag %>% group_by(gene1.chr, gene2.chr) %>% group_split(.keep = TRUE)
-    g <- dag %>% group_by(gene1.chr, gene2.chr) %>% ggplot2::ggplot()
+    dagchainer.results.split <- dag %>% dplyr::group_by(gene1.chr, gene2.chr) %>% dplyr::group_split(.keep = TRUE)
+    g <- dag %>% dplyr::group_by(gene1.chr, gene2.chr) %>% ggplot2::ggplot()
     if(selfblast){
       g.none <- g + ggplot2::geom_point(shape = 20,
-                                        aes(x = gene2.mid, y = gene1.mid,
-                                            col = as.factor(dagchainer_group))) +
+                                        aes(x = .data$gene2.mid, y = .data$gene1.mid,
+                                            col = as.factor(.data$dagchainer_group))) +
         ggplot2::theme(legend.position="none") +
         ggplot2::facet_grid(c("gene2.chr", "gene1.chr"), scales = "free") +
         ggplot2::geom_point(data = subset(g$data, gene1.chr == gene2.chr), shape = 20,
-                            aes(x = gene1.mid, y = gene2.mid,
-                                col = as.factor(dagchainer_group))) +
+                            aes(x = .data$gene1.mid, y = .data$gene2.mid,
+                                col = as.factor(.data$dagchainer_group))) +
         ggplot2::scale_colour_manual(
           values = CRBHitsColors(length(unique(dag$dagchainer_group)))) +
         geom_abline(data = subset(g$data, gene1.chr == gene2.chr),
@@ -76,8 +76,8 @@ plot_dagchainer <- function(dag,
     }
     if(!selfblast){
       g.none <- g + ggplot2::geom_point(shape = 20,
-                                        aes(x = gene2.mid, y = gene1.mid,
-                                            col = as.factor(dagchainer_group))) +
+                                        aes(x = .data$gene2.mid, y = .data$gene1.mid,
+                                            col = as.factor(.data$dagchainer_group))) +
         ggplot2::theme(legend.position="none") +
         ggplot2::facet_grid(c("gene2.chr", "gene1.chr"), scales = "free") +
         ggplot2::scale_colour_manual(
@@ -103,16 +103,16 @@ plot_dagchainer <- function(dag,
     dag <- dag %>% dplyr::mutate(ka = dagchainer.results.ka,
                                          ks = dagchainer.results.ks,
                                          kaks = dagchainer.results.kaks)
-    dagchainer.results.split <- dag %>% group_by(gene1.chr, gene2.chr) %>% group_split(.keep = TRUE)
+    dagchainer.results.split <- dag %>% dplyr::group_by(gene1.chr, gene2.chr) %>% dplyr::group_split(.keep = TRUE)
     g <- dag %>% group_by(gene1.chr, gene2.chr) %>% ggplot2::ggplot()
     if(colorBy == "Ka"){
       if(selfblast){
         g.ka <- g + ggplot2::geom_point(shape = 20,
-                                        aes(x = gene2.mid, y = gene1.mid,
-                                            col = ka)) +
+                                        aes(x = .data$gene2.mid, y = .data$gene1.mid,
+                                            col = .data$ka)) +
           ggplot2::facet_grid(c("gene2.chr", "gene1.chr"), scales = "free") +
           ggplot2::geom_point(data = subset(g$data, gene1.chr == gene2.chr),
-                              shape = 20, aes(x = gene1.mid, y = gene2.mid, col = ka)) +
+                              shape = 20, aes(x = .data$gene1.mid, y = .data$gene2.mid, col = .data$ka)) +
           ggplot2::geom_abline(data = subset(g$data, gene1.chr == gene2.chr),
                       aes(slope = 1, intercept = 0)) +
           ggplot2::scale_colour_continuous(type = "viridis") +
@@ -121,8 +121,8 @@ plot_dagchainer <- function(dag,
       }
       if(!selfblast){
         g.ka <- g + ggplot2::geom_point(shape = 20,
-                                        aes(x = gene2.mid, y = gene1.mid,
-                                            col = ka)) +
+                                        aes(x = .data$gene2.mid, y = .data$gene1.mid,
+                                            col = .data$ka)) +
           ggplot2::facet_grid(c("gene2.chr", "gene1.chr"), scales = "free") +
           ggplot2::scale_colour_continuous(type = "viridis") +
           ggplot2::ggtitle(DotPlotTitle)
@@ -132,11 +132,11 @@ plot_dagchainer <- function(dag,
     if(colorBy == "Ks"){
       if(selfblast){
         g.ks <- g + ggplot2::geom_point(shape = 20,
-                                        aes(x = gene2.mid, y = gene1.mid,
-                                            col = ks)) +
+                                        aes(x = .data$gene2.mid, y = .data$gene1.mid,
+                                            col = .data$ks)) +
           ggplot2::facet_grid(c("gene2.chr", "gene1.chr"), scales = "free") +
           ggplot2::geom_point(data = subset(g$data, gene1.chr == gene2.chr),
-                              shape = 20, aes(x = gene1.mid, y = gene2.mid, col = ks)) +
+                              shape = 20, aes(x = .data$gene1.mid, y = .data$gene2.mid, col = ks)) +
           ggplot2::geom_abline(data = subset(g$data, gene1.chr == gene2.chr),
                       aes(slope = 1, intercept = 0)) +
           ggplot2::scale_colour_continuous(type = "viridis") +
@@ -145,8 +145,8 @@ plot_dagchainer <- function(dag,
       }
       if(!selfblast){
         g.ks <- g + ggplot2::geom_point(shape = 20,
-                                        aes(x = gene2.mid, y = gene1.mid,
-                                            col = ks)) +
+                                        aes(x = .data$gene2.mid, y = .data$gene1.mid,
+                                            col = .data$ks)) +
           ggplot2::facet_grid(c("gene2.chr", "gene1.chr"), scales = "free") +
           ggplot2::scale_colour_continuous(type = "viridis") +
           ggplot2::ggtitle(DotPlotTitle)
@@ -156,11 +156,11 @@ plot_dagchainer <- function(dag,
     if(colorBy == "Ka/Ks"){
       if(selfblast){
         g.kaks <- g + ggplot2::geom_point(shape = 20,
-                                          aes(x = gene2.mid, y = gene1.mid,
-                                              col = kaks)) +
+                                          aes(x = .data$gene2.mid, y = .data$gene1.mid,
+                                              col = .data$kaks)) +
           ggplot2::facet_grid(c("gene2.chr", "gene1.chr"), scales = "free") +
           ggplot2::geom_point(data = subset(g$data, gene1.chr == gene2.chr),
-                              shape = 20, aes(x = gene1.mid, y = gene2.mid, col = kaks)) +
+                              shape = 20, aes(x = .data$gene1.mid, y = .data$gene2.mid, col = .data$kaks)) +
           ggplot2::geom_abline(data = subset(g$data, gene1.chr == gene2.chr),
                       aes(slope = 1, intercept = 0)) +
           ggplot2::scale_colour_continuous(type = "viridis") +
@@ -169,8 +169,8 @@ plot_dagchainer <- function(dag,
       }
       if(!selfblast){
         g.kaks <- g + ggplot2::geom_point(shape = 20,
-                                          aes(x = gene2.mid, y = gene1.mid,
-                                              col = kaks)) +
+                                          aes(x = .data$gene2.mid, y = .data$gene1.mid,
+                                              col = .data$kaks)) +
           ggplot2::facet_grid(c("gene2.chr", "gene1.chr"), scales = "free") +
           ggplot2::scale_colour_continuous(type = "viridis") +
           ggplot2::ggtitle(DotPlotTitle)

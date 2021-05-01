@@ -20,6 +20,9 @@ before_script:
 pages:
   stage: deploy
   script:
+    - R -e "dir()"
+    - R -e "getwd()"
+    - R -e "sessionInfo()"
     - R -e "devtools::document()"
     - R -e "usethis::use_pkgdown()"
     - R -e "pkgdown::build_site()"

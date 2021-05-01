@@ -94,8 +94,9 @@ rbh2dagchainer(
 \description{
 This function runs DAGchainer (http://dagchainer.sourceforge.net/) given CRBHit pairs and gene positions for both cds1 and cds2. The default options are set to not compare gene positions in base pairs but instead using gene order (gene.idx).
 }
-\references{
-Haas BJ et al. (2004) DAGchainer: a tool for mining segmental genome duplications and synteny. \emph{Bioinformatics.} \bold{20(18)}, 3643-3646.
+\examples{
+## compile dagchainer
+make_dagchainer()
 ## load example sequence data
 data("ath", package="CRBHits")
 ## get selfhits CRBHit pairs
@@ -108,6 +109,9 @@ ath_selfblast_crbh.dagchainer <- rbh2dagchainer(ath_selfhits_crbh,
 head(ath_selfblast_crbh.dagchainer)
 ## plot dagchainer
 plot_dagchainer(ath_selfblast_crbh.dagchainer)
+}
+\references{
+Haas BJ et al. (2004) DAGchainer: a tool for mining segmental genome duplications and synteny. \emph{Bioinformatics.} \bold{20(18)}, 3643-3646.
 }
 \seealso{
 \code{\link[CRBHits]{plot_dagchainer}},

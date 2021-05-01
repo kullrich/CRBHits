@@ -48,6 +48,9 @@
 #' \code{\link[CRBHits]{tandemdups}},
 #' \code{\link[CRBHits]{rbh2kaks}}
 #' @references Haas BJ et al. (2004) DAGchainer: a tool for mining segmental genome duplications and synteny. \emph{Bioinformatics.} \bold{20(18)}, 3643-3646.
+#' @examples
+#' ## compile dagchainer
+#' make_dagchainer()
 #' ## load example sequence data
 #' data("ath", package="CRBHits")
 #' ## get selfhits CRBHit pairs
