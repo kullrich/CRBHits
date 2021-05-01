@@ -2,6 +2,7 @@
 
 export(CRBHitsColors)
 export(GENETIC_CODE_TCAG)
+export(aa2rbh)
 export(aafile2rbh)
 export(aln2dnastring)
 export(cds2aa)

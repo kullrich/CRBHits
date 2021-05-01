@@ -1,11 +1,11 @@
-#' @title aafile2rbh
-#' @name aafile2rbh
-#' @description This function calculates (conditional-)reciprocal best hit (CRBHit) pairs from two two AA fasta file's.
+#' @title aa2rbh
+#' @name aa2rbh
+#' @description This function calculates (conditional-)reciprocal best hit (CRBHit) pairs from two AA \code{AAStringSet}'s.
 #' Conditional-reciprocal best hit pairs were introduced by \emph{Aubry S, Kelly S et al. (2014)}.
 #' Sequence searches are performed with \bold{last} \emph{Kiełbasa, SM et al. (2011)}.
-#' If one specifies aafile1 and aafile2 as the same input a selfblast is conducted.
-#' @param aafile1 aa1 fasta file [mandatory]
-#' @param aafile2 aa2 fasta file [mandatory]
+#' If one specifies aa1 and aa2 as the same input a selfblast is conducted.
+#' @param aa1 aa1 sequences as \code{AAStringSet} [mandatory]
+#' @param aa2 aa2 sequences as \code{AAStringSet} [mandatory]
 #' @param lastpath specify the PATH to the last binaries [default: /extdata/last-1219/bin/]
 #' @param outpath specify the output PATH [default: /tmp]
 #' @param crbh specify if conditional-reciprocal hit pairs should be retained as secondary hits [default: TRUE]
@@ -39,7 +39,7 @@
 #' @importFrom utils read.table
 #' @importFrom tidyr %>%
 #' @importFrom stringr str_split_fixed
-#' @seealso \code{\link[CRBHits]{aa2rbh}},
+#' @seealso \code{\link[CRBHits]{cdsfile2rbh}},
 #' \code{\link[CRBHits]{isoform2longest}}
 #' @references Aubry S, Kelly S et al. (2014) Deep Evolutionary Comparison of Gene Expression Identifies Parallel Recruitment of Trans-Factors in Two Independent Origins of C4 Photosynthesis. \emph{PLOS Genetics}, \bold{10(6)} e1004365.
 #' @references Kiełbasa, SM et al. (2011) Adaptive seeds tame genomic sequence comparison. \emph{Genome research}, \bold{21(3)}, 487-493.
@@ -48,21 +48,23 @@
 #' ## compile last-1219 within CRBHits
 #' make_last()
 #' ## load example sequence data
-#' athfile <- system.file("fasta", "ath.aa.fasta.gz", package = "CRBHits")
-#' alyfile <- system.file("fasta", "aly.aa.fasta.gz", package = "CRBHits")
+#' data("ath", package="CRBHits")
+#' data("aly", package="CRBHits")
+#' ath.aa <- cds2aa(ath)
+#' aly.aa <- cds2aa(aly)
 #' ## get CRBHit pairs
-#' ath_aly_crbh <- aafile2rbh(athfile, alyfile, plotCurve = TRUE)
+#' ath_aly_crbh <- aa2rbh(ath.aa, aly.aa, plotCurve = TRUE)
 #' dim(ath_aly_crbh$crbh.pairs)
 #' ## get classical reciprocal best hit (RBHit) pairs
-#' ath_aly_rbh <- aafile2rbh(athfile, alyfile, crbh = FALSE)
+#' ath_aly_rbh <- aa2rbh(ath.aa, aly.aa, crbh = FALSE)
 #' dim(ath_aly_rbh$crbh.pairs)
 #' ## selfblast
-#' ath_selfblast_crbh <- aafile2rbh(athfile, athfile, plotCurve = TRUE)
+#' ath_selfblast_crbh <- aa2rbh(ath.aa, ath.aa, plotCurve = TRUE)
 #' ## see ?cds2rbh for more examples
-#' @export aafile2rbh
+#' @export aa2rbh
 #' @author Kristian K Ullrich
 
-aafile2rbh <- function(aafile1, aafile2,
+aa2rbh <- function(aa1, aa2,
                     lastpath = paste0(find.package("CRBHits"),
                                       "/extdata/last-1219/bin/"),
                     outpath = "/tmp",
@@ -124,7 +126,7 @@ aafile2rbh <- function(aafile1, aafile2,
   if(!file.exists(paste0(lastpath, "lastdb"))){stop("Error: lastdb binary does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make_last() function.")}
   if(!file.exists(paste0(lastpath, "lastal"))){stop("Error: lastal binary does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make_last() function.")}
   selfblast <- FALSE
-  if(aafile1 == aafile2){
+  if(suppressWarnings(any(aa1 == aa2))){
     selfblast <- TRUE
   }
   aa1file <- tempfile("aa1_", outpath)
@@ -133,9 +135,7 @@ aafile2rbh <- function(aafile1, aafile2,
   aa2dbfile <- tempfile("aa2db_", outpath)
   aa2_aa1_lastout <- tempfile("aa2_aa1_lastout_", outpath)
   aa1_aa2_lastout <- tempfile("aa1_aa2_lastout_", outpath)
-  aa1 <- Biostrings::readAAStringSet(aafile1)
   names(aa1) <- str_split_fixed(names(aa1), " ", 2)[, 1]
-  aa2 <- Biostrings::readAAStringSet(aafile2)
   names(aa2) <- str_split_fixed(names(aa2), " ", 2)[, 1]
   Biostrings::writeXStringSet(aa1, file = aa1file)
   Biostrings::writeXStringSet(aa2, file = aa2file)

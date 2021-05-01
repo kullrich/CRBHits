@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>aafile2rbh — aafile2rbh • CRBHits</title>
+<title>aa2rbh — aa2rbh • CRBHits</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,11 +46,11 @@
 
 
 
-<meta property="og:title" content="aafile2rbh — aafile2rbh" />
-<meta property="og:description" content="This function calculates (conditional-)reciprocal best hit (CRBHit) pairs from two two AA fasta file's.
+<meta property="og:title" content="aa2rbh — aa2rbh" />
+<meta property="og:description" content="This function calculates (conditional-)reciprocal best hit (CRBHit) pairs from two AA AAStringSet's.
 Conditional-reciprocal best hit pairs were introduced by Aubry S, Kelly S et al. (2014).
 Sequence searches are performed with last Kiełbasa, SM et al. (2011).
-If one specifies aafile1 and aafile2 as the same input a selfblast is conducted." />
+If one specifies aa1 and aa2 as the same input a selfblast is conducted." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -134,21 +134,21 @@ If one specifies aafile1 and aafile2 as the same input a selfblast is conducted.
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>aafile2rbh</h1>
-    <small class="dont-index">Source: <a href='https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/masterR/aafile2rbh.R'><code>R/aafile2rbh.R</code></a></small>
-    <div class="hidden name"><code>aafile2rbh.Rd</code></div>
+    <h1>aa2rbh</h1>
+    <small class="dont-index">Source: <a href='https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/masterR/aa2rbh.R'><code>R/aa2rbh.R</code></a></small>
+    <div class="hidden name"><code>aa2rbh.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function calculates (conditional-)reciprocal best hit (CRBHit) pairs from two two AA fasta file's.
+    <p>This function calculates (conditional-)reciprocal best hit (CRBHit) pairs from two AA <code>AAStringSet</code>'s.
 Conditional-reciprocal best hit pairs were introduced by <em>Aubry S, Kelly S et al. (2014)</em>.
 Sequence searches are performed with <b>last</b> <em>Kiełbasa, SM et al. (2011)</em>.
-If one specifies aafile1 and aafile2 as the same input a selfblast is conducted.</p>
+If one specifies aa1 and aa2 as the same input a selfblast is conducted.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>aafile2rbh</span><span class='op'>(</span>
-  <span class='va'>aafile1</span>,
-  <span class='va'>aafile2</span>,
+    <pre class="usage"><span class='fu'>aa2rbh</span><span class='op'>(</span>
+  <span class='va'>aa1</span>,
+  <span class='va'>aa2</span>,
   lastpath <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/find.package.html'>find.package</a></span><span class='op'>(</span><span class='st'>"CRBHits"</span><span class='op'>)</span>, <span class='st'>"/extdata/last-1219/bin/"</span><span class='op'>)</span>,
   outpath <span class='op'>=</span> <span class='st'>"/tmp"</span>,
   crbh <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -172,12 +172,12 @@ If one specifies aafile1 and aafile2 as the same input a selfblast is conducted.
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>aafile1</th>
-      <td><p>aa1 fasta file [mandatory]</p></td>
+      <th>aa1</th>
+      <td><p>aa1 sequences as <code>AAStringSet</code> [mandatory]</p></td>
     </tr>
     <tr>
-      <th>aafile2</th>
-      <td><p>aa2 fasta file [mandatory]</p></td>
+      <th>aa2</th>
+      <td><p>aa2 sequences as <code>AAStringSet</code> [mandatory]</p></td>
     </tr>
     <tr>
       <th>lastpath</th>
@@ -268,7 +268,7 @@ List of four (crbh = TRUE)<br />
 <p>Rost B. (1999). Twilight zone of protein sequence alignments. <em>Protein Engineering</em>, <b>12(2)</b>, 85-94.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='aa2rbh.html'>aa2rbh</a></code>,
+    <div class='dont-index'><p><code><a href='cdsfile2rbh.html'>cdsfile2rbh</a></code>,
 <code><a href='isoform2longest.html'>isoform2longest</a></code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
@@ -278,17 +278,19 @@ List of four (crbh = TRUE)<br />
     <pre class="examples"><div class='input'><span class='co'>## compile last-1219 within CRBHits</span>
 <span class='fu'><a href='make_last.html'>make_last</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='co'>## load example sequence data</span>
-<span class='va'>athfile</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"fasta"</span>, <span class='st'>"ath.aa.fasta.gz"</span>, package <span class='op'>=</span> <span class='st'>"CRBHits"</span><span class='op'>)</span>
-<span class='va'>alyfile</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"fasta"</span>, <span class='st'>"aly.aa.fasta.gz"</span>, package <span class='op'>=</span> <span class='st'>"CRBHits"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"ath"</span>, package<span class='op'>=</span><span class='st'>"CRBHits"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"aly"</span>, package<span class='op'>=</span><span class='st'>"CRBHits"</span><span class='op'>)</span>
+<span class='va'>ath.aa</span> <span class='op'>&lt;-</span> <span class='fu'><a href='cds2aa.html'>cds2aa</a></span><span class='op'>(</span><span class='va'>ath</span><span class='op'>)</span>
+<span class='va'>aly.aa</span> <span class='op'>&lt;-</span> <span class='fu'><a href='cds2aa.html'>cds2aa</a></span><span class='op'>(</span><span class='va'>aly</span><span class='op'>)</span>
 <span class='co'>## get CRBHit pairs</span>
-<span class='va'>ath_aly_crbh</span> <span class='op'>&lt;-</span> <span class='fu'>aafile2rbh</span><span class='op'>(</span><span class='va'>athfile</span>, <span class='va'>alyfile</span>, plotCurve <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='img'><img src='aafile2rbh-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>ath_aly_crbh</span><span class='op'>$</span><span class='va'>crbh.pairs</span><span class='op'>)</span>
+<span class='va'>ath_aly_crbh</span> <span class='op'>&lt;-</span> <span class='fu'>aa2rbh</span><span class='op'>(</span><span class='va'>ath.aa</span>, <span class='va'>aly.aa</span>, plotCurve <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='aa2rbh-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>ath_aly_crbh</span><span class='op'>$</span><span class='va'>crbh.pairs</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 211   3</div><div class='input'><span class='co'>## get classical reciprocal best hit (RBHit) pairs</span>
-<span class='va'>ath_aly_rbh</span> <span class='op'>&lt;-</span> <span class='fu'>aafile2rbh</span><span class='op'>(</span><span class='va'>athfile</span>, <span class='va'>alyfile</span>, crbh <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='va'>ath_aly_rbh</span> <span class='op'>&lt;-</span> <span class='fu'>aa2rbh</span><span class='op'>(</span><span class='va'>ath.aa</span>, <span class='va'>aly.aa</span>, crbh <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>ath_aly_rbh</span><span class='op'>$</span><span class='va'>crbh.pairs</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 181   3</div><div class='input'><span class='co'>## selfblast</span>
-<span class='va'>ath_selfblast_crbh</span> <span class='op'>&lt;-</span> <span class='fu'>aafile2rbh</span><span class='op'>(</span><span class='va'>athfile</span>, <span class='va'>athfile</span>, plotCurve <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='img'><img src='aafile2rbh-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>## see ?cds2rbh for more examples</span>
+<span class='va'>ath_selfblast_crbh</span> <span class='op'>&lt;-</span> <span class='fu'>aa2rbh</span><span class='op'>(</span><span class='va'>ath.aa</span>, <span class='va'>ath.aa</span>, plotCurve <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='aa2rbh-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>## see ?cds2rbh for more examples</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
