@@ -2,7 +2,7 @@ image: r-base
 
 before_script:
   - apt-get update
-  - apt-get -y install libcurl4-openssl-dev libssl-dev libxml2-dev libglu1-mesa-dev libssh2-1-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev libgit2-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev pandoc r-cran-devtools r-cran-testthat r-cran-curl r-cran-seqinr r-cran-ape r-cran-domc r-cran-foreach r-cran-tidyverse r-cran-mclust r-cran-ragg r-bioc-biostrings r-cran-uuid r-cran-ggplot2 r-cran-callr
+  - apt-get -y install libcurl4-openssl-dev libssl-dev libxml2-dev libglu1-mesa-dev libssh2-1-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev libgit2-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev pandoc r-cran-devtools r-cran-testthat r-cran-curl r-cran-seqinr r-cran-ape r-cran-domc r-cran-foreach r-cran-tidyverse r-cran-mclust r-cran-ragg r-bioc-biostrings r-cran-uuid r-cran-ggplot2 r-cran-callr r-cran-stringi
   - R -e "dir()"
   - R -e "getwd()"
   - R -e "sessionInfo()"
