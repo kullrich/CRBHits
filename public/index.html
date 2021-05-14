@@ -341,6 +341,18 @@ data(hiv)
 hiv_kaks &lt;- dnastring2kaks(hiv, model = "NG86")
 g &lt;- plot_kaks(hiv_kaks)
 
+## codon plot - sites under possible positive selection
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+hiv.xy &lt;- codonmat2xy(dnastring2codonmat(hiv))
+hiv.xy %&gt;% select(Codon,SynMean,NonSynMean,IndelMean) %&gt;%
+  gather(variable, values, -Codon) %&gt;% 
+  ggplot(aes(x=Codon, y=values)) + 
+    geom_line(aes(colour=factor(variable))) + 
+    geom_point(aes(colour=factor(variable))) + 
+    ggtitle("HIV-1 sample 136 patient 1 from Sweden envelope glycoprotein (env) gene")
+
 ## example how to use own compiled versions of LAST
 my.lastpath &lt;- "/tmp/last/last-1219/bin"
 ath_aly_crbh &lt;- cds2rbh(ath, aly, plotCurve = TRUE,
