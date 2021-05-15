@@ -12,5 +12,5 @@ globalDeletion<-function(dna){
   if(length(globalDeletionSites) == 0){
     return(dna)
   }
-  return(dnabin2dnastring(dnastring2dnabin(new)[, -globalDeletionSites]))
+  return(dnabin2dnastring(dnastring2dnabin(dna)[, -globalDeletionSites]))
 }

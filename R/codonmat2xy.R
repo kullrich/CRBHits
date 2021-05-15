@@ -60,8 +60,8 @@ codonmat2xy <- function(codonmat, threads = 1){
   OUT.xy <- OUT.join %>% dplyr::mutate(SynMean = SynSum/n,
                                        NonSynMean = NonSynSum/n,
                                        IndelMean = IndelSum/n)
-  OUT.xy <- OUT.xy %>% dplyr::mutate(CumSumSynMean = cumsum(SynMean),
-                                       CumSumNonSynMean = cumsum(NonSynMean),
-                                       CumSumIndelMean = cumsum(IndelMean))
+  OUT.xy <- OUT.xy %>% tibble::add_column(CumSumSynMean = cumsum(OUT.xy$SynMean),
+                                          CumSumNonSynMean = cumsum(OUT.xy$NonSynMean),
+                                          CumSumIndelMean = cumsum(OUT.xy$IndelMean))
   return(OUT.xy)
 }

@@ -144,7 +144,7 @@ cds2codonaln <- function(cds1, cds2, type = "global", substitutionMatrix = "BLOS
   xy.cds.aln <- c(Biostrings::DNAStringSet(tmp.x), Biostrings::DNAStringSet(tmp.y))
   names(xy.cds.aln) <- c(x.name, y.name)
   if(remove.gaps){
-    xy.cds.aln <- Biostrings::DNAStringSet(apply(as.matrix(xy.cds.aln)[, apply(as.matrix(xy.cds.aln), 2, function(x) !any(x=="-"))], 1,function(x) paste(x, collapse="")))
+    xy.cds.aln <- Biostrings::DNAStringSet(apply(as.matrix(xy.cds.aln)[, apply(as.matrix(xy.cds.aln), 2, function(x) !any(x=="-"))], 1, function(x) paste(x, collapse="")))
     names(xy.cds.aln) <- c(x.name, y.name)
   }
   return(xy.cds.aln)

@@ -37,8 +37,18 @@ dnastring2kaks <- function(cds,
                            model = "Li",
                            threads = 1,
                            ...){
+  Comp1 <- FALSE
+  Comp2 <- FALSE
   if(!model %in% c("Li", "NG86")){stop("Error: either choose model 'Li' or 'NG86'")}
   if(model == "Li" & align == FALSE){
+    if("Comp1" %in% names(cds)){
+      names(cds)[which(names(cds) == "Comp1")] <- "_Comp1"
+      Comp1 <- TRUE
+    }
+    if("Comp2" %in% names(cds)){
+      names(cds)[which(names(cds) == "Comp2")] <- "_Comp2"
+      Comp2 <- TRUE
+    }
     OUT <- seqinr::kaks(dnastring2aln(cds))
     OUT.ka <- as.matrix(OUT$ka)
     colnames(OUT.ka) <- rownames(OUT.ka) <- gsub(" ", "", colnames(OUT.ka))
@@ -48,15 +58,23 @@ dnastring2kaks <- function(cds,
     colnames(OUT.vka) <- rownames(OUT.vka) <- gsub(" ", "", colnames(OUT.vka))
     OUT.vks <- as.matrix(OUT$vks)
     colnames(OUT.vks) <- rownames(OUT.vks) <- gsub(" ", "", colnames(OUT.vks))
-    OUT.ka <- OUT.ka %>% tidyr::as_tibble(rownames = "seq1") %>% tidyr::pivot_longer(colnames(OUT.ka), names_to = "seq2", values_to = "ka") %>% dplyr::slice(uptriidx(ncol(OUT.ka)))
-    OUT.ks <- OUT.ks %>% tidyr::as_tibble(rownames = "seq1") %>% tidyr::pivot_longer(colnames(OUT.ks), names_to = "seq2", values_to = "ks") %>% dplyr::slice(uptriidx(ncol(OUT.ks)))
-    OUT.vka <- OUT.vka %>% tidyr::as_tibble(rownames = "seq1") %>% tidyr::pivot_longer(colnames(OUT.vka), names_to = "seq2", values_to = "vka") %>% dplyr::slice(uptriidx(ncol(OUT.vka)))
-    OUT.vks <- OUT.vks %>% tidyr::as_tibble(rownames = "seq1") %>% tidyr::pivot_longer(colnames(OUT.vks), names_to = "seq2", values_to = "vks") %>% dplyr::slice(uptriidx(ncol(OUT.vks)))
+    OUT.ka <- OUT.ka %>% tidyr::as_tibble(rownames = "Comp1") %>% tidyr::pivot_longer(colnames(OUT.ka), names_to = "Comp2", values_to = "ka") %>% dplyr::slice(uptriidx(ncol(OUT.ka)))
+    OUT.ks <- OUT.ks %>% tidyr::as_tibble(rownames = "Comp1") %>% tidyr::pivot_longer(colnames(OUT.ks), names_to = "Comp2", values_to = "ks") %>% dplyr::slice(uptriidx(ncol(OUT.ks)))
+    OUT.vka <- OUT.vka %>% tidyr::as_tibble(rownames = "Comp1") %>% tidyr::pivot_longer(colnames(OUT.vka), names_to = "Comp2", values_to = "vka") %>% dplyr::slice(uptriidx(ncol(OUT.vka)))
+    OUT.vks <- OUT.vks %>% tidyr::as_tibble(rownames = "Comp1") %>% tidyr::pivot_longer(colnames(OUT.vks), names_to = "Comp2", values_to = "vks") %>% dplyr::slice(uptriidx(ncol(OUT.vks)))
     OUT <- OUT.ka %>% dplyr::left_join(OUT.ks) %>% dplyr::left_join(OUT.vka) %>% dplyr::left_join(OUT.vks)
     OUT <- as.data.frame(OUT)
     attr(OUT, "model") <- "Li"
     attr(OUT, "align") <- "FALSE"
     attr(OUT, "CRBHits.class") <- "dnastring2kaks"
+    if(Comp1){
+      OUT$Comp1 <- gsub("_Comp1", "Comp1", OUT$Comp1)
+      OUT$Comp2 <- gsub("_Comp1", "Comp1", OUT$Comp2)
+    }
+    if(Comp2){
+      OUT$Comp1 <- gsub("_Comp2", "Comp2", OUT$Comp1)
+      OUT$Comp2 <- gsub("_Comp2", "Comp2", OUT$Comp2)
+    }
     return(OUT)
   }
   if(model == "Li" & align == TRUE){
@@ -74,6 +92,8 @@ dnastring2kaks <- function(cds,
     attr(OUT, "model") <- "Li"
     attr(OUT, "align") <- "TRUE"
     attr(OUT, "CRBHits.class") <- "dnastring2kaks"
+    OUT$Comp1 <- names(cds)[OUT$Comp1]
+    OUT$Comp2 <- names(cds)[OUT$Comp2]
     return(OUT)
   }
   if(model == "NG86" & align == FALSE){

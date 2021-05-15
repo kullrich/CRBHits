@@ -6,14 +6,13 @@ Authors@R:
            family = "Ullrich",
            role = c("aut", "cre"),
            email = "ullrich@evolbio.mpg.de",
-           comment = c(ORCID = "https://orcid.org/0000-0003-4308-9626"))
-Maintainer: Kristian K Ullrich <ullrich@evolbio.mpg.de>
+           comment = c(ORCID = "0000-0003-4308-9626"))
 Description: CRBHits calculates conditional reciprocal best hit (CRBHit) pairs and subsequently can classify tandem duplicates, assign syntney groups and calculate Ka/Ks values.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends:
-  R (>= 3.6.0)
+  R (>= 4.0.0)
 Imports:
   curl,
   Biostrings,
