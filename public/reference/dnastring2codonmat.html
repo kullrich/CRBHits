@@ -140,7 +140,7 @@
     <p>This function converts a <code>DNAStringSet</code> into an <code>codon matrix</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>dnastring2codonmat</span><span class='op'>(</span><span class='va'>cds</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>dnastring2codonmat</span><span class='op'>(</span><span class='va'>cds</span>, shorten <span class='op'>=</span> <span class='cn'>FALSE</span>, frame <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -148,6 +148,14 @@
     <tr>
       <th>cds</th>
       <td><p><code>DNAStringSet</code> [mandatory]</p></td>
+    </tr>
+    <tr>
+      <th>shorten</th>
+      <td><p>shorten all sequences to multiple of three [default: FALSE]</p></td>
+    </tr>
+    <tr>
+      <th>frame</th>
+      <td><p>indicates the first base of a the first codon [default: 1]</p></td>
     </tr>
     </table>
 
@@ -172,11 +180,7 @@
 <span class='va'>cds1.cds2.aln</span> <span class='op'>&lt;-</span> <span class='fu'><a href='cds2codonaln.html'>cds2codonaln</a></span><span class='op'>(</span><span class='va'>cds1</span>, <span class='va'>cds2</span><span class='op'>)</span>
 <span class='co'>## convert into alignment</span>
 <span class='fu'>dnastring2codonmat</span><span class='op'>(</span><span class='va'>cds1.cds2.aln</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;      cds1  cds2 
-#&gt; [1,] "ATG" "ATG"
-#&gt; [2,] "CAA" "---"
-#&gt; [3,] "CAT" "CAT"
-#&gt; [4,] "TGC" "TGC"</div></pre>
+</div><div class='output co'>#&gt; <span class='error'>Error in dnastring2codonmat(cds1.cds2.aln): Error: frame needs to be 1 or 2 or 3</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

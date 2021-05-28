@@ -4,10 +4,14 @@
 \alias{dnastring2codonmat}
 \title{dnastring2codonmat}
 \usage{
-dnastring2codonmat(cds)
+dnastring2codonmat(cds, shorten = FALSE, frame = 1)
 }
 \arguments{
 \item{cds}{\code{DNAStringSet} [mandatory]}
+
+\item{shorten}{shorten all sequences to multiple of three [default: FALSE]}
+
+\item{frame}{indicates the first base of a the first codon [default: 1]}
 }
 \value{
 An object of class \code{alignment} which is a list with the following components:\cr

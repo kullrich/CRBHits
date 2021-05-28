@@ -187,20 +187,7 @@
     <pre class="examples"><div class='input'><span class='co'>## load example sequence data</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"hiv"</span>, package<span class='op'>=</span><span class='st'>"CRBHits"</span><span class='op'>)</span>
 <span class='fu'>codonmat2pnps</span><span class='op'>(</span><span class='fu'><a href='dnastring2codonmat.html'>dnastring2codonmat</a></span><span class='op'>(</span><span class='va'>hiv</span><span class='op'>)</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                 seq1                 seq2               Codons 
-#&gt;             "U68496"             "U68497"                 "91" 
-#&gt;             Compared           Ambigiuous               Indels 
-#&gt;                 "91"                  "0"                  "0" 
-#&gt;                   Ns                   Sd                   Sn 
-#&gt;                  "0"                  "3"                  "6" 
-#&gt;                    S                    N                   ps 
-#&gt;                 "57"                "216" "0.0526315789473684" 
-#&gt;                   pn                pn/ps                   ds 
-#&gt; "0.0277777777777778"  "0.527777777777778" "0.0545695157118212" 
-#&gt;                   dn                dn/ds 
-#&gt; "0.0283052459871352"  "0.518700699793888" 
-#&gt; attr(,"class")
-#&gt; [1] "pnps"</div></pre>
+</div><div class='output co'>#&gt; <span class='error'>Error in dnastring2codonmat(hiv): Error: frame needs to be 1 or 2 or 3</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
