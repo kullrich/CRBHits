@@ -26,6 +26,8 @@ cds2aa <- function(cds){
   }
   #aa <- Biostrings::AAStringSet(unlist(lapply(as.character(cds), function(x) paste0(seqinr::translate(unlist(strsplit(x, ""))), collapse=""))))
   #aa <- Biostrings::AAStringSet(unlist(lapply(as.character(cds), function(x) seqinr::c2s(seqinr::translate(seqinr::s2c(x))))))
+  cds <- DNAStringSet(gsub("-", "N", cds))
+  cds <- DNAStringSet(gsub("X", "N", cds))
   aa <- Biostrings::translate(cds, if.fuzzy.codon = "X")
   return(aa)
 }
