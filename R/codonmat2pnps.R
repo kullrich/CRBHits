@@ -35,6 +35,7 @@
 #' @author Kristian K Ullrich
 
 codonmat2pnps <- function(codonmat){
+  if(dim(codonmat)[2] != 2){stop("Error: input needs to be a codonmat of 2 columns")}
   seq1_name <- colnames(codonmat)[1]
   seq2_name <- colnames(codonmat)[2]
   count_codons <- dim(codonmat)[1]
@@ -50,8 +51,8 @@ codonmat2pnps <- function(codonmat){
     codonmat <- codonmat[-Ns_idx, , drop = FALSE]
     codonnumber <- codonnumber[-Ns_idx, , drop = FALSE]
   }
-  SA_Nei <- sum(GENETIC_CODE_TCAG[codonmat[,1], 4])
-  SB_Nei <- sum(GENETIC_CODE_TCAG[codonmat[,2], 4])
+  SA_Nei <- sum(GENETIC_CODE_TCAG[codonmat[, 1], 4])
+  SB_Nei <- sum(GENETIC_CODE_TCAG[codonmat[, 2], 4])
   identical_codons_idx <- which(codonnumber[, 1] == codonnumber[, 2])
   identical_codons <- length(identical_codons_idx)
   if(identical_codons > 0){
