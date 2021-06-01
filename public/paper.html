@@ -170,11 +170,11 @@
 <a href="#implementation" class="anchor"></a>Implementation</h1>
 <p>Like <a href="https://github.com/camillescott/shmlast">shmlast</a>, <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> benefits from the blast-like sequence search software <a href="http://last.cbrc.jp/">LAST</a>[@kielbasa2011adaptive] and plots the fitted model of the CRBH E-value based algorithm. In addition, users can filter the hit pairs prior to CRBH fitting for other criteria like query coverage, protein identity and/or the twilight zone of protein sequence alignments according to</p>
 <p>@rost1999twilight. The implemented filter uses equation 2 [see @rost1999twilight]:</p>
-<p><br><span class="math display">$$f(x_{\text{hit pair}}) = \begin{cases}
+<p><span class="math display">$$f(x_{\text{hit pair}}) = \begin{cases}
 100 \text{ , for } L_{\text{hit pair}} &lt; 11 \\
 480 * L^{-0.32 * (1 + e^{\frac{-L}{1000}})} \text{ , for } L_{\text{hit pair}} \leq 450 \\
 19.5 \text{ , for } L_{\text{hit pair}} &gt; 450
-\end{cases}$$</span><br></p>
+\end{cases}$$</span></p>
 <p>where <span class="math inline"><em>x</em><sub>hit pair</sub></span> is the expected protein identity given the alignment length <span class="math inline"><em>L</em><sub>hit pair</sub></span>. If the actual protein identity of a hit pair exceeds the expected protein identity (<span class="math inline"><em>p</em><em>i</em><em>d</em><em>e</em><em>n</em><em>t</em><sub>hit pair</sub> ≥ <em>f</em>(<em>x</em><sub>hit pair</sub>)</span>), it is retained for subsequent CRBH calculation.</p>
 <p>In contrast to previous implementations, <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> only take coding nucleotide sequences (CDS) as the query and target inputs. This is due to the downstream functionality of <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> to directly calculate codon alignments within R, which rely on CDS. The inputs are translated into protein sequences, aligned globally [@smith1981identification] and converted into codon alignments.</p>
 <p>Functions are completely coded in R and only the external prerequisites (<a href="http://last.cbrc.jp/">LAST</a>, <a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download">KaKs_Calculator2.0</a> and <a href="http://dagchainer.sourceforge.net/">DAGchainer</a>) need to be compiled. However, all of them are forked within <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> and can be easily build with the dedicated R functions <code><a href="reference/make_last.html">make_last()</a></code>, <code><a href="reference/make_KaKs_Calculator2.html">make_KaKs_Calculator2()</a></code> and <code><a href="reference/make_dagchainer.html">make_dagchainer()</a></code>. Further, users can create their own RBH filters before CRBH calculation.</p>
@@ -291,8 +291,8 @@
 <h1 class="hasAnchor">
 <a href="#availability" class="anchor"></a>Availability</h1>
 <p><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> is an open source software made available under the MIT license. It can be installed from its gitlab repository using the <a href="https://devtools.r-lib.org">devtools</a> package.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>devtools<span class="op">::</span><span class="kw">install_gitlab</span>(<span class="st">"mpievolbio-it/crbhits"</span>, </span>
-<span id="cb4-2"><a href="#cb4-2"></a> <span class="dt">host =</span> <span class="st">"https://gitlab.gwdg.de"</span>)<span class="st">", build_vignettes = TRUE)</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_gitlab</span>(<span class="st">"mpievolbio-it/crbhits"</span>, </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a> <span class="at">host =</span> <span class="st">"https://gitlab.gwdg.de"</span>)<span class="st">", build_vignettes = TRUE)</span></span></code></pre></div>
 <p>The R package website, which contain a detailed HOWTO to install the prerequisites (mentioned above) and package vignettes are availbale at <a href="https://mpievolbio-it.pages.gwdg.de/crbhits">https://mpievolbio-it.pages.gwdg.de/crbhits</a>.</p>
 </div>
 <div id="references" class="section level1">

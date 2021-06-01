@@ -16,7 +16,8 @@
 #' @param threads number of parallel threads [default: 1]
 #' @param kakscalcpath specify the PATH to the KaKs_Calculator binaries [default: /extdata/KaKs_Calculator2.0/src/]
 #' @param ... other codon alignment parameters (see \code{\link[CRBHits]{cds2codonaln}}) and other plot_kaks parameters (see \code{\link[CRBHits]{plot_kaks}})
-#' @importFrom doMC registerDoMC
+#' @importFrom parallel makeForkCluster stopCluster
+#' @importFrom doParallel registerDoParallel
 #' @importFrom foreach foreach %do% %dopar%
 #' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet readDNAStringSet readAAStringSet writeXStringSet width subseq
 #' @importFrom stringr word
@@ -96,12 +97,16 @@ rbh2kaks <- function(rbhpairs, cds1, cds2, model = "Li",
   if(class(cds2) == "character"){cds2 <- Biostrings::readDNAStringSet(cds2)}
   names(cds1) <- stringr::word(names(cds1), 1)
   names(cds2) <- stringr::word(names(cds2), 1)
-  doMC::registerDoMC(threads)
+  #doMC::registerDoMC(threads)
+  cl <- parallel::makeForkCluster(threads)
+  doParallel::registerDoParallel(cl)
   i <- NULL
   rbhpairs.crbh.pairs <- rbhpairs$crbh.pairs
   rbh.kaks <- foreach::foreach(i = seq(from = 1, to = dim(rbhpairs.crbh.pairs)[1]), .combine = rbind) %dopar% {
-    cds2kaks(get_cds_by_name(rbhpairs.crbh.pairs[i,1], cds1), get_cds_by_name(rbhpairs.crbh.pairs[i,2], cds2), model = model, kakscalcpath = kakscalcpath, ...)
+    #cds2kaks(get_cds_by_name(rbhpairs.crbh.pairs[i,1], cds1), get_cds_by_name(rbhpairs.crbh.pairs[i,2], cds2), model = model, kakscalcpath = kakscalcpath, ...)
+    CRBHits::cds2kaks(get_cds_by_name(rbhpairs.crbh.pairs[i,1], cds1), get_cds_by_name(rbhpairs.crbh.pairs[i,2], cds2), model = model, kakscalcpath = kakscalcpath, ...)
   }
+  parallel::stopCluster(cl)
   out <- cbind(rbhpairs.crbh.pairs, rbh.kaks)
   attr(out, "CRBHits.class") <- "kaks"
   if(model == "Li"){

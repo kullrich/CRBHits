@@ -81,7 +81,7 @@ install.packages("curl")
 install.packages("seqinr")
 install.packages("ape")
 install.packages("foreach")
-install.packages("doMC")
+install.packages("doParallel")
 install.packages("tidyverse")
 install.packages("gridExtra")
 install.packages("mclust")
@@ -112,7 +112,7 @@ build_vignettes = FALSE, dependencies = FALSE)
 
 The source code for the prerequisites (LAST, KaKs_Calculator2.0, DAGchainer) are forked within [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits). 
 
-- [LAST](https://gitlab.com/mcfrith/last) [https://gitlab.com/mcfrith/last/-/archive/1219/last-1219.zip](https://gitlab.com/mcfrith/last/-/archive/1219/last-1219.zip)
+- [LAST](https://gitlab.com/mcfrith/last) [https://gitlab.com/mcfrith/last/-/archive/1243/last-1243.zip](https://gitlab.com/mcfrith/last/-/archive/1243/last-1243.zip)
 
 To compile the forked version of [LAST](https://gitlab.com/mcfrith/last) within the `CRBHits` R package directory try to use the function `make_last()`:
 
@@ -129,10 +129,10 @@ To compile [LAST](https://gitlab.com/mcfrith/last) yourself on Linux/Unix/macOS 
 ## e.g.
 mkdir /tmp/last
 cd /tmp/last
-## donwload last-1219
-curl -O https://gitlab.com/mcfrith/last/-/archive/1219/last-1219.zip
-unzip last-1219.zip
-cd last-1219
+## donwload last-1243
+curl -O https://gitlab.com/mcfrith/last/-/archive/1243/last-1243.zip
+unzip last-1243.zip
+cd last-1243
 ## compile LAST
 make
 ```
@@ -192,7 +192,7 @@ If you would like to use your own compiled versions of `LAST`, `KaKs_Calculator2
 
 ```
 ## example how to use own compiled versions of LAST, KaKs_Calculator2.0 and DAGchainer
-my.lastpath <- "/tmp/last/last-1219/bin"
+my.lastpath <- "/tmp/last/last-1243/bin"
 my.kakspath <- "/tmp/KaKs_Calculator2/KaKs_Calculator2.0/src"
 my.dagchainerpath <- "/tmp/dagcahiner"
 
@@ -241,7 +241,7 @@ These vignettes introduce  [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhit
 
 ```
 library(CRBHits)
-## compile last-1219
+## compile last-1243
 make_last()
 ## conditional reciprocal best hits (CRBHit pairs)
 data("ath", package="CRBHits")
@@ -292,7 +292,7 @@ hiv.xy %>% select(Codon,SynMean,NonSynMean,IndelMean) %>%
     ggtitle("HIV-1 sample 136 patient 1 from Sweden envelope glycoprotein (env) gene")
 
 ## example how to use own compiled versions of LAST
-my.lastpath <- "/tmp/last/last-1219/bin"
+my.lastpath <- "/tmp/last/last-1243/bin"
 ath_aly_crbh <- cds2rbh(ath, aly, plotCurve = TRUE,
                         lastpath = my.lastpath)
 ?cds2rbh
@@ -311,7 +311,7 @@ MIT (see LICENSE)
 
 The [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) package includes source code that has been published under following licenses:
 
-### last-1219.zip
+### last-1243.zip
 
 GNU General Public License Version 3, 29 June 2007 [GPLv3](https://www.gnu.org/licenses/gpl-3.0.de.html)
 

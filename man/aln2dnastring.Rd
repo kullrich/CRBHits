@@ -7,7 +7,7 @@
 aln2dnastring(aln)
 }
 \arguments{
-\item{dna}{\code{seqinr} \code{alignment} [mandatory]}
+\item{aln}{\code{seqinr} \code{alignment} [mandatory]}
 }
 \value{
 An object of class \code{DNAStringSet}

@@ -18,7 +18,10 @@
 #' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet readDNAStringSet readAAStringSet writeXStringSet width subseq pairwiseAlignment
 #' @importFrom seqinr kaks
 #' @importFrom tidyr %>% unite
+#' @importFrom tibble add_column
 #' @importFrom foreach foreach %do% %dopar%
+#' @importFrom parallel makeForkCluster stopCluster
+#' @importFrom doParallel registerDoParallel
 #' @importFrom dplyr group_by filter count left_join summarise mutate
 #' @seealso \code{\link[seqinr]{kaks}} \code{\link[CRBHits]{codonmat2pnps}} \code{\link[CRBHits]{dnastring2kaks}}
 #' @references Nei and Gojobori. (1986) Simple methods for estimating the numbers of synonymous and nonsynonymous nucleotide substitutions. \emph{Mol. Biol. Evol.}, \bold{3(5)}, 418-426.
@@ -32,20 +35,25 @@
 #' @author Kristian K Ullrich
 
 codonmat2xy <- function(codonmat, threads = 1){
-  doMC::registerDoMC(threads)
+  #doMC::registerDoMC(threads)
+  cl <- parallel::makeForkCluster(threads)
+  doParallel::registerDoParallel(cl)
   i <- NULL
   j <- NULL
   k <- NULL
-  OUT <- foreach(i = seq(from = 1, to = nrow(codonmat)), .combine=rbind) %dopar% {
-    foreach(j = seq(from = 1, to = ncol(codonmat) - 1), .combine=rbind) %do% {
-      foreach(k = seq(from = j + 1, to = ncol(codonmat)), .combine=rbind) %do% {
+  #OUT <- foreach(i = seq(from = 1, to = nrow(codonmat)), .combine=rbind) %dopar% {
+  OUT <- foreach::foreach(i = seq(from = 1, to = nrow(codonmat)), .combine=rbind, .packages = c('foreach')) %dopar% {
+    foreach::foreach(j = seq(from = 1, to = ncol(codonmat) - 1), .combine=rbind) %do% {
+      foreach::foreach(k = seq(from = j + 1, to = ncol(codonmat)), .combine=rbind) %do% {
         c(setNames(i, "Codon"),
           setNames(j, "Comp1"),
           setNames(k, "Comp2"),
-          setNames(compareCodons(codonmat[i, j], codonmat[i, k]), c("syn", "nonsyn", "indel")))
+          #setNames(compareCodons(codonmat[i, j], codonmat[i, k]), c("syn", "nonsyn", "indel")))
+          setNames(CRBHits::compareCodons(codonmat[i, j], codonmat[i, k]), c("syn", "nonsyn", "indel")))
       }
     }
   }
+  parallel::stopCluster(cl)
   OUT <- as.data.frame(OUT)
   OUT.NAs <- OUT %>% dplyr::group_by(Codon) %>% dplyr::filter(!is.na(syn)) %>%
                      dplyr::count(Codon)

@@ -7,6 +7,9 @@
 \usage{
 codon2number(codon)
 }
+\arguments{
+\item{codon}{codon}
+}
 \value{
 An object of class \code{numeric}
 }

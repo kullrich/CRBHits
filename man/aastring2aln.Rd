@@ -7,7 +7,7 @@
 aastring2aln(aa)
 }
 \arguments{
-\item{dna}{\code{AAStringSet} [mandatory]}
+\item{aa}{\code{AAStringSet} [mandatory]}
 }
 \value{
 An object of class \code{alignment} which is a list with the following components:\cr

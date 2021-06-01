@@ -1,7 +1,7 @@
 #' @title aln2dnastring
 #' @name aln2dnastring
 #' @description This function converts a \code{seqinr} \code{alignment} into an \code{DNAStringSet}.
-#' @param dna \code{seqinr} \code{alignment} [mandatory]
+#' @param aln \code{seqinr} \code{alignment} [mandatory]
 #' @return An object of class \code{DNAStringSet}
 #' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet readDNAStringSet readAAStringSet writeXStringSet width subseq
 #' @importFrom seqinr as.alignment

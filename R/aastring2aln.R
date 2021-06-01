@@ -1,7 +1,7 @@
 #' @title aastring2aln
 #' @name aastring2aln
 #' @description This function converts a \code{AAStringSet} into an \code{seqinr} \code{alignment}.
-#' @param dna \code{AAStringSet} [mandatory]
+#' @param aa \code{AAStringSet} [mandatory]
 #' @return An object of class \code{alignment} which is a list with the following components:\cr
 #' \code{nb} the number of aligned sequences\cr
 #' \code{nam} a vector of strings containing the names of the aligned sequences\cr

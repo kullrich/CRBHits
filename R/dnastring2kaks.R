@@ -9,7 +9,8 @@
 #' @return A data.frame of \code{KaKs} values
 #' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet readDNAStringSet readAAStringSet writeXStringSet width subseq pairwiseAlignment
 #' @importFrom seqinr kaks
-#' @importFrom doMC registerDoMC
+#' @importFrom parallel makeForkCluster stopCluster
+#' @importFrom doParallel registerDoParallel
 #' @importFrom foreach foreach %do% %dopar%
 #' @importFrom tidyr %>% as_tibble pivot_longer
 #' @importFrom dplyr slice left_join
@@ -78,16 +79,20 @@ dnastring2kaks <- function(cds,
     return(OUT)
   }
   if(model == "Li" & align == TRUE){
-    doMC::registerDoMC(threads)
+    #doMC::registerDoMC(threads)
+    cl <- parallel::makeForkCluster(threads)
+    doParallel::registerDoParallel(cl)
     i <- NULL
     j <- NULL
-    OUT <- foreach(i = seq(from = 1, to = length(cds) - 1), .combine=rbind) %dopar% {
+    OUT <- foreach(i = seq(from = 1, to = length(cds) - 1), .combine=rbind, .packages = c('foreach')) %dopar% {
       foreach(j = seq(from = i + 1, to = length(cds)), .combine=rbind) %do% {
         c(setNames(i, "Comp1"),
           setNames(j, "Comp2"),
-          unlist(seqinr::kaks(dnastring2aln(cds2codonaln(cds[i], cds[j], ...)))))
+          #unlist(seqinr::kaks(dnastring2aln(cds2codonaln(cds[i], cds[j], ...)))))
+          unlist(seqinr::kaks(CRBHits::dnastring2aln(CRBHits::cds2codonaln(cds[i], cds[j], ...)))))
       }
     }
+    parallel::stopCluster(cl)
     OUT <- as.data.frame(OUT)
     attr(OUT, "model") <- "Li"
     attr(OUT, "align") <- "TRUE"
@@ -97,15 +102,19 @@ dnastring2kaks <- function(cds,
     return(OUT)
   }
   if(model == "NG86" & align == FALSE){
-    doMC::registerDoMC(threads)
+    #doMC::registerDoMC(threads)
+    cl <- parallel::makeForkCluster(threads)
+    doParallel::registerDoParallel(cl)
     i <- NULL
     j <- NULL
     codonmat <- dnastring2codonmat(cds)
-    OUT <- foreach(i = seq(from = 1, to = ncol(codonmat) - 1), .combine=rbind) %dopar% {
+    OUT <- foreach(i = seq(from = 1, to = ncol(codonmat) - 1), .combine=rbind, .packages = c('foreach')) %dopar% {
       foreach(j = seq(from = i + 1, to = ncol(codonmat)), .combine=rbind) %do% {
-        c(setNames(i, "Comp1"), setNames(j, "Comp2"), codonmat2pnps(codonmat[, c(i, j)]))
+        #c(setNames(i, "Comp1"), setNames(j, "Comp2"), codonmat2pnps(codonmat[, c(i, j)]))
+        c(setNames(i, "Comp1"), setNames(j, "Comp2"), CRBHits::codonmat2pnps(codonmat[, c(i, j)]))
       }
     }
+    parallel::stopCluster(cl)
     OUT <- as.data.frame(OUT)
     attr(OUT, "model") <- "NG86"
     attr(OUT, "align") <- "FALSE"
@@ -113,16 +122,20 @@ dnastring2kaks <- function(cds,
     return(OUT)
   }
   if(model == "NG86" & align == TRUE){
-    doMC::registerDoMC(threads)
+    #doMC::registerDoMC(threads)
+    cl <- parallel::makeForkCluster(threads)
+    doParallel::registerDoParallel(cl)
     i <- NULL
     j <- NULL
-    OUT <- foreach(i = seq(from = 1, to = length(cds) - 1), .combine=rbind) %dopar% {
-      foreach(j = seq(from = i + 1, to = length(cds)), .combine=rbind) %do% {
+    OUT <- foreach::foreach(i = seq(from = 1, to = length(cds) - 1), .combine=rbind, .packages = c('foreach')) %dopar% {
+      foreach::foreach(j = seq(from = i + 1, to = length(cds)), .combine=rbind) %do% {
         c(setNames(i, "Comp1"),
           setNames(j, "Comp2"),
-          codonmat2pnps(dnastring2codonmat(cds2codonaln(cds[i], cds[j], ...))))
+          #codonmat2pnps(dnastring2codonmat(cds2codonaln(cds[i], cds[j], ...))))
+          CRBHits::codonmat2pnps(CRBHits::dnastring2codonmat(CRBHits::cds2codonaln(cds[i], cds[j], ...))))
       }
     }
+    parallel::stopCluster(cl)
     OUT <- as.data.frame(OUT)
     attr(OUT, "model") <- "NG86"
     attr(OUT, "align") <- "TRUE"

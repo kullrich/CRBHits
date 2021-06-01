@@ -19,7 +19,7 @@ Imports:
   seqinr,
   ape,
   foreach,
-  doMC,
+  doParallel,
   tidyverse,
   tidyr,
   stringr,

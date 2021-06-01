@@ -7,7 +7,7 @@
 make_vignette()
 }
 \description{
-This function tries to build the prerequisite last-1168 and KaKs_calculator2.0 from source code forked within CRBHits
+This function tries to build the prerequisite last-1243 and KaKs_calculator2.0 from source code forked within CRBHits
 }
 \references{
 Kiełbasa SM et al. (2011) Adaptive seeds tame genomic sequence comparison. \bold{Genome Res.} \bold{21} \bold{(3)}, 487-93.

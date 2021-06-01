@@ -7,7 +7,7 @@
 aa2rbh(
   aa1,
   aa2,
-  lastpath = paste0(find.package("CRBHits"), "/extdata/last-1219/bin/"),
+  lastpath = paste0(find.package("CRBHits"), "/extdata/last-1243/bin/"),
   lastD = 1e+06,
   outpath = "/tmp",
   crbh = TRUE,
@@ -32,7 +32,7 @@ aa2rbh(
 
 \item{aa2}{aa2 sequences as \code{AAStringSet} [mandatory]}
 
-\item{lastpath}{specify the PATH to the last binaries [default: /extdata/last-1219/bin/]}
+\item{lastpath}{specify the PATH to the last binaries [default: /extdata/last-1243/bin/]}
 
 \item{lastD}{last option D: query letters per random alignment [default: 1e6]}
 
@@ -87,7 +87,7 @@ Sequence searches are performed with \bold{last} \emph{Kiełbasa, SM et al. (201
 If one specifies aa1 and aa2 as the same input a selfblast is conducted.
 }
 \examples{
-## compile last-1219 within CRBHits
+## compile last-1243 within CRBHits
 make_last()
 ## load example sequence data
 data("ath", package="CRBHits")
