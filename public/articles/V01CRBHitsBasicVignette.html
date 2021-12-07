@@ -86,13 +86,13 @@
 
       
 
-      </header><script src="V01CRBHitsBasicVignette_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
+      </header><script src="V01CRBHitsBasicVignette_files/header-attrs-2.10/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>CRBHits Basic Vignette</h1>
                         <h4 class="author">Kristian K Ullrich</h4>
             
-            <h4 class="date">2021-06-01</h4>
+            <h4 class="date">2021-12-07</h4>
       
       <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/mastervignettes/V01CRBHitsBasicVignette.Rmd"><code>vignettes/V01CRBHitsBasicVignette.Rmd</code></a></small>
       <div class="hidden name"><code>V01CRBHitsBasicVignette.Rmd</code></div>
@@ -165,6 +165,7 @@
 <code class="sourceCode R"><span class="co">## load vignette specific libraries</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://bioconductor.org/packages/Biostrings">Biostrings</a></span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; Warning: package 'GenomeInfoDb' was built under R version 4.1.1</span>
 <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jeroen/curl">curl</a></span><span class="op">)</span><span class="op">)</span>
@@ -293,7 +294,6 @@ HOMSAP.cds.ENSEMBL.longest &lt;- isoform2longest(HOMSAP.cds.ENSEMBL, "ENSEMBL")
 <span class="co">#&gt; crbh.pairs  3     data.frame list</span>
 <span class="co">#&gt; crbh1      16     data.frame list</span>
 <span class="co">#&gt; crbh2      16     data.frame list</span>
-
 <span class="co">## get help</span>
 <span class="co">#?cds2rbh</span></code></pre></div>
 <p>Like <a href="https://pypi.org/project/shmlast/">shmlast</a>, <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> plots the fitted model of the CRBH e-value based algorithm. The CRBH algorithm can be performed and visualized as follows:</p>
@@ -312,7 +312,6 @@ HOMSAP.cds.ENSEMBL.longest &lt;- isoform2longest(HOMSAP.cds.ENSEMBL, "ENSEMBL")
 <span class="co">#&gt; crbh1         16     data.frame list    </span>
 <span class="co">#&gt; crbh2         16     data.frame list    </span>
 <span class="co">#&gt; rbh1_rbh2_fit  1     -none-     function</span>
-
 <span class="co">## get help</span>
 <span class="co">#?cds2rbh</span></code></pre></div>
 <p>Both, <code><a href="../reference/cdsfile2rbh.html">cdsfile2rbh()</a></code> and <code><a href="../reference/cds2rbh.html">cds2rbh()</a></code> function, return a list of three <code>data.frame</code>’s which contain the CRBH pairs (<code>$crbh.pairs</code>) retained, the query &gt; target blast-like output matrix (<code>$crbh1</code>) and the target &gt; query blast-like output matrix (<code>$crbh2</code>). For each matrix the <code>$rbh_class</code> indicates if the hit is a Reciprocal Best Hit (<code>rbh</code>) or if it is a conditional secondary hit retained because of RBH fitting (CRBH algorithm) (<code>sec</code>).</p>
@@ -330,7 +329,6 @@ HOMSAP.cds.ENSEMBL.longest &lt;- isoform2longest(HOMSAP.cds.ENSEMBL, "ENSEMBL")
 <span class="co">#&gt; 4 AT1G01180.1  Al_scaffold_0001_114       rbh</span>
 <span class="co">#&gt; 5 AT1G01190.2 Al_scaffold_0001_4419       rbh</span>
 <span class="co">#&gt; 6 AT1G01260.3 Al_scaffold_0001_1326       rbh</span>
-
 <span class="co">## show first retained hit pairs for the query &gt; target matrix</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh1</span><span class="op">)</span>
 <span class="co">#&gt;      query_id            subject_id perc_identity alignment_length mismatches</span>
@@ -354,7 +352,6 @@ HOMSAP.cds.ENSEMBL.longest &lt;- isoform2longest(HOMSAP.cds.ENSEMBL, "ENSEMBL")
 <span class="co">#&gt; 4            316      1505       rbh</span>
 <span class="co">#&gt; 5            189       114       rbh</span>
 <span class="co">#&gt; 6            451       170       rbh</span>
-
 <span class="co">## get the number of CRBHit classified as rbh and sec hit pairs</span>
 <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh1</span><span class="op">$</span><span class="va">rbh_class</span><span class="op">)</span>
 <span class="co">#&gt; </span>
@@ -397,7 +394,6 @@ HOMSAP.cds.ENSEMBL.longest &lt;- isoform2longest(HOMSAP.cds.ENSEMBL, "ENSEMBL")
 <span class="co">#&gt;    181     30      2</span>
 <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">)</span>
 <span class="co">#&gt; NULL</span>
-
 <span class="co">## get help</span>
 <span class="co">#?cds2rbh</span></code></pre></div>
 </div>
@@ -433,7 +429,6 @@ HOMSAP.cds.ENSEMBL.longest &lt;- isoform2longest(HOMSAP.cds.ENSEMBL, "ENSEMBL")
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span><span class="op">)</span>
 <span class="co">#&gt; [1] 145   3</span>
-
 <span class="co">## get help</span>
 <span class="co">#?cds2rbh</span></code></pre></div>
 <p>In addition, the users can filter for the <strong>twilight zone of protein sequence alignments</strong> according to <a href="https://academic.oup.com/peds/article/12/2/85/1550637">Rost B. (1999)</a>. This <strong>twilight zone</strong> indicates proteins, which might share a common ancestor (homologue genes) but have diverged from each other through time so that similarity is no longer detectable. Here, a certain alignment length and protein identity is at least necessary to indicate <em>bona-fide</em> homologues.</p>
@@ -468,7 +463,6 @@ HOMSAP.cds.ENSEMBL.longest &lt;- isoform2longest(HOMSAP.cds.ENSEMBL, "ENSEMBL")
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span><span class="op">)</span>
 <span class="co">#&gt; [1] 208   3</span>
-
 <span class="co">## get help</span>
 <span class="co">#?cds2rbh</span>
 <span class="co">## get help</span>
@@ -591,8 +585,7 @@ HOMSAP.cds.ENSEMBL.longest &lt;- isoform2longest(HOMSAP.cds.ENSEMBL, "ENSEMBL")
                         lastpath <span class="op">=</span> <span class="va">vignette.paths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></code></pre></div>
 <p><img src="V01CRBHitsBasicVignette_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="co">## get help</span>
+<code class="sourceCode R"><span class="co">## get help</span>
 <span class="co">#?cds2rbh</span></code></pre></div>
 <p>As described earlier, <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> features downstream anaylsis like batch calculating synonymous (Ks) and nonsynonymous substitutions (Ka) per orthologous sequence pair. The following sections will give more details about these downstream functionalities.</p>
 </div>
@@ -630,7 +623,6 @@ HOMSAP.cds.ENSEMBL.longest &lt;- isoform2longest(HOMSAP.cds.ENSEMBL, "ENSEMBL")
 <span class="co">#&gt;     width seq                                               names               </span>
 <span class="co">#&gt; [1]    12 ATGCAACATTGC                                      cds1</span>
 <span class="co">#&gt; [2]    12 ATG---CATTGC                                      cds2</span>
-
 <span class="co">## get help</span>
 <span class="co">#?cds2codonaln</span></code></pre></div>
 <p>The user can alter some <code>@param</code> to change the alignment parameters, like <code>type</code>, <code>substitutionMatrix</code>, <code>gapOpening</code> and <code>gapExtension</code> costs as defined by the <code><a href="https://rdrr.io/pkg/Biostrings/man/pairwiseAlignment.html">pairwiseAlignment()</a></code> function from the <code>Biostrings</code> R package.</p>
@@ -674,7 +666,6 @@ HOMSAP.cds.ENSEMBL.longest &lt;- isoform2longest(HOMSAP.cds.ENSEMBL, "ENSEMBL")
 <span class="fu"><a href="../reference/cds2kaks.html">cds2kaks</a></span><span class="op">(</span><span class="va">cds1</span>, <span class="va">cds2</span>, model <span class="op">=</span> <span class="st">"Li"</span><span class="op">)</span>
 <span class="co">#&gt;         ka         ks        vka        vks </span>
 <span class="co">#&gt; 1.02338181 9.99999900 0.01140267 9.99999900</span>
-
 <span class="co">## get help</span>
 <span class="co">#?cds2kaks</span></code></pre></div>
 <p>All parameters which can be used by the <code><a href="../reference/cds2codonaln.html">cds2codonaln()</a></code> function can be overgiven to e.g. use an alternative <code>substitutionMatrix</code>.</p>
@@ -727,7 +718,6 @@ HOMSAP.cds.ENSEMBL.longest &lt;- isoform2longest(HOMSAP.cds.ENSEMBL, "ENSEMBL")
 <span class="co">#&gt; 4 0.001249826</span>
 <span class="co">#&gt; 5 9.999999000</span>
 <span class="co">#&gt; 6 9.999999000</span>
-
 <span class="co">## get help</span>
 <span class="co">#?rbh2kaks</span></code></pre></div>
 <p>The Ka/Ks calculations can be parallelized.</p>
@@ -751,7 +741,6 @@ HOMSAP.cds.ENSEMBL.longest &lt;- isoform2longest(HOMSAP.cds.ENSEMBL, "ENSEMBL")
 <span class="co">#&gt; 4 0.001249826</span>
 <span class="co">#&gt; 5 9.999999000</span>
 <span class="co">#&gt; 6 9.999999000</span>
-
 <span class="co">## get help</span>
 <span class="co">#?rbh2kaks</span></code></pre></div>
 <p>Like for the <code><a href="../reference/cds2kaks.html">cds2kaks()</a></code> function, all parameters which can be used by the <code><a href="../reference/cds2codonaln.html">cds2codonaln()</a></code> function can be overgiven to e.g. use an alternative <code>substitutionMatrix</code>.</p>
@@ -776,7 +765,6 @@ HOMSAP.cds.ENSEMBL.longest &lt;- isoform2longest(HOMSAP.cds.ENSEMBL, "ENSEMBL")
 <span class="co">#&gt; 4 0.001249826</span>
 <span class="co">#&gt; 5 9.999999000</span>
 <span class="co">#&gt; 6 9.999999000</span>
-
 <span class="co">## get help</span>
 <span class="co">#?rbh2kaks</span></code></pre></div>
 </div>

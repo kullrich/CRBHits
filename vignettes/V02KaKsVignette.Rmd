@@ -251,7 +251,7 @@ ARATHA.gff.mRNA <- ARATHA.gff.mRNA %>%
 ## retain only longest mRNA isoform
 ARATHA.gff.mRNA.longest <- ARATHA.gff.mRNA %>% dplyr::arrange(seqname, start,
   gene.id, desc(mRNA.len)) %>% dplyr::distinct(gene.id, .keep_all = TRUE) %>% 
-  dplyr::mutate(gene.mid = (start+end)/2)
+  dplyr::mutate(gene.mid = start + (end-start)/2)
 ## add gene idx
 ARATHA.gff.mRNA.longest <- ARATHA.gff.mRNA.longest %>% 
   dplyr::mutate(gene.idx = seq(from = 1, to = dim(ARATHA.gff.mRNA.longest)[1]))

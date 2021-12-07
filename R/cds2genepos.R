@@ -47,7 +47,7 @@ cds2genepos <- function(cds, source = "NCBI", keep.names = NULL){
     gene.end <- as.numeric(gsub(">", "", unlist(lapply(strsplit(gene.location, "\\.\\."),
                              function(x) gsub("\\)", "", rev(
                                strsplit(rev(x)[[1]],",")[[1]][1]))))))
-    gene.mid <- (gene.start + gene.end) / 2
+    gene.mid <- gene.start + ((gene.end - gene.start) / 2)
     gene.chr <- gsub("lcl\\|", "", unlist(lapply(strsplit(seq.id, "_cds_"),
                              function(x) x[1])))
     gene.strand <- rep("1", length(cds))
@@ -59,7 +59,7 @@ cds2genepos <- function(cds, source = "NCBI", keep.names = NULL){
                                    function(x) x[4])))
     gene.end <- as.numeric(unlist(lapply(strsplit(gene.location, "\\:"),
                                            function(x) x[5])))
-    gene.mid <- (gene.start + gene.end) / 2
+    gene.mid <- gene.start + ((gene.end - gene.start) / 2)
     gene.strand <- unlist(lapply(strsplit(gene.location, "\\:"),
                                          function(x) x[6]))
     gene.chr <- unlist(lapply(strsplit(gene.location, "\\:"),

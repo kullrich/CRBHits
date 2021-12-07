@@ -86,13 +86,13 @@
 
       
 
-      </header><script src="V02KaKsVignette_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
+      </header><script src="V02KaKsVignette_files/header-attrs-2.10/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>KaKs Vignette</h1>
                         <h4 class="author">Kristian K Ullrich</h4>
             
-            <h4 class="date">2021-06-01</h4>
+            <h4 class="date">2021-12-07</h4>
       
       <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/mastervignettes/V02KaKsVignette.Rmd"><code>vignettes/V02KaKsVignette.Rmd</code></a></small>
       <div class="hidden name"><code>V02KaKsVignette.Rmd</code></div>
@@ -324,7 +324,7 @@ ARATHA.gff.mRNA &lt;- ARATHA.gff.mRNA %&gt;%
 ## retain only longest mRNA isoform
 ARATHA.gff.mRNA.longest &lt;- ARATHA.gff.mRNA %&gt;% dplyr::arrange(seqname, start,
   gene.id, desc(mRNA.len)) %&gt;% dplyr::distinct(gene.id, .keep_all = TRUE) %&gt;% 
-  dplyr::mutate(gene.mid = (start+end)/2)
+  dplyr::mutate(gene.mid = start + (end-start)/2)
 ## add gene idx
 ARATHA.gff.mRNA.longest &lt;- ARATHA.gff.mRNA.longest %&gt;% 
   dplyr::mutate(gene.idx = seq(from = 1, to = dim(ARATHA.gff.mRNA.longest)[1]))

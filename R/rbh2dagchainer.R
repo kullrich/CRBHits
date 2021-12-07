@@ -210,7 +210,9 @@ rbh2dagchainer <- function(rbhpairs,
                                                                               "vs. ", 2)[,2]," ",2)[,1]
   dagchainer.groups.idx <- stringr::str_split_fixed(stringr::str_split_fixed(dagchainer.groups,
                                                                              "Alignment #", 2)[,2]," ",2)[,1]
+  dagchainer.groups.idx.reverse <- grep("(reverse)", dagchainer.groups)
   dagchainer.groups.id <- paste0(dagchainer.groups.chr1,":",dagchainer.groups.chr2,":",dagchainer.groups.idx)
+  dagchainer.groups.id[dagchainer.groups.idx.reverse] <- paste0(dagchainer.groups.id[dagchainer.groups.idx.reverse],".rev")
   dagchainer.groups.out <- unlist(apply(cbind(dagchainer.groups.id,
                                                      dagchainer.groups.len),1,
                                                function(x) rep(x[1], x[2])))
@@ -228,8 +230,8 @@ rbh2dagchainer <- function(rbhpairs,
     }
     #add gene1.mid and gene2.mid for plotting
     dagchainer.results <- dagchainer.results %>%
-      dplyr::mutate(gene1.mid = (gene1.start + gene1.end)/2,
-                    gene2.mid = (gene2.start + gene2.end)/2) %>%
+      dplyr::mutate(gene1.mid = gene1.start + ((gene1.end - gene1.start)/2),
+                    gene2.mid = gene2.start + ((gene2.end - gene2.start)/2)) %>%
       dplyr::select(gene1.chr, gene1.seq.id, gene1.start, gene1.end, gene1.mid,
                     gene2.chr, gene2.seq.id, gene2.start, gene2.end, gene2.mid,
                     evalue, score)
