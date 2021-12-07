@@ -1,5 +1,8 @@
 image: r-base
 
+env:
+  GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
 before_script:
   - apt-get update
   - apt-get -y install libcurl4-openssl-dev libssl-dev libxml2-dev libglu1-mesa-dev libssh2-1-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev libgit2-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev pandoc r-cran-devtools r-cran-testthat r-cran-curl r-bioc-biostrings
