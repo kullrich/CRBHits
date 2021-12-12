@@ -6,6 +6,8 @@
 \usage{
 rbh2dagchainer(
   rbhpairs,
+  selfblast1 = NULL,
+  selfblast2 = NULL,
   gene.position.cds1 = NULL,
   gene.position.cds2 = NULL,
   dagchainerpath = paste0(find.package("CRBHits"), "/extdata/dagchainer/"),
@@ -16,6 +18,7 @@ rbh2dagchainer(
   max_dist_allowed = 2e+05,
   max_evalue = 0.001,
   ignore_tandem = TRUE,
+  only_tandem = FALSE,
   min_number_aligned_pairs = 5,
   type = "bp",
   plotDotPlot = FALSE,
@@ -31,6 +34,10 @@ rbh2dagchainer(
 }
 \arguments{
 \item{rbhpairs}{(conditional-)reciprocal best hit (CRBHit) pair result (see \code{\link[CRBHits]{cds2rbh}}) [mandatory]}
+
+\item{selfblast1}{(conditional-)reciprocal best hit (CRBHit) pair selfblast result for cds1 sequences (see \code{\link[CRBHits]{cds2rbh}}) [optional]}
+
+\item{selfblast2}{(conditional-)reciprocal best hit (CRBHit) pair selfblast result for cds2 sequences (see \code{\link[CRBHits]{cds2rbh}}) [optional]}
 
 \item{gene.position.cds1}{specify gene position for cds1 sequences (see \code{\link[CRBHits]{cds2genepos}}) [default: NULL]}
 
@@ -51,6 +58,8 @@ rbh2dagchainer(
 \item{max_evalue}{Maximum E-value [default: 1e-3]}
 
 \item{ignore_tandem}{ignore tandem duplicates [default = TRUE]}
+
+\item{only_tandem}{only tandem alignments [default = FALSE]}
 
 \item{min_number_aligned_pairs}{Minimum number of Aligned Pairs [default: 5]}
 
