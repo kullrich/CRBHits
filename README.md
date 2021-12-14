@@ -83,7 +83,112 @@ CRBHits::make_KaKs_Calculator2()
 CRBHits::make_dagchainer()
 ```
 
-## External tools installation prerequisites - detailed description
+If the functions `CRBHits::make_last()`, `CRBHits::make_KaKs_Calculator2()` and `CRBHits::make_dagchainer()` fail on your system to install the prerequisites, please take a look at the [detailed description](#prerequisites) how to install via e.g. [conda](https://www.anaconda.com/) or to compile from source.
+
+## Vignettes
+
+These vignettes introduce  [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits)
+
+- [CRBHits Basic Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V01CRBHitsBasicVignette.html) - Basic Usage of CRBHits
+    - includes CRBHit pair calculation
+    - includes CRBHit pair filtering
+    - includes Longest Isoform selection
+    - includes Codon alignments
+    - includes Ka/Ks calculations
+- [KaKs Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V02KaKsVignette.html) - KaKs Calculations between two species and subsequent data filter steps
+    - includes *Arabidopsis thalina* and *Arabidopsis lyrata* CRBHit pair calculation
+    - includes *Homo sapiens* and *Pan troglodytes* CRBHit pair calculation
+    - inlcudes Longest Isoform selection
+    - includes Gene/Isoform chromosomal position extraction
+    - includes Tandem Duplicate Assignment
+    - includes Synteny Assignment
+    - includes Ka/Ks colored Dot-Plot
+
+## Quick-guide
+
+```
+library(CRBHits)
+## compile last-1256
+make_last()
+## conditional reciprocal best hits (CRBHit pairs)
+data("ath", package="CRBHits")
+data("aly", package="CRBHits")
+ath_aly_crbh <- cds2rbh(ath, aly, plotCurve = TRUE)
+summary(ath_aly_crbh)
+
+?cds2rbh
+
+##kaks calculation - subset model "Li"
+ath_aly_crbh$crbh.pairs <- head(ath_aly_crbh$crbh.pairs, 20)
+ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh,
+                              ath, aly, model = "Li")
+head(ath_aly_crbh.kaks)
+?rbh2kaks
+
+## plot kaks
+g.kaks <- plot_kaks(ath_aly_crbh.kaks)
+?plot_kaks
+
+## kaks calculation - subset model "YN"
+make_KaKs_Calculator2()
+ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh,
+                              ath, aly, model = "YN")
+
+## kaks calculation using multiple threads
+ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh, ath, aly, threads = 2)
+head(ath_aly_crbh.kaks)
+
+## example how to calculate all pairwise kaks values given a MSA
+data(hiv)
+hiv_kaks <- dnastring2kaks(hiv, model = "Li")
+g <- plot_kaks(hiv_kaks)
+
+data(hiv)
+hiv_kaks <- dnastring2kaks(hiv, model = "NG86")
+g <- plot_kaks(hiv_kaks)
+
+## codon plot - sites under possible positive selection
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+hiv.xy <- codonmat2xy(dnastring2codonmat(hiv))
+hiv.xy %>% select(Codon,SynMean,NonSynMean,IndelMean) %>%
+  gather(variable, values, -Codon) %>% 
+  ggplot(aes(x=Codon, y=values)) + 
+    geom_line(aes(colour=factor(variable))) + 
+    geom_point(aes(colour=factor(variable))) + 
+    ggtitle("HIV-1 sample 136 patient 1 from Sweden envelope glycoprotein (env) gene")
+
+##### see section install external tools via bioconda
+## example how to use conda version of LAST
+my.lastpath <- dirname(system("which lastdb", intern = TRUE))
+ath_aly_crbh <- cds2rbh(ath, aly, plotCurve = TRUE,
+                        lastpath = my.lastpath)
+?cds2rbh
+
+## example how to use conda version of KaKs_Calculator2.0
+my.kakspath <- dirname(system("which KaKs_Calculator", intern = TRUE))
+ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh,
+                              ath, aly, model = "YN",
+                              kakscalcpath = my.kakspath)
+?rbh2kaks
+
+##### see section compile external tools from original source code
+## example how to use own compiled version of LAST
+my.lastpath <- "/tmp/last/last-1256/bin"
+ath_aly_crbh <- cds2rbh(ath, aly, plotCurve = TRUE,
+                        lastpath = my.lastpath)
+?cds2rbh
+
+## example how to use conda version of KaKs_Calculator2.0
+my.kakspath <- "/tmp/KaKs_Calculator2/KaKs_Calculator2.0/src"
+ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh,
+                              ath, aly, model = "YN",
+                              kakscalcpath = my.kakspath)
+?rbh2kaks
+```
+
+## External tools installation prerequisites - detailed description {#prerequisites}
 
 ### install external tools via [bioconda](https://bioconda.github.io/)
 
@@ -220,94 +325,6 @@ rbh2kaks(., ., model = "YN", kakscalcpath = my.kakspath)
 
 ?rbh2dagchainer
 rbh2dagchainer(., ., dagchainerpath = my.dagchainerpath)
-```
-
-## Vignettes
-
-These vignettes introduce  [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits)
-
-- [CRBHits Basic Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V01CRBHitsBasicVignette.html) - Basic Usage of CRBHits
-    - includes CRBHit pair calculation
-    - includes CRBHit pair filtering
-    - includes Longest Isoform selection
-    - includes Codon alignments
-    - includes Ka/Ks calculations
-- [KaKs Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V02KaKsVignette.html) - KaKs Calculations between two species and subsequent data filter steps
-    - includes *Arabidopsis thalina* and *Arabidopsis lyrata* CRBHit pair calculation
-    - includes *Homo sapiens* and *Pan troglodytes* CRBHit pair calculation
-    - inlcudes Longest Isoform selection
-    - includes Gene/Isoform chromosomal position extraction
-    - includes Tandem Duplicate Assignment
-    - includes Synteny Assignment
-    - includes Ka/Ks colored Dot-Plot
-
-## Quick-guide
-
-```
-library(CRBHits)
-## compile last-1256
-make_last()
-## conditional reciprocal best hits (CRBHit pairs)
-data("ath", package="CRBHits")
-data("aly", package="CRBHits")
-ath_aly_crbh <- cds2rbh(ath, aly, plotCurve = TRUE)
-summary(ath_aly_crbh)
-
-?cds2rbh
-
-# #kaks calculation - subset model "Li"
-ath_aly_crbh$crbh.pairs <- head(ath_aly_crbh$crbh.pairs, 20)
-ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh,
-                              ath, aly, model = "Li")
-head(ath_aly_crbh.kaks)
-?rbh2kaks
-
-## plot kaks
-g.kaks <- plot_kaks(ath_aly_crbh.kaks)
-?plot_kaks
-
-## kaks calculation - subset model "YN"
-make_KaKs_Calculator2()
-ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh,
-                              ath, aly, model = "YN")
-
-## kaks calculation using multiple threads
-ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh, ath, aly, threads = 2)
-head(ath_aly_crbh.kaks)
-
-## example how to calculate all pairwise kaks values given a MSA
-data(hiv)
-hiv_kaks <- dnastring2kaks(hiv, model = "Li")
-g <- plot_kaks(hiv_kaks)
-
-data(hiv)
-hiv_kaks <- dnastring2kaks(hiv, model = "NG86")
-g <- plot_kaks(hiv_kaks)
-
-## codon plot - sites under possible positive selection
-library(tidyr)
-library(dplyr)
-library(ggplot2)
-hiv.xy <- codonmat2xy(dnastring2codonmat(hiv))
-hiv.xy %>% select(Codon,SynMean,NonSynMean,IndelMean) %>%
-  gather(variable, values, -Codon) %>% 
-  ggplot(aes(x=Codon, y=values)) + 
-    geom_line(aes(colour=factor(variable))) + 
-    geom_point(aes(colour=factor(variable))) + 
-    ggtitle("HIV-1 sample 136 patient 1 from Sweden envelope glycoprotein (env) gene")
-
-## example how to use own compiled versions of LAST
-my.lastpath <- "/tmp/last/last-1256/bin"
-ath_aly_crbh <- cds2rbh(ath, aly, plotCurve = TRUE,
-                        lastpath = my.lastpath)
-?cds2rbh
-
-## example how to use own compiled versions of KaKs_Calculator2.0
-my.kakspath <- "/tmp/KaKs_Calculator2/KaKs_Calculator2.0/src"
-ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh,
-                              ath, aly, model = "YN",
-                              kakscalcpath = my.kakspath)
-?rbh2kaks
 ```
 
 ## License

@@ -151,10 +151,123 @@ build_vignettes <span class="op">=</span> <span class="cn">FALSE</span>, depende
 <span class="fu">CRBHits</span><span class="fu">::</span><span class="fu"><a href="reference/make_last.html">make_last</a></span><span class="op">(</span><span class="op">)</span>
 <span class="fu">CRBHits</span><span class="fu">::</span><span class="fu"><a href="reference/make_KaKs_Calculator2.html">make_KaKs_Calculator2</a></span><span class="op">(</span><span class="op">)</span>
 <span class="fu">CRBHits</span><span class="fu">::</span><span class="fu"><a href="reference/make_dagchainer.html">make_dagchainer</a></span><span class="op">(</span><span class="op">)</span></code></pre>
+<p>If the functions <code><a href="reference/make_last.html">CRBHits::make_last()</a></code>, <code><a href="reference/make_KaKs_Calculator2.html">CRBHits::make_KaKs_Calculator2()</a></code> and <code><a href="reference/make_dagchainer.html">CRBHits::make_dagchainer()</a></code> fail on your system to install the prerequisites, please take a look at the <a href="#prerequisites">detailed description</a> how to install via e.g. <a href="https://www.anaconda.com/" class="external-link">conda</a> or to compile from source.</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="external-tools-installation-prerequisites---detailed-description">External tools installation prerequisites - detailed description<a class="anchor" aria-label="anchor" href="#external-tools-installation-prerequisites---detailed-description"></a>
+<h2 id="vignettes">Vignettes<a class="anchor" aria-label="anchor" href="#vignettes"></a>
+</h2>
+<p>These vignettes introduce <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a></p>
+<ul>
+<li>
+<a href="https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V01CRBHitsBasicVignette.html" class="external-link">CRBHits Basic Vignette</a> - Basic Usage of CRBHits
+<ul>
+<li>includes CRBHit pair calculation</li>
+<li>includes CRBHit pair filtering</li>
+<li>includes Longest Isoform selection</li>
+<li>includes Codon alignments</li>
+<li>includes Ka/Ks calculations</li>
+</ul>
+</li>
+<li>
+<a href="https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V02KaKsVignette.html" class="external-link">KaKs Vignette</a> - KaKs Calculations between two species and subsequent data filter steps
+<ul>
+<li>includes <em>Arabidopsis thalina</em> and <em>Arabidopsis lyrata</em> CRBHit pair calculation</li>
+<li>includes <em>Homo sapiens</em> and <em>Pan troglodytes</em> CRBHit pair calculation</li>
+<li>inlcudes Longest Isoform selection</li>
+<li>includes Gene/Isoform chromosomal position extraction</li>
+<li>includes Tandem Duplicate Assignment</li>
+<li>includes Synteny Assignment</li>
+<li>includes Ka/Ks colored Dot-Plot</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="quick-guide">Quick-guide<a class="anchor" aria-label="anchor" href="#quick-guide"></a>
+</h2>
+<pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a></span><span class="op">)</span>
+<span class="co">## compile last-1256</span>
+<span class="fu"><a href="reference/make_last.html">make_last</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">## conditional reciprocal best hits (CRBHit pairs)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ath"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"aly"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span>
+<span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">ath</span>, <span class="va">aly</span>, plotCurve <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">)</span>
+
+<span class="op">?</span><span class="va">cds2rbh</span>
+
+<span class="co">##kaks calculation - subset model "Li"</span>
+<span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span>, <span class="fl">20</span><span class="op">)</span>
+<span class="va">ath_aly_crbh.kaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span>,
+                              <span class="va">ath</span>, <span class="va">aly</span>, model <span class="op">=</span> <span class="st">"Li"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh.kaks</span><span class="op">)</span>
+<span class="op">?</span><span class="va">rbh2kaks</span>
+
+<span class="co">## plot kaks</span>
+<span class="va">g.kaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/plot_kaks.html">plot_kaks</a></span><span class="op">(</span><span class="va">ath_aly_crbh.kaks</span><span class="op">)</span>
+<span class="op">?</span><span class="va">plot_kaks</span>
+
+<span class="co">## kaks calculation - subset model "YN"</span>
+<span class="fu"><a href="reference/make_KaKs_Calculator2.html">make_KaKs_Calculator2</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">ath_aly_crbh.kaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span>,
+                              <span class="va">ath</span>, <span class="va">aly</span>, model <span class="op">=</span> <span class="st">"YN"</span><span class="op">)</span>
+
+<span class="co">## kaks calculation using multiple threads</span>
+<span class="va">ath_aly_crbh.kaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span>, <span class="va">ath</span>, <span class="va">aly</span>, threads <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh.kaks</span><span class="op">)</span>
+
+<span class="co">## example how to calculate all pairwise kaks values given a MSA</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">hiv</span><span class="op">)</span>
+<span class="va">hiv_kaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/dnastring2kaks.html">dnastring2kaks</a></span><span class="op">(</span><span class="va">hiv</span>, model <span class="op">=</span> <span class="st">"Li"</span><span class="op">)</span>
+<span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/plot_kaks.html">plot_kaks</a></span><span class="op">(</span><span class="va">hiv_kaks</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">hiv</span><span class="op">)</span>
+<span class="va">hiv_kaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/dnastring2kaks.html">dnastring2kaks</a></span><span class="op">(</span><span class="va">hiv</span>, model <span class="op">=</span> <span class="st">"NG86"</span><span class="op">)</span>
+<span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/plot_kaks.html">plot_kaks</a></span><span class="op">(</span><span class="va">hiv_kaks</span><span class="op">)</span>
+
+<span class="co">## codon plot - sites under possible positive selection</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span>
+<span class="va">hiv.xy</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/codonmat2xy.html">codonmat2xy</a></span><span class="op">(</span><span class="fu"><a href="reference/dnastring2codonmat.html">dnastring2codonmat</a></span><span class="op">(</span><span class="va">hiv</span><span class="op">)</span><span class="op">)</span>
+<span class="va">hiv.xy</span> <span class="op"><a href="https://tidyr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Codon</span>,<span class="va">SynMean</span>,<span class="va">NonSynMean</span>,<span class="va">IndelMean</span><span class="op">)</span> <span class="op"><a href="https://tidyr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/gather.html" class="external-link">gather</a></span><span class="op">(</span><span class="va">variable</span>, <span class="va">values</span>, <span class="op">-</span><span class="va">Codon</span><span class="op">)</span> <span class="op"><a href="https://tidyr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Codon</span>, y<span class="op">=</span><span class="va">values</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">variable</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">variable</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"HIV-1 sample 136 patient 1 from Sweden envelope glycoprotein (env) gene"</span><span class="op">)</span>
+
+<span class="co">##### see section install external tools via bioconda</span>
+<span class="co">## example how to use conda version of LAST</span>
+<span class="va">my.lastpath</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">dirname</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"which lastdb"</span>, intern <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
+<span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">ath</span>, <span class="va">aly</span>, plotCurve <span class="op">=</span> <span class="cn">TRUE</span>,
+                        lastpath <span class="op">=</span> <span class="va">my.lastpath</span><span class="op">)</span>
+<span class="op">?</span><span class="va">cds2rbh</span>
+
+<span class="co">## example how to use conda version of KaKs_Calculator2.0</span>
+<span class="va">my.kakspath</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">dirname</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"which KaKs_Calculator"</span>, intern <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
+<span class="va">ath_aly_crbh.kaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span>,
+                              <span class="va">ath</span>, <span class="va">aly</span>, model <span class="op">=</span> <span class="st">"YN"</span>,
+                              kakscalcpath <span class="op">=</span> <span class="va">my.kakspath</span><span class="op">)</span>
+<span class="op">?</span><span class="va">rbh2kaks</span>
+
+<span class="co">##### see section compile external tools from original source code</span>
+<span class="co">## example how to use own compiled version of LAST</span>
+<span class="va">my.lastpath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/last/last-1256/bin"</span>
+<span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">ath</span>, <span class="va">aly</span>, plotCurve <span class="op">=</span> <span class="cn">TRUE</span>,
+                        lastpath <span class="op">=</span> <span class="va">my.lastpath</span><span class="op">)</span>
+<span class="op">?</span><span class="va">cds2rbh</span>
+
+<span class="co">## example how to use conda version of KaKs_Calculator2.0</span>
+<span class="va">my.kakspath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/KaKs_Calculator2/KaKs_Calculator2.0/src"</span>
+<span class="va">ath_aly_crbh.kaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span>,
+                              <span class="va">ath</span>, <span class="va">aly</span>, model <span class="op">=</span> <span class="st">"YN"</span>,
+                              kakscalcpath <span class="op">=</span> <span class="va">my.kakspath</span><span class="op">)</span>
+<span class="op">?</span><span class="va">rbh2kaks</span></code></pre>
+</div>
+<div class="section level2">
+<h2 id="prerequisites">External tools installation prerequisites - detailed description<a class="anchor" aria-label="anchor" href="#prerequisites"></a>
 </h2>
 <div class="section level3">
 <h3 id="install-external-tools-via-bioconda">install external tools via <a href="https://bioconda.github.io/" class="external-link">bioconda</a>
@@ -264,103 +377,6 @@ make</code></pre>
 <span class="op">?</span><span class="va">rbh2dagchainer</span>
 <span class="fu"><a href="reference/rbh2dagchainer.html">rbh2dagchainer</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">.</span>, dagchainerpath <span class="op">=</span> <span class="va">my.dagchainerpath</span><span class="op">)</span></code></pre>
 </div>
-</div>
-<div class="section level2">
-<h2 id="vignettes">Vignettes<a class="anchor" aria-label="anchor" href="#vignettes"></a>
-</h2>
-<p>These vignettes introduce <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a></p>
-<ul>
-<li>
-<a href="https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V01CRBHitsBasicVignette.html" class="external-link">CRBHits Basic Vignette</a> - Basic Usage of CRBHits
-<ul>
-<li>includes CRBHit pair calculation</li>
-<li>includes CRBHit pair filtering</li>
-<li>includes Longest Isoform selection</li>
-<li>includes Codon alignments</li>
-<li>includes Ka/Ks calculations</li>
-</ul>
-</li>
-<li>
-<a href="https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V02KaKsVignette.html" class="external-link">KaKs Vignette</a> - KaKs Calculations between two species and subsequent data filter steps
-<ul>
-<li>includes <em>Arabidopsis thalina</em> and <em>Arabidopsis lyrata</em> CRBHit pair calculation</li>
-<li>includes <em>Homo sapiens</em> and <em>Pan troglodytes</em> CRBHit pair calculation</li>
-<li>inlcudes Longest Isoform selection</li>
-<li>includes Gene/Isoform chromosomal position extraction</li>
-<li>includes Tandem Duplicate Assignment</li>
-<li>includes Synteny Assignment</li>
-<li>includes Ka/Ks colored Dot-Plot</li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="section level2">
-<h2 id="quick-guide">Quick-guide<a class="anchor" aria-label="anchor" href="#quick-guide"></a>
-</h2>
-<pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a></span><span class="op">)</span>
-<span class="co">## compile last-1256</span>
-<span class="fu"><a href="reference/make_last.html">make_last</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">## conditional reciprocal best hits (CRBHit pairs)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ath"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"aly"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span>
-<span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">ath</span>, <span class="va">aly</span>, plotCurve <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">)</span>
-
-<span class="op">?</span><span class="va">cds2rbh</span>
-
-<span class="co"># #kaks calculation - subset model "Li"</span>
-<span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span>, <span class="fl">20</span><span class="op">)</span>
-<span class="va">ath_aly_crbh.kaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span>,
-                              <span class="va">ath</span>, <span class="va">aly</span>, model <span class="op">=</span> <span class="st">"Li"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh.kaks</span><span class="op">)</span>
-<span class="op">?</span><span class="va">rbh2kaks</span>
-
-<span class="co">## plot kaks</span>
-<span class="va">g.kaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/plot_kaks.html">plot_kaks</a></span><span class="op">(</span><span class="va">ath_aly_crbh.kaks</span><span class="op">)</span>
-<span class="op">?</span><span class="va">plot_kaks</span>
-
-<span class="co">## kaks calculation - subset model "YN"</span>
-<span class="fu"><a href="reference/make_KaKs_Calculator2.html">make_KaKs_Calculator2</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">ath_aly_crbh.kaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span>,
-                              <span class="va">ath</span>, <span class="va">aly</span>, model <span class="op">=</span> <span class="st">"YN"</span><span class="op">)</span>
-
-<span class="co">## kaks calculation using multiple threads</span>
-<span class="va">ath_aly_crbh.kaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span>, <span class="va">ath</span>, <span class="va">aly</span>, threads <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh.kaks</span><span class="op">)</span>
-
-<span class="co">## example how to calculate all pairwise kaks values given a MSA</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">hiv</span><span class="op">)</span>
-<span class="va">hiv_kaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/dnastring2kaks.html">dnastring2kaks</a></span><span class="op">(</span><span class="va">hiv</span>, model <span class="op">=</span> <span class="st">"Li"</span><span class="op">)</span>
-<span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/plot_kaks.html">plot_kaks</a></span><span class="op">(</span><span class="va">hiv_kaks</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">hiv</span><span class="op">)</span>
-<span class="va">hiv_kaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/dnastring2kaks.html">dnastring2kaks</a></span><span class="op">(</span><span class="va">hiv</span>, model <span class="op">=</span> <span class="st">"NG86"</span><span class="op">)</span>
-<span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/plot_kaks.html">plot_kaks</a></span><span class="op">(</span><span class="va">hiv_kaks</span><span class="op">)</span>
-
-<span class="co">## codon plot - sites under possible positive selection</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span>
-<span class="va">hiv.xy</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/codonmat2xy.html">codonmat2xy</a></span><span class="op">(</span><span class="fu"><a href="reference/dnastring2codonmat.html">dnastring2codonmat</a></span><span class="op">(</span><span class="va">hiv</span><span class="op">)</span><span class="op">)</span>
-<span class="va">hiv.xy</span> <span class="op"><a href="https://tidyr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Codon</span>,<span class="va">SynMean</span>,<span class="va">NonSynMean</span>,<span class="va">IndelMean</span><span class="op">)</span> <span class="op"><a href="https://tidyr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/gather.html" class="external-link">gather</a></span><span class="op">(</span><span class="va">variable</span>, <span class="va">values</span>, <span class="op">-</span><span class="va">Codon</span><span class="op">)</span> <span class="op"><a href="https://tidyr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Codon</span>, y<span class="op">=</span><span class="va">values</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">variable</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">variable</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"HIV-1 sample 136 patient 1 from Sweden envelope glycoprotein (env) gene"</span><span class="op">)</span>
-
-<span class="co">## example how to use own compiled versions of LAST</span>
-<span class="va">my.lastpath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/last/last-1256/bin"</span>
-<span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">ath</span>, <span class="va">aly</span>, plotCurve <span class="op">=</span> <span class="cn">TRUE</span>,
-                        lastpath <span class="op">=</span> <span class="va">my.lastpath</span><span class="op">)</span>
-<span class="op">?</span><span class="va">cds2rbh</span>
-
-<span class="co">## example how to use own compiled versions of KaKs_Calculator2.0</span>
-<span class="va">my.kakspath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/KaKs_Calculator2/KaKs_Calculator2.0/src"</span>
-<span class="va">ath_aly_crbh.kaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span>,
-                              <span class="va">ath</span>, <span class="va">aly</span>, model <span class="op">=</span> <span class="st">"YN"</span>,
-                              kakscalcpath <span class="op">=</span> <span class="va">my.kakspath</span><span class="op">)</span>
-<span class="op">?</span><span class="va">rbh2kaks</span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="license">License<a class="anchor" aria-label="anchor" href="#license"></a>
