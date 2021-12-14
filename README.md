@@ -50,6 +50,8 @@ Ubuntu/Debian
 
 ```
 sudo apt-get install libcurl4-openssl-dev libssl-dev libxml2-dev libglu1-mesa-dev libgit2-dev
+#Pandoc is required to build R Markdown vignettes
+#sudo apt-get install pandoc
 #pkgdown dependencies - pkgdown is used to build R package pages
 #sudo apt-get install libssh2-1-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev
 ```
@@ -58,6 +60,8 @@ CentOS
 
 ```
 sudo yum install libcurl-devel openssl-devel libxml2-devel mesa-libGLU-devel libgit2-devel
+#Pandoc is required to build R Markdown vignettes
+#sudo yum install pandoc
 #pkgdown dependencies - pkgdown is used to build R package pages
 #sudo yum install libssh2-devel fontconfig-devel harfbuzz-devel fribidi-devel
 ```
@@ -72,13 +76,19 @@ install.packages("devtools")
 
 ```
 devtools::install_gitlab("mpievolbio-it/crbhits", host = "https://gitlab.gwdg.de",
-build_vignettes = TRUE, dependencies = TRUE)
-#devtools::install_github("kullrich/CRBHits", build_vignettes = TRUE, dependencies = TRUE)
+build_vignettes = FALSE, dependencies = TRUE)
+#devtools::install_github("kullrich/CRBHits", build_vignettes = FALSE, dependencies = TRUE)
+CRBHits::make_last()
+CRBHits::make_KaKs_Calculator2()
+CRBHits::make_dagchainer()
 ```
 
-## External tools installation prerequisites
+## External tools installation prerequisites - detailed description
 
 ### install external tools via [bioconda](https://bioconda.github.io/)
+
+If the functions `CRBHits::make_last()`, `CRBHits::make_KaKs_Calculator2()` and `CRBHits::make_dagchainer()` fail on your system to install the prerequisites,
+there is the possibility to install them via [conda](https://www.anaconda.com/):
 
 ```
 conda config --add channels defaults
@@ -88,6 +98,24 @@ conda config --add channels conda-forge
 conda install last
 conda install kakscalculator2
 conda install dagchainer
+```
+
+After this installation, the prerequisites are supposed to be in the `PATH` and you need to set the correct `@param` in the corresponding functions of [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) like this:
+
+```
+## example how to use conda versions of LAST, KaKs_Calculator2.0 and DAGchainer
+my.lastpath <- dirname(system("which lastdb", intern = TRUE))
+my.kakspath <- dirname(system("which KaKs_Calculator", intern = TRUE))
+my.dagchainerpath <- system("which dagchainer", intern = TRUE)
+
+?cds2rbh
+cds2rbh(., ., lastpath = my.lastpath)
+
+?rbh2kaks
+rbh2kaks(., ., model = "YN", kakscalcpath = my.kakspath)
+
+?rbh2dagchainer
+rbh2dagchainer(., ., dagchainerpath = my.dagchainerpath)
 ```
 
 ### compile external tools from source code forked within this package
@@ -101,7 +129,7 @@ To compile the forked version of [LAST](https://gitlab.com/mcfrith/last) within 
 ```
 ## see more installation information here, if make fails
 ## last-install-help: https://gitlab.com/mcfrith/last
-make_last()
+CRBHits::make_last()
 ```
 
 - [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download)
@@ -110,7 +138,7 @@ To compile the forked version of [KaKs_Calculator2.0](https://sourceforge.net/pr
 
 ```
 ## compile KaKs_Calculator2
-make_KaKs_Calculator2()
+CRBHits::make_KaKs_Calculator2()
 ```
 
 - [DAGchainer](http://dagchainer.sourceforge.net/)
@@ -119,7 +147,7 @@ To compile the forked version of [DAGchainer](http://dagchainer.sourceforge.net/
 
 ```
 ## compile DAGchainer
-make_dagchainer()
+CRBHits::make_dagchainer()
 ```
 
 ### compile external tools from original source code
@@ -188,7 +216,7 @@ my.dagchainerpath <- "/tmp/dagcahiner"
 cds2rbh(., ., lastpath = my.lastpath)
 
 ?rbh2kaks
-rbh2kaks(., ., model = "YN", kakscalcpath = my.kakspaths)
+rbh2kaks(., ., model = "YN", kakscalcpath = my.kakspath)
 
 ?rbh2dagchainer
 rbh2dagchainer(., ., dagchainerpath = my.dagchainerpath)

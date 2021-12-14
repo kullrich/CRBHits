@@ -126,10 +126,14 @@
 <p>In most cases you need to first install the following system-wide packages to be able to compile the R dependencies. If you do not have ‘sudo’ rights, please ask your system-admin to install them for you.</p>
 <p>Ubuntu/Debian</p>
 <pre><code>sudo apt-get install libcurl4-openssl-dev libssl-dev libxml2-dev libglu1-mesa-dev libgit2-dev
+#Pandoc is required to build R Markdown vignettes
+#sudo apt-get install pandoc
 #pkgdown dependencies - pkgdown is used to build R package pages
 #sudo apt-get install libssh2-1-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev</code></pre>
 <p>CentOS</p>
 <pre><code>sudo yum install libcurl-devel openssl-devel libxml2-devel mesa-libGLU-devel libgit2-devel
+#Pandoc is required to build R Markdown vignettes
+#sudo yum install pandoc
 #pkgdown dependencies - pkgdown is used to build R package pages
 #sudo yum install libssh2-devel fontconfig-devel harfbuzz-devel fribidi-devel</code></pre>
 <ul>
@@ -142,17 +146,21 @@
 <a class="anchor" aria-label="anchor" href="#install-crbhits"></a>
 </h3>
 <pre><code><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_gitlab</a></span><span class="op">(</span><span class="st">"mpievolbio-it/crbhits"</span>, host <span class="op">=</span> <span class="st">"https://gitlab.gwdg.de"</span>,
-build_vignettes <span class="op">=</span> <span class="cn">TRUE</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#devtools::install_github("kullrich/CRBHits", build_vignettes = TRUE, dependencies = TRUE)</span></code></pre>
+build_vignettes <span class="op">=</span> <span class="cn">FALSE</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="co">#devtools::install_github("kullrich/CRBHits", build_vignettes = FALSE, dependencies = TRUE)</span>
+<span class="fu">CRBHits</span><span class="fu">::</span><span class="fu"><a href="reference/make_last.html">make_last</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu">CRBHits</span><span class="fu">::</span><span class="fu"><a href="reference/make_KaKs_Calculator2.html">make_KaKs_Calculator2</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu">CRBHits</span><span class="fu">::</span><span class="fu"><a href="reference/make_dagchainer.html">make_dagchainer</a></span><span class="op">(</span><span class="op">)</span></code></pre>
 </div>
 </div>
 <div class="section level2">
-<h2 id="external-tools-installation-prerequisites">External tools installation prerequisites<a class="anchor" aria-label="anchor" href="#external-tools-installation-prerequisites"></a>
+<h2 id="external-tools-installation-prerequisites---detailed-description">External tools installation prerequisites - detailed description<a class="anchor" aria-label="anchor" href="#external-tools-installation-prerequisites---detailed-description"></a>
 </h2>
 <div class="section level3">
 <h3 id="install-external-tools-via-bioconda">install external tools via <a href="https://bioconda.github.io/" class="external-link">bioconda</a>
 <a class="anchor" aria-label="anchor" href="#install-external-tools-via-bioconda"></a>
 </h3>
+<p>If the functions <code><a href="reference/make_last.html">CRBHits::make_last()</a></code>, <code><a href="reference/make_KaKs_Calculator2.html">CRBHits::make_KaKs_Calculator2()</a></code> and <code><a href="reference/make_dagchainer.html">CRBHits::make_dagchainer()</a></code> fail on your system to install the prerequisites, there is the possibility to install them via <a href="https://www.anaconda.com/" class="external-link">conda</a>:</p>
 <pre><code>conda config --add channels defaults
 conda config --add channels bioconda
 conda config --add channels conda-forge
@@ -160,6 +168,20 @@ conda config --add channels conda-forge
 conda install last
 conda install kakscalculator2
 conda install dagchainer</code></pre>
+<p>After this installation, the prerequisites are supposed to be in the <code>PATH</code> and you need to set the correct <code>@param</code> in the corresponding functions of <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a> like this:</p>
+<pre><code><span class="co">## example how to use conda versions of LAST, KaKs_Calculator2.0 and DAGchainer</span>
+<span class="va">my.lastpath</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">dirname</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"which lastdb"</span>, intern <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
+<span class="va">my.kakspath</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">dirname</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"which KaKs_Calculator"</span>, intern <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
+<span class="va">my.dagchainerpath</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="st">"which dagchainer"</span>, intern <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+
+<span class="op">?</span><span class="va">cds2rbh</span>
+<span class="fu"><a href="reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">.</span>, lastpath <span class="op">=</span> <span class="va">my.lastpath</span><span class="op">)</span>
+
+<span class="op">?</span><span class="va">rbh2kaks</span>
+<span class="fu"><a href="reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">.</span>, model <span class="op">=</span> <span class="st">"YN"</span>, kakscalcpath <span class="op">=</span> <span class="va">my.kakspath</span><span class="op">)</span>
+
+<span class="op">?</span><span class="va">rbh2dagchainer</span>
+<span class="fu"><a href="reference/rbh2dagchainer.html">rbh2dagchainer</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">.</span>, dagchainerpath <span class="op">=</span> <span class="va">my.dagchainerpath</span><span class="op">)</span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="compile-external-tools-from-source-code-forked-within-this-package">compile external tools from source code forked within this package<a class="anchor" aria-label="anchor" href="#compile-external-tools-from-source-code-forked-within-this-package"></a>
@@ -173,19 +195,19 @@ conda install dagchainer</code></pre>
 <p>To compile the forked version of <a href="https://gitlab.com/mcfrith/last" class="external-link">LAST</a> within the <code>CRBHits</code> R package directory try to use the function <code><a href="reference/make_last.html">make_last()</a></code>:</p>
 <pre><code><span class="co">## see more installation information here, if make fails</span>
 <span class="co">## last-install-help: https://gitlab.com/mcfrith/last</span>
-<span class="fu"><a href="reference/make_last.html">make_last</a></span><span class="op">(</span><span class="op">)</span></code></pre>
+<span class="fu">CRBHits</span><span class="fu">::</span><span class="fu"><a href="reference/make_last.html">make_last</a></span><span class="op">(</span><span class="op">)</span></code></pre>
 <ul>
 <li><a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download" class="external-link">KaKs_Calculator2.0</a></li>
 </ul>
 <p>To compile the forked version of <a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download" class="external-link">KaKs_Calculator2.0</a> within the <code>CRBHits</code> R package directory try to use the function <code><a href="reference/make_KaKs_Calculator2.html">make_KaKs_Calculator2()</a></code>:</p>
 <pre><code><span class="co">## compile KaKs_Calculator2</span>
-<span class="fu"><a href="reference/make_KaKs_Calculator2.html">make_KaKs_Calculator2</a></span><span class="op">(</span><span class="op">)</span></code></pre>
+<span class="fu">CRBHits</span><span class="fu">::</span><span class="fu"><a href="reference/make_KaKs_Calculator2.html">make_KaKs_Calculator2</a></span><span class="op">(</span><span class="op">)</span></code></pre>
 <ul>
 <li><a href="http://dagchainer.sourceforge.net/" class="external-link">DAGchainer</a></li>
 </ul>
 <p>To compile the forked version of <a href="http://dagchainer.sourceforge.net/" class="external-link">DAGchainer</a> within the <code>CRBHits</code> R package directory try to use the function <code><a href="reference/make_dagchainer.html">make_dagchainer()</a></code>:</p>
 <pre><code><span class="co">## compile DAGchainer</span>
-<span class="fu"><a href="reference/make_dagchainer.html">make_dagchainer</a></span><span class="op">(</span><span class="op">)</span></code></pre>
+<span class="fu">CRBHits</span><span class="fu">::</span><span class="fu"><a href="reference/make_dagchainer.html">make_dagchainer</a></span><span class="op">(</span><span class="op">)</span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="compile-external-tools-from-original-source-code">compile external tools from original source code<a class="anchor" aria-label="anchor" href="#compile-external-tools-from-original-source-code"></a>
@@ -237,7 +259,7 @@ make</code></pre>
 <span class="fu"><a href="reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">.</span>, lastpath <span class="op">=</span> <span class="va">my.lastpath</span><span class="op">)</span>
 
 <span class="op">?</span><span class="va">rbh2kaks</span>
-<span class="fu"><a href="reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">.</span>, model <span class="op">=</span> <span class="st">"YN"</span>, kakscalcpath <span class="op">=</span> <span class="va">my.kakspaths</span><span class="op">)</span>
+<span class="fu"><a href="reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">.</span>, model <span class="op">=</span> <span class="st">"YN"</span>, kakscalcpath <span class="op">=</span> <span class="va">my.kakspath</span><span class="op">)</span>
 
 <span class="op">?</span><span class="va">rbh2dagchainer</span>
 <span class="fu"><a href="reference/rbh2dagchainer.html">rbh2dagchainer</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">.</span>, dagchainerpath <span class="op">=</span> <span class="va">my.dagchainerpath</span><span class="op">)</span></code></pre>
