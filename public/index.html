@@ -138,25 +138,12 @@
 <pre><code><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></code></pre>
 </div>
 <div class="section level3">
-<h3 id="install-packages-from-bioconductor">install packages from <a href="https://www.bioconductor.org/" class="external-link">Bioconductor</a>
-<a class="anchor" aria-label="anchor" href="#install-packages-from-bioconductor"></a>
-</h3>
-<ul>
-<li><a href="http://bioconductor.org/packages/release/bioc/html/Biostrings.html" class="external-link">Biostrings</a></li>
-</ul>
-<pre><code><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
-    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span>
-
-<span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"Biostrings"</span><span class="op">)</span></code></pre>
-</div>
-<div class="section level3">
 <h3 id="install-crbhits">install <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a>
 <a class="anchor" aria-label="anchor" href="#install-crbhits"></a>
 </h3>
-<pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span>
-<span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_gitlab</a></span><span class="op">(</span><span class="st">"mpievolbio-it/crbhits"</span>, host <span class="op">=</span> <span class="st">"https://gitlab.gwdg.de"</span>,
+<pre><code><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_gitlab</a></span><span class="op">(</span><span class="st">"mpievolbio-it/crbhits"</span>, host <span class="op">=</span> <span class="st">"https://gitlab.gwdg.de"</span>,
 build_vignettes <span class="op">=</span> <span class="cn">TRUE</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#install_github("kullrich/CRBHits", build_vignettes = TRUE, dependencies = TRUE)</span></code></pre>
+<span class="co">#devtools::install_github("kullrich/CRBHits", build_vignettes = TRUE, dependencies = TRUE)</span></code></pre>
 </div>
 </div>
 <div class="section level2">

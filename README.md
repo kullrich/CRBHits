@@ -68,24 +68,12 @@ sudo yum install libcurl-devel openssl-devel libxml2-devel mesa-libGLU-devel lib
 install.packages("devtools")
 ```
 
-### install packages from [Bioconductor](https://www.bioconductor.org/)
-
-- [Biostrings](http://bioconductor.org/packages/release/bioc/html/Biostrings.html)
-
-```
-if (!requireNamespace("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-
-BiocManager::install("Biostrings")
-```
-
 ### install [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits)
 
 ```
-library(devtools)
-install_gitlab("mpievolbio-it/crbhits", host = "https://gitlab.gwdg.de",
+devtools::install_gitlab("mpievolbio-it/crbhits", host = "https://gitlab.gwdg.de",
 build_vignettes = TRUE, dependencies = TRUE)
-#install_github("kullrich/CRBHits", build_vignettes = TRUE, dependencies = TRUE)
+#devtools::install_github("kullrich/CRBHits", build_vignettes = TRUE, dependencies = TRUE)
 ```
 
 ## External tools installation prerequisites
