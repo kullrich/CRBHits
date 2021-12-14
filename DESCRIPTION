@@ -20,6 +20,7 @@ Imports:
   ape,
   foreach,
   doParallel,
+  tibble,
   tidyverse,
   tidyr,
   stringr,
