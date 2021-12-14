@@ -7,7 +7,7 @@
 cdsfile2rbh(
   cdsfile1,
   cdsfile2,
-  lastpath = paste0(find.package("CRBHits"), "/extdata/last-1243/bin/"),
+  lastpath = paste0(find.package("CRBHits"), "/extdata/last-1256/bin/"),
   lastD = 1e+06,
   outpath = "/tmp",
   crbh = TRUE,
@@ -34,7 +34,7 @@ cdsfile2rbh(
 
 \item{cdsfile2}{cds2 fasta file [mandatory]}
 
-\item{lastpath}{specify the PATH to the last binaries [default: /extdata/last-1243/bin/]}
+\item{lastpath}{specify the PATH to the last binaries [default: /extdata/last-1256/bin/]}
 
 \item{lastD}{last option D: query letters per random alignment [default: 1e6]}
 
@@ -93,7 +93,7 @@ Sequence searches are performed with \bold{last} \emph{Kiełbasa, SM et al. (201
 If one specifies cdsfile1 and cdsfile2 as the same input a selfblast is conducted.
 }
 \examples{
-## compile last-1243 within CRBHits
+## compile last-1256 within CRBHits
 make_last()
 ## load example sequence data
 athfile <- system.file("fasta", "ath.cds.fasta.gz", package = "CRBHits")

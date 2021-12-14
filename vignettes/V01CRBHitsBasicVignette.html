@@ -12,7 +12,7 @@
 
 <meta name="author" content="Kristian K Ullrich" />
 
-<meta name="date" content="2021-06-01" />
+<meta name="date" content="2021-12-14" />
 
 <title>CRBHits Basic Vignette</title>
 
@@ -141,7 +141,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <h1 class="title toc-ignore">CRBHits Basic Vignette</h1>
 <h4 class="author">Kristian K Ullrich</h4>
-<h4 class="date">2021-06-01</h4>
+<h4 class="date">2021-12-14</h4>
 
 
 
@@ -192,15 +192,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> features downstream anaylsis like batch calculating synonymous (Ks) and nonsynonymous substitutions (Ka) per orthologous sequence pair. The codon sequence alignment step consist of three subtasks, namely coding nucleotide to protein sequence translation, pairwise protein sequence alignment calculation and converting the protein sequence alignment back into a codon based alignment.</p>
 <p><strong>Note:</strong></p>
 <p>In this Vignette the <code>lastpath</code> is defined as <code>vignette.paths[1]</code>, the <code>kakscalcpath</code> as <code>vignette.paths[2]</code> and the <code>dagchainerpath</code> as <code>vignette.paths[3]</code> to be able to build the Vignette.</p>
-<p>However, once you have compiled last-1243, KaKs_Calculator2.0 and DAGchainer with the functions <code>make_last()</code>, <code>make_KaKs_Calculator2()</code> and <code>make_dagchainer()</code> you won’t need to specify the paths anymore. Please remove them if you would like to repeat the examples.</p>
+<p>However, once you have compiled last-1256, KaKs_Calculator2.0 and DAGchainer with the functions <code>make_last()</code>, <code>make_KaKs_Calculator2()</code> and <code>make_dagchainer()</code> you won’t need to specify the paths anymore. Please remove them if you would like to repeat the examples.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## load vignette specific libraries</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(CRBHits)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(Biostrings))</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(tidyverse))</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(gridExtra))</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(curl))</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="do">## compile LAST, KaKs_Calculator2.0 and DAGchainer for the vignette</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>vignette.paths <span class="ot">&lt;-</span> <span class="fu">make_vignette</span>()</span></code></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning: package &#39;GenomeInfoDb&#39; was built under R version 4.1.1</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(tidyverse))</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(gridExtra))</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(curl))</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="do">## compile LAST, KaKs_Calculator2.0 and DAGchainer for the vignette</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>vignette.paths <span class="ot">&lt;-</span> <span class="fu">make_vignette</span>()</span></code></pre></div>
 </div>
 <div id="installation" class="section level2">
 <h2>1. <span id="install">Installation</span></h2>
@@ -217,7 +218,7 @@ install_github(&quot;kullrich/CRBHits&quot;, build_vignettes = TRUE, dependencie
 <p>All prerequisites (LAST, KaKs_Calculator2.0, DAGchainer) are forked within <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits">CRBHits</a> and can be compiled for Linux/Unix/macOS with the functions <code>make_last()</code>, <code>make_KaKs_Calculator2()</code> and <code>make_dagchainer()</code>.</p>
 <p>For the windows platform the user needs to use e.g. <a href="https://www.cygwin.com/">https://www.cygwin.com/</a> to be able to compile the prerequisites.</p>
 <pre><code>library(CRBHits)
-## compile last-1243
+## compile last-1256
 make_last()
 ## compile KaKs_Calculator2.0
 make_KaKs_Calculator2()

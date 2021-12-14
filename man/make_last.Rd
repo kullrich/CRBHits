@@ -7,7 +7,7 @@
 make_last()
 }
 \description{
-This function tries to build the prerequisite last-1243 from source code forked within CRBHits
+This function tries to build the prerequisite last-1256 from source code forked within CRBHits
 }
 \references{
 Kiełbasa SM et al. (2011) Adaptive seeds tame genomic sequence comparison. \bold{Genome Res.} \bold{21} \bold{(3)}, 487-93.

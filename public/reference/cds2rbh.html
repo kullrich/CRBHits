@@ -72,7 +72,7 @@ If one specifies cds1 and cds2 as the same input a selfblast is conducted.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">cds2rbh</span><span class="op">(</span>
   <span class="va">cds1</span>,
   <span class="va">cds2</span>,
-  lastpath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/find.package.html" class="external-link">find.package</a></span><span class="op">(</span><span class="st">"CRBHits"</span><span class="op">)</span>, <span class="st">"/extdata/last-1243/bin/"</span><span class="op">)</span>,
+  lastpath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/find.package.html" class="external-link">find.package</a></span><span class="op">(</span><span class="st">"CRBHits"</span><span class="op">)</span>, <span class="st">"/extdata/last-1256/bin/"</span><span class="op">)</span>,
   lastD <span class="op">=</span> <span class="fl">1e+06</span>,
   outpath <span class="op">=</span> <span class="st">"/tmp"</span>,
   crbh <span class="op">=</span> <span class="cn">TRUE</span>,
@@ -102,7 +102,7 @@ If one specifies cds1 and cds2 as the same input a selfblast is conducted.</p>
 <dt>cds2</dt>
 <dd><p>cds2 sequences as <code>DNAStringSet</code> [mandatory]</p></dd>
 <dt>lastpath</dt>
-<dd><p>specify the PATH to the last binaries [default: /extdata/last-1243/bin/]</p></dd>
+<dd><p>specify the PATH to the last binaries [default: /extdata/last-1256/bin/]</p></dd>
 <dt>lastD</dt>
 <dd><p>last option D: query letters per random alignment [default: 1e6]</p></dd>
 <dt>outpath</dt>
@@ -164,7 +164,7 @@ If one specifies cds1 and cds2 as the same input a selfblast is conducted.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## compile last-1243 within CRBHits</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## compile last-1256 within CRBHits</span></span>
 <span class="r-in"><span class="fu"><a href="make_last.html">make_last</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-in"><span class="co">## load example sequence data</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ath"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span></span>

@@ -123,7 +123,7 @@
 <h3 id="install-packages-from-cran">install packages from <a href="https://cran.r-project.org/web/packages/index.html" class="external-link">cran</a>
 <a class="anchor" aria-label="anchor" href="#install-packages-from-cran"></a>
 </h3>
-<p>In most cases you need to first install the following system-wide packages to be able to compile the R dependencies.</p>
+<p>In most cases you need to first install the following system-wide packages to be able to compile the R dependencies. If you do not have ‘sudo’ rights, please ask your system-admin to install them for you.</p>
 <p>Ubuntu/Debian</p>
 <pre><code>sudo apt-get install libcurl4-openssl-dev libssl-dev libxml2-dev libglu1-mesa-dev libgit2-dev
 #pkgdown dependencies - pkgdown is used to build R package pages
@@ -134,28 +134,8 @@
 #sudo yum install libssh2-devel fontconfig-devel harfbuzz-devel fribidi-devel</code></pre>
 <ul>
 <li><a href="https://cran.r-project.org/web/packages/devtools/index.html" class="external-link">devtools</a></li>
-<li><a href="https://cran.r-project.org/web/packages/testthat/index.html" class="external-link">testthat</a></li>
-<li><a href="https://cran.r-project.org/web/packages/curl/index.html" class="external-link">curl</a></li>
-<li><a href="https://cran.r-project.org/web/packages/seqinr/index.html" class="external-link">seqinr</a></li>
-<li><a href="https://cran.r-project.org/web/packages/ape/index.html" class="external-link">ape</a></li>
-<li><a href="https://cran.r-project.org/web/packages/foreach/index.html" class="external-link">foreach</a></li>
-<li><a href="https://cran.r-project.org/web/packages/doMC/index.html" class="external-link">doMC</a></li>
-<li><a href="https://cran.r-project.org/web/packages/tidyverse/index.html" class="external-link">tidyverse</a></li>
-<li><a href="https://cran.r-project.org/web/packages/gridExtra/index.html" class="external-link">gridExtra</a></li>
-<li><a href="https://cran.r-project.org/web/packages/mclust/index.html" class="external-link">mclust</a></li>
-<li><a href="https://cran.r-project.org/web/packages/feature/index.html" class="external-link">feature</a></li>
 </ul>
-<pre><code><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"testthat"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"curl"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"seqinr"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"ape"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"foreach"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"doParallel"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"tidyverse"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"gridExtra"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"mclust"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"feature"</span><span class="op">)</span></code></pre>
+<pre><code><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="install-packages-from-bioconductor">install packages from <a href="https://www.bioconductor.org/" class="external-link">Bioconductor</a>
@@ -175,40 +155,67 @@
 </h3>
 <pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span>
 <span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_gitlab</a></span><span class="op">(</span><span class="st">"mpievolbio-it/crbhits"</span>, host <span class="op">=</span> <span class="st">"https://gitlab.gwdg.de"</span>,
-build_vignettes <span class="op">=</span> <span class="cn">FALSE</span>, dependencies <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="co">#install_github("kullrich/CRBHits", build_vignettes = FALSE, dependencies = FALSE)</span></code></pre>
+build_vignettes <span class="op">=</span> <span class="cn">TRUE</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="co">#install_github("kullrich/CRBHits", build_vignettes = TRUE, dependencies = TRUE)</span></code></pre>
 </div>
 </div>
 <div class="section level2">
 <h2 id="external-tools-installation-prerequisites">External tools installation prerequisites<a class="anchor" aria-label="anchor" href="#external-tools-installation-prerequisites"></a>
 </h2>
+<div class="section level3">
+<h3 id="install-external-tools-via-bioconda">install external tools via <a href="https://bioconda.github.io/" class="external-link">bioconda</a>
+<a class="anchor" aria-label="anchor" href="#install-external-tools-via-bioconda"></a>
+</h3>
+<pre><code>conda config --add channels defaults
+conda config --add channels bioconda
+conda config --add channels conda-forge
+
+conda install last
+conda install kakscalculator2
+conda install dagchainer</code></pre>
+</div>
+<div class="section level3">
+<h3 id="compile-external-tools-from-source-code-forked-within-this-package">compile external tools from source code forked within this package<a class="anchor" aria-label="anchor" href="#compile-external-tools-from-source-code-forked-within-this-package"></a>
+</h3>
 <p>The source code for the prerequisites (LAST, KaKs_Calculator2.0, DAGchainer) are forked within <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a>.</p>
 <ul>
 <li>
-<a href="https://gitlab.com/mcfrith/last" class="external-link">LAST</a> <a href="https://gitlab.com/mcfrith/last/-/archive/1243/last-1243.zip" class="external-link">https://gitlab.com/mcfrith/last/-/archive/1243/last-1243.zip</a>
+<a href="https://gitlab.com/mcfrith/last" class="external-link">LAST</a> <a href="https://gitlab.com/mcfrith/last/-/archive/1256/last-1256.zip" class="external-link">https://gitlab.com/mcfrith/last/-/archive/1256/last-1256.zip</a>
 </li>
 </ul>
 <p>To compile the forked version of <a href="https://gitlab.com/mcfrith/last" class="external-link">LAST</a> within the <code>CRBHits</code> R package directory try to use the function <code><a href="reference/make_last.html">make_last()</a></code>:</p>
 <pre><code><span class="co">## see more installation information here, if make fails</span>
 <span class="co">## last-install-help: https://gitlab.com/mcfrith/last</span>
 <span class="fu"><a href="reference/make_last.html">make_last</a></span><span class="op">(</span><span class="op">)</span></code></pre>
-<p>To compile <a href="https://gitlab.com/mcfrith/last" class="external-link">LAST</a> yourself on Linux/Unix/macOS into another folder:</p>
-<pre><code>## create and change into the directory to install LAST
-## e.g.
-mkdir /tmp/last
-cd /tmp/last
-## donwload last-1243
-curl -O https://gitlab.com/mcfrith/last/-/archive/1243/last-1243.zip
-unzip last-1243.zip
-cd last-1243
-## compile LAST
-make</code></pre>
 <ul>
 <li><a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download" class="external-link">KaKs_Calculator2.0</a></li>
 </ul>
 <p>To compile the forked version of <a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download" class="external-link">KaKs_Calculator2.0</a> within the <code>CRBHits</code> R package directory try to use the function <code><a href="reference/make_KaKs_Calculator2.html">make_KaKs_Calculator2()</a></code>:</p>
 <pre><code><span class="co">## compile KaKs_Calculator2</span>
 <span class="fu"><a href="reference/make_KaKs_Calculator2.html">make_KaKs_Calculator2</a></span><span class="op">(</span><span class="op">)</span></code></pre>
+<ul>
+<li><a href="http://dagchainer.sourceforge.net/" class="external-link">DAGchainer</a></li>
+</ul>
+<p>To compile the forked version of <a href="http://dagchainer.sourceforge.net/" class="external-link">DAGchainer</a> within the <code>CRBHits</code> R package directory try to use the function <code><a href="reference/make_dagchainer.html">make_dagchainer()</a></code>:</p>
+<pre><code><span class="co">## compile DAGchainer</span>
+<span class="fu"><a href="reference/make_dagchainer.html">make_dagchainer</a></span><span class="op">(</span><span class="op">)</span></code></pre>
+</div>
+<div class="section level3">
+<h3 id="compile-external-tools-from-original-source-code">compile external tools from original source code<a class="anchor" aria-label="anchor" href="#compile-external-tools-from-original-source-code"></a>
+</h3>
+<p>If you would like to install the latest version of the tools, you need to download the source code and compile again.</p>
+<p>To compile <a href="https://gitlab.com/mcfrith/last" class="external-link">LAST</a> yourself on Linux/Unix/macOS into another folder:</p>
+<pre><code>## create and change into the directory to install LAST
+## e.g.
+mkdir /tmp/last
+cd /tmp/last
+## donwload last-1256
+curl -O https://gitlab.com/mcfrith/last/-/archive/1256/last-1256.zip
+unzip last-1256.zip
+cd last-1256
+## compile LAST
+make</code></pre>
+<p>To compile <a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download" class="external-link">KaKs_Calculator2.0</a>:</p>
 <p><strong>Note:</strong> Due to some changes in the latest <strong>g++</strong> compilers the source code was altered to meet this changes, which are directly incorporated into the <code>KaKs_Calculator2.0.tar.gz</code> that is distributed with <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a>. It is recommended to compile from this file (see below):</p>
 <pre><code>## create and change into the directory to install KaKs_Calculator2
 ## e.g.
@@ -221,12 +228,7 @@ cd KaKs_Calculator2.0/src
 ## compile KaKs_Calculator2
 make clean
 make</code></pre>
-<ul>
-<li><a href="http://dagchainer.sourceforge.net/" class="external-link">DAGchainer</a></li>
-</ul>
-<p>To compile the forked version of <a href="http://dagchainer.sourceforge.net/" class="external-link">DAGchainer</a> within the <code>CRBHits</code> R package directory try to use the function <code><a href="reference/make_dagchainer.html">make_dagchainer()</a></code>:</p>
-<pre><code><span class="co">## compile DAGchainer</span>
-<span class="fu"><a href="reference/make_dagchainer.html">make_dagchainer</a></span><span class="op">(</span><span class="op">)</span></code></pre>
+<p>To compile <a href="http://dagchainer.sourceforge.net/" class="external-link">DAGchainer</a>:</p>
 <p><strong>Note:</strong> Due to some changes in the latest <strong>g++</strong> compilers the source code was altered to meet this changes, which are directly incorporated into the <code>dagchainer.zip</code> that is distributed with <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a>. It is recommended to compile from this file (see below):</p>
 <pre><code>## create and change into the directory to install DAGchainer
 ## e.g.
@@ -238,10 +240,9 @@ unzip dagchainer.zip
 cd dagchainer
 ## compile DAGchainer
 make</code></pre>
-<p>If you would like to install the latest version of the tools, you need to download the source code and compile again.</p>
 <p>If you would like to use your own compiled versions of <code>LAST</code>, <code>KaKs_Calculator2.0</code> and <code>DAGchainer</code> you need to set the correct <code>@param</code> in the corresponding functions of <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a>.</p>
 <pre><code><span class="co">## example how to use own compiled versions of LAST, KaKs_Calculator2.0 and DAGchainer</span>
-<span class="va">my.lastpath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/last/last-1243/bin"</span>
+<span class="va">my.lastpath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/last/last-1256/bin"</span>
 <span class="va">my.kakspath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/KaKs_Calculator2/KaKs_Calculator2.0/src"</span>
 <span class="va">my.dagchainerpath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/dagcahiner"</span>
 
@@ -253,17 +254,6 @@ make</code></pre>
 
 <span class="op">?</span><span class="va">rbh2dagchainer</span>
 <span class="fu"><a href="reference/rbh2dagchainer.html">rbh2dagchainer</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">.</span>, dagchainerpath <span class="op">=</span> <span class="va">my.dagchainerpath</span><span class="op">)</span></code></pre>
-<div class="section level3">
-<h3 id="install-external-tools-via-bioconda">install external tools via <a href="https://bioconda.github.io/" class="external-link">bioconda</a>
-<a class="anchor" aria-label="anchor" href="#install-external-tools-via-bioconda"></a>
-</h3>
-<pre><code>conda config --add channels defaults
-conda config --add channels bioconda
-conda config --add channels conda-forge
-
-conda install last
-conda install kakscalculator2
-conda install dagchainer</code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -299,7 +289,7 @@ conda install dagchainer</code></pre>
 <h2 id="quick-guide">Quick-guide<a class="anchor" aria-label="anchor" href="#quick-guide"></a>
 </h2>
 <pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a></span><span class="op">)</span>
-<span class="co">## compile last-1243</span>
+<span class="co">## compile last-1256</span>
 <span class="fu"><a href="reference/make_last.html">make_last</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">## conditional reciprocal best hits (CRBHit pairs)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ath"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span>
@@ -321,6 +311,7 @@ conda install dagchainer</code></pre>
 <span class="op">?</span><span class="va">plot_kaks</span>
 
 <span class="co">## kaks calculation - subset model "YN"</span>
+<span class="fu"><a href="reference/make_KaKs_Calculator2.html">make_KaKs_Calculator2</a></span><span class="op">(</span><span class="op">)</span>
 <span class="va">ath_aly_crbh.kaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span>,
                               <span class="va">ath</span>, <span class="va">aly</span>, model <span class="op">=</span> <span class="st">"YN"</span><span class="op">)</span>
 
@@ -350,7 +341,7 @@ conda install dagchainer</code></pre>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"HIV-1 sample 136 patient 1 from Sweden envelope glycoprotein (env) gene"</span><span class="op">)</span>
 
 <span class="co">## example how to use own compiled versions of LAST</span>
-<span class="va">my.lastpath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/last/last-1243/bin"</span>
+<span class="va">my.lastpath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/last/last-1256/bin"</span>
 <span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">ath</span>, <span class="va">aly</span>, plotCurve <span class="op">=</span> <span class="cn">TRUE</span>,
                         lastpath <span class="op">=</span> <span class="va">my.lastpath</span><span class="op">)</span>
 <span class="op">?</span><span class="va">cds2rbh</span>
@@ -368,7 +359,7 @@ conda install dagchainer</code></pre>
 <p>MIT (see LICENSE)</p>
 <p>The <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a> package includes source code that has been published under following licenses:</p>
 <div class="section level3">
-<h3 id="last-1243zip">last-1243.zip<a class="anchor" aria-label="anchor" href="#last-1243zip"></a>
+<h3 id="last-1256zip">last-1256.zip<a class="anchor" aria-label="anchor" href="#last-1256zip"></a>
 </h3>
 <p>GNU General Public License Version 3, 29 June 2007 <a href="https://www.gnu.org/licenses/gpl-3.0.de.html" class="external-link">GPLv3</a></p>
 </div>

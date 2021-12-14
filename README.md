@@ -44,7 +44,7 @@ see also here for the R package pages [https://mpievolbio-it.pages.gwdg.de/crbhi
 
 ### install packages from [cran](https://cran.r-project.org/web/packages/index.html)
 
-In most cases you need to first install the following system-wide packages to be able to compile the R dependencies.
+In most cases you need to first install the following system-wide packages to be able to compile the R dependencies. If you do not have 'sudo' rights, please ask your system-admin to install them for you.
 
 Ubuntu/Debian
 
@@ -63,29 +63,9 @@ sudo yum install libcurl-devel openssl-devel libxml2-devel mesa-libGLU-devel lib
 ```
 
 - [devtools](https://cran.r-project.org/web/packages/devtools/index.html)
-- [testthat](https://cran.r-project.org/web/packages/testthat/index.html)
-- [curl](https://cran.r-project.org/web/packages/curl/index.html)
-- [seqinr](https://cran.r-project.org/web/packages/seqinr/index.html)
-- [ape](https://cran.r-project.org/web/packages/ape/index.html)
-- [foreach](https://cran.r-project.org/web/packages/foreach/index.html)
-- [doMC](https://cran.r-project.org/web/packages/doMC/index.html)
-- [tidyverse](https://cran.r-project.org/web/packages/tidyverse/index.html)
-- [gridExtra](https://cran.r-project.org/web/packages/gridExtra/index.html)
-- [mclust](https://cran.r-project.org/web/packages/mclust/index.html)
-- [feature](https://cran.r-project.org/web/packages/feature/index.html)
 
 ```
 install.packages("devtools")
-install.packages("testthat")
-install.packages("curl")
-install.packages("seqinr")
-install.packages("ape")
-install.packages("foreach")
-install.packages("doParallel")
-install.packages("tidyverse")
-install.packages("gridExtra")
-install.packages("mclust")
-install.packages("feature")
 ```
 
 ### install packages from [Bioconductor](https://www.bioconductor.org/)
@@ -104,15 +84,29 @@ BiocManager::install("Biostrings")
 ```
 library(devtools)
 install_gitlab("mpievolbio-it/crbhits", host = "https://gitlab.gwdg.de",
-build_vignettes = FALSE, dependencies = FALSE)
-#install_github("kullrich/CRBHits", build_vignettes = FALSE, dependencies = FALSE)
+build_vignettes = TRUE, dependencies = TRUE)
+#install_github("kullrich/CRBHits", build_vignettes = TRUE, dependencies = TRUE)
 ```
 
 ## External tools installation prerequisites
 
+### install external tools via [bioconda](https://bioconda.github.io/)
+
+```
+conda config --add channels defaults
+conda config --add channels bioconda
+conda config --add channels conda-forge
+
+conda install last
+conda install kakscalculator2
+conda install dagchainer
+```
+
+### compile external tools from source code forked within this package
+
 The source code for the prerequisites (LAST, KaKs_Calculator2.0, DAGchainer) are forked within [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits). 
 
-- [LAST](https://gitlab.com/mcfrith/last) [https://gitlab.com/mcfrith/last/-/archive/1243/last-1243.zip](https://gitlab.com/mcfrith/last/-/archive/1243/last-1243.zip)
+- [LAST](https://gitlab.com/mcfrith/last) [https://gitlab.com/mcfrith/last/-/archive/1256/last-1256.zip](https://gitlab.com/mcfrith/last/-/archive/1256/last-1256.zip)
 
 To compile the forked version of [LAST](https://gitlab.com/mcfrith/last) within the `CRBHits` R package directory try to use the function `make_last()`:
 
@@ -120,21 +114,6 @@ To compile the forked version of [LAST](https://gitlab.com/mcfrith/last) within 
 ## see more installation information here, if make fails
 ## last-install-help: https://gitlab.com/mcfrith/last
 make_last()
-```
-
-To compile [LAST](https://gitlab.com/mcfrith/last) yourself on Linux/Unix/macOS into another folder:
-
-```
-## create and change into the directory to install LAST
-## e.g.
-mkdir /tmp/last
-cd /tmp/last
-## donwload last-1243
-curl -O https://gitlab.com/mcfrith/last/-/archive/1243/last-1243.zip
-unzip last-1243.zip
-cd last-1243
-## compile LAST
-make
 ```
 
 - [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download)
@@ -145,6 +124,36 @@ To compile the forked version of [KaKs_Calculator2.0](https://sourceforge.net/pr
 ## compile KaKs_Calculator2
 make_KaKs_Calculator2()
 ```
+
+- [DAGchainer](http://dagchainer.sourceforge.net/)
+
+To compile the forked version of [DAGchainer](http://dagchainer.sourceforge.net/) within the `CRBHits` R package directory try to use the function `make_dagchainer()`:
+
+```
+## compile DAGchainer
+make_dagchainer()
+```
+
+### compile external tools from original source code
+
+If you would like to install the latest version of the tools, you need to download the source code and compile again.
+
+To compile [LAST](https://gitlab.com/mcfrith/last) yourself on Linux/Unix/macOS into another folder:
+
+```
+## create and change into the directory to install LAST
+## e.g.
+mkdir /tmp/last
+cd /tmp/last
+## donwload last-1256
+curl -O https://gitlab.com/mcfrith/last/-/archive/1256/last-1256.zip
+unzip last-1256.zip
+cd last-1256
+## compile LAST
+make
+```
+
+To compile [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download):
 
 __Note:__ Due to some changes in the latest **g++** compilers the source code was altered to meet this changes, which are directly incorporated into the `KaKs_Calculator2.0.tar.gz` that is distributed with [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits). It is recommended to compile from this file (see below):
 
@@ -162,14 +171,7 @@ make clean
 make
 ```
 
-- [DAGchainer](http://dagchainer.sourceforge.net/)
-
-To compile the forked version of [DAGchainer](http://dagchainer.sourceforge.net/) within the `CRBHits` R package directory try to use the function `make_dagchainer()`:
-
-```
-## compile DAGchainer
-make_dagchainer()
-```
+To compile [DAGchainer](http://dagchainer.sourceforge.net/):
 
 __Note:__ Due to some changes in the latest **g++** compilers the source code was altered to meet this changes, which are directly incorporated into the `dagchainer.zip` that is distributed with [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits). It is recommended to compile from this file (see below):
 
@@ -186,13 +188,11 @@ cd dagchainer
 make
 ```
 
-If you would like to install the latest version of the tools, you need to download the source code and compile again.
-
 If you would like to use your own compiled versions of `LAST`, `KaKs_Calculator2.0` and `DAGchainer` you need to set the correct `@param` in the corresponding functions of [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits).
 
 ```
 ## example how to use own compiled versions of LAST, KaKs_Calculator2.0 and DAGchainer
-my.lastpath <- "/tmp/last/last-1243/bin"
+my.lastpath <- "/tmp/last/last-1256/bin"
 my.kakspath <- "/tmp/KaKs_Calculator2/KaKs_Calculator2.0/src"
 my.dagchainerpath <- "/tmp/dagcahiner"
 
@@ -204,18 +204,6 @@ rbh2kaks(., ., model = "YN", kakscalcpath = my.kakspaths)
 
 ?rbh2dagchainer
 rbh2dagchainer(., ., dagchainerpath = my.dagchainerpath)
-```
-
-### install external tools via [bioconda](https://bioconda.github.io/)
-
-```
-conda config --add channels defaults
-conda config --add channels bioconda
-conda config --add channels conda-forge
-
-conda install last
-conda install kakscalculator2
-conda install dagchainer
 ```
 
 ## Vignettes
@@ -241,7 +229,7 @@ These vignettes introduce  [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhit
 
 ```
 library(CRBHits)
-## compile last-1243
+## compile last-1256
 make_last()
 ## conditional reciprocal best hits (CRBHit pairs)
 data("ath", package="CRBHits")
@@ -263,6 +251,7 @@ g.kaks <- plot_kaks(ath_aly_crbh.kaks)
 ?plot_kaks
 
 ## kaks calculation - subset model "YN"
+make_KaKs_Calculator2()
 ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh,
                               ath, aly, model = "YN")
 
@@ -292,7 +281,7 @@ hiv.xy %>% select(Codon,SynMean,NonSynMean,IndelMean) %>%
     ggtitle("HIV-1 sample 136 patient 1 from Sweden envelope glycoprotein (env) gene")
 
 ## example how to use own compiled versions of LAST
-my.lastpath <- "/tmp/last/last-1243/bin"
+my.lastpath <- "/tmp/last/last-1256/bin"
 ath_aly_crbh <- cds2rbh(ath, aly, plotCurve = TRUE,
                         lastpath = my.lastpath)
 ?cds2rbh
@@ -311,7 +300,7 @@ MIT (see LICENSE)
 
 The [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) package includes source code that has been published under following licenses:
 
-### last-1243.zip
+### last-1256.zip
 
 GNU General Public License Version 3, 29 June 2007 [GPLv3](https://www.gnu.org/licenses/gpl-3.0.de.html)
 
