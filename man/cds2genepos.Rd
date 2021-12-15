@@ -29,6 +29,11 @@ This function extracts the gene position from either NCBI or
 ENSEMBL CDS input.
 }
 \examples{
+## load example sequence data
+data("ath", package="CRBHits")
+ath.genepos <- cds2genepos(
+    cds=ath,
+    source="ENSEMBL")
 \dontrun{
 ## load example sequence data
 ## set EnsemblPlants URL

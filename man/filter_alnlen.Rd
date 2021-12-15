@@ -25,7 +25,9 @@ alignment length.
 ## load crbh data
 data(ath_aly_crbh)
 dim(ath_aly_crbh$crbh1)
-dim(filter_alnlen(ath_aly_crbh$crbh1, alnlen=75))
+dim(filter_alnlen(
+    rbh=ath_aly_crbh$crbh1,
+    alnlen=75))
 }
 \author{
 Kristian K Ullrich

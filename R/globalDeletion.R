@@ -5,6 +5,16 @@
 #' @importFrom Biostrings consensusMatrix
 #' @param dna \code{DNAStringSet}
 #' @return \code{DNAStringSet}
+#' @examples
+#' ## define two cds sequences
+#' cds1 <- Biostrings::DNAString("ATGCAACATTGC")
+#' cds2 <- Biostrings::DNAString("ATGCATTGC")
+#' cds1.cds2.aln <- cds2codonaln(
+#'     cds1=cds1,
+#'     cds2=cds2)
+#' cds1.cds2.aln
+#' ## delete all gaps
+#' globalDeletion(cds1.cds2.aln)
 #' @export globalDeletion
 #' @author Kristian K Ullrich
 globalDeletion<-function(dna){

@@ -26,7 +26,9 @@
 #' compareCodons("AAA","TTT")
 #' ## load example sequence data
 #' data("hiv", package="CRBHits")
-#' compareCodons(dnastring2codonmat(hiv)[1,1], dnastring2codonmat(hiv)[1,2])
+#' compareCodons(
+#'     codA=dnastring2codonmat(hiv)[1, 1],
+#'     codB=dnastring2codonmat(hiv)[1, 2])
 #' @export compareCodons
 #' @author Kristian K Ullrich
 

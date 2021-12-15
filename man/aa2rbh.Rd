@@ -100,20 +100,29 @@ If one specifies aa1 and aa2 as the same input a selfblast is conducted.
 }
 \examples{
 ## compile last-1256 within CRBHits
-make_last()
+CRBHits::make_last()
 ## load example sequence data
 data("ath", package="CRBHits")
 data("aly", package="CRBHits")
 ath.aa <- cds2aa(ath)
 aly.aa <- cds2aa(aly)
 ## get CRBHit pairs
-ath_aly_crbh <- aa2rbh(ath.aa, aly.aa, plotCurve=TRUE)
+ath_aly_crbh <- aa2rbh(
+    aa1=ath.aa,
+    aa2=aly.aa,
+    plotCurve=TRUE)
 dim(ath_aly_crbh$crbh.pairs)
 ## get classical reciprocal best hit (RBHit) pairs
-ath_aly_rbh <- aa2rbh(ath.aa, aly.aa, crbh=FALSE)
+ath_aly_rbh <- aa2rbh(
+    aa1=ath.aa,
+    aa2=aly.aa,
+    crbh=FALSE)
 dim(ath_aly_rbh$crbh.pairs)
 ## selfblast
-ath_selfblast_crbh <- aa2rbh(ath.aa, ath.aa, plotCurve=TRUE)
+ath_selfblast_crbh <- aa2rbh(
+    aa1=ath.aa,
+    aa2=ath.aa,
+    plotCurve=TRUE)
 ## see ?cds2rbh for more examples
 }
 \references{

@@ -1,8 +1,9 @@
 #' @title codonmat2pnps
 #' @name codonmat2pnps
-#' @description This function calculates pn/ps according to
-#' \emph{Nei and Gojobori (1986)}.
-#' @param codonmat \code{codonmat} A [mandatory]
+#' @description This function calculates pn/ps according to \emph{Nei and
+#' Gojobori (1986)}.
+#' @param codonmat \code{codon matrix} of two columns to be
+#' compared [mandatory]
 #' @return An object of class \code{pnps} which is a list with the following
 #' components:\cr
 #' \code{seq1} sequence1 name\cr
@@ -45,9 +46,8 @@
 #' @author Kristian K Ullrich
 
 codonmat2pnps <- function(codonmat){
-    if(dim(codonmat)[2]!=2){
-        stop("Error: input needs to be a codonmat of 2 columns")
-    }
+    stopifnot("Error: input needs to be a codonmat of 2 columns"=
+        dim(codonmat)[2]==2)
     seq1_name <- colnames(codonmat)[1]
     seq2_name <- colnames(codonmat)[2]
     count_codons <- dim(codonmat)[1]
@@ -55,30 +55,30 @@ codonmat2pnps <- function(codonmat){
         function(x) grep("-", x))))
     count_insertions <- length(insertions_idx)
     if(count_insertions > 0){
-        codonmat <- codonmat[-insertions_idx, , drop=FALSE]
+        codonmat <- codonmat[-insertions_idx, , drop = FALSE]
     }
-    codonnumber <- apply(codonmat, 2, codon2numberTCAG)
+    codonnumber <- apply(codonmat, 2, CRBHits::codon2numberTCAG)
     Ns_idx <- unique(unlist(apply(codonnumber, 2, function(x) which(is.na(x)))))
     count_Ns <- length(Ns_idx)
     if(count_Ns > 0){
-        codonmat <- codonmat[-Ns_idx, , drop=FALSE]
-        codonnumber <- codonnumber[-Ns_idx, , drop=FALSE]
+        codonmat <- codonmat[-Ns_idx, , drop = FALSE]
+        codonnumber <- codonnumber[-Ns_idx, , drop = FALSE]
     }
-    SA_Nei <- sum(GENETIC_CODE_TCAG[codonmat[, 1], 4])
-    SB_Nei <- sum(GENETIC_CODE_TCAG[codonmat[, 2], 4])
+    SA_Nei <- sum(CRBHits::GENETIC_CODE_TCAG[codonmat[, 1], 4])
+    SB_Nei <- sum(CRBHits::GENETIC_CODE_TCAG[codonmat[, 2], 4])
     identical_codons_idx <- which(codonnumber[, 1]==codonnumber[, 2])
     identical_codons <- length(identical_codons_idx)
     if(identical_codons > 0){
-        codonmat <- codonmat[-identical_codons_idx, , drop=FALSE]
-        codonnumber <- codonnumber[-identical_codons_idx, , drop=FALSE]
+        codonmat <- codonmat[-identical_codons_idx, , drop = FALSE]
+        codonnumber <- codonnumber[-identical_codons_idx, , drop = FALSE]
     }
     ## At this point, codonA and codonB are "real" codons (no N's or -'s)
     ## but are not identical
     syn_codons <- 0
     nonsyn_codons <- 0
     if(nrow(codonmat) > 0){
-        syn_nonsyn_codons <- apply(codonmat, 1, function(x) compareCodons(x[1],
-            x[2]))
+        syn_nonsyn_codons <- apply(codonmat, 1,
+            function(x) CRBHits::compareCodons(x[1], x[2]))
         syn_codons <- syn_codons + sum(syn_nonsyn_codons[1, ])
         nonsyn_codons <- nonsyn_codons + sum(syn_nonsyn_codons[2, ])
     }

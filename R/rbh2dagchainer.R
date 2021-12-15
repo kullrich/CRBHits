@@ -68,20 +68,27 @@
 #' \bold{20(18)}, 3643-3646.
 #' @examples
 #' ## compile dagchainer
-#' make_dagchainer()
+#' CRBHits::make_dagchainer()
 #' ## load example sequence data
 #' data("ath", package="CRBHits")
 #' ## get selfhits CRBHit pairs
-#' ath_selfhits_crbh <- cds2rbh(ath, ath, plotCurve = TRUE)
+#' ath_selfhits_crbh <- cds2rbh(
+#'     cds1=ath,
+#'     cds2=ath,
+#'     plotCurve=TRUE)
 #' ## get gene position
-#' ath.genepos <- cds2genepos(ath, "ENSEMBL")
+#' ath.genepos <- cds2genepos(
+#'     cds=ath,
+#'     source="ENSEMBL")
 #' ## get DAGchainer results
-#' ath_selfblast_crbh.dagchainer <- rbh2dagchainer(rbhpairs=ath_selfhits_crbh,
+#' ath_selfblast_crbh.dagchainer <- rbh2dagchainer(
+#'     rbhpairs=ath_selfhits_crbh,
 #'     gene.position.cds1=ath.genepos,
 #'     gene.position.cds2=ath.genepos)
 #' head(ath_selfblast_crbh.dagchainer)
 #' ## plot dagchainer
-#' plot_dagchainer(ath_selfblast_crbh.dagchainer)
+#' plot_dagchainer(
+#'     dag=ath_selfblast_crbh.dagchainer)
 #' @export rbh2dagchainer
 #' @author Kristian K Ullrich
 
@@ -346,33 +353,40 @@ rbh2dagchainer <- function(rbhpairs,
     tmp <- tempfile()
     write.table(dagchainer.input,
         sep="\t", quote=FALSE, col.names=FALSE, row.names=FALSE, file=tmp)
-    dagchainercmd <- paste0(dagchainerpath, "run_DAG_chainer.pl -i ", tmp,
-        " -o ", sprintf("%0i", gap_open_penalty),
-        " -e ", sprintf("%0i", gap_extension_penalty),
-        " -g ", sprintf("%0i", gap_length),
-        " -M ", sprintf("%0i", max_match_score),
-        " -D ", sprintf("%0i", max_dist_allowed),
-        " -E ", max_evalue,
-        " -A ", sprintf("%0i", min_number_aligned_pairs))
+    dagchainercmd <- paste0(dagchainerpath, "run_DAG_chainer.pl")
+    dagchainerargs <- c(
+        "-i", tmp,
+        "-o", sprintf("%0i", gap_open_penalty),
+        "-e", sprintf("%0i", gap_extension_penalty),
+        "-g", sprintf("%0i", gap_length),
+        "-M", sprintf("%0i", max_match_score),
+        "-D", sprintf("%0i", max_dist_allowed),
+        "-E", max_evalue,
+        "-A", sprintf("%0i", min_number_aligned_pairs))
     if(selfblast | (!is.null(selfblast1) | !is.null(selfblast2))){
         if(ignore_tandem && !only_tandem){
-            print(paste0(dagchainercmd, " -I -s"))
-            system2(command=dagchainercmd, args = c("-I", "-s"),
+            print(paste(dagchainercmd,
+                paste(dagchainerargs, collapse = " "), "-I", "-s"))
+            system2(command=dagchainercmd, args=c(dagchainerargs, "-I", "-s"),
                 stdout=FALSE, stderr=FALSE)
         }
         if(only_tandem && !ignore_tandem){
-            print(paste0(dagchainercmd, " -T -s"))
-            system2(command=dagchainercmd, args = c("-T", "-s"),
+            print(paste(dagchainercmd,
+                paste(dagchainerargs, collapse = " "), "-T", "-s"))
+            system2(command=dagchainercmd, args=c(dagchainerargs, "-T", "-s"),
                 stdout=FALSE, stderr=FALSE)
         }
         if(!ignore_tandem && !only_tandem){
-            print(paste0(dagchainercmd, " -s"))
-            system2(command=dagchainercmd, args = "-s",
+            print(paste(dagchainercmd,
+                paste(dagchainerargs, collapse = " "), "-s"))
+            system2(command=dagchainercmd, args=c(dagchainerargs, "-s"),
                 stdout=FALSE, stderr=FALSE)
         }
     } else {
-        print(dagchainercmd)
-        system2(dagchainercmd, stdout=FALSE, stderr=FALSE)
+        print(paste(dagchainercmd,
+            paste(dagchainerargs, collapse = " ")))
+        system2(command=dagchainercmd, args=dagchainerargs,
+            stdout=FALSE, stderr=FALSE)
     }
     dagchainer.results <- read.table(paste0(tmp, ".aligncoords"), sep = "\t",
         header = FALSE)

@@ -34,14 +34,29 @@
 #' @examples
 #' ## load example sequence data
 #' data("hiv", package="CRBHits")
-#' dnastring2kaks(hiv, model="Li")
-#' dnastring2kaks(hiv, model="NG86")
+#' dnastring2kaks(
+#'     cds=hiv,
+#'     model="Li")
+#' dnastring2kaks(
+#'     cds=hiv,
+#'     model="NG86")
 #' \dontrun{
-#' dnastring2kaks(hiv, model="NG86", threads=2)
+#' dnastring2kaks(
+#'     cds=hiv,
+#'     model="NG86",
+#'     threads=2)
 #' }
 #' \dontrun{
-#' dnastring2kaks(hiv, model="NG86", align=TRUE, threads=2)
-#' dnastring2kaks(hiv, model="Li", align=TRUE, substitutionMatrix="BLOSUM45")
+#' dnastring2kaks(
+#'     cds=hiv,
+#'     model="NG86",
+#'     align=TRUE,
+#'     threads=2)
+#' dnastring2kaks(
+#'     cds=hiv,
+#'     model="Li",
+#'     align=TRUE,
+#'     substitutionMatrix="BLOSUM45")
 #' }
 #' @export dnastring2kaks
 #' @author Kristian K Ullrich

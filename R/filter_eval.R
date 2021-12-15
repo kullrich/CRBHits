@@ -12,7 +12,9 @@
 #' ## load crbh data
 #' data(ath_aly_crbh)
 #' dim(ath_aly_crbh$crbh1)
-#' dim(filter_eval(ath_aly_crbh$crbh1, eval=1e-100))
+#' dim(filter_eval(
+#'     rbh=ath_aly_crbh$crbh1,
+#'     eval=1e-100))
 #' @export filter_eval
 #' @author Kristian K Ullrich
 

@@ -12,7 +12,8 @@
 #' ## load crbh data
 #' data(ath_aly_crbh)
 #' dim(ath_aly_crbh$crbh1)
-#' dim(filter_rost1999(ath_aly_crbh$crbh1))
+#' dim(filter_rost1999(
+#'     rbh=ath_aly_crbh$crbh1))
 #' @export filter_rost1999
 #' @author Kristian K Ullrich
 

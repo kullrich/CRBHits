@@ -80,7 +80,8 @@ them if you would like to repeat the examples.
 ## load vignette specific libraries
 library(CRBHits)
 suppressPackageStartupMessages(library(Biostrings))
-suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(ggplot2))
 suppressPackageStartupMessages(library(gridExtra))
 suppressPackageStartupMessages(library(curl))
 ## compile LAST, KaKs_Calculator2.0 and DAGchainer for the vignette
@@ -179,14 +180,16 @@ the
 ## longest isoform selection
 ## query coverage >= 50%
 ## rost199 filter
-ARATHA_ARALYR_crbh <- cds2rbh(ARATHA.cds,
-    ARALYR.cds,
-    qcov = 0.5,
-    rost1999 = TRUE,
-    longest.isoform = TRUE,
-    isoform.source = "NCBI",
-    threads = 2, plotCurve = TRUE,
-    lastpath = vignette.paths[1])
+ARATHA_ARALYR_crbh <- cds2rbh(
+    cds1=ARATHA.cds,
+    cds2=ARALYR.cds,
+    qcov=0.5,
+    rost1999=TRUE,
+    longest.isoform=TRUE,
+    isoform.source="NCBI",
+    threads=2,
+    plotCurve=TRUE,
+    lastpath=vignette.paths[1])
 attributes(ARATHA_ARALYR_crbh)$selfblast
 
 ## get help
@@ -222,9 +225,13 @@ directly extracted from the `DNAStringSet` as follows.
 ## get gene position idx from NCBI CDS
 
 ## extract gene position from CDS
-ARATHA.cds.genepos <- cds2genepos(ARATHA.cds, source = "NCBI")
+ARATHA.cds.genepos <- cds2genepos(
+    cds=ARATHA.cds,
+    source="NCBI")
 ## extract gene position from longest isoform CDS
-ARATHA.cds.longest.genepos <- cds2genepos(ARATHA.cds.longest, source = "NCBI")
+ARATHA.cds.longest.genepos <- cds2genepos(
+    cds=ARATHA.cds.longest,
+    source="NCBI")
 ## show first entries
 head(ARATHA.cds.genepos)
 head(ARATHA.cds.longest.genepos)
@@ -264,69 +271,67 @@ ARATHA.GFF.url <- paste0(ensemblPlants, "gff3/arabidopsis_thaliana/",
 ## downlaod and gunzip file
 ARATHA.GFF.file <- tempfile()
 ARATHA.GFF.file.gz <- paste0(ARATHA.GFF.file, ".gz")
-download.file(ARATHA.GFF.url, ARATHA.GFF.file.gz, quiet = FALSE)
-system(paste0("gunzip -f ", ARATHA.GFF.file.gz))
+download.file(ARATHA.GFF.url, ARATHA.GFF.file.gz, quiet=FALSE)
+system2(command="gunzip", args=c("-f", ARATHA.GFF.file.gz))
 ## read ARATHA.GFF.file
-ARATHA.gff <- read.table(ARATHA.GFF.file, sep = "\t", 
-    quote = "", header = FALSE)
+ARATHA.gff <- read.table(ARATHA.GFF.file, sep="\t", 
+    quote="", header=FALSE)
 colnames(ARATHA.gff) <- c("seqname", "source", "feature", "start", "end",
     "score", "strand", "frame", "attribute")
 
 ## extract gene
-ARATHA.gff.gene <- ARATHA.gff %>% dplyr::filter(feature == "gene")
+ARATHA.gff.gene <- ARATHA.gff %>% dplyr::filter(feature=="gene")
 ## get gene ID
 ARATHA.gff.gene.id <- gsub("ID\\=", "", 
-    stringr::word(ARATHA.gff.gene$attribute,
-    1, sep=";"))
+    stringr::word(ARATHA.gff.gene$attribute, 1, sep=";"))
 ## extract mRNA
-ARATHA.gff.mRNA <- ARATHA.gff %>% dplyr::filter(feature == "mRNA")
+ARATHA.gff.mRNA <- ARATHA.gff %>% dplyr::filter(feature=="mRNA")
 ## get mRNA ID
 ARATHA.gff.mRNA.id <- gsub("ID\\=", "", 
-    stringr::word(ARATHA.gff.mRNA$attribute,
-    1, sep=";"))
+    stringr::word(ARATHA.gff.mRNA$attribute, 1, sep=";"))
 ## get mRNA based gene ID
 ARATHA.gff.mRNA.parent.id <- gsub("Parent\\=", "", 
-    stringr::word(ARATHA.gff.mRNA$attribute,
-    2, sep=";"))
+    stringr::word(ARATHA.gff.mRNA$attribute, 2, sep=";"))
 ## add mRNA ID and mRNA based gene ID
 ARATHA.gff.mRNA <- ARATHA.gff.mRNA %>% 
-    dplyr::mutate(gene.id = ARATHA.gff.mRNA.parent.id,
-    mRNA.id = ARATHA.gff.mRNA.id)
+    dplyr::mutate(gene.id=ARATHA.gff.mRNA.parent.id,
+    mRNA.id=ARATHA.gff.mRNA.id)
 ## extract CDS
-ARATHA.gff.CDS <- ARATHA.gff %>% dplyr::filter(feature == "CDS")
+ARATHA.gff.CDS <- ARATHA.gff %>% dplyr::filter(feature=="CDS")
 ## get CDS based mRNA ID
 ARATHA.gff.CDS.parent.id <- gsub("Parent\\=", "", 
-    stringr::word(ARATHA.gff.CDS$attribute,
-    2, sep=";"))
+    stringr::word(ARATHA.gff.CDS$attribute, 2, sep=";"))
 ## add CDS based mRNA ID
 ARATHA.gff.CDS <- ARATHA.gff.CDS %>%
-    dplyr::mutate(mRNA.id = ARATHA.gff.CDS.parent.id)
+    dplyr::mutate(mRNA.id=ARATHA.gff.CDS.parent.id)
 ## get width per mRNA isoform
 ARATHA.gff.mRNA.len <- ARATHA.gff.CDS %>% dplyr::group_by(mRNA.id) %>%
-    dplyr::summarise(mRNA.id = unique(mRNA.id),
-    len = sum(end-start))
+    dplyr::summarise(mRNA.id=unique(mRNA.id),
+    len=sum(end-start))
 ## add mRNA isoform width
 ARATHA.gff.mRNA <- ARATHA.gff.mRNA %>% 
-    dplyr::mutate(mRNA.len = 
+    dplyr::mutate(mRNA.len= 
     ARATHA.gff.mRNA.len$len[
     match(ARATHA.gff.mRNA$mRNA.id, 
     ARATHA.gff.mRNA.len$mRNA.id)])
 ## retain only longest mRNA isoform
-ARATHA.gff.mRNA.longest <- ARATHA.gff.mRNA %>% dplyr::arrange(seqname, start,
-    gene.id, desc(mRNA.len)) %>% dplyr::distinct(gene.id, .keep_all = TRUE) %>% 
-    dplyr::mutate(gene.mid = start + (end-start)/2)
+ARATHA.gff.mRNA.longest <- ARATHA.gff.mRNA %>%
+    dplyr::arrange(seqname, start, gene.id, desc(mRNA.len)) %>%
+    dplyr::distinct(gene.id, .keep_all=TRUE) %>% 
+    dplyr::mutate(gene.mid=start + (end-start)/2)
 ## add gene idx
 ARATHA.gff.mRNA.longest <- ARATHA.gff.mRNA.longest %>% 
-  dplyr::mutate(gene.idx = seq(from = 1, to = dim(ARATHA.gff.mRNA.longest)[1]))
+  dplyr::mutate(gene.idx=seq(from=1, to=dim(ARATHA.gff.mRNA.longest)[1]))
 ## create gene position matrix to be used for downstream analysis
-ARATHA.gff.genepos <- ARATHA.gff.mRNA.longest %>% dplyr::select(
-    gene.seq.id = mRNA.id,
-    gene.chr = seqname,
-    gene.start = start,
-    gene.end = end,
-    gene.mid = gene.mid,
-    gene.strand = strand,
-    gene.idx = gene.idx)
+ARATHA.gff.genepos <- ARATHA.gff.mRNA.longest %>%
+    dplyr::select(
+    gene.seq.id=mRNA.id,
+    gene.chr=seqname,
+    gene.start=start,
+    gene.end=end,
+    gene.mid=gene.mid,
+    gene.strand=strand,
+    gene.idx=gene.idx)
 ## set attribute
 attr(ARATHA.gff.genepos, "CRBHits.class") <- "genepos"
 ## show first entries of generated gene position
@@ -357,15 +362,16 @@ The following example shows how one can:
 ## example to assign tandem duplicates given selfblast CRBHit pairs and gene position
 
 ## get selfblast CRBHit pairs for A. thaliana
-ARATHA_selfblast_crbh <- cds2rbh(ARATHA.cds,
-    ARATHA.cds,
-    qcov = 0.5,
-    rost1999 = TRUE,
-    longest.isoform = TRUE,
-    isoform.source = "NCBI",
-    threads = 2,
-    plotCurve = TRUE,
-    lastpath = vignette.paths[1])
+ARATHA_selfblast_crbh <- cds2rbh(
+    cds1=ARATHA.cds,
+    cds2=ARATHA.cds,
+    qcov=0.5,
+    rost1999=TRUE,
+    longest.isoform=TRUE,
+    isoform.source="NCBI",
+    threads=2,
+    plotCurve=TRUE,
+    lastpath=vignette.paths[1])
 attributes(ARATHA_selfblast_crbh)$selfblast
 ```
 
@@ -373,15 +379,16 @@ attributes(ARATHA_selfblast_crbh)$selfblast
 
 ```
 ## get selfblast CRBHit pairs for A. lyrata
-ARALYR_selfblast_crbh <- cds2rbh(ARALYR.cds,
-    ARALYR.cds,
-    qcov = 0.5,
-    rost1999 = TRUE,
-    longest.isoform = TRUE,
-    isoform.source = "NCBI",
-    threads = 2,
-    plotCurve = TRUE,
-    lastpath = vignette.paths[1])
+ARALYR_selfblast_crbh <- cds2rbh(
+    cds1=ARALYR.cds,
+    cds2=ARALYR.cds,
+    qcov=0.5,
+    rost1999=TRUE,
+    longest.isoform=TRUE,
+    isoform.source="NCBI",
+    threads=2,
+    plotCurve=TRUE,
+    lastpath=vignette.paths[1])
 attributes(ARALYR_selfblast_crbh)$selfblast
 ```
 
@@ -389,19 +396,25 @@ attributes(ARALYR_selfblast_crbh)$selfblast
 
 ```
 ## get gene position for A. thaliana longest isoforms
-ARATHA.cds.longest.genepos <- cds2genepos(ARATHA.cds.longest, source = "NCBI")
+ARATHA.cds.longest.genepos <- cds2genepos(
+    cds=ARATHA.cds.longest,
+    source="NCBI")
 ## get gene position for A. lyrata longest isoforms
-ARALYR.cds.longest.genepos <- cds2genepos(ARALYR.cds.longest, source = "NCBI")
+ARALYR.cds.longest.genepos <- cds2genepos(
+    cds=ARALYR.cds.longest,
+    source="NCBI")
 
 ## assign tandem duplicates for A. thaliana
-ARATHA.cds.longest.tandemdups <- tandemdups(rbhpairs = ARATHA_selfblast_crbh,
-    genepos = ARATHA.cds.longest.genepos,
-    dupdist = 5)
+ARATHA.cds.longest.tandemdups <- tandemdups(
+    rbhpairs=ARATHA_selfblast_crbh,
+    genepos=ARATHA.cds.longest.genepos,
+    dupdist=5)
 
 ## assign tandem duplicates for A. lyrata
-ARALYR.cds.longest.tandemdups <- tandemdups(rbhpairs = ARALYR_selfblast_crbh,
-    genepos = ARALYR.cds.longest.genepos,
-    dupdist = 5)
+ARALYR.cds.longest.tandemdups <- tandemdups(
+    rbhpairs=ARALYR_selfblast_crbh,
+    genepos=ARALYR.cds.longest.genepos,
+    dupdist=5)
 ## get help
 #?tandemdups
 ```
@@ -414,20 +427,22 @@ chromosomal gene position as follows:
 
 ## get tandem group size
 tandem_group_size <- ARATHA.cds.longest.tandemdups %>%
-    dplyr::group_by(tandem_group) %>% dplyr::group_size()
+    dplyr::group_by(tandem_group) %>%
+    dplyr::group_size()
 table(tandem_group_size)
 
 ## use dplyr::mutate to assign group size
 ARATHA.cds.longest.tandemdups <- ARATHA.cds.longest.tandemdups %>%
-    dplyr::mutate(tandem_group_size = unlist(apply(cbind(tandem_group_size,
+    dplyr::mutate(tandem_group_size=unlist(apply(cbind(tandem_group_size,
     tandem_group_size), 1, function(x) rep(x[1], x[2]))))
 
 ## use dplyr::group_by to plot group by chromosome and colored by group size
-ARATHA.cds.longest.tandemdups %>% dplyr::group_by(gene.chr) %>%
-    ggplot2::ggplot(aes(x = gene.mid, y = gene.mid)) +
-    ggplot2::geom_point(shape = 20, aes(col = as.factor(tandem_group_size))) +
-    ggplot2::facet_wrap(~ gene.chr) +
-    ggplot2::scale_colour_manual(values =
+ARATHA.cds.longest.tandemdups %>%
+    dplyr::group_by(gene.chr) %>%
+    ggplot2::ggplot(aes(x=gene.mid, y=gene.mid)) +
+    ggplot2::geom_point(shape=20, aes(col=as.factor(tandem_group_size))) +
+    ggplot2::facet_wrap(~gene.chr) +
+    ggplot2::scale_colour_manual(values=
     CRBHitsColors(length(table(tandem_group_size))))
 ```
 
@@ -457,23 +472,23 @@ positions to get syntenic information about the CRBHit pairs.
 ## DAGchainer using gene base pair (gene bp start end)
 ## Note: change parameter to fit bp option
 ARATHA_ARALYR_crbh.dagchainer.bp <- rbh2dagchainer(
-    rbhpairs = ARATHA_ARALYR_crbh, 
-    gene.position.cds1 = ARATHA.cds.longest.genepos,
-    gene.position.cds2 = ARALYR.cds.longest.genepos,
-    type = "bp",
-    gap_length = 10000,
-    max_dist_allowed = 200000,
-    dagchainerpath = vignette.paths[3])
+    rbhpairs=ARATHA_ARALYR_crbh, 
+    gene.position.cds1=ARATHA.cds.longest.genepos,
+    gene.position.cds2=ARALYR.cds.longest.genepos,
+    type="bp",
+    gap_length=10000,
+    max_dist_allowed=200000,
+    dagchainerpath=vignette.paths[3])
 
 ## DAGchainer using gene index (gene order)
 ARATHA_ARALYR_crbh.dagchainer.idx <- rbh2dagchainer(
-    rbhpairs = ARATHA_ARALYR_crbh, 
-    gene.position.cds1 = ARATHA.cds.longest.genepos,
-    gene.position.cds2 = ARALYR.cds.longest.genepos,
-    type = "idx",
-    gap_length = 1,
-    max_dist_allowed = 20,
-    dagchainerpath = vignette.paths[3])
+    rbhpairs=ARATHA_ARALYR_crbh, 
+    gene.position.cds1=ARATHA.cds.longest.genepos,
+    gene.position.cds2=ARALYR.cds.longest.genepos,
+    type="idx",
+    gap_length=1,
+    max_dist_allowed=20,
+    dagchainerpath=vignette.paths[3])
 
 ## get help
 #?rbh2dagchainer
@@ -494,8 +509,10 @@ plot_dagchainer(ARATHA_ARALYR_crbh.dagchainer.bp)
 
 ```
 ## plot DAGchainer results selected chromosomes
-g <- plot_dagchainer(ARATHA_ARALYR_crbh.dagchainer.bp,
-    select.chr = c("AA1:NC_003070.9", "AA1:NC_003071.7", "AA1:NC_003074.8",
+g <- plot_dagchainer(
+    dag=ARATHA_ARALYR_crbh.dagchainer.bp,
+    select.chr=c(
+    "AA1:NC_003070.9", "AA1:NC_003071.7", "AA1:NC_003074.8",
     "AA1:NC_003075.7", "AA1:NC_003076.8",
     "AA2:NW_003302551.1", "AA2:NW_003302554.1",
     "AA2:NW_003302553.1", "AA2:NW_003302552.1",
@@ -508,29 +525,29 @@ g
 
 ```
 ## change title size
-g + ggplot2::theme(title = element_text(size = 16))
+g + ggplot2::theme(title=element_text(size=16))
 ```
 
 ![Figure: Dagchainer results altered title size](V02-dagchainer-default-ARATHA-ARALYR-selected-chr-title-size.png)
 
 ```
 ## change axis title size (gene1.mid; gene2.mid)
-g + ggplot2::theme(axis.title.x = element_text(size = 16),
-    axis.title.y = element_text(size = 16))
+g + ggplot2::theme(axis.title.x=element_text(size=16),
+    axis.title.y=element_text(size=16))
 ```
 
 ![Figure: Dagchainer results altered axis title size](V02-dagchainer-default-ARATHA-ARALYR-selected-chr-axis-size.png)
 
 ```
 ## change grid title size
-g + theme(strip.text.x = element_text(size = 16), strip.text.y = element_text(size = 16))
+g + theme(strip.text.x=element_text(size=16), strip.text.y=element_text(size=16))
 ```
 
 ![Figure: Dagchainer results altered grid title size](V02-dagchainer-default-ARATHA-ARALYR-selected-chr-grid-title-size.png)
 
 ```
 ## change grid axis size and angle
-g + theme(axis.text.x = element_text(size = 12, angle = 90))
+g + theme(axis.text.x=element_text(size=12, angle=90))
 ```
 
 ![Figure: Dagchainer results altered grid angle](V02-dagchainer-default-ARATHA-ARALYR-selected-chr-grid-axis-size.png)
@@ -549,43 +566,43 @@ The same analysis can be done just using the selfblast hits of one species.
 ## ignore tandem duplicates
 ## Note: change parameter to fit bp option
 ARATHA_selfblast_crbh.dagchainer.ignore_tandem.bp <- rbh2dagchainer(
-    rbhpairs = ARATHA_selfblast_crbh, 
-    gene.position.cds1 = ARATHA.cds.longest.genepos,
-    gene.position.cds2 = ARATHA.cds.longest.genepos,
-    type = "bp",
-    gap_length = 10000,
-    max_dist_allowed = 200000,
-    ignore_tandem = TRUE,
-    only_tandem = FALSE,
-    dagchainerpath = vignette.paths[3])
+    rbhpairs=ARATHA_selfblast_crbh, 
+    gene.position.cds1=ARATHA.cds.longest.genepos,
+    gene.position.cds2=ARATHA.cds.longest.genepos,
+    type="bp",
+    gap_length=10000,
+    max_dist_allowed=200000,
+    ignore_tandem=TRUE,
+    only_tandem=FALSE,
+    dagchainerpath=vignette.paths[3])
 
 ## DAGchainer using gene base pair (gene bp start end)
 ## use tandem duplicates
 ## Note: change parameter to fit bp option
 ARATHA_selfblast_crbh.dagchainer.tandem.bp <- rbh2dagchainer(
-    rbhpairs = ARATHA_selfblast_crbh, 
-    gene.position.cds1 = ARATHA.cds.longest.genepos,
-    gene.position.cds2 = ARATHA.cds.longest.genepos,
-    type = "bp",
-    gap_length = 10000,
-    max_dist_allowed = 200000,
-    ignore_tandem = FALSE,
-    only_tandem = FALSE,
-    dagchainerpath = vignette.paths[3])
+    rbhpairs=ARATHA_selfblast_crbh, 
+    gene.position.cds1=ARATHA.cds.longest.genepos,
+    gene.position.cds2=ARATHA.cds.longest.genepos,
+    type="bp",
+    gap_length=10000,
+    max_dist_allowed=200000,
+    ignore_tandem=FALSE,
+    only_tandem=FALSE,
+    dagchainerpath=vignette.paths[3])
 
 ## DAGchainer using gene base pair (gene bp start end)
 ## use only tandem duplicates
 ## Note: change parameter to fit bp option
 ARATHA_selfblast_crbh.dagchainer.only_tandem.bp <- rbh2dagchainer(
-    rbhpairs = ARATHA_selfblast_crbh, 
-    gene.position.cds1 = ARATHA.cds.longest.genepos,
-    gene.position.cds2 = ARATHA.cds.longest.genepos,
-    type = "bp",
-    gap_length = 10000,
-    max_dist_allowed = 200000,
-    ignore_tandem = FALSE,
-    only_tandem = TRUE,
-    dagchainerpath = vignette.paths[3])
+    rbhpairs=ARATHA_selfblast_crbh, 
+    gene.position.cds1=ARATHA.cds.longest.genepos,
+    gene.position.cds2=ARATHA.cds.longest.genepos,
+    type="bp",
+    gap_length=10000,
+    max_dist_allowed=200000,
+    ignore_tandem=FALSE,
+    only_tandem=TRUE,
+    dagchainerpath=vignette.paths[3])
 
 ## get help
 #?rbh2dagchainer
@@ -597,13 +614,13 @@ ARATHA_selfblast_crbh.dagchainer.only_tandem.bp <- rbh2dagchainer(
 ## plot DAGchainer results for each chromosome combination
 dim(ARATHA_selfblast_crbh.dagchainer.ignore_tandem.bp)
 plot_dagchainer(ARATHA_selfblast_crbh.dagchainer.ignore_tandem.bp,
-    DotPlotTitle = "ignore tandem duplicates")
+    DotPlotTitle="ignore tandem duplicates")
 dim(ARATHA_selfblast_crbh.dagchainer.tandem.bp)
 plot_dagchainer(ARATHA_selfblast_crbh.dagchainer.tandem.bp,
-    DotPlotTitle = "use tandem duplicates")
+    DotPlotTitle="use tandem duplicates")
 dim(ARATHA_selfblast_crbh.dagchainer.only_tandem.bp)
 plot_dagchainer(ARATHA_selfblast_crbh.dagchainer.only_tandem.bp,
-    DotPlotTitle = "use only tandem duplicates")
+    DotPlotTitle="use only tandem duplicates")
 ```
 
 ![Figure: Dagchainer results selfblast ARATHA ignore tandem](V02-dagchainer-selfblast-ARATHA-ignore-tandem.png)
@@ -621,49 +638,49 @@ species hits.
 ## ignore tandem duplicates
 ## Note: change parameter to fit bp option
 ARATHA_ARALYR_crbh.dagchainer.ignore_tandem.bp <- rbh2dagchainer(
-    rbhpairs = ARATHA_ARALYR_crbh, 
-    selfblast1 = ARATHA_selfblast_crbh,
-    selfblast2 = ARALYR_selfblast_crbh,
-    gene.position.cds1 = ARATHA.cds.longest.genepos,
-    gene.position.cds2 = ARALYR.cds.longest.genepos,
-    type = "bp",
-    gap_length = 10000,
-    max_dist_allowed = 200000,
-    ignore_tandem = TRUE,
-    only_tandem = FALSE,
-    dagchainerpath = vignette.paths[3])
+    rbhpairs=ARATHA_ARALYR_crbh, 
+    selfblast1=ARATHA_selfblast_crbh,
+    selfblast2=ARALYR_selfblast_crbh,
+    gene.position.cds1=ARATHA.cds.longest.genepos,
+    gene.position.cds2=ARALYR.cds.longest.genepos,
+    type="bp",
+    gap_length=10000,
+    max_dist_allowed=200000,
+    ignore_tandem=TRUE,
+    only_tandem=FALSE,
+    dagchainerpath=vignette.paths[3])
 
 ## DAGchainer using gene base pair (gene bp start end)
 ## use tandem duplicates
 ## Note: change parameter to fit bp option
 ARATHA_ARALYR_crbh.dagchainer.tandem.bp <- rbh2dagchainer(
-    rbhpairs = ARATHA_ARALYR_crbh, 
-    selfblast1 = ARATHA_selfblast_crbh,
-    selfblast2 = ARALYR_selfblast_crbh,
-    gene.position.cds1 = ARATHA.cds.longest.genepos,
-    gene.position.cds2 = ARALYR.cds.longest.genepos,
-    type = "bp",
-    gap_length = 10000,
-    max_dist_allowed = 200000,
-    ignore_tandem = FALSE,
-    only_tandem = FALSE,
-    dagchainerpath = vignette.paths[3])
+    rbhpairs=ARATHA_ARALYR_crbh, 
+    selfblast1=ARATHA_selfblast_crbh,
+    selfblast2=ARALYR_selfblast_crbh,
+    gene.position.cds1=ARATHA.cds.longest.genepos,
+    gene.position.cds2=ARALYR.cds.longest.genepos,
+    type="bp",
+    gap_length=10000,
+    max_dist_allowed=200000,
+    ignore_tandem=FALSE,
+    only_tandem=FALSE,
+    dagchainerpath=vignette.paths[3])
     
 ## DAGchainer using gene base pair (gene bp start end)
 ## use only tandem duplicates
 ## Note: change parameter to fit bp option
 ARATHA_ARALYR_crbh.dagchainer.only_tandem.bp <- rbh2dagchainer(
-    rbhpairs = ARATHA_ARALYR_crbh, 
-    selfblast1 = ARATHA_selfblast_crbh,
-    selfblast2 = ARALYR_selfblast_crbh,
-    gene.position.cds1 = ARATHA.cds.longest.genepos,
-    gene.position.cds2 = ARALYR.cds.longest.genepos,
-    type = "bp",
-    gap_length = 10000,
-    max_dist_allowed = 200000,
-    ignore_tandem = FALSE,
-    only_tandem = TRUE,
-    dagchainerpath = vignette.paths[3])
+    rbhpairs=ARATHA_ARALYR_crbh, 
+    selfblast1=ARATHA_selfblast_crbh,
+    selfblast2=ARALYR_selfblast_crbh,
+    gene.position.cds1=ARATHA.cds.longest.genepos,
+    gene.position.cds2=ARALYR.cds.longest.genepos,
+    type="bp",
+    gap_length=10000,
+    max_dist_allowed=200000,
+    ignore_tandem=FALSE,
+    only_tandem=TRUE,
+    dagchainerpath=vignette.paths[3])
 
 ## get help
 #?rbh2dagchainer
@@ -676,13 +693,13 @@ ARATHA_ARALYR_crbh.dagchainer.only_tandem.bp <- rbh2dagchainer(
 ## plot DAGchainer results for each chromosome combination
 dim(ARATHA_ARALYR_crbh.dagchainer.ignore_tandem.bp)
 plot_dagchainer(ARATHA_ARALYR_crbh.dagchainer.ignore_tandem.bp,
-    DotPlotTitle = "inter and intra species hits - ignore tandem duplicates")
+    DotPlotTitle="inter and intra species hits - ignore tandem duplicates")
 dim(ARATHA_ARALYR_crbh.dagchainer.tandem.bp)
 plot_dagchainer(ARATHA_ARALYR_crbh.dagchainer.tandem.bp,
-    DotPlotTitle = "inter and intra species hits - use tandem duplicates")
+    DotPlotTitle="inter and intra species hits - use tandem duplicates")
 dim(ARATHA_ARALYR_crbh.dagchainer.only_tandem.bp)
 plot_dagchainer(ARATHA_ARALYR_crbh.dagchainer.only_tandem.bp,
-    DotPlotTitle = "inter and intra species hits - use only tandem duplicates")
+    DotPlotTitle="inter and intra species hits - use only tandem duplicates")
 ```
 
 ![Figure: Dagchainer results of A. thaliana and A. lyrata using inter and intra species hits ignore tandem](V02-dagchainer-inter-plus-intra-ARATHA-ARALYR-ignore-tandem.png)
@@ -724,11 +741,11 @@ vignette building process.
 
 ## calculate Ka/Ks using the CRBHit pairs and multiple threads
 ARATHA_ARALYR_crbh.kaks.Li <- rbh2kaks(
-    rbhpairs = ARATHA_ARALYR_crbh,
-    cds1 = ARATHA.cds.longest,
-    cds2 = ARALYR.cds.longest,
-    model = "Li",
-    threads = 4)
+    rbhpairs=ARATHA_ARALYR_crbh,
+    cds1=ARATHA.cds.longest,
+    cds2=ARALYR.cds.longest,
+    model="Li",
+    threads=4)
 ```
 
 To calculate Ka/Ks values based on the model by
@@ -743,11 +760,11 @@ vignette building process.
 
 ## calculate Ka/Ks using the CRBHit pairs and multiple threads
 ARATHA_ARALYR_crbh.kaks.YN <- rbh2kaks(
-    rbhpairs = ARATHA_ARALYR_crbh,
-    cds1 = ARATHA.cds.longest,
-    cds2 = ARALYR.cds.longest,
-    model = "YN",
-    threads = 4)
+    rbhpairs=ARATHA_ARALYR_crbh,
+    cds1=ARATHA.cds.longest,
+    cds2=ARALYR.cds.longest,
+    model="YN",
+    threads=4)
 ```
 
 ## 3. [Ka/Ks Filtering and Visualisation]{#KaKsFiltering}
@@ -765,18 +782,19 @@ Ka/Ks results.
 data("ath_aly_ncbi_kaks", package="CRBHits")
 
 ## plot Ka/Ks results as histogram colored by Ka/Ks values
-g <- plot_kaks(ath_aly_ncbi_kaks)
+g <- plot_kaks(kaks=ath_aly_ncbi_kaks)
 ```
 
 ![Figure: Ka/Ks results as histogram colored by Ka/ks](V02-kaks-hist.png)
 
 ```
 ## plot Ka/Ks results as histogram filter for ka.min, ka.max, ks.min, ks.max
-g.min_max <- plot_kaks(ath_aly_ncbi_kaks,
-    ka.min = 0,
-    ka.max = 1,
-    ks.min = 0,
-    ks.max = 1)
+g.min_max <- plot_kaks(
+    kaksath_aly_ncbi_kaks,
+    ka.min=0,
+    ka.max=1,
+    ks.min=0,
+    ks.max=1)
 ```
 
 ![Figure: Ka/Ks results filtered for ka.min, ka.max, ks.max](V02-kaks-hist-min-max.png)
@@ -785,11 +803,15 @@ g.min_max <- plot_kaks(ath_aly_ncbi_kaks,
 ## select subset of chromosomes - needs gene position information
 head(ARATHA.cds.longest.genepos)
 head(ARALYR.cds.longest.genepos)
-g.subset <- plot_kaks(ath_aly_ncbi_kaks,
-    gene.position.cds1 = ARATHA.cds.longest.genepos,
-    gene.position.cds2 = ARALYR.cds.longest.genepos,
-    select.chr = c("NC_003070.9", "NC_003071.7",
-    "NW_003302551.1", "NW_003302554.1"))
+g.subset <- plot_kaks(
+    kaks=ath_aly_ncbi_kaks,
+    gene.position.cds1=ARATHA.cds.longest.genepos,
+    gene.position.cds2=ARALYR.cds.longest.genepos,
+    select.chr=c(
+    "NC_003070.9",
+    "NC_003071.7",
+    "NW_003302551.1",
+    "NW_003302554.1"))
 ```
 
 ![Figure: Ka/Ks results filtered for chromosomes](V02-kaks-hist-chr.png)
@@ -797,12 +819,16 @@ g.subset <- plot_kaks(ath_aly_ncbi_kaks,
 ```
 ## plot Ka/Ks results and split by chromosome - needs gene position information
 
-g.split <- plot_kaks(ath_aly_ncbi_kaks,
-    gene.position.cds1 = ARATHA.cds.longest.genepos,
-    gene.position.cds2 = ARALYR.cds.longest.genepos,
-    select.chr = c("NC_003070.9", "NC_003071.7",
-    "NW_003302551.1", "NW_003302554.1"),
-    splitByChr = TRUE)
+g.split <- plot_kaks(
+    kaks=ath_aly_ncbi_kaks,
+    gene.position.cds1=ARATHA.cds.longest.genepos,
+    gene.position.cds2=ARALYR.cds.longest.genepos,
+    select.chr=c(
+    "NC_003070.9",
+    "NC_003071.7",
+    "NW_003302551.1",
+    "NW_003302554.1"),
+    splitByChr=TRUE)
 ```
 
 ![Figure: Ka/Ks results split by chromosomes](V02-kaks-hist-chr-split.png)
@@ -818,16 +844,16 @@ Apply `dplyr::filter()` and `dplyr::mutate()` function:
 ## filter for Ks values < 2 on original Ka/Ks results
 head(ath_aly_ncbi_kaks)
 dim(ath_aly_ncbi_kaks)
-dim(ath_aly_ncbi_kaks %>% dplyr::filter(ks < 2))
+dim(ath_aly_ncbi_kaks %>% dplyr::filter(ks<2))
 
 ## filter for Ks values < 2 on plot object
 head(g.split$g.kaks$data)
 dim(g.split$g.kaks$data)
-dim(g.split$g.kaks$data %>% dplyr::filter(ks < 2))
+dim(g.split$g.kaks$data %>% dplyr::filter(ks<2))
 
 ## filter for Ks values < 1 on plot object and plot
-g.split$g.kaks$data %>% dplyr::filter(ks < 1) %>%
-    ggplot2::ggplot() + ggplot2::geom_histogram(binwidth = 0.1, aes(x = ks))
+g.split$g.kaks$data %>% dplyr::filter(ks<1) %>%
+    ggplot2::ggplot() + ggplot2::geom_histogram(binwidth=0.1, aes(x=ks))
 ```
 
 ![Figure: Ks results as histogram](V02-ks-hist.png)
@@ -874,41 +900,46 @@ PANTRO.cds.longest <- isoform2longest(PANTRO.cds, "ENSEMBL")
 ## longest isoform selection
 ## query coverage >= 50%
 ## rost199 filter
-HOMSAP_PANTRO_crbh <- cds2rbh(HOMSAP.cds,
-    PANTRO.cds,
-    qcov = 0.5,
-    rost1999 = TRUE,
-    longest.isoform = TRUE,
-    isoform.source = "ENSEMBL",
-    threads = 2,
-    plotCurve = TRUE,
-    lastpath = vignette.paths[1])
+HOMSAP_PANTRO_crbh <- cds2rbh(
+    cds1=HOMSAP.cds,
+    cds2=PANTRO.cds,
+    qcov=0.5,
+    rost1999=TRUE,
+    longest.isoform=TRUE,
+    isoform.source="ENSEMBL",
+    threads=2,
+    plotCurve=TRUE,
+    lastpath=vignette.paths[1])
 ```
 
 ![Figure: CRBHit pairs of H. sapiens and P. troglodytes](V02-CRBHit-pairs-HOMSAP-PANTRO.png)
 
 ```
 ## get gene position for H. sapiens longest isoforms
-HOMSAP.cds.longest.genepos <- cds2genepos(HOMSAP.cds.longest, 
-    source = "ENSEMBL")
+HOMSAP.cds.longest.genepos <- cds2genepos(
+    cds=HOMSAP.cds.longest, 
+    source="ENSEMBL")
 ## get gene position for P. troglodytes longest isoforms
-PANTRO.cds.longest.genepos <- cds2genepos(PANTRO.cds.longest,
-    source = "ENSEMBL")
+PANTRO.cds.longest.genepos <- cds2genepos(
+    cds=PANTRO.cds.longest,
+    source="ENSEMBL")
 
 ## DAGchainer using gene base pair (gene bp start end)
 ## Note: change parameter to fit bp option
 HOMSAP_PANTRO_crbh.dagchainer.bp <- rbh2dagchainer(
-    rbhpairs = HOMSAP_PANTRO_crbh, 
-    gene.position.cds1 = HOMSAP.cds.longest.genepos,
-    gene.position.cds2 = PANTRO.cds.longest.genepos,
-    type = "bp",
-    gap_length = 10000,
-    max_dist_allowed = 200000,
-    dagchainerpath = vignette.paths[3])
+    rbhpairs=HOMSAP_PANTRO_crbh, 
+    gene.position.cds1=HOMSAP.cds.longest.genepos,
+    gene.position.cds2=PANTRO.cds.longest.genepos,
+    type="bp",
+    gap_length=10000,
+    max_dist_allowed=200000,
+    dagchainerpath=vignette.paths[3])
 
 ## plot DAGchainer results for selected chromosome combinations
-plot_dagchainer(HOMSAP_PANTRO_crbh.dagchainer.bp,
-    select.chr = c("AA1:1","AA1:2","AA1:3","AA1:4","AA1:5","AA1:14",
+plot_dagchainer(
+    dag=HOMSAP_PANTRO_crbh.dagchainer.bp,
+    select.chr=c(
+    "AA1:1","AA1:2","AA1:3","AA1:4","AA1:5","AA1:14",
     "AA2:1","AA2:3","AA2:4","AA2:5","AA2:14"))
 ```
 
@@ -916,24 +947,26 @@ plot_dagchainer(HOMSAP_PANTRO_crbh.dagchainer.bp,
 
 ```
 ## get selfblast CRBHit pairs for H. sapiens
-HOMSAP_selfblast_crbh <- cds2rbh(HOMSAP.cds,
-    HOMSAP.cds,
-    qcov = 0.5,
-    rost1999 = TRUE,
-    longest.isoform = TRUE,
-    isoform.source = "ENSEMBL",
-    threads = 2,
-    plotCurve = FALSE,
-    lastpath = vignette.paths[1])
-PANTRO_selfblast_crbh <- cds2rbh(PANTRO.cds,
-    PANTRO.cds,
-    qcov = 0.5,
-    rost1999 = TRUE,
-    longest.isoform = TRUE,
-    isoform.source = "ENSEMBL",
-    threads = 2,
-    plotCurve = FALSE,
-    lastpath = vignette.paths[1])
+HOMSAP_selfblast_crbh <- cds2rbh(
+    cds1=HOMSAP.cds,
+    cds2=HOMSAP.cds,
+    qcov=0.5,
+    rost1999=TRUE,
+    longest.isoform=TRUE,
+    isoform.source="ENSEMBL",
+    threads=2,
+    plotCurve=FALSE,
+    lastpath=vignette.paths[1])
+PANTRO_selfblast_crbh <- cds2rbh(
+    cds1=PANTRO.cds,
+    cds2=PANTRO.cds,
+    qcov=0.5,
+    rost1999=TRUE,
+    longest.isoform=TRUE,
+    isoform.source="ENSEMBL",
+    threads=2,
+    plotCurve=FALSE,
+    lastpath=vignette.paths[1])
 ```
 
 ```
@@ -944,21 +977,23 @@ PANTRO_selfblast_crbh <- cds2rbh(PANTRO.cds,
 ## use tandem duplicates
 ## Note: change parameter to fit bp option
 HOMSAP_PANTRO_crbh.dagchainer.tandem.bp <- rbh2dagchainer(
-    rbhpairs = HOMSAP_PANTRO_crbh, 
-    selfblast1 = HOMSAP_selfblast_crbh,
-    selfblast2 = PANTRO_selfblast_crbh,
-    gene.position.cds1 = HOMSAP.cds.longest.genepos,
-    gene.position.cds2 = PANTRO.cds.longest.genepos,
-    type = "bp",
-    gap_length = 10000,
-    max_dist_allowed = 200000,
-    ignore_tandem = FALSE,
-    only_tandem = FALSE,
-    dagchainerpath = vignette.paths[3])
+    rbhpairs=HOMSAP_PANTRO_crbh, 
+    selfblast1=HOMSAP_selfblast_crbh,
+    selfblast2=PANTRO_selfblast_crbh,
+    gene.position.cds1=HOMSAP.cds.longest.genepos,
+    gene.position.cds2=PANTRO.cds.longest.genepos,
+    type="bp",
+    gap_length=10000,
+    max_dist_allowed=200000,
+    ignore_tandem=FALSE,
+    only_tandem=FALSE,
+    dagchainerpath=vignette.paths[3])
 
 ## plot DAGchainer results for selected chromosome combinations
-plot_dagchainer(HOMSAP_PANTRO_crbh.dagchainer.tandem.bp,
-    select.chr = c("AA1:1","AA1:2","AA1:3","AA1:4","AA1:5","AA1:14",
+plot_dagchainer(
+    dag=HOMSAP_PANTRO_crbh.dagchainer.tandem.bp,
+    select.chr=c(
+    "AA1:1","AA1:2","AA1:3","AA1:4","AA1:5","AA1:14",
     "AA2:1","AA2:3","AA2:4","AA2:5","AA2:14"))
 ```
 
@@ -971,11 +1006,12 @@ the vignette building process.
 ## example how to calculate Ka/Ks values with model "Li"
 
 ## calculate Ka/Ks using the CRBHit pairs and multiple threads
-HOMSAP_PANTRO_crbh.kaks.Li <- rbh2kaks(HOMSAP_PANTRO_crbh,
-    HOMSAP.cds.longest,
-    PANTRO.cds.longest,
-    model = "Li",
-    threads = 4)
+HOMSAP_PANTRO_crbh.kaks.Li <- rbh2kaks(
+    rbhpairs=HOMSAP_PANTRO_crbh,
+    cds1=HOMSAP.cds.longest,
+    cds2=PANTRO.cds.longest,
+    model="Li",
+    threads=4)
 ```
 
 ```

@@ -7,7 +7,8 @@
 codonmat2pnps(codonmat)
 }
 \arguments{
-\item{codonmat}{\code{codonmat} A [mandatory]}
+\item{codonmat}{\code{codon matrix} of two columns to be
+compared [mandatory]}
 }
 \value{
 An object of class \code{pnps} which is a list with the following
@@ -31,8 +32,8 @@ components:\cr
 \code{dnds} sequence2 name\cr
 }
 \description{
-This function calculates pn/ps according to
-\emph{Nei and Gojobori (1986)}.
+This function calculates pn/ps according to \emph{Nei and
+Gojobori (1986)}.
 }
 \examples{
 ## load example sequence data

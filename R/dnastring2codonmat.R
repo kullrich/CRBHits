@@ -1,10 +1,11 @@
 #' @title dnastring2codonmat
 #' @name dnastring2codonmat
-#' @description This function converts a \code{DNAStringSet} into an
+#' @description This function converts a \code{DNAStringSet} into a
 #' \code{codon matrix}.
 #' @param cds \code{DNAStringSet} [mandatory]
 #' @param shorten shorten all sequences to multiple of three [default: FALSE]
 #' @param frame  indicates the first base of a the first codon [default: 1]
+#' @param framelist  supply vector of frames for each entry [default: NULL]
 #' @return An object of class \code{alignment} which is a list with the
 #' following components:\cr
 #' \code{nb} the number of aligned sequences\cr
@@ -13,6 +14,7 @@
 #' \code{seq} a vector of strings containing the aligned sequences\cr
 #' \code{com} a vector of strings containing the commentaries for each sequence
 #' or \code{NA} if there are no comments
+#' @importFrom methods is slot
 #' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet
 #' readDNAStringSet readAAStringSet writeXStringSet width subseq
 #' @importFrom stringr word
@@ -20,33 +22,51 @@
 #' @examples
 #' ## define two cds sequences
 #' cds1 <- Biostrings::DNAString("ATGCAACATTGC")
-#' cds2 <- Biostrings::DNAString("ATGCATTGC")
-#' cds1.cds2.aln <- cds2codonaln(cds1, cds2)
+#' cds2 <- Biostrings::DNAString("ATG---CATTGC")
+#' cds1.cds2.aln <- c(Biostrings::DNAStringSet(cds1),
+#'     Biostrings::DNAStringSet(cds2))
 #' ## convert into alignment
 #' dnastring2codonmat(cds1.cds2.aln)
+#' ## use frame 2 and shorten to circumvent multiple of three error
+#' cds1 <- Biostrings::DNAString("-ATGCAACATTGC-")
+#' cds2 <- Biostrings::DNAString("-ATG---CATTGC-")
+#' cds1.cds2.aln <- c(Biostrings::DNAStringSet(cds1),
+#'     Biostrings::DNAStringSet(cds2))
+#' dnastring2codonmat(
+#'     cds1.cds2.aln,
+#'     frame=2,
+#'     shorten=TRUE)
 #' @export dnastring2codonmat
 #' @author Kristian K Ullrich
 
-dnastring2codonmat <- function(cds, shorten=FALSE, frame=1){
-    if(class(cds)!="DNAStringSet"){
-        stop("Error: input needs to be a DNAStringSet")
-    }
-    if(length(unique(Biostrings::width(cds)))!=1){
-        stop("Error: input needs to be a Alignment of equal width")
-    }
-    if(!frame %in% c(1, 2, 3)){
-        stop("Error: frame needs to be 1 or 2 or 3")
+dnastring2codonmat <- function(cds,
+    shorten=FALSE,
+    frame=1,
+    framelist=NULL){
+    stopifnot("Error: input needs to be a DNAStringSet"=
+        methods::is(cds, "DNAStringSet"))
+    stopifnot("Error: input needs to be an Alignment of equal width"=
+        length(unique(Biostrings::width(cds)))==1)
+    stopifnot("Error: frame needs to be 1 or 2 or 3"= frame %in% c(1, 2, 3))
+    if(!is.null(framelist)){
+        stopifnot("Error: framelist needs to be of equal length as cds"=
+            length(framelist)!=length(cds))
     }
     if(!is.null(names(cds))){
         names(cds) <- stringr::word(names(cds), 1)
     }
-    cds <- Biostrings::subseq(cds, frame, unique(Biostrings::width(cds)))
-    if(shorten){
-        cds <- Biostrings::subseq(cds, 1, Biostrings::width(cds)-
-            Biostrings::width(cds) %% 3)
+    if(is.null(framelist)){
+        cds <- Biostrings::subseq(cds, frame, Biostrings::width(cds))
     }
-    cds_not_multiple_of_three.idx <- which(Biostrings::width(cds) %% 3 != 0)
-    if(length(cds_not_multiple_of_three.idx) > 0){
+    if(!is.null(framelist)){
+        cds <- Biostrings::subseq(cds, framelist, Biostrings::width(cds))
+    }
+    if(shorten){
+        cds <- Biostrings::subseq(cds, 1,
+            Biostrings::width(cds) - Biostrings::width(cds) %% 3)
+    }
+    cds_not_multiple_of_three.idx <- which(Biostrings::width(cds) %% 3!=0)
+    if(length(cds_not_multiple_of_three.idx)>0){
         cds_not_multiple_of_three <- cds[cds_not_multiple_of_three.idx]
         cds <- cds[-cds_not_multiple_of_three.idx]
     }
@@ -62,7 +82,7 @@ dnastring2codonmat <- function(cds, shorten=FALSE, frame=1){
     cds <- Biostrings::DNAStringSet(gsub("H", "N", cds))
     cds <- Biostrings::DNAStringSet(gsub("V", "N", cds))
     cds.codonmat <- apply(cbind(Biostrings::width(cds), as.character(cds)), 1,
-        function(x) {stringi::stri_sub(x[2], seq(from=1, to=as.numeric(x[1]),
-            by = 3), length = 3)})
+        function(x) {stringi::stri_sub(x[2], seq(1, as.numeric(x[1]), by=3),
+        length=3)})
     return(cds.codonmat)
 }

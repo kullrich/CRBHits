@@ -25,7 +25,9 @@ percentage query coverage.
 ## load crbh data
 data(ath_aly_crbh)
 dim(ath_aly_crbh$crbh1)
-dim(filter_qcov(ath_aly_crbh$crbh1, qcov=0.75))
+dim(filter_qcov(
+    rbh=ath_aly_crbh$crbh1,
+    qcov=0.75))
 }
 \author{
 Kristian K Ullrich

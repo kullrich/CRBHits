@@ -49,9 +49,11 @@ This function plots DAGchainer
 ## load example sequence data
 data("ath_aly_ncbi_dagchainer", package="CRBHits")
 ## plot DAGchainer results - default
-plot_dagchainer(ath_aly_ncbi_dagchainer)
+plot_dagchainer(
+    dag=ath_aly_ncbi_dagchainer)
 ## chromosome subset
-plot_dagchainer(ath_aly_ncbi_dagchainer,
+plot_dagchainer(
+    dag=ath_aly_ncbi_dagchainer,
     select.chr=c("NC_000932.1", "NC_034379.1"))
 }
 \author{

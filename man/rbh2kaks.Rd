@@ -84,8 +84,11 @@ data("aly", package="CRBHits")
 data("ath_aly_crbh", package="CRBHits")
 ## only analyse subset of CRBHit pairs
 ath_aly_crbh$crbh.pairs <- head(ath_aly_crbh$crbh.pairs)
-ath_aly_crbh.kaks <- rbh2kaks(rbhpairs=ath_aly_crbh,
-    cds1=ath, cds2=aly, model="Li")
+ath_aly_crbh.kaks <- rbh2kaks(
+    rbhpairs=ath_aly_crbh,
+    cds1=ath,
+    cds2=aly,
+    model="Li")
 head(ath_aly_crbh.kaks)
 ## plot kaks
 g.kaks <- plot_kaks(ath_aly_crbh.kaks)

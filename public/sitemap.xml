@@ -37,10 +37,19 @@
     <loc>/reference/aa2rbh.html</loc>
   </url>
   <url>
+    <loc>/reference/aabin2aastring.html</loc>
+  </url>
+  <url>
     <loc>/reference/aafile2rbh.html</loc>
   </url>
   <url>
+    <loc>/reference/aastring2aabin.html</loc>
+  </url>
+  <url>
     <loc>/reference/aastring2aln.html</loc>
+  </url>
+  <url>
+    <loc>/reference/aln2aastring.html</loc>
   </url>
   <url>
     <loc>/reference/aln2dnastring.html</loc>

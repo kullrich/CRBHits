@@ -25,7 +25,9 @@ percentage target coverage.
 ## load crbh data
 data(ath_aly_crbh)
 dim(ath_aly_crbh$crbh1)
-dim(filter_tcov(ath_aly_crbh$crbh1, tcov=0.75))
+dim(filter_tcov(
+    rbh=ath_aly_crbh$crbh1,
+    tcov=0.75))
 }
 \author{
 Kristian K Ullrich

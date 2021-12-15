@@ -23,7 +23,8 @@ equation 2 of Rost 1999.
 ## load crbh data
 data(ath_aly_crbh)
 dim(ath_aly_crbh$crbh1)
-dim(filter_rost1999(ath_aly_crbh$crbh1))
+dim(filter_rost1999(
+    rbh=ath_aly_crbh$crbh1))
 }
 \references{
 Rost B. (1999). Twilight zone of protein sequence alignments.

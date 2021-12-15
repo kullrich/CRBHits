@@ -33,18 +33,26 @@
 #' @references Haug-Beltzell A et al. (2017) SynMap2 and SynMap3D: web-based
 #' whole-genome synteny browsers. \emph{Bioinformatics}
 #' \bold{33(14)}, 2197-2198.
+#' @examples
 #' ## load example sequence data
 #' data("ath", package="CRBHits")
 #' ## get selfhits CRBHit pairs
-#' ath_selfhits_crbh <- cds2rbh(ath, ath, plotCurve=TRUE)
+#' ath_selfhits_crbh <- cds2rbh(
+#'     cds1=ath,
+#'     cds2=ath,
+#'     plotCurve=TRUE)
 #' ## get gene position
-#' ath.genepos <- cds2genepos(ath, "ENSEMBL")
+#' ath.genepos <- cds2genepos(
+#'     cds=ath,
+#'     source="ENSEMBL")
 #' ## get tandem duplicate results
-#' ath_selfblast_crbh.tandemdups <- tandemdups(ath_selfhits_crbh,
-#'     ath.genepos)
+#' ath_selfblast_crbh.tandemdups <- tandemdups(
+#'     rbhpairs=ath_selfhits_crbh,
+#'     genepos=ath.genepos)
 #' head(ath_selfblast_crbh.tandemdups)
 #' @export tandemdups
 #' @author Kristian K Ullrich
+
 tandemdups <- function(rbhpairs, genepos, dupdist=5){
     gene.seq.id <- NULL
     gene1.seq.id <- NULL

@@ -1,15 +1,16 @@
 #' @title CRBHitsColors
 #' @name CRBHitsColors
 #' @description CRBHits specific color palette.
-#' @param n The number of colors (≥ 1) to be in the palette [mandatory]
+#' @param n The number of colors (greater than or equal to 1) to be in the
+#' palette [mandatory]
 #' @param alpha.perc an alpha-transparency level in percent [default: 0]
 #' @return CRBHits specific color palette
 #' @importFrom grDevices col2rgb palette rgb colorRampPalette
 #' @seealso \code{\link[grDevices]{palette}}
 #' @examples
-#' plot(1:9, pch = 20, col = CRBHitsColors(9), cex = 3)
+#' plot(1:9, pch=20, col=CRBHitsColors(9), cex=3)
 #' ## use alpha
-#' plot(1:9, pch = 20, col = CRBHitsColors(9, 50), cex = 3)
+#' plot(1:9, pch=20, col=CRBHitsColors(9, 50), cex=3)
 #' @export CRBHitsColors
 #' @author Kristian K Ullrich
 

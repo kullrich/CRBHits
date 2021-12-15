@@ -3,7 +3,7 @@
 (conditional-)reciprocal best hit (CRBHit) pairs and their chromosomal gene
 position.
 The function is ported into R from Haug-Baltzell et al. (2017)
-https://github.com/LyonsLab/coge/blob/master/bin/dagchainer/tandems.py"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
+https://github.com/LyonsLab/coge/blob/master/bin/dagchainer/tandems.py"><meta property="og:image" content="/logo.png"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body data-spy="scroll" data-target="#toc">
@@ -101,12 +101,18 @@ whole-genome synteny browsers. <em>Bioinformatics</em>
 ## load example sequence data
 data("ath", package="CRBHits")
 ## get selfhits CRBHit pairs
-ath_selfhits_crbh &lt;- cds2rbh(ath, ath, plotCurve=TRUE)
+ath_selfhits_crbh &lt;- cds2rbh(
+    cds1=ath,
+    cds2=ath,
+    plotCurve=TRUE)
 ## get gene position
-ath.genepos &lt;- cds2genepos(ath, "ENSEMBL")
+ath.genepos &lt;- cds2genepos(
+    cds=ath,
+    source="ENSEMBL")
 ## get tandem duplicate results
-ath_selfblast_crbh.tandemdups &lt;- tandemdups(ath_selfhits_crbh,
-    ath.genepos)
+ath_selfblast_crbh.tandemdups &lt;- tandemdups(
+    rbhpairs=ath_selfhits_crbh,
+    genepos=ath.genepos)
 head(ath_selfblast_crbh.tandemdups)</p>
     </div>
     <div id="see-also">

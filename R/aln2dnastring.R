@@ -1,7 +1,7 @@
 #' @title aln2dnastring
 #' @name aln2dnastring
-#' @description This function converts a \code{seqinr} \code{alignment} into an
-#' \code{DNAStringSet}.
+#' @description This function converts a \code{seqinr} \code{alignment} into
+#' an \code{DNAStringSet}.
 #' @param aln \code{seqinr} \code{alignment} [mandatory]
 #' @return An object of class \code{DNAStringSet}
 #' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet
@@ -12,11 +12,12 @@
 #' @examples
 #' ## define two cds sequences
 #' cds1 <- Biostrings::DNAString("ATGCAACATTGC")
-#' cds2 <- Biostrings::DNAString("ATGCATTGC")
-#' cds1.cds2.aln <- cds2codonaln(cds1, cds2)
+#' cds2 <- Biostrings::DNAString("ATG---CATTGC")
+#' cds1.cds2.aln <- c(Biostrings::DNAStringSet(cds1),
+#'     Biostrings::DNAStringSet(cds2))
 #' ## convert into alignment
 #' dnastring2aln(cds1.cds2.aln)
-#' ## convert into DNAStringSet
+#' ## convert back into DNAStringSet
 #' aln2dnastring(dnastring2aln(cds1.cds2.aln))
 #' @export aln2dnastring
 #' @author Kristian K Ullrich

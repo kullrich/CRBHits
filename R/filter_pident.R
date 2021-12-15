@@ -12,7 +12,9 @@
 #' ## load crbh data
 #' data(ath_aly_crbh)
 #' dim(ath_aly_crbh$crbh1)
-#' dim(filter_pident(ath_aly_crbh$crbh1, pident=75))
+#' dim(filter_pident(
+#'     rbh=ath_aly_crbh$crbh1,
+#'     pident=75))
 #' @export filter_pident
 #' @author Kristian K Ullrich
 

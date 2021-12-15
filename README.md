@@ -108,66 +108,87 @@ These vignettes introduce  [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhit
 
 ```
 library(CRBHits)
-## compile last-1256
-make_last()
+## prerequisite: last
+## if not done yet, try to compile last-1256 - uncomment the following line
+#CRBHits::make_last()
 ## conditional reciprocal best hits (CRBHit pairs)
 data("ath", package="CRBHits")
 data("aly", package="CRBHits")
-ath_aly_crbh <- cds2rbh(ath, aly, plotCurve = TRUE)
+ath_aly_crbh <- cds2rbh(
+    cds1=ath,
+    cds2=aly,
+    plotCurve=TRUE)
 summary(ath_aly_crbh)
-
 ?cds2rbh
 
 ##kaks calculation - subset model "Li"
 ath_aly_crbh$crbh.pairs <- head(ath_aly_crbh$crbh.pairs, 20)
-ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh,
-                              ath, aly, model = "Li")
-head(ath_aly_crbh.kaks)
+ath_aly_crbh.kaks.Li <- rbh2kaks(
+    rbhpairs=ath_aly_crbh,
+    cds1=ath,
+    cds2=aly,
+    model="Li")
+head(ath_aly_crbh.kaks.Li)
 ?rbh2kaks
 
 ## plot kaks
-g.kaks <- plot_kaks(ath_aly_crbh.kaks)
+g.kaks.Li <- plot_kaks(ath_aly_crbh.kaks.Li)
 ?plot_kaks
 
 ## kaks calculation - subset model "YN"
-make_KaKs_Calculator2()
-ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh,
-                              ath, aly, model = "YN")
+## prerequisite: KaKs_Calculator2
+## if not done yet, try to compile KaKs_Calculator2 - uncomment the following line
+#CRBHits::make_KaKs_Calculator2()
+ath_aly_crbh.kaks.YN <- rbh2kaks(
+    rbhpairs=ath_aly_crbh,
+    cds1=ath,
+    cds2=aly,
+    model="YN")
 
 ## kaks calculation using multiple threads
-ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh, ath, aly, threads = 2)
+ath_aly_crbh.kaks <- rbh2kaks(
+    rbhpairs=ath_aly_crbh,
+    cds1=ath,
+    cds2=aly,
+    threads=2)
 head(ath_aly_crbh.kaks)
 
 ## example how to calculate all pairwise kaks values given a MSA
 data(hiv)
-hiv_kaks <- dnastring2kaks(hiv, model = "Li")
-g <- plot_kaks(hiv_kaks)
+hiv_kaks.Li <- dnastring2kaks(
+    cds=hiv,
+    model="Li")
+g.Li <- plot_kaks(hiv_kaks.Li)
+g.Li
 
 data(hiv)
-hiv_kaks <- dnastring2kaks(hiv, model = "NG86")
-g <- plot_kaks(hiv_kaks)
+hiv_kaks.NG86 <- dnastring2kaks(
+    cds=hiv,
+    model="NG86")
+g.NG86 <- plot_kaks(hiv_kaks.NG86)
+g.NG86
 
 ## codon plot - sites under possible positive selection
 library(tidyr)
 library(dplyr)
 library(ggplot2)
 hiv.xy <- codonmat2xy(dnastring2codonmat(hiv))
-hiv.xy %>% select(Codon,SynMean,NonSynMean,IndelMean) %>%
-  gather(variable, values, -Codon) %>% 
-  ggplot(aes(x=Codon, y=values)) + 
+hiv.xy %>% select(Codon, SynMean, NonSynMean, IndelMean) %>%
+    gather(variable, values, -Codon) %>% 
+    ggplot(aes(x=Codon, y=values)) + 
     geom_line(aes(colour=factor(variable))) + 
     geom_point(aes(colour=factor(variable))) + 
     ggtitle("HIV-1 sample 136 patient 1 from Sweden envelope glycoprotein (env) gene")
 
 ##### see section install external tools via bioconda
 ## example how to use conda version of LAST
-my.lastpath <- dirname(system("which lastdb", intern = TRUE))
+my.lastpath <- paste0(dirname(system2("which", "lastdb", stdout=TRUE)), "/")
 ath_aly_crbh <- cds2rbh(ath, aly, plotCurve = TRUE,
                         lastpath = my.lastpath)
 ?cds2rbh
 
 ## example how to use conda version of KaKs_Calculator2.0
-my.kakspath <- dirname(system("which KaKs_Calculator", intern = TRUE))
+my.kakspath <- paste0(dirname(system2("which", "KaKs_Calculator", stdout=TRUE)), "/")
 ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh,
                               ath, aly, model = "YN",
                               kakscalcpath = my.kakspath)
@@ -209,18 +230,18 @@ After this installation, the prerequisites are supposed to be in the `PATH` and 
 
 ```
 ## example how to use conda versions of LAST, KaKs_Calculator2.0 and DAGchainer
-my.lastpath <- dirname(system("which lastdb", intern = TRUE))
-my.kakspath <- dirname(system("which KaKs_Calculator", intern = TRUE))
-my.dagchainerpath <- system("which dagchainer", intern = TRUE)
+my.lastpath <- paste0(dirname(system2("which", "lastdb", stdout=TRUE)), "/")
+my.kakspath <- paste0(dirname(system2("which", "KaKs_Calculator", stdout=TRUE)), "/")
+my.dagchainerpath <- paste0(dirname(system2("which", "dagchainer", stdout=TRUE), "/")
 
 ?cds2rbh
-cds2rbh(., ., lastpath = my.lastpath)
+cds2rbh(., ., lastpath=my.lastpath)
 
 ?rbh2kaks
-rbh2kaks(., ., model = "YN", kakscalcpath = my.kakspath)
+rbh2kaks(., ., model="YN", kakscalcpath=my.kakspath)
 
 ?rbh2dagchainer
-rbh2dagchainer(., ., dagchainerpath = my.dagchainerpath)
+rbh2dagchainer(., ., dagchainerpath=my.dagchainerpath)
 ```
 
 ### compile external tools from source code forked within this package
@@ -318,13 +339,13 @@ my.kakspath <- "/tmp/KaKs_Calculator2/KaKs_Calculator2.0/src"
 my.dagchainerpath <- "/tmp/dagcahiner"
 
 ?cds2rbh
-cds2rbh(., ., lastpath = my.lastpath)
+cds2rbh(., ., lastpath=my.lastpath)
 
 ?rbh2kaks
-rbh2kaks(., ., model = "YN", kakscalcpath = my.kakspath)
+rbh2kaks(., ., model="YN", kakscalcpath=my.kakspath)
 
 ?rbh2dagchainer
-rbh2dagchainer(., ., dagchainerpath = my.dagchainerpath)
+rbh2dagchainer(., ., dagchainerpath=my.dagchainerpath)
 ```
 
 ## License

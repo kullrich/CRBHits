@@ -13,17 +13,18 @@ aln2dnastring(aln)
 An object of class \code{DNAStringSet}
 }
 \description{
-This function converts a \code{seqinr} \code{alignment} into an
-\code{DNAStringSet}.
+This function converts a \code{seqinr} \code{alignment} into
+an \code{DNAStringSet}.
 }
 \examples{
 ## define two cds sequences
 cds1 <- Biostrings::DNAString("ATGCAACATTGC")
-cds2 <- Biostrings::DNAString("ATGCATTGC")
-cds1.cds2.aln <- cds2codonaln(cds1, cds2)
+cds2 <- Biostrings::DNAString("ATG---CATTGC")
+cds1.cds2.aln <- c(Biostrings::DNAStringSet(cds1),
+    Biostrings::DNAStringSet(cds2))
 ## convert into alignment
 dnastring2aln(cds1.cds2.aln)
-## convert into DNAStringSet
+## convert back into DNAStringSet
 aln2dnastring(dnastring2aln(cds1.cds2.aln))
 }
 \seealso{

@@ -11,6 +11,7 @@
 #' \code{seq} a vector of strings containing the aligned sequences\cr
 #' \code{com} a vector of strings containing the commentaries for each sequence
 #' or \code{NA} if there are no comments
+#' @importFrom methods is slot
 #' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet
 #' readDNAStringSet readAAStringSet writeXStringSet width subseq
 #' @importFrom seqinr as.alignment
@@ -26,9 +27,8 @@
 #' @author Kristian K Ullrich
 
 aastring2aln <- function(aa){
-    if(class(aa)!="AAStringSet"){
-        stop("Error: input needs to be a AAStringSet")
-    }
+    stopifnot("Error: input needs to be an AAStringSet"=
+        methods::is(aa, "AAStringSet"))
     alignment.nb <- length(aa)
     alignment.nam <- names(aa)
     alignment.seq <- tolower(as.character(aa))

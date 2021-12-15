@@ -101,18 +101,27 @@ conducted.
 }
 \examples{
 ## compile last-1256 within CRBHits
-make_last()
+CRBHits::make_last()
 ## load example sequence data
 athfile <- system.file("fasta", "ath.aa.fasta.gz", package="CRBHits")
 alyfile <- system.file("fasta", "aly.aa.fasta.gz", package="CRBHits")
 ## get CRBHit pairs
-ath_aly_crbh <- aafile2rbh(athfile, alyfile, plotCurve=TRUE)
+ath_aly_crbh <- aafile2rbh(
+    aafile1=athfile,
+    aafile2=alyfile,
+    plotCurve=TRUE)
 dim(ath_aly_crbh$crbh.pairs)
 ## get classical reciprocal best hit (RBHit) pairs
-ath_aly_rbh <- aafile2rbh(athfile, alyfile, crbh=FALSE)
+ath_aly_rbh <- aafile2rbh(
+    aafile1=athfile,
+    aafile2=alyfile,
+    crbh=FALSE)
 dim(ath_aly_rbh$crbh.pairs)
 ## selfblast
-ath_selfblast_crbh <- aafile2rbh(athfile, athfile, plotCurve=TRUE)
+ath_selfblast_crbh <- aafile2rbh(
+    aafile1=athfile,
+    aafile2=athfile,
+    plotCurve=TRUE)
 ## see ?cds2rbh for more examples
 }
 \references{

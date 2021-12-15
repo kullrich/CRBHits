@@ -68,31 +68,49 @@
 #' \emph{Protein Engineering}, \bold{12(2)}, 85-94.
 #' @examples
 #' ## compile last-1256 within CRBHits
-#' make_last()
+#' CRBHits::make_last()
 #' ## load example sequence data
 #' data("ath", package="CRBHits")
 #' data("aly", package="CRBHits")
 #' ## get CRBHit pairs
-#' ath_aly_crbh <- cds2rbh(ath, aly, plotCurve=TRUE)
+#' ath_aly_crbh <- cds2rbh(
+#'     cds1=ath,
+#'     cds2=aly,
+#'     plotCurve=TRUE)
 #' dim(ath_aly_crbh$crbh.pairs)
 #' ## get classical reciprocal best hit (RBHit) pairs
-#' ath_aly_rbh <- cds2rbh(ath, aly, crbh=FALSE)
+#' ath_aly_rbh <- cds2rbh(
+#'     cds1=ath,
+#'     cds2=aly,
+#'     crbh=FALSE)
 #' dim(ath_aly_rbh$crbh.pairs)
 #' ## filter for evalue 1e-100
-#' ath_aly_crbh.eval100 <- cds2rbh(ath, aly, eval=1e-100)
+#' ath_aly_crbh.eval100 <- cds2rbh(
+#'     cds1=ath,
+#'     cds2=aly,
+#'     eval=1e-100)
 #' dim(ath_aly_crbh.eval100$crbh.pairs)
 #' ## filter for query coverage
-#' ath_aly_crbh.qcov <- cds2rbh(ath, aly, qcov=0.5)
+#' ath_aly_crbh.qcov <- cds2rbh(
+#'     cds1=ath,
+#'     cds2=aly,
+#'     qcov=0.5)
 #' dim(ath_aly_crbh.qcov$crbh.pairs)
 #' ## custom filter for e.g. bit score (column 12)
 #' ## Note: multiple filters can be given in filter param as list
 #' myfilter <- function(rbh, value=500.0){
 #'     return(rbh[as.numeric(rbh[, 12])>=value, , drop=FALSE])
 #' }
-#' ath_aly_crbh.custom <- cds2rbh(ath, aly, filter=list(myfilter))
+#' ath_aly_crbh.custom <- cds2rbh(
+#'     cds1=ath,
+#'     cds2=aly,
+#'     filter=list(myfilter))
 #' dim(ath_aly_crbh.custom$crbh.pairs)
 #' ## selfblast
-#' ath_selfblast_crbh <- cds2rbh(ath, ath, plotCurve=TRUE)
+#' ath_selfblast_crbh <- cds2rbh(
+#'     cds1=ath,
+#'     cds2=ath,
+#'     plotCurve=TRUE)
 #' @export cds2rbh
 #' @author Kristian K Ullrich
 

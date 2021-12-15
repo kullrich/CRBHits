@@ -13,15 +13,16 @@ dnastring2dnabin(dna)
 An object of class \code{DNAbin}
 }
 \description{
-This function converts a \code{DNAStringSet} into an \code{ape}
-\code{DNAbin}.
+This function converts a \code{DNAStringSet} into an
+\code{ape} \code{DNAbin}.
 }
 \examples{
 ## define two cds sequences
 cds1 <- Biostrings::DNAString("ATGCAACATTGC")
-cds2 <- Biostrings::DNAString("ATGCATTGC")
-cds1.cds2.aln <- cds2codonaln(cds1, cds2)
-## convert into alignment
+cds2 <- Biostrings::DNAString("ATG---CATTGC")
+cds1.cds2.aln <- c(Biostrings::DNAStringSet(cds1),
+    Biostrings::DNAStringSet(cds2))
+## convert into DNAbin
 dnastring2dnabin(cds1.cds2.aln)
 }
 \seealso{

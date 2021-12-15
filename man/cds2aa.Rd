@@ -4,10 +4,19 @@
 \alias{cds2aa}
 \title{cds2aa}
 \usage{
-cds2aa(cds)
+cds2aa(cds, shorten = FALSE, frame = 1, framelist = NULL, genetic.code = NULL)
 }
 \arguments{
 \item{cds}{\code{DNAStringSet} [mandatory]}
+
+\item{shorten}{shorten all sequences to multiple of three [default: FALSE]}
+
+\item{frame}{indicates the first base of a the first codon [default: 1]}
+
+\item{framelist}{supply vector of frames for each entry [default: NULL]}
+
+\item{genetic.code}{The genetic code to use for the translation of codons
+into Amino Acid letters [default: NULL]}
 }
 \value{
 \code{AAStringSet}
@@ -17,9 +26,17 @@ This function translates a \code{DNAStringSet} into an
 \code{AAStringSet}.
 }
 \examples{
-## load example sequence data
-data("ath", package="CRBHits")
-cds2aa(ath)
+## define two cds sequences
+cds1 <- Biostrings::DNAString("ATGCAACATTGC")
+cds2 <- Biostrings::DNAString("ATG---CATTGC")
+cds1.cds2.aln <- c(Biostrings::DNAStringSet(cds1),
+    Biostrings::DNAStringSet(cds2))
+cds2aa(cds1.cds2.aln)
+## alternative genetic code
+data(woodmouse, package="ape")
+cds2aa(dnabin2dnastring(woodmouse), shorten=TRUE)
+cds2aa(dnabin2dnastring(woodmouse), shorten=TRUE,
+    genetic.code=Biostrings::getGeneticCode("2"))
 }
 \seealso{
 \code{\link[Biostrings]{XStringSet-class}},

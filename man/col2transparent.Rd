@@ -23,16 +23,17 @@ R color to transparent conversion.
 col2transparent("green", 50)
 ## Demonstrate the colors 1:8 in different palettes using a custom matplot()
 sinplot <- function(main=NULL) {
-  x <- outer(
-    seq(-pi, pi, length.out = 50),
-    seq(0, pi, length.out = 9),
-    function(x, y) sin(x - y)
-  )
-  matplot(x, type = "l", lwd = 4, lty = 1, col = 1:9, ylab = "", main=main)
+    x <- outer(
+        seq(-pi, pi, length.out = 50),
+        seq(0, pi, length.out = 9),
+        function(x, y) sin(x - y)
+    )
+    matplot(x, type = "l", lwd = 4, lty = 1, col = 1:9, ylab = "", main=main)
 }
-my.palette <- c("#CBC106", "#27993C", "#1C6838",
-                "#8EBCB5", "#389CA7", "#4D83AB",
-                "#CB7B26", "#BF565D", "#9E163C")
+my.palette <- c(
+    "#CBC106", "#27993C", "#1C6838",
+    "#8EBCB5", "#389CA7", "#4D83AB",
+    "#CB7B26", "#BF565D", "#9E163C")
 palette(my.palette); sinplot("my.palette")
 ## 25\% transparent
 palette(col2transparent(palette(my.palette), 25));

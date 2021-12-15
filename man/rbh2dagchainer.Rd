@@ -118,20 +118,27 @@ positions in base pairs but instead using gene order (gene.idx).
 }
 \examples{
 ## compile dagchainer
-make_dagchainer()
+CRBHits::make_dagchainer()
 ## load example sequence data
 data("ath", package="CRBHits")
 ## get selfhits CRBHit pairs
-ath_selfhits_crbh <- cds2rbh(ath, ath, plotCurve = TRUE)
+ath_selfhits_crbh <- cds2rbh(
+    cds1=ath,
+    cds2=ath,
+    plotCurve=TRUE)
 ## get gene position
-ath.genepos <- cds2genepos(ath, "ENSEMBL")
+ath.genepos <- cds2genepos(
+    cds=ath,
+    source="ENSEMBL")
 ## get DAGchainer results
-ath_selfblast_crbh.dagchainer <- rbh2dagchainer(rbhpairs=ath_selfhits_crbh,
+ath_selfblast_crbh.dagchainer <- rbh2dagchainer(
+    rbhpairs=ath_selfhits_crbh,
     gene.position.cds1=ath.genepos,
     gene.position.cds2=ath.genepos)
 head(ath_selfblast_crbh.dagchainer)
 ## plot dagchainer
-plot_dagchainer(ath_selfblast_crbh.dagchainer)
+plot_dagchainer(
+    dag=ath_selfblast_crbh.dagchainer)
 }
 \references{
 Haas BJ et al. (2004) DAGchainer: a tool for mining segmental

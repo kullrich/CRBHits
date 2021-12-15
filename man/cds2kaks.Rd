@@ -44,15 +44,32 @@ data("aly", package="CRBHits")
 ## select a sequence pair according to a best hit pair (done for you)
 cds1 <- ath[1]
 cds2 <- aly[282]
-cds2kaks(cds1, cds2, model="Li")
+cds2kaks(
+    cds1=cds1,
+    cds2=cds2,
+    model="Li")
 ## using an alternative substitutionMatrix
-cds2kaks(cds1, cds2, model="Li", substitutionMatrix="BLOSUM45")
-cds2kaks(cds1, cds2, model="Li", substitutionMatrix="BLOSUM80")
+cds2kaks(
+    cds1=cds1,
+    cds2=cds2,
+    model="Li",
+    substitutionMatrix="BLOSUM45")
+cds2kaks(
+    cds1=cds1,
+    cds2=cds2,
+    model="Li",
+    substitutionMatrix="BLOSUM80")
 \dontrun{
-cds2kaks(cds1, cds2, model="YN")
+cds2kaks(
+    cds1=cds1,
+    cds2=cds2,
+    model="YN")
 }
 \dontrun{
-cds2kaks(cds1, cds2, model="NG86")
+cds2kaks(
+    cds1=cds1,
+    cds2=cds2,
+    model="NG86")
 }
 }
 \references{

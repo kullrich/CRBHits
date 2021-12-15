@@ -7,7 +7,8 @@
 CRBHitsColors(n, alpha.perc = 0)
 }
 \arguments{
-\item{n}{The number of colors (≥ 1) to be in the palette [mandatory]}
+\item{n}{The number of colors (greater than or equal to 1) to be in the
+palette [mandatory]}
 
 \item{alpha.perc}{an alpha-transparency level in percent [default: 0]}
 }
@@ -18,9 +19,9 @@ CRBHits specific color palette
 CRBHits specific color palette.
 }
 \examples{
-plot(1:9, pch = 20, col = CRBHitsColors(9), cex = 3)
+plot(1:9, pch=20, col=CRBHitsColors(9), cex=3)
 ## use alpha
-plot(1:9, pch = 20, col = CRBHitsColors(9, 50), cex = 3)
+plot(1:9, pch=20, col=CRBHitsColors(9, 50), cex=3)
 }
 \seealso{
 \code{\link[grDevices]{palette}}

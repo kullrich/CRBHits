@@ -12,34 +12,37 @@ Description: CRBHits calculates conditional reciprocal best hit (CRBHit) pairs
     calculate Ka/Ks values.
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
+LazyData: false
 Depends:
   R (>= 4.0.0)
 Imports:
-  curl,
   Biostrings,
-  seqinr,
   ape,
-  foreach,
+  curl,
   doParallel,
-  tibble,
-  tidyverse,
-  tidyr,
-  rlang,
-  stringr,
-  stringi,
   dplyr,
+  foreach,
   ggplot2,
+  graphics,
   gridExtra,
-  mclust,
-  feature
+  grDevices,
+  methods,
+  parallel,
+  rlang,
+  seqinr,
+  stats,
+  stringi,
+  stringr,
+  tibble,
+  tidyr,
+  utils
 Suggests:
   rmarkdown,
   knitr,
   devtools,
   testthat
 VignetteBuilder: knitr
-biocViews: Software
+biocViews: Software, Alignment, Genetics
 NeedsCompilation: yes
 SystemRequirements:
   LAST (https://anaconda.org/bioconda/last),

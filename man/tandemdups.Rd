@@ -37,20 +37,28 @@ position.
 The function is ported into R from Haug-Baltzell et al. (2017)
 https://github.com/LyonsLab/coge/blob/master/bin/dagchainer/tandems.py
 }
+\examples{
+## load example sequence data
+data("ath", package="CRBHits")
+## get selfhits CRBHit pairs
+ath_selfhits_crbh <- cds2rbh(
+    cds1=ath,
+    cds2=ath,
+    plotCurve=TRUE)
+## get gene position
+ath.genepos <- cds2genepos(
+    cds=ath,
+    source="ENSEMBL")
+## get tandem duplicate results
+ath_selfblast_crbh.tandemdups <- tandemdups(
+    rbhpairs=ath_selfhits_crbh,
+    genepos=ath.genepos)
+head(ath_selfblast_crbh.tandemdups)
+}
 \references{
 Haug-Beltzell A et al. (2017) SynMap2 and SynMap3D: web-based
 whole-genome synteny browsers. \emph{Bioinformatics}
 \bold{33(14)}, 2197-2198.
-## load example sequence data
-data("ath", package="CRBHits")
-## get selfhits CRBHit pairs
-ath_selfhits_crbh <- cds2rbh(ath, ath, plotCurve=TRUE)
-## get gene position
-ath.genepos <- cds2genepos(ath, "ENSEMBL")
-## get tandem duplicate results
-ath_selfblast_crbh.tandemdups <- tandemdups(ath_selfhits_crbh,
-    ath.genepos)
-head(ath_selfblast_crbh.tandemdups)
 }
 \seealso{
 \code{\link[CRBHits]{isoform2longest}}
