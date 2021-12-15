@@ -13,7 +13,8 @@ dnastring2dnabin(dna)
 An object of class \code{DNAbin}
 }
 \description{
-This function converts a \code{DNAStringSet} into an \code{ape} \code{DNAbin}.
+This function converts a \code{DNAStringSet} into an \code{ape}
+\code{DNAbin}.
 }
 \examples{
 ## define two cds sequences
@@ -24,7 +25,8 @@ cds1.cds2.aln <- cds2codonaln(cds1, cds2)
 dnastring2dnabin(cds1.cds2.aln)
 }
 \seealso{
-\code{\link[seqinr]{as.alignment}} \code{\link[ape]{as.DNAbin.alignment}}
+\code{\link[seqinr]{as.alignment}}
+\code{\link[ape]{as.DNAbin.alignment}}
 }
 \author{
 Kristian K Ullrich

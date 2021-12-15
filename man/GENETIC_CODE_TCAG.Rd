@@ -14,7 +14,8 @@ codon2number(codon)
 An object of class \code{numeric}
 }
 \description{
-\code{GENETIC_CODE} from \code{Biostrings} extended by codon number and number of syn sites.
+\code{GENETIC_CODE} from \code{Biostrings} extended by codon
+number and number of syn sites.
 }
 \examples{
 GENETIC_CODE_TCAG

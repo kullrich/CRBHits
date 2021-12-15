@@ -12,7 +12,8 @@ an object of class \code{list}
 data(hom_pan_ensembl_kaks)
 }
 \description{
-Example of Ka/Ks values between Homo sapiens and Pan troglodytes obtained from NCBI.
+Example of Ka/Ks values between Homo sapiens and Pan
+troglodytes obtained from NCBI.
 }
 \examples{
 data("hom_pan_ensembl_kaks", package="CRBHits")

@@ -10,7 +10,8 @@ codonmat2pnps(codonmat)
 \item{codonmat}{\code{codonmat} A [mandatory]}
 }
 \value{
-An object of class \code{pnps} which is a list with the following components:\cr
+An object of class \code{pnps} which is a list with the following
+components:\cr
 \code{seq1} sequence1 name\cr
 \code{seq2} sequence2 name\cr
 \code{Codons} sequence2 name\cr
@@ -30,7 +31,8 @@ An object of class \code{pnps} which is a list with the following components:\cr
 \code{dnds} sequence2 name\cr
 }
 \description{
-This function calculates pn/ps according to \emph{Nei and Gojobori (1986)}.
+This function calculates pn/ps according to
+\emph{Nei and Gojobori (1986)}.
 }
 \examples{
 ## load example sequence data
@@ -38,11 +40,17 @@ data("hiv", package="CRBHits")
 codonmat2pnps(dnastring2codonmat(hiv)[,c(1, 2)])
 }
 \references{
-Nei and Gojobori. (1986) Simple methods for estimating the numbers of synonymous and nonsynonymous nucleotide substitutions. \emph{Mol. Biol. Evol.}, \bold{3(5)}, 418-426.
+Nei and Gojobori. (1986) Simple methods for estimating the
+numbers of synonymous and nonsynonymous nucleotide substitutions.
+\emph{Mol. Biol. Evol.}, \bold{3(5)}, 418-426.
 
-Ganeshan et al. (1997) Human immunodeficiency virus type 1 genetic evolution in children with different rates of development of disease. \emph{J. Virology.} \bold{71(1)}, 663-677.
+Ganeshan et al. (1997) Human immunodeficiency virus type 1
+genetic evolution in children with different rates of development of disease.
+\emph{J. Virology.} \bold{71(1)}, 663-677.
 
-Yang et al. (2000) Codon-substitution models for heterogeneous selection pressure at amino acid sites. \emph{Genetics.} \bold{155(1)}, 431-449.
+Yang et al. (2000) Codon-substitution models for heterogeneous
+selection pressure at amino acid sites. \emph{Genetics.}
+\bold{155(1)}, 431-449.
 }
 \seealso{
 \code{\link[seqinr]{kaks}}

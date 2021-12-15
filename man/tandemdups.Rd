@@ -7,11 +7,17 @@
 tandemdups(rbhpairs, genepos, dupdist = 5)
 }
 \arguments{
-\item{rbhpairs}{(conditional-)reciprocal best hit (CRBHit) pair result (see \code{\link[CRBHits]{cds2rbh}}) [mandatory]}
+\item{rbhpairs}{(conditional-)reciprocal best hit (CRBHit) pair result
+(see \code{\link[CRBHits]{cds2rbh}}) [mandatory]}
 
-\item{genepos}{Gene position matrix as obtained from \code{cds2genepos} [mandatory]}
+\item{genepos}{Gene position matrix as obtained from \code{cds2genepos}
+[mandatory]}
 
-\item{dupdist}{Maximum distance between 2 gene positions on the same chromosome which will call them as a pair of local duplicates. If they are farther apart than \code{dipdist}, but share a common hit within \code{dupdist} of both, then they will still be in the same set of local duplicates. [default: 5]}
+\item{dupdist}{Maximum distance between 2 gene positions on the same
+chromosome which will call them as a pair of local duplicates. If they are
+farther apart than \code{dipdist}, but share a common hit within
+\code{dupdist} of both, then they will still be in the same set of local
+duplicates. [default: 5]}
 }
 \value{
 \code{matrix}
@@ -25,20 +31,25 @@ tandemdups(rbhpairs, genepos, dupdist = 5)
 8: $tandem_group\cr
 }
 \description{
-This function assigns tandem duplicates given (conditional-)reciprocal best hit (CRBHit) pairs and their chromosomal gene position.
-The function is ported into R from Haug-Baltzell et al. (2017) https://github.com/LyonsLab/coge/blob/master/bin/dagchainer/tandems.py
+This function assigns tandem duplicates given
+(conditional-)reciprocal best hit (CRBHit) pairs and their chromosomal gene
+position.
+The function is ported into R from Haug-Baltzell et al. (2017)
+https://github.com/LyonsLab/coge/blob/master/bin/dagchainer/tandems.py
 }
 \references{
-Haug-Beltzell A et al. (2017) SynMap2 and SynMap3D: web-based whole-genome synteny browsers. \emph{Bioinformatics} \bold{33(14)}, 2197-2198.
+Haug-Beltzell A et al. (2017) SynMap2 and SynMap3D: web-based
+whole-genome synteny browsers. \emph{Bioinformatics}
+\bold{33(14)}, 2197-2198.
 ## load example sequence data
 data("ath", package="CRBHits")
 ## get selfhits CRBHit pairs
-ath_selfhits_crbh <- cds2rbh(ath, ath, plotCurve = TRUE)
+ath_selfhits_crbh <- cds2rbh(ath, ath, plotCurve=TRUE)
 ## get gene position
 ath.genepos <- cds2genepos(ath, "ENSEMBL")
 ## get tandem duplicate results
 ath_selfblast_crbh.tandemdups <- tandemdups(ath_selfhits_crbh,
-                                            ath.genepos)
+    ath.genepos)
 head(ath_selfblast_crbh.tandemdups)
 }
 \seealso{

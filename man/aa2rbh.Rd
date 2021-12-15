@@ -32,15 +32,19 @@ aa2rbh(
 
 \item{aa2}{aa2 sequences as \code{AAStringSet} [mandatory]}
 
-\item{lastpath}{specify the PATH to the last binaries [default: /extdata/last-1256/bin/]}
+\item{lastpath}{specify the PATH to the last binaries
+[default: /extdata/last-1256/bin/]}
 
-\item{lastD}{last option D: query letters per random alignment [default: 1e6]}
+\item{lastD}{last option D: query letters per random alignment
+[default: 1e6]}
 
 \item{outpath}{specify the output PATH [default: /tmp]}
 
-\item{crbh}{specify if conditional-reciprocal hit pairs should be retained as secondary hits [default: TRUE]}
+\item{crbh}{specify if conditional-reciprocal hit pairs should be retained
+as secondary hits [default: TRUE]}
 
-\item{keepSingleDirection}{specify if single direction secondary hit pairs should be retained [default: FALSE]}
+\item{keepSingleDirection}{specify if single direction secondary hit pairs
+should be retained [default: FALSE]}
 
 \item{eval}{evalue [default: 1e-3]}
 
@@ -52,15 +56,20 @@ aa2rbh(
 
 \item{alnlen}{alignment length [default: 0.0]}
 
-\item{rost1999}{specify if hit pairs should be filter by equation 2 of Rost 1999 [default: FALSE]}
+\item{rost1999}{specify if hit pairs should be filter by equation 2 of
+Rost 1999 [default: FALSE]}
 
-\item{filter}{specify additional custom filters as list to be applied on hit pairs [default: NULL]}
+\item{filter}{specify additional custom filters as list to be applied on hit
+pairs [default: NULL]}
 
-\item{plotCurve}{specify if crbh fitting curve should be plotted [default: FALSE]}
+\item{plotCurve}{specify if crbh fitting curve should be plotted
+[default: FALSE]}
 
-\item{fit.type}{specify if mean or median should be used for fitting [default: mean]}
+\item{fit.type}{specify if mean or median should be used for fitting
+[default: mean]}
 
-\item{fit.varweight}{factor for fitting function to consider neighborhood [default: 0.1]}
+\item{fit.varweight}{factor for fitting function to consider neighborhood
+[default: 0.1]}
 
 \item{fit.min}{specify minimum neighborhood alignment length [default: 5]}
 
@@ -81,9 +90,12 @@ List of four (crbh = TRUE)\cr
 4: $rbh1_rbh2_fit; evalue fitting function
 }
 \description{
-This function calculates (conditional-)reciprocal best hit (CRBHit) pairs from two AA \code{AAStringSet}'s.
-Conditional-reciprocal best hit pairs were introduced by \emph{Aubry S, Kelly S et al. (2014)}.
-Sequence searches are performed with \bold{last} \emph{Kiełbasa, SM et al. (2011)}.
+This function calculates (conditional-)reciprocal best hit
+(CRBHit) pairs from two AA \code{AAStringSet}'s.
+Conditional-reciprocal best hit pairs were introduced by
+\emph{Aubry S, Kelly S et al. (2014)}.
+Sequence searches are performed with \bold{last}
+\emph{Kiełbasa, SM et al. (2011)}.
 If one specifies aa1 and aa2 as the same input a selfblast is conducted.
 }
 \examples{
@@ -95,21 +107,26 @@ data("aly", package="CRBHits")
 ath.aa <- cds2aa(ath)
 aly.aa <- cds2aa(aly)
 ## get CRBHit pairs
-ath_aly_crbh <- aa2rbh(ath.aa, aly.aa, plotCurve = TRUE)
+ath_aly_crbh <- aa2rbh(ath.aa, aly.aa, plotCurve=TRUE)
 dim(ath_aly_crbh$crbh.pairs)
 ## get classical reciprocal best hit (RBHit) pairs
-ath_aly_rbh <- aa2rbh(ath.aa, aly.aa, crbh = FALSE)
+ath_aly_rbh <- aa2rbh(ath.aa, aly.aa, crbh=FALSE)
 dim(ath_aly_rbh$crbh.pairs)
 ## selfblast
-ath_selfblast_crbh <- aa2rbh(ath.aa, ath.aa, plotCurve = TRUE)
+ath_selfblast_crbh <- aa2rbh(ath.aa, ath.aa, plotCurve=TRUE)
 ## see ?cds2rbh for more examples
 }
 \references{
-Aubry S, Kelly S et al. (2014) Deep Evolutionary Comparison of Gene Expression Identifies Parallel Recruitment of Trans-Factors in Two Independent Origins of C4 Photosynthesis. \emph{PLOS Genetics}, \bold{10(6)} e1004365.
+Aubry S, Kelly S et al. (2014) Deep Evolutionary Comparison of
+Gene Expression Identifies Parallel Recruitment of Trans-Factors in Two
+Independent Origins of C4 Photosynthesis. \emph{PLOS Genetics},
+\bold{10(6)} e1004365.
 
-Kiełbasa, SM et al. (2011) Adaptive seeds tame genomic sequence comparison. \emph{Genome research}, \bold{21(3)}, 487-493.
+Kiełbasa, SM et al. (2011) Adaptive seeds tame genomic sequence
+comparison. \emph{Genome research}, \bold{21(3)}, 487-493.
 
-Rost B. (1999). Twilight zone of protein sequence alignments. \emph{Protein Engineering}, \bold{12(2)}, 85-94.
+Rost B. (1999). Twilight zone of protein sequence alignments.
+\emph{Protein Engineering}, \bold{12(2)}, 85-94.
 }
 \seealso{
 \code{\link[CRBHits]{cdsfile2rbh}},

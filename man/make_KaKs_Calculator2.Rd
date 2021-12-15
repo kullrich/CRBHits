@@ -7,10 +7,13 @@
 make_KaKs_Calculator2()
 }
 \description{
-This function tries to build the prerequisite KaKs_calculator2.0 from source code forked within CRBHits
+This function tries to build the prerequisite
+KaKs_calculator2.0 from source code forked within CRBHits
 }
 \references{
-Wang D, Zhang Y et al. (2010) KaKs_Calculator 2.0: a toolkit incorporating gamma-series methods and sliding window strategies. \emph{Genomics Proteomics Bioinformatics.} \bold{8(1)}, 77-80.
+Wang D, Zhang Y et al. (2010) KaKs_Calculator 2.0: a toolkit
+incorporating gamma-series methods and sliding window strategies.
+\emph{Genomics Proteomics Bioinformatics.} \bold{8(1)}, 77-80.
 }
 \author{
 Kristian K Ullrich

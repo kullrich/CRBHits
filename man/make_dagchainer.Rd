@@ -7,10 +7,13 @@
 make_dagchainer()
 }
 \description{
-This function tries to build the DAGchainer from source code forked within CRBHits
+This function tries to build the DAGchainer from source code
+forked within CRBHits
 }
 \references{
-Haas BJ et al. (2004) DAGchainer: a tool for mining segmental genome duplications and synteny. \bold{Bioinformatics} \bold{20} \bold{(18)}, 3643-6.
+Haas BJ et al. (2004) DAGchainer: a tool for mining segmental
+genome duplications and synteny. \bold{Bioinformatics}
+\bold{20} \bold{(18)}, 3643-6.
 }
 \author{
 Kristian K Ullrich

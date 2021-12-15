@@ -13,7 +13,8 @@ see \code{\link[Biostrings]{XStringSet-class}}
 data(ath)
 }
 \description{
-Example cds sequences from Arabidopsis thaliana as \code{DNAStringSet}.
+Example cds sequences from Arabidopsis thaliana as
+\code{DNAStringSet}.
 }
 \examples{
 data("ath", package="CRBHits")

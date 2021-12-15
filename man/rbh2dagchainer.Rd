@@ -113,8 +113,9 @@ ath_selfhits_crbh <- cds2rbh(ath, ath, plotCurve = TRUE)
 ## get gene position
 ath.genepos <- cds2genepos(ath, "ENSEMBL")
 ## get DAGchainer results
-ath_selfblast_crbh.dagchainer <- rbh2dagchainer(ath_selfhits_crbh,
-                                                ath.genepos, ath.genepos)
+ath_selfblast_crbh.dagchainer <- rbh2dagchainer(rbhpairs=ath_selfhits_crbh,
+    gene.position.cds1=ath.genepos,
+    gene.position.cds2=ath.genepos)
 head(ath_selfblast_crbh.dagchainer)
 ## plot dagchainer
 plot_dagchainer(ath_selfblast_crbh.dagchainer)

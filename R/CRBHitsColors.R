@@ -13,12 +13,13 @@
 #' @export CRBHitsColors
 #' @author Kristian K Ullrich
 
-CRBHitsColors <- function(n, alpha.perc = 0){
-  palette(c("#CBC106", "#27993C", "#1C6838",
-            "#8EBCB5", "#389CA7", "#4D83AB",
-            "#CB7B26", "#BF565D", "#9E163C"))
-  my.palette <- palette()
-  my.n.palette <- colorRampPalette(my.palette)(n)
-  my.out.palette <- col2transparent(my.n.palette, alpha.perc)
-  return(my.out.palette)
+CRBHitsColors <- function(n, alpha.perc=0){
+    palette(c(
+        "#CBC106", "#27993C", "#1C6838",
+        "#8EBCB5", "#389CA7", "#4D83AB",
+        "#CB7B26", "#BF565D", "#9E163C"))
+    my.palette <- palette()
+    my.n.palette <- colorRampPalette(my.palette)(n)
+    my.out.palette <- col2transparent(my.n.palette, alpha.perc)
+    return(my.out.palette)
 }

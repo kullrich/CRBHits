@@ -1,25 +1,38 @@
 #' @title rbh2dagchainer
 #' @name rbh2dagchainer
-#' @description This function runs DAGchainer (http://dagchainer.sourceforge.net/) given CRBHit pairs and gene positions for both cds1 and cds2. The default options are set to not compare gene positions in base pairs but instead using gene order (gene.idx).
-#' @param rbhpairs (conditional-)reciprocal best hit (CRBHit) pair result (see \code{\link[CRBHits]{cds2rbh}}) [mandatory]
-#' @param selfblast1 (conditional-)reciprocal best hit (CRBHit) pair selfblast result for cds1 sequences (see \code{\link[CRBHits]{cds2rbh}}) [optional]
-#' @param selfblast2 (conditional-)reciprocal best hit (CRBHit) pair selfblast result for cds2 sequences (see \code{\link[CRBHits]{cds2rbh}}) [optional]
-#' @param gene.position.cds1 specify gene position for cds1 sequences (see \code{\link[CRBHits]{cds2genepos}}) [default: NULL]
-#' @param gene.position.cds2 specify gene position for cds2 sequences (see \code{\link[CRBHits]{cds2genepos}}) [default: NULL]
-#' @param dagchainerpath specify the PATH to the DAGchainer binaries [default: /extdata/dagchainer/]
+#' @description This function runs DAGchainer
+#' (http://dagchainer.sourceforge.net/) given CRBHit pairs and gene positions
+#' for both cds1 and cds2. The default options are set to not compare gene
+#' positions in base pairs but instead using gene order (gene.idx).
+#' @param rbhpairs (conditional-)reciprocal best hit (CRBHit) pair result
+#' (see \code{\link[CRBHits]{cds2rbh}}) [mandatory]
+#' @param selfblast1 (conditional-)reciprocal best hit (CRBHit) pair selfblast
+#' result for cds1 sequences (see \code{\link[CRBHits]{cds2rbh}}) [optional]
+#' @param selfblast2 (conditional-)reciprocal best hit (CRBHit) pair selfblast
+#' result for cds2 sequences (see \code{\link[CRBHits]{cds2rbh}}) [optional]
+#' @param gene.position.cds1 specify gene position for cds1 sequences
+#' (see \code{\link[CRBHits]{cds2genepos}}) [default: NULL]
+#' @param gene.position.cds2 specify gene position for cds2 sequences
+#' (see \code{\link[CRBHits]{cds2genepos}}) [default: NULL]
+#' @param dagchainerpath specify the PATH to the DAGchainer binaries
+#' [default: /extdata/dagchainer/]
 #' @param gap_open_penalty gap open penalty [default: 0]
 #' @param gap_extension_penalty gap extension penalty [default: -3]
-#' @param gap_length length of a gap (avgerage distance expected between two syntenic genes); if type is set to "idx" use 1 [default: 10000]
+#' @param gap_length length of a gap (avgerage distance expected between two
+#' syntenic genes); if type is set to "idx" use 1 [default: 10000]
 #' @param max_match_score Maximum match score [default: 50]
-#' @param max_dist_allowed maximum distance allowed between two matches; if type is set to "idx" use 20 [default: 200000]
+#' @param max_dist_allowed maximum distance allowed between two matches;
+#' if type is set to "idx" use 20 [default: 200000]
 #' @param max_evalue Maximum E-value [default: 1e-3]
 #' @param ignore_tandem ignore tandem duplicates [default = TRUE]
 #' @param only_tandem only tandem alignments [default = FALSE]
 #' @param min_number_aligned_pairs Minimum number of Aligned Pairs [default: 5]
-#' @param type specify if gene order index "idx" or gene base pair position "bp" should be extracted and used with DAGchainer [default: bp]
+#' @param type specify if gene order index "idx" or gene base pair position
+#' "bp" should be extracted and used with DAGchainer [default: bp]
 #' @param plotDotPlot specify if dotplot should be plotted [default: FALSE]
 #' @param DotPlotTitle specify DotPlot title [default: 'DAGchainer results']
-#' @param colorBy specify if dagchainer groups should be colored by "Ka", "Ks", "Ka/Ks" or "none" [default: none]
+#' @param colorBy specify if dagchainer groups should be colored by "Ka", "Ks",
+#' "Ka/Ks" or "none" [default: none]
 #' @param kaks specify Ka/Ks input obtained via `rbh2kaks()` [default: NULL]
 #' @param ka.max specify max Ka to be filtered [default: 5]
 #' @param ks.max specify max Ks to be filtered [default: 5]
@@ -50,7 +63,9 @@
 #' \code{\link[CRBHits]{cds2genepos}},
 #' \code{\link[CRBHits]{tandemdups}},
 #' \code{\link[CRBHits]{rbh2kaks}}
-#' @references Haas BJ et al. (2004) DAGchainer: a tool for mining segmental genome duplications and synteny. \emph{Bioinformatics.} \bold{20(18)}, 3643-3646.
+#' @references Haas BJ et al. (2004) DAGchainer: a tool for mining segmental
+#' genome duplications and synteny. \emph{Bioinformatics.}
+#' \bold{20(18)}, 3643-3646.
 #' @examples
 #' ## compile dagchainer
 #' make_dagchainer()
@@ -61,8 +76,9 @@
 #' ## get gene position
 #' ath.genepos <- cds2genepos(ath, "ENSEMBL")
 #' ## get DAGchainer results
-#' ath_selfblast_crbh.dagchainer <- rbh2dagchainer(ath_selfhits_crbh,
-#'                                                 ath.genepos, ath.genepos)
+#' ath_selfblast_crbh.dagchainer <- rbh2dagchainer(rbhpairs=ath_selfhits_crbh,
+#'     gene.position.cds1=ath.genepos,
+#'     gene.position.cds2=ath.genepos)
 #' head(ath_selfblast_crbh.dagchainer)
 #' ## plot dagchainer
 #' plot_dagchainer(ath_selfblast_crbh.dagchainer)
@@ -70,213 +86,289 @@
 #' @author Kristian K Ullrich
 
 rbh2dagchainer <- function(rbhpairs,
-                           selfblast1 = NULL,
-                           selfblast2 = NULL,
-                           gene.position.cds1 = NULL,
-                           gene.position.cds2 = NULL,
-                           dagchainerpath = paste0(find.package("CRBHits"),
-                                             "/extdata/dagchainer/"),
-                           gap_open_penalty = 0,
-                           gap_extension_penalty = -3,
-                           gap_length = 10000,
-                           max_match_score = 50,
-                           max_dist_allowed = 200000,
-                           max_evalue = 1e-3,
-                           ignore_tandem = TRUE,
-                           only_tandem = FALSE,
-                           min_number_aligned_pairs = 5,
-                           type = "bp",
-                           plotDotPlot = FALSE,
-                           DotPlotTitle = "DAGchainer results",
-                           colorBy = "none",
-                           kaks = NULL,
-                           ka.max = 5,
-                           ks.max = 5,
-                           ka.min = 0,
-                           ks.min = 0,
-                           select.chr = NULL
-                           ){
-  gene.seq.id <- NULL
-  gene1.seq.id <- NULL
-  gene2.seq.id <- NULL
-  gene.chr <- NULL
-  gene1.chr <- NULL
-  gene2.chr <- NULL
-  gene.start <- NULL
-  gene.end <- NULL
-  gene.idx <- NULL
-  gene1.idx1 <- NULL
-  gene1.idx2 <- NULL
-  gene2.idx1 <- NULL
-  gene2.idx2 <- NULL
-  evalue <- NULL
-  score <- NULL
-  if(ignore_tandem == TRUE & only_tandem == TRUE){
-    stop("both options set to TRUE can not go together. Set one of them to FALSE")
-  }
-  if(attributes(rbhpairs)$CRBHits.class != "crbh"){
-    stop("Please obtain rbhpairs via the cds2rbh or the cdsfile2rbh function")
-  }
-  if(is.null(gene.position.cds1) | is.null(gene.position.cds2)){
-    stop("Please provide gene position information. Can be obtained via the cds2genepos() function")
-  }
-  if(!is.null(gene.position.cds1)){
-    if(attributes(gene.position.cds1)$CRBHits.class != "genepos"){
-      stop("Please obtain gene position via the cds2genepos() function or add a 'genepos' class attribute")
+    selfblast1=NULL,
+    selfblast2=NULL,
+    gene.position.cds1=NULL,
+    gene.position.cds2=NULL,
+    dagchainerpath=paste0(find.package("CRBHits"),
+        "/extdata/dagchainer/"),
+    gap_open_penalty=0,
+    gap_extension_penalty=-3,
+    gap_length=10000,
+    max_match_score=50,
+    max_dist_allowed=200000,
+    max_evalue=1e-3,
+    ignore_tandem=TRUE,
+    only_tandem=FALSE,
+    min_number_aligned_pairs=5,
+    type="bp",
+    plotDotPlot=FALSE,
+    DotPlotTitle="DAGchainer results",
+    colorBy="none",
+    kaks=NULL,
+    ka.max=5,
+    ks.max=5,
+    ka.min=0,
+    ks.min=0,
+    select.chr=NULL){
+    gene.seq.id <- NULL
+    gene1.seq.id <- NULL
+    gene2.seq.id <- NULL
+    gene.chr <- NULL
+    gene1.chr <- NULL
+    gene2.chr <- NULL
+    gene.start <- NULL
+    gene.end <- NULL
+    gene.idx <- NULL
+    gene1.idx1 <- NULL
+    gene1.idx2 <- NULL
+    gene2.idx1 <- NULL
+    gene2.idx2 <- NULL
+    evalue <- NULL
+    score <- NULL
+    if(ignore_tandem == TRUE & only_tandem == TRUE){
+        stop("both options set to TRUE can not go together. Set one of them to
+            FALSE")
     }
-  }
-  if(!is.null(gene.position.cds2)){
-    if(attributes(gene.position.cds2)$CRBHits.class != "genepos"){
-      stop("Please obtain gene position via the cds2genepos() function or add a 'genepos' class attribute")
+    if(attributes(rbhpairs)$CRBHits.class != "crbh"){
+        stop("Please obtain rbhpairs via the cds2rbh or the cdsfile2rbh
+            function")
     }
-  }
-  if(!dir.exists(dagchainerpath)){stop("Error: DAGchainer PATH does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make_dagchainer() function.")}
-  if(!file.exists(paste0(dagchainerpath, "dagchainer"))){stop("Error: dagchainer binary does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make_dagchainer() function.")}
-  if(!file.exists(paste0(dagchainerpath, "run_DAG_chainer.pl"))){stop("Error: run_DAG_chainer.pl does not exist. Please specify correct PATH and/or look into package installation prerequisites. Try to use make_dagchainer() function.")}
-  selfblast <- attributes(rbhpairs)$selfblast
-  genepos.colnames <- c("gene.seq.id", "gene.chr", "gene.start", "gene.end",
-                        "gene.mid", "gene.strand", "gene.idx")
-  if(plotDotPlot){
-    if(colorBy == "Ka" | colorBy == "Ks" | colorBy == "Ka/Ks"){
-      if(is.null(kaks)){
-        stop("Please provide Ka/Ks input as obtained via rbh2kaks()")
-      }
-      if(!is.null(kaks)){
-        if(attributes(kaks)$CRBHits.class != "kaks"){
-          stop("Please obtain Ka/Ks input via the rbh2kaks() function or add a 'kaks' class attribute")
+    if(is.null(gene.position.cds1) | is.null(gene.position.cds2)){
+        stop("Please provide gene position information. Can be obtained via the
+            cds2genepos() function")
+    }
+    if(!is.null(gene.position.cds1)){
+        if(attributes(gene.position.cds1)$CRBHits.class != "genepos"){
+            stop("Please obtain gene position via the cds2genepos() function or
+                add a 'genepos' class attribute")
         }
-      }
     }
-  }
-  if(type == "bp"){
-    aa1.genepos <- gene.position.cds1[match(rbhpairs$crbh.pairs$aa1,
-                                            gene.position.cds1$gene.seq.id), , drop =FALSE] %>%
-      dplyr::select(gene.chr, gene.seq.id, gene.start, gene.end)
-    aa2.genepos <- gene.position.cds2[match(rbhpairs$crbh.pairs$aa2,
-                                            gene.position.cds2$gene.seq.id), , drop =FALSE] %>%
-      dplyr::select(gene.chr, gene.seq.id, gene.start, gene.end)
-    dagchainer.input <- cbind(aa1.genepos, aa2.genepos)
-    colnames(dagchainer.input) <- c("gene1.chr", "gene1.seq.id", "gene1.start", "gene1.end",
-                                    "gene2.chr", "gene2.seq.id", "gene2.start", "gene2.end")
-    dagchainer.evalue <- rbhpairs$crbh1[match(dagchainer.input$gene1.seq.id, rbhpairs$crbh1$query_id), , drop =FALSE]$evalue
-    dagchainer.input <- cbind(dagchainer.input, evalue = dagchainer.evalue)
-    if(selfblast){
-      dagchainer.input$gene1.chr<-paste0("AA1:",dagchainer.input$gene1.chr)
-      dagchainer.input$gene2.chr<-paste0("AA1:",dagchainer.input$gene2.chr)
-    } else{
-      dagchainer.input$gene1.chr<-paste0("AA1:",dagchainer.input$gene1.chr)
-      dagchainer.input$gene2.chr<-paste0("AA2:",dagchainer.input$gene2.chr)
+    if(!is.null(gene.position.cds2)){
+        if(attributes(gene.position.cds2)$CRBHits.class != "genepos"){
+            stop("Please obtain gene position via the cds2genepos() function or
+                add a 'genepos' class attribute")
+        }
     }
-    if(!is.null(selfblast1)){
-      selfblast1.aa1.genepos <- gene.position.cds1[match(selfblast1$crbh.pairs$aa1,
-                                                         gene.position.cds1$gene.seq.id), , drop =FALSE] %>%
-      dplyr::select(gene.chr, gene.seq.id, gene.start, gene.end)
-      selfblast1.aa2.genepos <- gene.position.cds1[match(selfblast1$crbh.pairs$aa2,
-                                                         gene.position.cds1$gene.seq.id), , drop =FALSE] %>%
-      dplyr::select(gene.chr, gene.seq.id, gene.start, gene.end)
-      selfblast1.dagchainer.input <- cbind(selfblast1.aa1.genepos, selfblast1.aa2.genepos)
-      colnames(selfblast1.dagchainer.input) <- c("gene1.chr", "gene1.seq.id", "gene1.start", "gene1.end",
-                                                 "gene2.chr", "gene2.seq.id", "gene2.start", "gene2.end")
-      selfblast1.dagchainer.evalue <- selfblast1$crbh1[match(selfblast1.dagchainer.input$gene1.seq.id, selfblast1$crbh1$query_id), , drop =FALSE]$evalue
-      selfblast1.dagchainer.input <- cbind(selfblast1.dagchainer.input, evalue = selfblast1.dagchainer.evalue)
-      selfblast1.dagchainer.input$gene1.chr<-paste0("AA1:",selfblast1.dagchainer.input$gene1.chr)
-      selfblast1.dagchainer.input$gene2.chr<-paste0("AA1:",selfblast1.dagchainer.input$gene2.chr)
-      dagchainer.input <- rbind(dagchainer.input, selfblast1.dagchainer.input)
+    if(!dir.exists(dagchainerpath)){
+        stop("Error: DAGchainer PATH does not exist. Please specify correct
+            PATH and/or look into package installation prerequisites. Try to
+            use make_dagchainer() function.")
     }
-    if(!is.null(selfblast2)){
-      selfblast2.aa1.genepos <- gene.position.cds2[match(selfblast2$crbh.pairs$aa1,
-                                                         gene.position.cds2$gene.seq.id), , drop =FALSE] %>%
-      dplyr::select(gene.chr, gene.seq.id, gene.start, gene.end)
-      selfblast2.aa2.genepos <- gene.position.cds2[match(selfblast2$crbh.pairs$aa2,
-                                                         gene.position.cds2$gene.seq.id), , drop =FALSE] %>%
-      dplyr::select(gene.chr, gene.seq.id, gene.start, gene.end)
-      selfblast2.dagchainer.input <- cbind(selfblast2.aa1.genepos, selfblast2.aa2.genepos)
-      colnames(selfblast2.dagchainer.input) <- c("gene1.chr", "gene1.seq.id", "gene1.start", "gene1.end",
-                                                 "gene2.chr", "gene2.seq.id", "gene2.start", "gene2.end")
-      selfblast2.dagchainer.evalue <- selfblast2$crbh1[match(selfblast2.dagchainer.input$gene1.seq.id, selfblast2$crbh1$query_id), , drop =FALSE]$evalue
-      selfblast2.dagchainer.input <- cbind(selfblast2.dagchainer.input, evalue = selfblast2.dagchainer.evalue)
-      selfblast2.dagchainer.input$gene1.chr<-paste0("AA2:",selfblast2.dagchainer.input$gene1.chr)
-      selfblast2.dagchainer.input$gene2.chr<-paste0("AA2:",selfblast2.dagchainer.input$gene2.chr)
-      dagchainer.input <- rbind(dagchainer.input, selfblast2.dagchainer.input)
+    if(!file.exists(paste0(dagchainerpath, "dagchainer"))){
+        stop("Error: dagchainer binary does not exist. Please specify correct
+            PATH and/or look into package installation prerequisites. Try to
+            use make_dagchainer() function.")
     }
-  }
-  if(type == "idx"){
-    aa1.genepos <- gene.position.cds1[match(rbhpairs$crbh.pairs$aa1,
-                                            gene.position.cds1$gene.seq.id), , drop =FALSE] %>%
-      dplyr::select(gene.chr, gene.seq.id, gene.idx1 = gene.idx, gene.idx2 = gene.idx)
-    aa2.genepos <- gene.position.cds2[match(rbhpairs$crbh.pairs$aa2,
-                                            gene.position.cds2$gene.seq.id), , drop =FALSE] %>%
-      dplyr::select(gene.chr, gene.seq.id, gene.idx1 = gene.idx, gene.idx2 = gene.idx)
-    dagchainer.input <- cbind(aa1.genepos, aa2.genepos)
-    colnames(dagchainer.input) <- c("gene1.chr", "gene1.seq.id", "gene1.idx1", "gene1.idx2",
-                                    "gene2.chr", "gene2.seq.id", "gene2.idx1", "gene2.idx2")
-    dagchainer.evalue <- rbhpairs$crbh1[match(dagchainer.input$gene1.seq.id, rbhpairs$crbh1$query_id), , drop =FALSE]$evalue
-    dagchainer.input <- cbind(dagchainer.input, evalue = dagchainer.evalue)
-    if(selfblast){
-      dagchainer.input$gene1.chr<-paste0("AA1:",dagchainer.input$gene1.chr)
-      dagchainer.input$gene2.chr<-paste0("AA1:",dagchainer.input$gene2.chr)
-    } else{
-      dagchainer.input$gene1.chr<-paste0("AA1:",dagchainer.input$gene1.chr)
-      dagchainer.input$gene2.chr<-paste0("AA2:",dagchainer.input$gene2.chr)
+    if(!file.exists(paste0(dagchainerpath, "run_DAG_chainer.pl"))){
+        stop("Error: run_DAG_chainer.pl does not exist. Please specify correct
+            PATH and/or look into package installation prerequisites. Try to use
+            make_dagchainer() function.")
     }
-    if(!is.null(selfblast1)){
-      selfblast1.aa1.genepos <- gene.position.cds1[match(selfblast1$crbh.pairs$aa1,
-                                            gene.position.cds1$gene.seq.id), , drop =FALSE] %>%
-      dplyr::select(gene.chr, gene.seq.id, gene.idx1 = gene.idx, gene.idx2 = gene.idx)
-      selfblast1.aa2.genepos <- gene.position.cds1[match(selfblast1$crbh.pairs$aa2,
-                                            gene.position.cds1$gene.seq.id), , drop =FALSE] %>%
-      dplyr::select(gene.chr, gene.seq.id, gene.idx1 = gene.idx, gene.idx2 = gene.idx)
-      selfblast1.dagchainer.input <- cbind(selfblast1.aa1.genepos, selfblast1.aa2.genepos)
-      colnames(selfblast1.dagchainer.input) <- c("gene1.chr", "gene1.seq.id", "gene1.idx1", "gene1.idx2",
-                                                 "gene2.chr", "gene2.seq.id", "gene2.idx1", "gene2.idx2")
-      selfblast1.dagchainer.evalue <- selfblast1$crbh1[match(selfblast1.dagchainer.input$gene1.seq.id, selfblast1$crbh1$query_id), , drop =FALSE]$evalue
-      selfblast1.dagchainer.input <- cbind(selfblast1.dagchainer.input, evalue = selfblast1.dagchainer.evalue)
-      selfblast1.dagchainer.input$gene1.chr<-paste0("AA1:",selfblast1.dagchainer.input$gene1.chr)
-      selfblast1.dagchainer.input$gene2.chr<-paste0("AA1:",selfblast1.dagchainer.input$gene2.chr)
-      dagchainer.input <- rbind(dagchainer.input, selfblast1.dagchainer.input)
+    selfblast <- attributes(rbhpairs)$selfblast
+    genepos.colnames <- c("gene.seq.id", "gene.chr", "gene.start", "gene.end",
+        "gene.mid", "gene.strand", "gene.idx")
+    if(plotDotPlot){
+        if(colorBy == "Ka" | colorBy == "Ks" | colorBy == "Ka/Ks"){
+            if(is.null(kaks)){
+                stop("Please provide Ka/Ks input as obtained via rbh2kaks()")
+            }
+            if(!is.null(kaks)){
+                if(attributes(kaks)$CRBHits.class != "kaks"){
+                    stop("Please obtain Ka/Ks input via the rbh2kaks() function
+                        or add a 'kaks' class attribute")
+                }
+            }
+        }
     }
-    if(!is.null(selfblast2)){
-      selfblast2.aa1.genepos <- gene.position.cds2[match(selfblast2$crbh.pairs$aa1,
-                                            gene.position.cds2$gene.seq.id), , drop =FALSE] %>%
-      dplyr::select(gene.chr, gene.seq.id, gene.idx1 = gene.idx, gene.idx2 = gene.idx)
-      selfblast2.aa2.genepos <- gene.position.cds2[match(selfblast2$crbh.pairs$aa2,
-                                            gene.position.cds2$gene.seq.id), , drop =FALSE] %>%
-      dplyr::select(gene.chr, gene.seq.id, gene.idx1 = gene.idx, gene.idx2 = gene.idx)
-      selfblast2.dagchainer.input <- cbind(selfblast2.aa1.genepos, selfblast2.aa2.genepos)
-      colnames(selfblast2.dagchainer.input) <- c("gene1.chr", "gene1.seq.id", "gene1.idx1", "gene1.idx2",
-                                                 "gene2.chr", "gene2.seq.id", "gene2.idx1", "gene2.idx2")
-      selfblast2.dagchainer.evalue <- selfblast2$crbh1[match(selfblast2.dagchainer.input$gene1.seq.id, selfblast2$crbh1$query_id), , drop =FALSE]$evalue
-      selfblast2.dagchainer.input <- cbind(selfblast2.dagchainer.input, evalue = selfblast2.dagchainer.evalue)
-      selfblast2.dagchainer.input$gene1.chr<-paste0("AA2:",selfblast2.dagchainer.input$gene1.chr)
-      selfblast2.dagchainer.input$gene2.chr<-paste0("AA2:",selfblast2.dagchainer.input$gene2.chr)
-      dagchainer.input <- rbind(dagchainer.input, selfblast2.dagchainer.input)
+    if(type=="bp"){
+        aa1.genepos <- gene.position.cds1[match(rbhpairs$crbh.pairs$aa1,
+            gene.position.cds1$gene.seq.id), , drop =FALSE] %>%
+            dplyr::select(gene.chr, gene.seq.id, gene.start, gene.end)
+        aa2.genepos <- gene.position.cds2[match(rbhpairs$crbh.pairs$aa2,
+            gene.position.cds2$gene.seq.id), , drop =FALSE] %>%
+            dplyr::select(gene.chr, gene.seq.id, gene.start, gene.end)
+        dagchainer.input <- cbind(aa1.genepos, aa2.genepos)
+        colnames(dagchainer.input) <- c("gene1.chr", "gene1.seq.id",
+            "gene1.start", "gene1.end", "gene2.chr", "gene2.seq.id",
+            "gene2.start", "gene2.end")
+        dagchainer.evalue <- rbhpairs$crbh1[match(dagchainer.input$gene1.seq.id,
+            rbhpairs$crbh1$query_id), , drop=FALSE]$evalue
+        dagchainer.input <- cbind(dagchainer.input, evalue=dagchainer.evalue)
+        if(selfblast){
+            dagchainer.input$gene1.chr<-paste0("AA1:",
+                dagchainer.input$gene1.chr)
+            dagchainer.input$gene2.chr<-paste0("AA1:",
+                dagchainer.input$gene2.chr)
+        } else{
+            dagchainer.input$gene1.chr<-paste0("AA1:",
+                dagchainer.input$gene1.chr)
+            dagchainer.input$gene2.chr<-paste0("AA2:",
+                dagchainer.input$gene2.chr)
+        }
+        if(!is.null(selfblast1)){
+            selfblast1.aa1.genepos <- gene.position.cds1[
+                match(selfblast1$crbh.pairs$aa1,
+                gene.position.cds1$gene.seq.id), , drop =FALSE] %>%
+                dplyr::select(gene.chr, gene.seq.id, gene.start, gene.end)
+            selfblast1.aa2.genepos <- gene.position.cds1[
+                match(selfblast1$crbh.pairs$aa2,
+                gene.position.cds1$gene.seq.id), , drop =FALSE] %>%
+                dplyr::select(gene.chr, gene.seq.id, gene.start, gene.end)
+            selfblast1.dagchainer.input <- cbind(selfblast1.aa1.genepos,
+                selfblast1.aa2.genepos)
+            colnames(selfblast1.dagchainer.input) <- c("gene1.chr",
+                "gene1.seq.id", "gene1.start", "gene1.end", "gene2.chr",
+                "gene2.seq.id", "gene2.start", "gene2.end")
+            selfblast1.dagchainer.evalue <- selfblast1$crbh1[
+                match(selfblast1.dagchainer.input$gene1.seq.id,
+                selfblast1$crbh1$query_id), , drop=FALSE]$evalue
+            selfblast1.dagchainer.input <- cbind(selfblast1.dagchainer.input,
+                evalue=selfblast1.dagchainer.evalue)
+            selfblast1.dagchainer.input$gene1.chr<-paste0("AA1:",
+                selfblast1.dagchainer.input$gene1.chr)
+            selfblast1.dagchainer.input$gene2.chr<-paste0("AA1:",
+                selfblast1.dagchainer.input$gene2.chr)
+            dagchainer.input <- rbind(dagchainer.input,
+                selfblast1.dagchainer.input)
+        }
+        if(!is.null(selfblast2)){
+            selfblast2.aa1.genepos <- gene.position.cds2[
+                match(selfblast2$crbh.pairs$aa1,
+                gene.position.cds2$gene.seq.id), , drop=FALSE] %>%
+                dplyr::select(gene.chr, gene.seq.id, gene.start, gene.end)
+            selfblast2.aa2.genepos <- gene.position.cds2[
+                match(selfblast2$crbh.pairs$aa2,
+                gene.position.cds2$gene.seq.id), , drop=FALSE] %>%
+                dplyr::select(gene.chr, gene.seq.id, gene.start, gene.end)
+            selfblast2.dagchainer.input <- cbind(selfblast2.aa1.genepos,
+                    selfblast2.aa2.genepos)
+            colnames(selfblast2.dagchainer.input) <- c("gene1.chr",
+                "gene1.seq.id", "gene1.start", "gene1.end", "gene2.chr",
+                "gene2.seq.id", "gene2.start", "gene2.end")
+            selfblast2.dagchainer.evalue <- selfblast2$crbh1[
+                match(selfblast2.dagchainer.input$gene1.seq.id,
+                selfblast2$crbh1$query_id), , drop=FALSE]$evalue
+            selfblast2.dagchainer.input <- cbind(selfblast2.dagchainer.input,
+                evalue=selfblast2.dagchainer.evalue)
+            selfblast2.dagchainer.input$gene1.chr<-paste0("AA2:",
+                selfblast2.dagchainer.input$gene1.chr)
+            selfblast2.dagchainer.input$gene2.chr<-paste0("AA2:",
+                selfblast2.dagchainer.input$gene2.chr)
+            dagchainer.input <- rbind(dagchainer.input,
+                selfblast2.dagchainer.input)
+        }
     }
-  }
-  tmp <- tempfile()
-  write.table(dagchainer.input,
-              sep="\t", quote = FALSE,
-              col.names = FALSE, row.names = FALSE,
-              file = tmp)
-  dagchainercmd <- paste0(dagchainerpath, "run_DAG_chainer.pl -i ", tmp,
-                          " -o ", sprintf("%0i",gap_open_penalty),
-                          " -e ", sprintf("%0i",gap_extension_penalty),
-                          " -g ", sprintf("%0i",gap_length),
-                          " -M ", sprintf("%0i",max_match_score),
-                          " -D ", sprintf("%0i",max_dist_allowed),
-                          " -E ", max_evalue,
-                          " -A ", sprintf("%0i",min_number_aligned_pairs))
-  if(selfblast | (!is.null(selfblast1) | !is.null(selfblast2))){
-    if(ignore_tandem && !only_tandem){
-      print(paste0(dagchainercmd, " -I -s"))
-      system(paste0(dagchainercmd, " -I -s"), ignore.stdout = TRUE, ignore.stderr = TRUE)
+    if(type=="idx"){
+        aa1.genepos <- gene.position.cds1[match(rbhpairs$crbh.pairs$aa1,
+            gene.position.cds1$gene.seq.id), , drop=FALSE] %>%
+        dplyr::select(gene.chr, gene.seq.id, gene.idx1=gene.idx,
+        gene.idx2=gene.idx)
+        aa2.genepos <- gene.position.cds2[match(rbhpairs$crbh.pairs$aa2,
+            gene.position.cds2$gene.seq.id), , drop=FALSE] %>%
+        dplyr::select(gene.chr, gene.seq.id, gene.idx1=gene.idx,
+            gene.idx2=gene.idx)
+        dagchainer.input <- cbind(aa1.genepos, aa2.genepos)
+        colnames(dagchainer.input) <- c("gene1.chr", "gene1.seq.id",
+            "gene1.idx1", "gene1.idx2", "gene2.chr", "gene2.seq.id",
+            "gene2.idx1", "gene2.idx2")
+        dagchainer.evalue <- rbhpairs$crbh1[match(dagchainer.input$gene1.seq.id,
+            rbhpairs$crbh1$query_id), , drop=FALSE]$evalue
+        dagchainer.input <- cbind(dagchainer.input, evalue=dagchainer.evalue)
+        if(selfblast){
+            dagchainer.input$gene1.chr<-paste0("AA1:",
+                dagchainer.input$gene1.chr)
+            dagchainer.input$gene2.chr<-paste0("AA1:",
+                dagchainer.input$gene2.chr)
+        } else{
+            dagchainer.input$gene1.chr<-paste0("AA1:",
+                dagchainer.input$gene1.chr)
+            dagchainer.input$gene2.chr<-paste0("AA2:",
+                dagchainer.input$gene2.chr)
+        }
+        if(!is.null(selfblast1)){
+            selfblast1.aa1.genepos <- gene.position.cds1[
+                match(selfblast1$crbh.pairs$aa1,
+                gene.position.cds1$gene.seq.id), , drop =FALSE] %>%
+            dplyr::select(gene.chr, gene.seq.id, gene.idx1=gene.idx,
+            gene.idx2=gene.idx)
+            selfblast1.aa2.genepos <- gene.position.cds1[
+                match(selfblast1$crbh.pairs$aa2,
+                gene.position.cds1$gene.seq.id), , drop=FALSE] %>%
+                dplyr::select(gene.chr, gene.seq.id, gene.idx1=gene.idx,
+                gene.idx2=gene.idx)
+            selfblast1.dagchainer.input <- cbind(selfblast1.aa1.genepos,
+                selfblast1.aa2.genepos)
+            colnames(selfblast1.dagchainer.input) <- c("gene1.chr",
+                "gene1.seq.id", "gene1.idx1", "gene1.idx2", "gene2.chr",
+                "gene2.seq.id", "gene2.idx1", "gene2.idx2")
+            selfblast1.dagchainer.evalue <- selfblast1$crbh1[
+                match(selfblast1.dagchainer.input$gene1.seq.id,
+                selfblast1$crbh1$query_id), , drop=FALSE]$evalue
+            selfblast1.dagchainer.input <- cbind(selfblast1.dagchainer.input,
+                evalue=selfblast1.dagchainer.evalue)
+            selfblast1.dagchainer.input$gene1.chr<-paste0("AA1:",
+                selfblast1.dagchainer.input$gene1.chr)
+            selfblast1.dagchainer.input$gene2.chr<-paste0("AA1:",
+                selfblast1.dagchainer.input$gene2.chr)
+            dagchainer.input <- rbind(dagchainer.input,
+                selfblast1.dagchainer.input)
+        }
+        if(!is.null(selfblast2)){
+            selfblast2.aa1.genepos <- gene.position.cds2[
+                match(selfblast2$crbh.pairs$aa1,
+                gene.position.cds2$gene.seq.id), , drop=FALSE] %>%
+                dplyr::select(gene.chr, gene.seq.id, gene.idx1=gene.idx,
+                gene.idx2=gene.idx)
+            selfblast2.aa2.genepos <- gene.position.cds2[
+                match(selfblast2$crbh.pairs$aa2,
+                gene.position.cds2$gene.seq.id), , drop=FALSE] %>%
+                dplyr::select(gene.chr, gene.seq.id, gene.idx1=gene.idx,
+                gene.idx2=gene.idx)
+            selfblast2.dagchainer.input <- cbind(selfblast2.aa1.genepos,
+                selfblast2.aa2.genepos)
+            colnames(selfblast2.dagchainer.input) <- c("gene1.chr",
+                "gene1.seq.id", "gene1.idx1", "gene1.idx2", "gene2.chr",
+                "gene2.seq.id", "gene2.idx1", "gene2.idx2")
+            selfblast2.dagchainer.evalue <- selfblast2$crbh1[
+                match(selfblast2.dagchainer.input$gene1.seq.id,
+                selfblast2$crbh1$query_id), , drop=FALSE]$evalue
+            selfblast2.dagchainer.input <- cbind(selfblast2.dagchainer.input,
+                evalue=selfblast2.dagchainer.evalue)
+            selfblast2.dagchainer.input$gene1.chr<-paste0("AA2:",
+                selfblast2.dagchainer.input$gene1.chr)
+            selfblast2.dagchainer.input$gene2.chr<-paste0("AA2:",
+                selfblast2.dagchainer.input$gene2.chr)
+            dagchainer.input <- rbind(dagchainer.input,
+                selfblast2.dagchainer.input)
+        }
     }
-    if(only_tandem && !ignore_tandem){
-      print(paste0(dagchainercmd, " -T -s"))
-      system(paste0(dagchainercmd, " -T -s"), ignore.stdout = TRUE, ignore.stderr = TRUE)
-    }
-    if(!ignore_tandem && !only_tandem){
-      print(paste0(dagchainercmd, " -s"))
-      system(paste0(dagchainercmd, " -s"), ignore.stdout = TRUE, ignore.stderr = TRUE)
+    tmp <- tempfile()
+    write.table(dagchainer.input,
+        sep="\t", quote=FALSE, col.names=FALSE, row.names=FALSE, file=tmp)
+    dagchainercmd <- paste0(dagchainerpath, "run_DAG_chainer.pl -i ", tmp,
+        " -o ", sprintf("%0i", gap_open_penalty),
+        " -e ", sprintf("%0i", gap_extension_penalty),
+        " -g ", sprintf("%0i", gap_length),
+        " -M ", sprintf("%0i", max_match_score),
+        " -D ", sprintf("%0i", max_dist_allowed),
+        " -E ", max_evalue,
+        " -A ", sprintf("%0i", min_number_aligned_pairs))
+    if(selfblast | (!is.null(selfblast1) | !is.null(selfblast2))){
+        if(ignore_tandem && !only_tandem){
+            print(paste0(dagchainercmd, " -I -s"))
+            system(paste0(dagchainercmd, " -I -s"), ignore.stdout=TRUE,
+                ignore.stderr = TRUE)
+        }
+        if(only_tandem && !ignore_tandem){
+            print(paste0(dagchainercmd, " -T -s"))
+            system(paste0(dagchainercmd, " -T -s"), ignore.stdout=TRUE,
+                ignore.stderr = TRUE)
+        }
+        if(!ignore_tandem && !only_tandem){
+            print(paste0(dagchainercmd, " -s"))
+            system(paste0(dagchainercmd, " -s"), ignore.stdout=TRUE,
+                ignore.stderr=TRUE)
     }
   } else {
     print(dagchainercmd)

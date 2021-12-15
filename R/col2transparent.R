@@ -24,33 +24,32 @@
 #'                 "#CB7B26", "#BF565D", "#9E163C")
 #' palette(my.palette); sinplot("my.palette")
 #' ## 25% transparent
-#' palette(col2transparent(palette(my.palette), 25)); sinplot("my.palette - transparent")
+#' palette(col2transparent(palette(my.palette), 25));
+#'     sinplot("my.palette - transparent")
 #' ## 50% transparent
-#' palette(col2transparent(palette(my.palette), 50)); sinplot("my.palette - transparent")
+#' palette(col2transparent(palette(my.palette), 50));
+#'     sinplot("my.palette - transparent")
 #' ## 75% transparent
-#' palette(col2transparent(palette(my.palette), 75)); sinplot("my.palette - transparent")
+#' palette(col2transparent(palette(my.palette), 75));
+#'     sinplot("my.palette - transparent")
 #' @export col2transparent
 #' @author Kristian K Ullrich
 
-col2transparent <- function(col, alpha.perc = 0){
-  if(class(col) == "character"){
-    if(length(col) == 1){
-      alpha = (100 - alpha.perc) * 255 / 100
-      R = col2rgb(col)[1]
-      G = col2rgb(col)[2]
-      B = col2rgb(col)[3]
-      return(rgb(R, G, B, alpha, maxColorValue = 255))
-    } else {
-      return(unlist(lapply(col,
-                           function(x) {
-                             col2transparent(x, alpha.perc)
-                           })))
+col2transparent <- function(col, alpha.perc=0){
+    if(class(col)=="character"){
+        if(length(col)==1){
+            alpha = (100 - alpha.perc) * 255 / 100
+            R = col2rgb(col)[1]
+            G = col2rgb(col)[2]
+            B = col2rgb(col)[3]
+            return(rgb(R, G, B, alpha, maxColorValue=255))
+        } else {
+            return(unlist(lapply(col,
+                function(x) {col2transparent(x, alpha.perc)})))
+        }
     }
-  }
-  if(class(col) == "palette"){
-    return(palette(unlist(lapply(col,
-                                 function(x) {
-                                   col2transparent(x, alpha.perc)
-                                 }))))
-  }
+    if(class(col) == "palette"){
+        return(palette(unlist(lapply(col,
+            function(x) {col2transparent(x, alpha.perc)}))))
+    }
 }

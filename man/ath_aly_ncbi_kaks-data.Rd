@@ -12,7 +12,8 @@ an object of class \code{list}
 data(ath_aly_ncbi_kaks)
 }
 \description{
-Example of Ka/Ks values between Arabidopsis thalina and Arabidopsis lyrata obtained from NCBI.
+Example of Ka/Ks values between Arabidopsis thalina and
+Arabidopsis lyrata obtained from NCBI.
 }
 \examples{
 data("ath_aly_ncbi_kaks", package="CRBHits")

@@ -23,38 +23,55 @@ rbh2kaks(
 )
 }
 \arguments{
-\item{rbhpairs}{(conditional-)reciprocal best hit (CRBHit) pair result (see \code{\link[CRBHits]{cds2rbh}}) [mandatory]}
+\item{rbhpairs}{(conditional-)reciprocal best hit (CRBHit) pair result
+(see \code{\link[CRBHits]{cds2rbh}}) [mandatory]}
 
-\item{cds1}{cds1 sequences as \code{DNAStringSet} or \code{url} for first crbh pairs column [mandatory]}
+\item{cds1}{cds1 sequences as \code{DNAStringSet} or \code{url} for first
+crbh pairs column [mandatory]}
 
-\item{cds2}{cds2 sequences as \code{DNAStringSet} or \code{url} for second crbh pairs column [mandatory]}
+\item{cds2}{cds2 sequences as \code{DNAStringSet} or \code{url} for second
+crbh pairs column [mandatory]}
 
 \item{model}{specify codon model either "Li" or "YN" [default: Li]}
 
 \item{plotHistPlot}{specify if histogram should be plotted [default: TRUE]}
 
-\item{plotDotPlot}{specify if dotplot should be plotted (mandatory to define \code{gene.position.cds1} and \code{gene.position.cds1}) [default: FALSE]}
+\item{plotDotPlot}{specify if dotplot should be plotted (mandatory to define
+\code{gene.position.cds1} and \code{gene.position.cds1}) [default: FALSE]}
 
-\item{dag}{specify DAGchainer results as obtained via `rbh2dagchainer()` [default: NULL]}
+\item{dag}{specify DAGchainer results as obtained via `rbh2dagchainer()`
+[default: NULL]}
 
-\item{gene.position.cds1}{specify gene position for cds1 sequences (see \code{\link[CRBHits]{cds2genepos}}) [default: NULL]}
+\item{gene.position.cds1}{specify gene position for cds1 sequences
+(see \code{\link[CRBHits]{cds2genepos}}) [default: NULL]}
 
-\item{gene.position.cds2}{specify gene position for cds2 sequences (see \code{\link[CRBHits]{cds2genepos}}) [default: NULL]}
+\item{gene.position.cds2}{specify gene position for cds2 sequences
+(see \code{\link[CRBHits]{cds2genepos}}) [default: NULL]}
 
-\item{tandem.dups.cds1}{specify tandem duplicates for cds1 sequences (see \code{\link[CRBHits]{tandemdups}}) [default: NULL]}
+\item{tandem.dups.cds1}{specify tandem duplicates for cds1 sequences
+(see \code{\link[CRBHits]{tandemdups}}) [default: NULL]}
 
-\item{tandem.dups.cds2}{specify tandem duplicates for cds2 sequences (see \code{\link[CRBHits]{tandemdups}}) [default: NULL]}
+\item{tandem.dups.cds2}{specify tandem duplicates for cds2 sequences
+(see \code{\link[CRBHits]{tandemdups}}) [default: NULL]}
 
-\item{colorBy}{specify if Ka/Ks gene pairs should be colored by "rbh_class", dagchainer", "tandemdups" or "none" [default: none]}
+\item{colorBy}{specify if Ka/Ks gene pairs should be colored by "rbh_class",
+dagchainer", "tandemdups" or "none" [default: none]}
 
 \item{threads}{number of parallel threads [default: 1]}
 
-\item{kakscalcpath}{specify the PATH to the KaKs_Calculator binaries [default: /extdata/KaKs_Calculator2.0/src/]}
+\item{kakscalcpath}{specify the PATH to the KaKs_Calculator binaries
+[default: /extdata/KaKs_Calculator2.0/src/]}
 
-\item{...}{other codon alignment parameters (see \code{\link[CRBHits]{cds2codonaln}}) and other plot_kaks parameters (see \code{\link[CRBHits]{plot_kaks}})}
+\item{...}{other codon alignment parameters
+(see \code{\link[CRBHits]{cds2codonaln}}) and other plot_kaks parameters
+(see \code{\link[CRBHits]{plot_kaks}})}
 }
 \description{
-This function calculates Ka/Ks (dN/dS; accoring to \emph{Li (1993)} or \emph{Yang and Nielson (2000)} for each (conditional-)reciprocal best hit (CRBHit) pair. The names of the \code{rbh} columns must match the names of the corresponding \code{cds1} and \code{cds2} \code{DNAStringSet} vectors.
+This function calculates Ka/Ks (dN/dS; accoring to
+\emph{Li (1993)} or \emph{Yang and Nielson (2000)} for each
+(conditional-)reciprocal best hit (CRBHit) pair. The names of the \code{rbh}
+columns must match the names of the corresponding \code{cds1} and \code{cds2}
+\code{DNAStringSet} vectors.
 }
 \examples{
 ## load example sequence data
@@ -64,18 +81,23 @@ data("aly", package="CRBHits")
 data("ath_aly_crbh", package="CRBHits")
 ## only analyse subset of CRBHit pairs
 ath_aly_crbh$crbh.pairs <- head(ath_aly_crbh$crbh.pairs)
-ath_aly_crbh.kaks <- rbh2kaks(rbhpairs = ath_aly_crbh,
-                              cds1 = ath, cds2 = aly, model = "Li")
+ath_aly_crbh.kaks <- rbh2kaks(rbhpairs=ath_aly_crbh,
+    cds1=ath, cds2=aly, model="Li")
 head(ath_aly_crbh.kaks)
 ## plot kaks
 g.kaks <- plot_kaks(ath_aly_crbh.kaks)
 }
 \references{
-Li WH. (1993) Unbiased estimation of the rates of synonymous and nonsynonymous substitution. \emph{J. Mol. Evol.}, \bold{36}, 96-99.
+Li WH. (1993) Unbiased estimation of the rates of synonymous and
+nonsynonymous substitution. \emph{J. Mol. Evol.}, \bold{36}, 96-99.
 
-Wang D, Zhang Y et al. (2010) KaKs_Calculator 2.0: a toolkit incorporating gamma-series methods and sliding window strategies. \emph{Genomics Proteomics Bioinformatics.} \bold{8(1)}, 77-80.
+Wang D, Zhang Y et al. (2010) KaKs_Calculator 2.0: a toolkit
+incorporating gamma-series methods and sliding window strategies.
+\emph{Genomics Proteomics Bioinformatics.} \bold{8(1)}, 77-80.
 
-Yang Z and Nielson R. (2000) Estimating synonymous and nonsynonymous substitution rates under realistic evolutionary models. \emph{Mol. Biol. Evol.}, \bold{17(1)}, 32-43.
+Yang Z and Nielson R. (2000) Estimating synonymous and
+nonsynonymous substitution rates under realistic evolutionary models.
+\emph{Mol. Biol. Evol.}, \bold{17(1)}, 32-43.
 }
 \seealso{
 \code{\link[CRBHits]{cds2kaks}},

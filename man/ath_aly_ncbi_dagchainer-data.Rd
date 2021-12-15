@@ -12,7 +12,8 @@ an object of class \code{list}
 data(ath_aly_ncbi_dagchainer)
 }
 \description{
-Example of DAGchainer results between Arabidopsis thalina and Arabidopsis lyrata obtained from NCBI.
+Example of DAGchainer results between Arabidopsis thalina and
+Arabidopsis lyrata obtained from NCBI.
 }
 \examples{
 data("ath_aly_ncbi_dagchainer", package="CRBHits")

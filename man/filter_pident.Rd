@@ -11,19 +11,21 @@ filter_pident(rbh, pident = 0, inverse = FALSE)
 
 \item{pident}{percent identity [default: 0.0]}
 
-\item{inverse}{specify if filter should keep the removed values [default: FALSE]}
+\item{inverse}{specify if filter should keep the removed values
+[default: FALSE]}
 }
 \value{
 rbh matrix
 }
 \description{
-This function filters BLAST-like tabular output according to protein identity.
+This function filters BLAST-like tabular output according to
+protein identity.
 }
 \examples{
 ## load crbh data
 data(ath_aly_crbh)
 dim(ath_aly_crbh$crbh1)
-dim(filter_pident(ath_aly_crbh$crbh1, pident = 75))
+dim(filter_pident(ath_aly_crbh$crbh1, pident=75))
 }
 \author{
 Kristian K Ullrich

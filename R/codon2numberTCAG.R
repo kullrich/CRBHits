@@ -13,11 +13,11 @@
 #' @author Kristian K Ullrich
 
 codon2numberTCAG <- function(codon){
-  baseNumber <- setNames(c(0, 1, 2, 3), c("T", "C", "A", "G"))
-  left <- baseNumber[stringr::str_sub(codon, 1, 1)]
-  mid <- baseNumber[stringr::str_sub(codon, 2, 2)]
-  right <- baseNumber[stringr::str_sub(codon, 3, 3)]
-  codonnumber <- (mid * 16) + (left * 4) + (right) + 1
-  names(codonnumber) <- codon
-  return(codonnumber)
+    baseNumber <- setNames(c(0, 1, 2, 3), c("T", "C", "A", "G"))
+    left <- baseNumber[stringr::str_sub(codon, 1, 1)]
+    mid <- baseNumber[stringr::str_sub(codon, 2, 2)]
+    right <- baseNumber[stringr::str_sub(codon, 3, 3)]
+    codonnumber <- (mid * 16) + (left * 4) + (right) + 1
+    names(codonnumber) <- codon
+    return(codonnumber)
 }

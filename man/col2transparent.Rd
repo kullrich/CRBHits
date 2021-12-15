@@ -35,11 +35,14 @@ my.palette <- c("#CBC106", "#27993C", "#1C6838",
                 "#CB7B26", "#BF565D", "#9E163C")
 palette(my.palette); sinplot("my.palette")
 ## 25\% transparent
-palette(col2transparent(palette(my.palette), 25)); sinplot("my.palette - transparent")
+palette(col2transparent(palette(my.palette), 25));
+    sinplot("my.palette - transparent")
 ## 50\% transparent
-palette(col2transparent(palette(my.palette), 50)); sinplot("my.palette - transparent")
+palette(col2transparent(palette(my.palette), 50));
+    sinplot("my.palette - transparent")
 ## 75\% transparent
-palette(col2transparent(palette(my.palette), 75)); sinplot("my.palette - transparent")
+palette(col2transparent(palette(my.palette), 75));
+    sinplot("my.palette - transparent")
 }
 \seealso{
 \code{\link[grDevices]{palette}}

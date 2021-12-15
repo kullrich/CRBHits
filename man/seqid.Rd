@@ -13,7 +13,8 @@ seqid(x)
 \code{chr}
 }
 \description{
-This function returns the first whitespace separated names value of a \code{XStringSet}.
+This function returns the first whitespace separated names
+value of a \code{XStringSet}.
 }
 \examples{
 ## load example sequence data

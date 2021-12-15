@@ -11,7 +11,8 @@ cds2genepos(cds, source = "NCBI", keep.names = NULL)
 
 \item{source}{source indicating either NCBI or ENSEMBL [default: NCBI]}
 
-\item{keep.names}{vector indicating gene ids to be kept before chromosomal position assignment [default: NULL]}
+\item{keep.names}{vector indicating gene ids to be kept before chromosomal
+position assignment [default: NULL]}
 }
 \value{
 \code{matrix}
@@ -24,7 +25,8 @@ cds2genepos(cds, source = "NCBI", keep.names = NULL)
 7: $gene.idx\cr
 }
 \description{
-This function extracts the gene position from either NCBI or ENSEMBL CDS input.
+This function extracts the gene position from either NCBI or
+ENSEMBL CDS input.
 }
 \examples{
 \dontrun{
@@ -33,10 +35,10 @@ This function extracts the gene position from either NCBI or ENSEMBL CDS input.
 ensemblPlants <- "ftp://ftp.ensemblgenomes.org/pub/plants/release-48/fasta/"
 ## set Arabidopsis thaliana CDS URL
 ARATHA.cds.url <- paste0(ensemblPlants,
- "arabidopsis_thaliana/cds/Arabidopsis_thaliana.TAIR10.cds.all.fa.gz")
+    "arabidopsis_thaliana/cds/Arabidopsis_thaliana.TAIR10.cds.all.fa.gz")
 ARATHA.cds.file <- tempfile()
 ## download CDS
-download.file(ARATHA.cds.url, ARATHA.cds.file, quiet = FALSE)
+download.file(ARATHA.cds.url, ARATHA.cds.file, quiet=FALSE)
 ARATHA.cds <- Biostrings::readDNAStringSet(ARATHA.cds.file)
 ## get gene position
 ARATHA.cds.genepos <- cds2genepos(ARATHA.cds, "ENSEMBL")

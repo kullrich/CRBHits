@@ -13,7 +13,8 @@ cds2aa(cds)
 \code{AAStringSet}
 }
 \description{
-This function translates a \code{DNAStringSet} into an \code{AAStringSet}.
+This function translates a \code{DNAStringSet} into an
+\code{AAStringSet}.
 }
 \examples{
 ## load example sequence data

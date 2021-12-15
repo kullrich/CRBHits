@@ -15,25 +15,36 @@ cds2codonaln(
 )
 }
 \arguments{
-\item{cds1}{single sequence \code{DNAStringSet} or \code{DNAString} [mandatory]}
+\item{cds1}{single sequence \code{DNAStringSet} or \code{DNAString}
+[mandatory]}
 
-\item{cds2}{single sequence \code{DNAStringSet} or \code{DNAString} [mandatory]}
+\item{cds2}{single sequence \code{DNAStringSet} or \code{DNAString}
+[mandatory]}
 
-\item{type}{type of alignment (see \code{\link[Biostrings]{pairwiseAlignment}}) [default: global]}
+\item{type}{type of alignment (see
+\code{\link[Biostrings]{pairwiseAlignment}}) [default: global]}
 
-\item{substitutionMatrix}{substitution matrix representing the fixed substitution scores for an alignment (see \code{\link[Biostrings]{pairwiseAlignment}}) [default: BLOSUM62]}
+\item{substitutionMatrix}{substitution matrix representing the fixed
+substitution scores for an alignment (see
+\code{\link[Biostrings]{pairwiseAlignment}}) [default: BLOSUM62]}
 
-\item{gapOpening}{the cost for opening a gap in the alignment (see \code{\link[Biostrings]{pairwiseAlignment}}) [default: 10]}
+\item{gapOpening}{the cost for opening a gap in the alignment (see
+\code{\link[Biostrings]{pairwiseAlignment}}) [default: 10]}
 
-\item{gapExtension}{the incremental cost incurred along the length of the gap in the alignment (see \code{\link[Biostrings]{pairwiseAlignment}}) [default: 0.5]}
+\item{gapExtension}{the incremental cost incurred along the length of the
+gap in the alignment (see \code{\link[Biostrings]{pairwiseAlignment}})
+[default: 0.5]}
 
-\item{remove.gaps}{specify if gaps in the codon alignment should be removed [default: FALSE]}
+\item{remove.gaps}{specify if gaps in the codon alignment should be removed
+[default: FALSE]}
 }
 \value{
 codon alignment as \code{DNAStringSet}
 }
 \description{
-This function takes two single sequence \code{DNAString}'s or two single sequence \code{DNAStringSet}'s, converts them into aa, calculates a global alignment and converts this alignment back into a codonalignment.
+This function takes two single sequence \code{DNAString}'s or
+two single sequence \code{DNAStringSet}'s, converts them into aa, calculates
+a global alignment and converts this alignment back into a codonalignment.
 }
 \examples{
 ## define two cds sequences
@@ -42,7 +53,8 @@ cds2 <- Biostrings::DNAString("ATGCATTGC")
 cds2codonaln(cds1, cds2)
 }
 \references{
-Pagès, H et al. (2014) Biostrings: Efficient manipulation of biological strings. \emph{R package version}, \bold{2(0)}.
+Pagès, H et al. (2014) Biostrings: Efficient manipulation of
+biological strings. \emph{R package version}, \bold{2(0)}.
 }
 \seealso{
 \code{\link[Biostrings]{pairwiseAlignment}}

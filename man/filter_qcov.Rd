@@ -11,19 +11,21 @@ filter_qcov(rbh, qcov = 0, inverse = FALSE)
 
 \item{qcov}{query coverage [default: 0.0]}
 
-\item{inverse}{specify if filter should keep the removed values [default: FALSE]}
+\item{inverse}{specify if filter should keep the removed values
+[default: FALSE]}
 }
 \value{
 rbh matrix
 }
 \description{
-This function filters BLAST-like tabular output according to percentage query coverage.
+This function filters BLAST-like tabular output according to
+percentage query coverage.
 }
 \examples{
 ## load crbh data
 data(ath_aly_crbh)
 dim(ath_aly_crbh$crbh1)
-dim(filter_qcov(ath_aly_crbh$crbh1, qcov = 0.75))
+dim(filter_qcov(ath_aly_crbh$crbh1, qcov=0.75))
 }
 \author{
 Kristian K Ullrich

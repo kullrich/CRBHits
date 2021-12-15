@@ -13,7 +13,8 @@ codon2numberAMBIG(codon)
 An object of class \code{numeric}
 }
 \description{
-This function converts a \code{codon} into a \code{number}, but accept N and -.
+This function converts a \code{codon} into a \code{number},
+but accept N and -.
 }
 \examples{
 unlist(lapply(names(Biostrings::GENETIC_CODE), codon2numberAMBIG))

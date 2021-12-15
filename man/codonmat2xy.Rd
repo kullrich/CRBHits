@@ -26,7 +26,9 @@ A \code{data.frame} object with the following components:\cr
 \code{CumSumIndelMean} cumulative indels per codon\cr
 }
 \description{
-This function calculates average behavior of each codon for all pairwise comparisons for indels, syn, and nonsyn mutations according to \emph{Nei and Gojobori (1986)}.
+This function calculates average behavior of each codon for all
+pairwise comparisons for indels, syn, and nonsyn mutations according to
+\emph{Nei and Gojobori (1986)}.
 }
 \examples{
 ## load example sequence data
@@ -34,14 +36,21 @@ data("hiv", package="CRBHits")
 hiv.xy <- codonmat2xy(dnastring2codonmat(hiv))
 }
 \references{
-Nei and Gojobori. (1986) Simple methods for estimating the numbers of synonymous and nonsynonymous nucleotide substitutions. \emph{Mol. Biol. Evol.}, \bold{3(5)}, 418-426.
+Nei and Gojobori. (1986) Simple methods for estimating the
+numbers of synonymous and nonsynonymous nucleotide substitutions.
+\emph{Mol. Biol. Evol.}, \bold{3(5)}, 418-426.
 
-Ganeshan et al. (1997) Human immunodeficiency virus type 1 genetic evolution in children with different rates of development of disease. \emph{J. Virology.} \bold{71(1)}, 663-677.
+Ganeshan et al. (1997) Human immunodeficiency virus type 1
+genetic evolution in children with different rates of development of disease.
+\emph{J. Virology.} \bold{71(1)}, 663-677.
 
-Yang et al. (2000) Codon-substitution models for heterogeneous selection pressure at amino acid sites. \emph{Genetics.} \bold{155(1)}, 431-449.
+Yang et al. (2000) Codon-substitution models for heterogeneous
+selection pressure at amino acid sites. \emph{Genetics.}
+\bold{155(1)}, 431-449.
 }
 \seealso{
-\code{\link[seqinr]{kaks}} \code{\link[CRBHits]{codonmat2pnps}} \code{\link[CRBHits]{dnastring2kaks}}
+\code{\link[seqinr]{kaks}} \code{\link[CRBHits]{codonmat2pnps}}
+\code{\link[CRBHits]{dnastring2kaks}}
 }
 \author{
 Kristian K Ullrich

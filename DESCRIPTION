@@ -7,7 +7,9 @@ Authors@R:
            role = c("aut", "cre"),
            email = "ullrich@evolbio.mpg.de",
            comment = c(ORCID = "0000-0003-4308-9626"))
-Description: CRBHits calculates conditional reciprocal best hit (CRBHit) pairs and subsequently can classify tandem duplicates, assign syntney groups and calculate Ka/Ks values.
+Description: CRBHits calculates conditional reciprocal best hit (CRBHit) pairs
+    and subsequently can classify tandem duplicates, assign syntney groups and
+    calculate Ka/Ks values.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -23,6 +25,7 @@ Imports:
   tibble,
   tidyverse,
   tidyr,
+  rlang,
   stringr,
   stringi,
   dplyr,
@@ -38,7 +41,18 @@ Suggests:
 VignetteBuilder: knitr
 biocViews: Software
 NeedsCompilation: yes
-SystemRequirements: LAST (https://anaconda.org/bioconda/last), KaKs_Calculator2.0 (https://anaconda.org/bioconda/kakscalculator2), DAGchainer (https://anaconda.org/bioconda/dagchainer), GNU make, libcurl (deb: libcurl4-openssl-dev or CentOS: libcurl-devel), openssl (deb: libssl-dev or CentOS: openssl-devel), libxml2 (deb: libxml2-dev or CentOS: libxml2-devel), libGLU (deb: libglu1-mesa-dev or CentOS: mesa-libGLU-devel), libgit2-devel (deb: libgit2-dev or CentOS: libgit2-devel)
-URL: https://gitlab.gwdg.de/mpievolbio-it/crbhits, https://mpievolbio-it.pages.gwdg.de/crbhits/
+SystemRequirements:
+  LAST (https://anaconda.org/bioconda/last),
+  KaKs_Calculator2.0 (https://anaconda.org/bioconda/kakscalculator2),
+  DAGchainer (https://anaconda.org/bioconda/dagchainer),
+  GNU make,
+  libcurl (deb: libcurl4-openssl-dev or CentOS: libcurl-devel),
+  openssl (deb: libssl-dev or CentOS: openssl-devel),
+  libxml2 (deb: libxml2-dev or CentOS: libxml2-devel),
+  libGLU (deb: libglu1-mesa-dev or CentOS: mesa-libGLU-devel),
+  libgit2-devel (deb: libgit2-dev or CentOS: libgit2-devel)
+URL:
+  https://gitlab.gwdg.de/mpievolbio-it/crbhits,
+  https://mpievolbio-it.pages.gwdg.de/crbhits/
 BugReports: https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues
 RoxygenNote: 7.1.2

@@ -13,12 +13,15 @@ see \code{\link[Biostrings]{XStringSet-class}}
 data(hiv)
 }
 \description{
-Example cds sequences from HIV-1 sample 136 patient 1 from Sweden envelope glycoprotein (env) gene, V3 region as \code{DNAStringSet}.
+Example cds sequences from HIV-1 sample 136 patient 1 from
+Sweden envelope glycoprotein (env) gene, V3 region as \code{DNAStringSet}.
 }
 \examples{
 data("hiv", package="CRBHits")
 }
 \references{
-Yang et al. (2000) Codon-substitution models for heterogeneous selection pressure at amino acid sites. \emph{Genetics.} \bold{155(1)}, 431-449.
+Yang et al. (2000) Codon-substitution models for heterogeneous
+selection pressure at amino acid sites. \emph{Genetics.}
+\bold{155(1)}, 431-449.
 }
 \keyword{datasets}

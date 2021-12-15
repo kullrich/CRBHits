@@ -7,10 +7,10 @@
 #' @export globalDeletion
 #' @author Kristian K Ullrich
 globalDeletion<-function(dna){
-  cM <- Biostrings::consensusMatrix(dna)
-  globalDeletionSites <- which(apply(cM, 2, function(x) sum(x[15:18]) >= 1))
-  if(length(globalDeletionSites) == 0){
-    return(dna)
-  }
-  return(dnabin2dnastring(dnastring2dnabin(dna)[, -globalDeletionSites]))
+    cM <- Biostrings::consensusMatrix(dna)
+    globalDeletionSites <- which(apply(cM, 2, function(x) sum(x[15:18])>=1))
+    if(length(globalDeletionSites)==0){
+        return(dna)
+    }
+    return(dnabin2dnastring(dnastring2dnabin(dna)[, -globalDeletionSites]))
 }

@@ -1,26 +1,39 @@
 #' @title aafile2rbh
 #' @name aafile2rbh
-#' @description This function calculates (conditional-)reciprocal best hit (CRBHit) pairs from two two AA fasta file's.
-#' Conditional-reciprocal best hit pairs were introduced by \emph{Aubry S, Kelly S et al. (2014)}.
-#' Sequence searches are performed with \bold{last} \emph{Kiełbasa, SM et al. (2011)}.
-#' If one specifies aafile1 and aafile2 as the same input a selfblast is conducted.
+#' @description This function calculates (conditional-)reciprocal best hit
+#' (CRBHit) pairs from two two AA fasta file's.
+#' Conditional-reciprocal best hit pairs were introduced by
+#' \emph{Aubry S, Kelly S et al. (2014)}.
+#' Sequence searches are performed with \bold{last}
+#' \emph{Kiełbasa, SM et al. (2011)}.
+#' If one specifies aafile1 and aafile2 as the same input a selfblast is
+#' conducted.
 #' @param aafile1 aa1 fasta file [mandatory]
 #' @param aafile2 aa2 fasta file [mandatory]
-#' @param lastpath specify the PATH to the last binaries [default: /extdata/last-1256/bin/]
-#' @param lastD last option D: query letters per random alignment [default: 1e6]
+#' @param lastpath specify the PATH to the last binaries
+#' [default: /extdata/last-1256/bin/]
+#' @param lastD last option D: query letters per random alignment
+#' [default: 1e6]
 #' @param outpath specify the output PATH [default: /tmp]
-#' @param crbh specify if conditional-reciprocal hit pairs should be retained as secondary hits [default: TRUE]
-#' @param keepSingleDirection specify if single direction secondary hit pairs should be retained [default: FALSE]
+#' @param crbh specify if conditional-reciprocal hit pairs should be retained
+#' as secondary hits [default: TRUE]
+#' @param keepSingleDirection specify if single direction secondary hit pairs
+#' should be retained [default: FALSE]
 #' @param eval evalue [default: 1e-3]
 #' @param qcov query coverage [default: 0.0]
 #' @param tcov target coverage [default: 0.0]
 #' @param pident percent identity [default: 0.0]
 #' @param alnlen alignment length [default: 0.0]
-#' @param rost1999 specify if hit pairs should be filter by equation 2 of Rost 1999 [default: FALSE]
-#' @param filter specify additional custom filters as list to be applied on hit pairs [default: NULL]
-#' @param plotCurve specify if crbh fitting curve should be plotted [default: FALSE]
-#' @param fit.type specify if mean or median should be used for fitting [default: mean]
-#' @param fit.varweight factor for fitting function to consider neighborhood [default: 0.1]
+#' @param rost1999 specify if hit pairs should be filter by equation 2 of
+#' Rost 1999 [default: FALSE]
+#' @param filter specify additional custom filters as list to be applied on hi
+#'  pairs [default: NULL]
+#' @param plotCurve specify if crbh fitting curve should be plotted
+#' [default: FALSE]
+#' @param fit.type specify if mean or median should be used for fitting
+#' [default: mean]
+#' @param fit.varweight factor for fitting function to consider neighborhood
+#' [default: 0.1]
 #' @param fit.min specify minimum neighborhood alignment length [default: 5]
 #' @param threads number of parallel threads [default: 1]
 #' @param remove specify if last result files should be removed [default: TRUE]
@@ -34,7 +47,8 @@
 #' 2: $crbh1 matrix; query > target\cr
 #' 3: $crbh2 matrix; target > query\cr
 #' 4: $rbh1_rbh2_fit; evalue fitting function
-#' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet readDNAStringSet readAAStringSet writeXStringSet width subseq
+#' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet
+#' readDNAStringSet readAAStringSet writeXStringSet width subseq
 #' @importFrom graphics legend par points
 #' @importFrom stats median splinefun
 #' @importFrom utils read.table
@@ -42,47 +56,52 @@
 #' @importFrom stringr str_split_fixed
 #' @seealso \code{\link[CRBHits]{aa2rbh}},
 #' \code{\link[CRBHits]{isoform2longest}}
-#' @references Aubry S, Kelly S et al. (2014) Deep Evolutionary Comparison of Gene Expression Identifies Parallel Recruitment of Trans-Factors in Two Independent Origins of C4 Photosynthesis. \emph{PLOS Genetics}, \bold{10(6)} e1004365.
-#' @references Kiełbasa, SM et al. (2011) Adaptive seeds tame genomic sequence comparison. \emph{Genome research}, \bold{21(3)}, 487-493.
-#' @references Rost B. (1999). Twilight zone of protein sequence alignments. \emph{Protein Engineering}, \bold{12(2)}, 85-94.
+#' @references Aubry S, Kelly S et al. (2014) Deep Evolutionary Comparison of
+#' Gene Expression Identifies Parallel Recruitment of Trans-Factors in Two
+#' Independent Origins of C4 Photosynthesis. \emph{PLOS Genetics},
+#' \bold{10(6)} e1004365.
+#' @references Kiełbasa, SM et al. (2011) Adaptive seeds tame genomic sequence
+#' comparison. \emph{Genome research}, \bold{21(3)}, 487-493.
+#' @references Rost B. (1999). Twilight zone of protein sequence alignments.
+#' \emph{Protein Engineering}, \bold{12(2)}, 85-94.
 #' @examples
 #' ## compile last-1256 within CRBHits
 #' make_last()
 #' ## load example sequence data
-#' athfile <- system.file("fasta", "ath.aa.fasta.gz", package = "CRBHits")
-#' alyfile <- system.file("fasta", "aly.aa.fasta.gz", package = "CRBHits")
+#' athfile <- system.file("fasta", "ath.aa.fasta.gz", package="CRBHits")
+#' alyfile <- system.file("fasta", "aly.aa.fasta.gz", package="CRBHits")
 #' ## get CRBHit pairs
-#' ath_aly_crbh <- aafile2rbh(athfile, alyfile, plotCurve = TRUE)
+#' ath_aly_crbh <- aafile2rbh(athfile, alyfile, plotCurve=TRUE)
 #' dim(ath_aly_crbh$crbh.pairs)
 #' ## get classical reciprocal best hit (RBHit) pairs
-#' ath_aly_rbh <- aafile2rbh(athfile, alyfile, crbh = FALSE)
+#' ath_aly_rbh <- aafile2rbh(athfile, alyfile, crbh=FALSE)
 #' dim(ath_aly_rbh$crbh.pairs)
 #' ## selfblast
-#' ath_selfblast_crbh <- aafile2rbh(athfile, athfile, plotCurve = TRUE)
+#' ath_selfblast_crbh <- aafile2rbh(athfile, athfile, plotCurve=TRUE)
 #' ## see ?cds2rbh for more examples
 #' @export aafile2rbh
 #' @author Kristian K Ullrich
 
 aafile2rbh <- function(aafile1, aafile2,
-                    lastpath = paste0(find.package("CRBHits"),
-                                      "/extdata/last-1256/bin/"),
-                    lastD = 1e6,
-                    outpath = "/tmp",
-                    crbh = TRUE,
-                    keepSingleDirection = FALSE,
-                    eval = 1e-3,
-                    qcov = 0.0,
-                    tcov = 0.0,
-                    pident = 0.0,
-                    alnlen = 0.0,
-                    rost1999 = FALSE,
-                    filter = NULL,
-                    plotCurve = FALSE,
-                    fit.type = "mean",
-                    fit.varweight = 0.1,
-                    fit.min = 5,
-                    threads = 1,
-                    remove = TRUE){
+    lastpath=paste0(find.package("CRBHits"),
+        "/extdata/last-1256/bin/"),
+    lastD=1e6,
+    outpath="/tmp",
+    crbh=TRUE,
+    keepSingleDirection=FALSE,
+    eval=1e-3,
+    qcov=0.0,
+    tcov=0.0,
+    pident=0.0,
+    alnlen=0.0,
+    rost1999=FALSE,
+    filter=NULL,
+    plotCurve=FALSE,
+    fit.type="mean",
+    fit.varweight=0.1,
+    fit.min=5,
+    threads=1,
+    remove=TRUE){
   #internal function to fit evalue by length
   fitSpline <- function(alnlength, evalue, fit.type, fit.varweight, fit.min){
     log10evalue <- -log10(evalue)

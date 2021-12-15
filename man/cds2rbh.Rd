@@ -34,15 +34,19 @@ cds2rbh(
 
 \item{cds2}{cds2 sequences as \code{DNAStringSet} [mandatory]}
 
-\item{lastpath}{specify the PATH to the last binaries [default: /extdata/last-1256/bin/]}
+\item{lastpath}{specify the PATH to the last binaries
+[default: /extdata/last-1256/bin/]}
 
-\item{lastD}{last option D: query letters per random alignment [default: 1e6]}
+\item{lastD}{last option D: query letters per random alignment
+[default: 1e6]}
 
 \item{outpath}{specify the output PATH [default: /tmp]}
 
-\item{crbh}{specify if conditional-reciprocal hit pairs should be retained as secondary hits [default: TRUE]}
+\item{crbh}{specify if conditional-reciprocal hit pairs should be retained
+as secondary hits [default: TRUE]}
 
-\item{keepSingleDirection}{specify if single direction secondary hit pairs should be retained [default: FALSE]}
+\item{keepSingleDirection}{specify if single direction secondary hit pairs
+should be retained [default: FALSE]}
 
 \item{eval}{evalue [default: 1e-3]}
 
@@ -54,21 +58,30 @@ cds2rbh(
 
 \item{alnlen}{alignment length [default: 0.0]}
 
-\item{rost1999}{specify if hit pairs should be filter by equation 2 of Rost 1999 [default: FALSE]}
+\item{rost1999}{specify if hit pairs should be filter by equation 2 of
+Rost 1999 [default: FALSE]}
 
-\item{filter}{specify additional custom filters as list to be applied on hit pairs [default: NULL]}
+\item{filter}{specify additional custom filters as list to be applied on hit
+pairs [default: NULL]}
 
-\item{plotCurve}{specify if crbh fitting curve should be plotted [default: FALSE]}
+\item{plotCurve}{specify if crbh fitting curve should be plotted
+[default: FALSE]}
 
-\item{fit.type}{specify if mean or median should be used for fitting [default: mean]}
+\item{fit.type}{specify if mean or median should be used for fitting
+[default: mean]}
 
-\item{fit.varweight}{factor for fitting function to consider neighborhood [default: 0.1]}
+\item{fit.varweight}{factor for fitting function to consider neighborhood
+[default: 0.1]}
 
-\item{fit.min}{specify minimum neighborhood alignment length [default: 5]}
+\item{fit.min}{specify minimum neighborhood alignment length
+[default: 5]}
 
-\item{longest.isoform}{specify if cds sequences should be removed to the longest isoform (only possible if data was accessed from NCBI or ENSEMBL) [default: FALSE]}
+\item{longest.isoform}{specify if cds sequences should be removed to the
+longest isoform (only possible if data was accessed from NCBI or ENSEMBL)
+[default: FALSE]}
 
-\item{isoform.source}{specify cds sequences source (either NCBI or ENSEMBL) [default: NCBI]}
+\item{isoform.source}{specify cds sequences source (either NCBI or ENSEMBL)
+[default: NCBI]}
 
 \item{threads}{number of parallel threads [default: 1]}
 
@@ -87,9 +100,11 @@ List of four (crbh = TRUE)\cr
 4: $rbh1_rbh2_fit; evalue fitting function
 }
 \description{
-This function calculates (conditional-)reciprocal best hit (CRBHit) pairs from two CDS \code{DNAStringSet}'s.
+This function calculates (conditional-)reciprocal best hit
+(CRBHit) pairs from two CDS \code{DNAStringSet}'s.
 CRBHit pairs were introduced by \emph{Aubry S, Kelly S et al. (2014)}.
-Sequence searches are performed with \bold{last} \emph{Kiełbasa, SM et al. (2011)}.
+Sequence searches are performed with \bold{last}
+\emph{Kiełbasa, SM et al. (2011)}.
 If one specifies cds1 and cds2 as the same input a selfblast is conducted.
 }
 \examples{
@@ -99,33 +114,38 @@ make_last()
 data("ath", package="CRBHits")
 data("aly", package="CRBHits")
 ## get CRBHit pairs
-ath_aly_crbh <- cds2rbh(ath, aly, plotCurve = TRUE)
+ath_aly_crbh <- cds2rbh(ath, aly, plotCurve=TRUE)
 dim(ath_aly_crbh$crbh.pairs)
 ## get classical reciprocal best hit (RBHit) pairs
-ath_aly_rbh <- cds2rbh(ath, aly, crbh = FALSE)
+ath_aly_rbh <- cds2rbh(ath, aly, crbh=FALSE)
 dim(ath_aly_rbh$crbh.pairs)
 ## filter for evalue 1e-100
-ath_aly_crbh.eval100 <- cds2rbh(ath, aly, eval = 1e-100)
+ath_aly_crbh.eval100 <- cds2rbh(ath, aly, eval=1e-100)
 dim(ath_aly_crbh.eval100$crbh.pairs)
 ## filter for query coverage
-ath_aly_crbh.qcov <- cds2rbh(ath, aly, qcov = 0.5)
+ath_aly_crbh.qcov <- cds2rbh(ath, aly, qcov=0.5)
 dim(ath_aly_crbh.qcov$crbh.pairs)
 ## custom filter for e.g. bit score (column 12)
 ## Note: multiple filters can be given in filter param as list
-myfilter <- function(rbh, value = 500.0){
-return(rbh[as.numeric(rbh[, 12]) >= value , , drop = FALSE])
+myfilter <- function(rbh, value=500.0){
+    return(rbh[as.numeric(rbh[, 12])>=value, , drop=FALSE])
 }
-ath_aly_crbh.custom <- cds2rbh(ath, aly, filter = list(myfilter))
+ath_aly_crbh.custom <- cds2rbh(ath, aly, filter=list(myfilter))
 dim(ath_aly_crbh.custom$crbh.pairs)
 ## selfblast
-ath_selfblast_crbh <- cds2rbh(ath, ath, plotCurve = TRUE)
+ath_selfblast_crbh <- cds2rbh(ath, ath, plotCurve=TRUE)
 }
 \references{
-Aubry S, Kelly S et al. (2014) Deep Evolutionary Comparison of Gene Expression Identifies Parallel Recruitment of Trans-Factors in Two Independent Origins of C4 Photosynthesis. \emph{PLOS Genetics}, \bold{10(6)} e1004365.
+Aubry S, Kelly S et al. (2014) Deep Evolutionary Comparison of
+Gene Expression Identifies Parallel Recruitment of Trans-Factors in Two
+Independent Origins of C4 Photosynthesis. \emph{PLOS Genetics},
+\bold{10(6)} e1004365.
 
-Kiełbasa, SM et al. (2011) Adaptive seeds tame genomic sequence comparison. \emph{Genome research}, \bold{21(3)}, 487-493.
+Kiełbasa, SM et al. (2011) Adaptive seeds tame genomic sequence
+comparison. \emph{Genome research}, \bold{21(3)}, 487-493.
 
-Rost B. (1999). Twilight zone of protein sequence alignments. \emph{Protein Engineering}, \bold{12(2)}, 85-94.
+Rost B. (1999). Twilight zone of protein sequence alignments.
+\emph{Protein Engineering}, \bold{12(2)}, 85-94.
 }
 \seealso{
 \code{\link[CRBHits]{cdsfile2rbh}},

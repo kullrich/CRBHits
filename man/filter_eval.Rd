@@ -11,19 +11,21 @@ filter_eval(rbh, eval = 0.001, inverse = FALSE)
 
 \item{eval}{evalue [default: 1e-3]}
 
-\item{inverse}{specify if filter should keep the removed values [default: FALSE]}
+\item{inverse}{specify if filter should keep the removed values
+[default: FALSE]}
 }
 \value{
 rbh matrix
 }
 \description{
-This function filters BLAST-like tabular output according to evalue.
+This function filters BLAST-like tabular output according to
+evalue.
 }
 \examples{
 ## load crbh data
 data(ath_aly_crbh)
 dim(ath_aly_crbh$crbh1)
-dim(filter_eval(ath_aly_crbh$crbh1, eval = 1e-100))
+dim(filter_eval(ath_aly_crbh$crbh1, eval=1e-100))
 }
 \author{
 Kristian K Ullrich

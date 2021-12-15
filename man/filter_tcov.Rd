@@ -11,19 +11,21 @@ filter_tcov(rbh, tcov = 0, inverse = FALSE)
 
 \item{tcov}{target coverage [default: 0.0]}
 
-\item{inverse}{specify if filter should keep the removed values [default: FALSE]}
+\item{inverse}{specify if filter should keep the removed values
+[default: FALSE]}
 }
 \value{
 rbh matrix
 }
 \description{
-This function filters BLAST-like tabular output according to percentage target coverage.
+This function filters BLAST-like tabular output according to
+percentage target coverage.
 }
 \examples{
 ## load crbh data
 data(ath_aly_crbh)
 dim(ath_aly_crbh$crbh1)
-dim(filter_tcov(ath_aly_crbh$crbh1, tcov = 0.75))
+dim(filter_tcov(ath_aly_crbh$crbh1, tcov=0.75))
 }
 \author{
 Kristian K Ullrich

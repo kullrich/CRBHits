@@ -15,7 +15,8 @@ uptriidx(n, diag = FALSE)
 list of positions
 }
 \description{
-This function returns upper tri index for usage with \code{pivot_long} reduction.
+This function returns upper tri index for usage with
+\code{pivot_long} reduction.
 }
 \examples{
 uptriidx(10)
