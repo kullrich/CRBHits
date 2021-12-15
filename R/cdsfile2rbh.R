@@ -41,12 +41,12 @@
 #' [default: NCBI]
 #' @param threads number of parallel threads [default: 1]
 #' @param remove specify if last result files should be removed [default: TRUE]
-#' @return List of three (crbh = FALSE)\cr
+#' @return List of three (crbh=FALSE)\cr
 #' 1: $crbh.pairs\cr
 #' 2: $crbh1 matrix; query > target\cr
 #' 3: $crbh2 matrix; target > query\cr
 #' \cr
-#' List of four (crbh = TRUE)\cr
+#' List of four (crbh=TRUE)\cr
 #' 1: $crbh.pairs\cr
 #' 2: $crbh1 matrix; query > target\cr
 #' 3: $crbh2 matrix; target > query\cr
@@ -114,7 +114,7 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
         x <- cbind(alnlength, log10evalue)
         x <- x[order(x[,1]),]
         x.max <- max(x[,1])
-        fitMatrix <- matrix(0, ncol = 2, nrow = x.max)
+        fitMatrix <- matrix(0, ncol=2, nrow=x.max)
         for(i in seq(from=1, to=x.max)){
             fitMatrix[i, 1] <- i
             s <- round(i * fit.varweight)
@@ -183,14 +183,16 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
         cdsfile2aafile(cdsfile1, aa1file)
         cdsfile2aafile(cdsfile2, aa2file)
     }
-    system(paste0(lastpath, "lastdb -p -cR01 -P ", threads," ", aa1dbfile, " ",
-        aa1file))
-    system(paste0(lastpath, "lastdb -p -cR01 -P ", threads," ", aa2dbfile, " ",
-        aa2file))
-    system(paste0(lastpath, "lastal -f BlastTab+ -P ", threads, " -D", lastD,
-        " ", aa1dbfile, " ", aa2file, " > ", aa2_aa1_lastout))
-    system(paste0(lastpath, "lastal -f BlastTab+ -P ", threads, " -D", lastD,
-        " ", aa2dbfile, " ", aa1file, " > ", aa1_aa2_lastout))
+    system2(command=paste0(lastpath, "lastdb"),
+        args = c("-p", "-cR01", "-P", threads, aa1dbfile, aa1file))
+    system2(command=paste0(lastpath, "lastdb"),
+        args = c("-p", "-cR01", "-P", threads,aa2dbfile, aa2file))
+    system2(command=paste0(lastpath, "lastal"),
+        args = c("-f", "BlastTab+", "-P", threads, "-D", lastD, aa1dbfile,
+        aa2file, ">", aa2_aa1_lastout))
+    system2(command=paste0(lastpath, "lastal"),
+        args = c("-f", "BlastTab+", "-P", threads, "-D", lastD, aa2dbfile,
+        aa1file, ">", aa1_aa2_lastout))
     aa1_aa2 <- read.table(aa1_aa2_lastout, sep="\t", header=FALSE,
         stringsAsFactors=FALSE)
     aa2_aa1 <- read.table(aa2_aa1_lastout, sep="\t", header=FALSE,
@@ -200,18 +202,18 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
         "q_start", "q_end", "s_start", "s_end", "evalue", "bit_score",
         "query_length", "subject_length", "raw_score")
     if(remove){
-        system(paste0("rm ", aa1file))
-        system(paste0("rm ", aa2file))
-        system(paste0("rm ", aa1dbfile, "*"))
-        system(paste0("rm ", aa2dbfile, "*"))
-        system(paste0("rm ", aa2_aa1_lastout))
-        system(paste0("rm ", aa1_aa2_lastout))
+        system2(command="rm", args = aa1file)
+        system2(command="rm", args = aa2file)
+        system2(command="rm", args = paste0(aa1dbfile, "*"))
+        system2(command="rm", args = paste0(aa2dbfile, "*"))
+        system2(command="rm", args = aa2_aa1_lastout)
+        system2(command="rm", args = aa1_aa2_lastout)
     }
     #selfblast
     if(selfblast){
         aa1_aa2 <- aa1_aa2[aa1_aa2[,1] != aa1_aa2[,2], , drop=FALSE]
         aa2_aa1 <- aa2_aa1[aa2_aa1[,1] != aa2_aa1[,2], , drop=FALSE]
-        if(dim(aa1_aa2)[1] == 0 & dim(aa2_aa1)[1] == 0){
+        if(dim(aa1_aa2)[1]==0 & dim(aa2_aa1)[1]==0){
             stop("No recirpocal best hits!")
         }
     }
@@ -229,7 +231,7 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
         aa1_aa2 <- aa1_aa2 %>% f_
         aa2_aa1 <- aa2_aa1 %>% f_
     }
-    if(dim(aa1_aa2)[1] == 0 & dim(aa2_aa1)[1] == 0){
+    if(dim(aa1_aa2)[1]==0 & dim(aa2_aa1)[1]==0){
         stop("No recirpocal best hits!")
     }
     aa1_aa2.idx <- paste0(aa1_aa2[, 1], "\t" , aa1_aa2[, 2])
@@ -245,14 +247,14 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
     rbh2 <- aa2_aa1.dedup[which(aa2_aa1.dedup.idx %in% aa1_aa2.dedup.idx), ,
         drop=FALSE]
     if(selfblast){
-        rbh1 <- rbh1[!duplicated(apply(rbh1[, 1:2], 1, function(x)
+        rbh1 <- rbh1[!duplicated(apply(rbh1[, seq_len(2)], 1, function(x)
             paste0(sort(x), collapse="\t"))), , drop=FALSE]
-        rbh2 <- rbh2[!duplicated(apply(rbh2[, 1:2], 1, function(x)
+        rbh2 <- rbh2[!duplicated(apply(rbh2[, seq_len(2)], 1, function(x)
             paste0(sort(x), collapse="\t"))), , drop=FALSE]
     }
     #if no crbh - done
     if(!crbh){
-        rbh <- rbh1[, 1:2]
+        rbh <- rbh1[, seq_len(2)]
         rbh <- cbind(rbh, "rbh")
         colnames(rbh) <- c("aa1", "aa2", "rbh_class")
         out <- list(rbh, cbind(rbh1, "rbh"), cbind(rbh2, "rbh"))
@@ -335,9 +337,9 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
         rbh2.sec <- aa2_aa1.red.dedup[which(aa2_aa1.red.dedup.idx %in%
             aa1_aa2.red.dedup.idx), , drop=FALSE]
         if(selfblast){
-            rbh1.sec <- rbh1.sec[!duplicated(apply(rbh1.sec[, 1:2], 1,
+            rbh1.sec <- rbh1.sec[!duplicated(apply(rbh1.sec[, seq_len(2)], 1,
                 function(x) paste0(sort(x), collapse="\t"))), , drop=FALSE]
-            rbh2.sec <- rbh2.sec[!duplicated(apply(rbh2.sec[, 1:2], 1,
+            rbh2.sec <- rbh2.sec[!duplicated(apply(rbh2.sec[, seq_len(2)], 1,
                 function(x) paste0(sort(x), collapse="\t"))), , drop=FALSE]
         }
         single1 <- aa1_aa2.red.dedup[which(!aa1_aa2.red.dedup.idx %in%
@@ -366,7 +368,7 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
             bg=col2transparent("#CBC106", 25),
             cex=1)
             if(selfblast){
-                points(x=log10(1:max(rbh1[, 4])),
+                points(x=log10(seq_len(max(rbh1[, 4]))),
                     y=rbh1_rbh2_fit(seq(from=1, to=max(rbh1[, 4]))),
                     type="l",
                     lwd=2,
@@ -384,7 +386,7 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
                     pch=21,
                     bg=col2transparent("#CB7B26", 25),
                     cex=1)
-                points(x=log10(1:max(rbh1[, 4])),
+                points(x=log10(seq_len(max(rbh1[, 4]))),
                     y=rbh1_rbh2_fit(seq(from=1, to=max(rbh1[, 4]))),
                     type="l",
                     lwd=2,
@@ -402,12 +404,12 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
         #if no keepSingleDirection - done
         if(!keepSingleDirection){
             crbh1 <- data.frame(Map(c ,cbind(rbh1, "rbh"),
-                cbind(rbh1.sec[, 1:15], "sec")))
+                cbind(rbh1.sec[, seq_len(15)], "sec")))
             colnames(crbh1)[16] <- "rbh_class"
             crbh2 <- data.frame(Map(c ,cbind(rbh2, "rbh"),
-                cbind(rbh2.sec[, 1:15], "sec")))
+                cbind(rbh2.sec[, seq_len(15)], "sec")))
             colnames(crbh2)[16] <- "rbh_class"
-            crbh <- crbh1[, c(1:2,16)]
+            crbh <- crbh1[, c(seq_len(2), 16)]
             colnames(crbh) <- c("aa1", "aa2", "rbh_class")
             out <- list(crbh, crbh1, crbh2, rbh1_rbh2_fit)
             names(out) <- c("crbh.pairs", "crbh1", "crbh2", "rbh1_rbh2_fit")
@@ -420,15 +422,17 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
         #if keepSingleDirection - include single - done
         if(keepSingleDirection){
             crbh1 <- data.frame(Map(c, cbind(rbh1, "rbh"),
-                cbind(rbh1.sec[, 1:15], "sec"), cbind(single1[, 1:15],
+                cbind(rbh1.sec[, seq_len(15)], "sec"),
+                cbind(single1[, seq_len(15)],
                 "single")))
             colnames(crbh1)[16] <- "rbh_class"
             crbh2 <- data.frame(Map(c, cbind(rbh2, "rbh"),
-                cbind(rbh2.sec[, 1:15], "sec"), cbind(single2[, 1:15],
+                cbind(rbh2.sec[, seq_len(15)], "sec"),
+                cbind(single2[, seq_len(15)],
                 "single")))
             colnames(crbh2)[16] <- "rbh_class"
-            crbh <- data.frame(Map(c, crbh1[, c(1:2,16)],
-                single1[, c(1:2,16)], single2[, c(2,1,16)]))
+            crbh <- data.frame(Map(c, crbh1[, c(seq_len(2), 16)],
+                single1[, c(seq_len(2), 16)], single2[, c(2, 1, 16)]))
             colnames(crbh) <- c("aa1", "aa2", "rbh_class")
             out <- list(crbh, crbh1, crbh2, rbh1_rbh2_fit)
             names(out) <- c("crbh.pairs", "crbh1", "crbh2", "rbh1_rbh2_fit")

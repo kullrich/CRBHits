@@ -59,8 +59,8 @@ should be retained [default: FALSE]}
 \item{rost1999}{specify if hit pairs should be filter by equation 2 of
 Rost 1999 [default: FALSE]}
 
-\item{filter}{specify additional custom filters as list to be applied on hi
-pairs [default: NULL]}
+\item{filter}{specify additional custom filters as list to be applied on
+hit pairs [default: NULL]}
 
 \item{plotCurve}{specify if crbh fitting curve should be plotted
 [default: FALSE]}
@@ -78,12 +78,12 @@ pairs [default: NULL]}
 \item{remove}{specify if last result files should be removed [default: TRUE]}
 }
 \value{
-List of three (crbh = FALSE)\cr
+List of three (crbh=FALSE)\cr
 1: $crbh.pairs\cr
 2: $crbh1 matrix; query > target\cr
 3: $crbh2 matrix; target > query\cr
 \cr
-List of four (crbh = TRUE)\cr
+List of four (crbh=TRUE)\cr
 1: $crbh.pairs\cr
 2: $crbh1 matrix; query > target\cr
 3: $crbh2 matrix; target > query\cr

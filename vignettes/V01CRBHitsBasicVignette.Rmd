@@ -44,21 +44,44 @@ knitr::opts_chunk$set(
     3. [Calculate Ka/Ks values for each CRBHit pair - rbh2kaks() Function](#rbh2kaks)
 4. [References](#references)
 
-[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) is a reimplementation of the Conditional Reciprocal Best Hit (CRBH) algorithm [crb-blast](https://github.com/cboursnell/crb-blast) in R.
+[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) is a reimplementation of
+the Conditional Reciprocal Best Hit (CRBH) algorithm
+[crb-blast](https://github.com/cboursnell/crb-blast) in R.
 
-The Reciprocal Best Hit (RBH) approach is commonly used in bioinformatics to show that two sequences evolved from a common ancestral gene. In other words, RBH tries to find orthologous protein sequences within and between species. These orthologous sequences can be further analysed to evaluate protein family evolution, infer phylogenetic trees and to annotate protein function.
+The Reciprocal Best Hit (RBH) approach is commonly used in bioinformatics to
+show that two sequences evolved from a common ancestral gene. In other words,
+RBH tries to find orthologous protein sequences within and between species.
+These orthologous sequences can be further analysed to evaluate protein family
+evolution, infer phylogenetic trees and to annotate protein function.
 
-The CRBH algorithm builds upon the traditional RBH approach to find additional orthologous sequences between two sets of sequences.
+The CRBH algorithm builds upon the traditional RBH approach to find additional
+orthologous sequences between two sets of sequences.
 
-CRBH uses the sequence search results to fit an expect-value (e-value) cutoff given each RBH to subsequently add sequence pairs to the list of *bona-fide* orthologs given their alignment length. The sequence similarity results can be filtered by common criteria like e-value, query-coverage and more. If chromosome annotations are available for the protein-coding genes (protein order), this information can be directly used to assign tandem duplicates before conducting further processing steps.
+CRBH uses the sequence search results to fit an expect-value (e-value) cutoff
+given each RBH to subsequently add sequence pairs to the list of *bona-fide*
+orthologs given their alignment length. The sequence similarity results can be
+filtered by common criteria like e-value, query-coverage and more. If
+chromosome annotations are available for the protein-coding genes
+(protein order), this information can be directly used to assign tandem
+duplicates before conducting further processing steps.
 
-[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) features downstream anaylsis like batch calculating synonymous (Ks) and nonsynonymous substitutions (Ka) per orthologous sequence pair. The codon sequence alignment step consist of three subtasks, namely coding nucleotide to protein sequence translation, pairwise protein sequence alignment calculation and converting the protein sequence alignment back into a codon based alignment.
+[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) features downstream
+anaylsis like batch calculating synonymous (Ks) and nonsynonymous substitutions
+(Ka) per orthologous sequence pair. The codon sequence alignment step consist
+of three subtasks, namely coding nucleotide to protein sequence translation,
+pairwise protein sequence alignment calculation and converting the protein
+sequence alignment back into a codon based alignment.
 
 __Note:__
 
-In this Vignette the `lastpath` is defined as `vignette.paths[1]`, the `kakscalcpath` as `vignette.paths[2]` and the `dagchainerpath` as `vignette.paths[3]` to be able to build the Vignette.
+In this Vignette the `lastpath` is defined as `vignette.paths[1]`,
+the `kakscalcpath` as `vignette.paths[2]` and the `dagchainerpath` as
+`vignette.paths[3]` to be able to build the Vignette.
 
-However, once you have compiled last-1256, KaKs_Calculator2.0 and DAGchainer with the functions `make_last()`, `make_KaKs_Calculator2()` and `make_dagchainer()` you won't need to specify the paths anymore. Please remove them if you would like to repeat the examples.
+However, once you have compiled last-1256, KaKs_Calculator2.0 and DAGchainer
+with the functions `make_last()`, `make_KaKs_Calculator2()` and
+`make_dagchainer()` you won't need to specify the paths anymore. Please remove
+them if you would like to repeat the examples.
 
 ```{r}
 ## load vignette specific libraries
@@ -73,7 +96,9 @@ vignette.paths <- make_vignette()
 
 ## 1. [Installation]{#install}
 
-See the R package page for a detailed description of the install process and its dependencies [https://mpievolbio-it.pages.gwdg.de/crbhits/](https://mpievolbio-it.pages.gwdg.de/crbhits/).
+See the R package page for a detailed description of the install process and
+its dependencies
+[https://mpievolbio-it.pages.gwdg.de/crbhits/](https://mpievolbio-it.pages.gwdg.de/crbhits/).
 
 ```
 ## see a detailed description of installation prerequisites at
@@ -86,11 +111,19 @@ install_gitlab("mpievolbio-it/crbhits", host = "https://gitlab.gwdg.de",
 install_github("kullrich/CRBHits", build_vignettes = TRUE, dependencies = FALSE)
 ```
 
-[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) needs [LAST](https://gitlab.com/mcfrith/last), [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download) and [DAGchainer](http://dagchainer.sourceforge.net/) to be installed before one can efficiently use it.
+[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) needs
+[LAST](https://gitlab.com/mcfrith/last),
+[KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download) and [DAGchainer](http://dagchainer.sourceforge.net/) to be installed before one
+can efficiently use it.
 
-All prerequisites (LAST, KaKs_Calculator2.0, DAGchainer) are forked within [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) and can be compiled for Linux/Unix/macOS with the functions `make_last()`, `make_KaKs_Calculator2()` and  `make_dagchainer()`.
+All prerequisites (LAST, KaKs_Calculator2.0, DAGchainer) are forked within
+[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) and can be compiled for
+Linux/Unix/macOS with the functions `make_last()`, `make_KaKs_Calculator2()`
+and  `make_dagchainer()`.
 
-For the windows platform the user needs to use e.g. [https://www.cygwin.com/](https://www.cygwin.com/) to be able to compile the prerequisites.
+For the windows platform the user needs to use e.g.
+[https://www.cygwin.com/](https://www.cygwin.com/) to be able to compile the
+prerequisites.
 
 ```
 library(CRBHits)
@@ -106,35 +139,57 @@ make_dagchainer()
 
 ![Figure: Overview of the `cds2rbh()` function](cds2rbhoverview.png){width=400px}
 
-The CRBH algorithm was introduced by [Aubry S, Kelly S et al. (2014)](http://www.plosgenetics.org/article/info%3Adoi%2F10.1371%2Fjournal.pgen.1004365) and ported to python [shmlast](https://pypi.org/project/shmlast/) ([Scott C. 2017](https://joss.theoj.org/papers/10.21105/joss.00142)) which benefits from the blast-like sequence search software [LAST](http://last.cbrc.jp/) ([Kiełbasa SM et al. 2011](https://genome.cshlp.org/content/21/3/487.long)).
+The CRBH algorithm was introduced by
+[Aubry S, Kelly S et al. (2014)](http://www.plosgenetics.org/article/info%3Adoi%2F10.1371%2Fjournal.pgen.1004365)
+and ported to python [shmlast](https://pypi.org/project/shmlast/)
+([Scott C. 2017](https://joss.theoj.org/papers/10.21105/joss.00142)) which
+benefits from the blast-like sequence search software
+[LAST](http://last.cbrc.jp/)
+([Kiełbasa SM et al. 2011](https://genome.cshlp.org/content/21/3/487.long)).
 
-The CRBH algorithm implementation consists of three steps which are explained in more detail in the following subsections.
+The CRBH algorithm implementation consists of three steps which are explained
+in more detail in the following subsections.
 
 1. step: sequence similarity search (last)(#crbhstep1)
 2. step: filter hits and extract Reciprocal Best Hits (RBHs)(#crbhstep2)
 3. step: fitting RBHs and get Conditional Reciprocal Best Hits (CRBHs)(#crbhstep3)
 
-All of these steps are combined in either the `cds2rbh()` function (R vector input) or the `cdsfile2rbh()` function (file input).
+All of these steps are combined in either the `cds2rbh()` function
+(R vector input) or the `cdsfile2rbh()` function (file input).
 
-To activate/deactivate specific options use the parameters `@param` given and explained for each function (see `?cds2rbh()` and `?cdsfile2rbh()`). 
+To activate/deactivate specific options use the parameters `@param` given and
+explained for each function (see `?cds2rbh()` and `?cdsfile2rbh()`). 
 
 ![Figure: Individual steps of the `cds2rbh()` function](cds2rbh.png){width=800px}
 
 ### 2.1. [1. step: sequence similarity search (last)]{#crbhstep1}
 
-All further described steps are included in the `cds2rbh()` and `cdsfile2rbh()` function. The subsections will just explain in more detail what is happening with the input data.
+All further described steps are included in the `cds2rbh()` and `cdsfile2rbh()`
+function. The subsections will just explain in more detail what is happening
+with the input data.
 
 #### 2.1.1. [Input: Coding Sequences (CDS)]{#cdsinput}
 
-[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) only takes coding nucleotide sequences as the query and target inputs.
+[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) only takes coding
+nucleotide sequences as the query and target inputs.
 
-__Why?__ Because [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) is implemented to use the same input afterwards to calculate synonymous and nonsynonymous substitutions which must match the protein sequences used to find CRBHit pairs.
+__Why?__ Because [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) is
+implemented to use the same input afterwards to calculate synonymous and
+nonsynonymous substitutions which must match the protein sequences used to find
+CRBHit pairs.
 
-One can either use a `DNAStringSet` vector from the `Biostrings` R package with the `cds2rbh()` function or use **raw**,**gzipped** or **URL** coding sequences **fasta** files as inputs with the `cdsfile2rbh()` function.
+One can either use a `DNAStringSet` vector from the `Biostrings` R package with
+the `cds2rbh()` function or use **raw**,**gzipped** or **URL** coding sequences
+**fasta** files as inputs with the `cdsfile2rbh()` function.
 
-[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) uses either the function `cdsfile2aafile()` to translate a coding sequence **fasta** file into its corresponding protein sequence **fasta** file or `cds2aa()` to translate a `DNAStringSet` into a `AAStringSet`. Thereby it removes all sequences that are not a multiple of three which can not be parsed correctly.
+[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) uses either the
+function `cdsfile2aafile()` to translate a coding sequence **fasta** file into
+its corresponding protein sequence **fasta** file or `cds2aa()` to translate a
+`DNAStringSet` into a `AAStringSet`. Thereby it removes all sequences that are
+not a multiple of three which can not be parsed correctly.
 
-__Note:__ The user can easily check if all coding sequences would be a multiple of three or rely on the input files generated by other sources.
+__Note:__ The user can easily check if all coding sequences would be a multiple
+of three or rely on the input files generated by other sources.
 
 ```{r}
 ## example how to check coding sequences if all are a mutiple of three
@@ -142,13 +197,17 @@ __Note:__ The user can easily check if all coding sequences would be a multiple 
 ## load CDS file
 cdsfile <- system.file("fasta", "ath.cds.fasta.gz", package = "CRBHits")
 cds <- Biostrings::readDNAStringSet(cdsfile)
-## the following statement should return TRUE, if all sequences are a mutiple of three
+## the following statement should return TRUE,
+## if all sequences are a mutiple of three
 all(Biostrings::width(cds) %% 3 == 0)
 ```
 
 #### 2.1.2. [Get Longest Isoform from NCBI or ENSEMBL Input (optional)]{#isoform}
 
-It is also possible to use an URL to directly access coding sequences from [NCBI](https://www.ncbi.nlm.nih.gov/genome) or [ENSEMBL](ftp://ftp.ensembl.org/pub/current_fasta) and reduce this input to the longest annotated isoform.
+It is also possible to use an URL to directly access coding sequences from
+[NCBI](https://www.ncbi.nlm.nih.gov/genome) or
+[ENSEMBL](ftp://ftp.ensembl.org/pub/current_fasta) and reduce this input to the
+longest annotated isoform.
 
 ````
 ## example how to access CDS from URL and get longest isoform
@@ -175,13 +234,20 @@ HOMSAP.cds.ENSEMBL.longest <- isoform2longest(HOMSAP.cds.ENSEMBL, "ENSEMBL")
 #?isoform2longest
 ````
 
-__Note:__ It is also possible to obtain and select the longest/primary isoform from CDS Input sources other than NCBI or Ensembl. This can be achieved by parsing a GTF/GFF3 file. This special case is handled in the [CRBHits KaKs Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V02KaKsVignette.html) under point 1.4.2.
+__Note:__ It is also possible to obtain and select the longest/primary isoform
+from CDS Input sources other than NCBI or Ensembl. This can be achieved by
+parsing a GTF/GFF3 file. This special case is handled in the
+[CRBHits KaKs Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V02KaKsVignette.html)
+under point 1.4.2.
 
 #### 2.1.3. [Sequence Similarity Search]{#sequencesearch}
 
-The blast-like software [LAST](http://last.cbrc.jp/) is used to compare the translated coding sequences against each other and output a blast-like output table including the query and target length.
+The blast-like software [LAST](http://last.cbrc.jp/) is used to compare the
+translated coding sequences against each other and output a blast-like output
+table including the query and target length.
 
-__Note:__ Classical RBH can be performed by disabling the `crbh` `@param`of the `cds2rbh()` or `cdsfile2rbh()` function.
+__Note:__ Classical RBH can be performed by disabling the `crbh` `@param`of the
+`cds2rbh()` or `cdsfile2rbh()` function.
 
 ```{r}
 ## example how to get CRBHit pairs from two CDS using classical RBH
@@ -204,14 +270,19 @@ summary(ath_aly_crbh)
 #?cds2rbh
 ```
 
-Like [shmlast](https://pypi.org/project/shmlast/), [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) plots the fitted model of the CRBH e-value based algorithm. The CRBH algorithm can be performed and visualized as follows:
+Like [shmlast](https://pypi.org/project/shmlast/),
+[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) plots the fitted model
+of the CRBH e-value based algorithm. The CRBH algorithm can be performed and
+visualized as follows:
 
 ```{r}
-## example how to get CRBHit pairs using one thread and plot CRBHit algorithm fitting curve
+## example how to get CRBHit pairs using one thread
+## and plot CRBHit algorithm fitting curve
 
 ## example how to perform CRBH
-ath_aly_crbh <- cds2rbh(cds1, cds2, plotCurve = TRUE,
-                        lastpath = vignette.paths[1])
+ath_aly_crbh <- cds2rbh(cds1, cds2,
+    plotCurve = TRUE,
+    lastpath = vignette.paths[1])
 ## show summary
 summary(ath_aly_crbh)
 
@@ -219,7 +290,12 @@ summary(ath_aly_crbh)
 #?cds2rbh
 ```
 
-Both, `cdsfile2rbh()` and `cds2rbh()` function, return a list of three `data.frame`'s which contain the CRBH pairs (`$crbh.pairs`) retained, the query > target blast-like output matrix (`$crbh1`) and the target > query blast-like output matrix (`$crbh2`). For each matrix the `$rbh_class` indicates if the hit is a Reciprocal Best Hit (`rbh`) or if it is a conditional secondary hit retained because of RBH fitting (CRBH algorithm) (`sec`). 
+Both, `cdsfile2rbh()` and `cds2rbh()` function, return a list of three
+`data.frame`'s which contain the CRBH pairs (`$crbh.pairs`) retained, the
+query > target blast-like output matrix (`$crbh1`) and the target > query
+blast-like output matrix (`$crbh2`). For each matrix the `$rbh_class` indicates
+if the hit is a Reciprocal Best Hit (`rbh`) or if it is a conditional secondary
+hit retained because of RBH fitting (CRBH algorithm) (`sec`). 
 
 ```{r}
 ## example showing cds2rbh() results
@@ -236,29 +312,33 @@ table(ath_aly_crbh$crbh1$rbh_class)
 table(ath_aly_crbh$crbh2$rbh_class)
 ```
 
-If the `@param` `crbh` was set to `TRUE`, the CRBH algorithm was applied and the fitting function will also be returned. The fitting function can than be used for manual plotting as follows:
+If the `@param` `crbh` was set to `TRUE`, the CRBH algorithm was applied and
+the fitting function will also be returned. The fitting function can than be
+used for manual plotting as follows:
 
 ```{r}
 ## example how to use the fitting function for manual plotting
 
 ## plot fitting function
 curve(ath_aly_crbh$rbh1_rbh2_fit(x),
-      from = 1,
-      to = 1000,
-      xlab = "alnlength",
-      ylab = "-log10(evalue)",
-      main = "CRBH fitting")
+    from = 1,
+    to = 1000,
+    xlab = "alnlength",
+    ylab = "-log10(evalue)",
+    main = "CRBH fitting")
 ```
 
-One can also specify if a hit pair which is only found in one direction should be retained, which will be classified as (`single`).
+One can also specify if a hit pair which is only found in one direction should
+be retained, which will be classified as (`single`).
 
 ```{r}
 ## example how to retain single direction secondary homologs
 
 ## get CRBHit pairs with keepSingleDirection = TRUE
-ath_aly_crbh <- cds2rbh(cds1, cds2, plotCurve = TRUE,
-                        keepSingleDirection = TRUE,
-                        lastpath = vignette.paths[1])
+ath_aly_crbh <- cds2rbh(cds1, cds2,
+    plotCurve = TRUE,
+    keepSingleDirection = TRUE,
+    lastpath = vignette.paths[1])
 ## get the number of CRBHit classified as rbh and sec hit pairs
 table(ath_aly_crbh$crbh1$rbh_class)
 table(ath_aly_crbh$crbh2$rbh_class)
@@ -270,9 +350,15 @@ dim(ath_aly_crbh)
 
 ### 2.2. [2. step: filter hits + RBH extraction]{#crbhstep2}
 
-All further described steps are included in the `cds2rbh()` and `cdsfile2rbh()` function. The subsections will just explain in more detail what is happening with the input data.
+All further described steps are included in the `cds2rbh()` and `cdsfile2rbh()`
+function. The subsections will just explain in more detail what is happening
+with the input data.
 
-Until now the hit pairs obtained via the sequence similarity searches were only filtered by default settings (e-value < 0.001). The following subsections will explain the default filters in more detail and show how one can create and apply custom filter on the hit pairs prior RBH extraction and fitting to obtain CRBHit pairs.
+Until now the hit pairs obtained via the sequence similarity searches were only
+filtered by default settings (e-value < 0.001). The following subsections will
+explain the default filters in more detail and show how one can create and
+apply custom filter on the hit pairs prior RBH extraction and fitting to obtain
+CRBHit pairs.
 
 #### 2.2.1. [Filter blast-like output prior fitting]{#filters}
 
@@ -285,57 +371,80 @@ The following filters are already defined and can be used out of the box:
 - alignment length (`@param` `alnlen = 0`)
 - rost1999 (`@param` `rost1999 = FALSE`)
 
-Taking the length of the obtained pairwise protein alignment one can calculate for each hit pair the query coverage as $\frac{alignment length}{query length}$.
+Taking the length of the obtained pairwise protein alignment one can calculate
+for each hit pair the query coverage as $\frac{alignment length}{query length}$.
 
-The data will be filtered with a query coverage of 50\% using the `@param` `qcov` as follows: `cds2rbh(..., qcov = 0.5)`
+The data will be filtered with a query coverage of 50\% using the
+`@param` `qcov` as follows: `cds2rbh(..., qcov = 0.5)`
 
 ```{r}
 ## example how to filter prior crbh for query coverage of 50%
 
 ## get CRBHit pairs with direct query coverage filter
-ath_aly_crbh <- cds2rbh(cds1, cds2, plotCurve = TRUE, qcov = 0.5,
-                        lastpath = vignette.paths[1])
+ath_aly_crbh <- cds2rbh(cds1, cds2,
+    plotCurve = TRUE,
+    qcov = 0.5,
+    lastpath = vignette.paths[1])
 dim(ath_aly_crbh$crbh.pairs)
 
 ## get help
 #?cds2rbh
 ```
 
-In addition, the users can filter for the **twilight zone of protein sequence alignments** according to [Rost B. (1999)](https://academic.oup.com/peds/article/12/2/85/1550637). This **twilight zone** indicates proteins, which might share a common ancestor (homologue genes) but have diverged from each other through time so that similarity is no longer detectable. Here, a certain alignment length and protein identity is at least necessary to indicate *bona-fide* homologues.
+In addition, the users can filter for the
+**twilight zone of protein sequence alignments** according to
+[Rost B. (1999)](https://academic.oup.com/peds/article/12/2/85/1550637).
+This **twilight zone** indicates proteins, which might share a common ancestor
+(homologue genes) but have diverged from each other through time so that
+similarity is no longer detectable. Here, a certain alignment length and
+protein identity is at least necessary to indicate *bona-fide* homologues.
 
-The following equation and plot will show how the relationship between alignment length and protein identity is defined for the `rost1999` filter.
+The following equation and plot will show how the relationship between
+alignment length and protein identity is defined for the `rost1999` filter.
 
-The implemented `rost1999` filter uses `equation2` of [Rost B. (1999)](https://academic.oup.com/peds/article/12/2/85/1550637)
+The implemented `rost1999` filter uses `equation2` of
+[Rost B. (1999)](https://academic.oup.com/peds/article/12/2/85/1550637)
 
-$$f(x_{\text{hit pair}}) = \cases {100 \text{ , for } L_{\text{hit pair}} < 11 \\ 480 * L^{-0.32 * (1 + e^{\frac{-L}{1000}})} \text{ , for } L_{\text{hit pair}} \leq 450 \\ 19.5 \text{ , for } L_{\text{hit pair}} > 450}$$
-, where $x_{\text{hit pair}}$ is the expected protein identity given the alignemnet length $L_{\text{hit pair}}$. If the actual $pident_{\text{hit pair}} >= f(x_{\text{hit pair}})$ the hit pair is retained.
+$$f(x_{\text{hit pair}}) = \cases {
+100 \text{ , for } L_{\text{hit pair}} < 11 \\
+480 * L^{-0.32 * (1 + e^{\frac{-L}{1000}})
+} \text{ , for } L_{\text{hit pair}} \leq 450 \\
+19.5 \text{ , for } L_{\text{hit pair}} > 450}$$
+, where $x_{\text{hit pair}}$ is the expected protein identity given the
+alignemnet length $L_{\text{hit pair}}$. If the actual
+$pident_{\text{hit pair}} >= f(x_{\text{hit pair}})$ the hit pair is retained.
 
 ```{r}
 ## detailed explanation for the Rost (1999) twilight-zone filter
 
 ## define eq2 from Rost (1999)
 get_pident_by_length <- function(x){
-  eq2 <- function(L){
-    if(L <= 11){return(100)}
-    if(L <= 450){return(480*(L^(-0.32*(1+(exp(-L/1000))))))}
-    if(L > 450){return(19.5)}
-  }
-  return(unlist(lapply(x, eq2)))
+    eq2 <- function(L){
+        if(L <= 11){return(100)}
+        if(L <= 450){return(480*(L^(-0.32*(1+(exp(-L/1000))))))}
+        if(L > 450){return(19.5)}
+    }
+    return(unlist(lapply(x, eq2)))
 }
 
 ## plot expected pident by alignment length using eq2 from Rost (1999)
-curve(get_pident_by_length, 11, 500, pch = 20, xlab = "alignment length", ylab = "pident",
-      main = "expected protein identity (eq2; Rost B. 1999)")
+curve(get_pident_by_length, 11, 500, pch = 20,
+    xlab = "alignment length",
+    ylab = "pident",
+    main = "expected protein identity (eq2; Rost B. 1999)")
 ```
 
-This **twilight zone** filter can be directly used by the `@param` `rost1999` set to `TRUE`.
+This **twilight zone** filter can be directly used by the `@param` `rost1999`
+set to `TRUE`.
 
 ```{r}
 ## example how to filter prior crbh for eq2 from Rost (1999)
 
 ## get CRBHit pairs with direct twilight-zone filter
-ath_aly_crbh <- cds2rbh(cds1, cds2, plotCurve = TRUE, rost1999 = TRUE,
-                        lastpath = vignette.paths[1])
+ath_aly_crbh <- cds2rbh(cds1, cds2,
+    plotCurve = TRUE,
+    rost1999 = TRUE,
+    lastpath = vignette.paths[1])
 dim(ath_aly_crbh$crbh.pairs)
 
 ## get help
@@ -356,31 +465,42 @@ dim(ath_aly_crbh$crbh.pairs)
 
 #### 2.2.2. [Custom Filter]{#filters}
 
-The user can also define its own filter function and apply it to the blast-like output prior fitting and calculating CRBHs as follows:
+The user can also define its own filter function and apply it to the blast-like
+output prior fitting and calculating CRBHs as follows:
 
 ```{r}
 ## example for a custom filters
 
 ## define custom filter for e.g. bit score (column 12)
 myfilter1 <- function(rbh, value = 500.0){
-  return(dplyr::filter(rbh, bit_score >= value))
+    return(dplyr::filter(rbh, bit_score >= value))
 }
 ## define custom filter for e.g. corrected query_coverage
 myfilter2 <- function(rbh, value = 0.5){
-  return(dplyr::filter(rbh, ((alignment_length-mismatches-gap_opens) / query_length) >= value))
+    return(dplyr::filter(rbh,
+        ((alignment_length-mismatches-gap_opens) / query_length) >= value))
 }
 ## get CRBHit pairs with custom filter list
-ath_aly_crbh <- cds2rbh(cds1, cds2, plotCurve = TRUE,
-                        filter = list(myfilter1, myfilter2),
-                        lastpath = vignette.paths[1])
+ath_aly_crbh <- cds2rbh(cds1, cds2,
+    plotCurve = TRUE,
+    filter = list(myfilter1, myfilter2),
+    lastpath = vignette.paths[1])
 dim(ath_aly_crbh$crbh.pairs)
 ```
 
 #### 2.2.3. [Extract RBHs]{#rbhextraction}
 
-As already explained in the Sequence Similarity Search section (#sequencesearch), both, `cds2rbh()` and `cdsfile2rbh()` function, return a list of three `data.frame`'s which contain the CRBHit pairs (`$crbh.pairs`) retained, the query > target blast-like output matrix (`$crbh1`) and the target > query blast-like output matrix (`$crbh2`). For each matrix the `$rbh_class` indicates if the hit is a Reciprocal Best Hit (`rbh`) or if it is a conditional secondary hit retained because of RBH fitting (CRBH algorithm) (`sec`). 
+As already explained in the Sequence Similarity Search section
+(#sequencesearch), both, `cds2rbh()` and `cdsfile2rbh()` function, return a
+list of three `data.frame`'s which contain the CRBHit pairs (`$crbh.pairs`)
+retained, the query > target blast-like output matrix (`$crbh1`) and the
+target > query blast-like output matrix (`$crbh2`). For each matrix the
+`$rbh_class` indicates if the hit is a Reciprocal Best Hit (`rbh`) or if it is
+a conditional secondary hit retained because of RBH fitting (CRBH algorithm)
+(`sec`). 
 
-To extract just the RBHs one can subset based on the `rbh_class` columns as follows:
+To extract just the RBHs one can subset based on the `rbh_class` columns
+as follows:
 ```{r}
 ## example to extract CRBHit pairs classified as rbh
 
@@ -392,58 +512,97 @@ head(dplyr::filter(ath_aly_crbh$crbh2, rbh_class == "rbh"))
 
 ### 2.3. [3. step: fitting RBHs + get CRBHs]{#crbhstep3}
 
-All further described steps are included in the `cds2rbh()` and `cdsfile2rbh()` function. The subsections will just explain in more detail what is happening with the input data.
+All further described steps are included in the `cds2rbh()` and
+`cdsfile2rbh()` function. The subsections will just explain in more detail what
+is happening with the input data.
 
 #### 2.3.1. [CRBHit pairs - Fitting Parameter]{#fittingparam}
 
-The original implementation of the CRBH algorithm [crb-blast.rb line 438-518](https://github.com/cboursnell/crb-blast/blob/master/lib/crb-blast/crb-blast.rb) uses certain parameters for fitting the e-value against the alignment length.
+The original implementation of the CRBH algorithm [crb-blast.rb line 438-518](https://github.com/cboursnell/crb-blast/blob/master/lib/crb-blast/crb-blast.rb)
+uses certain parameters for fitting the e-value against the alignment length.
 
-In brief, for each retained reciprocal hit pair (RBH; after filtering) the e-value and the corresponding alignment length of a hit pair and its neighborhood is evaluated. The neighborhood is defined by a weighting parameter of the alignment length (default is set to `@param` `fit.varweight = 0.1`) and a minimum neighborhood alignment length (default is set to `@param` `fit.min = 5`).
+In brief, for each retained reciprocal hit pair (RBH; after filtering) the
+e-value and the corresponding alignment length of a hit pair and its
+neighborhood is evaluated. The neighborhood is defined by a weighting parameter
+of the alignment length (default is set to `@param` `fit.varweight = 0.1`) and
+a minimum neighborhood alignment length
+(default is set to `@param` `fit.min = 5`).
 
-For each unique alignment length $L$ a value $s_{L}$ is defined as the neighborhood alignment length as
+For each unique alignment length $L$ a value $s_{L}$ is defined as the
+neighborhood alignment length as
 
-$$s_{L} = \cases {\text{fit.min} \text{ , for } L * \text{fit.varweight} < \text{fit.min} \\ L * \text{fit.varweight} \text{ , for } L * \text{fit.varweight} \geq \text{fit.min}}$$
-E.g. for an alignment length of 100 and the default settings, $s_{100} = 100 * 0.1 = 10$.
+$$s_{L} = \cases {
+\text{fit.min} \text{ , for } L * \text{fit.varweight} < \text{fit.min} \\
+L * \text{fit.varweight} \text{ , for } L * \text{fit.varweight} \geq
+\text{fit.min}}$$
+E.g. for an alignment length of 100 and the default settings,
+$s_{100} = 100 * 0.1 = 10$.
 
-All RBHs, for which $L-s_{L} \leq L_{RBH_i} \leq L + s_{L}$, in other words, for which their alignment lengths fall between 90 and 110 are than considered for fitting a cutoff at that alignment length using the mean of the $-log10(evalue)$.
+All RBHs, for which $L-s_{L} \leq L_{RBH_i} \leq L + s_{L}$, in other words,
+for which their alignment lengths fall between 90 and 110 are than considered
+for fitting a cutoff at that alignment length using the mean of the
+$-log10(evalue)$.
 
-$$\text{cutoff}_{L} = \frac{1}{n} \sum_{i = 1}^{n}{\cases{324 \text{ , for }  evalue_{RBH_i} = 0 \\ -log10(evalue_{\text{RBH}_i}) \text{ , for } evalue_{RBH_i} \ne 0}}$$
+$$\text{cutoff}_{L} = \frac{1}{n} \sum_{i = 1}^{n}{
+\cases{324 \text{ , for }  evalue_{RBH_i} = 0 \\
+-log10(evalue_{\text{RBH}_i}) \text{ , for } evalue_{RBH_i} \ne 0}}$$
 
-The user can now alter between `mean` and `median` using the `@param` `fit.type = "mean"` or `fit.type = "median"` to get alternative fitting curves.
+The user can now alter between `mean` and `median` using the
+`@param` `fit.type = "mean"` or `fit.type = "median"` to get alternative
+fitting curves.
 
 ```{r}
 ## example how to get crbh from two coding fasta files using median fitting
 
 ## get CRBHit pairs with median fitting
-ath_aly_crbh <- cds2rbh(cds1, cds2, plotCurve = TRUE,
-                        fit.type = "median",
-                        lastpath = vignette.paths[1])
+ath_aly_crbh <- cds2rbh(cds1, cds2,
+    plotCurve = TRUE,
+    fit.type = "median",
+    lastpath = vignette.paths[1])
 
 ## get help
 #?cds2rbh
 ```
 
-As described earlier, [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) features downstream anaylsis like batch calculating synonymous (Ks) and nonsynonymous substitutions (Ka) per orthologous sequence pair. The following sections will give more details about these downstream functionalities.
+As described earlier, [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits)
+features downstream anaylsis like batch calculating synonymous (Ks) and
+nonsynonymous substitutions (Ka) per orthologous sequence pair. The following
+sections will give more details about these downstream functionalities.
 
 ## 3. [Ka/Ks Calculations]{#KaKs}
 
 ![Figure: Overview of the `rbh2kaks()` function steps](rbh2kaksoverview.png){width=800px}
 
-The resulting CRBHs (see #crbhalgorithm) can be further processed to e.g. filtered for Tandem Duplicates (see [CRBHits KaKs Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V02KaKsVignette.html)) and/or can be used to calculate Ka/Ks values for each CRBH pair (see #rbh2kaks and [CRBHits KaKs Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V02KaKsVignette.html)).
+The resulting CRBHs (see #crbhalgorithm) can be further processed to e.g.
+filtered for Tandem Duplicate (see [CRBHits KaKs Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V02KaKsVignette.html))
+and/or can be used to calculate Ka/Ks values for each CRBH pair
+(see #rbh2kaks and [CRBHits KaKs Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V02KaKsVignette.html)).
 
-All further described steps are included in the `rbh2kaks()` function. The subsections will just explain in more detail what is happening with the input data.
+All further described steps are included in the `rbh2kaks()` function. The
+subsections will just explain in more detail what is happening with the input
+data.
 
-To activate/deactivate specific options use the parameters `@param` given and explained for each function (see `?rbh2kaks()`).
+To activate/deactivate specific options use the parameters `@param` given and
+explained for each function (see `?rbh2kaks()`).
 
-__Note:__ To be able to perform *Tandem Duplicate Assignment* with the `rbh2kaks()` function one needs to specify *gene positions* for both Input CDS (can be extracted automatically from *NCBI* or *ENSEMBL* Input (see `cds2genepos()` function)) and supply *selfblast* results for both Input CDS.
+__Note:__ To be able to perform *Tandem Duplicate Assignment* with the
+`rbh2kaks()` function one needs to specify *gene positions* for both Input CDS
+(can be extracted automatically from *NCBI* or *ENSEMBL* Input
+(see `cds2genepos()` function)) and supply *selfblast* results for both
+Input CDS.
 
 ![Figure: Individual steps of the `rbh2kaks()` function](rbh2kaks.png){width=600px}
 
 ### 3.1. [Codon Alignments - cds2codonaln() Function]{#cds2codon}
 
-To be able to calculate synonymous (Ks) and non-synonymous (Ka) substitutions, one needs to use a codon alignment.
+To be able to calculate synonymous (Ks) and non-synonymous (Ka) substitutions,
+one needs to use a codon alignment.
 
-The `cds2codonaln()` function takes two single nucleotide sequences as input to obtain such a codon alignment. The function will convert the nucleotide sequences into amino acid sequences, align them with the help of the `pairwiseAlignment()` function from the `Biostrings` R package and convert this alignment back into a codon alignment.
+The `cds2codonaln()` function takes two single nucleotide sequences as input t
+obtain such a codon alignment. The function will convert the nucleotide
+sequences into amino acid sequences, align them with the help of the
+`pairwiseAlignment()` function from the `Biostrings` R package and convert this
+alignment back into a codon alignment.
 
 ```{r}
 ## example to get a codon alignment
@@ -458,7 +617,9 @@ cds2codonaln(cds1, cds2)
 #?cds2codonaln
 ```
 
-The user can alter some `@param` to change the alignment parameters, like `type`, `substitutionMatrix`, `gapOpening` and `gapExtension` costs as defined by the `pairwiseAlignment()` function from the `Biostrings` R package.
+The user can alter some `@param` to change the alignment parameters, like
+`type`, `substitutionMatrix`, `gapOpening` and `gapExtension` costs as defined
+by the `pairwiseAlignment()` function from the `Biostrings` R package.
 
 ```{r}
 ## example to alter the substitionMatrix and use the BLOSUM45 cost matrix
@@ -479,9 +640,17 @@ cds2codonaln(cds1, cds2, remove.gaps = TRUE)
 
 ### 3.2. [cds2kaks() Function]{#cds2kaks}
 
-The Ka/Ks (dN/dS) values can be obtained either via the codon model of [Li WH. (1999)](https://www.ncbi.nlm.nih.gov/pubmed/8433381) implemented in the R package [seqinr](https://cran.r-project.org/web/packages/seqinr/index.html) or the model [Yang Z and Nielson R. (2000)](https://www.ncbi.nlm.nih.gov/pubmed/10666704) implemented in [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download) (see [Quick Installation](#quickinstall) how to compile the prerequisites).
+The Ka/Ks (dN/dS) values can be obtained either via the codon model of
+[Li WH. (1999)](https://www.ncbi.nlm.nih.gov/pubmed/8433381) implemented in the
+R package [seqinr](https://cran.r-project.org/web/packages/seqinr/index.html)
+or the model
+[Yang Z and Nielson R. (2000)](https://www.ncbi.nlm.nih.gov/pubmed/10666704)
+implemented in
+[KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download)
+(see [Quick Installation](#quickinstall) how to compile the prerequisites).
 
-The `cds2kaks()` function takes two single nucleotide sequences as input to obtain a codon alignment and calculate Ka/Ks.
+The `cds2kaks()` function takes two single nucleotide sequences as input to
+obtain a codon alignment and calculate Ka/Ks.
 
 ```{r}
 ## calculate Ka/Ks on two CDS
@@ -499,7 +668,8 @@ cds2kaks(cds1, cds2, model = "Li")
 #?cds2kaks
 ```
 
-All parameters which can be used by the `cds2codonaln()` function can be overgiven to e.g. use an alternative `substitutionMatrix`.
+All parameters which can be used by the `cds2codonaln()` function can be
+overgiven to e.g. use an alternative `substitutionMatrix`.
 
 ```{r}
 ## example to use an alternative substitutionMatrix for the codon alignment
@@ -511,13 +681,19 @@ cds2kaks(cds1, cds2, model = "Li", substitutionMatrix = "BLOSUM45")
 
 ### 3.3. [rbh2kaks() Function]{#rbh2kaks}
 
-The resulting CRBHit pairs (see [cds2rbh()](#cds2rbhfunction)) can be used with the `rbh2kaks()` function to obtain pairwise codon alignments, which are further used to calculate synonymous (Ks) and nonsynonymous (Ka) substitutions using parallelization.
+The resulting CRBHit pairs (see [cds2rbh()](#cds2rbhfunction)) can be used with
+the `rbh2kaks()` function to obtain pairwise codon alignments, which are
+further used to calculate synonymous (Ks) and nonsynonymous (Ka) substitutions
+using parallelization.
 
 __Note:__
 
-It is important, that the names of the `rbh` columns must match the names of the corresponding `cds1` and `cds2` `DNAStringSet` vectors.
+It is important, that the names of the `rbh` columns must match the names of
+the corresponding `cds1` and `cds2` `DNAStringSet` vectors.
 
-However, since one should directly use the same input `DNAStringSet` vector or input `url` to calculate the reciprocal best hit pair matrix with the `cds2rbh()` or the `cdsfile2rbh()` function, this should not be a problem.
+However, since one should directly use the same input `DNAStringSet` vector or
+input `url` to calculate the reciprocal best hit pair matrix with the
+`cds2rbh()` or the `cdsfile2rbh()` function, this should not be a problem.
 
 ```{r}
 ## example how to get CRBHit pairs from two coding fasta files
@@ -527,15 +703,16 @@ cdsfile2 <- system.file("fasta", "aly.cds.fasta.gz", package = "CRBHits")
 ath <- Biostrings::readDNAStringSet(cdsfile1)
 aly <- Biostrings::readDNAStringSet(cdsfile2)
 
-## the following function calculates CRBHit pairs using one thread and plots the fitted curve
+## the following function calculates CRBHit pairs
+## using one thread and plots the fitted curve
 ath_aly_crbh <- cds2rbh(cds1 = ath, cds2 = aly,
-                        lastpath = vignette.paths[1])
+    lastpath = vignette.paths[1])
 
 ## calculate Ka/Ks using the CRBHit pairs
 ath_aly_crbh$crbh.pairs <- head(ath_aly_crbh$crbh.pairs)
 ath_aly_crbh.kaks <- rbh2kaks(rbhpairs = ath_aly_crbh,
-                              cds1 = ath, cds2 = aly,
-                              model = "Li")
+    cds1 = ath, cds2 = aly,
+    model = "Li")
 head(ath_aly_crbh.kaks)
 
 ## get help
@@ -547,22 +724,26 @@ The Ka/Ks calculations can be parallelized.
 ```{r}
 ## calculate Ka/Ks using the CRBHit pairs and multiple threads
 ath_aly_crbh.kaks <- rbh2kaks(rbhpairs = ath_aly_crbh,
-                              cds1 = ath, cds2 = aly,
-                              model = "Li", threads = 2)
+    cds1 = ath, cds2 = aly,
+    model = "Li",
+    threads = 2)
 head(ath_aly_crbh.kaks)
 
 ## get help
 #?rbh2kaks
 ```
 
-Like for the `cds2kaks()` function, all parameters which can be used by the `cds2codonaln()` function can be overgiven to e.g. use an alternative `substitutionMatrix`.
+Like for the `cds2kaks()` function, all parameters which can be used by the
+`cds2codonaln()` function can be overgiven to e.g. use an alternative
+`substitutionMatrix`.
 
 ```{r}
 ## calculate Ka/Ks using the CRBHit pairs and multiple threads
 ath_aly_crbh.kaks <- rbh2kaks(rbhpairs = ath_aly_crbh,
-                              cds1 = ath, cds2 = aly,
-                              model = "Li", threads = 2,
-                              substitutionMatrix = "BLOSUM45")
+    cds1 = ath, cds2 = aly,
+    model = "Li",
+    threads = 2,
+    substitutionMatrix = "BLOSUM45")
 head(ath_aly_crbh.kaks)
 
 ## get help

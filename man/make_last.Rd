@@ -6,6 +6,9 @@
 \usage{
 make_last()
 }
+\value{
+compile last
+}
 \description{
 This function tries to build the prerequisite last-1256 from
 source code forked within CRBHits

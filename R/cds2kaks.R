@@ -16,7 +16,8 @@
 #' @return vector of ka/ks values as specified by \code{seqinr::kaks} or
 #' \code{KaKs_Calculator2.0}
 #' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet
-#' readDNAStringSet readAAStringSet writeXStringSet width subseq pairwiseAlignment
+#' readDNAStringSet readAAStringSet writeXStringSet width subseq
+#' pairwiseAlignment
 #' @importFrom seqinr kaks
 #' @seealso \code{\link[seqinr]{kaks}}
 #' @references Li WH. (1993) Unbiased estimation of the rates of synonymous and
@@ -100,8 +101,10 @@ cds2kaks <- function(cds1, cds2,
             cat(as.character(tmp.codonaln[1][[1]]), "\n", sep="")
             cat(as.character(tmp.codonaln[2][[1]]), "\n", sep="")
         sink(NULL)
-        system(paste0(kakscalcpath, "KaKs_Calculator -i ", tmp, " -o ", tmp,
-            ".YN -m YN"), ignore.stdout=TRUE, ignore.stderr=TRUE)
+        system2(command=paste0(kakscalcpath, "KaKs_Calculator"),
+            args=c("-i", "tmp", "-o", paste0(tmp, ".YN -m YN")),
+            stdout=FALSE,
+            stderr=FALSE)
         cds1.cds2.kaks <- unlist(strsplit(readLines(paste0(tmp, ".YN"))[2],
             "\t"))
         names(cds1.cds2.kaks) <- c("Sequence", "Method", "ka", "ks", "ka/ks",
@@ -110,8 +113,8 @@ cds2kaks <- function(cds1, cds2,
             "FoldSSubstitutions", "FoldNSubstitutions", "DivergenceTime",
             "SubstitutionRateRatio", "GC", "MLScore", "AICc", "AkaikeWeight",
             "Model")
-        system(paste0("rm ", tmp))
-        system(paste0("rm ", tmp, ".YN"))
+        system2(command="rm", args=tmp)
+        system2(command="rm", args=paste0(tmp, ".YN"))
         return(cds1.cds2.kaks)
     }
 }

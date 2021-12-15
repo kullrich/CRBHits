@@ -9,6 +9,9 @@ globalDeletion(dna)
 \arguments{
 \item{dna}{\code{DNAStringSet}}
 }
+\value{
+\code{DNAStringSet}
+}
 \description{
 This function returns a \code{DNAStringSet} reduced by all
 sites containing any gaps ("-", "+", ".") or missing ("N") sites.

@@ -17,11 +17,13 @@ plot_dagchainer(
 )
 }
 \arguments{
-\item{dag}{specify DAGchainer results as obtained via `rbh2dagchainer()` [mandatory]}
+\item{dag}{specify DAGchainer results as obtained via
+`rbh2dagchainer()` [mandatory]}
 
 \item{DotPlotTitle}{specify DotPlot title [default: DAGchainer results]}
 
-\item{colorBy}{specify if dagchainer groups should be colored by "Ka", "Ks", "Ka/Ks" or "none" [default: none]}
+\item{colorBy}{specify if dagchainer groups should be colored by "Ka",
+"Ks", "Ka/Ks" or "none" [default: none]}
 
 \item{kaks}{specify Ka/Ks input obtained via `rbh2kaks()` [default: NULL]}
 
@@ -35,8 +37,13 @@ plot_dagchainer(
 
 \item{select.chr}{filter results for chromosome names [default: NULL]}
 }
+\value{
+synteny plot
+}
 \description{
-This function plots DAGchainer (http://dagchainer.sourceforge.net/) results obtained via `rbh2dagchainer()` function.
+This function plots DAGchainer
+(http://dagchainer.sourceforge.net/) results obtained via
+`rbh2dagchainer()` function.
 }
 \examples{
 ## load example sequence data
@@ -44,7 +51,8 @@ data("ath_aly_ncbi_dagchainer", package="CRBHits")
 ## plot DAGchainer results - default
 plot_dagchainer(ath_aly_ncbi_dagchainer)
 ## chromosome subset
-plot_dagchainer(ath_aly_ncbi_dagchainer, select.chr = c("NC_000932.1", "NC_034379.1"))
+plot_dagchainer(ath_aly_ncbi_dagchainer,
+    select.chr=c("NC_000932.1", "NC_034379.1"))
 }
 \author{
 Kristian K Ullrich

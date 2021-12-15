@@ -42,17 +42,39 @@ knitr::opts_chunk$set(
 4. [*Homo sapiens* vs. *Pan troglodytes* example](#homosapiens)
 5. [References](#references)
 
-This vignette is supposed to explain in more detail Ka/Ks calculation and it's downstream filtering and visualization. The Ka/Ks ratio was originally developed for the analysis of genetic sequences from divergent species ([Kimura (1977)](https://www.nature.com/articles/267275a0), [Yang and Nielson (2000)]((https://doi.org/10.1093/oxfordjournals.molbev.a026236))). In short, the Ka/Ks ratio quantifies the mode and strength of selection by comparing synonymous substitution rates (Ks) (assumed to be evolutionary neutral) with nonsynonymous rates (Ka), which are exposed to selection as they change the amino acid composition of a protein ([Mugal et al (2014)](https://academic.oup.com/mbe/article/31/1/212/1049986)).
+This vignette is supposed to explain in more detail Ka/Ks calculation and it's
+downstream filtering and visualization. The Ka/Ks ratio was originally
+developed for the analysis of genetic sequences from divergent species
+([Kimura (1977)](https://www.nature.com/articles/267275a0),
+[Yang and Nielson (2000)]((https://doi.org/10.1093/oxfordjournals.molbev.a026236))).
+In short, the Ka/Ks ratio quantifies the mode and strength of selection by
+comparing synonymous substitution rates (Ks)
+(assumed to be evolutionary neutral) with nonsynonymous rates (Ka), which are
+exposed to selection as they change the amino acid composition of a protein
+([Mugal et al (2014)](https://academic.oup.com/mbe/article/31/1/212/1049986)).
 
-[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) is a reimplementation of the Conditional Reciprocal Best Hit (CRBH) algorithm [crb-blast](https://github.com/cboursnell/crb-blast) in R. The CRBHit pairs can be directly used to calculate Ka/Ks ratios and to filter for tandem duplicates or syntenic groups. 
+[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) is a reimplementation
+of the Conditional Reciprocal Best Hit (CRBH) algorithm
+[crb-blast](https://github.com/cboursnell/crb-blast) in R. The CRBHit pairs can
+be directly used to calculate Ka/Ks ratios and to filter for tandem duplicates
+or syntenic groups. 
 
-See the R package page for a detailed description of the install process and its dependencies [https://mpievolbio-it.pages.gwdg.de/crbhits/](https://mpievolbio-it.pages.gwdg.de/crbhits/) or have a look at the [CRBHits Basic Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V01CRBHitsBasicVignette.html).
+See the R package page for a detailed description of the install process and
+its dependencies
+[https://mpievolbio-it.pages.gwdg.de/crbhits/](https://mpievolbio-it.pages.gwdg.de/crbhits/)
+or have a look at the
+[CRBHits Basic Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V01CRBHitsBasicVignette.html).
 
 __Note:__
 
-In this Vignette the `lastpath` is defined as `vignette.paths[1]`, the `kakscalcpath` as `vignette.paths[2]` and the `dagchainerpath` as `vignette.paths[3]` to be able to build the Vignette.
+In this Vignette the `lastpath` is defined as `vignette.paths[1]`, the
+`kakscalcpath` as `vignette.paths[2]` and the `dagchainerpath` as
+`vignette.paths[3]` to be able to build the Vignette.
 
-However, once you have compiled last-1256, KaKs_Calculator2.0 and DAGchainer with the functions `make_last()`, `make_KaKs_Calculator2()` and `make_dagchainer()` you won't need to specify the paths anymore. Please remove them if you would like to repeat the examples.
+However, once you have compiled last-1256, KaKs_Calculator2.0 and DAGchainer
+with the functions `make_last()`, `make_KaKs_Calculator2()` and
+`make_dagchainer()` you won't need to specify the paths anymore. Please remove
+them if you would like to repeat the examples.
 
 ```
 ## load vignette specific libraries
@@ -67,21 +89,32 @@ vignette.paths <- make_vignette()
 
 ## 1. [Conditional reciprocal best hit pairs]{#crbhpairs}
 
-The CRBH algorithm builds upon the classical reciprocal best hit (RBH) approach to find orthologous sequences between two sets of sequences by defining an expect-value cutoff per alignment length. Further, this cutoff is used to retain secondary hits as additional *bona-fide* homologues.
+The CRBH algorithm builds upon the classical reciprocal best hit (RBH) approach
+to find orthologous sequences between two sets of sequences by defining an
+expect-value cutoff per alignment length. Further, this cutoff is used to
+retain secondary hits as additional *bona-fide* homologues.
 
-See the R package page and the [CRBHits Basic Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V01CRBHitsBasicVignette.html) for a more detailed description of the CRBH algorithm.
+See the R package page and the
+[CRBHits Basic Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V01CRBHitsBasicVignette.html)
+for a more detailed description of the CRBH algorithm.
 
 ### 1.1. [Download Coding sequences (CDS) from NCBI and ENSEMBL]{#ensembl}
 
-To calculate CRBHit pairs between two species, one can directly use an URL to access the coding sequences and calculate the CRBH pairs matrix.
+To calculate CRBHit pairs between two species, one can directly use an URL to
+access the coding sequences and calculate the CRBH pairs matrix.
 
 Two examples are given in this vignette.
 
-The first example compares the coding sequences from *Arabidopsis thaliana* and *Arabidopsis lyrata*. The input sequences are from the FTP server from [NCBI Genomes](ftp://ftp.ncbi.nlm.nih.gov/genomes/all/).
+The first example compares the coding sequences from *Arabidopsis thaliana* and
+*Arabidopsis lyrata*. The input sequences are from the FTP server from
+[NCBI Genomes](ftp://ftp.ncbi.nlm.nih.gov/genomes/all/).
 
-The second example compares the CDS from *Homo sapiens* and *Pan troglodytes* (see [*Homo sapiens* vs. *Pan troglodytes* example](#homosapiens)).
+The second example compares the CDS from *Homo sapiens* and *Pan troglodytes*
+(see [*Homo sapiens* vs. *Pan troglodytes* example](#homosapiens)).
 
-As an alternative the [EnsemblPlants release-48](ftp://ftp.ensemblgenomes.org/pub/plants/release-48/fasta/) can used.
+As an alternative the
+[EnsemblPlants release-48](ftp://ftp.ensemblgenomes.org/pub/plants/release-48/fasta/)
+can used.
 
 ```
 ## set URLs for Arabidopis thaliana and Arabidopsis lyrata from NCBI Genomes
@@ -103,9 +136,12 @@ ARALYR.cds <- Biostrings::readDNAStringSet(ARALYR.cds.url)
 
 ### 1.2. [Get Longest Isoform from NCBI or ENSEMBL Input]{#isoform}
 
-Prior CRBHit pairs calculation, the longest isoforms can be selected, if the data was downloaded from NCBI or Ensembl.
+Prior CRBHit pairs calculation, the longest isoforms can be selected, if the
+data was downloaded from NCBI or Ensembl.
 
-__Note:__ This is an important step. If e.g. isoforms are used, the Ka/Ks calculations might show biased values inspecting mean or median Ka/Ks values grouped per query sequence.
+__Note:__ This is an important step. If e.g. isoforms are used, the Ka/Ks
+calculations might show biased values inspecting mean or median Ka/Ks values
+grouped per query sequence.
 
 ```
 ## get longest isoforms
@@ -120,13 +156,21 @@ ARALYR.cds.longest <- isoform2longest(ARALYR.cds, "NCBI")
 
 ### 1.3. [Calculate/Filter CRBHit pairs]{#crbhfilter}
 
-The blast-like software [LAST](http://last.cbrc.jp/) is used to compare the translated CDS against each other and output a blast-like output table including the query and target length.
+The blast-like software [LAST](http://last.cbrc.jp/) is used to compare the
+translated CDS against each other and output a blast-like output table
+including the query and target length.
 
-The hit pairs are filtered prior fitting for a query coverage of 50\% and the **twilight zone of protein sequence alignments** ([Rost B. (1999)](https://academic.oup.com/peds/article/12/2/85/1550637)).
+The hit pairs are filtered prior fitting for a query coverage of 50\% and the
+**twilight zone of protein sequence alignments**
+([Rost B. (1999)](https://academic.oup.com/peds/article/12/2/85/1550637)).
 
-The CRBhit pairs can be calculated directly from the URLs with the function `cdsfile2rbh()` using multiple threads including longest isoform selection.
+The CRBhit pairs can be calculated directly from the URLs with the function
+`cdsfile2rbh()` using multiple threads including longest isoform selection.
 
-For a detailed description of the `cdsfile2rbh()` function and the `cds2rbh()` function with its individual filtering steps prior CRBH algorithm fitting see the [CRBHits Basic Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V01CRBHitsBasicVignette.html).
+For a detailed description of the `cdsfile2rbh()` function and the `cds2rbh()`
+function with its individual filtering steps prior CRBH algorithm fitting see
+the
+[CRBHits Basic Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V01CRBHitsBasicVignette.html).
 
 ```
 ## calculate CRBHit pairs for A. thaliana and A. lyrata using 2 threads
@@ -137,7 +181,8 @@ For a detailed description of the `cdsfile2rbh()` function and the `cds2rbh()` f
 ## rost199 filter
 ARATHA_ARALYR_crbh <- cds2rbh(ARATHA.cds,
     ARALYR.cds,
-    qcov = 0.5, rost1999 = TRUE,
+    qcov = 0.5,
+    rost1999 = TRUE,
     longest.isoform = TRUE,
     isoform.source = "NCBI",
     threads = 2, plotCurve = TRUE,
@@ -152,15 +197,26 @@ attributes(ARATHA_ARALYR_crbh)$selfblast
 
 ### 1.4. [Extract Gene/Isoform chromosomal position]{#extractposition}
 
-To be able to filter for *Tandem Duplicates* and to plot a dotplot, one needs to have annotated gene positions per chromosome/contig. With the `cds2genepos()` function it is possible to directly access this information if the data was obtained from NCBI or Ensembl.
+To be able to filter for *Tandem Duplicates* and to plot a dotplot, one needs
+to have annotated gene positions per chromosome/contig. With the
+`cds2genepos()` function it is possible to directly access this information if
+the data was obtained from NCBI or Ensembl.
 
-Chromosomal gene positions might overlap and if one has not filtered to use the longest or primary isoform there will be positions overlap for CDS. To overcome this issue it is recommended to first reduce the CDS Input to the longest isoform (see [Get Longest Isoform from NCBI or ENSEMBL Input](#isoform)).
+Chromosomal gene positions might overlap and if one has not filtered to use the
+longest or primary isoform there will be positions overlap for CDS. To overcome
+this issue it is recommended to first reduce the CDS Input to the longest
+isoform (see [Get Longest Isoform from NCBI or ENSEMBL Input](#isoform)).
 
-__Note:__ It is also possible to obtain and define chromosomal gene positions from other sources, like parsing a GTF/GFF file and supply a manual curated genepos matrix. In the same way this process might be used to select the longest/primary isoform from CDS Input sources other than NCBI or Ensembl. This special case is handled here: 
+__Note:__ It is also possible to obtain and define chromosomal gene positions
+from other sources, like parsing a GTF/GFF file and supply a manual curated
+genepos matrix. In the same way this process might be used to select the
+longest/primary isoform from CDS Input sources other than NCBI or Ensembl.
+This special case is handled here: 
 
 #### 1.4.1. [Get gene position from NCBI or ENSEMBL Input]{#ncbi2genepos}
 
-If the CDS Input was obtained from NCBI or ENSEMBL, the gene position can be directly extracted from the `DNAStringSet` as follows.
+If the CDS Input was obtained from NCBI or ENSEMBL, the gene position can be
+directly extracted from the `DNAStringSet` as follows.
 
 ```
 ## get gene position idx from NCBI CDS
@@ -182,15 +238,20 @@ table(table(ARATHA.cds.longest.genepos$gene.idx))
 
 #### 1.4.2. [Use GTF/GFF3 file to obtain gene position]{#gff2genepos}
 
-As noted above, it is also possible to obtain gene position and corresponding the longest isoforms per gene annotated in a GTF/GFF3 file.
+As noted above, it is also possible to obtain gene position and corresponding
+the longest isoforms per gene annotated in a GTF/GFF3 file.
 
 see [GTF/GFF3 format](http://www.ensembl.org/info/website/upload/gff3.html)
 
-__Note:__ In some cases the IDs provided in the CDS and the GTF/GFF3 file differ, which make it more complicated to directly link gene position and CDS.
+__Note:__ In some cases the IDs provided in the CDS and the GTF/GFF3 file
+differ, which make it more complicated to directly link gene position and CDS.
 
-Here, as an example, the GFF3 file for the species *Arabidopsis thaliana* is obtained from the FTP server from [Ensembl Plants](https://plants.ensembl.org/index.html).
+Here, as an example, the GFF3 file for the species *Arabidopsis thaliana* is
+obtained from the FTP server from
+[Ensembl Plants](https://plants.ensembl.org/index.html).
 
-__Note:__ The GFF3 and GTF files can be very large and it might take some time until this data is loaded into memory.
+__Note:__ The GFF3 and GTF files can be very large and it might take some time
+until this data is loaded into memory.
 
 ```
 ## get gene position idx from GTF/GFF3
@@ -274,11 +335,17 @@ head(ARATHA.gff.genepos)
 
 ### 1.5 [Assign Tandem Duplicates]{#tandemduplicates}
 
-Tandem duplicated genes (gene family members that are tightly clustered on a chromosome) are common in plant genomes and can show different Ka/Ks distribution than non tandem duplicates or other segmental duplicated genes ([Rizzon et al., 2006](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.0020115)).
+Tandem duplicated genes (gene family members that are tightly clustered on a
+chromosome) are common in plant genomes and can show different Ka/Ks
+distribution than non tandem duplicates or other segmental duplicated genes
+([Rizzon et al., 2006](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.0020115)).
 
-In order to account for this, it is possible to classify these tandem duplicates with the `tandemdups()` function.
+In order to account for this, it is possible to classify these tandem
+duplicates with the `tandemdups()` function.
 
-__Note:__ To be able to classify tandem duplicated genes within one genome, one needs to calculate selfblast based CRBHit pairs and provide gene position information for the same input data.
+__Note:__ To be able to classify tandem duplicated genes within one genome, one
+needs to calculate selfblast based CRBHit pairs and provide gene position
+information for the same input data.
 
 The following example shows how one can:
 
@@ -292,10 +359,12 @@ The following example shows how one can:
 ## get selfblast CRBHit pairs for A. thaliana
 ARATHA_selfblast_crbh <- cds2rbh(ARATHA.cds,
     ARATHA.cds,
-    qcov = 0.5, rost1999 = TRUE,
+    qcov = 0.5,
+    rost1999 = TRUE,
     longest.isoform = TRUE,
     isoform.source = "NCBI",
-    threads = 2, plotCurve = TRUE,
+    threads = 2,
+    plotCurve = TRUE,
     lastpath = vignette.paths[1])
 attributes(ARATHA_selfblast_crbh)$selfblast
 ```
@@ -306,10 +375,12 @@ attributes(ARATHA_selfblast_crbh)$selfblast
 ## get selfblast CRBHit pairs for A. lyrata
 ARALYR_selfblast_crbh <- cds2rbh(ARALYR.cds,
     ARALYR.cds,
-    qcov = 0.5, rost1999 = TRUE,
+    qcov = 0.5,
+    rost1999 = TRUE,
     longest.isoform = TRUE,
     isoform.source = "NCBI",
-    threads = 2, plotCurve = TRUE,
+    threads = 2,
+    plotCurve = TRUE,
     lastpath = vignette.paths[1])
 attributes(ARALYR_selfblast_crbh)$selfblast
 ```
@@ -335,7 +406,8 @@ ARALYR.cds.longest.tandemdups <- tandemdups(rbhpairs = ARALYR_selfblast_crbh,
 #?tandemdups
 ```
 
-The resulting tandem duplicated genes detected can be plotted given their chromosomal gene position as follows:
+The resulting tandem duplicated genes detected can be plotted given their
+chromosomal gene position as follows:
 
 ```
 ## example how to plot tandem duplicated gene groups
@@ -355,20 +427,29 @@ ARATHA.cds.longest.tandemdups %>% dplyr::group_by(gene.chr) %>%
     ggplot2::ggplot(aes(x = gene.mid, y = gene.mid)) +
     ggplot2::geom_point(shape = 20, aes(col = as.factor(tandem_group_size))) +
     ggplot2::facet_wrap(~ gene.chr) +
-    ggplot2::scale_colour_manual(values = CRBHitsColors(length(table(tandem_group_size))))
+    ggplot2::scale_colour_manual(values =
+    CRBHitsColors(length(table(tandem_group_size))))
 ```
 
 ![Figure: Tandem duplicates A. thaliana](V02-tandemdups-ARATHA.png)
 
 ### 1.6 [Synteny with DAGchainer]{#synteny}
 
-Chains of collinear gene pairs can represent segmentally duplicated regions and genes within a single genome or syntenic regions between related genomes ([Haas et al., 2004](https://doi.org/10.1093/bioinformatics/bth397)).
+Chains of collinear gene pairs can represent segmentally duplicated regions and
+genes within a single genome or syntenic regions between related genomes
+([Haas et al., 2004](https://doi.org/10.1093/bioinformatics/bth397)).
 
-There exists external tools which can be used to infer syntenic regions, like e.g. [SynMap](https://genomevolution.org/CoGe/SynMap.pl) as published by [Haug-Baltzell A. et al., 2017 ](https://academic.oup.com/bioinformatics/article/33/14/2197/3072872).
+There exists external tools which can be used to infer syntenic regions,
+like e.g. [SynMap](https://genomevolution.org/CoGe/SynMap.pl) as published by
+[Haug-Baltzell A. et al., 2017 ](https://academic.oup.com/bioinformatics/article/33/14/2197/3072872).
 
-Within CRBHits the tool [DAGchainer](http://dagchainer.sourceforge.net/) published by [Haas et al., 2004](https://doi.org/10.1093/bioinformatics/bth397) can be directly applied on the CRBHit pairs.
+Within CRBHits the tool [DAGchainer](http://dagchainer.sourceforge.net/)
+published by [Haas et al., 2004](https://doi.org/10.1093/bioinformatics/bth397)
+can be directly applied on the CRBHit pairs.
 
-The following example shows how one can run [DAGchainer](http://dagchainer.sourceforge.net/) on CRBHit pairs and gene positions to get syntenic information about the CRBHit pairs.
+The following example shows how one can run
+[DAGchainer](http://dagchainer.sourceforge.net/) on CRBHit pairs and gene
+positions to get syntenic information about the CRBHit pairs.
 
 ```
 ## example how to run DAGchainer on CRBHit pairs and gene positions
@@ -398,7 +479,8 @@ ARATHA_ARALYR_crbh.dagchainer.idx <- rbh2dagchainer(
 #?rbh2dagchainer
 ```
 
-A plotting function `plot_dagchainer()` is integrated and can be directly applied on the DAGchainer results.
+A plotting function `plot_dagchainer()` is integrated and can be directly
+applied on the DAGchainer results.
 
 ```
 ## example how to plot pairwise chromosomal syntenic groups (DAGchainer results)
@@ -528,10 +610,12 @@ plot_dagchainer(ARATHA_selfblast_crbh.dagchainer.only_tandem.bp,
 ![Figure: Dagchainer results selfblast ARATHA use tandem](V02-dagchainer-selfblast-ARATHA-tandem.png)
 ![Figure: Dagchainer results selfblast ARATHA use only tandem](V02-dagchainer-selfblast-ARATHA-only-tandem.png)
 
-It is even possible to do the same analysis and use the inter and intra species hits.
+It is even possible to do the same analysis and use the inter and intra
+species hits.
 
 ```
-## example how to run DAGchainer on CRBHit pairs and gene positions using inter and intra species hits
+## example how to run DAGchainer on CRBHit pairs
+## and gene positions using inter and intra species hits
 
 ## DAGchainer using gene base pair (gene bp start end)
 ## ignore tandem duplicates
@@ -586,7 +670,8 @@ ARATHA_ARALYR_crbh.dagchainer.only_tandem.bp <- rbh2dagchainer(
 ```
 
 ```
-## example how to plot pairwise chromosomal syntenic groups for inter and intra species hits (DAGchainer results)
+## example how to plot pairwise chromosomal syntenic groups
+## for inter and intra species hits (DAGchainer results)
 
 ## plot DAGchainer results for each chromosome combination
 dim(ARATHA_ARALYR_crbh.dagchainer.ignore_tandem.bp)
@@ -606,19 +691,33 @@ plot_dagchainer(ARATHA_ARALYR_crbh.dagchainer.only_tandem.bp,
 
 ## 2. [Ka/Ks Calculation]{#KaKs}
 
-The second part of this vignette describes how to calculate synonymous (Ks) and nonsynonymous substitution rates (Ka) given a set of CRBHit pairs (see [Calculate/Filter CRBHit pairs](#crbhfilter) section how to obtain CRBHit pairs).
+The second part of this vignette describes how to calculate synonymous (Ks) and
+nonsynonymous substitution rates (Ka) given a set of CRBHit pairs
+(see [Calculate/Filter CRBHit pairs](#crbhfilter) section how to obtain
+CRBHit pairs).
 
-The `rbh2kaks()` function is used to obtain pairwise codon alignments and directly calculate synonymous (Ks) and nonsynonymous (Ka) substitutions in a parallel fashion. One can choose either to use the model by [Li (1993)](https://doi.org/10.1007/bf02407308) or the model by [Yang and Nielson (2000)](https://doi.org/10.1093/oxfordjournals.molbev.a026236).
+The `rbh2kaks()` function is used to obtain pairwise codon alignments and
+directly calculate synonymous (Ks) and nonsynonymous (Ka) substitutions in a
+parallel fashion. One can choose either to use the model by
+[Li (1993)](https://doi.org/10.1007/bf02407308) or the model by
+[Yang and Nielson (2000)](https://doi.org/10.1093/oxfordjournals.molbev.a026236).
 
 __Note:__
 
-It is important, that the names of the `rbh` columns must match the names of the corresponding `cds1` and `cds2` `DNAStringSet` vectors.
+It is important, that the names of the `rbh` columns must match the names of
+the corresponding `cds1` and `cds2` `DNAStringSet` vectors.
 
-However, since one should directly use the same input `DNAStringSet` vector or input `url` to calculate the CRBHit pairs with the `cds2rbh()` or the `cdsfile2rbh()` function, this should not be a problem (see the [Get Longest Isoform from NCBI or ENSEMBL Input](#isoform) section how to obtain the CDS for the next example).
+However, since one should directly use the same input `DNAStringSet` vector or
+input `url` to calculate the CRBHit pairs with the `cds2rbh()` or the
+`cdsfile2rbh()` function, this should not be a problem
+(see the [Get Longest Isoform from NCBI or ENSEMBL Input](#isoform) section
+how to obtain the CDS for the next example).
  
-To calculate Ka/Ks values based on the model by [Li (1993)](https://doi.org/10.1007/bf02407308), do the following:
+To calculate Ka/Ks values based on the model by
+[Li (1993)](https://doi.org/10.1007/bf02407308), do the following:
 
-__Note:__ The following example can take some time and is not calculated by the vignette building process.
+__Note:__ The following example can take some time and is not calculated by the
+vignette building process.
 
 ```
 ## example how to calculate Ka/Ks values with model "Li"
@@ -632,9 +731,12 @@ ARATHA_ARALYR_crbh.kaks.Li <- rbh2kaks(
     threads = 4)
 ```
 
-To calculate Ka/Ks values based on the model by [Yang and Nielson (2000)](https://doi.org/10.1093/oxfordjournals.molbev.a026236), do the following:
+To calculate Ka/Ks values based on the model by
+[Yang and Nielson (2000)](https://doi.org/10.1093/oxfordjournals.molbev.a026236),
+do the following:
 
-__Note:__ The following example can take some time and is not calculated by the vignette building process.
+__Note:__ The following example can take some time and is not calculated by the
+vignette building process.
 
 ```
 ## example how to calculate Ka/Ks values with model "YN"
@@ -650,9 +752,13 @@ ARATHA_ARALYR_crbh.kaks.YN <- rbh2kaks(
 
 ## 3. [Ka/Ks Filtering and Visualisation]{#KaKsFiltering}
 
-In some cases the Ka/Ks calculation fails, since e.g. there are no synonymous (Ks) or nonsynonymous substitutions (Ka) between cds1 and cds2 or one wants to get rid of high Ks values due to substitution saturation. One can easily remove these cases before doing further analysis.
+In some cases the Ka/Ks calculation fails, since e.g. there are no synonymous
+(Ks) or nonsynonymous substitutions (Ka) between cds1 and cds2 or one wants to
+get rid of high Ks values due to substitution saturation. One can easily remove
+these cases before doing further analysis.
 
-A plotting function `plot_kaks()` is integrated and can be applied on the Ka/Ks results. 
+A plotting function `plot_kaks()` is integrated and can be applied on the
+Ka/Ks results. 
 
 ```
 ## load example Ka/Ks values (see above commands above how to obtain them)
@@ -666,7 +772,11 @@ g <- plot_kaks(ath_aly_ncbi_kaks)
 
 ```
 ## plot Ka/Ks results as histogram filter for ka.min, ka.max, ks.min, ks.max
-g.min_max <- plot_kaks(ath_aly_ncbi_kaks, ka.min = 0, ka.max = 1, ks.min = 0, ks.max = 1)
+g.min_max <- plot_kaks(ath_aly_ncbi_kaks,
+    ka.min = 0,
+    ka.max = 1,
+    ks.min = 0,
+    ks.max = 1)
 ```
 
 ![Figure: Ka/Ks results filtered for ka.min, ka.max, ks.max](V02-kaks-hist-min-max.png)
@@ -697,7 +807,8 @@ g.split <- plot_kaks(ath_aly_ncbi_kaks,
 
 ![Figure: Ka/Ks results split by chromosomes](V02-kaks-hist-chr-split.png)
 
-__Note:__ Default **data.frame** handling with the **dplyr** package is possible on the original Ka/Ks results as well as on the resulting plot objects.
+__Note:__ Default **data.frame** handling with the **dplyr** package is
+possible on the original Ka/Ks results as well as on the resulting plot objects.
 
 Apply `dplyr::filter()` and `dplyr::mutate()` function:
 
@@ -723,7 +834,9 @@ g.split$g.kaks$data %>% dplyr::filter(ks < 1) %>%
 
 ## 4. [*Homo sapiens* vs. *Pan troglodytes* example]{#homosapiens}
 
-The second example compares the CDS from *Homo sapiens* and *Pan troglodytes*. The input sequences are from the FTP server from [Ensembl](https://ensembl.org/index.html).
+The second example compares the CDS from *Homo sapiens* and *Pan troglodytes*.
+The input sequences are from the FTP server from
+[Ensembl](https://ensembl.org/index.html).
 
 The [Ensembl release-101](ftp://ftp.ensembl.org/pub/release-101/fasta/) is used.
 
@@ -735,9 +848,11 @@ The [Ensembl release-101](ftp://ftp.ensembl.org/pub/release-101/fasta/) is used.
 ## set Ensembl URL
 ensembl <- "ftp://ftp.ensembl.org/pub/release-105/fasta/"
 ## set Homo sapiens CDS URL
-HOMSAP.cds.url <- paste0(ensembl, "homo_sapiens/cds/Homo_sapiens.GRCh38.cds.all.fa.gz")
+HOMSAP.cds.url <- paste0(ensembl,
+    "homo_sapiens/cds/Homo_sapiens.GRCh38.cds.all.fa.gz")
 ## set Pan troglodytes CDS URL
-PANTRO.cds.url <- paste0(ensembl, "pan_troglodytes/cds/Pan_troglodytes.Pan_tro_3.0.cds.all.fa.gz")
+PANTRO.cds.url <- paste0(ensembl,
+    "pan_troglodytes/cds/Pan_troglodytes.Pan_tro_3.0.cds.all.fa.gz")
 
 ## get Homo sapiens CDS
 HOMSAP.cds.file <- tempfile()
@@ -761,10 +876,12 @@ PANTRO.cds.longest <- isoform2longest(PANTRO.cds, "ENSEMBL")
 ## rost199 filter
 HOMSAP_PANTRO_crbh <- cds2rbh(HOMSAP.cds,
     PANTRO.cds,
-    qcov = 0.5, rost1999 = TRUE,
+    qcov = 0.5,
+    rost1999 = TRUE,
     longest.isoform = TRUE,
     isoform.source = "ENSEMBL",
-    threads = 2, plotCurve = TRUE,
+    threads = 2,
+    plotCurve = TRUE,
     lastpath = vignette.paths[1])
 ```
 
@@ -772,9 +889,11 @@ HOMSAP_PANTRO_crbh <- cds2rbh(HOMSAP.cds,
 
 ```
 ## get gene position for H. sapiens longest isoforms
-HOMSAP.cds.longest.genepos <- cds2genepos(HOMSAP.cds.longest, source = "ENSEMBL")
+HOMSAP.cds.longest.genepos <- cds2genepos(HOMSAP.cds.longest, 
+    source = "ENSEMBL")
 ## get gene position for P. troglodytes longest isoforms
-PANTRO.cds.longest.genepos <- cds2genepos(PANTRO.cds.longest, source = "ENSEMBL")
+PANTRO.cds.longest.genepos <- cds2genepos(PANTRO.cds.longest,
+    source = "ENSEMBL")
 
 ## DAGchainer using gene base pair (gene bp start end)
 ## Note: change parameter to fit bp option
@@ -799,22 +918,27 @@ plot_dagchainer(HOMSAP_PANTRO_crbh.dagchainer.bp,
 ## get selfblast CRBHit pairs for H. sapiens
 HOMSAP_selfblast_crbh <- cds2rbh(HOMSAP.cds,
     HOMSAP.cds,
-    qcov = 0.5, rost1999 = TRUE,
+    qcov = 0.5,
+    rost1999 = TRUE,
     longest.isoform = TRUE,
     isoform.source = "ENSEMBL",
-    threads = 2, plotCurve = FALSE,
+    threads = 2,
+    plotCurve = FALSE,
     lastpath = vignette.paths[1])
 PANTRO_selfblast_crbh <- cds2rbh(PANTRO.cds,
     PANTRO.cds,
-    qcov = 0.5, rost1999 = TRUE,
+    qcov = 0.5,
+    rost1999 = TRUE,
     longest.isoform = TRUE,
     isoform.source = "ENSEMBL",
-    threads = 2, plotCurve = FALSE,
+    threads = 2,
+    plotCurve = FALSE,
     lastpath = vignette.paths[1])
 ```
 
 ```
-## example how to run DAGchainer on CRBHit pairs and gene positions using inter and intra species hits
+## example how to run DAGchainer on CRBHit pairs
+## and gene positions using inter and intra species hits
 
 ## DAGchainer using gene base pair (gene bp start end)
 ## use tandem duplicates
@@ -840,7 +964,8 @@ plot_dagchainer(HOMSAP_PANTRO_crbh.dagchainer.tandem.bp,
 
 ![Figure: Dagchainer results of H. sapiens and P. troglodytes](V02-dagchainer-inter-plus-intra-HOMSAP-PANTRO-chr.png)
 
-__Note:__ The following example can take some time and is not calculated by the vignette building process.
+__Note:__ The following example can take some time and is not calculated by
+the vignette building process.
 
 ```
 ## example how to calculate Ka/Ks values with model "Li"

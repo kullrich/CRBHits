@@ -66,6 +66,9 @@ dagchainer", "tandemdups" or "none" [default: none]}
 (see \code{\link[CRBHits]{cds2codonaln}}) and other plot_kaks parameters
 (see \code{\link[CRBHits]{plot_kaks}})}
 }
+\value{
+Ka/Ks values
+}
 \description{
 This function calculates Ka/Ks (dN/dS; accoring to
 \emph{Li (1993)} or \emph{Yang and Nielson (2000)} for each

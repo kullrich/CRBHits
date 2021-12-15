@@ -2,6 +2,7 @@
 #' @name make_KaKs_Calculator2
 #' @description This function tries to build the prerequisite
 #' KaKs_calculator2.0 from source code forked within CRBHits
+#' @return compile KaKs_calculator2.0
 #' @references Wang D, Zhang Y et al. (2010) KaKs_Calculator 2.0: a toolkit
 #' incorporating gamma-series methods and sliding window strategies.
 #' \emph{Genomics Proteomics Bioinformatics.} \bold{8(1)}, 77-80.
@@ -14,11 +15,11 @@ make_KaKs_Calculator2 <- function(){
         "/extdata/KaKs_Calculator2.0/src/")
     if(!dir.exists(kakscalcpath)){
         setwd(paste0(find.package("CRBHits"), "/extdata/"))
-        system(paste0("tar -xvf KaKs_Calculator2.0.tar.gz"))
+        system2(command="tar", args = c("-xvf", "KaKs_Calculator2.0.tar.gz"))
         setwd(paste0(find.package("CRBHits"),
             "/extdata/KaKs_Calculator2.0/src/"))
-        system("make clean")
-        system("make")
+        system2(command="make", args= "clean")
+        system2("make")
     }
     setwd(curwd)
 }

@@ -65,7 +65,7 @@ isoform2longest <- function(cds, source="NCBI"){
     }
     isoform.df <- data.frame(pos=seq(from=1, to=length(cds)),
     gene.width=Biostrings::width(cds),
-          gene.id = gene.id)
+        gene.id = gene.id)
     isoform.df.ordered <- isoform.df[order(isoform.df$gene.id,
         isoform.df$gene.width,
         decreasing = TRUE), ]

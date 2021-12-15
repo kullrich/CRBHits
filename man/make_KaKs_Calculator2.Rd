@@ -6,6 +6,9 @@
 \usage{
 make_KaKs_Calculator2()
 }
+\value{
+compile KaKs_calculator2.0
+}
 \description{
 This function tries to build the prerequisite
 KaKs_calculator2.0 from source code forked within CRBHits

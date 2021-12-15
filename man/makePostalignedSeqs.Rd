@@ -9,6 +9,9 @@ makePostalignedSeqs(x)
 \arguments{
 \item{x}{x}
 }
+\value{
+get internal function makePostalignedSeqs
+}
 \description{
 This function is a fork from an internal function from
 \code{Biostrings}

@@ -24,8 +24,8 @@ filter_tcov <- function(rbh, tcov=0.0, inverse=FALSE){
         #drop=FALSE])
         return(dplyr::filter(rbh, (alignment_length / subject_length)<tcov))
     } else {
-          #return(rbh[(as.numeric(rbh[,4])/as.numeric(rbh[,14]))>=tcov, ,
-          #drop=FALSE])
-          return(dplyr::filter(rbh, (alignment_length / subject_length)>=tcov))
+        #return(rbh[(as.numeric(rbh[,4])/as.numeric(rbh[,14]))>=tcov, ,
+        #drop=FALSE])
+        return(dplyr::filter(rbh, (alignment_length / subject_length)>=tcov))
     }
 }

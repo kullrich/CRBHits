@@ -6,6 +6,9 @@
 \usage{
 make_dagchainer()
 }
+\value{
+compile DAGchainer
+}
 \description{
 This function tries to build the DAGchainer from source code
 forked within CRBHits

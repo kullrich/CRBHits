@@ -20,7 +20,8 @@ vignette.paths <- make_vignette()
 ## load CDS file
 cdsfile <- system.file("fasta", "ath.cds.fasta.gz", package = "CRBHits")
 cds <- Biostrings::readDNAStringSet(cdsfile)
-## the following statement should return TRUE, if all sequences are a mutiple of three
+## the following statement should return TRUE,
+## if all sequences are a mutiple of three
 all(Biostrings::width(cds) %% 3 == 0)
 
 ## -----------------------------------------------------------------------------
@@ -44,11 +45,13 @@ summary(ath_aly_crbh)
 #?cds2rbh
 
 ## -----------------------------------------------------------------------------
-## example how to get CRBHit pairs using one thread and plot CRBHit algorithm fitting curve
+## example how to get CRBHit pairs using one thread
+## and plot CRBHit algorithm fitting curve
 
 ## example how to perform CRBH
-ath_aly_crbh <- cds2rbh(cds1, cds2, plotCurve = TRUE,
-                        lastpath = vignette.paths[1])
+ath_aly_crbh <- cds2rbh(cds1, cds2,
+    plotCurve = TRUE,
+    lastpath = vignette.paths[1])
 ## show summary
 summary(ath_aly_crbh)
 
@@ -74,19 +77,20 @@ table(ath_aly_crbh$crbh2$rbh_class)
 
 ## plot fitting function
 curve(ath_aly_crbh$rbh1_rbh2_fit(x),
-      from = 1,
-      to = 1000,
-      xlab = "alnlength",
-      ylab = "-log10(evalue)",
-      main = "CRBH fitting")
+    from = 1,
+    to = 1000,
+    xlab = "alnlength",
+    ylab = "-log10(evalue)",
+    main = "CRBH fitting")
 
 ## -----------------------------------------------------------------------------
 ## example how to retain single direction secondary homologs
 
 ## get CRBHit pairs with keepSingleDirection = TRUE
-ath_aly_crbh <- cds2rbh(cds1, cds2, plotCurve = TRUE,
-                        keepSingleDirection = TRUE,
-                        lastpath = vignette.paths[1])
+ath_aly_crbh <- cds2rbh(cds1, cds2,
+    plotCurve = TRUE,
+    keepSingleDirection = TRUE,
+    lastpath = vignette.paths[1])
 ## get the number of CRBHit classified as rbh and sec hit pairs
 table(ath_aly_crbh$crbh1$rbh_class)
 table(ath_aly_crbh$crbh2$rbh_class)
@@ -99,8 +103,10 @@ dim(ath_aly_crbh)
 ## example how to filter prior crbh for query coverage of 50%
 
 ## get CRBHit pairs with direct query coverage filter
-ath_aly_crbh <- cds2rbh(cds1, cds2, plotCurve = TRUE, qcov = 0.5,
-                        lastpath = vignette.paths[1])
+ath_aly_crbh <- cds2rbh(cds1, cds2,
+    plotCurve = TRUE,
+    qcov = 0.5,
+    lastpath = vignette.paths[1])
 dim(ath_aly_crbh$crbh.pairs)
 
 ## get help
@@ -111,24 +117,28 @@ dim(ath_aly_crbh$crbh.pairs)
 
 ## define eq2 from Rost (1999)
 get_pident_by_length <- function(x){
-  eq2 <- function(L){
-    if(L <= 11){return(100)}
-    if(L <= 450){return(480*(L^(-0.32*(1+(exp(-L/1000))))))}
-    if(L > 450){return(19.5)}
-  }
-  return(unlist(lapply(x, eq2)))
+    eq2 <- function(L){
+        if(L <= 11){return(100)}
+        if(L <= 450){return(480*(L^(-0.32*(1+(exp(-L/1000))))))}
+        if(L > 450){return(19.5)}
+    }
+    return(unlist(lapply(x, eq2)))
 }
 
 ## plot expected pident by alignment length using eq2 from Rost (1999)
-curve(get_pident_by_length, 11, 500, pch = 20, xlab = "alignment length", ylab = "pident",
-      main = "expected protein identity (eq2; Rost B. 1999)")
+curve(get_pident_by_length, 11, 500, pch = 20,
+    xlab = "alignment length",
+    ylab = "pident",
+    main = "expected protein identity (eq2; Rost B. 1999)")
 
 ## -----------------------------------------------------------------------------
 ## example how to filter prior crbh for eq2 from Rost (1999)
 
 ## get CRBHit pairs with direct twilight-zone filter
-ath_aly_crbh <- cds2rbh(cds1, cds2, plotCurve = TRUE, rost1999 = TRUE,
-                        lastpath = vignette.paths[1])
+ath_aly_crbh <- cds2rbh(cds1, cds2,
+    plotCurve = TRUE,
+    rost1999 = TRUE,
+    lastpath = vignette.paths[1])
 dim(ath_aly_crbh$crbh.pairs)
 
 ## get help
@@ -151,16 +161,18 @@ dim(ath_aly_crbh$crbh.pairs)
 
 ## define custom filter for e.g. bit score (column 12)
 myfilter1 <- function(rbh, value = 500.0){
-  return(dplyr::filter(rbh, bit_score >= value))
+    return(dplyr::filter(rbh, bit_score >= value))
 }
 ## define custom filter for e.g. corrected query_coverage
 myfilter2 <- function(rbh, value = 0.5){
-  return(dplyr::filter(rbh, ((alignment_length-mismatches-gap_opens) / query_length) >= value))
+    return(dplyr::filter(rbh,
+        ((alignment_length-mismatches-gap_opens) / query_length) >= value))
 }
 ## get CRBHit pairs with custom filter list
-ath_aly_crbh <- cds2rbh(cds1, cds2, plotCurve = TRUE,
-                        filter = list(myfilter1, myfilter2),
-                        lastpath = vignette.paths[1])
+ath_aly_crbh <- cds2rbh(cds1, cds2,
+    plotCurve = TRUE,
+    filter = list(myfilter1, myfilter2),
+    lastpath = vignette.paths[1])
 dim(ath_aly_crbh$crbh.pairs)
 
 ## -----------------------------------------------------------------------------
@@ -175,9 +187,10 @@ head(dplyr::filter(ath_aly_crbh$crbh2, rbh_class == "rbh"))
 ## example how to get crbh from two coding fasta files using median fitting
 
 ## get CRBHit pairs with median fitting
-ath_aly_crbh <- cds2rbh(cds1, cds2, plotCurve = TRUE,
-                        fit.type = "median",
-                        lastpath = vignette.paths[1])
+ath_aly_crbh <- cds2rbh(cds1, cds2,
+    plotCurve = TRUE,
+    fit.type = "median",
+    lastpath = vignette.paths[1])
 
 ## get help
 #?cds2rbh
@@ -237,15 +250,16 @@ cdsfile2 <- system.file("fasta", "aly.cds.fasta.gz", package = "CRBHits")
 ath <- Biostrings::readDNAStringSet(cdsfile1)
 aly <- Biostrings::readDNAStringSet(cdsfile2)
 
-## the following function calculates CRBHit pairs using one thread and plots the fitted curve
+## the following function calculates CRBHit pairs
+## using one thread and plots the fitted curve
 ath_aly_crbh <- cds2rbh(cds1 = ath, cds2 = aly,
-                        lastpath = vignette.paths[1])
+    lastpath = vignette.paths[1])
 
 ## calculate Ka/Ks using the CRBHit pairs
 ath_aly_crbh$crbh.pairs <- head(ath_aly_crbh$crbh.pairs)
 ath_aly_crbh.kaks <- rbh2kaks(rbhpairs = ath_aly_crbh,
-                              cds1 = ath, cds2 = aly,
-                              model = "Li")
+    cds1 = ath, cds2 = aly,
+    model = "Li")
 head(ath_aly_crbh.kaks)
 
 ## get help
@@ -254,8 +268,9 @@ head(ath_aly_crbh.kaks)
 ## -----------------------------------------------------------------------------
 ## calculate Ka/Ks using the CRBHit pairs and multiple threads
 ath_aly_crbh.kaks <- rbh2kaks(rbhpairs = ath_aly_crbh,
-                              cds1 = ath, cds2 = aly,
-                              model = "Li", threads = 2)
+    cds1 = ath, cds2 = aly,
+    model = "Li",
+    threads = 2)
 head(ath_aly_crbh.kaks)
 
 ## get help
@@ -264,9 +279,10 @@ head(ath_aly_crbh.kaks)
 ## -----------------------------------------------------------------------------
 ## calculate Ka/Ks using the CRBHit pairs and multiple threads
 ath_aly_crbh.kaks <- rbh2kaks(rbhpairs = ath_aly_crbh,
-                              cds1 = ath, cds2 = aly,
-                              model = "Li", threads = 2,
-                              substitutionMatrix = "BLOSUM45")
+    cds1 = ath, cds2 = aly,
+    model = "Li",
+    threads = 2,
+    substitutionMatrix = "BLOSUM45")
 head(ath_aly_crbh.kaks)
 
 ## get help

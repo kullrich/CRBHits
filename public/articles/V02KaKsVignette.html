@@ -19,7 +19,6 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="KaKs Vignette">
 <meta property="og:description" content="CRBHits">
-<meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -88,7 +87,7 @@
       <h1 data-toc-skip>KaKs Vignette</h1>
                         <h4 data-toc-skip class="author">Kristian K Ullrich</h4>
             
-            <h4 data-toc-skip class="date">2021-12-14</h4>
+            <h4 data-toc-skip class="date">2021-12-15</h4>
       
       <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/mastervignettes/V02KaKsVignette.Rmd" class="external-link"><code>vignettes/V02KaKsVignette.Rmd</code></a></small>
       <div class="hidden name"><code>V02KaKsVignette.Rmd</code></div>
@@ -208,7 +207,8 @@
 <span class="co">## rost199 filter</span>
 <span class="va">ARATHA_ARALYR_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">ARATHA.cds</span>,
     <span class="va">ARALYR.cds</span>,
-    qcov <span class="op">=</span> <span class="fl">0.5</span>, rost1999 <span class="op">=</span> <span class="cn">TRUE</span>,
+    qcov <span class="op">=</span> <span class="fl">0.5</span>,
+    rost1999 <span class="op">=</span> <span class="cn">TRUE</span>,
     longest.isoform <span class="op">=</span> <span class="cn">TRUE</span>,
     isoform.source <span class="op">=</span> <span class="st">"NCBI"</span>,
     threads <span class="op">=</span> <span class="fl">2</span>, plotCurve <span class="op">=</span> <span class="cn">TRUE</span>,
@@ -351,10 +351,12 @@
 <span class="co">## get selfblast CRBHit pairs for A. thaliana</span>
 <span class="va">ARATHA_selfblast_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">ARATHA.cds</span>,
     <span class="va">ARATHA.cds</span>,
-    qcov <span class="op">=</span> <span class="fl">0.5</span>, rost1999 <span class="op">=</span> <span class="cn">TRUE</span>,
+    qcov <span class="op">=</span> <span class="fl">0.5</span>,
+    rost1999 <span class="op">=</span> <span class="cn">TRUE</span>,
     longest.isoform <span class="op">=</span> <span class="cn">TRUE</span>,
     isoform.source <span class="op">=</span> <span class="st">"NCBI"</span>,
-    threads <span class="op">=</span> <span class="fl">2</span>, plotCurve <span class="op">=</span> <span class="cn">TRUE</span>,
+    threads <span class="op">=</span> <span class="fl">2</span>,
+    plotCurve <span class="op">=</span> <span class="cn">TRUE</span>,
     lastpath <span class="op">=</span> <span class="va">vignette.paths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">ARATHA_selfblast_crbh</span><span class="op">)</span><span class="op">$</span><span class="va">selfblast</span></code></pre>
 <div class="figure">
@@ -363,10 +365,12 @@
 <pre><code><span class="co">## get selfblast CRBHit pairs for A. lyrata</span>
 <span class="va">ARALYR_selfblast_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">ARALYR.cds</span>,
     <span class="va">ARALYR.cds</span>,
-    qcov <span class="op">=</span> <span class="fl">0.5</span>, rost1999 <span class="op">=</span> <span class="cn">TRUE</span>,
+    qcov <span class="op">=</span> <span class="fl">0.5</span>,
+    rost1999 <span class="op">=</span> <span class="cn">TRUE</span>,
     longest.isoform <span class="op">=</span> <span class="cn">TRUE</span>,
     isoform.source <span class="op">=</span> <span class="st">"NCBI"</span>,
-    threads <span class="op">=</span> <span class="fl">2</span>, plotCurve <span class="op">=</span> <span class="cn">TRUE</span>,
+    threads <span class="op">=</span> <span class="fl">2</span>,
+    plotCurve <span class="op">=</span> <span class="cn">TRUE</span>,
     lastpath <span class="op">=</span> <span class="va">vignette.paths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">ARALYR_selfblast_crbh</span><span class="op">)</span><span class="op">$</span><span class="va">selfblast</span></code></pre>
 <div class="figure">
@@ -406,7 +410,8 @@
     <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">gene.mid</span>, y <span class="op">=</span> <span class="va">gene.mid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="fl">20</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">tandem_group_size</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">gene.chr</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_colour_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="../reference/CRBHitsColors.html">CRBHitsColors</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">tandem_group_size</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre>
+    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_colour_manual</a></span><span class="op">(</span>values <span class="op">=</span>
+    <span class="fu"><a href="../reference/CRBHitsColors.html">CRBHitsColors</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">tandem_group_size</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre>
 <div class="figure">
 <img src="V02-tandemdups-ARATHA.png" alt=""><p class="caption">Figure: Tandem duplicates A. thaliana</p>
 </div>
@@ -548,7 +553,8 @@
     DotPlotTitle <span class="op">=</span> <span class="st">"use only tandem duplicates"</span><span class="op">)</span></code></pre>
 <p><img src="V02-dagchainer-selfblast-ARATHA-ignore-tandem.png" alt="Figure: Dagchainer results selfblast ARATHA ignore tandem"><img src="V02-dagchainer-selfblast-ARATHA-tandem.png" alt="Figure: Dagchainer results selfblast ARATHA use tandem"><img src="V02-dagchainer-selfblast-ARATHA-only-tandem.png" alt="Figure: Dagchainer results selfblast ARATHA use only tandem"></p>
 <p>It is even possible to do the same analysis and use the inter and intra species hits.</p>
-<pre><code><span class="co">## example how to run DAGchainer on CRBHit pairs and gene positions using inter and intra species hits</span>
+<pre><code><span class="co">## example how to run DAGchainer on CRBHit pairs</span>
+<span class="co">## and gene positions using inter and intra species hits</span>
 
 <span class="co">## DAGchainer using gene base pair (gene bp start end)</span>
 <span class="co">## ignore tandem duplicates</span>
@@ -600,7 +606,8 @@
 
 <span class="co">## get help</span>
 <span class="co">#?rbh2dagchainer</span></code></pre>
-<pre><code><span class="co">## example how to plot pairwise chromosomal syntenic groups for inter and intra species hits (DAGchainer results)</span>
+<pre><code><span class="co">## example how to plot pairwise chromosomal syntenic groups</span>
+<span class="co">## for inter and intra species hits (DAGchainer results)</span>
 
 <span class="co">## plot DAGchainer results for each chromosome combination</span>
 <span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">ARATHA_ARALYR_crbh.dagchainer.ignore_tandem.bp</span><span class="op">)</span>
@@ -660,7 +667,11 @@
 <img src="V02-kaks-hist.png" alt=""><p class="caption">Figure: Ka/Ks results as histogram colored by Ka/ks</p>
 </div>
 <pre><code><span class="co">## plot Ka/Ks results as histogram filter for ka.min, ka.max, ks.min, ks.max</span>
-<span class="va">g.min_max</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_kaks.html">plot_kaks</a></span><span class="op">(</span><span class="va">ath_aly_ncbi_kaks</span>, ka.min <span class="op">=</span> <span class="fl">0</span>, ka.max <span class="op">=</span> <span class="fl">1</span>, ks.min <span class="op">=</span> <span class="fl">0</span>, ks.max <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre>
+<span class="va">g.min_max</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_kaks.html">plot_kaks</a></span><span class="op">(</span><span class="va">ath_aly_ncbi_kaks</span>,
+    ka.min <span class="op">=</span> <span class="fl">0</span>,
+    ka.max <span class="op">=</span> <span class="fl">1</span>,
+    ks.min <span class="op">=</span> <span class="fl">0</span>,
+    ks.max <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre>
 <div class="figure">
 <img src="V02-kaks-hist-min-max.png" alt=""><p class="caption">Figure: Ka/Ks results filtered for ka.min, ka.max, ks.max</p>
 </div>
@@ -719,9 +730,11 @@
 <span class="co">## set Ensembl URL</span>
 <span class="va">ensembl</span> <span class="op">&lt;-</span> <span class="st">"ftp://ftp.ensembl.org/pub/release-105/fasta/"</span>
 <span class="co">## set Homo sapiens CDS URL</span>
-<span class="va">HOMSAP.cds.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">ensembl</span>, <span class="st">"homo_sapiens/cds/Homo_sapiens.GRCh38.cds.all.fa.gz"</span><span class="op">)</span>
+<span class="va">HOMSAP.cds.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">ensembl</span>,
+    <span class="st">"homo_sapiens/cds/Homo_sapiens.GRCh38.cds.all.fa.gz"</span><span class="op">)</span>
 <span class="co">## set Pan troglodytes CDS URL</span>
-<span class="va">PANTRO.cds.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">ensembl</span>, <span class="st">"pan_troglodytes/cds/Pan_troglodytes.Pan_tro_3.0.cds.all.fa.gz"</span><span class="op">)</span>
+<span class="va">PANTRO.cds.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">ensembl</span>,
+    <span class="st">"pan_troglodytes/cds/Pan_troglodytes.Pan_tro_3.0.cds.all.fa.gz"</span><span class="op">)</span>
 
 <span class="co">## get Homo sapiens CDS</span>
 <span class="va">HOMSAP.cds.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span>
@@ -745,18 +758,22 @@
 <span class="co">## rost199 filter</span>
 <span class="va">HOMSAP_PANTRO_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">HOMSAP.cds</span>,
     <span class="va">PANTRO.cds</span>,
-    qcov <span class="op">=</span> <span class="fl">0.5</span>, rost1999 <span class="op">=</span> <span class="cn">TRUE</span>,
+    qcov <span class="op">=</span> <span class="fl">0.5</span>,
+    rost1999 <span class="op">=</span> <span class="cn">TRUE</span>,
     longest.isoform <span class="op">=</span> <span class="cn">TRUE</span>,
     isoform.source <span class="op">=</span> <span class="st">"ENSEMBL"</span>,
-    threads <span class="op">=</span> <span class="fl">2</span>, plotCurve <span class="op">=</span> <span class="cn">TRUE</span>,
+    threads <span class="op">=</span> <span class="fl">2</span>,
+    plotCurve <span class="op">=</span> <span class="cn">TRUE</span>,
     lastpath <span class="op">=</span> <span class="va">vignette.paths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></code></pre>
 <div class="figure">
 <img src="V02-CRBHit-pairs-HOMSAP-PANTRO.png" alt=""><p class="caption">Figure: CRBHit pairs of H. sapiens and P. troglodytes</p>
 </div>
 <pre><code><span class="co">## get gene position for H. sapiens longest isoforms</span>
-<span class="va">HOMSAP.cds.longest.genepos</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2genepos.html">cds2genepos</a></span><span class="op">(</span><span class="va">HOMSAP.cds.longest</span>, source <span class="op">=</span> <span class="st">"ENSEMBL"</span><span class="op">)</span>
+<span class="va">HOMSAP.cds.longest.genepos</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2genepos.html">cds2genepos</a></span><span class="op">(</span><span class="va">HOMSAP.cds.longest</span>, 
+    source <span class="op">=</span> <span class="st">"ENSEMBL"</span><span class="op">)</span>
 <span class="co">## get gene position for P. troglodytes longest isoforms</span>
-<span class="va">PANTRO.cds.longest.genepos</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2genepos.html">cds2genepos</a></span><span class="op">(</span><span class="va">PANTRO.cds.longest</span>, source <span class="op">=</span> <span class="st">"ENSEMBL"</span><span class="op">)</span>
+<span class="va">PANTRO.cds.longest.genepos</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2genepos.html">cds2genepos</a></span><span class="op">(</span><span class="va">PANTRO.cds.longest</span>,
+    source <span class="op">=</span> <span class="st">"ENSEMBL"</span><span class="op">)</span>
 
 <span class="co">## DAGchainer using gene base pair (gene bp start end)</span>
 <span class="co">## Note: change parameter to fit bp option</span>
@@ -779,19 +796,24 @@
 <pre><code><span class="co">## get selfblast CRBHit pairs for H. sapiens</span>
 <span class="va">HOMSAP_selfblast_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">HOMSAP.cds</span>,
     <span class="va">HOMSAP.cds</span>,
-    qcov <span class="op">=</span> <span class="fl">0.5</span>, rost1999 <span class="op">=</span> <span class="cn">TRUE</span>,
+    qcov <span class="op">=</span> <span class="fl">0.5</span>,
+    rost1999 <span class="op">=</span> <span class="cn">TRUE</span>,
     longest.isoform <span class="op">=</span> <span class="cn">TRUE</span>,
     isoform.source <span class="op">=</span> <span class="st">"ENSEMBL"</span>,
-    threads <span class="op">=</span> <span class="fl">2</span>, plotCurve <span class="op">=</span> <span class="cn">FALSE</span>,
+    threads <span class="op">=</span> <span class="fl">2</span>,
+    plotCurve <span class="op">=</span> <span class="cn">FALSE</span>,
     lastpath <span class="op">=</span> <span class="va">vignette.paths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
 <span class="va">PANTRO_selfblast_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">PANTRO.cds</span>,
     <span class="va">PANTRO.cds</span>,
-    qcov <span class="op">=</span> <span class="fl">0.5</span>, rost1999 <span class="op">=</span> <span class="cn">TRUE</span>,
+    qcov <span class="op">=</span> <span class="fl">0.5</span>,
+    rost1999 <span class="op">=</span> <span class="cn">TRUE</span>,
     longest.isoform <span class="op">=</span> <span class="cn">TRUE</span>,
     isoform.source <span class="op">=</span> <span class="st">"ENSEMBL"</span>,
-    threads <span class="op">=</span> <span class="fl">2</span>, plotCurve <span class="op">=</span> <span class="cn">FALSE</span>,
+    threads <span class="op">=</span> <span class="fl">2</span>,
+    plotCurve <span class="op">=</span> <span class="cn">FALSE</span>,
     lastpath <span class="op">=</span> <span class="va">vignette.paths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></code></pre>
-<pre><code><span class="co">## example how to run DAGchainer on CRBHit pairs and gene positions using inter and intra species hits</span>
+<pre><code><span class="co">## example how to run DAGchainer on CRBHit pairs</span>
+<span class="co">## and gene positions using inter and intra species hits</span>
 
 <span class="co">## DAGchainer using gene base pair (gene bp start end)</span>
 <span class="co">## use tandem duplicates</span>

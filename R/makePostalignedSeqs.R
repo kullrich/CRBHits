@@ -3,6 +3,7 @@
 #' @description This function is a fork from an internal function from
 #' \code{Biostrings}
 #' @param x x
+#' @return get internal function makePostalignedSeqs
 #' @seealso \code{\link[Biostrings]{pairwiseAlignment}}
 #' @export makePostalignedSeqs
 #' @author Kristian K Ullrich

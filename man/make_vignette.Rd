@@ -6,9 +6,12 @@
 \usage{
 make_vignette()
 }
+\value{
+path of prerequisites
+}
 \description{
-This function tries to build the prerequisite last-1256 and
-KaKs_calculator2.0 from source code forked within CRBHits
+This function tries to build the prerequisite last-1256,
+KaKs_calculator2.0 and DAGchainer from source code forked within CRBHits
 }
 \references{
 Kiełbasa SM et al. (2011) Adaptive seeds tame genomic sequence

@@ -357,190 +357,211 @@ rbh2dagchainer <- function(rbhpairs,
     if(selfblast | (!is.null(selfblast1) | !is.null(selfblast2))){
         if(ignore_tandem && !only_tandem){
             print(paste0(dagchainercmd, " -I -s"))
-            system(paste0(dagchainercmd, " -I -s"), ignore.stdout=TRUE,
-                ignore.stderr = TRUE)
+            system2(command=dagchainercmd, args = c("-I", "-s"),
+                stdout=FALSE, stderr=FALSE)
         }
         if(only_tandem && !ignore_tandem){
             print(paste0(dagchainercmd, " -T -s"))
-            system(paste0(dagchainercmd, " -T -s"), ignore.stdout=TRUE,
-                ignore.stderr = TRUE)
+            system2(command=dagchainercmd, args = c("-T", "-s"),
+                stdout=FALSE, stderr=FALSE)
         }
         if(!ignore_tandem && !only_tandem){
             print(paste0(dagchainercmd, " -s"))
-            system(paste0(dagchainercmd, " -s"), ignore.stdout=TRUE,
-                ignore.stderr=TRUE)
+            system2(command=dagchainercmd, args = "-s",
+                stdout=FALSE, stderr=FALSE)
+        }
+    } else {
+        print(dagchainercmd)
+        system2(dagchainercmd, stdout=FALSE, stderr=FALSE)
     }
-  } else {
-    print(dagchainercmd)
-    system(dagchainercmd, ignore.stdout = TRUE, ignore.stderr = TRUE)
-  }
-  dagchainer.results <- read.table(paste0(tmp, ".aligncoords"), sep = "\t", header = FALSE)
-  dagchainer.groups <- readLines(paste0(tmp, ".aligncoords"))
-  dagchainer.groups <- dagchainer.groups[grep("num aligned pairs", dagchainer.groups)]
-  dagchainer.groups.len <- as.numeric(stringr::str_split_fixed(stringr::str_split_fixed(dagchainer.groups,
-                         "num aligned pairs: ", 2)[,2],"\\)",2)[,1])
-  dagchainer.groups.chr1 <- stringr::str_split_fixed(stringr::str_split_fixed(dagchainer.groups,
-                                                                              "alignment ", 2)[,2]," ",2)[,1]
-  dagchainer.groups.chr2 <- stringr::str_split_fixed(stringr::str_split_fixed(dagchainer.groups,
-                                                                              "vs. ", 2)[,2]," ",2)[,1]
-  dagchainer.groups.idx <- stringr::str_split_fixed(stringr::str_split_fixed(dagchainer.groups,
-                                                                             "Alignment #", 2)[,2]," ",2)[,1]
-  dagchainer.groups.idx.reverse <- grep("(reverse)", dagchainer.groups)
-  dagchainer.groups.id <- paste0(dagchainer.groups.chr1,":",dagchainer.groups.chr2,":",dagchainer.groups.idx)
-  dagchainer.groups.id[dagchainer.groups.idx.reverse] <- paste0(dagchainer.groups.id[dagchainer.groups.idx.reverse],".rev")
-  dagchainer.groups.out <- unlist(apply(cbind(dagchainer.groups.id,
-                                                     dagchainer.groups.len),1,
-                                               function(x) rep(x[1], x[2])))
-  #if(!selfblast){
-  #  dagchainer.groups.out <- gsub("AA1:", "", dagchainer.groups.out)
-  #  dagchainer.groups.out <- gsub("AA2:", "", dagchainer.groups.out)
-  #}
-  if(type == "bp"){
-    colnames(dagchainer.results) <- c("gene1.chr", "gene1.seq.id", "gene1.start", "gene1.end",
-                                      "gene2.chr", "gene2.seq.id", "gene2.start", "gene2.end",
-                                      "evalue", "score")
+    dagchainer.results <- read.table(paste0(tmp, ".aligncoords"), sep = "\t",
+        header = FALSE)
+    dagchainer.groups <- readLines(paste0(tmp, ".aligncoords"))
+    dagchainer.groups <- dagchainer.groups[grep("num aligned pairs",
+        dagchainer.groups)]
+    dagchainer.groups.len <- as.numeric(stringr::str_split_fixed(
+        stringr::str_split_fixed(dagchainer.groups,
+        "num aligned pairs: ", 2)[, 2],"\\)", 2)[, 1])
+    dagchainer.groups.chr1 <- stringr::str_split_fixed(
+        stringr::str_split_fixed(dagchainer.groups,
+        "alignment ", 2)[, 2]," ", 2)[, 1]
+    dagchainer.groups.chr2 <- stringr::str_split_fixed(
+        stringr::str_split_fixed(dagchainer.groups,
+        "vs. ", 2)[, 2]," ", 2)[, 1]
+    dagchainer.groups.idx <- stringr::str_split_fixed(
+        stringr::str_split_fixed(dagchainer.groups,
+        "Alignment #", 2)[, 2]," ", 2)[, 1]
+    dagchainer.groups.idx.reverse <- grep("(reverse)", dagchainer.groups)
+    dagchainer.groups.id <- paste0(dagchainer.groups.chr1,
+        ":", dagchainer.groups.chr2, ":", dagchainer.groups.idx)
+    dagchainer.groups.id[dagchainer.groups.idx.reverse] <- paste0(
+        dagchainer.groups.id[dagchainer.groups.idx.reverse], ".rev")
+    dagchainer.groups.out <- unlist(apply(cbind(dagchainer.groups.id,
+        dagchainer.groups.len), 1, function(x) rep(x[1], x[2])))
     #if(!selfblast){
-    #  dagchainer.results$gene1.chr <- gsub("AA1:", "", dagchainer.results$gene1.chr)
-    #  dagchainer.results$gene2.chr <- gsub("AA2:", "", dagchainer.results$gene2.chr)
+    #  dagchainer.groups.out <- gsub("AA1:", "", dagchainer.groups.out)
+    #  dagchainer.groups.out <- gsub("AA2:", "", dagchainer.groups.out)
     #}
-    #add gene1.mid and gene2.mid for plotting
+    if(type=="bp"){
+        colnames(dagchainer.results) <- c("gene1.chr", "gene1.seq.id",
+            "gene1.start", "gene1.end", "gene2.chr", "gene2.seq.id",
+            "gene2.start", "gene2.end", "evalue", "score")
+        #if(!selfblast){
+        #  dagchainer.results$gene1.chr <- gsub("AA1:", "",
+        #dagchainer.results$gene1.chr)
+        #  dagchainer.results$gene2.chr <- gsub("AA2:", "",
+        #dagchainer.results$gene2.chr)
+        #}
+        #add gene1.mid and gene2.mid for plotting
+        dagchainer.results <- dagchainer.results %>%
+            dplyr::mutate(gene1.mid=gene1.start+((gene1.end - gene1.start)/2),
+            gene2.mid=gene2.start+((gene2.end - gene2.start)/2)) %>%
+            dplyr::select(gene1.chr, gene1.seq.id, gene1.start, gene1.end,
+            gene1.mid, gene2.chr, gene2.seq.id, gene2.start, gene2.end,
+            gene2.mid, evalue, score)
+        gene1.idx <- rep(NA, length(dagchainer.results$gene1.chr))
+        gene2.idx <- rep(NA, length(dagchainer.results$gene2.chr))
+        #process AA1
+        gene1.chr.AA1.pos <- which(substr(
+            dagchainer.results$gene1.chr, 1, 3)=="AA1")
+        gene2.chr.AA1.pos <- which(substr(
+            dagchainer.results$gene2.chr, 1, 3)=="AA1")
+        if(length(gene1.chr.AA1.pos)>0){
+            gene1.idx[gene1.chr.AA1.pos] <- gene.position.cds1$gene.idx[
+                match(dagchainer.results$gene1.seq.id[gene1.chr.AA1.pos],
+                gene.position.cds1$gene.seq.id)]
+        }
+        if(length(gene2.chr.AA1.pos)>0){
+            gene2.idx[gene2.chr.AA1.pos] <- gene.position.cds1$gene.idx[
+                match(dagchainer.results$gene2.seq.id[gene2.chr.AA1.pos],
+                gene.position.cds1$gene.seq.id)]
+        }
+        #process AA2
+        gene1.chr.AA2.pos <- which(substr(
+            dagchainer.results$gene1.chr, 1, 3)=="AA2")
+        gene2.chr.AA2.pos <- which(substr(
+            dagchainer.results$gene2.chr, 1, 3)=="AA2")
+        if(length(gene1.chr.AA2.pos)>0){
+            gene1.idx[gene1.chr.AA2.pos] <- gene.position.cds2$gene.idx[
+                match(dagchainer.results$gene1.seq.id[gene1.chr.AA2.pos],
+                gene.position.cds2$gene.seq.id)]
+        }
+        if(length(gene2.chr.AA2.pos)>0){
+            gene2.idx[gene2.chr.AA2.pos] <- gene.position.cds2$gene.idx[
+                match(dagchainer.results$gene2.seq.id[gene2.chr.AA2.pos],
+                gene.position.cds2$gene.seq.id)]
+        }
+        dagchainer.results <- dagchainer.results %>%
+            dplyr::mutate(gene1.idx = gene1.idx, gene2.idx = gene2.idx) %>%
+            dplyr::select(gene1.chr, gene1.seq.id, gene1.start, gene1.end,
+            gene1.mid, gene1.idx, gene2.chr, gene2.seq.id, gene2.start,
+            gene2.end, gene2.mid, gene2.idx, evalue, score)
+    }
+    if(type=="idx"){
+        colnames(dagchainer.results) <- c("gene1.chr", "gene1.seq.id",
+            "gene1.idx1", "gene1.idx2", "gene2.chr", "gene2.seq.id",
+            "gene2.idx1", "gene2.idx2", "evalue", "score")
+        #if(!selfblast){
+        #  dagchainer.results$gene1.chr <- gsub("AA1:", "",
+        #dagchainer.results$gene1.chr)
+        #  dagchainer.results$gene2.chr <- gsub("AA2:", "",
+        #dagchainer.results$gene2.chr)
+        #}
+        #add gene1.mid and gene2.mid for plotting
+        dagchainer.results <- dagchainer.results %>%
+            dplyr::mutate(gene1.idx = gene1.idx1, gene2.idx = gene2.idx1) %>%
+            dplyr::select(gene1.chr, gene1.seq.id, gene1.idx1, gene1.idx2,
+            gene1.idx, gene2.chr, gene2.seq.id, gene2.idx1, gene2.idx2,
+            gene2.idx, evalue, score)
+            gene1.start <- rep(NA, length(dagchainer.results$gene1.chr))
+            gene2.start <- rep(NA, length(dagchainer.results$gene2.chr))
+            gene1.end <- rep(NA, length(dagchainer.results$gene1.chr))
+            gene2.end <- rep(NA, length(dagchainer.results$gene2.chr))
+            gene1.mid <- rep(NA, length(dagchainer.results$gene1.chr))
+            gene2.mid <- rep(NA, length(dagchainer.results$gene2.chr))
+            #process AA1
+        gene1.chr.AA1.pos <- which(substr(
+        dagchainer.results$gene1.chr, 1, 3)=="AA1")
+        gene2.chr.AA1.pos <- which(substr(
+        dagchainer.results$gene2.chr, 1, 3)=="AA1")
+        if(length(gene1.chr.AA1.pos)>0){
+            gene1.start[gene1.chr.AA1.pos] <- gene.position.cds1$gene.start[
+                match(dagchainer.results$gene1.seq.id[gene1.chr.AA1.pos],
+                gene.position.cds1$gene.seq.id)]
+            gene1.end[gene1.chr.AA1.pos] <- gene.position.cds1$gene.end[
+                match(dagchainer.results$gene1.seq.id[gene1.chr.AA1.pos],
+                gene.position.cds1$gene.seq.id)]
+            gene1.mid[gene1.chr.AA1.pos] <- gene.position.cds1$gene.mid[
+                match(dagchainer.results$gene1.seq.id[gene1.chr.AA1.pos],
+                gene.position.cds1$gene.seq.id)]
+        }
+        if(length(gene2.chr.AA1.pos)>0){
+            gene2.start[gene2.chr.AA1.pos] <- gene.position.cds1$gene.start[
+                match(dagchainer.results$gene2.seq.id[gene2.chr.AA1.pos],
+                gene.position.cds1$gene.seq.id)]
+            gene2.end[gene2.chr.AA1.pos] <- gene.position.cds1$gene.end[
+                match(dagchainer.results$gene2.seq.id[gene2.chr.AA1.pos],
+                gene.position.cds1$gene.seq.id)]
+            gene2.mid[gene2.chr.AA1.pos] <- gene.position.cds1$gene.mid[
+                match(dagchainer.results$gene2.seq.id[gene2.chr.AA1.pos],
+                gene.position.cds1$gene.seq.id)]
+        }
+        #process AA2
+        gene1.chr.AA2.pos <- which(substr(
+            dagchainer.results$gene1.chr, 1, 3)=="AA2")
+        gene2.chr.AA2.pos <- which(substr(
+            dagchainer.results$gene2.chr, 1, 3)=="AA2")
+        if(length(gene1.chr.AA2.pos)>0){
+            gene1.start[gene1.chr.AA2.pos] <- gene.position.cds2$gene.start[
+                match(dagchainer.results$gene1.seq.id[gene1.chr.AA2.pos],
+                gene.position.cds2$gene.seq.id)]
+            gene1.end[gene1.chr.AA2.pos] <- gene.position.cds2$gene.end[
+                match(dagchainer.results$gene1.seq.id[gene1.chr.AA2.pos],
+                gene.position.cds2$gene.seq.id)]
+            gene1.mid[gene1.chr.AA2.pos] <- gene.position.cds2$gene.mid[
+                match(dagchainer.results$gene1.seq.id[gene1.chr.AA2.pos],
+                gene.position.cds2$gene.seq.id)]
+        }
+        if(length(gene2.chr.AA2.pos)>0){
+            gene2.start[gene2.chr.AA2.pos] <- gene.position.cds2$gene.start[
+                match(dagchainer.results$gene2.seq.id[gene2.chr.AA2.pos],
+                gene.position.cds2$gene.seq.id)]
+            gene2.end[gene2.chr.AA2.pos] <- gene.position.cds2$gene.end[
+                match(dagchainer.results$gene2.seq.id[gene2.chr.AA2.pos],
+                gene.position.cds2$gene.seq.id)]
+            gene2.mid[gene2.chr.AA2.pos] <- gene.position.cds2$gene.mid[
+                match(dagchainer.results$gene2.seq.id[gene2.chr.AA2.pos],
+                gene.position.cds2$gene.seq.id)]
+        }
+        dagchainer.results <- dagchainer.results %>%
+            dplyr::mutate(gene1.start=gene1.start,
+            gene2.start=gene2.start,
+            gene1.end=gene1.end,
+            gene2.end=gene2.end,
+            gene1.mid=gene1.mid,
+            gene2.mid=gene2.mid) %>%
+            dplyr::select(gene1.chr, gene1.seq.id, gene1.start, gene1.end,
+            gene1.mid, gene1.idx, gene2.chr, gene2.seq.id, gene2.start,
+            gene2.end, gene2.mid, gene2.idx, evalue, score)
+    }
+    #add dagchainer group
     dagchainer.results <- dagchainer.results %>%
-      dplyr::mutate(gene1.mid = gene1.start + ((gene1.end - gene1.start)/2),
-                    gene2.mid = gene2.start + ((gene2.end - gene2.start)/2)) %>%
-      dplyr::select(gene1.chr, gene1.seq.id, gene1.start, gene1.end, gene1.mid,
-                    gene2.chr, gene2.seq.id, gene2.start, gene2.end, gene2.mid,
-                    evalue, score)
-    gene1.idx <- rep(NA, length(dagchainer.results$gene1.chr))
-    gene2.idx <- rep(NA, length(dagchainer.results$gene2.chr))
-    #process AA1
-    gene1.chr.AA1.pos <- which(substr(dagchainer.results$gene1.chr, 1, 3)=="AA1")
-    gene2.chr.AA1.pos <- which(substr(dagchainer.results$gene2.chr, 1, 3)=="AA1")
-    if(length(gene1.chr.AA1.pos)>0){
-        gene1.idx[gene1.chr.AA1.pos] <- gene.position.cds1$gene.idx[
-            match(dagchainer.results$gene1.seq.id[gene1.chr.AA1.pos],
-            gene.position.cds1$gene.seq.id)]
+        dplyr::mutate(dagchainer_group=dagchainer.groups.out)
+    attr(dagchainer.results, "CRBHits.class") <- "dagchainer"
+    attr(dagchainer.results, "selfblast") <- selfblast
+    if(!is.null(selfblast1) | !is.null(selfblast2)){
+        attr(dagchainer.results, "selfblast") <- TRUE
     }
-    if(length(gene2.chr.AA1.pos)>0){
-        gene2.idx[gene2.chr.AA1.pos] <- gene.position.cds1$gene.idx[
-            match(dagchainer.results$gene2.seq.id[gene2.chr.AA1.pos],
-            gene.position.cds1$gene.seq.id)]
+    if(plotDotPlot){
+        print(plot_dagchainer(dagchainer.results,
+            DotPlotTitle=DotPlotTitle,
+            colorBy=colorBy,
+            kaks=kaks,
+            ka.max=ka.max,
+            ks.max=ks.max,
+            ka.min=ka.min,
+            ks.min=ks.min,
+            select.chr=select.chr))
     }
-    #process AA2
-    gene1.chr.AA2.pos <- which(substr(dagchainer.results$gene1.chr, 1, 3)=="AA2")
-    gene2.chr.AA2.pos <- which(substr(dagchainer.results$gene2.chr, 1, 3)=="AA2")
-    if(length(gene1.chr.AA2.pos)>0){
-        gene1.idx[gene1.chr.AA2.pos] <- gene.position.cds2$gene.idx[
-            match(dagchainer.results$gene1.seq.id[gene1.chr.AA2.pos],
-            gene.position.cds2$gene.seq.id)]
-    }
-    if(length(gene2.chr.AA2.pos)>0){
-        gene2.idx[gene2.chr.AA2.pos] <- gene.position.cds2$gene.idx[
-            match(dagchainer.results$gene2.seq.id[gene2.chr.AA2.pos],
-            gene.position.cds2$gene.seq.id)]
-    }
-    dagchainer.results <- dagchainer.results %>%
-      dplyr::mutate(gene1.idx = gene1.idx,
-                    gene2.idx = gene2.idx) %>%
-      dplyr::select(gene1.chr, gene1.seq.id, gene1.start, gene1.end, gene1.mid, gene1.idx,
-                    gene2.chr, gene2.seq.id, gene2.start, gene2.end, gene2.mid, gene2.idx,
-                    evalue, score)
-  }
-  if(type == "idx"){
-    colnames(dagchainer.results) <- c("gene1.chr", "gene1.seq.id", "gene1.idx1", "gene1.idx2",
-                                      "gene2.chr", "gene2.seq.id", "gene2.idx1", "gene2.idx2",
-                                      "evalue", "score")
-    #if(!selfblast){
-    #  dagchainer.results$gene1.chr <- gsub("AA1:", "", dagchainer.results$gene1.chr)
-    #  dagchainer.results$gene2.chr <- gsub("AA2:", "", dagchainer.results$gene2.chr)
-    #}
-    #add gene1.mid and gene2.mid for plotting
-    dagchainer.results <- dagchainer.results %>%
-      dplyr::mutate(gene1.idx = gene1.idx1,
-                    gene2.idx = gene2.idx1) %>%
-      dplyr::select(gene1.chr, gene1.seq.id, gene1.idx1, gene1.idx2, gene1.idx,
-                    gene2.chr, gene2.seq.id, gene2.idx1, gene2.idx2, gene2.idx,
-                    evalue, score)
-    gene1.start <- rep(NA, length(dagchainer.results$gene1.chr))
-    gene2.start <- rep(NA, length(dagchainer.results$gene2.chr))
-    gene1.end <- rep(NA, length(dagchainer.results$gene1.chr))
-    gene2.end <- rep(NA, length(dagchainer.results$gene2.chr))
-    gene1.mid <- rep(NA, length(dagchainer.results$gene1.chr))
-    gene2.mid <- rep(NA, length(dagchainer.results$gene2.chr))
-    #process AA1
-    gene1.chr.AA1.pos <- which(substr(dagchainer.results$gene1.chr, 1, 3)=="AA1")
-    gene2.chr.AA1.pos <- which(substr(dagchainer.results$gene2.chr, 1, 3)=="AA1")
-    if(length(gene1.chr.AA1.pos)>0){
-        gene1.start[gene1.chr.AA1.pos] <- gene.position.cds1$gene.start[
-            match(dagchainer.results$gene1.seq.id[gene1.chr.AA1.pos],
-            gene.position.cds1$gene.seq.id)]
-        gene1.end[gene1.chr.AA1.pos] <- gene.position.cds1$gene.end[
-            match(dagchainer.results$gene1.seq.id[gene1.chr.AA1.pos],
-            gene.position.cds1$gene.seq.id)]
-        gene1.mid[gene1.chr.AA1.pos] <- gene.position.cds1$gene.mid[
-            match(dagchainer.results$gene1.seq.id[gene1.chr.AA1.pos],
-            gene.position.cds1$gene.seq.id)]
-    }
-    if(length(gene2.chr.AA1.pos)>0){
-        gene2.start[gene2.chr.AA1.pos] <- gene.position.cds1$gene.start[
-            match(dagchainer.results$gene2.seq.id[gene2.chr.AA1.pos],
-            gene.position.cds1$gene.seq.id)]
-        gene2.end[gene2.chr.AA1.pos] <- gene.position.cds1$gene.end[
-            match(dagchainer.results$gene2.seq.id[gene2.chr.AA1.pos],
-            gene.position.cds1$gene.seq.id)]
-        gene2.mid[gene2.chr.AA1.pos] <- gene.position.cds1$gene.mid[
-            match(dagchainer.results$gene2.seq.id[gene2.chr.AA1.pos],
-            gene.position.cds1$gene.seq.id)]
-    }
-    #process AA2
-    gene1.chr.AA2.pos <- which(substr(dagchainer.results$gene1.chr, 1, 3)=="AA2")
-    gene2.chr.AA2.pos <- which(substr(dagchainer.results$gene2.chr, 1, 3)=="AA2")
-    if(length(gene1.chr.AA2.pos)>0){
-        gene1.start[gene1.chr.AA2.pos] <- gene.position.cds2$gene.start[
-            match(dagchainer.results$gene1.seq.id[gene1.chr.AA2.pos],
-            gene.position.cds2$gene.seq.id)]
-        gene1.end[gene1.chr.AA2.pos] <- gene.position.cds2$gene.end[
-            match(dagchainer.results$gene1.seq.id[gene1.chr.AA2.pos],
-            gene.position.cds2$gene.seq.id)]
-        gene1.mid[gene1.chr.AA2.pos] <- gene.position.cds2$gene.mid[
-            match(dagchainer.results$gene1.seq.id[gene1.chr.AA2.pos],
-            gene.position.cds2$gene.seq.id)]
-    }
-    if(length(gene2.chr.AA2.pos)>0){
-        gene2.start[gene2.chr.AA2.pos] <- gene.position.cds2$gene.start[
-            match(dagchainer.results$gene2.seq.id[gene2.chr.AA2.pos],
-            gene.position.cds2$gene.seq.id)]
-        gene2.end[gene2.chr.AA2.pos] <- gene.position.cds2$gene.end[
-            match(dagchainer.results$gene2.seq.id[gene2.chr.AA2.pos],
-            gene.position.cds2$gene.seq.id)]
-        gene2.mid[gene2.chr.AA2.pos] <- gene.position.cds2$gene.mid[
-            match(dagchainer.results$gene2.seq.id[gene2.chr.AA2.pos],
-            gene.position.cds2$gene.seq.id)]
-    }
-    dagchainer.results <- dagchainer.results %>%
-      dplyr::mutate(gene1.start = gene1.start,
-                    gene2.start = gene2.start,
-                    gene1.end = gene1.end,
-                    gene2.end = gene2.end,
-                    gene1.mid = gene1.mid,
-                    gene2.mid = gene2.mid) %>%
-      dplyr::select(gene1.chr, gene1.seq.id, gene1.start, gene1.end, gene1.mid, gene1.idx,
-                    gene2.chr, gene2.seq.id, gene2.start, gene2.end, gene2.mid, gene2.idx,
-                    evalue, score)
-  }
-  #add dagchainer group
-  dagchainer.results <- dagchainer.results %>%
-    dplyr::mutate(dagchainer_group = dagchainer.groups.out)
-  attr(dagchainer.results, "CRBHits.class") <- "dagchainer"
-  attr(dagchainer.results, "selfblast") <- selfblast
-  if(!is.null(selfblast1) | !is.null(selfblast2)){
-    attr(dagchainer.results, "selfblast") <- TRUE
-  }
-  if(plotDotPlot){
-    print(plot_dagchainer(dagchainer.results, DotPlotTitle = DotPlotTitle,
-                    colorBy = colorBy, kaks = kaks,
-                    ka.max = ka.max, ks.max = ks.max,
-                    ka.min = ka.min, ks.min = ks.min,
-                    select.chr = select.chr))
-  }
-  return(dagchainer.results)
+    return(dagchainer.results)
 }

@@ -9,11 +9,14 @@ subString(x, s, e)
 \arguments{
 \item{x}{\code{DNAStringSet}, \code{RNAString}, \code{AAString},
 \code{BString}, \code{DNAStringSet}, \code{RNAStringSet},
-\code{AAStringSet}, \code{BStringSet}}
+\code{AAStringSet}, \code{BStringSet} [mandatory]}
 
-\item{s}{start vector}
+\item{s}{start vector [mandatory]}
 
-\item{e}{end vector}
+\item{e}{end vector [mandatory]}
+}
+\value{
+subsequence of an \code{Biostrings} object
 }
 \description{
 This function gets a subsequence from a \code{DNAString},
@@ -24,8 +27,9 @@ object from the \code{Biostrings} package.
 \examples{
 ## define two cds sequences
 cds1 <- Biostrings::DNAString("ATGCAACATTGC")
-cds2 <- Biostrings::DNAString("ATGCATTGC")
-cds1.cds2.aln <- cds2codonaln(cds1, cds2)
+cds2 <- Biostrings::DNAString("ATG---CATTGC")
+cds1.cds2.aln <- c(Biostrings::DNAStringSet(cds1),
+    Biostrings::DNAStringSet(cds2))
 subString(cds1.cds2.aln, c(1,7), c(3,12))
 }
 \seealso{

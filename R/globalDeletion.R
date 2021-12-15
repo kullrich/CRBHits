@@ -4,6 +4,7 @@
 #' sites containing any gaps ("-", "+", ".") or missing ("N") sites.
 #' @importFrom Biostrings consensusMatrix
 #' @param dna \code{DNAStringSet}
+#' @return \code{DNAStringSet}
 #' @export globalDeletion
 #' @author Kristian K Ullrich
 globalDeletion<-function(dna){

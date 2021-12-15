@@ -1,7 +1,8 @@
 #' @title make_vignette
 #' @name make_vignette
-#' @description This function tries to build the prerequisite last-1256 and
-#' KaKs_calculator2.0 from source code forked within CRBHits
+#' @description This function tries to build the prerequisite last-1256,
+#' KaKs_calculator2.0 and DAGchainer from source code forked within CRBHits
+#' @return path of prerequisites
 #' @references Kiełbasa SM et al. (2011) Adaptive seeds tame genomic sequence
 #' comparison. \bold{Genome Res.} \bold{21} \bold{(3)}, 487-93.
 #' @references Wang D, Zhang Y et al. (2010) KaKs_Calculator 2.0: a toolkit
@@ -16,18 +17,22 @@
 make_vignette <- function(){
     CRBHits_root <- system.file(package="CRBHits")
     LastTempDir <- tempdir()
-    system(paste0("unzip -o ", CRBHits_root, "/extdata/last-1256.zip -d ",
-        LastTempDir))
-    system(paste0("cd ", LastTempDir, "/last-1256/; make"))
+    system2(command="unzip", args=c("-o",
+        paste0(CRBHits_root, "/extdata/last-1256.zip"), "-d", LastTempDir))
+    system2(command="cd", args=paste0(LastTempDir, "/last-1256/"))
+    system2("make")
     KaKsCalcTempDir <- tempdir()
-    system(paste0("tar -C ", KaKsCalcTempDir, " -xvf ", CRBHits_root,
-        "/extdata/KaKs_Calculator2.0.tar.gz"))
-    system(paste0("cd ", KaKsCalcTempDir,
-        "/KaKs_Calculator2.0/src/; make clean; make"))
+    system2(command="tar", args=c("-C", KaKsCalcTempDir, "-xvf",
+        paste0(CRBHits_root, "/extdata/KaKs_Calculator2.0.tar.gz")))
+    system2(command="cd", args=paste0(KaKsCalcTempDir,
+        "/KaKs_Calculator2.0/src/"))
+    system2(command="make", args = "clean")
+    system2("make")
     DAGchainerTempDir <- tempdir()
-    system(paste0("unzip -o ", CRBHits_root, "/extdata/dagchainer.zip -d ",
-        DAGchainerTempDir))
-    system(paste0("cd ", DAGchainerTempDir, "/dagchainer/; make"))
+    system2(command="unzip", args=c("-o", paste0(CRBHits_root,
+        "/extdata/dagchainer.zip"), "-d", DAGchainerTempDir))
+    system2(command="cd", args=paste0(DAGchainerTempDir, "/dagchainer/"))
+    system2("make")
     return(c(
         paste0(LastTempDir, "/last-1256/bin/"),
         paste0(KaKsCalcTempDir, "/KaKs_Calculator2.0/src/"),

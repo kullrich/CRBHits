@@ -87,12 +87,12 @@ longest isoform (only possible if data was accessed from NCBI or ENSEMBL)
 \item{remove}{specify if last result files should be removed [default: TRUE]}
 }
 \value{
-List of three (crbh = FALSE)\cr
+List of three (crbh=FALSE)\cr
 1: $crbh.pairs\cr
 2: $crbh1 matrix; query > target\cr
 3: $crbh2 matrix; target > query\cr
 \cr
-List of four (crbh = TRUE)\cr
+List of four (crbh=TRUE)\cr
 1: $crbh.pairs\cr
 2: $crbh1 matrix; query > target\cr
 3: $crbh2 matrix; target > query\cr

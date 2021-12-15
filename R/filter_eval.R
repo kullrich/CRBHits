@@ -24,5 +24,5 @@ filter_eval <- function(rbh, eval=1e-3, inverse=FALSE){
     } else {
         #return(rbh[as.numeric(rbh[,11])<=evalue, , drop=FALSE])
         return(dplyr::filter(rbh, evalue<=eval))
-  }
+    }
 }

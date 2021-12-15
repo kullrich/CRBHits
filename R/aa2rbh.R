@@ -36,12 +36,12 @@
 #' @param fit.min specify minimum neighborhood alignment length [default: 5]
 #' @param threads number of parallel threads [default: 1]
 #' @param remove specify if last result files should be removed [default: TRUE]
-#' @return List of three (crbh = FALSE)\cr
+#' @return List of three (crbh=FALSE)\cr
 #' 1: $crbh.pairs\cr
 #' 2: $crbh1 matrix; query > target\cr
 #' 3: $crbh2 matrix; target > query\cr
 #' \cr
-#' List of four (crbh = TRUE)\cr
+#' List of four (crbh=TRUE)\cr
 #' 1: $crbh.pairs\cr
 #' 2: $crbh1 matrix; query > target\cr
 #' 3: $crbh2 matrix; target > query\cr
@@ -103,42 +103,42 @@ aa2rbh <- function(aa1, aa2,
     fit.min=5,
     threads=1,
     remove=TRUE){
-        #internal function to fit evalue by length
-        fitSpline <- function(alnlength, evalue, fit.type, fit.varweight,
+    #internal function to fit evalue by length
+    fitSpline <- function(alnlength, evalue, fit.type, fit.varweight,
         fit.min){
-            log10evalue <- -log10(evalue)
-            log10evalue[is.infinite(log10evalue)] <- 324
-            x <- cbind(alnlength, log10evalue)
-            x <- x[order(x[, 1]), ]
-            x.max <- max(x[, 1])
-            fitMatrix <- matrix(0, ncol=2, nrow=x.max)
-            for(i in seq(from=1, to=x.max)){
-                fitMatrix[i, 1] <- i
-                s <- round(i * fit.varweight)
-                if(s < fit.min){s <- fit.min}
-                smin <- i - s
-                smax <- i + s
-                s.idx <- which(x[, 1]>=smin & x[, 1]<=smax)
-                if(length(s.idx)==0){s.value <- 0}
-                if(length(s.idx)!=0){
-                    if(fit.type=="mean"){
-                        s.value <- mean(x[s.idx, 2])
-                    }
-                    if(fit.type=="median"){
-                        s.value <- median(x[s.idx, 2])
-                    }
+        log10evalue <- -log10(evalue)
+        log10evalue[is.infinite(log10evalue)] <- 324
+        x <- cbind(alnlength, log10evalue)
+        x <- x[order(x[, 1]), ]
+        x.max <- max(x[, 1])
+        fitMatrix <- matrix(0, ncol=2, nrow=x.max)
+        for(i in seq(from=1, to=x.max)){
+            fitMatrix[i, 1] <- i
+            s <- round(i * fit.varweight)
+            if(s < fit.min){s <- fit.min}
+            smin <- i - s
+            smax <- i + s
+            s.idx <- which(x[, 1]>=smin & x[, 1]<=smax)
+            if(length(s.idx)==0){s.value <- 0}
+            if(length(s.idx)!=0){
+                if(fit.type=="mean"){
+                    s.value <- mean(x[s.idx, 2])
                 }
-                if(i==1){
+                if(fit.type=="median"){
+                    s.value <- median(x[s.idx, 2])
+                }
+            }
+            if(i==1){
+                fitMatrix[i, 2] <- s.value
+            }
+            if(i>1){
+                if(fitMatrix[i-1, 2]<=s.value){
                     fitMatrix[i, 2] <- s.value
                 }
-                if(i>1){
-                    if(fitMatrix[i-1, 2]<=s.value){
-                        fitMatrix[i, 2] <- s.value
-                    }
-                    if(fitMatrix[i-1, 2]>s.value){
-                        fitMatrix[i, 2] <- fitMatrix[i-1, 2]
-                    }
-              }
+                if(fitMatrix[i-1, 2]>s.value){
+                    fitMatrix[i, 2] <- fitMatrix[i-1, 2]
+                }
+            }
         }
         fitMatrixfun <- splinefun(fitMatrix[, 1], fitMatrix[, 2])
         return(fitMatrixfun)
@@ -170,16 +170,18 @@ aa2rbh <- function(aa1, aa2,
     aa1_aa2_lastout <- tempfile("aa1_aa2_lastout_", outpath)
     names(aa1) <- stringr::str_split_fixed(names(aa1), " ", 2)[, 1]
     names(aa2) <- stringr::str_split_fixed(names(aa2), " ", 2)[, 1]
-    Biostrings::writeXStringSet(aa1, file = aa1file)
-    Biostrings::writeXStringSet(aa2, file = aa2file)
-    system(paste0(lastpath, "lastdb -p -cR01 -P ", threads," ", aa1dbfile, " ",
-        aa1file))
-    system(paste0(lastpath, "lastdb -p -cR01 -P ", threads," ", aa2dbfile, " ",
-        aa2file))
-    system(paste0(lastpath, "lastal -f BlastTab+ -P ", threads, " -D", lastD,
-        " ", aa1dbfile, " ", aa2file, " > ", aa2_aa1_lastout))
-    system(paste0(lastpath, "lastal -f BlastTab+ -P ", threads, " -D", lastD,
-        " ", aa2dbfile, " ", aa1file, " > ", aa1_aa2_lastout))
+    Biostrings::writeXStringSet(aa1, file=aa1file)
+    Biostrings::writeXStringSet(aa2, file=aa2file)
+    system2(command=paste0(lastpath, "lastdb"),
+        args = c("-p", "-cR01",  "-P", threads, aa1dbfile, aa1file))
+    system2(command=paste0(lastpath, "lastdb"),
+        args = c("-p", "-cR01", "-P", threads, aa2dbfile, aa2file))
+    system2(command=paste0(lastpath, "lastal"),
+        args = c("-f", "BlastTab+", "-P", threads, "-D", lastD, aa1dbfile,
+        aa2file, ">", aa2_aa1_lastout))
+    system2(command=paste0(lastpath, "lastal"),
+        args = c("-f", "BlastTab+", "-P", threads, "-D", lastD, aa2dbfile,
+        aa1file, ">", aa1_aa2_lastout))
     aa1_aa2 <- read.table(aa1_aa2_lastout, sep="\t", header=FALSE,
         stringsAsFactors=FALSE)
     aa2_aa1 <- read.table(aa2_aa1_lastout, sep="\t", header=FALSE,
@@ -189,12 +191,12 @@ aa2rbh <- function(aa1, aa2,
         "q_start", "q_end", "s_start", "s_end", "evalue", "bit_score",
         "query_length", "subject_length", "raw_score")
     if(remove){
-        system(paste0("rm ", aa1file))
-        system(paste0("rm ", aa2file))
-        system(paste0("rm ", aa1dbfile, "*"))
-        system(paste0("rm ", aa2dbfile, "*"))
-        system(paste0("rm ", aa2_aa1_lastout))
-        system(paste0("rm ", aa1_aa2_lastout))
+        system2(command="rm", args = aa1file)
+        system2(command="rm", args = aa2file)
+        system2(command="rm", args = paste0(aa1dbfile, "*"))
+        system2(command="rm", args = paste0(aa2dbfile, "*"))
+        system2(command="rm", args = aa2_aa1_lastout)
+        system2(command="rm", args = aa1_aa2_lastout)
     }
     #selfblast
     if(selfblast){
@@ -236,14 +238,14 @@ aa2rbh <- function(aa1, aa2,
     rbh2 <- aa2_aa1.dedup[which(aa2_aa1.dedup.idx %in% aa1_aa2.dedup.idx), ,
         drop=FALSE]
     if(selfblast){
-        rbh1 <- rbh1[!duplicated(apply(rbh1[, 1:2], 1,
+        rbh1 <- rbh1[!duplicated(apply(rbh1[, seq_len(2)], 1,
             function(x) paste0(sort(x), collapse="\t"))), , drop=FALSE]
-        rbh2 <- rbh2[!duplicated(apply(rbh2[, 1:2], 1,
+        rbh2 <- rbh2[!duplicated(apply(rbh2[, seq_len(2)], 1,
             function(x) paste0(sort(x), collapse="\t"))), , drop=FALSE]
     }
     #if no crbh - done
     if(!crbh){
-        rbh <- rbh1[, 1:2]
+        rbh <- rbh1[, seq_len(2)]
         rbh <- cbind(rbh, "rbh")
         colnames(rbh) <- c("aa1", "aa2", "rbh_class")
         out <- list(rbh, cbind(rbh1, "rbh"), cbind(rbh2, "rbh"))
@@ -254,14 +256,14 @@ aa2rbh <- function(aa1, aa2,
             attr(out, "keepSingleDirection") <- FALSE
             attr(out, "selfblast") <- selfblast
             return(out)
-      }
-      if(selfblast){
-          attr(out, "CRBHits.class") <- "crbh"
-          attr(out, "crbh") <- FALSE
-          attr(out, "keepSingleDirection") <- FALSE
-          attr(out, "selfblast") <- selfblast
-          return(out)
-      }
+        }
+        if(selfblast){
+            attr(out, "CRBHits.class") <- "crbh"
+            attr(out, "crbh") <- FALSE
+            attr(out, "keepSingleDirection") <- FALSE
+            attr(out, "selfblast") <- selfblast
+            return(out)
+        }
     }
     #if crbh - continue
     if(crbh){
@@ -329,77 +331,83 @@ aa2rbh <- function(aa1, aa2,
             which(aa2_aa1.red.dedup.idx %in% aa1_aa2.red.dedup.idx), ,
             drop=FALSE]
         if(selfblast){
-            rbh1.sec <- rbh1.sec[!duplicated(apply(rbh1.sec[, 1:2], 1, function(x) paste0(sort(x), collapse="\t"))), , drop = FALSE]
-            rbh2.sec <- rbh2.sec[!duplicated(apply(rbh2.sec[, 1:2], 1, function(x) paste0(sort(x), collapse="\t"))), , drop = FALSE]
+            rbh1.sec <- rbh1.sec[!duplicated(apply(rbh1.sec[, seq_len(2)], 1,
+                function(x) paste0(sort(x), collapse="\t"))), , drop=FALSE]
+            rbh2.sec <- rbh2.sec[!duplicated(apply(rbh2.sec[, seq_len(2)], 1,
+                function(x) paste0(sort(x), collapse="\t"))), , drop=FALSE]
         }
-        single1 <- aa1_aa2.red.dedup[which(!aa1_aa2.red.dedup.idx %in% aa2_aa1.red.dedup.idx), , drop = FALSE]
-        single2 <- aa2_aa1.red.dedup[which(!aa2_aa1.red.dedup.idx %in% aa1_aa2.red.dedup.idx), , drop = FALSE]
+        single1 <- aa1_aa2.red.dedup[which(!aa1_aa2.red.dedup.idx %in%
+            aa2_aa1.red.dedup.idx), , drop=FALSE]
+        single2 <- aa2_aa1.red.dedup[which(!aa2_aa1.red.dedup.idx %in%
+        aa1_aa2.red.dedup.idx), , drop=FALSE]
         #if plotCurve plot fitting
         if(plotCurve){
             len <- rbh1[, 4]
             log10alnlen <- log10(len)
             minuslog10evalue <- -log10(rbh1[, 11])
             minuslog10evalue[is.infinite(minuslog10evalue)] <- 324
-            plot(x = log10alnlen, y = minuslog10evalue,
-                pch = 20,
-                main = "Accept / Reject secondary hits as homologs",
-                ylab = "-log10(evalue)",
-                xlab = "log10(alnlength)",
-                col = col2transparent("#8EBCB5", 50),
-                cex = 0.75)
-            points(x = log10(rbh1.sec[, 4]), y = -log10(rbh1.sec[, 11]),
-                pch = 21,
-                bg = col2transparent("#4D83AB", 25),
-                cex = 1)
-            points(x = log10(single1[, 4]), y = -log10(single1[, 11]),
-                pch = 21,
-                bg = col2transparent("#CBC106", 25),
-                cex = 1)
+            plot(x=log10alnlen, y=minuslog10evalue,
+                pch=20,
+                main="Accept / Reject secondary hits as homologs",
+                ylab="-log10(evalue)",
+                xlab="log10(alnlength)",
+                col=col2transparent("#8EBCB5", 50),
+                cex=0.75)
+            points(x=log10(rbh1.sec[, 4]), y=-log10(rbh1.sec[, 11]),
+                pch=21,
+                bg=col2transparent("#4D83AB", 25),
+                cex=1)
+            points(x=log10(single1[, 4]), y=-log10(single1[, 11]),
+                pch=21,
+                bg=col2transparent("#CBC106", 25),
+                cex=1)
             if(selfblast){
-                points(x = log10(1:max(rbh1[, 4])),
-                    y = rbh1_rbh2_fit(seq(from = 1, to = max(rbh1[, 4]))),
-                    type = "l",
-                    lwd = 2,
-                    col = "#9E163C")
+                points(x=log10(seq_len(max(rbh1[, 4]))),
+                    y=rbh1_rbh2_fit(seq(from=1, to=max(rbh1[, 4]))),
+                    type="l",
+                    lwd=2,
+                    col="#9E163C")
                 legend("bottomright",
-                    legend = c("rbh", "sec", "single"),
-                    col = c("#8EBCB5", col2transparent("#4D83AB", 25),
-                    col2transparent("#CBC106", 25)), bty = "n", pch = 20)
+                    legend=c("rbh", "sec", "single"),
+                    col=c("#8EBCB5", col2transparent("#4D83AB", 25),
+                    col2transparent("#CBC106", 25)), bty="n", pch=20)
             }
             if(!selfblast){
-                points(x = log10(single2[, 4]), y = -log10(single2[, 11]),
-                    pch = 21,
-                    bg = col2transparent("#CB7B26", 25),
-                    cex = 1)
-                points(x = log10(1:max(rbh1[, 4])),
-                    y = rbh1_rbh2_fit(seq(from = 1, to = max(rbh1[, 4]))),
-                    type = "l",
-                    lwd = 2,
-                    col = "#9E163C")
+                points(x=log10(single2[, 4]), y=-log10(single2[, 11]),
+                    pch=21,
+                    bg=col2transparent("#CB7B26", 25),
+                    cex=1)
+                points(x=log10(seq_len(max(rbh1[, 4]))),
+                    y=rbh1_rbh2_fit(seq(from=1, to=max(rbh1[, 4]))),
+                    type="l",
+                    lwd=2,
+                    col="#9E163C")
                 legend("bottomright",
-                    legend = c("rbh", "sec", "single1", "single2"),
-                    col = c("#8EBCB5", col2transparent("#4D83AB", 25),
+                    legend=c("rbh", "sec", "single1", "single2"),
+                    col=c("#8EBCB5", col2transparent("#4D83AB", 25),
                         col2transparent("#CBC106", 25),
-                        col2transparent("#CB7B26", 25)), bty = "n", pch = 20)
+                        col2transparent("#CB7B26", 25)), bty="n", pch=20)
             }
         }
         #if no keepSingleDirection - done
         if(!keepSingleDirection){
-            if(dim(rbh1.sec)[1] == 0){
+            if(dim(rbh1.sec)[1]==0){
                 crbh1 <- data.frame(Map(c ,cbind(rbh1, "rbh")))
                 colnames(crbh1)[16] <- "rbh_class"
             } else{
-                crbh1 <- data.frame(Map(c ,cbind(rbh1, "rbh"), cbind(rbh1.sec[, 1:15], "sec")))
+                crbh1 <- data.frame(Map(c ,cbind(rbh1, "rbh"),
+                    cbind(rbh1.sec[, seq_len(15)], "sec")))
                 colnames(crbh1)[16] <- "rbh_class"
             }
-            if(dim(rbh2.sec)[1] == 0){
+            if(dim(rbh2.sec)[1]==0){
                 crbh2 <- data.frame(Map(c ,cbind(rbh2, "rbh")))
                 colnames(crbh2)[16] <- "rbh_class"
             } else{
-                crbh2 <- data.frame(Map(c ,cbind(rbh2, "rbh"), cbind(rbh2.sec[, 1:15], "sec")))
+                crbh2 <- data.frame(Map(c ,cbind(rbh2, "rbh"),
+                    cbind(rbh2.sec[, seq_len(15)], "sec")))
                 colnames(crbh2)[16] <- "rbh_class"
             }
-            crbh <- crbh1[, c(1:2,16)]
+            crbh <- crbh1[, c(seq_len(2), 16)]
             colnames(crbh) <- c("aa1", "aa2", "rbh_class")
             out <- list(crbh, crbh1, crbh2, rbh1_rbh2_fit)
             names(out) <- c("crbh.pairs", "crbh1", "crbh2", "rbh1_rbh2_fit")
@@ -411,37 +419,48 @@ aa2rbh <- function(aa1, aa2,
         }
         #if keepSingleDirection - include single - done
         if(keepSingleDirection){
-            if(dim(rbh1.sec)[1] == 0 & dim(single1)[1] == 0){
+            if(dim(rbh1.sec)[1]==0 & dim(single1)[1]==0){
                 crbh1 <- data.frame(Map(c, cbind(rbh1, "rbh")))
                 colnames(crbh1)[16] <- "rbh_class"
             }
-            if(dim(rbh1.sec)[1] != 0 & dim(single1)[1] == 0){
-                crbh1 <- data.frame(Map(c, cbind(rbh1, "rbh"), cbind(rbh1.sec[, 1:15], "sec")))
+            if(dim(rbh1.sec)[1]!=0 & dim(single1)[1]==0){
+                crbh1 <- data.frame(Map(c, cbind(rbh1, "rbh"),
+                    cbind(rbh1.sec[, seq_len(15)], "sec")))
                 colnames(crbh1)[16] <- "rbh_class"
             }
-            if(dim(rbh1.sec)[1] == 0 & dim(single1)[1] != 0){
-                crbh1 <- data.frame(Map(c, cbind(rbh1, "rbh"), cbind(single1[, 1:15], "single")))
+            if(dim(rbh1.sec)[1]==0 & dim(single1)[1]!=0){
+                crbh1 <- data.frame(Map(c, cbind(rbh1, "rbh"),
+                    cbind(single1[, seq_len(15)], "single")))
                 colnames(crbh1)[16] <- "rbh_class"
             } else{
-                crbh1 <- data.frame(Map(c, cbind(rbh1, "rbh"), cbind(rbh1.sec[, 1:15], "sec"), cbind(single1[, 1:15], "single")))
+                crbh1 <- data.frame(Map(c, cbind(rbh1, "rbh"),
+                    cbind(rbh1.sec[, seq_len(15)], "sec"),
+                    cbind(single1[, seq_len(15)],
+                    "single")))
                 colnames(crbh1)[16] <- "rbh_class"
             }
-            if(dim(rbh2.sec)[1] == 0 & dim(single2)[1] == 0){
+            if(dim(rbh2.sec)[1]==0 & dim(single2)[1]==0){
                 crbh2 <- data.frame(Map(c, cbind(rbh2, "rbh")))
                 colnames(crbh2)[16] <- "rbh_class"
             }
-            if(dim(rbh2.sec)[1] != 0 & dim(single2)[1] == 0){
-                crbh2 <- data.frame(Map(c, cbind(rbh2, "rbh"), cbind(rbh2.sec[, 1:15], "sec")))
+            if(dim(rbh2.sec)[1]!=0 & dim(single2)[1]==0){
+                crbh2 <- data.frame(Map(c, cbind(rbh2, "rbh"),
+                    cbind(rbh2.sec[, seq_len(15)], "sec")))
                 colnames(crbh2)[16] <- "rbh_class"
             }
-            if(dim(rbh2.sec)[1] == 0 & dim(single2)[1] != 0){
-                crbh2 <- data.frame(Map(c, cbind(rbh2, "rbh"), cbind(single2[, 1:15], "single")))
+            if(dim(rbh2.sec)[1]==0 & dim(single2)[1]!=0){
+                crbh2 <- data.frame(Map(c, cbind(rbh2, "rbh"),
+                    cbind(single2[, seq_len(15)], "single")))
                 colnames(crbh2)[16] <- "rbh_class"
             } else{
-                crbh2 <- data.frame(Map(c, cbind(rbh2, "rbh"), cbind(rbh2.sec[, 1:15], "sec"), cbind(single2[, 1:15], "single")))
+                crbh2 <- data.frame(Map(c, cbind(rbh2, "rbh"),
+                    cbind(rbh2.sec[, seq_len(15)], "sec"),
+                    cbind(single2[, seq_len(15)],
+                    "single")))
                 colnames(crbh2)[16] <- "rbh_class"
             }
-            crbh <- data.frame(Map(c, crbh1[, c(1:2,16)], single1[, c(1:2,16)], single2[, c(2,1,16)]))
+            crbh <- data.frame(Map(c, crbh1[, c(seq_len(2), 16)],
+                single1[, c(seq_len(2), 16)], single2[, c(2,1, 16)]))
             colnames(crbh) <- c("aa1", "aa2", "rbh_class")
             out <- list(crbh, crbh1, crbh2, rbh1_rbh2_fit)
             names(out) <- c("crbh.pairs", "crbh1", "crbh2", "rbh1_rbh2_fit")

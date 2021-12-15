@@ -33,27 +33,35 @@ rbh2dagchainer(
 )
 }
 \arguments{
-\item{rbhpairs}{(conditional-)reciprocal best hit (CRBHit) pair result (see \code{\link[CRBHits]{cds2rbh}}) [mandatory]}
+\item{rbhpairs}{(conditional-)reciprocal best hit (CRBHit) pair result
+(see \code{\link[CRBHits]{cds2rbh}}) [mandatory]}
 
-\item{selfblast1}{(conditional-)reciprocal best hit (CRBHit) pair selfblast result for cds1 sequences (see \code{\link[CRBHits]{cds2rbh}}) [optional]}
+\item{selfblast1}{(conditional-)reciprocal best hit (CRBHit) pair selfblast
+result for cds1 sequences (see \code{\link[CRBHits]{cds2rbh}}) [optional]}
 
-\item{selfblast2}{(conditional-)reciprocal best hit (CRBHit) pair selfblast result for cds2 sequences (see \code{\link[CRBHits]{cds2rbh}}) [optional]}
+\item{selfblast2}{(conditional-)reciprocal best hit (CRBHit) pair selfblast
+result for cds2 sequences (see \code{\link[CRBHits]{cds2rbh}}) [optional]}
 
-\item{gene.position.cds1}{specify gene position for cds1 sequences (see \code{\link[CRBHits]{cds2genepos}}) [default: NULL]}
+\item{gene.position.cds1}{specify gene position for cds1 sequences
+(see \code{\link[CRBHits]{cds2genepos}}) [default: NULL]}
 
-\item{gene.position.cds2}{specify gene position for cds2 sequences (see \code{\link[CRBHits]{cds2genepos}}) [default: NULL]}
+\item{gene.position.cds2}{specify gene position for cds2 sequences
+(see \code{\link[CRBHits]{cds2genepos}}) [default: NULL]}
 
-\item{dagchainerpath}{specify the PATH to the DAGchainer binaries [default: /extdata/dagchainer/]}
+\item{dagchainerpath}{specify the PATH to the DAGchainer binaries
+[default: /extdata/dagchainer/]}
 
 \item{gap_open_penalty}{gap open penalty [default: 0]}
 
 \item{gap_extension_penalty}{gap extension penalty [default: -3]}
 
-\item{gap_length}{length of a gap (avgerage distance expected between two syntenic genes); if type is set to "idx" use 1 [default: 10000]}
+\item{gap_length}{length of a gap (avgerage distance expected between two
+syntenic genes); if type is set to "idx" use 1 [default: 10000]}
 
 \item{max_match_score}{Maximum match score [default: 50]}
 
-\item{max_dist_allowed}{maximum distance allowed between two matches; if type is set to "idx" use 20 [default: 200000]}
+\item{max_dist_allowed}{maximum distance allowed between two matches;
+if type is set to "idx" use 20 [default: 200000]}
 
 \item{max_evalue}{Maximum E-value [default: 1e-3]}
 
@@ -63,13 +71,15 @@ rbh2dagchainer(
 
 \item{min_number_aligned_pairs}{Minimum number of Aligned Pairs [default: 5]}
 
-\item{type}{specify if gene order index "idx" or gene base pair position "bp" should be extracted and used with DAGchainer [default: bp]}
+\item{type}{specify if gene order index "idx" or gene base pair position
+"bp" should be extracted and used with DAGchainer [default: bp]}
 
 \item{plotDotPlot}{specify if dotplot should be plotted [default: FALSE]}
 
 \item{DotPlotTitle}{specify DotPlot title [default: 'DAGchainer results']}
 
-\item{colorBy}{specify if dagchainer groups should be colored by "Ka", "Ks", "Ka/Ks" or "none" [default: none]}
+\item{colorBy}{specify if dagchainer groups should be colored by "Ka", "Ks",
+"Ka/Ks" or "none" [default: none]}
 
 \item{kaks}{specify Ka/Ks input obtained via `rbh2kaks()` [default: NULL]}
 
@@ -101,7 +111,10 @@ rbh2dagchainer(
 14: $score\cr
 }
 \description{
-This function runs DAGchainer (http://dagchainer.sourceforge.net/) given CRBHit pairs and gene positions for both cds1 and cds2. The default options are set to not compare gene positions in base pairs but instead using gene order (gene.idx).
+This function runs DAGchainer
+(http://dagchainer.sourceforge.net/) given CRBHit pairs and gene positions
+for both cds1 and cds2. The default options are set to not compare gene
+positions in base pairs but instead using gene order (gene.idx).
 }
 \examples{
 ## compile dagchainer
@@ -121,7 +134,9 @@ head(ath_selfblast_crbh.dagchainer)
 plot_dagchainer(ath_selfblast_crbh.dagchainer)
 }
 \references{
-Haas BJ et al. (2004) DAGchainer: a tool for mining segmental genome duplications and synteny. \emph{Bioinformatics.} \bold{20(18)}, 3643-3646.
+Haas BJ et al. (2004) DAGchainer: a tool for mining segmental
+genome duplications and synteny. \emph{Bioinformatics.}
+\bold{20(18)}, 3643-3646.
 }
 \seealso{
 \code{\link[CRBHits]{plot_dagchainer}},

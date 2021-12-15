@@ -27,25 +27,33 @@ plot_kaks(
 \arguments{
 \item{kaks}{specify Ka/Ks input obtained via `rbh2kaks()` [mandatory]}
 
-\item{dag}{specify DAGchainer results as obtained via `rbh2dagchainer()` [default: NULL]}
+\item{dag}{specify DAGchainer results as obtained via
+`rbh2dagchainer()` [default: NULL]}
 
-\item{gene.position.cds1}{specify gene position for cds1 sequences (see \code{\link[CRBHits]{cds2genepos}}) [default: NULL]}
+\item{gene.position.cds1}{specify gene position for cds1 sequences
+(see \code{\link[CRBHits]{cds2genepos}}) [default: NULL]}
 
-\item{gene.position.cds2}{specify gene position for cds2 sequences (see \code{\link[CRBHits]{cds2genepos}}) [default: NULL]}
+\item{gene.position.cds2}{specify gene position for cds2 sequences
+(see \code{\link[CRBHits]{cds2genepos}}) [default: NULL]}
 
-\item{tandem.dups.cds1}{specify tandem duplicates for cds1 sequences (see \code{\link[CRBHits]{tandemdups}}) [default: NULL]}
+\item{tandem.dups.cds1}{specify tandem duplicates for cds1 sequences
+(see \code{\link[CRBHits]{tandemdups}}) [default: NULL]}
 
-\item{tandem.dups.cds2}{specify tandem duplicates for cds2 sequences (see \code{\link[CRBHits]{tandemdups}}) [default: NULL]}
+\item{tandem.dups.cds2}{specify tandem duplicates for cds2 sequences
+(see \code{\link[CRBHits]{tandemdups}}) [default: NULL]}
 
 \item{PlotTitle}{specify Plot title [default: Ka/Ks results]}
 
 \item{PlotType}{specify Plot type: "h" histogram or "d" dotplot [default: h]}
 
-\item{binw}{specify binwidth (see \code{\link[ggplot2]{geom_histogram}}) [default: 0.05]}
+\item{binw}{specify binwidth (see \code{\link[ggplot2]{geom_histogram}})
+[default: 0.05]}
 
-\item{splitByChr}{specify if plot should be split by chromosome [default: FALSE]}
+\item{splitByChr}{specify if plot should be split by chromosome
+[default: FALSE]}
 
-\item{colorBy}{specify if Ka/Ks gene pairs should be colored by "rbh_class", "dagchainer", "tandemdups" or "none" [default: rbh_class]}
+\item{colorBy}{specify if Ka/Ks gene pairs should be colored by
+"rbh_class", "dagchainer", "tandemdups" or "none" [default: rbh_class]}
 
 \item{ka.max}{specify max Ka to be filtered [default: 5]}
 
@@ -59,8 +67,12 @@ plot_kaks(
 
 \item{doPlot}{specify plot [default: TRUE]}
 }
+\value{
+Ka/Ks plot
+}
 \description{
-This function plots Ka/Ks results obtained via `rbh2kaks()` function.
+This function plots Ka/Ks results obtained via
+`rbh2kaks()` function.
 }
 \examples{
 ## load example sequence data
