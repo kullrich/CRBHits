@@ -232,7 +232,7 @@ After this installation, the prerequisites are supposed to be in the `PATH` and 
 ## example how to use conda versions of LAST, KaKs_Calculator2.0 and DAGchainer
 my.lastpath <- paste0(dirname(system2("which", "lastdb", stdout=TRUE)), "/")
 my.kakspath <- paste0(dirname(system2("which", "KaKs_Calculator", stdout=TRUE)), "/")
-my.dagchainerpath <- paste0(dirname(system2("which", "dagchainer", stdout=TRUE), "/")
+my.dagchainerpath <- paste0(dirname(system2("which", "dagchainer", stdout=TRUE)), "/")
 
 ?cds2rbh
 cds2rbh(., ., lastpath=my.lastpath)
