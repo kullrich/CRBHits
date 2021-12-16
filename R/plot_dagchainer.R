@@ -127,7 +127,8 @@ plot_dagchainer <- function(dag,
             function(x) ifelse(x>ks.max, NA, x)))
         dagchainer.results.ks <- unlist(lapply(dagchainer.results.ks,
             function(x) ifelse(x<ks.min, NA, x)))
-        dagchainer.results.kaks <- dagchainer.results.ka / dagchainer.results.ks
+        dagchainer.results.kaks <- as.numeric(dagchainer.results.ka)/
+            as.numeric(dagchainer.results.ks)
         dagchainer.results.kaks[is.infinite(dagchainer.results.kaks)] <- NA
         dag <- dag %>% dplyr::mutate(ka=dagchainer.results.ka,
             ks=dagchainer.results.ks, kaks=dagchainer.results.kaks)
