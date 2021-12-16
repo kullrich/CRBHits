@@ -3,7 +3,7 @@
 #' @description This function extracts the longest isoform from either NCBI or
 #' ENSEMBL CDS input.
 #' @param cds \code{DNAStringSet} [mandatory]
-#' @param source source indicating either NCBI or ENSEMBL [default: NCBI]
+#' @param source source indicating either NCBI, ENSEMBL or WORMBASE [default: NCBI]
 #' @return \code{DNAStringSet}
 #' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet
 #' readDNAStringSet readAAStringSet writeXStringSet width subseq
@@ -62,6 +62,10 @@ isoform2longest <- function(cds, source="NCBI"){
         isoform.id <- stringr::word(names(cds), 4)
         isoform.id <- gsub("(\\D+)(\\.)(\\D{1})","\\1\\3", isoform.id)
         gene.id<-unlist(lapply(strsplit(isoform.id, "\\."), function(x) x[1]))
+    }
+    if(source=="WORMBASE"){
+        isoform.id <- stringr::word(names(cds), 2)
+        gene.id<-unlist(lapply(strsplit(isoform.id, "gene="), function(x) x[2]))
     }
     isoform.df <- data.frame(pos=seq(from=1, to=length(cds)),
     gene.width=Biostrings::width(cds),

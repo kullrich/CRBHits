@@ -9,7 +9,7 @@ isoform2longest(cds, source = "NCBI")
 \arguments{
 \item{cds}{\code{DNAStringSet} [mandatory]}
 
-\item{source}{source indicating either NCBI or ENSEMBL [default: NCBI]}
+\item{source}{source indicating either NCBI, ENSEMBL or WORMBASE [default: NCBI]}
 }
 \value{
 \code{DNAStringSet}
