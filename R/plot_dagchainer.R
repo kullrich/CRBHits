@@ -121,12 +121,14 @@ plot_dagchainer <- function(dag,
             function(x) ifelse(x>ka.max, NA, x)))
         dagchainer.results.ka <- unlist(lapply(dagchainer.results.ka,
             function(x) ifelse(x<ka.min, NA, x)))
+        dagchainer.results.ka <- as.numeric(dagchainer.results.ka)
         dagchainer.results.ks <- kaks$ks[
             match(dagchainer.pair.ids, kaks.pair.ids)]
         dagchainer.results.ks <- unlist(lapply(dagchainer.results.ks,
             function(x) ifelse(x>ks.max, NA, x)))
         dagchainer.results.ks <- unlist(lapply(dagchainer.results.ks,
             function(x) ifelse(x<ks.min, NA, x)))
+        dagchainer.results.ks <- as.numeric(dagchainer.results.ks)
         dagchainer.results.kaks <- as.numeric(dagchainer.results.ka)/
             as.numeric(dagchainer.results.ks)
         dagchainer.results.kaks[is.infinite(dagchainer.results.kaks)] <- NA
