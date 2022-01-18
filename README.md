@@ -224,6 +224,10 @@ conda config --add channels conda-forge
 conda install last
 conda install kakscalculator2
 conda install dagchainer
+
+#optional sequence search algorithm
+conda install mmseqs2
+conda install diamond
 ```
 
 After this installation, the prerequisites are supposed to be in the `PATH` and you need to set the correct `@param` in the corresponding functions of [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) like this:
@@ -242,6 +246,14 @@ rbh2kaks(., ., model="YN", kakscalcpath=my.kakspath)
 
 ?rbh2dagchainer
 rbh2dagchainer(., ., dagchainerpath=my.dagchainerpath)
+
+## example how to use conda versions of MMSEQS2 and DIAMOND
+my.mmseqs2path <- paste0(dirname(system2("which", "mmseqs", stdout=TRUE)), "/")
+my.diamondpath <- paste0(dirname(system2("which", "diamond", stdout=TRUE)), "/")
+
+?cds2rbh
+cds2rbh(., ., mmseqs2path=my.mmseqs2path, searchtool="mmseqs2")
+cds2rbh(., ., mmseqs2path=my.diamondpath, searchtool="diamond")
 ```
 
 ### compile external tools from source code forked within this package
@@ -348,6 +360,10 @@ rbh2kaks(., ., model="YN", kakscalcpath=my.kakspath)
 rbh2dagchainer(., ., dagchainerpath=my.dagchainerpath)
 ```
 
+To compile [MMseqs2](https://github.com/soedinglab/MMseqs2)
+
+To compile [diamond](https://github.com/bbuchfink/diamond/wiki)
+
 ## License
 
 MIT (see LICENSE)
@@ -394,6 +410,8 @@ By contributing to this project, you agree to abide by its terms.
 
 Aubry S., Kelly S., Kümpers B. M., Smith-Unna R. D., and Hibberd J. M. (2014). **Deep evolutionary comparison of gene expression identifies parallel recruitment of trans-factors in two independent origins of C4 photosynthesis.** *PLoS Genetics*, **10(6)**. [https://doi.org/10.1371/journal.pgen.1004365](https://doi.org/10.1371/journal.pgen.1004365)
 
+Buchfink B., Reuter K., Drost HG. (2021). **Sensitive protein alignments at tree-of-life scale using DIAMOND.** *Nature Methods*, **18**, 366-368. [https://doi.org/10.1038/s41592-021-01101-x](https://doi.org/10.1038/s41592-021-01101-x)
+
 Charif D., and Lobry J. R. (2007). **SeqinR 1.0-2: a contributed package to the R project for statistical computing devoted to biological sequences retrieval and analysis.** *In Structural approaches to sequence evolution* (pp. 207-232). Springer, Berlin, Heidelberg. [https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10](https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10)
 
 Duong T., and Wand M. (2015). **feature: Local Inferential Feature Significance for Multivariate Kernel Density Estimation.** *R package version 1.2.13*. [https://cran.r-project.org/web/packages/feature/](https://cran.r-project.org/web/packages/feature/)
@@ -430,9 +448,11 @@ Rost B. (1999). **Twilight zone of protein sequence alignments.** *Protein Engin
 
 Scott C. (2017). **shmlast: an improved implementation of conditional reciprocal best hits with LAST and Python.** *Journal of Open Source Software*, **2(9)**, 142. [https://joss.theoj.org/papers/10.21105/joss.00142](https://joss.theoj.org/papers/10.21105/joss.00142)
 
-Scrucca L., Fop M., Murphy T. B., and Raftery A. E. (2016) **mclust 5: clustering, classification and density estimation using Gaussian finite mixture models.** *The R Journal*, 8(1), 289-317. [https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5096736/](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5096736/)
+Scrucca L., Fop M., Murphy T. B., and Raftery A. E. (2016). **mclust 5: clustering, classification and density estimation using Gaussian finite mixture models.** *The R Journal*, **8(1)**, 289-317. [https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5096736/](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5096736/)
 
-Wickham H. (2011). **testthat: Get Started with Testing.** *The R Journal*, 3(1), 5. [testthat](https://cran.r-project.org/web/packages/testthat/index.html)
+Steinegger M., and Soeding J. (2017). **MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets.** *Nature Biotechnology*, **35**, 1026-1028. [https://doi.org/10.1038/nbt.3988](https://doi.org/10.1038/nbt.3988)
+
+Wickham H. (2011). **testthat: Get Started with Testing.** *The R Journal*, **3(1)**, 5. [testthat](https://cran.r-project.org/web/packages/testthat/index.html)
 
 Wickham H. (2019). **stringr: Simple, Consistent Wrappers for Common String Operations.** *R package version*, 1.4.0. [stringr](https://cran.r-project.org/web/packages/stringr/index.html)
 

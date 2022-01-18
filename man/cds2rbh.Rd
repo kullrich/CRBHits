@@ -7,8 +7,13 @@
 cds2rbh(
   cds1,
   cds2,
+  searchtool = "last",
   lastpath = paste0(find.package("CRBHits"), "/extdata/last-1256/bin/"),
   lastD = 1e+06,
+  mmseqs2path = NULL,
+  mmseqs2sensitivity = 5.7,
+  diamondpath = NULL,
+  diamondsensitivity = "--sensitive",
   outpath = "/tmp",
   crbh = TRUE,
   keepSingleDirection = FALSE,
@@ -34,11 +39,26 @@ cds2rbh(
 
 \item{cds2}{cds2 sequences as \code{DNAStringSet} [mandatory]}
 
+\item{searchtool}{specify sequence search algorithm last, mmseqs2 or diamond
+[default: last]}
+
 \item{lastpath}{specify the PATH to the last binaries
 [default: /extdata/last-1256/bin/]}
 
 \item{lastD}{last option D: query letters per random alignment
 [default: 1e6]}
+
+\item{mmseqs2path}{specify the PATH to the mmseqs2 binaries
+[default: NULL]}
+
+\item{mmseqs2sensitivity}{specify the sensitivity option of mmseqs2
+[default: 5.7]}
+
+\item{diamondpath}{specify the PATH to the diamond binaries
+[default: NULL]}
+
+\item{diamondsensitivity}{specify the sensitivity option of diamond
+[default: --sensitive]}
 
 \item{outpath}{specify the output PATH [default: /tmp]}
 
@@ -104,7 +124,11 @@ This function calculates (conditional-)reciprocal best hit
 (CRBHit) pairs from two CDS \code{DNAStringSet}'s.
 CRBHit pairs were introduced by \emph{Aubry S, Kelly S et al. (2014)}.
 Sequence searches are performed with \bold{last}
-\emph{Kiełbasa, SM et al. (2011)}.
+\emph{Kiełbasa, SM et al. (2011)} [default]
+or with \bold{mmseqs2}
+\emph{Steinegger, M and Soeding, J (2017)}
+or with \bold{diamond}
+\emph{Buchfink, B et al. (2021)}.
 If one specifies cds1 and cds2 as the same input a selfblast is conducted.
 }
 \examples{

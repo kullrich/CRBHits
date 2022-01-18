@@ -303,21 +303,33 @@ conda config --add channels conda-forge
 
 conda install last
 conda install kakscalculator2
-conda install dagchainer</code></pre>
+conda install dagchainer
+
+#optional sequence search algorithm
+conda install mmseqs2
+conda install diamond</code></pre>
 <p>After this installation, the prerequisites are supposed to be in the <code>PATH</code> and you need to set the correct <code>@param</code> in the corresponding functions of <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a> like this:</p>
-<pre><code>## example how to use conda versions of LAST, KaKs_Calculator2.0 and DAGchainer
-my.lastpath &lt;- paste0(dirname(system2("which", "lastdb", stdout=TRUE)), "/")
-my.kakspath &lt;- paste0(dirname(system2("which", "KaKs_Calculator", stdout=TRUE)), "/")
-my.dagchainerpath &lt;- paste0(dirname(system2("which", "dagchainer", stdout=TRUE), "/")
+<pre><code><span class="co">## example how to use conda versions of LAST, KaKs_Calculator2.0 and DAGchainer</span>
+<span class="va">my.lastpath</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">dirname</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system2.html" class="external-link">system2</a></span><span class="op">(</span><span class="st">"which"</span>, <span class="st">"lastdb"</span>, stdout<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>, <span class="st">"/"</span><span class="op">)</span>
+<span class="va">my.kakspath</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">dirname</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system2.html" class="external-link">system2</a></span><span class="op">(</span><span class="st">"which"</span>, <span class="st">"KaKs_Calculator"</span>, stdout<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>, <span class="st">"/"</span><span class="op">)</span>
+<span class="va">my.dagchainerpath</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">dirname</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system2.html" class="external-link">system2</a></span><span class="op">(</span><span class="st">"which"</span>, <span class="st">"dagchainer"</span>, stdout<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>, <span class="st">"/"</span><span class="op">)</span>
 
-?cds2rbh
-cds2rbh(., ., lastpath=my.lastpath)
+<span class="op">?</span><span class="va">cds2rbh</span>
+<span class="fu"><a href="reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">.</span>, lastpath<span class="op">=</span><span class="va">my.lastpath</span><span class="op">)</span>
 
-?rbh2kaks
-rbh2kaks(., ., model="YN", kakscalcpath=my.kakspath)
+<span class="op">?</span><span class="va">rbh2kaks</span>
+<span class="fu"><a href="reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">.</span>, model<span class="op">=</span><span class="st">"YN"</span>, kakscalcpath<span class="op">=</span><span class="va">my.kakspath</span><span class="op">)</span>
 
-?rbh2dagchainer
-rbh2dagchainer(., ., dagchainerpath=my.dagchainerpath)</code></pre>
+<span class="op">?</span><span class="va">rbh2dagchainer</span>
+<span class="fu"><a href="reference/rbh2dagchainer.html">rbh2dagchainer</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">.</span>, dagchainerpath<span class="op">=</span><span class="va">my.dagchainerpath</span><span class="op">)</span>
+
+<span class="co">## example how to use conda versions of MMSEQS2 and DIAMOND</span>
+<span class="va">my.mmseqs2path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">dirname</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system2.html" class="external-link">system2</a></span><span class="op">(</span><span class="st">"which"</span>, <span class="st">"mmseqs"</span>, stdout<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>, <span class="st">"/"</span><span class="op">)</span>
+<span class="va">my.diamondpath</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">dirname</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system2.html" class="external-link">system2</a></span><span class="op">(</span><span class="st">"which"</span>, <span class="st">"diamond"</span>, stdout<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>, <span class="st">"/"</span><span class="op">)</span>
+
+<span class="op">?</span><span class="va">cds2rbh</span>
+<span class="fu"><a href="reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">.</span>, mmseqs2path<span class="op">=</span><span class="va">my.mmseqs2path</span>, searchtool<span class="op">=</span><span class="st">"mmseqs2"</span><span class="op">)</span>
+<span class="fu"><a href="reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">.</span>, mmseqs2path<span class="op">=</span><span class="va">my.diamondpath</span>, searchtool<span class="op">=</span><span class="st">"diamond"</span><span class="op">)</span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="compile-external-tools-from-source-code-forked-within-this-package">compile external tools from source code forked within this package<a class="anchor" aria-label="anchor" href="#compile-external-tools-from-source-code-forked-within-this-package"></a>
@@ -399,6 +411,8 @@ make</code></pre>
 
 <span class="op">?</span><span class="va">rbh2dagchainer</span>
 <span class="fu"><a href="reference/rbh2dagchainer.html">rbh2dagchainer</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">.</span>, dagchainerpath<span class="op">=</span><span class="va">my.dagchainerpath</span><span class="op">)</span></code></pre>
+<p>To compile <a href="https://github.com/soedinglab/MMseqs2" class="external-link">MMseqs2</a></p>
+<p>To compile <a href="https://github.com/bbuchfink/diamond/wiki" class="external-link">diamond</a></p>
 </div>
 </div>
 <div class="section level2">
@@ -447,6 +461,7 @@ make</code></pre>
 <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
 <p>Aubry S., Kelly S., Kümpers B. M., Smith-Unna R. D., and Hibberd J. M. (2014). <strong>Deep evolutionary comparison of gene expression identifies parallel recruitment of trans-factors in two independent origins of C4 photosynthesis.</strong> <em>PLoS Genetics</em>, <strong>10(6)</strong>. <a href="https://doi.org/10.1371/journal.pgen.1004365" class="external-link">https://doi.org/10.1371/journal.pgen.1004365</a></p>
+<p>Buchfink B., Reuter K., Drost HG. (2021). <strong>Sensitive protein alignments at tree-of-life scale using DIAMOND.</strong> <em>Nature Methods</em>, <strong>18</strong>, 366-368. <a href="https://doi.org/10.1038/s41592-021-01101-x" class="external-link">https://doi.org/10.1038/s41592-021-01101-x</a></p>
 <p>Charif D., and Lobry J. R. (2007). <strong>SeqinR 1.0-2: a contributed package to the R project for statistical computing devoted to biological sequences retrieval and analysis.</strong> <em>In Structural approaches to sequence evolution</em> (pp. 207-232). Springer, Berlin, Heidelberg. <a href="https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10" class="external-link">https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10</a></p>
 <p>Duong T., and Wand M. (2015). <strong>feature: Local Inferential Feature Significance for Multivariate Kernel Density Estimation.</strong> <em>R package version 1.2.13</em>. <a href="https://cran.r-project.org/web/packages/feature/" class="external-link">https://cran.r-project.org/web/packages/feature/</a></p>
 <p>Ganeshan S., Dickover RE., Korber BT., Bryson YJ., Wolinsky SM. (1997). <strong>Human immunodeficiency virus type 1 genetic evolution in children with different rates of development of disease.</strong> <em>Journal of Virology</em>, <strong>71(1)</strong>, 663-677.</p>
@@ -465,8 +480,9 @@ make</code></pre>
 <p>Revolution Analytics, and Weston S. (2020). <strong>doMC: Foreach Parallel Adaptor for ‘parallel’.</strong> <em>R package version</em>, 1.3.7. <a href="https://cran.r-project.org/web/packages/doMC/index.html" class="external-link">doMC</a></p>
 <p>Rost B. (1999). <strong>Twilight zone of protein sequence alignments.</strong> <em>Protein Engineering</em>, <strong>12(2)</strong>, 85-94. <a href="https://doi.org/10.1093/protein/12.2.85" class="external-link">https://doi.org/10.1093/protein/12.2.85</a></p>
 <p>Scott C. (2017). <strong>shmlast: an improved implementation of conditional reciprocal best hits with LAST and Python.</strong> <em>Journal of Open Source Software</em>, <strong>2(9)</strong>, 142. <a href="https://joss.theoj.org/papers/10.21105/joss.00142" class="external-link">https://joss.theoj.org/papers/10.21105/joss.00142</a></p>
-<p>Scrucca L., Fop M., Murphy T. B., and Raftery A. E. (2016) <strong>mclust 5: clustering, classification and density estimation using Gaussian finite mixture models.</strong> <em>The R Journal</em>, 8(1), 289-317. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5096736/" class="external-link">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5096736/</a></p>
-<p>Wickham H. (2011). <strong>testthat: Get Started with Testing.</strong> <em>The R Journal</em>, 3(1), 5. <a href="https://cran.r-project.org/web/packages/testthat/index.html" class="external-link">testthat</a></p>
+<p>Scrucca L., Fop M., Murphy T. B., and Raftery A. E. (2016). <strong>mclust 5: clustering, classification and density estimation using Gaussian finite mixture models.</strong> <em>The R Journal</em>, <strong>8(1)</strong>, 289-317. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5096736/" class="external-link">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5096736/</a></p>
+<p>Steinegger M., and Soeding J. (2017). <strong>MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets.</strong> <em>Nature Biotechnology</em>, <strong>35</strong>, 1026-1028. <a href="https://doi.org/10.1038/nbt.3988" class="external-link">https://doi.org/10.1038/nbt.3988</a></p>
+<p>Wickham H. (2011). <strong>testthat: Get Started with Testing.</strong> <em>The R Journal</em>, <strong>3(1)</strong>, 5. <a href="https://cran.r-project.org/web/packages/testthat/index.html" class="external-link">testthat</a></p>
 <p>Wickham H. (2019). <strong>stringr: Simple, Consistent Wrappers for Common String Operations.</strong> <em>R package version</em>, 1.4.0. <a href="https://cran.r-project.org/web/packages/stringr/index.html" class="external-link">stringr</a></p>
 <p>Wickham H. (2020). <strong>tidyr: Tidy Messy Data.</strong> <em>R package version</em>, 1.1.2. <a href="https://cran.r-project.org/web/packages/tidyr/index.html" class="external-link">tidyr</a></p>
 <p>Wickham H., Hester J., and Chang W. (2020). <strong>devtools: Tools to make Developing R Packages Easier.</strong> <em>R package version</em>, (2.3.2). <a href="https://cran.r-project.org/web/packages/devtools/index.html" class="external-link">devtools</a></p>
@@ -538,7 +554,7 @@ make</code></pre>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>

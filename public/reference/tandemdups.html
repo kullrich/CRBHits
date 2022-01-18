@@ -97,23 +97,7 @@ duplicates. [default: 5]</p></dd>
     <h2>References</h2>
     <p>Haug-Beltzell A et al. (2017) SynMap2 and SynMap3D: web-based
 whole-genome synteny browsers. <em>Bioinformatics</em>
-<b>33(14)</b>, 2197-2198.
-## load example sequence data
-data("ath", package="CRBHits")
-## get selfhits CRBHit pairs
-ath_selfhits_crbh &lt;- cds2rbh(
-    cds1=ath,
-    cds2=ath,
-    plotCurve=TRUE)
-## get gene position
-ath.genepos &lt;- cds2genepos(
-    cds=ath,
-    source="ENSEMBL")
-## get tandem duplicate results
-ath_selfblast_crbh.tandemdups &lt;- tandemdups(
-    rbhpairs=ath_selfhits_crbh,
-    genepos=ath.genepos)
-head(ath_selfblast_crbh.tandemdups)</p>
+<b>33(14)</b>, 2197-2198.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -124,6 +108,37 @@ head(ath_selfblast_crbh.tandemdups)</p>
     <p>Kristian K Ullrich</p>
     </div>
 
+    <div id="ref-examples">
+    <h2>Examples</h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## load example sequence data</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ath"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span></span>
+<span class="r-in"><span class="co">## get selfhits CRBHit pairs</span></span>
+<span class="r-in"><span class="va">ath_selfhits_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="cds2rbh.html">cds2rbh</a></span><span class="op">(</span></span>
+<span class="r-in">    cds1<span class="op">=</span><span class="va">ath</span>,</span>
+<span class="r-in">    cds2<span class="op">=</span><span class="va">ath</span>,</span>
+<span class="r-in">    plotCurve<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-plt img"><img src="tandemdups-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span class="co">## get gene position</span></span>
+<span class="r-in"><span class="va">ath.genepos</span> <span class="op">&lt;-</span> <span class="fu"><a href="cds2genepos.html">cds2genepos</a></span><span class="op">(</span></span>
+<span class="r-in">    cds<span class="op">=</span><span class="va">ath</span>,</span>
+<span class="r-in">    source<span class="op">=</span><span class="st">"ENSEMBL"</span><span class="op">)</span></span>
+<span class="r-in"><span class="co">## get tandem duplicate results</span></span>
+<span class="r-in"><span class="va">ath_selfblast_crbh.tandemdups</span> <span class="op">&lt;-</span> <span class="fu">tandemdups</span><span class="op">(</span></span>
+<span class="r-in">    rbhpairs<span class="op">=</span><span class="va">ath_selfhits_crbh</span>,</span>
+<span class="r-in">    genepos<span class="op">=</span><span class="va">ath.genepos</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_selfblast_crbh.tandemdups</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 8</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   gene.seq.id gene.chr gene.start gene.end gene.mid gene.strand gene.idx</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> AT1G01130.1 1             <span style="text-decoration: underline;">61</span>905    <span style="text-decoration: underline;">63</span>811   <span style="text-decoration: underline;">62</span>858  -1                13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> AT1G01140.1 1             <span style="text-decoration: underline;">64</span>166    <span style="text-decoration: underline;">67</span>774   <span style="text-decoration: underline;">65</span>970  -1                14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> AT1G01390.2 1            <span style="text-decoration: underline;">148</span>013   <span style="text-decoration: underline;">149</span>848  <span style="text-decoration: underline;">148</span>930. -1                41</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> AT1G01420.2 1            <span style="text-decoration: underline;">154</span>367   <span style="text-decoration: underline;">156</span>178  <span style="text-decoration: underline;">155</span>272. -1                44</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> AT1G01580.2 1            <span style="text-decoration: underline;">208</span>995   <span style="text-decoration: underline;">213</span>082  <span style="text-decoration: underline;">211</span>038. 1                 61</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> AT1G01590.1 1            <span style="text-decoration: underline;">214</span>150   <span style="text-decoration: underline;">217</span>734  <span style="text-decoration: underline;">215</span>942  1                 62</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 1 more variable: tandem_group &lt;chr&gt;</span></span>
+</code></pre></div>
+    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>
@@ -136,7 +151,7 @@ head(ath_selfblast_crbh.tandemdups)</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer></div>
