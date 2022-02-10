@@ -142,7 +142,13 @@
     <loc>/reference/filter_tcov.html</loc>
   </url>
   <url>
+    <loc>/reference/gff2longest.html</loc>
+  </url>
+  <url>
     <loc>/reference/globalDeletion.html</loc>
+  </url>
+  <url>
+    <loc>/reference/gtf2longest.html</loc>
   </url>
   <url>
     <loc>/reference/hiv-data.html</loc>

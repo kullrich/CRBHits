@@ -88,7 +88,7 @@
       <h1 data-toc-skip>KaKs Vignette</h1>
                         <h4 data-toc-skip class="author">Kristian K Ullrich</h4>
             
-            <h4 data-toc-skip class="date">2022-01-18</h4>
+            <h4 data-toc-skip class="date">2022-02-10</h4>
       
       <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/mastervignettes/V02KaKsVignette.Rmd" class="external-link"><code>vignettes/V02KaKsVignette.Rmd</code></a></small>
       <div class="hidden name"><code>V02KaKsVignette.Rmd</code></div>
@@ -117,7 +117,14 @@
 <a href="#crbhpairs">Conditional Reciprocal Best Hit pairs (CRBH pairs)</a>
 <ol style="list-style-type: decimal">
 <li><a href="#ensembl">Download Coding Sequences (CDS) from NCBI and ENSEMBL</a></li>
-<li><a href="#isoform">Get Longest Isoform from NCBI or ENSEMBL Input</a></li>
+<li>
+<a href="#isoform">Get Longest Isoform from NCBI or ENSEMBL Input</a>
+<ol style="list-style-type: decimal">
+<li><a href="#isoform2longest">isoform2longest()</a></li>
+<li><a href="#gtf2longest">gtf2longest()</a></li>
+<li><a href="#gff2longest">gff2longest()</a></li>
+</ol>
+</li>
 <li><a href="#crbhfilter">Calculate/Filter CRBHit pairs</a></li>
 <li>
 <a href="#extractposition">Extract Gene/Isoform chromosomal position</a>
@@ -163,7 +170,7 @@
 <p>Two examples are given in this vignette.</p>
 <p>The first example compares the coding sequences from <em>Arabidopsis thaliana</em> and <em>Arabidopsis lyrata</em>. The input sequences are from the FTP server from <a href="ftp://ftp.ncbi.nlm.nih.gov/genomes/all/">NCBI Genomes</a>.</p>
 <p>The second example compares the CDS from <em>Homo sapiens</em> and <em>Pan troglodytes</em> (see <a href="#homosapiens"><em>Homo sapiens</em> vs. <em>Pan troglodytes</em> example</a>).</p>
-<p>As an alternative the <a href="ftp://ftp.ensemblgenomes.org/pub/plants/release-48/fasta/">EnsemblPlants release-48</a> can used.</p>
+<p>As an alternative the <a href="ftp://ftp.ensemblgenomes.org/pub/plants/release-52/fasta/">EnsemblPlants release-52</a> can used.</p>
 <pre><code><span class="co">## set URLs for Arabidopis thaliana and Arabidopsis lyrata from NCBI Genomes</span>
 
 <span class="co">## set NCBI URL</span>
@@ -185,14 +192,71 @@
 </h4>
 <p>Prior CRBHit pairs calculation, the longest isoforms can be selected, if the data was downloaded from NCBI or Ensembl.</p>
 <p><strong>Note:</strong> This is an important step. If e.g. isoforms are used, the Ka/Ks calculations might show biased values inspecting mean or median Ka/Ks values grouped per query sequence.</p>
-<pre><code><span class="co">## get longest isoforms</span>
-
-<span class="co">## get longest isoform</span>
+<div class="section level5">
+<h5 id="isoform2longest">1.2.1 <span id="isoform2longest">isoform2longest()</span><a class="anchor" aria-label="anchor" href="#isoform2longest"></a>
+</h5>
+<pre><code><span class="co">## get longest isoform from sequence IDs</span>
 <span class="va">ARATHA.cds.longest</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/isoform2longest.html">isoform2longest</a></span><span class="op">(</span><span class="va">ARATHA.cds</span>, <span class="st">"NCBI"</span><span class="op">)</span>
 <span class="va">ARALYR.cds.longest</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/isoform2longest.html">isoform2longest</a></span><span class="op">(</span><span class="va">ARALYR.cds</span>, <span class="st">"NCBI"</span><span class="op">)</span>
 
 <span class="co">## get help</span>
 <span class="co">#?cds2longest</span></code></pre>
+</div>
+<div class="section level5">
+<h5 id="gtf2longest">1.2.2 <span id="gtf2longest">gtf2longest()</span><a class="anchor" aria-label="anchor" href="#gtf2longest"></a>
+</h5>
+<p><strong>Note:</strong> Sometimes the sequence IDs do not have the necessary information to extract the longest isoforms. If this might be the case, please use the dedicated functions <code><a href="../reference/gtf2longest.html">gtf2longest()</a></code> or <code><a href="../reference/gff2longest.html">gff2longest()</a></code> to get the gene positions and the longest isoforms.</p>
+<pre><code><span class="co">## get longest isoform from GTF file</span>
+
+<span class="co">## set Arabidopsis thaliana GTF URL</span>
+<span class="va">ARATHA.gtf.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">NCBI</span>, <span class="st">"GCF/000/001/735/GCF_000001735.4_TAIR10.1/"</span>,
+    <span class="st">"GCF_000001735.4_TAIR10.1_genomic.gtf.gz"</span><span class="op">)</span>
+<span class="va">ARALYR.gtf.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">NCBI</span>, <span class="st">"GCF/000/004/255/GCF_000004255.2_v.1.0/"</span>,
+    <span class="st">"GCF_000004255.2_v.1.0_genomic.gtf.gz"</span><span class="op">)</span>
+
+<span class="co">## get longest isoform from GTF file</span>
+<span class="va">ARATHA.gtf.longest</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gtf2longest.html">gtf2longest</a></span><span class="op">(</span>gtffile<span class="op">=</span><span class="va">ARATHA.gtf.url</span>,
+    cds<span class="op">=</span><span class="va">ARATHA.cds</span>,
+    removeNonCoding<span class="op">=</span><span class="cn">TRUE</span>,
+    source<span class="op">=</span><span class="st">"NCBI"</span><span class="op">)</span>
+<span class="va">ARALYR.gtf.longest</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gtf2longest.html">gtf2longest</a></span><span class="op">(</span>gtffile<span class="op">=</span><span class="va">ARALYR.gtf.url</span>,
+    cds<span class="op">=</span><span class="va">ARALYR.cds</span>,
+    removeNonCoding<span class="op">=</span><span class="cn">TRUE</span>,
+    source<span class="op">=</span><span class="st">"NCBI"</span><span class="op">)</span>
+
+<span class="va">ARATHA.cds.longest</span> <span class="op">&lt;-</span> <span class="va">ARATHA.gtf.longest</span><span class="op">$</span><span class="va">cds</span>
+<span class="va">ARALYR.cds.longest</span> <span class="op">&lt;-</span> <span class="va">ARALYR.gtf.longest</span><span class="op">$</span><span class="va">cds</span>
+
+<span class="co">## get help</span>
+<span class="co">#?gtf2longest</span></code></pre>
+</div>
+<div class="section level5">
+<h5 id="gff2longest">1.2.3 <span id="gff2longest">gff2longest()</span><a class="anchor" aria-label="anchor" href="#gff2longest"></a>
+</h5>
+<pre><code><span class="co">## get longest isoform from GFF3 file</span>
+
+<span class="co">## set Arabidopsis thaliana GFF3 URL</span>
+<span class="va">ARATHA.gff3.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">NCBI</span>, <span class="st">"GCF/000/001/735/GCF_000001735.4_TAIR10.1/"</span>,
+    <span class="st">"GCF_000001735.4_TAIR10.1_genomic.gff.gz"</span><span class="op">)</span>
+<span class="va">ARALYR.gff3.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">NCBI</span>, <span class="st">"GCF/000/004/255/GCF_000004255.2_v.1.0/"</span>,
+    <span class="st">"GCF_000004255.2_v.1.0_genomic.gff.gz"</span><span class="op">)</span>
+
+<span class="co">## get longest isoform from GTF file</span>
+<span class="va">ARATHA.gff3.longest</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gff2longest.html">gff2longest</a></span><span class="op">(</span>gff3file<span class="op">=</span><span class="va">ARATHA.gff3.url</span>,
+    cds<span class="op">=</span><span class="va">ARATHA.cds</span>,
+    removeNonCoding<span class="op">=</span><span class="cn">TRUE</span>,
+    source<span class="op">=</span><span class="st">"NCBI"</span><span class="op">)</span>
+<span class="va">ARALYR.gff3.longest</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gff2longest.html">gff2longest</a></span><span class="op">(</span>gff3file<span class="op">=</span><span class="va">ARALYR.gff3.url</span>,
+    cds<span class="op">=</span><span class="va">ARALYR.cds</span>,
+    removeNonCoding<span class="op">=</span><span class="cn">TRUE</span>,
+    source<span class="op">=</span><span class="st">"NCBI"</span><span class="op">)</span>
+
+<span class="va">ARATHA.cds.longest</span> <span class="op">&lt;-</span> <span class="va">ARATHA.gff3.longest</span><span class="op">$</span><span class="va">cds</span>
+<span class="va">ARALYR.cds.longest</span> <span class="op">&lt;-</span> <span class="va">ARALYR.gff3.longest</span><span class="op">$</span><span class="va">cds</span>
+
+<span class="co">## get help</span>
+<span class="co">#?gff2longest</span></code></pre>
+</div>
 </div>
 <div class="section level4">
 <h4 id="calculatefilter-crbhit-pairs">1.3. <span id="crbhfilter">Calculate/Filter CRBHit pairs</span><a class="anchor" aria-label="anchor" href="#calculatefilter-crbhit-pairs"></a>
@@ -235,9 +299,10 @@
 <h5 id="get-gene-position-from-ncbi-or-ensembl-input">1.4.1. <span id="ncbi2genepos">Get gene position from NCBI or ENSEMBL Input</span><a class="anchor" aria-label="anchor" href="#get-gene-position-from-ncbi-or-ensembl-input"></a>
 </h5>
 <p>If the CDS Input was obtained from NCBI or ENSEMBL, the gene position can be directly extracted from the <code>DNAStringSet</code> as follows.</p>
+<p><strong>Note:</strong> Sometimes the sequence IDs do not have the necessary information to extract the longest isoforms. If this might be the case, please use the dedicated functions <code><a href="../reference/gtf2longest.html">gtf2longest()</a></code> or <code><a href="../reference/gff2longest.html">gff2longest()</a></code> to get the gene positions and the longest isoforms.</p>
 <pre><code><span class="co">## get gene position idx from NCBI CDS</span>
 
-<span class="co">## extract gene position from CDS</span>
+<span class="co">## extract gene position from CDS directly from sequence IDs</span>
 <span class="va">ARATHA.cds.genepos</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2genepos.html">cds2genepos</a></span><span class="op">(</span>
     cds<span class="op">=</span><span class="va">ARATHA.cds</span>,
     source<span class="op">=</span><span class="st">"NCBI"</span><span class="op">)</span>
@@ -261,9 +326,28 @@
 <p>As noted above, it is also possible to obtain gene position and corresponding the longest isoforms per gene annotated in a GTF/GFF3 file.</p>
 <p>see <a href="http://www.ensembl.org/info/website/upload/gff3.html" class="external-link">GTF/GFF3 format</a></p>
 <p><strong>Note:</strong> In some cases the IDs provided in the CDS and the GTF/GFF3 file differ, which make it more complicated to directly link gene position and CDS.</p>
-<p>Here, as an example, the GFF3 file for the species <em>Arabidopsis thaliana</em> is obtained from the FTP server from <a href="https://plants.ensembl.org/index.html" class="external-link">Ensembl Plants</a>.</p>
-<p><strong>Note:</strong> The GFF3 and GTF files can be very large and it might take some time until this data is loaded into memory.</p>
-<pre><code><span class="co">## get gene position idx from GTF/GFF3</span>
+<p>Here, as an example, the GTF file for the species <em>Arabidopsis thaliana</em> is obtained from the FTP server from <a href="https://plants.ensembl.org/index.html" class="external-link">Ensembl Plants</a>.</p>
+<p><strong>Note:</strong> The GTF and GFF3 files can be very large and it might take some time until this data is loaded into memory.</p>
+<pre><code><span class="co">## set ENSEMBL URL</span>
+<span class="va">ensemblPlants</span> <span class="op">&lt;-</span> <span class="st">"http://ftp.ensemblgenomes.org/pub/plants/release-52/"</span>
+<span class="co">## set Arabidopsis thaliana GTF URL</span>
+<span class="va">ARATHA.ENSEMBL.GTF.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">ensemblPlants</span>,
+    <span class="st">"/gtf/arabidopsis_thaliana/"</span>,
+    <span class="st">"Arabidopsis_thaliana.TAIR10.52.gtf.gz"</span><span class="op">)</span>
+<span class="co">## set Arabidopsis thaliana CDS URL</span>
+<span class="va">ARATHA.ENSEMBL.CDS.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">ensemblPlants</span>,
+    <span class="st">"fasta/arabidopsis_thaliana/cds/"</span>,
+    <span class="st">"Arabidopsis_thaliana.TAIR10.cds.all.fa.gz"</span><span class="op">)</span>
+<span class="va">ARATHA.ENSEMBL.CDS</span> <span class="op">&lt;-</span> <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html" class="external-link">readDNAStringSet</a></span><span class="op">(</span><span class="va">ARATHA.ENSEMBL.CDS.url</span><span class="op">)</span>
+<span class="va">ARATHA.ENSEMBL.CDS.longest</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gtf2longest.html">gtf2longest</a></span><span class="op">(</span>
+    gtffile<span class="op">=</span><span class="va">ARATHA.ENSEMBL.GTF.url</span>,
+    cds<span class="op">=</span><span class="va">ARATHA.ENSEMBL.CDS</span>,
+    source<span class="op">=</span><span class="st">"ENSEMBL"</span><span class="op">)</span>
+<span class="va">ARATHA.ENSEMBL.CDS.longest</span><span class="op">$</span><span class="va">genepos</span>
+<span class="va">ARATHA.ENSEMBL.CDS.longest</span><span class="op">$</span><span class="va">cds</span></code></pre>
+<p><strong>Note:</strong> These manual steps (see below) are now deprecated, please use the dedicated functions <code><a href="../reference/gtf2longest.html">gtf2longest()</a></code> or <code><a href="../reference/gff2longest.html">gff2longest()</a></code>.</p>
+<pre><code><span class="co">## deprecated, please use gtf2longest() or gff2longest function</span>
+<span class="co">## get gene position idx from GTF/GFF3</span>
 
 <span class="co">## set NCBI URL</span>
 <span class="va">ensemblPlants</span> <span class="op">&lt;-</span> <span class="st">"ftp://ftp.ensemblgenomes.org/pub/plants/release-48/"</span>

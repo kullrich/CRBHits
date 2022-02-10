@@ -11,7 +11,7 @@
 #' [mandatory]
 #' @param dupdist Maximum distance between 2 gene positions on the same
 #' chromosome which will call them as a pair of local duplicates. If they are
-#' farther apart than \code{dipdist}, but share a common hit within
+#' farther apart than \code{dupdist}, but share a common hit within
 #' \code{dupdist} of both, then they will still be in the same set of local
 #' duplicates. [default: 5]
 #' @return \code{matrix}
