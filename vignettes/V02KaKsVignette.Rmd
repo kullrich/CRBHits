@@ -125,6 +125,7 @@ can used.
 
 ## set NCBI URL
 NCBI <- "https://ftp.ncbi.nlm.nih.gov/genomes/all/"
+
 ## set Arabidopsis thaliana CDS URL
 ARATHA.cds.url <- paste0(NCBI, "GCF/000/001/735/GCF_000001735.4_TAIR10.1/",
     "GCF_000001735.4_TAIR10.1_cds_from_genomic.fna.gz")
@@ -132,6 +133,7 @@ ARATHA.cds.url <- paste0(NCBI, "GCF/000/001/735/GCF_000001735.4_TAIR10.1/",
 ## set Arabidopsis lyrata CDS URL
 ARALYR.cds.url <- paste0(NCBI, "GCF/000/004/255/GCF_000004255.2_v.1.0/",
     "GCF_000004255.2_v.1.0_cds_from_genomic.fna.gz")
+
 ## get Arabidopsis thaliana CDS
 ARATHA.cds <- Biostrings::readDNAStringSet(ARATHA.cds.url)
 ## get Arabidopsis lyrata CDS
@@ -155,7 +157,7 @@ ARATHA.cds.longest <- isoform2longest(ARATHA.cds, "NCBI")
 ARALYR.cds.longest <- isoform2longest(ARALYR.cds, "NCBI")
 
 ## get help
-#?cds2longest
+#?isoform2longest
 ```
 
 #### 1.2.2 [gtf2longest()]{#gtf2longest}
@@ -166,26 +168,84 @@ dedicated functions `gtf2longest()` or `gff2longest()` to get the gene positions
 and the longest isoforms.
 
 ```
-## get longest isoform from GTF file
+## set NCBI URL
+NCBI <- "https://ftp.ncbi.nlm.nih.gov/genomes/all/"
+
+ARATHA.NCBI.cds.url <- paste0(NCBI, "GCF/000/001/735/GCF_000001735.4_TAIR10.1/",
+    "GCF_000001735.4_TAIR10.1_cds_from_genomic.fna.gz")
+ARALYR.NCBI.cds.url <- paste0(NCBI, "GCF/000/004/255/GCF_000004255.2_v.1.0/",
+    "GCF_000004255.2_v.1.0_cds_from_genomic.fna.gz")
+ARATHA.NCBI.cds <- Biostrings::readDNAStringSet(ARATHA.NCBI.cds.url)
+ARALYR.NCBI.cds <- Biostrings::readDNAStringSet(ARALYR.NCBI.cds.url)
+
+## get longest isoform from GTF file - NCBI
 
 ## set Arabidopsis thaliana GTF URL
-ARATHA.gtf.url <- paste0(NCBI, "GCF/000/001/735/GCF_000001735.4_TAIR10.1/",
+ARATHA.NCBI.gtf.url <- paste0(NCBI, "GCF/000/001/735/GCF_000001735.4_TAIR10.1/",
     "GCF_000001735.4_TAIR10.1_genomic.gtf.gz")
-ARALYR.gtf.url <- paste0(NCBI, "GCF/000/004/255/GCF_000004255.2_v.1.0/",
+ARALYR.NCBI.gtf.url <- paste0(NCBI, "GCF/000/004/255/GCF_000004255.2_v.1.0/",
     "GCF_000004255.2_v.1.0_genomic.gtf.gz")
 
 ## get longest isoform from GTF file
-ARATHA.gtf.longest <- gtf2longest(gtffile=ARATHA.gtf.url,
-    cds=ARATHA.cds,
+ARATHA.NCBI.gtf.longest <- gtf2longest(
+    gtffile=ARATHA.NCBI.gtf.url,
+    cds=ARATHA.NCBI.cds,
     removeNonCoding=TRUE,
     source="NCBI")
-ARALYR.gtf.longest <- gtf2longest(gtffile=ARALYR.gtf.url,
-    cds=ARALYR.cds,
+ARALYR.NCBI.gtf.longest <- gtf2longest(
+    gtffile=ARALYR.NCBI.gtf.url,
+    cds=ARALYR.NCBI.cds,
     removeNonCoding=TRUE,
     source="NCBI")
 
-ARATHA.cds.longest <- ARATHA.gtf.longest$cds
-ARALYR.cds.longest <- ARALYR.gtf.longest$cds
+ARATHA.NCBI.gtf.cds.longest <- ARATHA.NCBI.gtf.longest$cds
+ARALYR.NCBI.gtf.cds.longest <- ARALYR.NCBI.gtf.longest$cds
+
+ARATHA.NCBI.gtf.cds.genepos <- ARATHA.NCBI.gtf.longest$genepos
+ARALYR.NCBI.gtf.cds.genepos <- ARALYR.NCBI.gtf.longest$genepos
+
+## get help
+#?gtf2longest
+```
+
+```
+## set ENSEMBL URL
+ENSEMBL <- "http://ftp.ensemblgenomes.org/pub/plants/release-52/"
+
+ARATHA.ENSEMBL.cds.url <- paste0(ENSEMBL,
+    "fasta/arabidopsis_thaliana/cds/",
+    "Arabidopsis_thaliana.TAIR10.cds.all.fa.gz")
+ARALYR.ENSEMBL.cds.url <- paste0(ENSEMBL,
+    "fasta/arabidopsis_lyrata/cds/",
+    "Arabidopsis_lyrata.v.1.0.cds.all.fa.gz")
+ARATHA.ENSEMBL.cds <- Biostrings::readDNAStringSet(ARATHA.ENSEMBL.cds.url)
+ARALYR.ENSEMBL.cds <- Biostrings::readDNAStringSet(ARALYR.ENSEMBL.cds.url)
+
+## get longest isoform from GTF file - ENSEMBL
+
+## set Arabidopsis thaliana GTF URL
+ARATHA.ENSEMBL.gtf.url <- paste0(ENSEMBL, "gtf/arabidopsis_thaliana/",
+    "Arabidopsis_thaliana.TAIR10.52.gtf.gz")
+ARALYR.ENSEMBL.gtf.url <- paste0(ENSEMBL, "gtf/arabidopsis_lyrata/",
+    "Arabidopsis_lyrata.v.1.0.52.gtf.gz")
+
+## get longest isoform from GTF file
+ARATHA.ENSEMBL.gtf.longest <- gtf2longest(
+    gtffile=ARATHA.ENSEMBL.gtf.url,
+    cds=ARATHA.ENSEMBL.cds,
+    removeNonCoding=TRUE,
+    source="ENSEMBL")
+ARALYR.ENSEMBL.gtf.longest <- gtf2longest(
+    gtffile=ARALYR.ENSEMBL.gtf.url,
+    cds=ARALYR.ENSEMBL.cds,
+    removeNonCoding=TRUE,
+    source="ENSEMBL")
+
+ARATHA.ENSEMBL.gtf.cds.longest <- ARATHA.ENSEMBL.gtf.longest$cds
+ARALYR.ENSEMBL.gtf.cds.longest <- ARALYR.ENSEMBL.gtf.longest$cds
+
+ARATHA.ENSEMBL.gtf.cds.genepos <- ARATHA.ENSEMBL.gtf.longest$genepos
+ARALYR.ENSEMBL.gtf.cds.genepos <- ARALYR.ENSEMBL.gtf.longest$genepos
 
 ## get help
 #?gtf2longest
@@ -194,26 +254,73 @@ ARALYR.cds.longest <- ARALYR.gtf.longest$cds
 #### 1.2.3 [gff2longest()]{#gff2longest}
 
 ```
-## get longest isoform from GFF3 file
+## set NCBI URL
+NCBI <- "https://ftp.ncbi.nlm.nih.gov/genomes/all/"
+
+## get longest isoform from GFF3 file - NCBI
 
 ## set Arabidopsis thaliana GFF3 URL
-ARATHA.gff3.url <- paste0(NCBI, "GCF/000/001/735/GCF_000001735.4_TAIR10.1/",
+ARATHA.NCBI.gff3.url <- paste0(NCBI, "GCF/000/001/735/GCF_000001735.4_TAIR10.1/",
     "GCF_000001735.4_TAIR10.1_genomic.gff.gz")
-ARALYR.gff3.url <- paste0(NCBI, "GCF/000/004/255/GCF_000004255.2_v.1.0/",
+ARALYR.NCBI.gff3.url <- paste0(NCBI, "GCF/000/004/255/GCF_000004255.2_v.1.0/",
     "GCF_000004255.2_v.1.0_genomic.gff.gz")
 
-## get longest isoform from GTF file
-ARATHA.gff3.longest <- gff2longest(gff3file=ARATHA.gff3.url,
-    cds=ARATHA.cds,
+## get longest isoform from GFF3 file
+ARATHA.NCBI.gff3.longest <- gff2longest(
+    gff3file=ARATHA.NCBI.gff3.url,
+    cds=ARATHA.NCBI.cds,
     removeNonCoding=TRUE,
     source="NCBI")
-ARALYR.gff3.longest <- gff2longest(gff3file=ARALYR.gff3.url,
-    cds=ARALYR.cds,
+ARALYR.NCBI.gff3.longest <- gff2longest(
+    gff3file=ARALYR.NCBI.gff3.url,
+    cds=ARALYR.NCBI.cds,
     removeNonCoding=TRUE,
     source="NCBI")
 
-ARATHA.cds.longest <- ARATHA.gff3.longest$cds
-ARALYR.cds.longest <- ARALYR.gff3.longest$cds
+ARATHA.NCBI.gff3.cds.longest <- ARATHA.NCBI.gff3.longest$cds
+ARALYR.NCBI.gff3.cds.longest <- ARALYR.NCBI.gff3.longest$cds
+
+ARATHA.NCBI.gff3.cds.genepos <- ARATHA.NCBI.gff3.longest$genepos
+ARALYR.NCBI.gff3.cds.genepos <- ARALYR.NCBI.gff3.longest$genepos
+
+## get help
+#?gff2longest
+```
+
+```
+## set ENSEMBL URL
+ENSEMBL <- "http://ftp.ensemblgenomes.org/pub/plants/release-52/"
+
+## get longest isoform from GFF3 file - ENSEMBL
+
+## set Arabidopsis thaliana GFF3 URL
+ARATHA.ENSEMBL.gff3.url <- paste0(ENSEMBL, "gff3/arabidopsis_thaliana/",
+    "Arabidopsis_thaliana.TAIR10.52.gff3.gz")
+ARALYR.ENSEMBL.gff3.url <- paste0(ENSEMBL, "gff3/arabidopsis_lyrata/",
+    "Arabidopsis_lyrata.v.1.0.52.gff3.gz")
+
+ARATHA.ENSEMBL.gff3.file <- tempfile()
+download.file(ARATHA.ENSEMBL.gff3.url, ARATHA.ENSEMBL.gff3.file, quiet=FALSE)
+ARALYR.ENSEMBL.gff3.file <- tempfile()
+download.file(ARALYR.ENSEMBL.gff3.url, ARALYR.ENSEMBL.gff3.file, quiet=FALSE)
+
+## get longest isoform from GFF3 file
+ARATHA.ENSEMBL.gff3.longest <- gff2longest(
+    gff3file=ARATHA.ENSEMBL.gff3.file,
+    cds=ARATHA.ENSEMBL.cds,
+    removeNonCoding=TRUE,
+    source="ENSEMBL")
+ARALYR.ENSEMBL.gff3.longest <- gff2longest(
+    gff3file=ARALYR.ENSEMBL.gff3.file,
+    cds=ARALYR.ENSEMBL.cds,
+    removeNonCoding=TRUE,
+    source="ENSEMBL")
+
+ARATHA.ENSEMBL.gff3.cds.longest <- ARATHA.ENSEMBL.gff3.longest$cds
+ARALYR.ENSEMBL.gff3.cds.longest <- ARALYR.ENSEMBL.gff3.longest$cds
+
+ARATHA.ENSEMBL.gff3.cds.genepos <- ARATHA.ENSEMBL.gff3.longest$genepos
+ARALYR.ENSEMBL.gff3.cds.genepos <- ARALYR.ENSEMBL.gff3.longest$genepos
 
 ## get help
 #?gff2longest
@@ -329,31 +436,13 @@ obtained from the FTP server from
 __Note:__ The GTF and GFF3 files can be very large and it might take some time
 until this data is loaded into memory.
 
-```
-## set ENSEMBL URL
-ensemblPlants <- "http://ftp.ensemblgenomes.org/pub/plants/release-52/"
-## set Arabidopsis thaliana GTF URL
-ARATHA.ENSEMBL.GTF.url <- paste0(ensemblPlants,
-    "/gtf/arabidopsis_thaliana/",
-    "Arabidopsis_thaliana.TAIR10.52.gtf.gz")
-## set Arabidopsis thaliana CDS URL
-ARATHA.ENSEMBL.CDS.url <- paste0(ensemblPlants,
-    "fasta/arabidopsis_thaliana/cds/",
-    "Arabidopsis_thaliana.TAIR10.cds.all.fa.gz")
-ARATHA.ENSEMBL.CDS <- Biostrings::readDNAStringSet(ARATHA.ENSEMBL.CDS.url)
-ARATHA.ENSEMBL.CDS.longest <- gtf2longest(
-    gtffile=ARATHA.ENSEMBL.GTF.url,
-    cds=ARATHA.ENSEMBL.CDS,
-    source="ENSEMBL")
-ARATHA.ENSEMBL.CDS.longest$genepos
-ARATHA.ENSEMBL.CDS.longest$cds
-```
+see `gtf2longest()` in section 1.2.2 and `gff2longest()` in section 1.2.3
 
 __Note:__ These manual steps (see below) are now deprecated, please use the
 dedicated functions `gtf2longest()` or `gff2longest()`.
 
 ```
-## deprecated, please use gtf2longest() or gff2longest function
+## deprecated, please use gtf2longest() or gff2longest() function
 ## get gene position idx from GTF/GFF3
 
 ## set NCBI URL

@@ -63,7 +63,7 @@ ARATHA.ENSEMBL.cds.file <- tempfile()
 download.file(ARATHA.ENSEMBL.cds.url, ARATHA.ENSEMBL.cds.file, quiet=FALSE)
 ARATHA.ENSEMBL.cds <- Biostrings::readDNAStringSet(ARATHA.ENSEMBL.cds.file)
 ## get genepos and longest isoform
-ARATHA.ENSEMBL.gff3.longest <- gff2longest(gtffile=ARATHA.ENSEMBL.gff3.file,
+ARATHA.ENSEMBL.gff3.longest <- gff2longest(gff3file=ARATHA.ENSEMBL.gff3.file,
     cds=ARATHA.ENSEMBL.cds)
 ARATHA.ENSEMBL.gff3.longest$genepos
 ARATHA.ENSEMBL.gff3.longest$cds

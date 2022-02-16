@@ -55,7 +55,7 @@
 #' download.file(ARATHA.ENSEMBL.cds.url, ARATHA.ENSEMBL.cds.file, quiet=FALSE)
 #' ARATHA.ENSEMBL.cds <- Biostrings::readDNAStringSet(ARATHA.ENSEMBL.cds.file)
 #' ## get genepos and longest isoform
-#' ARATHA.ENSEMBL.gff3.longest <- gff2longest(gtffile=ARATHA.ENSEMBL.gff3.file,
+#' ARATHA.ENSEMBL.gff3.longest <- gff2longest(gff3file=ARATHA.ENSEMBL.gff3.file,
 #'     cds=ARATHA.ENSEMBL.cds)
 #' ARATHA.ENSEMBL.gff3.longest$genepos
 #' ARATHA.ENSEMBL.gff3.longest$cds
@@ -278,8 +278,8 @@ gff2longest <- function(gff3file,
         attr(gff3.transcript.genepos, "CRBHits.class") <- "genepos"
         if(!is.null(cds)){
             cds <- cds[stringr::word(names(cds)) %in%
-                gtf.transcript.genepos$gene.seq.id]
-            cds <- cds[match(gtf.transcript.genepos$gene.seq.id,
+                gff3.transcript.genepos$gene.seq.id]
+            cds <- cds[match(gff3.transcript.genepos$gene.seq.id,
                 stringr::word(names(cds)))]
         }
         return(setNames(list(gff3.transcript.genepos, cds),

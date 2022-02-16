@@ -178,15 +178,41 @@ gtf2longest <- function(gtffile,
         dplyr::mutate(geneID = gsub(" ", "", gsub("\"", "",
             gsub("gene_id ", "",
             stringr::word(attribute, 1, sep=";"))))))
-        ## extract transcript ID
+        ## extract transcript ID and transcript VERSION
+        gtf.transcript.attribute <- stringr::str_split(
+            gtf.transcript$attribute, ";", simplify=TRUE)
+        gtf.transcriptID <- apply(gtf.transcript.attribute, 1,
+            function(x){
+                gsub(" ", "", gsub("\"", "",
+                gsub("transcript_id ", "" ,
+                x[grep("transcript_id", x)])))
+            })
+        gtf.transcriptVERSION <- apply(gtf.transcript.attribute, 1,
+            function(x){
+                gsub(" ", "", gsub("\"", "",
+                gsub("transcript_version ", "" ,
+                x[grep("transcript_version", x)])))
+            })
         gtf.transcript <- (gtf.transcript %>%
-        dplyr::mutate(transcriptID = gsub(" ", "", gsub("\"", "",
-            gsub("transcript_id ", "",
-            stringr::str_split_fixed(attribute, ";", 3)[,2])))))
+        dplyr::mutate(transcriptID = paste0(gtf.transcriptID,
+            ".", gtf.transcriptVERSION)))
+        gtf.CDS.attribute <- stringr::str_split(
+            gtf.CDS$attribute, ";", simplify=TRUE)
+        gtf.CDS.transcriptID <- apply(gtf.CDS.attribute, 1,
+            function(x){
+                gsub(" ", "", gsub("\"", "",
+                gsub("transcript_id ", "" ,
+                x[grep("transcript_id", x)])))
+            })
+        gtf.CDS.transcriptVERSION <- apply(gtf.CDS.attribute, 1,
+            function(x){
+                gsub(" ", "", gsub("\"", "",
+                gsub("transcript_version ", "" ,
+                x[grep("transcript_version", x)])))
+            })
         gtf.CDS <- (gtf.CDS %>%
-        dplyr::mutate(transcriptID = gsub(" ", "", gsub("\"", "",
-            gsub("transcript_id ", "",
-            stringr::str_split_fixed(attribute, ";", 3)[,2])))))
+        dplyr::mutate(transcriptID = paste0(gtf.CDS.transcriptID,
+            ".", gtf.CDS.transcriptVERSION)))
         ## extract width per isoform
         gtf.CDS.len <- (gtf.CDS %>%
         dplyr::group_by(transcriptID) %>%
