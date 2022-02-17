@@ -193,9 +193,15 @@ gtf2longest <- function(gtffile,
                 gsub("transcript_version ", "" ,
                 x[grep("transcript_version", x)])))
             })
-        gtf.transcript <- (gtf.transcript %>%
-        dplyr::mutate(transcriptID = paste0(gtf.transcriptID,
-            ".", gtf.transcriptVERSION)))
+        if(length(gtf.transcriptVERSION)!=0){
+            gtf.transcript <- (gtf.transcript %>%
+            dplyr::mutate(transcriptID = paste0(gtf.transcriptID,
+                ".", gtf.transcriptVERSION)))
+        }
+        if(length(gtf.transcriptVERSION)==0){
+            gtf.transcript <- (gtf.transcript %>%
+            dplyr::mutate(transcriptID = gtf.transcriptID))
+        }
         gtf.CDS.attribute <- stringr::str_split(
             gtf.CDS$attribute, ";", simplify=TRUE)
         gtf.CDS.transcriptID <- apply(gtf.CDS.attribute, 1,
@@ -210,9 +216,15 @@ gtf2longest <- function(gtffile,
                 gsub("transcript_version ", "" ,
                 x[grep("transcript_version", x)])))
             })
-        gtf.CDS <- (gtf.CDS %>%
-        dplyr::mutate(transcriptID = paste0(gtf.CDS.transcriptID,
-            ".", gtf.CDS.transcriptVERSION)))
+        if(length(gtf.CDS.transcriptVERSION)!=0){
+            gtf.CDS <- (gtf.CDS %>%
+            dplyr::mutate(transcriptID = paste0(gtf.CDS.transcriptID,
+                ".", gtf.CDS.transcriptVERSION)))
+        }
+        if(length(gtf.CDS.transcriptVERSION)==0){
+            gtf.CDS <- (gtf.CDS %>%
+            dplyr::mutate(transcriptID = gtf.CDS.transcriptID))
+        }
         ## extract width per isoform
         gtf.CDS.len <- (gtf.CDS %>%
         dplyr::group_by(transcriptID) %>%
