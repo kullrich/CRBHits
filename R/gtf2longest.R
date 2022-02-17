@@ -279,7 +279,9 @@ gtf2longest <- function(gtffile,
         if(!is.null(cds)){
             cds <- cds[stringr::word(names(cds)) %in%
                 gtf.transcript.genepos$gene.seq.id]
-            cds <- cds[match(gtf.transcript.genepos$gene.seq.id,
+            cds <- cds[match(gtf.transcript.genepos$gene.seq.id
+                [gtf.transcript.genepos$gene.seq.id %in%
+                    stringr::word(names(cds))],
                 stringr::word(names(cds)))]
         }
         return(setNames(list(gtf.transcript.genepos, cds),
