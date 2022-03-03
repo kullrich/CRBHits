@@ -238,7 +238,7 @@ cds2rbh <- function(cds1, cds2,
     selfblast <- FALSE
     #suppressWarnings since if length of cds1 and cds2 differ, this will
     #raise a warning
-    if(suppressWarnings(any(cds1==cds2))){
+    if(suppressWarnings(all(cds1==cds2))){
         selfblast <- TRUE
     }
     aa1file <- tempfile("aa1_", outpath)
