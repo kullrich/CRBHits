@@ -614,7 +614,7 @@ cds2rbh <- function(cds1, cds2,
                 crbh1 <- data.frame(Map(c, cbind(rbh1, "rbh"),
                     cbind(single1[, seq_len(15)], "single")))
             }
-            if(dim(rbh1.sec)[1]==0 & dim(single1)[1]!=0){
+            if(dim(rbh1.sec)[1]==0 & dim(single1)[1]==0){
                 crbh1 <- data.frame(Map(c, cbind(rbh1, "rbh")))
             }
             colnames(crbh1)[16] <- "rbh_class"
