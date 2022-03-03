@@ -435,11 +435,11 @@ cds2rbh <- function(cds1, cds2,
         }
         #selfblast
         if(selfblast){
-        rbh1_rbh2_fit <- fitSpline(c(rbh1[, 4]),
-            c(rbh1[, 11]),
-            fit.type,
-            fit.varweight,
-            fit.min)
+            rbh1_rbh2_fit <- fitSpline(c(rbh1[, 4]),
+                c(rbh1[, 11]),
+                fit.type,
+                fit.varweight,
+                fit.min)
         }
         #internal function to filter hit pairs using rbh1_rbh2_fit
         filter_crbh <- function(x){
@@ -469,8 +469,18 @@ cds2rbh <- function(cds1, cds2,
         #filter retained hit pairs with rbh1_rbh2_fit
         aa1_aa2.red <- filter_crbh(aa1_aa2.red)
         aa2_aa1.red <- filter_crbh(aa2_aa1.red)
-        aa1_aa2.red.idx <- paste0(aa1_aa2.red[, 1], "\t", aa1_aa2.red[, 2])
-        aa2_aa1.red.idx <- paste0(aa2_aa1.red[, 2], "\t", aa2_aa1.red[, 1])
+        if(dim(aa1_aa2.red)[1]!=0){
+            aa1_aa2.red.idx <- paste0(aa1_aa2.red[, 1], "\t", aa1_aa2.red[, 2])
+        }
+        if(dim(aa1_aa2.red)[1]==0){
+            aa1_aa2.red.idx <- NULL
+        }
+        if(dim(aa2_aa1.red)[1]!=0){
+            aa2_aa1.red.idx <- paste0(aa2_aa1.red[, 2], "\t", aa2_aa1.red[, 1])
+        }
+        if(dim(aa2_aa1.red)[1]==0){
+            aa2_aa1.red.idx <- NULL
+        }
         #deduplicate hit pairs and only retain the best hit per HSP
         aa1_aa2.red.dedup <- aa1_aa2.red[!duplicated(aa1_aa2.red.idx), ,
             drop=FALSE]
@@ -478,10 +488,20 @@ cds2rbh <- function(cds1, cds2,
             drop=FALSE]
         #split into reciprocal direction secondary hits (rbh.sec) and single
         #direction (single)
-        aa1_aa2.red.dedup.idx <- paste0(aa1_aa2.red.dedup[, 1], "\t",
-            aa1_aa2.red.dedup[, 2])
-        aa2_aa1.red.dedup.idx <- paste0(aa2_aa1.red.dedup[, 2], "\t",
-            aa2_aa1.red.dedup[, 1])
+        if(dim(aa1_aa2.red.dedup)[1]!=0){
+            aa1_aa2.red.dedup.idx <- paste0(aa1_aa2.red.dedup[, 1], "\t",
+                aa1_aa2.red.dedup[, 2])
+        }
+        if(dim(aa1_aa2.red.dedup)[1]==0){
+            aa1_aa2.red.dedup.idx <- NULL
+        }
+        if(dim(aa2_aa1.red.dedup)[1]!=0){
+            aa2_aa1.red.dedup.idx <- paste0(aa2_aa1.red.dedup[, 2], "\t",
+                aa2_aa1.red.dedup[, 1])
+        }
+        if(dim(aa2_aa1.red.dedup)[1]==0){
+            aa2_aa1.red.dedup.idx <- NULL
+        }
         rbh1.sec <- aa1_aa2.red.dedup[which(aa1_aa2.red.dedup.idx %in%
             aa2_aa1.red.dedup.idx), , drop=FALSE]
         rbh2.sec <- aa2_aa1.red.dedup[which(aa2_aa1.red.dedup.idx %in%
@@ -553,11 +573,21 @@ cds2rbh <- function(cds1, cds2,
         }
         #if no keepSingleDirection - done
         if(!keepSingleDirection){
-            crbh1 <- data.frame(Map(c ,cbind(rbh1, "rbh"),
-                cbind(rbh1.sec[, seq_len(15)], "sec")))
+            if(dim(rbh1.sec)[1]!=0){
+                crbh1 <- data.frame(Map(c ,cbind(rbh1, "rbh"),
+                    cbind(rbh1.sec[, seq_len(15)], "sec")))
+            }
+            if(dim(rbh1.sec)[1]==0){
+                crbh1 <- data.frame(Map(c ,cbind(rbh1, "rbh")))
+            }
             colnames(crbh1)[16] <- "rbh_class"
-            crbh2 <- data.frame(Map(c ,cbind(rbh2, "rbh"),
-                cbind(rbh2.sec[, seq_len(15)], "sec")))
+            if(dim(rbh2.sec)[1]!=0){
+                crbh2 <- data.frame(Map(c ,cbind(rbh2, "rbh"),
+                    cbind(rbh2.sec[, seq_len(15)], "sec")))
+            }
+            if(dim(rbh2.sec)[1]==0){
+                crbh2 <- data.frame(Map(c ,cbind(rbh2, "rbh")))
+            }
             colnames(crbh2)[16] <- "rbh_class"
             crbh <- crbh1[, c(seq_len(2), 16)]
             colnames(crbh) <- c("aa1", "aa2", "rbh_class")
@@ -571,13 +601,39 @@ cds2rbh <- function(cds1, cds2,
         }
         #if keepSingleDirection - include single - done
         if(keepSingleDirection){
-            crbh1 <- data.frame(Map(c, cbind(rbh1, "rbh"),
-                cbind(rbh1.sec[, seq_len(15)], "sec"),
-                cbind(single1[, seq_len(15)], "single")))
+            if(dim(rbh1.sec)[1]!=0 & dim(single1)[1]!=0){
+                crbh1 <- data.frame(Map(c, cbind(rbh1, "rbh"),
+                    cbind(rbh1.sec[, seq_len(15)], "sec"),
+                    cbind(single1[, seq_len(15)], "single")))
+            }
+            if(dim(rbh1.sec)[1]!=0 & dim(single1)[1]==0){
+                crbh1 <- data.frame(Map(c, cbind(rbh1, "rbh"),
+                    cbind(rbh1.sec[, seq_len(15)], "sec")))
+            }
+            if(dim(rbh1.sec)[1]==0 & dim(single1)[1]!=0){
+                crbh1 <- data.frame(Map(c, cbind(rbh1, "rbh"),
+                    cbind(single1[, seq_len(15)], "single")))
+            }
+            if(dim(rbh1.sec)[1]==0 & dim(single1)[1]!=0){
+                crbh1 <- data.frame(Map(c, cbind(rbh1, "rbh")))
+            }
             colnames(crbh1)[16] <- "rbh_class"
-            crbh2 <- data.frame(Map(c, cbind(rbh2, "rbh"),
-                cbind(rbh2.sec[, seq_len(15)], "sec"),
-                cbind(single2[, seq_len(15)], "single")))
+            if(dim(rbh2.sec)[1]!=0 & dim(single2)[1]!=0){
+                crbh2 <- data.frame(Map(c, cbind(rbh2, "rbh"),
+                    cbind(rbh2.sec[, seq_len(15)], "sec"),
+                    cbind(single2[, seq_len(15)], "single")))
+            }
+            if(dim(rbh2.sec)[1]!=0 & dim(single2)[1]==0){
+                crbh2 <- data.frame(Map(c, cbind(rbh2, "rbh"),
+                    cbind(rbh2.sec[, seq_len(15)], "sec")))
+            }
+            if(dim(rbh2.sec)[1]==0 & dim(single2)[1]!=0){
+                crbh2 <- data.frame(Map(c, cbind(rbh2, "rbh"),
+                    cbind(single2[, seq_len(15)], "single")))
+            }
+            if(dim(rbh2.sec)[1]==0 & dim(single2)[1]==0){
+                crbh2 <- data.frame(Map(c, cbind(rbh2, "rbh")))
+            }
             colnames(crbh2)[16] <- "rbh_class"
             crbh <- data.frame(Map(c, crbh1[, c(seq_len(2), 16)],
                 crbh2[crbh2$rbh_class=="single", , drop=FALSE][, c(2, 1, 16)]))
