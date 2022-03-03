@@ -55,6 +55,16 @@
 #' [default: NCBI]
 #' @param threads number of parallel threads [default: 1]
 #' @param remove specify if last result files should be removed [default: TRUE]
+#' @param shorten1 shorten all sequences to multiple of three [default: FALSE]
+#' @param frame1  indicates the first base of a the first codon [default: 1]
+#' @param framelist1  supply vector of frames for each entry [default: NULL]
+#' @param genetic.code1 The genetic code to use for the translation of codons
+#' into Amino Acid letters [default: NULL]
+#' @param shorten2 shorten all sequences to multiple of three [default: FALSE]
+#' @param frame2  indicates the first base of a the first codon [default: 1]
+#' @param framelist2  supply vector of frames for each entry [default: NULL]
+#' @param genetic.code2 The genetic code to use for the translation of codons
+#' into Amino Acid letters [default: NULL]
 #' @return List of three (crbh=FALSE)\cr
 #' 1: $crbh.pairs\cr
 #' 2: $crbh1 matrix; query > target\cr
@@ -137,7 +147,16 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
     longest.isoform=FALSE,
     isoform.source="NCBI",
     threads=1,
-    remove=TRUE){
+    remove=TRUE,
+    shorten1=FALSE,
+    frame1=1,
+    framelist1=NULL,
+    genetic.code1=NULL,
+    shorten2=FALSE,
+    frame2=1,
+    framelist2=NULL,
+    genetic.code2=NULL
+    ){
     #internal function to fit evalue by length
     fitSpline <- function(alnlength, evalue, fit.type, fit.varweight, fit.min){
         log10evalue <- -log10(evalue)
@@ -242,13 +261,19 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
         cds1 <- Biostrings::readDNAStringSet(cdsfile1)
         cds2 <- Biostrings::readDNAStringSet(cdsfile2)
         Biostrings::writeXStringSet(cds2aa(isoform2longest(cds1,
-            isoform.source)), file=aa1file)
+            isoform.source), shorten=shorten1, frame=frame1,
+            framelist=framelist1, genetic.code=genetic.code1), file=aa1file)
         Biostrings::writeXStringSet(cds2aa(isoform2longest(cds2,
-            isoform.source)), file=aa2file)
+            isoform.source), shorten=shorten2, frame=frame2,
+            framelist=framelist2, genetic.code=genetic.code2), file=aa2file)
     }
     if(!longest.isoform){
-        cdsfile2aafile(cdsfile1, aa1file)
-        cdsfile2aafile(cdsfile2, aa2file)
+        cdsfile2aafile(cdsfile1, aa1file,
+            shorten=shorten1, frame=frame1, framelist=framelist1,
+            genetic.code=genetic.code1)
+        cdsfile2aafile(cdsfile2, aa2file,
+            shorten=shorten2, frame=frame2, framelist=framelist2,
+            genetic.code=genetic.code2)
     }
     if(searchtool=="last"){
         system2(command=paste0(lastpath, "lastdb"),

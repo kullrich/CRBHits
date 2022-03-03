@@ -31,7 +31,15 @@ cds2rbh(
   longest.isoform = FALSE,
   isoform.source = "NCBI",
   threads = 1,
-  remove = TRUE
+  remove = TRUE,
+  shorten1 = FALSE,
+  frame1 = 1,
+  framelist1 = NULL,
+  genetic.code1 = NULL,
+  shorten2 = FALSE,
+  frame2 = 1,
+  framelist2 = NULL,
+  genetic.code2 = NULL
 )
 }
 \arguments{
@@ -106,6 +114,24 @@ longest isoform (only possible if data was accessed from NCBI or ENSEMBL)
 \item{threads}{number of parallel threads [default: 1]}
 
 \item{remove}{specify if last result files should be removed [default: TRUE]}
+
+\item{shorten1}{shorten all sequences to multiple of three [default: FALSE]}
+
+\item{frame1}{indicates the first base of a the first codon [default: 1]}
+
+\item{framelist1}{supply vector of frames for each entry [default: NULL]}
+
+\item{genetic.code1}{The genetic code to use for the translation of codons
+into Amino Acid letters [default: NULL]}
+
+\item{shorten2}{shorten all sequences to multiple of three [default: FALSE]}
+
+\item{frame2}{indicates the first base of a the first codon [default: 1]}
+
+\item{framelist2}{supply vector of frames for each entry [default: NULL]}
+
+\item{genetic.code2}{The genetic code to use for the translation of codons
+into Amino Acid letters [default: NULL]}
 }
 \value{
 List of three (crbh=FALSE)\cr

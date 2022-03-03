@@ -4,12 +4,28 @@
 \alias{cdsfile2aafile}
 \title{cdsfile2aafile}
 \usage{
-cdsfile2aafile(infile, outfile)
+cdsfile2aafile(
+  infile,
+  outfile,
+  shorten = FALSE,
+  frame = 1,
+  framelist = NULL,
+  genetic.code = NULL
+)
 }
 \arguments{
 \item{infile}{cds fasta file [mandatory]}
 
 \item{outfile}{aa fasta file [mandatory]}
+
+\item{shorten}{shorten all sequences to multiple of three [default: FALSE]}
+
+\item{frame}{indicates the first base of a the first codon [default: 1]}
+
+\item{framelist}{supply vector of frames for each entry [default: NULL]}
+
+\item{genetic.code}{The genetic code to use for the translation of codons
+into Amino Acid letters [default: NULL]}
 }
 \value{
 aa fasta file
