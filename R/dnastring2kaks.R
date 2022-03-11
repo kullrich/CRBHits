@@ -130,8 +130,8 @@ dnastring2kaks <- function(cds,
         OUT <- foreach(i=seq(from=1, to=length(cds) - 1),
             .combine=rbind, .packages = c('foreach')) %dopar% {
             foreach(j=seq(from=i+1, to=length(cds)), .combine=rbind) %do% {
-                c(setNames(i, "Comp1"),
-                setNames(j, "Comp2"),
+                c(setNames(i, "Comp1"), setNames(j, "Comp2"),
+                setNames(i, "seq1"), setNames(j, "seq2"),
                 #unlist(seqinr::kaks(dnastring2aln(cds2codonaln(cds[i],
                 #cds[j], ...)))))
                 unlist(seqinr::kaks(CRBHits::dnastring2aln(
@@ -143,8 +143,8 @@ dnastring2kaks <- function(cds,
         attr(OUT, "model") <- "Li"
         attr(OUT, "align") <- "TRUE"
         attr(OUT, "CRBHits.class") <- "dnastring2kaks"
-        OUT$Comp1 <- names(cds)[OUT$Comp1]
-        OUT$Comp2 <- names(cds)[OUT$Comp2]
+        OUT$seq1 <- names(cds)[OUT$seq1]
+        OUT$seq2 <- names(cds)[OUT$seq2]
         return(OUT)
     }
     if(model=="NG86" & align==FALSE){
