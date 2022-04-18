@@ -389,7 +389,7 @@ rbh2dagchainer <- function(rbhpairs,
             stdout=FALSE, stderr=FALSE)
     }
     if(file.info(paste0(tmp, ".aligncoords"))[["size"]]==0){
-        stop("DAGchainer did not find any syntenic resgions")
+        return(NULL)
     }
     dagchainer.results <- read.table(paste0(tmp, ".aligncoords"), sep = "\t",
         header = FALSE)
