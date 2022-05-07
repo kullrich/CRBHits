@@ -52,7 +52,7 @@
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -190,7 +190,7 @@ build_vignettes <span class="op">=</span> <span class="cn">FALSE</span>, depende
 </h2>
 <pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a></span><span class="op">)</span>
 <span class="co">## prerequisite: last</span>
-<span class="co">## if not done yet, try to compile last-1256 - uncomment the following line</span>
+<span class="co">## if not done yet, try to compile last-1282 - uncomment the following line</span>
 <span class="co">#CRBHits::make_last()</span>
 <span class="co">## conditional reciprocal best hits (CRBHit pairs)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ath"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span>
@@ -277,7 +277,7 @@ build_vignettes <span class="op">=</span> <span class="cn">FALSE</span>, depende
 
 <span class="co">##### see section compile external tools from original source code</span>
 <span class="co">## example how to use own compiled version of LAST</span>
-<span class="va">my.lastpath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/last/last-1256/bin"</span>
+<span class="va">my.lastpath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/last/last-1282/bin"</span>
 <span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">ath</span>, <span class="va">aly</span>, plotCurve <span class="op">=</span> <span class="cn">TRUE</span>,
                         lastpath <span class="op">=</span> <span class="va">my.lastpath</span><span class="op">)</span>
 <span class="op">?</span><span class="va">cds2rbh</span>
@@ -337,7 +337,7 @@ conda install diamond</code></pre>
 <p>The source code for the prerequisites (LAST, KaKs_Calculator2.0, DAGchainer) are forked within <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a>.</p>
 <ul>
 <li>
-<a href="https://gitlab.com/mcfrith/last" class="external-link">LAST</a> <a href="https://gitlab.com/mcfrith/last/-/archive/1256/last-1256.zip" class="external-link">https://gitlab.com/mcfrith/last/-/archive/1256/last-1256.zip</a>
+<a href="https://gitlab.com/mcfrith/last" class="external-link">LAST</a> <a href="https://gitlab.com/mcfrith/last/-/archive/1282/last-1282.zip" class="external-link">https://gitlab.com/mcfrith/last/-/archive/1282/last-1282.zip</a>
 </li>
 </ul>
 <p>To compile the forked version of <a href="https://gitlab.com/mcfrith/last" class="external-link">LAST</a> within the <code>CRBHits</code> R package directory try to use the function <code><a href="reference/make_last.html">make_last()</a></code>:</p>
@@ -366,10 +366,10 @@ conda install diamond</code></pre>
 ## e.g.
 mkdir /tmp/last
 cd /tmp/last
-## donwload last-1256
-curl -O https://gitlab.com/mcfrith/last/-/archive/1256/last-1256.zip
-unzip last-1256.zip
-cd last-1256
+## donwload last-1282
+curl -O https://gitlab.com/mcfrith/last/-/archive/1282/last-1282.zip
+unzip last-1282.zip
+cd last-1282
 ## compile LAST
 make</code></pre>
 <p>To compile <a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download" class="external-link">KaKs_Calculator2.0</a>:</p>
@@ -399,7 +399,7 @@ cd dagchainer
 make</code></pre>
 <p>If you would like to use your own compiled versions of <code>LAST</code>, <code>KaKs_Calculator2.0</code> and <code>DAGchainer</code> you need to set the correct <code>@param</code> in the corresponding functions of <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a>.</p>
 <pre><code><span class="co">## example how to use own compiled versions of LAST, KaKs_Calculator2.0 and DAGchainer</span>
-<span class="va">my.lastpath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/last/last-1256/bin"</span>
+<span class="va">my.lastpath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/last/last-1282/bin"</span>
 <span class="va">my.kakspath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/KaKs_Calculator2/KaKs_Calculator2.0/src"</span>
 <span class="va">my.dagchainerpath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/dagcahiner"</span>
 
@@ -421,7 +421,7 @@ make</code></pre>
 <p>MIT (see LICENSE)</p>
 <p>The <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a> package includes source code that has been published under following licenses:</p>
 <div class="section level3">
-<h3 id="last-1256zip">last-1256.zip<a class="anchor" aria-label="anchor" href="#last-1256zip"></a>
+<h3 id="last-1282zip">last-1282.zip<a class="anchor" aria-label="anchor" href="#last-1282zip"></a>
 </h3>
 <p>GNU General Public License Version 3, 29 June 2007 <a href="https://www.gnu.org/licenses/gpl-3.0.de.html" class="external-link">GPLv3</a></p>
 </div>
@@ -554,7 +554,7 @@ make</code></pre>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer>

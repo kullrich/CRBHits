@@ -1,8 +1,8 @@
-pandoc: 2.14.0.3
-pkgdown: 2.0.2
+pandoc: 2.17.1.1
+pkgdown: 2.0.3
 pkgdown_sha: ~
 articles:
   V01CRBHitsBasicVignette: V01CRBHitsBasicVignette.html
   V02KaKsVignette: V02KaKsVignette.html
-last_built: 2022-02-10T16:48Z
+last_built: 2022-05-07T07:23Z
 

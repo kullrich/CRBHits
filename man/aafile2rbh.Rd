@@ -7,7 +7,7 @@
 aafile2rbh(
   aafile1,
   aafile2,
-  lastpath = paste0(find.package("CRBHits"), "/extdata/last-1256/bin/"),
+  lastpath = paste0(find.package("CRBHits"), "/extdata/last-1282/bin/"),
   lastD = 1e+06,
   outpath = "/tmp",
   crbh = TRUE,
@@ -33,7 +33,7 @@ aafile2rbh(
 \item{aafile2}{aa2 fasta file [mandatory]}
 
 \item{lastpath}{specify the PATH to the last binaries
-[default: /extdata/last-1256/bin/]}
+[default: /extdata/last-1282/bin/]}
 
 \item{lastD}{last option D: query letters per random alignment
 [default: 1e6]}
@@ -100,7 +100,7 @@ If one specifies aafile1 and aafile2 as the same input a selfblast is
 conducted.
 }
 \examples{
-## compile last-1256 within CRBHits
+## compile last-1282 within CRBHits
 CRBHits::make_last()
 ## load example sequence data
 athfile <- system.file("fasta", "ath.aa.fasta.gz", package="CRBHits")

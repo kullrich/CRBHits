@@ -8,7 +8,7 @@ cds2rbh(
   cds1,
   cds2,
   searchtool = "last",
-  lastpath = paste0(find.package("CRBHits"), "/extdata/last-1256/bin/"),
+  lastpath = paste0(find.package("CRBHits"), "/extdata/last-1282/bin/"),
   lastD = 1e+06,
   mmseqs2path = NULL,
   mmseqs2sensitivity = 5.7,
@@ -51,7 +51,7 @@ cds2rbh(
 [default: last]}
 
 \item{lastpath}{specify the PATH to the last binaries
-[default: /extdata/last-1256/bin/]}
+[default: /extdata/last-1282/bin/]}
 
 \item{lastD}{last option D: query letters per random alignment
 [default: 1e6]}
@@ -158,7 +158,7 @@ or with \bold{diamond}
 If one specifies cds1 and cds2 as the same input a selfblast is conducted.
 }
 \examples{
-## compile last-1256 within CRBHits
+## compile last-1282 within CRBHits
 CRBHits::make_last()
 ## load example sequence data
 data("ath", package="CRBHits")

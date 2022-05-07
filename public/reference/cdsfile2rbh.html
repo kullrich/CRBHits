@@ -36,7 +36,7 @@ conducted."><meta property="og:image" content="/logo.png"><!-- mathjax --><scrip
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -87,7 +87,7 @@ conducted.</p>
   <span class="va">cdsfile1</span>,
   <span class="va">cdsfile2</span>,
   searchtool <span class="op">=</span> <span class="st">"last"</span>,
-  lastpath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/find.package.html" class="external-link">find.package</a></span><span class="op">(</span><span class="st">"CRBHits"</span><span class="op">)</span>, <span class="st">"/extdata/last-1256/bin/"</span><span class="op">)</span>,
+  lastpath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/find.package.html" class="external-link">find.package</a></span><span class="op">(</span><span class="st">"CRBHits"</span><span class="op">)</span>, <span class="st">"/extdata/last-1282/bin/"</span><span class="op">)</span>,
   lastD <span class="op">=</span> <span class="fl">1e+06</span>,
   mmseqs2path <span class="op">=</span> <span class="cn">NULL</span>,
   mmseqs2sensitivity <span class="op">=</span> <span class="fl">5.7</span>,
@@ -110,7 +110,15 @@ conducted.</p>
   longest.isoform <span class="op">=</span> <span class="cn">FALSE</span>,
   isoform.source <span class="op">=</span> <span class="st">"NCBI"</span>,
   threads <span class="op">=</span> <span class="fl">1</span>,
-  remove <span class="op">=</span> <span class="cn">TRUE</span>
+  remove <span class="op">=</span> <span class="cn">TRUE</span>,
+  shorten1 <span class="op">=</span> <span class="cn">FALSE</span>,
+  frame1 <span class="op">=</span> <span class="fl">1</span>,
+  framelist1 <span class="op">=</span> <span class="cn">NULL</span>,
+  genetic.code1 <span class="op">=</span> <span class="cn">NULL</span>,
+  shorten2 <span class="op">=</span> <span class="cn">FALSE</span>,
+  frame2 <span class="op">=</span> <span class="fl">1</span>,
+  framelist2 <span class="op">=</span> <span class="cn">NULL</span>,
+  genetic.code2 <span class="op">=</span> <span class="cn">NULL</span>
 <span class="op">)</span></code></pre></div>
     </div>
 
@@ -125,7 +133,7 @@ conducted.</p>
 [default: last]</p></dd>
 <dt>lastpath</dt>
 <dd><p>specify the PATH to the last binaries
-[default: /extdata/last-1256/bin/]</p></dd>
+[default: /extdata/last-1282/bin/]</p></dd>
 <dt>lastD</dt>
 <dd><p>last option D: query letters per random alignment
 [default: 1e6]</p></dd>
@@ -187,6 +195,24 @@ longest isoform (only possible if data was accessed from NCBI or ENSEMBL)
 <dd><p>number of parallel threads [default: 1]</p></dd>
 <dt>remove</dt>
 <dd><p>specify if last result files should be removed [default: TRUE]</p></dd>
+<dt>shorten1</dt>
+<dd><p>shorten all sequences to multiple of three [default: FALSE]</p></dd>
+<dt>frame1</dt>
+<dd><p>indicates the first base of a the first codon [default: 1]</p></dd>
+<dt>framelist1</dt>
+<dd><p>supply vector of frames for each entry [default: NULL]</p></dd>
+<dt>genetic.code1</dt>
+<dd><p>The genetic code to use for the translation of codons
+into Amino Acid letters [default: NULL]</p></dd>
+<dt>shorten2</dt>
+<dd><p>shorten all sequences to multiple of three [default: FALSE]</p></dd>
+<dt>frame2</dt>
+<dd><p>indicates the first base of a the first codon [default: 1]</p></dd>
+<dt>framelist2</dt>
+<dd><p>supply vector of frames for each entry [default: NULL]</p></dd>
+<dt>genetic.code2</dt>
+<dd><p>The genetic code to use for the translation of codons
+into Amino Acid letters [default: NULL]</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -218,7 +244,7 @@ protein sequence searching for the analysis of massive data sets.
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## compile last-1256 within CRBHits</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## compile last-1282 within CRBHits</span></span>
 <span class="r-in"><span class="fu">CRBHits</span><span class="fu">::</span><span class="fu"><a href="make_last.html">make_last</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-in"><span class="co">## load example sequence data</span></span>
 <span class="r-in"><span class="va">athfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"fasta"</span>, <span class="st">"ath.cds.fasta.gz"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span></span>
@@ -259,7 +285,7 @@ protein sequence searching for the analysis of massive data sets.
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer></div>

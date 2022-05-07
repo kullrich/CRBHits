@@ -10,7 +10,7 @@
 #' @param aa1 aa1 sequences as \code{AAStringSet} [mandatory]
 #' @param aa2 aa2 sequences as \code{AAStringSet} [mandatory]
 #' @param lastpath specify the PATH to the last binaries
-#' [default: /extdata/last-1256/bin/]
+#' [default: /extdata/last-1282/bin/]
 #' @param lastD last option D: query letters per random alignment
 #' [default: 1e6]
 #' @param outpath specify the output PATH [default: /tmp]
@@ -64,7 +64,7 @@
 #' @references Rost B. (1999). Twilight zone of protein sequence alignments.
 #' \emph{Protein Engineering}, \bold{12(2)}, 85-94.
 #' @examples
-#' ## compile last-1256 within CRBHits
+#' ## compile last-1282 within CRBHits
 #' CRBHits::make_last()
 #' ## load example sequence data
 #' data("ath", package="CRBHits")
@@ -94,7 +94,7 @@
 
 aa2rbh <- function(aa1, aa2,
     lastpath=paste0(find.package("CRBHits"),
-        "/extdata/last-1256/bin/"),
+        "/extdata/last-1282/bin/"),
     lastD=1e6,
     outpath="/tmp",
     crbh=TRUE,
