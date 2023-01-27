@@ -7,8 +7,13 @@
 aa2rbh(
   aa1,
   aa2,
-  lastpath = paste0(find.package("CRBHits"), "/extdata/last-1282/bin/"),
+  searchtool = "last",
+  lastpath = paste0(find.package("CRBHits"), "/extdata/last-1418/bin/"),
   lastD = 1e+06,
+  mmseqs2path = NULL,
+  mmseqs2sensitivity = 5.7,
+  diamondpath = NULL,
+  diamondsensitivity = "--sensitive",
   outpath = "/tmp",
   crbh = TRUE,
   keepSingleDirection = FALSE,
@@ -32,11 +37,26 @@ aa2rbh(
 
 \item{aa2}{aa2 sequences as \code{AAStringSet} [mandatory]}
 
+\item{searchtool}{specify sequence search algorithm last, mmseqs2 or diamond
+[default: last]}
+
 \item{lastpath}{specify the PATH to the last binaries
-[default: /extdata/last-1282/bin/]}
+[default: /extdata/last-1418/bin/]}
 
 \item{lastD}{last option D: query letters per random alignment
 [default: 1e6]}
+
+\item{mmseqs2path}{specify the PATH to the mmseqs2 binaries
+[default: NULL]}
+
+\item{mmseqs2sensitivity}{specify the sensitivity option of mmseqs2
+[default: 5.7]}
+
+\item{diamondpath}{specify the PATH to the diamond binaries
+[default: NULL]}
+
+\item{diamondsensitivity}{specify the sensitivity option of diamond
+[default: --sensitive]}
 
 \item{outpath}{specify the output PATH [default: /tmp]}
 
@@ -95,11 +115,15 @@ This function calculates (conditional-)reciprocal best hit
 Conditional-reciprocal best hit pairs were introduced by
 \emph{Aubry S, Kelly S et al. (2014)}.
 Sequence searches are performed with \bold{last}
-\emph{Kiełbasa, SM et al. (2011)}.
+\emph{Kiełbasa, SM et al. (2011)} [default]
+or with \bold{mmseqs2}
+\emph{Steinegger, M and Soeding, J (2017)}
+or with \bold{diamond}
+\emph{Buchfink, B et al. (2021)}.
 If one specifies aa1 and aa2 as the same input a selfblast is conducted.
 }
 \examples{
-## compile last-1282 within CRBHits
+## compile last-1418 within CRBHits
 CRBHits::make_last()
 ## load example sequence data
 data("ath", package="CRBHits")
@@ -138,8 +162,7 @@ Rost B. (1999). Twilight zone of protein sequence alignments.
 \emph{Protein Engineering}, \bold{12(2)}, 85-94.
 }
 \seealso{
-\code{\link[CRBHits]{cdsfile2rbh}},
-\code{\link[CRBHits]{isoform2longest}}
+\code{\link[CRBHits]{cds2rbh}}
 }
 \author{
 Kristian K Ullrich

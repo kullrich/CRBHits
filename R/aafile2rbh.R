@@ -1,19 +1,33 @@
 #' @title aafile2rbh
 #' @name aafile2rbh
 #' @description This function calculates (conditional-)reciprocal best hit
-#' (CRBHit) pairs from two two AA fasta file's.
+#' (CRBHit) pairs from two AA fasta files.
 #' Conditional-reciprocal best hit pairs were introduced by
 #' \emph{Aubry S, Kelly S et al. (2014)}.
 #' Sequence searches are performed with \bold{last}
-#' \emph{Kiełbasa, SM et al. (2011)}.
+#' \emph{Kiełbasa, SM et al. (2011)} [default]
+#' or with \bold{mmseqs2}
+#' \emph{Steinegger, M and Soeding, J (2017)}
+#' or with \bold{diamond}
+#' \emph{Buchfink, B et al. (2021)}.
 #' If one specifies aafile1 and aafile2 as the same input a selfblast is
 #' conducted.
 #' @param aafile1 aa1 fasta file [mandatory]
 #' @param aafile2 aa2 fasta file [mandatory]
+#' @param searchtool specify sequence search algorithm last, mmseqs2 or diamond
+#' [default: last]
 #' @param lastpath specify the PATH to the last binaries
-#' [default: /extdata/last-1282/bin/]
+#' [default: /extdata/last-1418/bin/]
 #' @param lastD last option D: query letters per random alignment
 #' [default: 1e6]
+#' @param mmseqs2path specify the PATH to the mmseqs2 binaries
+#' [default: NULL]
+#' @param mmseqs2sensitivity specify the sensitivity option of mmseqs2
+#' [default: 5.7]
+#' @param diamondpath specify the PATH to the diamond binaries
+#' [default: NULL]
+#' @param diamondsensitivity specify the sensitivity option of diamond
+#' [default: --sensitive]
 #' @param outpath specify the output PATH [default: /tmp]
 #' @param crbh specify if conditional-reciprocal hit pairs should be retained
 #' as secondary hits [default: TRUE]
@@ -54,8 +68,7 @@
 #' @importFrom utils read.table
 #' @importFrom tidyr %>%
 #' @importFrom stringr str_split_fixed
-#' @seealso \code{\link[CRBHits]{aa2rbh}},
-#' \code{\link[CRBHits]{isoform2longest}}
+#' @seealso \code{\link[CRBHits]{aa2rbh}}
 #' @references Aubry S, Kelly S et al. (2014) Deep Evolutionary Comparison of
 #' Gene Expression Identifies Parallel Recruitment of Trans-Factors in Two
 #' Independent Origins of C4 Photosynthesis. \emph{PLOS Genetics},
@@ -65,7 +78,7 @@
 #' @references Rost B. (1999). Twilight zone of protein sequence alignments.
 #' \emph{Protein Engineering}, \bold{12(2)}, 85-94.
 #' @examples
-#' ## compile last-1282 within CRBHits
+#' ## compile last-1418 within CRBHits
 #' CRBHits::make_last()
 #' ## load example sequence data
 #' athfile <- system.file("fasta", "ath.aa.fasta.gz", package="CRBHits")
@@ -92,9 +105,14 @@
 #' @author Kristian K Ullrich
 
 aafile2rbh <- function(aafile1, aafile2,
+    searchtool="last",
     lastpath=paste0(find.package("CRBHits"),
-        "/extdata/last-1282/bin/"),
+        "/extdata/last-1418/bin/"),
     lastD=1e6,
+    mmseqs2path=NULL,
+    mmseqs2sensitivity=5.7,
+    diamondpath=NULL,
+    diamondsensitivity="--sensitive",
     outpath="/tmp",
     crbh=TRUE,
     keepSingleDirection=FALSE,
@@ -110,7 +128,8 @@ aafile2rbh <- function(aafile1, aafile2,
     fit.varweight=0.1,
     fit.min=5,
     threads=1,
-    remove=TRUE){
+    remove=TRUE
+    ){
     #internal function to fit evalue by length
     fitSpline <- function(alnlength, evalue, fit.type, fit.varweight, fit.min){
         log10evalue <- -log10(evalue)
@@ -150,20 +169,46 @@ aafile2rbh <- function(aafile1, aafile2,
         fitMatrixfun <- splinefun(fitMatrix[, 1], fitMatrix[, 2])
         return(fitMatrixfun)
     }
-    if(!dir.exists(lastpath)){
-        stop("Error: last PATH does not exist. Please specify correct PATH
-            and/or look into package installation prerequisites. Try to use
-            make_last() function.")
+    if(searchtool=="last"){
+        if(!dir.exists(lastpath)){
+            stop("Error: last PATH does not exist. Please specify correct
+                PATH and/or look into package installation prerequisites.
+                Try to use make_last() function.")
+        }
+        if(!file.exists(paste0(lastpath, "lastdb"))){
+            stop("Error: lastdb binary does not exist. Please specify
+                correct PATH and/or look into package installation
+                prerequisites. Try to use make_last() function.")
+        }
+        if(!file.exists(paste0(lastpath, "lastal"))){
+            stop("Error: lastal binary does not exist. Please specify
+                correct PATH and/or look into package installation
+                prerequisites. Try to use make_last() function.")
+        }
     }
-    if(!file.exists(paste0(lastpath, "lastdb"))){
-        stop("Error: lastdb binary does not exist. Please specify correct PATH
-            and/or look into package installation prerequisites. Try to use
-            make_last() function.")
+    if(searchtool=="mmseqs2"){
+        if(!dir.exists(mmseqs2path)){
+            stop("Error: mmseqs2 PATH does not exist. Please specify
+                correct PATH and/or look into package installation
+                prerequisites.")
+        }
+        if(!file.exists(paste0(mmseqs2path, "mmseqs"))){
+            stop("Error: mmseqs2 binary does not exist. Please specify
+                correct PATH and/or look into package installation
+                prerequisites.")
+        }
     }
-    if(!file.exists(paste0(lastpath, "lastal"))){
-        stop("Error: lastal binary does not exist. Please specify correctPATH
-            and/or look into package installation prerequisites. Try to use
-            make_last() function.")
+    if(searchtool=="diamond"){
+        if(!dir.exists(diamondpath)){
+            stop("Error: diamond PATH does not exist. Please specify
+                correct PATH and/or look into package installation
+                prerequisites.")
+        }
+        if(!file.exists(paste0(diamondpath, "diamond"))){
+            stop("Error: diamond binary does not exist. Please specify
+                correct PATH and/or look into package installation
+                prerequisites.")
+        }
     }
     selfblast <- FALSE
     if(aafile1==aafile2){
@@ -173,24 +218,70 @@ aafile2rbh <- function(aafile1, aafile2,
     aa2file <- tempfile("aa2_", outpath)
     aa1dbfile <- tempfile("aa1db_", outpath)
     aa2dbfile <- tempfile("aa2db_", outpath)
-    aa2_aa1_lastout <- tempfile("aa2_aa1_lastout_", outpath)
-    aa1_aa2_lastout <- tempfile("aa1_aa2_lastout_", outpath)
+    if(searchtool=="last"){
+        aa2_aa1_lastout <- tempfile("aa2_aa1_lastout_", outpath)
+        aa1_aa2_lastout <- tempfile("aa1_aa2_lastout_", outpath)
+    }
+    if(searchtool=="mmseqs2"){
+        aa2_aa1_lastout <- tempfile("aa2_aa1_mmseqs2_", outpath)
+        aa1_aa2_lastout <- tempfile("aa1_aa2_mmseqs2_", outpath)
+    }
+    if(searchtool=="diamond"){
+        aa2_aa1_lastout <- tempfile("aa2_aa1_diamond_", outpath)
+        aa1_aa2_lastout <- tempfile("aa1_aa2_diamond_", outpath)
+    }
     aa1 <- Biostrings::readAAStringSet(aafile1)
-    names(aa1) <- stringr::str_split_fixed(names(aa1), " ", 2)[, 1]
     aa2 <- Biostrings::readAAStringSet(aafile2)
+    names(aa1) <- stringr::str_split_fixed(names(aa1), " ", 2)[, 1]
     names(aa2) <- stringr::str_split_fixed(names(aa2), " ", 2)[, 1]
     Biostrings::writeXStringSet(aa1, file=aa1file)
     Biostrings::writeXStringSet(aa2, file=aa2file)
-    system2(command=paste0(lastpath, "lastdb"),
-    args = c("-p", "-cR01", "-P", threads, aa1dbfile, aa1file))
-    system2(command=paste0(lastpath, "lastdb"),
-        args = c("-p", "-cR01", "-P", threads, aa2dbfile, aa2file))
-    system2(command=paste0(lastpath, "lastal"),
-        args = c("-f", "BlastTab+", "-P", threads, "-D", lastD, aa1dbfile,
-        aa2file, ">", aa2_aa1_lastout))
-    system2(command=paste0(lastpath, "lastal"),
-    args = c("-f", "BlastTab+", "-P", threads, "-D", lastD, aa2dbfile,
-    aa1file, ">", aa1_aa2_lastout))
+    if(searchtool=="last"){
+        system2(command=paste0(lastpath, "lastdb"),
+            args = c("-p", "-cR01", "-P", threads, aa1dbfile, aa1file))
+        system2(command=paste0(lastpath, "lastdb"),
+            args = c("-p", "-cR01", "-P", threads, aa2dbfile, aa2file))
+        system2(command=paste0(lastpath, "lastal"),
+            args = c("-f", "BlastTab+", "-P", threads, "-D", lastD, aa1dbfile,
+            aa2file, ">", aa2_aa1_lastout))
+        system2(command=paste0(lastpath, "lastal"),
+            args = c("-f", "BlastTab+", "-P", threads, "-D", lastD, aa2dbfile,
+            aa1file, ">", aa1_aa2_lastout))
+    }
+    if(searchtool=="mmseqs2"){
+        system2(command=paste0(mmseqs2path, "mmseqs"),
+            args = c("easy-search", aa1file, aa2file, aa1_aa2_lastout, outpath,
+                "--threads", threads, "-s", mmseqs2sensitivity,
+                "--format-output", paste0("query,target,fident,alnlen,",
+                "mismatch,gapopen,qstart,qend,tstart,tend,evalue,bits,qlen,",
+                "tlen,raw")))
+        system2(command=paste0(mmseqs2path, "mmseqs"),
+            args = c("easy-search", aa2file, aa1file, aa2_aa1_lastout, outpath,
+                "--threads", threads, "-s", mmseqs2sensitivity,
+                "--format-output", paste0("query,target,fident,alnlen,",
+                "mismatch,gapopen,qstart,qend,tstart,tend,evalue,bits,qlen,",
+                "tlen,raw")))
+    }
+    if(searchtool=="diamond"){
+        system2(command=paste0(diamondpath, "diamond"),
+            args = c("makedb", "--ignore-warnings", "--in", aa1file,
+                "-d", aa1dbfile))
+        system2(command=paste0(diamondpath, "diamond"),
+            args = c("makedb", "--ignore-warnings", "--in", aa2file,
+                "-d", aa2dbfile))
+        system2(command=paste0(diamondpath, "diamond"),
+            args = c("blastp", "--ignore-warnings", "-d", aa2dbfile,
+                "-q", aa1file, "-o", aa1_aa2_lastout, diamondsensitivity,
+                "-f", "6", "qseqid", "sseqid", "pident", "length", "mismatch",
+                "gapopen", "qstart", "qend", "sstart", "send", "evalue",
+                "bitscore", "qlen", "slen", "score"))
+        system2(command=paste0(diamondpath, "diamond"),
+            args = c("blastp", "--ignore-warnings", "-d", aa1dbfile,
+                "-q", aa2file, "-o", aa2_aa1_lastout, diamondsensitivity,
+                "-f", "6", "qseqid", "sseqid", "pident", "length", "mismatch",
+                "gapopen", "qstart", "qend", "sstart", "send", "evalue",
+                "bitscore", "qlen", "slen", "score"))
+    }
     aa1_aa2 <- read.table(aa1_aa2_lastout, sep="\t", header=FALSE,
         stringsAsFactors=FALSE)
     aa2_aa1 <- read.table(aa2_aa1_lastout, sep="\t", header=FALSE,
@@ -199,6 +290,10 @@ aafile2rbh <- function(aafile1, aafile2,
         "perc_identity", "alignment_length", "mismatches", "gap_opens",
         "q_start", "q_end", "s_start", "s_end", "evalue", "bit_score",
         "query_length", "subject_length", "raw_score")
+    if(searchtool=="mmseqs2"){
+        aa1_aa2[, "perc_identity"] <- aa1_aa2[, "perc_identity"] * 100
+        aa2_aa1[, "perc_identity"] <- aa2_aa1[, "perc_identity"] * 100
+    }
     if(remove){
         system2(command="rm", args = aa1file)
         system2(command="rm", args = aa2file)

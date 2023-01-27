@@ -117,7 +117,8 @@ rbh2dagchainer <- function(rbhpairs,
     ks.max=5,
     ka.min=0,
     ks.min=0,
-    select.chr=NULL){
+    select.chr=NULL
+    ){
     gene.seq.id <- NULL
     gene1.seq.id <- NULL
     gene2.seq.id <- NULL

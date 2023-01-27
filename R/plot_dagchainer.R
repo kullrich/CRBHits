@@ -43,7 +43,8 @@ plot_dagchainer <- function(dag,
     ks.max=5,
     ka.min=0,
     ks.min=0,
-    select.chr=NULL){
+    select.chr=NULL
+    ){
     #set global variable
     gene1.chr <- NULL
     gene2.chr <- NULL

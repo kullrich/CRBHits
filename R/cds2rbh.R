@@ -15,7 +15,7 @@
 #' @param searchtool specify sequence search algorithm last, mmseqs2 or diamond
 #' [default: last]
 #' @param lastpath specify the PATH to the last binaries
-#' [default: /extdata/last-1282/bin/]
+#' [default: /extdata/last-1418/bin/]
 #' @param lastD last option D: query letters per random alignment
 #' [default: 1e6]
 #' @param mmseqs2path specify the PATH to the mmseqs2 binaries
@@ -48,7 +48,7 @@
 #' [default: 0.1]
 #' @param fit.min specify minimum neighborhood alignment length
 #' [default: 5]
-#' @param longest.isoform specify if cds sequences should be removed to the
+#' @param longest.isoform specify if cds sequences should be reduced to the
 #' longest isoform (only possible if data was accessed from NCBI or ENSEMBL)
 #' [default: FALSE]
 #' @param isoform.source specify cds sequences source (either NCBI or ENSEMBL)
@@ -80,6 +80,7 @@
 #' @importFrom stats median splinefun
 #' @importFrom utils read.table
 #' @importFrom tidyr %>%
+#' @importFrom MSA2dist cds2aa
 #' @seealso \code{\link[CRBHits]{cdsfile2rbh}},
 #' \code{\link[CRBHits]{isoform2longest}}
 #' @references Aubry S, Kelly S et al. (2014) Deep Evolutionary Comparison of
@@ -91,7 +92,7 @@
 #' @references Rost B. (1999). Twilight zone of protein sequence alignments.
 #' \emph{Protein Engineering}, \bold{12(2)}, 85-94.
 #' @examples
-#' ## compile last-1282 within CRBHits
+#' ## compile last-1418 within CRBHits
 #' CRBHits::make_last()
 #' ## load example sequence data
 #' data("ath", package="CRBHits")
@@ -141,7 +142,7 @@
 cds2rbh <- function(cds1, cds2,
     searchtool="last",
     lastpath=paste0(find.package("CRBHits"),
-        "/extdata/last-1282/bin/"),
+        "/extdata/last-1418/bin/"),
     lastD=1e6,
     mmseqs2path=NULL,
     mmseqs2sensitivity=5.7,
@@ -277,18 +278,20 @@ cds2rbh <- function(cds1, cds2,
         aa1_aa2_lastout <- tempfile("aa1_aa2_diamond_", outpath)
     }
     if(longest.isoform){
-        Biostrings::writeXStringSet(cds2aa(isoform2longest(cds1,
+        Biostrings::writeXStringSet(MSA2dist::cds2aa(isoform2longest(cds1,
             isoform.source), shorten=shorten1, frame=frame1,
             framelist=framelist1, genetic.code=genetic.code1), file=aa1file)
-        Biostrings::writeXStringSet(cds2aa(isoform2longest(cds2,
+        Biostrings::writeXStringSet(MSA2dist::cds2aa(isoform2longest(cds2,
             isoform.source), shorten=shorten2, frame=frame2,
             framelist=framelist2, genetic.code=genetic.code2), file=aa2file)
     }
     if(!longest.isoform){
-        Biostrings::writeXStringSet(cds2aa(cds1, shorten=shorten1, frame=frame1,
-            framelist=framelist1, genetic.code=genetic.code1), file=aa1file)
-        Biostrings::writeXStringSet(cds2aa(cds2, shorten=shorten2, frame=frame2,
-            framelist=framelist2, genetic.code=genetic.code2), file=aa2file)
+        Biostrings::writeXStringSet(MSA2dist::cds2aa(cds1, shorten=shorten1,
+            frame=frame1, framelist=framelist1, genetic.code=genetic.code1),
+            file=aa1file)
+        Biostrings::writeXStringSet(MSA2dist::cds2aa(cds2, shorten=shorten2,
+            frame=frame2, framelist=framelist2, genetic.code=genetic.code2),
+            file=aa2file)
     }
     if(searchtool=="last"){
         system2(command=paste0(lastpath, "lastdb"),

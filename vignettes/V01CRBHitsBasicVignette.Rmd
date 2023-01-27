@@ -78,7 +78,7 @@ In this Vignette the `lastpath` is defined as `vignette.paths[1]`,
 the `kakscalcpath` as `vignette.paths[2]` and the `dagchainerpath` as
 `vignette.paths[3]` to be able to build the Vignette.
 
-However, once you have compiled last-1282, KaKs_Calculator2.0 and DAGchainer
+However, once you have compiled last-1418, KaKs_Calculator2.0 and DAGchainer
 with the functions `make_last()`, `make_KaKs_Calculator2()` and
 `make_dagchainer()` you won't need to specify the paths anymore. Please remove
 them if you would like to repeat the examples.
@@ -128,7 +128,7 @@ prerequisites.
 
 ```
 library(CRBHits)
-## compile last-1282
+## compile last-1418
 make_last()
 ## compile KaKs_Calculator2.0
 make_KaKs_Calculator2()
@@ -617,11 +617,12 @@ Input CDS.
 To be able to calculate synonymous (Ks) and non-synonymous (Ka) substitutions,
 one needs to use a codon alignment.
 
-The `cds2codonaln()` function takes two single nucleotide sequences as input t
-obtain such a codon alignment. The function will convert the nucleotide
-sequences into amino acid sequences, align them with the help of the
-`pairwiseAlignment()` function from the `Biostrings` R package and convert this
-alignment back into a codon alignment.
+The `MSA2dist::cds2codonaln()` function takes two single nucleotide
+sequences as input to obtain such a codon alignment. The function
+will convert the nucleotide sequences into amino acid sequences,
+align them with the help of the
+`pairwiseAlignment()` function from the `Biostrings` R package and
+convert this alignment back into a codon alignment.
 
 ```{r}
 ## example to get a codon alignment
@@ -630,12 +631,12 @@ alignment back into a codon alignment.
 cds1 <- Biostrings::DNAString("ATGCAACATTGC")
 cds2 <- Biostrings::DNAString("ATGCATTGC")
 ## get codon alignment
-cds2codonaln(
+MSA2dist::cds2codonaln(
     cds1=cds1,
     cds2=cds2)
 
 ## get help
-#?cds2codonaln
+#?MSA2dist::cds2codonaln
 ```
 
 The user can alter some `@param` to change the alignment parameters, like
@@ -647,7 +648,7 @@ by the `pairwiseAlignment()` function from the `Biostrings` R package.
 ## for the codon alignment
 
 ## get codon alignemnt with BLOSUM45 cost matrix
-cds2codonaln(
+MSA2dist::cds2codonaln(
     cds1=cds1,
     cds2=cds2,
     substitutionMatrix="BLOSUM45")
@@ -659,13 +660,13 @@ The user can also remove gaps in the codon alignment.
 ## example to remove codon gaps
 
 ## get codon alignment with gaps removed
-cds2codonaln(
+MSA2dist::cds2codonaln(
     cds1=cds1,
     cds2=cds2,
     remove.gaps=TRUE)
 ```
 
-### 3.2. [cds2kaks() Function]{#cds2kaks}
+### 3.2. [MSA2dist::dnastring2kaks() Function]{#cds2kaks}
 
 The Ka/Ks (dN/dS) values can be obtained either via the codon model of
 [Li WH. (1999)](https://www.ncbi.nlm.nih.gov/pubmed/8433381) implemented in the
@@ -676,8 +677,8 @@ implemented in
 [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download)
 (see [Quick Installation](#quickinstall) how to compile the prerequisites).
 
-The `cds2kaks()` function takes two single nucleotide sequences as input to
-obtain a codon alignment and calculate Ka/Ks.
+The `MSA2dist::dnastring2kaks()` function takes single nucleotide
+sequences as input to obtain a codon alignment and calculate Ka/Ks.
 
 ```{r}
 ## calculate Ka/Ks on two CDS
@@ -689,45 +690,49 @@ data("aly", package="CRBHits")
 cds1 <- ath[1]
 cds2 <- aly[282]
 ## calculate Ka/Ks values on two CDS using Li model
-cds2kaks(
-    cds1=cds1,
-    cds2=cds2,
-    model="Li")
+MSA2dist::dnastring2kaks(
+    c(cds1,
+    cds2),
+    model="Li",
+    isMSA=FALSE)
 
 ## get help
-#?cds2kaks
+#?MSA2dist::dnastring2kaks
 ```
 
-All parameters which can be used by the `cds2codonaln()` function can be
-overgiven to e.g. use an alternative `substitutionMatrix`.
+All parameters which can be used by the `MSA2dist::cds2codonaln()`
+function can be overgiven to e.g. use an alternative
+`substitutionMatrix`.
 
 ```{r}
 ## example to use an alternative substitutionMatrix for the codon alignment
 ## and obtain Ka/Ks
 
 ## calculate Ka/Ks values on two CDS using Li model and BLOSUM45 cost matrix
-cds2kaks(
-    cds1=cds1,
-    cds2=cds2,
+MSA2dist::dnastring2kaks(
+    c(cds1,
+    cds2),
     model="Li",
+    isMSA=FALSE,
     substitutionMatrix="BLOSUM45")
 ```
 
 ### 3.3. [rbh2kaks() Function]{#rbh2kaks}
 
-The resulting CRBHit pairs (see [cds2rbh()](#cds2rbhfunction)) can be used with
-the `rbh2kaks()` function to obtain pairwise codon alignments, which are
-further used to calculate synonymous (Ks) and nonsynonymous (Ka) substitutions
-using parallelization.
+The resulting CRBHit pairs (see [cds2rbh()](#cds2rbhfunction)) can
+be used with the `rbh2kaks()` function to obtain pairwise codon
+alignments, which are further used to calculate synonymous (Ks) and
+nonsynonymous (Ka) substitutions using parallelization.
 
 __Note:__
 
-It is important, that the names of the `rbh` columns must match the names of
-the corresponding `cds1` and `cds2` `DNAStringSet` vectors.
+It is important, that the names of the `rbh` columns must match the
+names of the corresponding `cds1` and `cds2` `DNAStringSet` vectors.
 
-However, since one should directly use the same input `DNAStringSet` vector or
-input `url` to calculate the reciprocal best hit pair matrix with the
-`cds2rbh()` or the `cdsfile2rbh()` function, this should not be a problem.
+However, since one should directly use the same input `DNAStringSet`
+vector or input `url` to calculate the reciprocal best hit pair
+matrix with the `cds2rbh()` or the `cdsfile2rbh()` function, this
+should not be a problem.
 
 ```{r}
 ## example how to get CRBHit pairs from two coding fasta files
@@ -773,9 +778,9 @@ head(ath_aly_crbh.kaks)
 #?rbh2kaks
 ```
 
-Like for the `cds2kaks()` function, all parameters which can be used by the
-`cds2codonaln()` function can be overgiven to e.g. use an alternative
-`substitutionMatrix`.
+Like for the `MSA2dist::dnastring2kaks()` function, all parameters
+which can be used by the `MSA2dist::cds2codonaln()` function can be
+overgiven to e.g. use an alternative `substitutionMatrix`.
 
 ```{r}
 ## calculate Ka/Ks using the CRBHit pairs and multiple threads

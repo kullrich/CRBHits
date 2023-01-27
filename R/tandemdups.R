@@ -53,7 +53,10 @@
 #' @export tandemdups
 #' @author Kristian K Ullrich
 
-tandemdups <- function(rbhpairs, genepos, dupdist=5){
+tandemdups <- function(rbhpairs,
+    genepos,
+    dupdist=5
+    ){
     gene.seq.id <- NULL
     gene1.seq.id <- NULL
     gene2.seq.id <- NULL

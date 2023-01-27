@@ -18,7 +18,10 @@
 #' @export filter_pident
 #' @author Kristian K Ullrich
 
-filter_pident <- function(rbh, pident=0.0, inverse=FALSE){
+filter_pident <- function(rbh,
+    pident=0.0,
+    inverse=FALSE
+    ){
     perc_identity <- NULL
     if(inverse){
         #return(rbh[as.numeric(rbh[,3])<pident, , drop=FALSE])

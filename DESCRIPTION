@@ -1,6 +1,6 @@
 Package: CRBHits
 Title: Conditional reciprocal best hits (CRBHits) in R
-Version: 0.0.4
+Version: 0.0.5
 Authors@R: 
     person(given = "Kristian K",
            family = "Ullrich",
@@ -14,9 +14,10 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: false
 Depends:
-  R (>= 4.0.0)
+  R (>= 4.2.0)
 Imports:
   Biostrings,
+  MSA2dist,
   ape,
   curl,
   doParallel,
@@ -58,4 +59,4 @@ URL:
   https://gitlab.gwdg.de/mpievolbio-it/crbhits,
   https://mpievolbio-it.pages.gwdg.de/crbhits/
 BugReports: https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1

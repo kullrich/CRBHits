@@ -19,6 +19,8 @@
 #' readDNAStringSet readAAStringSet writeXStringSet width subseq
 #' pairwiseAlignment
 #' @importFrom seqinr kaks
+#' @importFrom MSA2dist dnastring2aln cds2codonaln codonmat2pnps
+#' dnastring2codonmat
 #' @seealso \code{\link[seqinr]{kaks}}
 #' @references Li WH. (1993) Unbiased estimation of the rates of synonymous and
 #' nonsynonymous substitution. \emph{J. Mol. Evol.}, \bold{36}, 96-99.
@@ -72,7 +74,8 @@ cds2kaks <- function(cds1, cds2,
     model="Li",
     kakscalcpath=paste0(find.package("CRBHits"),
         "/extdata/KaKs_Calculator2.0/src/"),
-    ...){
+    ...
+    ){
     if(model=="YN"){
         if(!dir.exists(kakscalcpath)){
             stop("Error: KaKs_Calculator2.0 PATH does not exist. Please specify
@@ -100,18 +103,18 @@ cds2kaks <- function(cds1, cds2,
         stop("Error: either choose model 'Li' or 'YN' or 'NG86'")
     }
     if(model=="Li"){
-        cds1.cds2.kaks <- unlist(seqinr::kaks(dnastring2aln(
-            cds2codonaln(cds1, cds2, ...))))
+        cds1.cds2.kaks <- unlist(seqinr::kaks(MSA2dist::dnastring2aln(
+            MSA2dist::cds2codonaln(cds1, cds2, ...))))
         return(cds1.cds2.kaks)
     }
     if(model=="NG86"){
-        cds1.cds2.kaks <- codonmat2pnps(dnastring2codonmat(
-            cds2codonaln(cds1, cds2, ...)))
+        cds1.cds2.kaks <- MSA2dist::codonmat2pnps(MSA2dist::dnastring2codonmat(
+            MSA2dist::cds2codonaln(cds1, cds2, ...)))
         return(cds1.cds2.kaks)
     }
     if(model=="YN"){
         tmp <- tempfile()
-        tmp.codonaln <- cds2codonaln(cds1, cds2, ...)
+        tmp.codonaln <- MSA2dist::cds2codonaln(cds1, cds2, ...)
         #create AXT file for KaKs_Calculator2.0
         sink(tmp)
             cat(paste0(names(tmp.codonaln), collapse="&"), "\n", sep="")

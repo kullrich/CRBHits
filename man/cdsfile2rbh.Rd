@@ -8,7 +8,7 @@ cdsfile2rbh(
   cdsfile1,
   cdsfile2,
   searchtool = "last",
-  lastpath = paste0(find.package("CRBHits"), "/extdata/last-1282/bin/"),
+  lastpath = paste0(find.package("CRBHits"), "/extdata/last-1418/bin/"),
   lastD = 1e+06,
   mmseqs2path = NULL,
   mmseqs2sensitivity = 5.7,
@@ -51,7 +51,7 @@ cdsfile2rbh(
 [default: last]}
 
 \item{lastpath}{specify the PATH to the last binaries
-[default: /extdata/last-1282/bin/]}
+[default: /extdata/last-1418/bin/]}
 
 \item{lastD}{last option D: query letters per random alignment
 [default: 1e6]}
@@ -146,7 +146,7 @@ List of four (crbh=TRUE)\cr
 }
 \description{
 This function calculates (conditional-)reciprocal best hit
-(CRBHit) pairs from two CDS fasta file's.
+(CRBHit) pairs from two CDS fasta files.
 CRBHit pairs were introduced by \emph{Aubry S, Kelly S et al. (2014)}.
 Sequence searches are performed with \bold{last}
 \emph{Kiełbasa, SM et al. (2011)} [default]
@@ -158,7 +158,7 @@ If one specifies cdsfile1 and cdsfile2 as the same input a selfblast is
 conducted.
 }
 \examples{
-## compile last-1282 within CRBHits
+## compile last-1418 within CRBHits
 CRBHits::make_last()
 ## load example sequence data
 athfile <- system.file("fasta", "ath.cds.fasta.gz", package="CRBHits")

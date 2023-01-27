@@ -37,7 +37,9 @@
 #' @export col2transparent
 #' @author Kristian K Ullrich
 
-col2transparent <- function(col, alpha.perc=0){
+col2transparent <- function(col,
+    alpha.perc=0
+    ){
     if(methods::is(col, "character")){
         if(length(col)==1){
             alpha = (100 - alpha.perc) * 255 / 100

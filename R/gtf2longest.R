@@ -66,7 +66,8 @@
 gtf2longest <- function(gtffile,
     cds=NULL,
     removeNonCoding=TRUE,
-    source="NCBI"){
+    source="NCBI"
+    ){
     gtf <- readr::read_tsv(gtffile, col_names = FALSE, comment = "#")
     colnames(gtf) <- c("seqname", "source", "feature", "start", "end",
         "score", "strand", "frame", "attribute")

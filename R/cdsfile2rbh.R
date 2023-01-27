@@ -1,7 +1,7 @@
 #' @title cdsfile2rbh
 #' @name cdsfile2rbh
 #' @description This function calculates (conditional-)reciprocal best hit
-#' (CRBHit) pairs from two CDS fasta file's.
+#' (CRBHit) pairs from two CDS fasta files.
 #' CRBHit pairs were introduced by \emph{Aubry S, Kelly S et al. (2014)}.
 #' Sequence searches are performed with \bold{last}
 #' \emph{Kiełbasa, SM et al. (2011)} [default]
@@ -16,7 +16,7 @@
 #' @param searchtool specify sequence search algorithm last, mmseqs2 or diamond
 #' [default: last]
 #' @param lastpath specify the PATH to the last binaries
-#' [default: /extdata/last-1282/bin/]
+#' [default: /extdata/last-1418/bin/]
 #' @param lastD last option D: query letters per random alignment
 #' [default: 1e6]
 #' @param mmseqs2path specify the PATH to the mmseqs2 binaries
@@ -81,6 +81,7 @@
 #' @importFrom stats median splinefun
 #' @importFrom utils read.table
 #' @importFrom tidyr %>%
+#' @importFrom MSA2dist cds2aa
 #' @seealso \code{\link[CRBHits]{cds2rbh}},
 #' \code{\link[CRBHits]{isoform2longest}}
 #' @references Aubry S, Kelly S et al. (2014) Deep Evolutionary Comparison of
@@ -95,7 +96,7 @@
 #' @references Rost B. (1999). Twilight zone of protein sequence alignments.
 #' \emph{Protein Engineering}, \bold{12(2)}, 85-94.
 #' @examples
-#' ## compile last-1282 within CRBHits
+#' ## compile last-1418 within CRBHits
 #' CRBHits::make_last()
 #' ## load example sequence data
 #' athfile <- system.file("fasta", "ath.cds.fasta.gz", package="CRBHits")
@@ -124,7 +125,7 @@
 cdsfile2rbh <- function(cdsfile1, cdsfile2,
     searchtool="last",
     lastpath=paste0(find.package("CRBHits"),
-        "/extdata/last-1282/bin/"),
+        "/extdata/last-1418/bin/"),
     lastD=1e6,
     mmseqs2path=NULL,
     mmseqs2sensitivity=5.7,
@@ -260,10 +261,10 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
     if(longest.isoform){
         cds1 <- Biostrings::readDNAStringSet(cdsfile1)
         cds2 <- Biostrings::readDNAStringSet(cdsfile2)
-        Biostrings::writeXStringSet(cds2aa(isoform2longest(cds1,
+        Biostrings::writeXStringSet(MSA2dist::cds2aa(isoform2longest(cds1,
             isoform.source), shorten=shorten1, frame=frame1,
             framelist=framelist1, genetic.code=genetic.code1), file=aa1file)
-        Biostrings::writeXStringSet(cds2aa(isoform2longest(cds2,
+        Biostrings::writeXStringSet(MSA2dist::cds2aa(isoform2longest(cds2,
             isoform.source), shorten=shorten2, frame=frame2,
             framelist=framelist2, genetic.code=genetic.code2), file=aa2file)
     }

@@ -44,7 +44,10 @@
 #' @export cds2genepos
 #' @author Kristian K Ullrich
 
-cds2genepos <- function(cds, source="NCBI", keep.names=NULL){
+cds2genepos <- function(cds,
+    source="NCBI",
+    keep.names=NULL
+    ){
     seq.id <- stringr::word(names(cds), 1)
     if(source == "NCBI"){
         gene.location <- unlist(lapply(strsplit(names(cds), " \\[location="),

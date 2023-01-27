@@ -18,7 +18,10 @@
 #' @export filter_tcov
 #' @author Kristian K Ullrich
 
-filter_tcov <- function(rbh, tcov=0.0, inverse=FALSE){
+filter_tcov <- function(rbh,
+    tcov=0.0,
+    inverse=FALSE
+    ){
     alignment_length <- NULL
     subject_length <- NULL
     if(inverse){

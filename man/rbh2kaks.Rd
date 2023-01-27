@@ -32,7 +32,10 @@ crbh pairs column [mandatory]}
 \item{cds2}{cds2 sequences as \code{DNAStringSet} or \code{url} for second
 crbh pairs column [mandatory]}
 
-\item{model}{specify codon model either "Li" or "YN" [default: Li]}
+\item{model}{specify codon model either "Li" or "NG86"
+or one of KaKs_Calculator2 model "NG", "LWL", "LPB", "MLWL",
+"MLPB", "GY", "YN", "MYN", "MS", "MA", "GNG", "GLWL", "GLPB",
+"GMLWL", "GMLPB", "GYN", "GMYN" [default: Li]}
 
 \item{plotHistPlot}{specify if histogram should be plotted [default: TRUE]}
 
@@ -106,7 +109,7 @@ nonsynonymous substitution rates under realistic evolutionary models.
 \emph{Mol. Biol. Evol.}, \bold{17(1)}, 32-43.
 }
 \seealso{
-\code{\link[CRBHits]{cds2kaks}},
+\code{\link[MSA2dist]{dnastring2kaks}},
 \code{\link[CRBHits]{isoform2longest}},
 \code{\link[CRBHits]{cds2genepos}},
 \code{\link[CRBHits]{plot_kaks}},

@@ -221,19 +221,19 @@ ath_aly_crbh <- cds2rbh(
 cds1 <- Biostrings::DNAString("ATGCAACATTGC")
 cds2 <- Biostrings::DNAString("ATGCATTGC")
 ## get codon alignment
-cds2codonaln(
+MSA2dist::cds2codonaln(
     cds1=cds1,
     cds2=cds2)
 
 ## get help
-#?cds2codonaln
+#?MSA2dist::cds2codonaln
 
 ## -----------------------------------------------------------------------------
 ## example to alter the substitionMatrix and use the BLOSUM45 cost matrix
 ## for the codon alignment
 
 ## get codon alignemnt with BLOSUM45 cost matrix
-cds2codonaln(
+MSA2dist::cds2codonaln(
     cds1=cds1,
     cds2=cds2,
     substitutionMatrix="BLOSUM45")
@@ -242,7 +242,7 @@ cds2codonaln(
 ## example to remove codon gaps
 
 ## get codon alignment with gaps removed
-cds2codonaln(
+MSA2dist::cds2codonaln(
     cds1=cds1,
     cds2=cds2,
     remove.gaps=TRUE)
@@ -257,23 +257,25 @@ data("aly", package="CRBHits")
 cds1 <- ath[1]
 cds2 <- aly[282]
 ## calculate Ka/Ks values on two CDS using Li model
-cds2kaks(
-    cds1=cds1,
-    cds2=cds2,
-    model="Li")
+MSA2dist::dnastring2kaks(
+    c(cds1,
+    cds2),
+    model="Li",
+    isMSA=FALSE)
 
 ## get help
-#?cds2kaks
+#?MSA2dist::dnastring2kaks
 
 ## -----------------------------------------------------------------------------
 ## example to use an alternative substitutionMatrix for the codon alignment
 ## and obtain Ka/Ks
 
 ## calculate Ka/Ks values on two CDS using Li model and BLOSUM45 cost matrix
-cds2kaks(
-    cds1=cds1,
-    cds2=cds2,
+MSA2dist::dnastring2kaks(
+    c(cds1,
+    cds2),
     model="Li",
+    isMSA=FALSE,
     substitutionMatrix="BLOSUM45")
 
 ## -----------------------------------------------------------------------------

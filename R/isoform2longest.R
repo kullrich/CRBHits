@@ -7,7 +7,7 @@
 #' @return \code{DNAStringSet}
 #' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet
 #' readDNAStringSet readAAStringSet writeXStringSet width subseq
-#' @importFrom stringr word
+#' @importFrom stringr word str_split_fixed
 #' @importFrom curl curl_download
 #' @seealso \code{\link[Biostrings]{XStringSet-class}}
 #' @examples
@@ -43,7 +43,9 @@
 #' @export isoform2longest
 #' @author Kristian K Ullrich
 
-isoform2longest <- function(cds, source="NCBI"){
+isoform2longest <- function(cds,
+    source="NCBI"
+    ){
     if(source=="NCBI"){
         #get longer unique idx
         gene.idx.len <- length(grep("gene\\=", names(cds)))
@@ -59,13 +61,15 @@ isoform2longest <- function(cds, source="NCBI"){
         }
     }
     if(source=="ENSEMBL"){
-        isoform.id <- stringr::word(names(cds), 4)
-        isoform.id <- gsub("(\\D+)(\\.)(\\D{1})","\\1\\3", isoform.id)
-        gene.id<-unlist(lapply(strsplit(isoform.id, "\\."), function(x) x[1]))
+        #isoform.id <- stringr::word(names(cds), 4)
+        #isoform.id <- gsub("(\\D+)(\\.)(\\D{1})","\\1\\3", isoform.id)
+        #gene.id<-unlist(lapply(strsplit(isoform.id, "\\."), function(x) x[1]))
+        gene.id<-stringr::word(stringr::str_split_fixed(names(cds),"gene:", 2)[, 2])
     }
     if(source=="WORMBASE"){
         isoform.id <- stringr::word(names(cds), 2)
-        gene.id<-unlist(lapply(strsplit(isoform.id, "gene="), function(x) x[2]))
+        #gene.id<-unlist(lapply(strsplit(isoform.id, "gene="), function(x) x[2]))
+        gene.id<-stringr::word(stringr::str_split_fixed(isoform.id,"gene=", 2)[, 2])
     }
     isoform.df <- data.frame(pos=seq(from=1, to=length(cds)),
     gene.width=Biostrings::width(cds),

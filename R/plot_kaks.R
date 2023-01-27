@@ -41,8 +41,8 @@
 #' ## plot Ka/Ks values - default
 #' g <- plot_kaks(ath_aly_ncbi_kaks)
 #' ## Calculate Ka/Ks values based on MSA
-#' data("hiv", package="CRBHits")
-#' hiv_kaks <- dnastring2kaks(hiv)
+#' data("hiv", package="MSA2dist")
+#' hiv_kaks <- MSA2dist::dnastring2kaks(hiv)
 #' g <- plot_kaks(hiv_kaks)
 #' @export plot_kaks
 #' @author Kristian K Ullrich
@@ -67,14 +67,17 @@ plot_kaks <- function(kaks,
     if(attributes(kaks)$CRBHits.class!="kaks" &
         attributes(kaks)$CRBHits.class!="dnastring2kaks"){
         stop("Please obtain Ka/Ks via the rbh2kaks() function or via the
-            dnastring2kaks() function or add a 'kaks' class attribute")
+            MSA2dist::dnastring2kaks() function or add a 'kaks' class
+            attribute")
     }
     if(attributes(kaks)$CRBHits.class=="dnastring2kaks"){
         if(attributes(kaks)$model=="Li"){
+            suppressWarnings(kaks$ka <- as.numeric(kaks$ka))
             kaks$ka <- unlist(lapply(kaks$ka,
                 function(x) ifelse(x>ka.max, NA, x)))
             kaks$ka <- unlist(lapply(kaks$ka,
                 function(x) ifelse(x<ka.min, NA, x)))
+            suppressWarnings(kaks$ks <- as.numeric(kaks$ks))
             kaks$ks <- unlist(lapply(kaks$ks,
                 function(x) ifelse(x>ks.max, NA, x)))
             kaks$ks <- unlist(lapply(kaks$ks,
@@ -102,38 +105,6 @@ plot_kaks <- function(kaks,
             }
             return(out)
         }
-        #if(attributes(kaks)$model=="NG86"){
-        #    kaks$dn <- unlist(lapply(as.numeric(kaks$dn),
-        #        function(x) ifelse(x>ka.max, NA, x)))
-        #    kaks$dn <- unlist(lapply(as.numeric(kaks$dn),
-        #        function(x) ifelse(x<ka.min, NA, x)))
-        #    kaks$ds <- unlist(lapply(as.numeric(kaks$ds),
-        #        function(x) ifelse(x>ks.max, NA, x)))
-        #    kaks$ds <- unlist(lapply(as.numeric(kaks$ds),
-        #        function(x) ifelse(x<ks.min, NA, x)))
-        #    kaks <- kaks %>% dplyr::mutate(kaks=kaks$dn / kaks$ds)
-        #    kaks$kaks[is.infinite(kaks$kaks)] <- NA
-        #    g <- kaks %>% subset(!is.na(.data$dn)) %>%
-        #        subset(!is.na(.data$ds)) %>%
-        #        subset(!is.na(.data$kaks)) %>%
-        #        ggplot2::ggplot()
-        #    g.kaks <- g + ggplot2::geom_point(shape=20,
-        #        aes(x=ds, y=dn, col=kaks)) +
-        #        ggplot2::scale_colour_continuous(type="viridis") +
-        #        ggplot2::ggtitle(PlotTitle)
-        #    g.ka <- kaks %>% subset(!is.na(.data$dn)) %>% ggplot2::ggplot()
-        #    g.ka <- g.ka + ggplot2::geom_histogram(binwidth=binw, aes(x=dn)) +
-        #        ggplot2::ggtitle("Ka")
-        #    g.ks <- kaks %>% subset(!is.na(.data$ds)) %>% ggplot2::ggplot()
-        #    g.ks <- g.ks + ggplot2::geom_histogram(binwidth=binw, aes(x=ds)) +
-        #        ggplot2::ggtitle("Ks")
-        #    out <- list(g.kaks, g.ka, g.ks)
-        #    names(out) <- c("g.kaks", "g.ka", "g.ks")
-        #    if(doPlot){
-        #        gE <- gridExtra::grid.arrange(g.kaks, g.ka, g.ks, nrow=1)
-        #    }
-        #    return(out)
-        #}
     }
     gene1.chr <- NULL
     gene2.chr <- NULL
@@ -263,24 +234,14 @@ plot_kaks <- function(kaks,
         }
     }
     #add kaks and filter for ka and ks min and max values
-    if(attributes(kaks)$CRBHits.model=="Li"){
-        kaks$ka <- unlist(lapply(kaks$ka, function(x) ifelse(x>ka.max, NA, x)))
-        kaks$ka <- unlist(lapply(kaks$ka, function(x) ifelse(x<ka.min, NA, x)))
-        kaks$ks <- unlist(lapply(kaks$ks, function(x) ifelse(x>ks.max, NA, x)))
-        kaks$ks <- unlist(lapply(kaks$ks, function(x) ifelse(x<ks.min, NA, x)))
-        kaks <- kaks %>% dplyr::mutate(kaks=kaks$ka / kaks$ks)
-        kaks$kaks[is.infinite(kaks$kaks)] <- NA
-    }
-    if(attributes(kaks)$CRBHits.model=="YN"){
-        suppressWarnings(kaks$ka <- as.numeric(kaks$ka))
-        kaks$ka <- unlist(lapply(kaks$ka, function(x) ifelse(x>ka.max, NA, x)))
-        kaks$ka <- unlist(lapply(kaks$ka, function(x) ifelse(x<ka.min, NA, x)))
-        suppressWarnings(kaks$ks <- as.numeric(kaks$ks))
-        kaks$ks <- unlist(lapply(kaks$ks, function(x) ifelse(x>ks.max, NA, x)))
-        kaks$ks <- unlist(lapply(kaks$ks, function(x) ifelse(x<ks.min, NA, x)))
-        kaks <- kaks %>% dplyr::mutate(kaks=kaks$ka / kaks$ks)
-        kaks$kaks[is.infinite(kaks$kaks)] <- NA
-    }
+    suppressWarnings(kaks$ka <- as.numeric(kaks$ka))
+    kaks$ka <- unlist(lapply(kaks$ka, function(x) ifelse(x>ka.max, NA, x)))
+    kaks$ka <- unlist(lapply(kaks$ka, function(x) ifelse(x<ka.min, NA, x)))
+    suppressWarnings(kaks$ks <- as.numeric(kaks$ks))
+    kaks$ks <- unlist(lapply(kaks$ks, function(x) ifelse(x>ks.max, NA, x)))
+    kaks$ks <- unlist(lapply(kaks$ks, function(x) ifelse(x<ks.min, NA, x)))
+    kaks <- kaks %>% dplyr::mutate(kaks=kaks$ka / kaks$ks)
+    kaks$kaks[is.infinite(kaks$kaks)] <- NA
     if(colorBy=="none"){
         if(PlotType=="h"){
             if(!splitByChr){

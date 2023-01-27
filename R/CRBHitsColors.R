@@ -14,7 +14,9 @@
 #' @export CRBHitsColors
 #' @author Kristian K Ullrich
 
-CRBHitsColors <- function(n, alpha.perc=0){
+CRBHitsColors <- function(n,
+    alpha.perc=0
+    ){
     palette(c(
         "#CBC106", "#27993C", "#1C6838",
         "#8EBCB5", "#389CA7", "#4D83AB",

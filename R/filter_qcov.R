@@ -18,7 +18,10 @@
 #' @export filter_qcov
 #' @author Kristian K Ullrich
 
-filter_qcov <- function(rbh, qcov=0.0, inverse=FALSE){
+filter_qcov <- function(rbh,
+    qcov=0.0,
+    inverse=FALSE
+    ){
     alignment_length <- NULL
     query_length <- NULL
     if(inverse){

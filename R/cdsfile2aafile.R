@@ -11,6 +11,7 @@
 #' @return aa fasta file
 #' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet
 #' readDNAStringSet readAAStringSet writeXStringSet width subseq
+#' @importFrom MSA2dist cds2aa
 #' @seealso \code{\link[CRBHits]{cds2aa}}
 #' @examples
 #' ## define file path
@@ -24,10 +25,16 @@
 #' @export cdsfile2aafile
 #' @author Kristian K Ullrich
 
-cdsfile2aafile <- function(infile, outfile, shorten=FALSE, frame=1,
-    framelist=NULL, genetic.code=NULL){
+cdsfile2aafile <- function(infile,
+    outfile,
+    shorten=FALSE,
+    frame=1,
+    framelist=NULL,
+    genetic.code=NULL
+    ){
     cds <- Biostrings::readDNAStringSet(infile)
-    Biostrings::writeXStringSet(cds2aa(cds, shorten=shorten, frame=frame,
-    framelist=framelist, genetic.code=genetic.code),
-    file=outfile)
+    Biostrings::writeXStringSet(MSA2dist::cds2aa(
+        cds, shorten=shorten, frame=frame,
+        framelist=framelist, genetic.code=genetic.code),
+        file=outfile)
 }

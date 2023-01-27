@@ -17,7 +17,9 @@
 #' @export filter_rost1999
 #' @author Kristian K Ullrich
 
-filter_rost1999 <- function(rbh, inverse=FALSE){
+filter_rost1999 <- function(rbh,
+    inverse=FALSE
+    ){
     #internal function to calculate pident by length
     get_pident_by_length <- function(x){
         eq2 <- function(x){

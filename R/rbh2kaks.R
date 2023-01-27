@@ -11,7 +11,10 @@
 #' crbh pairs column [mandatory]
 #' @param cds2 cds2 sequences as \code{DNAStringSet} or \code{url} for second
 #' crbh pairs column [mandatory]
-#' @param model specify codon model either "Li" or "YN" [default: Li]
+#' @param model specify codon model either "Li" or "NG86"
+#' or one of KaKs_Calculator2 model "NG", "LWL", "LPB", "MLWL",
+#' "MLPB", "GY", "YN", "MYN", "MS", "MA", "GNG", "GLWL", "GLPB",
+#' "GMLWL", "GMLPB", "GYN", "GMYN" [default: Li]
 #' @param plotHistPlot specify if histogram should be plotted [default: TRUE]
 #' @param plotDotPlot specify if dotplot should be plotted (mandatory to define
 #' \code{gene.position.cds1} and \code{gene.position.cds1}) [default: FALSE]
@@ -40,7 +43,8 @@
 #' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet
 #' readDNAStringSet readAAStringSet writeXStringSet width subseq
 #' @importFrom stringr word
-#' @seealso \code{\link[CRBHits]{cds2kaks}},
+#' @importFrom MSA2dist dnastring2kaks cds2codonaln
+#' @seealso \code{\link[MSA2dist]{dnastring2kaks}},
 #' \code{\link[CRBHits]{isoform2longest}},
 #' \code{\link[CRBHits]{cds2genepos}},
 #' \code{\link[CRBHits]{plot_kaks}},
@@ -86,7 +90,8 @@ rbh2kaks <- function(rbhpairs, cds1, cds2,
     threads=1,
     kakscalcpath=paste0(find.package("CRBHits"),
         "/extdata/KaKs_Calculator2.0/src/"),
-    ...){
+    ...
+    ){
     if(attributes(rbhpairs)$CRBHits.class!="crbh"){
         stop("Please obtain rbhpairs via the cds2rbh() or the cdsfile2rbh()
             function")
@@ -116,8 +121,13 @@ rbh2kaks <- function(rbhpairs, cds1, cds2,
                 or add a 'tandemdups' class attribute")
         }
     }
-    if(!model %in% c("Li", "YN", "NG86")){
-        stop("Error: either choose model 'Li' or 'YN'")
+    if(!model %in% c("Li", "NG86", "NG", "LWL", "LPB", "MLWL",
+        "MLPB", "GY", "YN", "MYN", "MS", "MA", "GNG", "GLWL",
+        "GLPB", "GMLWL", "GMLPB", "GYN", "GMYN")){
+        stop("Error: either choose model 'Li', 'NG86', 'NG',
+            'LWL', 'LPB', 'MLWL', 'MLPB', 'GY', 'YN', 'MYN',
+            'MS', 'MA', 'GNG', 'GLWL', 'GLPB', 'GMLWL',
+             'GMLPB', 'GYN', 'GMYN'")
     }
     if(plotDotPlot){
         if(is.null(gene.position.cds1) & is.null(gene.position.cds2)){
@@ -134,15 +144,21 @@ rbh2kaks <- function(rbhpairs, cds1, cds2,
     names(cds1) <- stringr::word(names(cds1), 1)
     names(cds2) <- stringr::word(names(cds2), 1)
     #doMC::registerDoMC(threads)
-    cl <- parallel::makeForkCluster(threads)
+    if (.Platform$OS.type == "windows") {
+        cl <- parallel::makeCluster(threads)
+    }
+    if (.Platform$OS.type != "windows") {
+        cl <- parallel::makeForkCluster(threads)
+    }
     doParallel::registerDoParallel(cl)
     i <- NULL
     rbhpairs.crbh.pairs <- rbhpairs$crbh.pairs
     rbh.kaks <- foreach::foreach(i=seq(from=1, to=dim(rbhpairs.crbh.pairs)[1]),
         .combine = rbind) %dopar% {
-        #cds2kaks(get_cds_by_name(rbhpairs.crbh.pairs[i,1], cds1),
-        #get_cds_by_name(rbhpairs.crbh.pairs[i,2], cds2), model = model,
-        #kakscalcpath = kakscalcpath, ...)
+        #t(MSA2dist::dnastring2kaks(c(
+        #    get_cds_by_name(rbhpairs.crbh.pairs[i,1], cds1),
+        #    get_cds_by_name(rbhpairs.crbh.pairs[i,2], cds2)), model=model,
+        #    isMSA=FALSE, threads=1, ...))
         CRBHits::cds2kaks(get_cds_by_name(rbhpairs.crbh.pairs[i,1], cds1),
             get_cds_by_name(rbhpairs.crbh.pairs[i,2], cds2), model=model,
             kakscalcpath=kakscalcpath, ...)
@@ -153,11 +169,59 @@ rbh2kaks <- function(rbhpairs, cds1, cds2,
     if(model=="Li"){
         attr(out, "CRBHits.model") <- "Li"
     }
+    if(model=="NG86"){
+        attr(out, "CRBHits.model") <- "NG86"
+    }
+    if(model=="NG"){
+        attr(out, "CRBHits.model") <- "NG"
+    }
+    if(model=="LWL"){
+        attr(out, "CRBHits.model") <- "LWL"
+    }
+    if(model=="LPB"){
+        attr(out, "CRBHits.model") <- "LPB"
+    }
+    if(model=="MLWL"){
+        attr(out, "CRBHits.model") <- "MLWL"
+    }
+    if(model=="MLPB"){
+        attr(out, "CRBHits.model") <- "MLPB"
+    }
+    if(model=="GY"){
+        attr(out, "CRBHits.model") <- "GY"
+    }
     if(model=="YN"){
         attr(out, "CRBHits.model") <- "YN"
     }
-    if(model=="NG86"){
-        attr(out, "CRBHits.model") <- "NG86"
+    if(model=="MYN"){
+        attr(out, "CRBHits.model") <- "MYN"
+    }
+    if(model=="MS"){
+        attr(out, "CRBHits.model") <- "MS"
+    }
+    if(model=="MA"){
+        attr(out, "CRBHits.model") <- "MA"
+    }
+    if(model=="GNG"){
+        attr(out, "CRBHits.model") <- "GNG"
+    }
+    if(model=="GLWL"){
+        attr(out, "CRBHits.model") <- "GLWL"
+    }
+    if(model=="GLPB"){
+        attr(out, "CRBHits.model") <- "GLPB"
+    }
+    if(model=="GMLWL"){
+        attr(out, "CRBHits.model") <- "GMLWL"
+    }
+    if(model=="GMLPB"){
+        attr(out, "CRBHits.model") <- "GMLPB"
+    }
+    if(model=="GYN"){
+        attr(out, "CRBHits.model") <- "GYN"
+    }
+    if(model=="GMYN"){
+        attr(out, "CRBHits.model") <- "GMYN"
     }
     attr(out, "selfblast") <- selfblast
     if(plotHistPlot){

@@ -18,7 +18,10 @@
 #' @export filter_eval
 #' @author Kristian K Ullrich
 
-filter_eval <- function(rbh, eval=1e-3, inverse=FALSE){
+filter_eval <- function(rbh,
+    eval=1e-3,
+    inverse=FALSE
+    ){
     evalue <- NULL
     if(inverse){
         #return(rbh[as.numeric(rbh[,11])>evalue, , drop=FALSE])

@@ -7,7 +7,7 @@
 aafile2rbh(
   aafile1,
   aafile2,
-  lastpath = paste0(find.package("CRBHits"), "/extdata/last-1282/bin/"),
+  lastpath = paste0(find.package("CRBHits"), "/extdata/last-1418/bin/"),
   lastD = 1e+06,
   outpath = "/tmp",
   crbh = TRUE,
@@ -33,7 +33,7 @@ aafile2rbh(
 \item{aafile2}{aa2 fasta file [mandatory]}
 
 \item{lastpath}{specify the PATH to the last binaries
-[default: /extdata/last-1282/bin/]}
+[default: /extdata/last-1418/bin/]}
 
 \item{lastD}{last option D: query letters per random alignment
 [default: 1e6]}
@@ -76,6 +76,21 @@ hit pairs [default: NULL]}
 \item{threads}{number of parallel threads [default: 1]}
 
 \item{remove}{specify if last result files should be removed [default: TRUE]}
+
+\item{searchtool}{specify sequence search algorithm last, mmseqs2 or diamond
+[default: last]}
+
+\item{mmseqs2path}{specify the PATH to the mmseqs2 binaries
+[default: NULL]}
+
+\item{mmseqs2sensitivity}{specify the sensitivity option of mmseqs2
+[default: 5.7]}
+
+\item{diamondpath}{specify the PATH to the diamond binaries
+[default: NULL]}
+
+\item{diamondsensitivity}{specify the sensitivity option of diamond
+[default: --sensitive]}
 }
 \value{
 List of three (crbh=FALSE)\cr
@@ -91,16 +106,20 @@ List of four (crbh=TRUE)\cr
 }
 \description{
 This function calculates (conditional-)reciprocal best hit
-(CRBHit) pairs from two two AA fasta file's.
+(CRBHit) pairs from two AA fasta files.
 Conditional-reciprocal best hit pairs were introduced by
 \emph{Aubry S, Kelly S et al. (2014)}.
 Sequence searches are performed with \bold{last}
-\emph{Kiełbasa, SM et al. (2011)}.
+\emph{Kiełbasa, SM et al. (2011)} [default]
+or with \bold{mmseqs2}
+\emph{Steinegger, M and Soeding, J (2017)}
+or with \bold{diamond}
+\emph{Buchfink, B et al. (2021)}.
 If one specifies aafile1 and aafile2 as the same input a selfblast is
 conducted.
 }
 \examples{
-## compile last-1282 within CRBHits
+## compile last-1418 within CRBHits
 CRBHits::make_last()
 ## load example sequence data
 athfile <- system.file("fasta", "ath.aa.fasta.gz", package="CRBHits")
@@ -137,8 +156,7 @@ Rost B. (1999). Twilight zone of protein sequence alignments.
 \emph{Protein Engineering}, \bold{12(2)}, 85-94.
 }
 \seealso{
-\code{\link[CRBHits]{aa2rbh}},
-\code{\link[CRBHits]{isoform2longest}}
+\code{\link[CRBHits]{aa2rbh}}
 }
 \author{
 Kristian K Ullrich

@@ -51,7 +51,7 @@ cds2rbh(
 [default: last]}
 
 \item{lastpath}{specify the PATH to the last binaries
-[default: /extdata/last-1282/bin/]}
+[default: /extdata/last-1418/bin/]}
 
 \item{lastD}{last option D: query letters per random alignment
 [default: 1e6]}
@@ -104,7 +104,7 @@ hit pairs [default: NULL]}
 \item{fit.min}{specify minimum neighborhood alignment length
 [default: 5]}
 
-\item{longest.isoform}{specify if cds sequences should be removed to the
+\item{longest.isoform}{specify if cds sequences should be reduced to the
 longest isoform (only possible if data was accessed from NCBI or ENSEMBL)
 [default: FALSE]}
 
@@ -158,7 +158,7 @@ or with \bold{diamond}
 If one specifies cds1 and cds2 as the same input a selfblast is conducted.
 }
 \examples{
-## compile last-1282 within CRBHits
+## compile last-1418 within CRBHits
 CRBHits::make_last()
 ## load example sequence data
 data("ath", package="CRBHits")

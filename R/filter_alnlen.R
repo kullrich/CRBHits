@@ -18,7 +18,10 @@
 #' @export filter_alnlen
 #' @author Kristian K Ullrich
 
-filter_alnlen <- function(rbh, alnlen=0.0, inverse=FALSE){
+filter_alnlen <- function(rbh,
+    alnlen=0.0,
+    inverse=FALSE
+    ){
     alignment_length <- NULL
     if(inverse){
         #return(rbh[as.numeric(rbh[,4])<alnlen, , drop=FALSE])
