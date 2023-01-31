@@ -321,10 +321,10 @@ cds2rbh <- function(cds1, cds2,
     }
     if(searchtool=="diamond"){
         system2(command=paste0(diamondpath, "diamond"),
-            args = c("makedb", "--ignore-warnings", "--in", aa1file,
+            args = c("makedb", "--in", aa1file,
                 "-d", aa1dbfile))
         system2(command=paste0(diamondpath, "diamond"),
-            args = c("makedb", "--ignore-warnings", "--in", aa2file,
+            args = c("makedb", "--in", aa2file,
                 "-d", aa2dbfile))
         system2(command=paste0(diamondpath, "diamond"),
             args = c("blastp", "--ignore-warnings", "-d", aa2dbfile,
