@@ -53,7 +53,7 @@ sudo apt-get install libcurl4-openssl-dev libssl-dev libxml2-dev libglu1-mesa-de
 #Pandoc is required to build R Markdown vignettes
 #sudo apt-get install pandoc
 #pkgdown dependencies - pkgdown is used to build R package pages
-#sudo apt-get install libssh2-1-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev
+#sudo apt-get install libssh2-1-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev
 ```
 
 CentOS
@@ -63,7 +63,7 @@ sudo yum install libcurl-devel openssl-devel libxml2-devel mesa-libGLU-devel lib
 #Pandoc is required to build R Markdown vignettes
 #sudo yum install pandoc
 #pkgdown dependencies - pkgdown is used to build R package pages
-#sudo yum install libssh2-devel fontconfig-devel harfbuzz-devel fribidi-devel
+#sudo yum install libssh2-devel fontconfig-devel harfbuzz-devel fribidi-devel freetype-devel libpng-devel libtiff-devel libjpeg-turbo-devel
 ```
 
 - [devtools](https://cran.r-project.org/web/packages/devtools/index.html)
