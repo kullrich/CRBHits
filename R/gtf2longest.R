@@ -13,6 +13,7 @@
 #' @importFrom tidyr %>% unite
 #' @importFrom dplyr filter select mutate summarise arrange distinct ungroup
 #' desc
+#' @importFrom readr read_tsv
 #' @importFrom curl curl_download
 #' @seealso \code{\link[Biostrings]{XStringSet-class}}
 #' @examples

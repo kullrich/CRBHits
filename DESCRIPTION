@@ -18,7 +18,6 @@ Depends:
 Imports:
   Biostrings,
   MSA2dist,
-  ape,
   curl,
   doParallel,
   dplyr,
@@ -32,16 +31,17 @@ Imports:
   rlang,
   seqinr,
   stats,
-  stringi,
   stringr,
-  tibble,
   tidyr,
   utils
 Suggests:
+  ape,
   rmarkdown,
   knitr,
   devtools,
-  testthat
+  stringi,
+  testthat,
+  tibble
 VignetteBuilder: knitr
 biocViews: Software, Alignment, Genetics
 NeedsCompilation: yes
