@@ -18,7 +18,7 @@ evalue."><meta property="og:image" content="/logo.png"><!-- mathjax --><script s
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CRBHits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.5</span>
       </span>
     </div>
 
@@ -55,7 +55,7 @@ evalue."><meta property="og:image" content="/logo.png"><!-- mathjax --><script s
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>filter_eval</h1>
-    <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/masterR/filter_eval.R" class="external-link"><code>R/filter_eval.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/develR/filter_eval.R" class="external-link"><code>R/filter_eval.R</code></a></small>
     <div class="hidden name"><code>filter_eval.Rd</code></div>
     </div>
 
@@ -65,22 +65,29 @@ evalue.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">filter_eval</span><span class="op">(</span><span class="va">rbh</span>, eval <span class="op">=</span> <span class="fl">0.001</span>, inverse <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">filter_eval</span><span class="op">(</span><span class="va">rbh</span>, eval <span class="op">=</span> <span class="fl">0.001</span>, inverse <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>rbh</dt>
 <dd><p>BLAST-like tabular matrix [mandatory]</p></dd>
+
+
 <dt>eval</dt>
 <dd><p>evalue [default: 1e-3]</p></dd>
+
+
 <dt>inverse</dt>
 <dd><p>specify if filter should keep the removed values
 [default: FALSE]</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>rbh matrix</p>
+    
+
+<p>rbh matrix</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -89,13 +96,13 @@ evalue.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## load crbh data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh1</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## load crbh data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 211  16</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu">filter_eval</span><span class="op">(</span></span>
-<span class="r-in">    rbh<span class="op">=</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh1</span>,</span>
-<span class="r-in">    eval<span class="op">=</span><span class="fl">1e-100</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu">filter_eval</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    rbh<span class="op">=</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh1</span>,</span></span>
+<span class="r-in"><span>    eval<span class="op">=</span><span class="fl">1e-100</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 111  16</span>
 </code></pre></div>
     </div>
@@ -111,7 +118,7 @@ evalue.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

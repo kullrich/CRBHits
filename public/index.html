@@ -42,7 +42,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">CRBHits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.5</span>
       </span>
     </div>
 
@@ -131,28 +131,28 @@
 #Pandoc is required to build R Markdown vignettes
 #sudo apt-get install pandoc
 #pkgdown dependencies - pkgdown is used to build R package pages
-#sudo apt-get install libssh2-1-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev</code></pre>
+#sudo apt-get install libssh2-1-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev</code></pre>
 <p>CentOS</p>
 <pre><code>sudo yum install libcurl-devel openssl-devel libxml2-devel mesa-libGLU-devel libgit2-devel
 #Pandoc is required to build R Markdown vignettes
 #sudo yum install pandoc
 #pkgdown dependencies - pkgdown is used to build R package pages
-#sudo yum install libssh2-devel fontconfig-devel harfbuzz-devel fribidi-devel</code></pre>
+#sudo yum install libssh2-devel fontconfig-devel harfbuzz-devel fribidi-devel freetype-devel libpng-devel libtiff-devel libjpeg-turbo-devel</code></pre>
 <ul>
 <li><a href="https://cran.r-project.org/web/packages/devtools/index.html" class="external-link">devtools</a></li>
 </ul>
-<pre><code><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></code></pre>
+<pre><code><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="install-crbhits">install <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a>
 <a class="anchor" aria-label="anchor" href="#install-crbhits"></a>
 </h3>
-<pre><code><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_gitlab</a></span><span class="op">(</span><span class="st">"mpievolbio-it/crbhits"</span>, host <span class="op">=</span> <span class="st">"https://gitlab.gwdg.de"</span>,
-build_vignettes <span class="op">=</span> <span class="cn">FALSE</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#devtools::install_github("kullrich/CRBHits", build_vignettes = FALSE, dependencies = TRUE)</span>
-<span class="fu">CRBHits</span><span class="fu">::</span><span class="fu"><a href="reference/make_last.html">make_last</a></span><span class="op">(</span><span class="op">)</span>
-<span class="fu">CRBHits</span><span class="fu">::</span><span class="fu"><a href="reference/make_KaKs_Calculator2.html">make_KaKs_Calculator2</a></span><span class="op">(</span><span class="op">)</span>
-<span class="fu">CRBHits</span><span class="fu">::</span><span class="fu"><a href="reference/make_dagchainer.html">make_dagchainer</a></span><span class="op">(</span><span class="op">)</span></code></pre>
+<pre><code><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_gitlab.html" class="external-link">install_gitlab</a></span><span class="op">(</span><span class="st">"mpievolbio-it/crbhits"</span>, host <span class="op">=</span> <span class="st">"https://gitlab.gwdg.de"</span>,</span>
+<span>build_vignettes <span class="op">=</span> <span class="cn">FALSE</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#devtools::install_github("kullrich/CRBHits", build_vignettes = FALSE, dependencies = TRUE)</span></span>
+<span><span class="fu">CRBHits</span><span class="fu">::</span><span class="fu"><a href="reference/make_last.html">make_last</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu">CRBHits</span><span class="fu">::</span><span class="fu"><a href="reference/make_KaKs_Calculator2.html">make_KaKs_Calculator2</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu">CRBHits</span><span class="fu">::</span><span class="fu"><a href="reference/make_dagchainer.html">make_dagchainer</a></span><span class="op">(</span><span class="op">)</span></span></code></pre>
 <p>If the functions <code><a href="reference/make_last.html">CRBHits::make_last()</a></code>, <code><a href="reference/make_KaKs_Calculator2.html">CRBHits::make_KaKs_Calculator2()</a></code> and <code><a href="reference/make_dagchainer.html">CRBHits::make_dagchainer()</a></code> fail on your system to install the prerequisites, please take a look at the <a href="#prerequisites">detailed description</a> how to install via e.g. <a href="https://www.anaconda.com/" class="external-link">conda</a> or to compile from source.</p>
 </div>
 </div>
@@ -188,106 +188,106 @@ build_vignettes <span class="op">=</span> <span class="cn">FALSE</span>, depende
 <div class="section level2">
 <h2 id="quick-guide">Quick-guide<a class="anchor" aria-label="anchor" href="#quick-guide"></a>
 </h2>
-<pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a></span><span class="op">)</span>
-<span class="co">## prerequisite: last</span>
-<span class="co">## if not done yet, try to compile last-1282 - uncomment the following line</span>
-<span class="co">#CRBHits::make_last()</span>
-<span class="co">## conditional reciprocal best hits (CRBHit pairs)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ath"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"aly"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span>
-<span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span>
-    cds1<span class="op">=</span><span class="va">ath</span>,
-    cds2<span class="op">=</span><span class="va">aly</span>,
-    plotCurve<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">)</span>
-<span class="op">?</span><span class="va">cds2rbh</span>
-
-<span class="co">##kaks calculation - subset model "Li"</span>
-<span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span>, <span class="fl">20</span><span class="op">)</span>
-<span class="va">ath_aly_crbh.kaks.Li</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span>
-    rbhpairs<span class="op">=</span><span class="va">ath_aly_crbh</span>,
-    cds1<span class="op">=</span><span class="va">ath</span>,
-    cds2<span class="op">=</span><span class="va">aly</span>,
-    model<span class="op">=</span><span class="st">"Li"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh.kaks.Li</span><span class="op">)</span>
-<span class="op">?</span><span class="va">rbh2kaks</span>
-
-<span class="co">## plot kaks</span>
-<span class="va">g.kaks.Li</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/plot_kaks.html">plot_kaks</a></span><span class="op">(</span><span class="va">ath_aly_crbh.kaks.Li</span><span class="op">)</span>
-<span class="op">?</span><span class="va">plot_kaks</span>
-
-<span class="co">## kaks calculation - subset model "YN"</span>
-<span class="co">## prerequisite: KaKs_Calculator2</span>
-<span class="co">## if not done yet, try to compile KaKs_Calculator2 - uncomment the following line</span>
-<span class="co">#CRBHits::make_KaKs_Calculator2()</span>
-<span class="va">ath_aly_crbh.kaks.YN</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span>
-    rbhpairs<span class="op">=</span><span class="va">ath_aly_crbh</span>,
-    cds1<span class="op">=</span><span class="va">ath</span>,
-    cds2<span class="op">=</span><span class="va">aly</span>,
-    model<span class="op">=</span><span class="st">"YN"</span><span class="op">)</span>
-
-<span class="co">## kaks calculation using multiple threads</span>
-<span class="va">ath_aly_crbh.kaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span>
-    rbhpairs<span class="op">=</span><span class="va">ath_aly_crbh</span>,
-    cds1<span class="op">=</span><span class="va">ath</span>,
-    cds2<span class="op">=</span><span class="va">aly</span>,
-    threads<span class="op">=</span><span class="fl">2</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh.kaks</span><span class="op">)</span>
-
-<span class="co">## example how to calculate all pairwise kaks values given a MSA</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">hiv</span><span class="op">)</span>
-<span class="va">hiv_kaks.Li</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/dnastring2kaks.html">dnastring2kaks</a></span><span class="op">(</span>
-    cds<span class="op">=</span><span class="va">hiv</span>,
-    model<span class="op">=</span><span class="st">"Li"</span><span class="op">)</span>
-<span class="va">g.Li</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/plot_kaks.html">plot_kaks</a></span><span class="op">(</span><span class="va">hiv_kaks.Li</span><span class="op">)</span>
-<span class="va">g.Li</span>
-
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">hiv</span><span class="op">)</span>
-<span class="va">hiv_kaks.NG86</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/dnastring2kaks.html">dnastring2kaks</a></span><span class="op">(</span>
-    cds<span class="op">=</span><span class="va">hiv</span>,
-    model<span class="op">=</span><span class="st">"NG86"</span><span class="op">)</span>
-<span class="va">g.NG86</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/plot_kaks.html">plot_kaks</a></span><span class="op">(</span><span class="va">hiv_kaks.NG86</span><span class="op">)</span>
-<span class="va">g.NG86</span>
-
-<span class="co">## codon plot - sites under possible positive selection</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span>
-<span class="va">hiv.xy</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/codonmat2xy.html">codonmat2xy</a></span><span class="op">(</span><span class="fu"><a href="reference/dnastring2codonmat.html">dnastring2codonmat</a></span><span class="op">(</span><span class="va">hiv</span><span class="op">)</span><span class="op">)</span>
-<span class="va">hiv.xy</span> <span class="op"><a href="https://tidyr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Codon</span>, <span class="va">SynMean</span>, <span class="va">NonSynMean</span>, <span class="va">IndelMean</span><span class="op">)</span> <span class="op"><a href="https://tidyr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/gather.html" class="external-link">gather</a></span><span class="op">(</span><span class="va">variable</span>, <span class="va">values</span>, <span class="op">-</span><span class="va">Codon</span><span class="op">)</span> <span class="op"><a href="https://tidyr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Codon</span>, y<span class="op">=</span><span class="va">values</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">variable</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">variable</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"HIV-1 sample 136 patient 1 from Sweden envelope glycoprotein (env) gene"</span><span class="op">)</span>
-
-<span class="co">##### see section install external tools via bioconda</span>
-<span class="co">## example how to use conda version of LAST</span>
-<span class="va">my.lastpath</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">dirname</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system2.html" class="external-link">system2</a></span><span class="op">(</span><span class="st">"which"</span>, <span class="st">"lastdb"</span>, stdout<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>, <span class="st">"/"</span><span class="op">)</span>
-<span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">ath</span>, <span class="va">aly</span>, plotCurve <span class="op">=</span> <span class="cn">TRUE</span>,
-                        lastpath <span class="op">=</span> <span class="va">my.lastpath</span><span class="op">)</span>
-<span class="op">?</span><span class="va">cds2rbh</span>
-
-<span class="co">## example how to use conda version of KaKs_Calculator2.0</span>
-<span class="va">my.kakspath</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">dirname</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system2.html" class="external-link">system2</a></span><span class="op">(</span><span class="st">"which"</span>, <span class="st">"KaKs_Calculator"</span>, stdout<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>, <span class="st">"/"</span><span class="op">)</span>
-<span class="va">ath_aly_crbh.kaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span>,
-                              <span class="va">ath</span>, <span class="va">aly</span>, model <span class="op">=</span> <span class="st">"YN"</span>,
-                              kakscalcpath <span class="op">=</span> <span class="va">my.kakspath</span><span class="op">)</span>
-<span class="op">?</span><span class="va">rbh2kaks</span>
-
-<span class="co">##### see section compile external tools from original source code</span>
-<span class="co">## example how to use own compiled version of LAST</span>
-<span class="va">my.lastpath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/last/last-1282/bin"</span>
-<span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">ath</span>, <span class="va">aly</span>, plotCurve <span class="op">=</span> <span class="cn">TRUE</span>,
-                        lastpath <span class="op">=</span> <span class="va">my.lastpath</span><span class="op">)</span>
-<span class="op">?</span><span class="va">cds2rbh</span>
-
-<span class="co">## example how to use conda version of KaKs_Calculator2.0</span>
-<span class="va">my.kakspath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/KaKs_Calculator2/KaKs_Calculator2.0/src"</span>
-<span class="va">ath_aly_crbh.kaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span>,
-                              <span class="va">ath</span>, <span class="va">aly</span>, model <span class="op">=</span> <span class="st">"YN"</span>,
-                              kakscalcpath <span class="op">=</span> <span class="va">my.kakspath</span><span class="op">)</span>
-<span class="op">?</span><span class="va">rbh2kaks</span></code></pre>
+<pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a></span><span class="op">)</span></span>
+<span><span class="co">## prerequisite: last</span></span>
+<span><span class="co">## if not done yet, try to compile last-1453 - uncomment the following line</span></span>
+<span><span class="co">#CRBHits::make_last()</span></span>
+<span><span class="co">## conditional reciprocal best hits (CRBHit pairs)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ath"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"aly"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span></span>
+<span><span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span></span>
+<span>    cds1<span class="op">=</span><span class="va">ath</span>,</span>
+<span>    cds2<span class="op">=</span><span class="va">aly</span>,</span>
+<span>    plotCurve<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">)</span></span>
+<span><span class="op">?</span><span class="va">cds2rbh</span></span>
+<span></span>
+<span><span class="co">##kaks calculation - subset model "Li"</span></span>
+<span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span>, <span class="fl">20</span><span class="op">)</span></span>
+<span><span class="va">ath_aly_crbh.kaks.Li</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span></span>
+<span>    rbhpairs<span class="op">=</span><span class="va">ath_aly_crbh</span>,</span>
+<span>    cds1<span class="op">=</span><span class="va">ath</span>,</span>
+<span>    cds2<span class="op">=</span><span class="va">aly</span>,</span>
+<span>    model<span class="op">=</span><span class="st">"Li"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh.kaks.Li</span><span class="op">)</span></span>
+<span><span class="op">?</span><span class="va">rbh2kaks</span></span>
+<span></span>
+<span><span class="co">## plot kaks</span></span>
+<span><span class="va">g.kaks.Li</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/plot_kaks.html">plot_kaks</a></span><span class="op">(</span><span class="va">ath_aly_crbh.kaks.Li</span><span class="op">)</span></span>
+<span><span class="op">?</span><span class="va">plot_kaks</span></span>
+<span></span>
+<span><span class="co">## kaks calculation - subset model "YN"</span></span>
+<span><span class="co">## prerequisite: KaKs_Calculator2</span></span>
+<span><span class="co">## if not done yet, try to compile KaKs_Calculator2 - uncomment the following line</span></span>
+<span><span class="co">#CRBHits::make_KaKs_Calculator2()</span></span>
+<span><span class="va">ath_aly_crbh.kaks.YN</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span></span>
+<span>    rbhpairs<span class="op">=</span><span class="va">ath_aly_crbh</span>,</span>
+<span>    cds1<span class="op">=</span><span class="va">ath</span>,</span>
+<span>    cds2<span class="op">=</span><span class="va">aly</span>,</span>
+<span>    model<span class="op">=</span><span class="st">"YN"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## kaks calculation using multiple threads</span></span>
+<span><span class="va">ath_aly_crbh.kaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span></span>
+<span>    rbhpairs<span class="op">=</span><span class="va">ath_aly_crbh</span>,</span>
+<span>    cds1<span class="op">=</span><span class="va">ath</span>,</span>
+<span>    cds2<span class="op">=</span><span class="va">aly</span>,</span>
+<span>    threads<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh.kaks</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## example how to calculate all pairwise kaks values given a MSA</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">hiv</span><span class="op">)</span></span>
+<span><span class="va">hiv_kaks.Li</span> <span class="op">&lt;-</span> <span class="fu">dnastring2kaks</span><span class="op">(</span></span>
+<span>    cds<span class="op">=</span><span class="va">hiv</span>,</span>
+<span>    model<span class="op">=</span><span class="st">"Li"</span><span class="op">)</span></span>
+<span><span class="va">g.Li</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/plot_kaks.html">plot_kaks</a></span><span class="op">(</span><span class="va">hiv_kaks.Li</span><span class="op">)</span></span>
+<span><span class="va">g.Li</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">hiv</span><span class="op">)</span></span>
+<span><span class="va">hiv_kaks.NG86</span> <span class="op">&lt;-</span> <span class="fu">dnastring2kaks</span><span class="op">(</span></span>
+<span>    cds<span class="op">=</span><span class="va">hiv</span>,</span>
+<span>    model<span class="op">=</span><span class="st">"NG86"</span><span class="op">)</span></span>
+<span><span class="va">g.NG86</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/plot_kaks.html">plot_kaks</a></span><span class="op">(</span><span class="va">hiv_kaks.NG86</span><span class="op">)</span></span>
+<span><span class="va">g.NG86</span></span>
+<span></span>
+<span><span class="co">## codon plot - sites under possible positive selection</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="va">hiv.xy</span> <span class="op">&lt;-</span> <span class="fu">codonmat2xy</span><span class="op">(</span><span class="fu">dnastring2codonmat</span><span class="op">(</span><span class="va">hiv</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">hiv.xy</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Codon</span>, <span class="va">SynMean</span>, <span class="va">NonSynMean</span>, <span class="va">IndelMean</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/gather.html" class="external-link">gather</a></span><span class="op">(</span><span class="va">variable</span>, <span class="va">values</span>, <span class="op">-</span><span class="va">Codon</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Codon</span>, y<span class="op">=</span><span class="va">values</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">variable</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">variable</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"HIV-1 sample 136 patient 1 from Sweden envelope glycoprotein (env) gene"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">##### see section install external tools via bioconda</span></span>
+<span><span class="co">## example how to use conda version of LAST</span></span>
+<span><span class="va">my.lastpath</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">dirname</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system2.html" class="external-link">system2</a></span><span class="op">(</span><span class="st">"which"</span>, <span class="st">"lastdb"</span>, stdout<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>, <span class="st">"/"</span><span class="op">)</span></span>
+<span><span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">ath</span>, <span class="va">aly</span>, plotCurve <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                        lastpath <span class="op">=</span> <span class="va">my.lastpath</span><span class="op">)</span></span>
+<span><span class="op">?</span><span class="va">cds2rbh</span></span>
+<span></span>
+<span><span class="co">## example how to use conda version of KaKs_Calculator2.0</span></span>
+<span><span class="va">my.kakspath</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">dirname</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system2.html" class="external-link">system2</a></span><span class="op">(</span><span class="st">"which"</span>, <span class="st">"KaKs_Calculator"</span>, stdout<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>, <span class="st">"/"</span><span class="op">)</span></span>
+<span><span class="va">ath_aly_crbh.kaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span>,</span>
+<span>                              <span class="va">ath</span>, <span class="va">aly</span>, model <span class="op">=</span> <span class="st">"YN"</span>,</span>
+<span>                              kakscalcpath <span class="op">=</span> <span class="va">my.kakspath</span><span class="op">)</span></span>
+<span><span class="op">?</span><span class="va">rbh2kaks</span></span>
+<span></span>
+<span><span class="co">##### see section compile external tools from original source code</span></span>
+<span><span class="co">## example how to use own compiled version of LAST</span></span>
+<span><span class="va">my.lastpath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/last/last-1453/bin"</span></span>
+<span><span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">ath</span>, <span class="va">aly</span>, plotCurve <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                        lastpath <span class="op">=</span> <span class="va">my.lastpath</span><span class="op">)</span></span>
+<span><span class="op">?</span><span class="va">cds2rbh</span></span>
+<span></span>
+<span><span class="co">## example how to use conda version of KaKs_Calculator2.0</span></span>
+<span><span class="va">my.kakspath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/KaKs_Calculator2/KaKs_Calculator2.0/src"</span></span>
+<span><span class="va">ath_aly_crbh.kaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span>,</span>
+<span>                              <span class="va">ath</span>, <span class="va">aly</span>, model <span class="op">=</span> <span class="st">"YN"</span>,</span>
+<span>                              kakscalcpath <span class="op">=</span> <span class="va">my.kakspath</span><span class="op">)</span></span>
+<span><span class="op">?</span><span class="va">rbh2kaks</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="prerequisites">External tools installation prerequisites - detailed description<a class="anchor" aria-label="anchor" href="#prerequisites"></a>
@@ -309,27 +309,27 @@ conda install dagchainer
 conda install mmseqs2
 conda install diamond</code></pre>
 <p>After this installation, the prerequisites are supposed to be in the <code>PATH</code> and you need to set the correct <code>@param</code> in the corresponding functions of <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a> like this:</p>
-<pre><code><span class="co">## example how to use conda versions of LAST, KaKs_Calculator2.0 and DAGchainer</span>
-<span class="va">my.lastpath</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">dirname</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system2.html" class="external-link">system2</a></span><span class="op">(</span><span class="st">"which"</span>, <span class="st">"lastdb"</span>, stdout<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>, <span class="st">"/"</span><span class="op">)</span>
-<span class="va">my.kakspath</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">dirname</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system2.html" class="external-link">system2</a></span><span class="op">(</span><span class="st">"which"</span>, <span class="st">"KaKs_Calculator"</span>, stdout<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>, <span class="st">"/"</span><span class="op">)</span>
-<span class="va">my.dagchainerpath</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">dirname</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system2.html" class="external-link">system2</a></span><span class="op">(</span><span class="st">"which"</span>, <span class="st">"dagchainer"</span>, stdout<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>, <span class="st">"/"</span><span class="op">)</span>
-
-<span class="op">?</span><span class="va">cds2rbh</span>
-<span class="fu"><a href="reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">.</span>, lastpath<span class="op">=</span><span class="va">my.lastpath</span><span class="op">)</span>
-
-<span class="op">?</span><span class="va">rbh2kaks</span>
-<span class="fu"><a href="reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">.</span>, model<span class="op">=</span><span class="st">"YN"</span>, kakscalcpath<span class="op">=</span><span class="va">my.kakspath</span><span class="op">)</span>
-
-<span class="op">?</span><span class="va">rbh2dagchainer</span>
-<span class="fu"><a href="reference/rbh2dagchainer.html">rbh2dagchainer</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">.</span>, dagchainerpath<span class="op">=</span><span class="va">my.dagchainerpath</span><span class="op">)</span>
-
-<span class="co">## example how to use conda versions of MMSEQS2 and DIAMOND</span>
-<span class="va">my.mmseqs2path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">dirname</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system2.html" class="external-link">system2</a></span><span class="op">(</span><span class="st">"which"</span>, <span class="st">"mmseqs"</span>, stdout<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>, <span class="st">"/"</span><span class="op">)</span>
-<span class="va">my.diamondpath</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">dirname</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system2.html" class="external-link">system2</a></span><span class="op">(</span><span class="st">"which"</span>, <span class="st">"diamond"</span>, stdout<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>, <span class="st">"/"</span><span class="op">)</span>
-
-<span class="op">?</span><span class="va">cds2rbh</span>
-<span class="fu"><a href="reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">.</span>, mmseqs2path<span class="op">=</span><span class="va">my.mmseqs2path</span>, searchtool<span class="op">=</span><span class="st">"mmseqs2"</span><span class="op">)</span>
-<span class="fu"><a href="reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">.</span>, mmseqs2path<span class="op">=</span><span class="va">my.diamondpath</span>, searchtool<span class="op">=</span><span class="st">"diamond"</span><span class="op">)</span></code></pre>
+<pre><code><span><span class="co">## example how to use conda versions of LAST, KaKs_Calculator2.0 and DAGchainer</span></span>
+<span><span class="va">my.lastpath</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">dirname</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system2.html" class="external-link">system2</a></span><span class="op">(</span><span class="st">"which"</span>, <span class="st">"lastdb"</span>, stdout<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>, <span class="st">"/"</span><span class="op">)</span></span>
+<span><span class="va">my.kakspath</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">dirname</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system2.html" class="external-link">system2</a></span><span class="op">(</span><span class="st">"which"</span>, <span class="st">"KaKs_Calculator"</span>, stdout<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>, <span class="st">"/"</span><span class="op">)</span></span>
+<span><span class="va">my.dagchainerpath</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">dirname</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system2.html" class="external-link">system2</a></span><span class="op">(</span><span class="st">"which"</span>, <span class="st">"dagchainer"</span>, stdout<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>, <span class="st">"/"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="op">?</span><span class="va">cds2rbh</span></span>
+<span><span class="fu"><a href="reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">.</span>, lastpath<span class="op">=</span><span class="va">my.lastpath</span><span class="op">)</span></span>
+<span></span>
+<span><span class="op">?</span><span class="va">rbh2kaks</span></span>
+<span><span class="fu"><a href="reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">.</span>, model<span class="op">=</span><span class="st">"YN"</span>, kakscalcpath<span class="op">=</span><span class="va">my.kakspath</span><span class="op">)</span></span>
+<span></span>
+<span><span class="op">?</span><span class="va">rbh2dagchainer</span></span>
+<span><span class="fu"><a href="reference/rbh2dagchainer.html">rbh2dagchainer</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">.</span>, dagchainerpath<span class="op">=</span><span class="va">my.dagchainerpath</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## example how to use conda versions of MMSEQS2 and DIAMOND</span></span>
+<span><span class="va">my.mmseqs2path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">dirname</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system2.html" class="external-link">system2</a></span><span class="op">(</span><span class="st">"which"</span>, <span class="st">"mmseqs"</span>, stdout<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>, <span class="st">"/"</span><span class="op">)</span></span>
+<span><span class="va">my.diamondpath</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">dirname</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system2.html" class="external-link">system2</a></span><span class="op">(</span><span class="st">"which"</span>, <span class="st">"diamond"</span>, stdout<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>, <span class="st">"/"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="op">?</span><span class="va">cds2rbh</span></span>
+<span><span class="fu"><a href="reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">.</span>, mmseqs2path<span class="op">=</span><span class="va">my.mmseqs2path</span>, searchtool<span class="op">=</span><span class="st">"mmseqs2"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">.</span>, mmseqs2path<span class="op">=</span><span class="va">my.diamondpath</span>, searchtool<span class="op">=</span><span class="st">"diamond"</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="compile-external-tools-from-source-code-forked-within-this-package">compile external tools from source code forked within this package<a class="anchor" aria-label="anchor" href="#compile-external-tools-from-source-code-forked-within-this-package"></a>
@@ -337,25 +337,25 @@ conda install diamond</code></pre>
 <p>The source code for the prerequisites (LAST, KaKs_Calculator2.0, DAGchainer) are forked within <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a>.</p>
 <ul>
 <li>
-<a href="https://gitlab.com/mcfrith/last" class="external-link">LAST</a> <a href="https://gitlab.com/mcfrith/last/-/archive/1282/last-1282.zip" class="external-link">https://gitlab.com/mcfrith/last/-/archive/1282/last-1282.zip</a>
+<a href="https://gitlab.com/mcfrith/last" class="external-link">LAST</a> <a href="https://gitlab.com/mcfrith/last/-/archive/1418/last-1453.zip" class="external-link">https://gitlab.com/mcfrith/last/-/archive/1453/last-1453.zip</a>
 </li>
 </ul>
 <p>To compile the forked version of <a href="https://gitlab.com/mcfrith/last" class="external-link">LAST</a> within the <code>CRBHits</code> R package directory try to use the function <code><a href="reference/make_last.html">make_last()</a></code>:</p>
-<pre><code><span class="co">## see more installation information here, if make fails</span>
-<span class="co">## last-install-help: https://gitlab.com/mcfrith/last</span>
-<span class="fu">CRBHits</span><span class="fu">::</span><span class="fu"><a href="reference/make_last.html">make_last</a></span><span class="op">(</span><span class="op">)</span></code></pre>
+<pre><code><span><span class="co">## see more installation information here, if make fails</span></span>
+<span><span class="co">## last-install-help: https://gitlab.com/mcfrith/last</span></span>
+<span><span class="fu">CRBHits</span><span class="fu">::</span><span class="fu"><a href="reference/make_last.html">make_last</a></span><span class="op">(</span><span class="op">)</span></span></code></pre>
 <ul>
 <li><a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download" class="external-link">KaKs_Calculator2.0</a></li>
 </ul>
 <p>To compile the forked version of <a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download" class="external-link">KaKs_Calculator2.0</a> within the <code>CRBHits</code> R package directory try to use the function <code><a href="reference/make_KaKs_Calculator2.html">make_KaKs_Calculator2()</a></code>:</p>
-<pre><code><span class="co">## compile KaKs_Calculator2</span>
-<span class="fu">CRBHits</span><span class="fu">::</span><span class="fu"><a href="reference/make_KaKs_Calculator2.html">make_KaKs_Calculator2</a></span><span class="op">(</span><span class="op">)</span></code></pre>
+<pre><code><span><span class="co">## compile KaKs_Calculator2</span></span>
+<span><span class="fu">CRBHits</span><span class="fu">::</span><span class="fu"><a href="reference/make_KaKs_Calculator2.html">make_KaKs_Calculator2</a></span><span class="op">(</span><span class="op">)</span></span></code></pre>
 <ul>
 <li><a href="http://dagchainer.sourceforge.net/" class="external-link">DAGchainer</a></li>
 </ul>
 <p>To compile the forked version of <a href="http://dagchainer.sourceforge.net/" class="external-link">DAGchainer</a> within the <code>CRBHits</code> R package directory try to use the function <code><a href="reference/make_dagchainer.html">make_dagchainer()</a></code>:</p>
-<pre><code><span class="co">## compile DAGchainer</span>
-<span class="fu">CRBHits</span><span class="fu">::</span><span class="fu"><a href="reference/make_dagchainer.html">make_dagchainer</a></span><span class="op">(</span><span class="op">)</span></code></pre>
+<pre><code><span><span class="co">## compile DAGchainer</span></span>
+<span><span class="fu">CRBHits</span><span class="fu">::</span><span class="fu"><a href="reference/make_dagchainer.html">make_dagchainer</a></span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="compile-external-tools-from-original-source-code">compile external tools from original source code<a class="anchor" aria-label="anchor" href="#compile-external-tools-from-original-source-code"></a>
@@ -366,10 +366,10 @@ conda install diamond</code></pre>
 ## e.g.
 mkdir /tmp/last
 cd /tmp/last
-## donwload last-1282
-curl -O https://gitlab.com/mcfrith/last/-/archive/1282/last-1282.zip
-unzip last-1282.zip
-cd last-1282
+## donwload last-1453
+curl -O https://gitlab.com/mcfrith/last/-/archive/1418/last-1453.zip
+unzip last-1453.zip
+cd last-1453
 ## compile LAST
 make</code></pre>
 <p>To compile <a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download" class="external-link">KaKs_Calculator2.0</a>:</p>
@@ -398,19 +398,19 @@ cd dagchainer
 ## compile DAGchainer
 make</code></pre>
 <p>If you would like to use your own compiled versions of <code>LAST</code>, <code>KaKs_Calculator2.0</code> and <code>DAGchainer</code> you need to set the correct <code>@param</code> in the corresponding functions of <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a>.</p>
-<pre><code><span class="co">## example how to use own compiled versions of LAST, KaKs_Calculator2.0 and DAGchainer</span>
-<span class="va">my.lastpath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/last/last-1282/bin"</span>
-<span class="va">my.kakspath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/KaKs_Calculator2/KaKs_Calculator2.0/src"</span>
-<span class="va">my.dagchainerpath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/dagcahiner"</span>
-
-<span class="op">?</span><span class="va">cds2rbh</span>
-<span class="fu"><a href="reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">.</span>, lastpath<span class="op">=</span><span class="va">my.lastpath</span><span class="op">)</span>
-
-<span class="op">?</span><span class="va">rbh2kaks</span>
-<span class="fu"><a href="reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">.</span>, model<span class="op">=</span><span class="st">"YN"</span>, kakscalcpath<span class="op">=</span><span class="va">my.kakspath</span><span class="op">)</span>
-
-<span class="op">?</span><span class="va">rbh2dagchainer</span>
-<span class="fu"><a href="reference/rbh2dagchainer.html">rbh2dagchainer</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">.</span>, dagchainerpath<span class="op">=</span><span class="va">my.dagchainerpath</span><span class="op">)</span></code></pre>
+<pre><code><span><span class="co">## example how to use own compiled versions of LAST, KaKs_Calculator2.0 and DAGchainer</span></span>
+<span><span class="va">my.lastpath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/last/last-1453/bin"</span></span>
+<span><span class="va">my.kakspath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/KaKs_Calculator2/KaKs_Calculator2.0/src"</span></span>
+<span><span class="va">my.dagchainerpath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/dagcahiner"</span></span>
+<span></span>
+<span><span class="op">?</span><span class="va">cds2rbh</span></span>
+<span><span class="fu"><a href="reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">.</span>, lastpath<span class="op">=</span><span class="va">my.lastpath</span><span class="op">)</span></span>
+<span></span>
+<span><span class="op">?</span><span class="va">rbh2kaks</span></span>
+<span><span class="fu"><a href="reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">.</span>, model<span class="op">=</span><span class="st">"YN"</span>, kakscalcpath<span class="op">=</span><span class="va">my.kakspath</span><span class="op">)</span></span>
+<span></span>
+<span><span class="op">?</span><span class="va">rbh2dagchainer</span></span>
+<span><span class="fu"><a href="reference/rbh2dagchainer.html">rbh2dagchainer</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">.</span>, dagchainerpath<span class="op">=</span><span class="va">my.dagchainerpath</span><span class="op">)</span></span></code></pre>
 <p>To compile <a href="https://github.com/soedinglab/MMseqs2" class="external-link">MMseqs2</a></p>
 <p>To compile <a href="https://github.com/bbuchfink/diamond/wiki" class="external-link">diamond</a></p>
 </div>
@@ -421,7 +421,7 @@ make</code></pre>
 <p>MIT (see LICENSE)</p>
 <p>The <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a> package includes source code that has been published under following licenses:</p>
 <div class="section level3">
-<h3 id="last-1282zip">last-1282.zip<a class="anchor" aria-label="anchor" href="#last-1282zip"></a>
+<h3 id="last-1453zip">last-1453.zip<a class="anchor" aria-label="anchor" href="#last-1453zip"></a>
 </h3>
 <p>GNU General Public License Version 3, 29 June 2007 <a href="https://www.gnu.org/licenses/gpl-3.0.de.html" class="external-link">GPLv3</a></p>
 </div>
@@ -554,7 +554,7 @@ make</code></pre>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

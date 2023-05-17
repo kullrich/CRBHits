@@ -20,7 +20,7 @@ cds2 as DNAStringSet or DNAString."><meta property="og:image" content="/logo.png
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CRBHits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.5</span>
       </span>
     </div>
 
@@ -57,7 +57,7 @@ cds2 as DNAStringSet or DNAString."><meta property="og:image" content="/logo.png
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>cds2kaks</h1>
-    <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/masterR/cds2kaks.R" class="external-link"><code>R/cds2kaks.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/develR/cds2kaks.R" class="external-link"><code>R/cds2kaks.R</code></a></small>
     <div class="hidden name"><code>cds2kaks.Rd</code></div>
     </div>
 
@@ -69,13 +69,13 @@ cds2 as DNAStringSet or DNAString."><meta property="og:image" content="/logo.png
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">cds2kaks</span><span class="op">(</span>
-  <span class="va">cds1</span>,
-  <span class="va">cds2</span>,
-  model <span class="op">=</span> <span class="st">"Li"</span>,
-  kakscalcpath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/find.package.html" class="external-link">find.package</a></span><span class="op">(</span><span class="st">"CRBHits"</span><span class="op">)</span>, <span class="st">"/extdata/KaKs_Calculator2.0/src/"</span><span class="op">)</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">cds2kaks</span><span class="op">(</span></span>
+<span>  <span class="va">cds1</span>,</span>
+<span>  <span class="va">cds2</span>,</span>
+<span>  model <span class="op">=</span> <span class="st">"Li"</span>,</span>
+<span>  kakscalcpath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/find.package.html" class="external-link">find.package</a></span><span class="op">(</span><span class="st">"CRBHits"</span><span class="op">)</span>, <span class="st">"/extdata/KaKs_Calculator2.0/src/"</span><span class="op">)</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -83,22 +83,35 @@ cds2 as DNAStringSet or DNAString."><meta property="og:image" content="/logo.png
     <dl><dt>cds1</dt>
 <dd><p>single cds1 sequence as <code>DNAStringSet</code> or <code>DNAString</code>
 [mandatory]</p></dd>
+
+
 <dt>cds2</dt>
 <dd><p>single cds2 sequence as <code>DNAStringSet</code> or <code>DNAString</code>
 [mandatory]</p></dd>
+
+
 <dt>model</dt>
 <dd><p>specify codon model either "Li" or "YN" or "NG86" [default: Li]</p></dd>
+
+
 <dt>kakscalcpath</dt>
 <dd><p>specify the PATH to the KaKs_Calculator binaries
 [default: /extdata/KaKs_Calculator2.0/src/]</p></dd>
+
+
 <dt>...</dt>
 <dd><p>other codon alignment parameters (see
-<code><a href="cds2codonaln.html">cds2codonaln</a></code>)</p></dd>
+<code><a href="https://mpievolbio-it.pages.gwdg.de/MSA2dist/reference/cds2codonaln.html" class="external-link">cds2codonaln</a></code>)</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>vector of ka/ks values as specified by <code><a href="https://rdrr.io/pkg/seqinr/man/kaks.html" class="external-link">seqinr::kaks</a></code> or
+    
+
+<p>vector of ka/ks values as specified by <code><a href="https://rdrr.io/pkg/seqinr/man/kaks.html" class="external-link">seqinr::kaks</a></code> or
 <code>KaKs_Calculator2.0</code></p>
+
+
     </div>
     <div id="references">
     <h2>References</h2>
@@ -125,45 +138,45 @@ numbers of synonymous and nonsynonymous nucleotide substitutions.
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## load example sequence data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ath"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"aly"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## select a sequence pair according to a best hit pair (done for you)</span></span>
-<span class="r-in"><span class="va">cds1</span> <span class="op">&lt;-</span> <span class="va">ath</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
-<span class="r-in"><span class="va">cds2</span> <span class="op">&lt;-</span> <span class="va">aly</span><span class="op">[</span><span class="fl">282</span><span class="op">]</span></span>
-<span class="r-in"><span class="fu">cds2kaks</span><span class="op">(</span></span>
-<span class="r-in">    cds1<span class="op">=</span><span class="va">cds1</span>,</span>
-<span class="r-in">    cds2<span class="op">=</span><span class="va">cds2</span>,</span>
-<span class="r-in">    model<span class="op">=</span><span class="st">"Li"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## load example sequence data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ath"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"aly"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## select a sequence pair according to a best hit pair (done for you)</span></span></span>
+<span class="r-in"><span><span class="va">cds1</span> <span class="op">&lt;-</span> <span class="va">ath</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">cds2</span> <span class="op">&lt;-</span> <span class="va">aly</span><span class="op">[</span><span class="fl">282</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="fu">cds2kaks</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    cds1<span class="op">=</span><span class="va">cds1</span>,</span></span>
+<span class="r-in"><span>    cds2<span class="op">=</span><span class="va">cds2</span>,</span></span>
+<span class="r-in"><span>    model<span class="op">=</span><span class="st">"Li"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         ka         ks        vka        vks </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1.02338181 9.99999900 0.01140267 9.99999900 </span>
-<span class="r-in"><span class="co">## using an alternative substitutionMatrix</span></span>
-<span class="r-in"><span class="fu">cds2kaks</span><span class="op">(</span></span>
-<span class="r-in">    cds1<span class="op">=</span><span class="va">cds1</span>,</span>
-<span class="r-in">    cds2<span class="op">=</span><span class="va">cds2</span>,</span>
-<span class="r-in">    model<span class="op">=</span><span class="st">"Li"</span>,</span>
-<span class="r-in">    substitutionMatrix<span class="op">=</span><span class="st">"BLOSUM45"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## using an alternative substitutionMatrix</span></span></span>
+<span class="r-in"><span><span class="fu">cds2kaks</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    cds1<span class="op">=</span><span class="va">cds1</span>,</span></span>
+<span class="r-in"><span>    cds2<span class="op">=</span><span class="va">cds2</span>,</span></span>
+<span class="r-in"><span>    model<span class="op">=</span><span class="st">"Li"</span>,</span></span>
+<span class="r-in"><span>    substitutionMatrix<span class="op">=</span><span class="st">"BLOSUM45"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          ka          ks         vka         vks </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.878034285 9.999999000 0.009456807 9.999999000 </span>
-<span class="r-in"><span class="fu">cds2kaks</span><span class="op">(</span></span>
-<span class="r-in">    cds1<span class="op">=</span><span class="va">cds1</span>,</span>
-<span class="r-in">    cds2<span class="op">=</span><span class="va">cds2</span>,</span>
-<span class="r-in">    model<span class="op">=</span><span class="st">"Li"</span>,</span>
-<span class="r-in">    substitutionMatrix<span class="op">=</span><span class="st">"BLOSUM80"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">cds2kaks</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    cds1<span class="op">=</span><span class="va">cds1</span>,</span></span>
+<span class="r-in"><span>    cds2<span class="op">=</span><span class="va">cds2</span>,</span></span>
+<span class="r-in"><span>    model<span class="op">=</span><span class="st">"Li"</span>,</span></span>
+<span class="r-in"><span>    substitutionMatrix<span class="op">=</span><span class="st">"BLOSUM80"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          ka          ks         vka         vks </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.814370837 9.999999000 0.009489614 9.999999000 </span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="fu">cds2kaks</span><span class="op">(</span></span>
-<span class="r-in">    cds1<span class="op">=</span><span class="va">cds1</span>,</span>
-<span class="r-in">    cds2<span class="op">=</span><span class="va">cds2</span>,</span>
-<span class="r-in">    model<span class="op">=</span><span class="st">"YN"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="fu">cds2kaks</span><span class="op">(</span></span>
-<span class="r-in">    cds1<span class="op">=</span><span class="va">cds1</span>,</span>
-<span class="r-in">    cds2<span class="op">=</span><span class="va">cds2</span>,</span>
-<span class="r-in">    model<span class="op">=</span><span class="st">"NG86"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu">cds2kaks</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    cds1<span class="op">=</span><span class="va">cds1</span>,</span></span>
+<span class="r-in"><span>    cds2<span class="op">=</span><span class="va">cds2</span>,</span></span>
+<span class="r-in"><span>    model<span class="op">=</span><span class="st">"YN"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu">cds2kaks</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    cds1<span class="op">=</span><span class="va">cds1</span>,</span></span>
+<span class="r-in"><span>    cds2<span class="op">=</span><span class="va">cds2</span>,</span></span>
+<span class="r-in"><span>    model<span class="op">=</span><span class="st">"NG86"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -178,7 +191,7 @@ numbers of synonymous and nonsynonymous nucleotide substitutions.
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

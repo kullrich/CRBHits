@@ -56,7 +56,7 @@ environment, which is popular among biologists.
 [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) improve CRBH by additional implemented 
 filter steps [@rost1999twilight] and the possibility to apply custom filters prior E-value fitting. Further, the resulting CRBH pairs can be evaluated for the presence of tandem duplicated genes, gene order based syntenic groups and evolutionary rates.
 
-![Overview of the two main pipeline function and its subtasks. cds2rbh(): from CDS to CRBHit pairs; rbh2kaks(): from CRBHit pairs to Ka/Ks values.\label{fig:functions}](figure1.png)
+![Overview of the two main pipeline function and its subtasks. cds2rbh(): from CDS to CRBHit pairs; rbh2kaks(): from CRBHit pairs to Ka/Ks values.\label{fig:functions}](man/figures/figure1.png)
 
 # Coding sequence analysis and synteny
 
@@ -127,7 +127,7 @@ cds1.cds2.crbh <- cdsfile2rbh(cds1.url, cds2.url, longest.isoform = TRUE,
 #get help ?cdsfile2rbh
 ```
 
-![Accepted condition reciprocal best hits based on RBH fitting.\label{fig:crbh}](figure2.png)
+![Accepted condition reciprocal best hits based on RBH fitting.\label{fig:crbh}](man/figures/figure2.png)
 
 The obtained CRBHit pairs can also be used to calculate synonymous (Ks) and nonsynonymous (Ka) substitutions per hit pair using either the model from @li1993unbiased or from @yang2000estimating.
 
@@ -176,7 +176,7 @@ cds3.selfblast.kaks.Li <- rbh2kaks(cds3.selfblast.crbh, cds3, cds3,
 #get help ?plot.kaks
 ```
 
-![Selfblast CRBHit pair results for *Arabidopsis thaliana*. (A) DAGchainer dotplot per chromosome colored by syntenic group and (B) colored by Ks. (C) Histogram of Ks values colored by syntenic group.\label{fig:synteny}](figure3.png)
+![Selfblast CRBHit pair results for *Arabidopsis thaliana*. (A) DAGchainer dotplot per chromosome colored by syntenic group and (B) colored by Ks. (C) Histogram of Ks values colored by syntenic group.\label{fig:synteny}](man/figures/figure3.png)
 
 Table: Performance comparison for CRBHit pair (*Schizosaccharomyces pombe* vs. *Nematostella vectensis*) and Ka/Ks calculations (Intel Xeon CPU E5-2620 v3 @ 2.40GHz; 3411 hit pairs; 2 x Threads).\label{tab:performance}
 

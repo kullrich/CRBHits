@@ -18,7 +18,7 @@ optional extracts the longest isoform."><meta property="og:image" content="/logo
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CRBHits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.5</span>
       </span>
     </div>
 
@@ -55,7 +55,7 @@ optional extracts the longest isoform."><meta property="og:image" content="/logo
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>gff2longest</h1>
-    <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/masterR/gff2longest.R" class="external-link"><code>R/gff2longest.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/develR/gff2longest.R" class="external-link"><code>R/gff2longest.R</code></a></small>
     <div class="hidden name"><code>gff2longest.Rd</code></div>
     </div>
 
@@ -65,23 +65,34 @@ optional extracts the longest isoform.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">gff2longest</span><span class="op">(</span><span class="va">gff3file</span>, cds <span class="op">=</span> <span class="cn">NULL</span>, removeNonCoding <span class="op">=</span> <span class="cn">TRUE</span>, source <span class="op">=</span> <span class="st">"NCBI"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">gff2longest</span><span class="op">(</span><span class="va">gff3file</span>, cds <span class="op">=</span> <span class="cn">NULL</span>, removeNonCoding <span class="op">=</span> <span class="cn">TRUE</span>, source <span class="op">=</span> <span class="st">"NCBI"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>gff3file</dt>
 <dd><p><code>GFF3 path</code> [mandatory]</p></dd>
+
+
 <dt>cds</dt>
 <dd><p><code>DNAStringSet</code> [optional]</p></dd>
+
+
 <dt>removeNonCoding</dt>
 <dd><p>specify if NonCoding transcripts should be removed</p></dd>
+
+
 <dt>source</dt>
 <dd><p>source indicating either NCBI or ENSEMBL [default: NCBI]</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>list</code></p>
+    
+
+<p><code>list</code></p>
+
+
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -94,51 +105,51 @@ optional extracts the longest isoform.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co">## load example sequence data</span></span>
-<span class="r-in"><span class="co">## set NCBI GFF3 URL</span></span>
-<span class="r-in"><span class="va">NCBI</span> <span class="op">&lt;-</span> <span class="st">"ftp://ftp.ncbi.nlm.nih.gov/genomes/all/"</span></span>
-<span class="r-in"><span class="va">ARATHA.NCBI.gff3.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">NCBI</span>,</span>
-<span class="r-in">    <span class="st">"GCF/000/001/735/GCF_000001735.4_TAIR10.1/"</span>,</span>
-<span class="r-in">    <span class="st">"GCF_000001735.4_TAIR10.1_genomic.gff.gz"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ARATHA.NCBI.gff3.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## download GTF file</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="va">ARATHA.NCBI.gff3.url</span>, <span class="va">ARATHA.NCBI.gff3.file</span>, quiet<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## set NCBI CDS URL</span></span>
-<span class="r-in"><span class="va">ARATHA.NCBI.cds.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">NCBI</span>,</span>
-<span class="r-in">    <span class="st">"GCF/000/001/735/GCF_000001735.4_TAIR10.1/"</span>,</span>
-<span class="r-in">    <span class="st">"GCF_000001735.4_TAIR10.1_cds_from_genomic.fna.gz"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ARATHA.NCBI.cds.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## download CDS file</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="va">ARATHA.NCBI.cds.url</span>, <span class="va">ARATHA.NCBI.cds.file</span>, quiet<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## load CDS</span></span>
-<span class="r-in"><span class="va">ARATHA.NCBI.cds</span> <span class="op">&lt;-</span> <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html" class="external-link">readDNAStringSet</a></span><span class="op">(</span><span class="va">ARATHA.NCBI.cds.file</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## get genepos and longest isoform</span></span>
-<span class="r-in"><span class="va">ARATHA.NCBI.gff3.longest</span> <span class="op">&lt;-</span> <span class="fu">gff2longest</span><span class="op">(</span>gtffile<span class="op">=</span><span class="va">ARATHA.NCBI.gff3.file</span>,</span>
-<span class="r-in">    cds<span class="op">=</span><span class="va">ARATHA.NCBI.cds</span>, source<span class="op">=</span><span class="st">"NCBI"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ARATHA.NCBI.gff3.longest</span><span class="op">$</span><span class="va">genepos</span></span>
-<span class="r-in"><span class="va">ARATHA.NCBI.gff3.longest</span><span class="op">$</span><span class="va">cds</span></span>
-<span class="r-in"><span class="co">## set ENSEMBL GFF3 URL</span></span>
-<span class="r-in"><span class="va">ensembl</span> <span class="op">&lt;-</span> <span class="st">"http://ftp.ensemblgenomes.org/pub/plants/release-52/"</span></span>
-<span class="r-in"><span class="va">ARATHA.ENSEMBL.gff3.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">ensembl</span>,</span>
-<span class="r-in">    <span class="st">"gff3/arabidopsis_thaliana/Arabidopsis_thaliana.TAIR10.52.gff3.gz"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ARATHA.ENSEMBL.gff3.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## download GTF file</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="va">ARATHA.ENSEMBL.gff3.url</span>, <span class="va">ARATHA.ENSEMBL.gff3.file</span>, quiet<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## set ENSEMBL CDS URL</span></span>
-<span class="r-in"><span class="va">ARATHA.ENSEMBL.cds.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">ensembl</span>,</span>
-<span class="r-in">    <span class="st">"fasta/arabidopsis_thaliana/cds/"</span>,</span>
-<span class="r-in">    <span class="st">"Arabidopsis_thaliana.TAIR10.cds.all.fa.gz"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ARATHA.ENSEMBL.cds.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## download CDS file</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="va">ARATHA.ENSEMBL.cds.url</span>, <span class="va">ARATHA.ENSEMBL.cds.file</span>, quiet<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ARATHA.ENSEMBL.cds</span> <span class="op">&lt;-</span> <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html" class="external-link">readDNAStringSet</a></span><span class="op">(</span><span class="va">ARATHA.ENSEMBL.cds.file</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## get genepos and longest isoform</span></span>
-<span class="r-in"><span class="va">ARATHA.ENSEMBL.gff3.longest</span> <span class="op">&lt;-</span> <span class="fu">gff2longest</span><span class="op">(</span>gff3file<span class="op">=</span><span class="va">ARATHA.ENSEMBL.gff3.file</span>,</span>
-<span class="r-in">    cds<span class="op">=</span><span class="va">ARATHA.ENSEMBL.cds</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ARATHA.ENSEMBL.gff3.longest</span><span class="op">$</span><span class="va">genepos</span></span>
-<span class="r-in"><span class="va">ARATHA.ENSEMBL.gff3.longest</span><span class="op">$</span><span class="va">cds</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co">## load example sequence data</span></span></span>
+<span class="r-in"><span><span class="co">## set NCBI GFF3 URL</span></span></span>
+<span class="r-in"><span><span class="va">NCBI</span> <span class="op">&lt;-</span> <span class="st">"ftp://ftp.ncbi.nlm.nih.gov/genomes/all/"</span></span></span>
+<span class="r-in"><span><span class="va">ARATHA.NCBI.gff3.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">NCBI</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"GCF/000/001/735/GCF_000001735.4_TAIR10.1/"</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"GCF_000001735.4_TAIR10.1_genomic.gff.gz"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ARATHA.NCBI.gff3.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## download GTF file</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="va">ARATHA.NCBI.gff3.url</span>, <span class="va">ARATHA.NCBI.gff3.file</span>, quiet<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## set NCBI CDS URL</span></span></span>
+<span class="r-in"><span><span class="va">ARATHA.NCBI.cds.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">NCBI</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"GCF/000/001/735/GCF_000001735.4_TAIR10.1/"</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"GCF_000001735.4_TAIR10.1_cds_from_genomic.fna.gz"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ARATHA.NCBI.cds.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## download CDS file</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="va">ARATHA.NCBI.cds.url</span>, <span class="va">ARATHA.NCBI.cds.file</span>, quiet<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## load CDS</span></span></span>
+<span class="r-in"><span><span class="va">ARATHA.NCBI.cds</span> <span class="op">&lt;-</span> <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html" class="external-link">readDNAStringSet</a></span><span class="op">(</span><span class="va">ARATHA.NCBI.cds.file</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## get genepos and longest isoform</span></span></span>
+<span class="r-in"><span><span class="va">ARATHA.NCBI.gff3.longest</span> <span class="op">&lt;-</span> <span class="fu">gff2longest</span><span class="op">(</span>gtffile<span class="op">=</span><span class="va">ARATHA.NCBI.gff3.file</span>,</span></span>
+<span class="r-in"><span>    cds<span class="op">=</span><span class="va">ARATHA.NCBI.cds</span>, source<span class="op">=</span><span class="st">"NCBI"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ARATHA.NCBI.gff3.longest</span><span class="op">$</span><span class="va">genepos</span></span></span>
+<span class="r-in"><span><span class="va">ARATHA.NCBI.gff3.longest</span><span class="op">$</span><span class="va">cds</span></span></span>
+<span class="r-in"><span><span class="co">## set ENSEMBL GFF3 URL</span></span></span>
+<span class="r-in"><span><span class="va">ensembl</span> <span class="op">&lt;-</span> <span class="st">"http://ftp.ensemblgenomes.org/pub/plants/release-52/"</span></span></span>
+<span class="r-in"><span><span class="va">ARATHA.ENSEMBL.gff3.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">ensembl</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"gff3/arabidopsis_thaliana/Arabidopsis_thaliana.TAIR10.52.gff3.gz"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ARATHA.ENSEMBL.gff3.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## download GTF file</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="va">ARATHA.ENSEMBL.gff3.url</span>, <span class="va">ARATHA.ENSEMBL.gff3.file</span>, quiet<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## set ENSEMBL CDS URL</span></span></span>
+<span class="r-in"><span><span class="va">ARATHA.ENSEMBL.cds.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">ensembl</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"fasta/arabidopsis_thaliana/cds/"</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"Arabidopsis_thaliana.TAIR10.cds.all.fa.gz"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ARATHA.ENSEMBL.cds.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## download CDS file</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="va">ARATHA.ENSEMBL.cds.url</span>, <span class="va">ARATHA.ENSEMBL.cds.file</span>, quiet<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ARATHA.ENSEMBL.cds</span> <span class="op">&lt;-</span> <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html" class="external-link">readDNAStringSet</a></span><span class="op">(</span><span class="va">ARATHA.ENSEMBL.cds.file</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## get genepos and longest isoform</span></span></span>
+<span class="r-in"><span><span class="va">ARATHA.ENSEMBL.gff3.longest</span> <span class="op">&lt;-</span> <span class="fu">gff2longest</span><span class="op">(</span>gff3file<span class="op">=</span><span class="va">ARATHA.ENSEMBL.gff3.file</span>,</span></span>
+<span class="r-in"><span>    cds<span class="op">=</span><span class="va">ARATHA.ENSEMBL.cds</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ARATHA.ENSEMBL.gff3.longest</span><span class="op">$</span><span class="va">genepos</span></span></span>
+<span class="r-in"><span><span class="va">ARATHA.ENSEMBL.gff3.longest</span><span class="op">$</span><span class="va">cds</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -153,7 +164,7 @@ optional extracts the longest isoform.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CRBHits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.5</span>
       </span>
     </div>
 
@@ -54,7 +54,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>col2transparent</h1>
-    <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/masterR/col2transparent.R" class="external-link"><code>R/col2transparent.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/develR/col2transparent.R" class="external-link"><code>R/col2transparent.R</code></a></small>
     <div class="hidden name"><code>col2transparent.Rd</code></div>
     </div>
 
@@ -63,19 +63,24 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">col2transparent</span><span class="op">(</span><span class="va">col</span>, alpha.perc <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">col2transparent</span><span class="op">(</span><span class="va">col</span>, alpha.perc <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>col</dt>
 <dd><p>R color name or R color pal [mandatory]</p></dd>
+
+
 <dt>alpha.perc</dt>
 <dd><p>an alpha-transparency level in percent [default: 0]</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A character vector with elements of 9 characters,
+    
+
+<p>A character vector with elements of 9 characters,
 "#" followed by the red, blue, green and alpha values in hexadecimal
 (after rescaling to 0 ... 255).</p>
     </div>
@@ -90,34 +95,34 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">col2transparent</span><span class="op">(</span><span class="st">"green"</span>, <span class="fl">50</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">col2transparent</span><span class="op">(</span><span class="st">"green"</span>, <span class="fl">50</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "#00FF007F"</span>
-<span class="r-in"><span class="co">## Demonstrate the colors 1:8 in different palettes using a custom matplot()</span></span>
-<span class="r-in"><span class="va">sinplot</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">main</span><span class="op">=</span><span class="cn">NULL</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">    <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/outer.html" class="external-link">outer</a></span><span class="op">(</span></span>
-<span class="r-in">        <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="op">-</span><span class="va">pi</span>, <span class="va">pi</span>, length.out <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>,</span>
-<span class="r-in">        <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">pi</span>, length.out <span class="op">=</span> <span class="fl">9</span><span class="op">)</span>,</span>
-<span class="r-in">        <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">sin</a></span><span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="va">y</span><span class="op">)</span></span>
-<span class="r-in">    <span class="op">)</span></span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/graphics/matplot.html" class="external-link">matplot</a></span><span class="op">(</span><span class="va">x</span>, type <span class="op">=</span> <span class="st">"l"</span>, lwd <span class="op">=</span> <span class="fl">4</span>, lty <span class="op">=</span> <span class="fl">1</span>, col <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">9</span>, ylab <span class="op">=</span> <span class="st">""</span>, main<span class="op">=</span><span class="va">main</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"><span class="va">my.palette</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span class="r-in">    <span class="st">"#CBC106"</span>, <span class="st">"#27993C"</span>, <span class="st">"#1C6838"</span>,</span>
-<span class="r-in">    <span class="st">"#8EBCB5"</span>, <span class="st">"#389CA7"</span>, <span class="st">"#4D83AB"</span>,</span>
-<span class="r-in">    <span class="st">"#CB7B26"</span>, <span class="st">"#BF565D"</span>, <span class="st">"#9E163C"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/grDevices/palette.html" class="external-link">palette</a></span><span class="op">(</span><span class="va">my.palette</span><span class="op">)</span>; <span class="fu">sinplot</span><span class="op">(</span><span class="st">"my.palette"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## Demonstrate the colors 1:8 in different palettes using a custom matplot()</span></span></span>
+<span class="r-in"><span><span class="va">sinplot</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">main</span><span class="op">=</span><span class="cn">NULL</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/outer.html" class="external-link">outer</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>        <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="op">-</span><span class="va">pi</span>, <span class="va">pi</span>, length.out <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>        <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">pi</span>, length.out <span class="op">=</span> <span class="fl">9</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>        <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">sin</a></span><span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="va">y</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/graphics/matplot.html" class="external-link">matplot</a></span><span class="op">(</span><span class="va">x</span>, type <span class="op">=</span> <span class="st">"l"</span>, lwd <span class="op">=</span> <span class="fl">4</span>, lty <span class="op">=</span> <span class="fl">1</span>, col <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">9</span>, ylab <span class="op">=</span> <span class="st">""</span>, main<span class="op">=</span><span class="va">main</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="va">my.palette</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="st">"#CBC106"</span>, <span class="st">"#27993C"</span>, <span class="st">"#1C6838"</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"#8EBCB5"</span>, <span class="st">"#389CA7"</span>, <span class="st">"#4D83AB"</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"#CB7B26"</span>, <span class="st">"#BF565D"</span>, <span class="st">"#9E163C"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/grDevices/palette.html" class="external-link">palette</a></span><span class="op">(</span><span class="va">my.palette</span><span class="op">)</span>; <span class="fu">sinplot</span><span class="op">(</span><span class="st">"my.palette"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="col2transparent-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co">## 25% transparent</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/grDevices/palette.html" class="external-link">palette</a></span><span class="op">(</span><span class="fu">col2transparent</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/grDevices/palette.html" class="external-link">palette</a></span><span class="op">(</span><span class="va">my.palette</span><span class="op">)</span>, <span class="fl">25</span><span class="op">)</span><span class="op">)</span>;</span>
-<span class="r-in">    <span class="fu">sinplot</span><span class="op">(</span><span class="st">"my.palette - transparent"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## 25% transparent</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/grDevices/palette.html" class="external-link">palette</a></span><span class="op">(</span><span class="fu">col2transparent</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/grDevices/palette.html" class="external-link">palette</a></span><span class="op">(</span><span class="va">my.palette</span><span class="op">)</span>, <span class="fl">25</span><span class="op">)</span><span class="op">)</span>;</span></span>
+<span class="r-in"><span>    <span class="fu">sinplot</span><span class="op">(</span><span class="st">"my.palette - transparent"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="col2transparent-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co">## 50% transparent</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/grDevices/palette.html" class="external-link">palette</a></span><span class="op">(</span><span class="fu">col2transparent</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/grDevices/palette.html" class="external-link">palette</a></span><span class="op">(</span><span class="va">my.palette</span><span class="op">)</span>, <span class="fl">50</span><span class="op">)</span><span class="op">)</span>;</span>
-<span class="r-in">    <span class="fu">sinplot</span><span class="op">(</span><span class="st">"my.palette - transparent"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## 50% transparent</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/grDevices/palette.html" class="external-link">palette</a></span><span class="op">(</span><span class="fu">col2transparent</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/grDevices/palette.html" class="external-link">palette</a></span><span class="op">(</span><span class="va">my.palette</span><span class="op">)</span>, <span class="fl">50</span><span class="op">)</span><span class="op">)</span>;</span></span>
+<span class="r-in"><span>    <span class="fu">sinplot</span><span class="op">(</span><span class="st">"my.palette - transparent"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="col2transparent-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co">## 75% transparent</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/grDevices/palette.html" class="external-link">palette</a></span><span class="op">(</span><span class="fu">col2transparent</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/grDevices/palette.html" class="external-link">palette</a></span><span class="op">(</span><span class="va">my.palette</span><span class="op">)</span>, <span class="fl">75</span><span class="op">)</span><span class="op">)</span>;</span>
-<span class="r-in">    <span class="fu">sinplot</span><span class="op">(</span><span class="st">"my.palette - transparent"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## 75% transparent</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/grDevices/palette.html" class="external-link">palette</a></span><span class="op">(</span><span class="fu">col2transparent</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/grDevices/palette.html" class="external-link">palette</a></span><span class="op">(</span><span class="va">my.palette</span><span class="op">)</span>, <span class="fl">75</span><span class="op">)</span><span class="op">)</span>;</span></span>
+<span class="r-in"><span>    <span class="fu">sinplot</span><span class="op">(</span><span class="st">"my.palette - transparent"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="col2transparent-4.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -133,7 +138,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

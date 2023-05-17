@@ -40,6 +40,9 @@
     <loc>/reference/aabin2aastring.html</loc>
   </url>
   <url>
+    <loc>/reference/aadir2orthofinder.html</loc>
+  </url>
+  <url>
     <loc>/reference/aafile2rbh.html</loc>
   </url>
   <url>
@@ -83,6 +86,9 @@
   </url>
   <url>
     <loc>/reference/cds2rbh.html</loc>
+  </url>
+  <url>
+    <loc>/reference/cdsdir2orthofinder.html</loc>
   </url>
   <url>
     <loc>/reference/cdsfile2aafile.html</loc>

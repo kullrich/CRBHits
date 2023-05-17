@@ -18,7 +18,7 @@ ENSEMBL CDS input."><meta property="og:image" content="/logo.png"><!-- mathjax -
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CRBHits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.5</span>
       </span>
     </div>
 
@@ -55,7 +55,7 @@ ENSEMBL CDS input."><meta property="og:image" content="/logo.png"><!-- mathjax -
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>isoform2longest</h1>
-    <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/masterR/isoform2longest.R" class="external-link"><code>R/isoform2longest.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/develR/isoform2longest.R" class="external-link"><code>R/isoform2longest.R</code></a></small>
     <div class="hidden name"><code>isoform2longest.Rd</code></div>
     </div>
 
@@ -65,19 +65,26 @@ ENSEMBL CDS input.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">isoform2longest</span><span class="op">(</span><span class="va">cds</span>, source <span class="op">=</span> <span class="st">"NCBI"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">isoform2longest</span><span class="op">(</span><span class="va">cds</span>, source <span class="op">=</span> <span class="st">"NCBI"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>cds</dt>
 <dd><p><code>DNAStringSet</code> [mandatory]</p></dd>
+
+
 <dt>source</dt>
 <dd><p>source indicating either NCBI, ENSEMBL or WORMBASE [default: NCBI]</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>DNAStringSet</code></p>
+    
+
+<p><code>DNAStringSet</code></p>
+
+
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -90,35 +97,35 @@ ENSEMBL CDS input.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co">## load example sequence data</span></span>
-<span class="r-in"><span class="co">## set NCBI URL</span></span>
-<span class="r-in"><span class="va">NCBI</span> <span class="op">&lt;-</span> <span class="st">"ftp://ftp.ncbi.nlm.nih.gov/genomes/all/"</span></span>
-<span class="r-in"><span class="va">HOMSAP.NCBI.cds.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">NCBI</span>,</span>
-<span class="r-in">    <span class="st">"GCF/000/001/405/GCF_000001405.39_GRCh38.p13/"</span>,</span>
-<span class="r-in">    <span class="st">"GCF_000001405.39_GRCh38.p13_cds_from_genomic.fna.gz"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">HOMSAP.NCBI.cds.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## download CDS file</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="va">HOMSAP.NCBI.cds.url</span>, <span class="va">HOMSAP.NCBI.cds.file</span>, quiet<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">HOMSAP.NCBI.cds</span> <span class="op">&lt;-</span> <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html" class="external-link">readDNAStringSet</a></span><span class="op">(</span><span class="va">HOMSAP.NCBI.cds.file</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## get longest isoform</span></span>
-<span class="r-in"><span class="va">HOMSAP.NCBI.cds.longest</span> <span class="op">&lt;-</span> <span class="fu">isoform2longest</span><span class="op">(</span><span class="va">HOMSAP.NCBI.cds</span>, <span class="st">"NCBI"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">HOMSAP.NCBI.cds</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">HOMSAP.NCBI.cds.longest</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## set ENSEMBL URL</span></span>
-<span class="r-in"><span class="va">ensembl</span> <span class="op">&lt;-</span> <span class="st">"ftp://ftp.ensembl.org/pub/release-101/fasta/"</span></span>
-<span class="r-in"><span class="co">## set Homo sapiens CDS URL</span></span>
-<span class="r-in"><span class="va">HOMSAP.ENSEMBL.cds.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">ensembl</span>,</span>
-<span class="r-in">    <span class="st">"homo_sapiens/cds/Homo_sapiens.GRCh38.cds.all.fa.gz"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">HOMSAP.ENSEMBL.cds.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## download CDS file</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="va">HOMSAP.ENSEMBL.cds.url</span>, <span class="va">HOMSAP.ENSEMBL.cds.file</span>, quiet<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">HOMSAP.ENSEMBL.cds</span> <span class="op">&lt;-</span> <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html" class="external-link">readDNAStringSet</a></span><span class="op">(</span><span class="va">HOMSAP.ENSEMBL.cds.file</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## get longest isoform</span></span>
-<span class="r-in"><span class="va">HOMSAP.ENSEMBL.cds.longest</span><span class="op">&lt;-</span><span class="fu">isoform2longest</span><span class="op">(</span><span class="va">HOMSAP.ENSEMBL.cds</span>, <span class="st">"ENSEMBL"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">HOMSAP.ENSEMBL.cds</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">HOMSAP.ENSEMBL.cds.longest</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co">## load example sequence data</span></span></span>
+<span class="r-in"><span><span class="co">## set NCBI URL</span></span></span>
+<span class="r-in"><span><span class="va">NCBI</span> <span class="op">&lt;-</span> <span class="st">"ftp://ftp.ncbi.nlm.nih.gov/genomes/all/"</span></span></span>
+<span class="r-in"><span><span class="va">HOMSAP.NCBI.cds.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">NCBI</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"GCF/000/001/405/GCF_000001405.39_GRCh38.p13/"</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"GCF_000001405.39_GRCh38.p13_cds_from_genomic.fna.gz"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">HOMSAP.NCBI.cds.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## download CDS file</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="va">HOMSAP.NCBI.cds.url</span>, <span class="va">HOMSAP.NCBI.cds.file</span>, quiet<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">HOMSAP.NCBI.cds</span> <span class="op">&lt;-</span> <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html" class="external-link">readDNAStringSet</a></span><span class="op">(</span><span class="va">HOMSAP.NCBI.cds.file</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## get longest isoform</span></span></span>
+<span class="r-in"><span><span class="va">HOMSAP.NCBI.cds.longest</span> <span class="op">&lt;-</span> <span class="fu">isoform2longest</span><span class="op">(</span><span class="va">HOMSAP.NCBI.cds</span>, <span class="st">"NCBI"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">HOMSAP.NCBI.cds</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">HOMSAP.NCBI.cds.longest</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## set ENSEMBL URL</span></span></span>
+<span class="r-in"><span><span class="va">ensembl</span> <span class="op">&lt;-</span> <span class="st">"ftp://ftp.ensembl.org/pub/release-101/fasta/"</span></span></span>
+<span class="r-in"><span><span class="co">## set Homo sapiens CDS URL</span></span></span>
+<span class="r-in"><span><span class="va">HOMSAP.ENSEMBL.cds.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">ensembl</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"homo_sapiens/cds/Homo_sapiens.GRCh38.cds.all.fa.gz"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">HOMSAP.ENSEMBL.cds.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## download CDS file</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="va">HOMSAP.ENSEMBL.cds.url</span>, <span class="va">HOMSAP.ENSEMBL.cds.file</span>, quiet<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">HOMSAP.ENSEMBL.cds</span> <span class="op">&lt;-</span> <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html" class="external-link">readDNAStringSet</a></span><span class="op">(</span><span class="va">HOMSAP.ENSEMBL.cds.file</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## get longest isoform</span></span></span>
+<span class="r-in"><span><span class="va">HOMSAP.ENSEMBL.cds.longest</span><span class="op">&lt;-</span><span class="fu">isoform2longest</span><span class="op">(</span><span class="va">HOMSAP.ENSEMBL.cds</span>, <span class="st">"ENSEMBL"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">HOMSAP.ENSEMBL.cds</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">HOMSAP.ENSEMBL.cds.longest</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -133,7 +140,7 @@ ENSEMBL CDS input.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

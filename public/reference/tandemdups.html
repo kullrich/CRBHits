@@ -21,7 +21,7 @@ https://github.com/LyonsLab/coge/blob/master/bin/dagchainer/tandems.py"><meta pr
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CRBHits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.5</span>
       </span>
     </div>
 
@@ -58,7 +58,7 @@ https://github.com/LyonsLab/coge/blob/master/bin/dagchainer/tandems.py"><meta pr
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>tandemdups</h1>
-    <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/masterR/tandemdups.R" class="external-link"><code>R/tandemdups.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/develR/tandemdups.R" class="external-link"><code>R/tandemdups.R</code></a></small>
     <div class="hidden name"><code>tandemdups.Rd</code></div>
     </div>
 
@@ -71,7 +71,7 @@ https://github.com/LyonsLab/coge/blob/master/bin/dagchainer/tandems.py</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">tandemdups</span><span class="op">(</span><span class="va">rbhpairs</span>, <span class="va">genepos</span>, dupdist <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tandemdups</span><span class="op">(</span><span class="va">rbhpairs</span>, <span class="va">genepos</span>, dupdist <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -79,19 +79,52 @@ https://github.com/LyonsLab/coge/blob/master/bin/dagchainer/tandems.py</p>
     <dl><dt>rbhpairs</dt>
 <dd><p>(conditional-)reciprocal best hit (CRBHit) pair result
 (see <code><a href="cds2rbh.html">cds2rbh</a></code>) [mandatory]</p></dd>
+
+
 <dt>genepos</dt>
 <dd><p>Gene position matrix as obtained from <code>cds2genepos</code>
 [mandatory]</p></dd>
+
+
 <dt>dupdist</dt>
 <dd><p>Maximum distance between 2 gene positions on the same
 chromosome which will call them as a pair of local duplicates. If they are
 farther apart than <code>dupdist</code>, but share a common hit within
 <code>dupdist</code> of both, then they will still be in the same set of local
 duplicates. [default: 5]</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>matrix</code>1: $gene.seq.id<br>2: $gene.chr<br>3: $gene.start<br>4: $gene.end<br>5: $gene.mid<br>6: $gene.strand<br>7: $gene.idx<br>8: $tandem_group<br></p>
+    
+
+<p><code>matrix</code></p>
+
+
+<p>1: $gene.seq.id<br></p>
+
+
+<p>2: $gene.chr<br></p>
+
+
+<p>3: $gene.start<br></p>
+
+
+<p>4: $gene.end<br></p>
+
+
+<p>5: $gene.mid<br></p>
+
+
+<p>6: $gene.strand<br></p>
+
+
+<p>7: $gene.idx<br></p>
+
+
+<p>8: $tandem_group<br></p>
+
+
     </div>
     <div id="references">
     <h2>References</h2>
@@ -110,33 +143,33 @@ whole-genome synteny browsers. <em>Bioinformatics</em>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## load example sequence data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ath"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## get selfhits CRBHit pairs</span></span>
-<span class="r-in"><span class="va">ath_selfhits_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="cds2rbh.html">cds2rbh</a></span><span class="op">(</span></span>
-<span class="r-in">    cds1<span class="op">=</span><span class="va">ath</span>,</span>
-<span class="r-in">    cds2<span class="op">=</span><span class="va">ath</span>,</span>
-<span class="r-in">    plotCurve<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## load example sequence data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ath"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## get selfhits CRBHit pairs</span></span></span>
+<span class="r-in"><span><span class="va">ath_selfhits_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="cds2rbh.html">cds2rbh</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    cds1<span class="op">=</span><span class="va">ath</span>,</span></span>
+<span class="r-in"><span>    cds2<span class="op">=</span><span class="va">ath</span>,</span></span>
+<span class="r-in"><span>    plotCurve<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="tandemdups-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co">## get gene position</span></span>
-<span class="r-in"><span class="va">ath.genepos</span> <span class="op">&lt;-</span> <span class="fu"><a href="cds2genepos.html">cds2genepos</a></span><span class="op">(</span></span>
-<span class="r-in">    cds<span class="op">=</span><span class="va">ath</span>,</span>
-<span class="r-in">    source<span class="op">=</span><span class="st">"ENSEMBL"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## get tandem duplicate results</span></span>
-<span class="r-in"><span class="va">ath_selfblast_crbh.tandemdups</span> <span class="op">&lt;-</span> <span class="fu">tandemdups</span><span class="op">(</span></span>
-<span class="r-in">    rbhpairs<span class="op">=</span><span class="va">ath_selfhits_crbh</span>,</span>
-<span class="r-in">    genepos<span class="op">=</span><span class="va">ath.genepos</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_selfblast_crbh.tandemdups</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## get gene position</span></span></span>
+<span class="r-in"><span><span class="va">ath.genepos</span> <span class="op">&lt;-</span> <span class="fu"><a href="cds2genepos.html">cds2genepos</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    cds<span class="op">=</span><span class="va">ath</span>,</span></span>
+<span class="r-in"><span>    source<span class="op">=</span><span class="st">"ENSEMBL"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## get tandem duplicate results</span></span></span>
+<span class="r-in"><span><span class="va">ath_selfblast_crbh.tandemdups</span> <span class="op">&lt;-</span> <span class="fu">tandemdups</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    rbhpairs<span class="op">=</span><span class="va">ath_selfhits_crbh</span>,</span></span>
+<span class="r-in"><span>    genepos<span class="op">=</span><span class="va">ath.genepos</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_selfblast_crbh.tandemdups</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 8</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   gene.seq.id gene.chr gene.start gene.end gene.mid gene.strand gene.idx</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> AT1G01130.1 1             <span style="text-decoration: underline;">61</span>905    <span style="text-decoration: underline;">63</span>811   <span style="text-decoration: underline;">62</span>858  -1                13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> AT1G01140.1 1             <span style="text-decoration: underline;">64</span>166    <span style="text-decoration: underline;">67</span>774   <span style="text-decoration: underline;">65</span>970  -1                14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> AT1G01390.2 1            <span style="text-decoration: underline;">148</span>013   <span style="text-decoration: underline;">149</span>848  <span style="text-decoration: underline;">148</span>930. -1                41</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> AT1G01420.2 1            <span style="text-decoration: underline;">154</span>367   <span style="text-decoration: underline;">156</span>178  <span style="text-decoration: underline;">155</span>272. -1                44</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> AT1G01580.2 1            <span style="text-decoration: underline;">208</span>995   <span style="text-decoration: underline;">213</span>082  <span style="text-decoration: underline;">211</span>038. 1                 61</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> AT1G01590.1 1            <span style="text-decoration: underline;">214</span>150   <span style="text-decoration: underline;">217</span>734  <span style="text-decoration: underline;">215</span>942  1                 62</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 1 more variable: tandem_group &lt;chr&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   gene.seq.id gene.chr gene.start gene.end gene.mid gene.strand gene.idx tande…¹</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> AT1G01130.1 1             <span style="text-decoration: underline;">61</span>905    <span style="text-decoration: underline;">63</span>811   <span style="text-decoration: underline;">62</span>858  -1                13 TDG-1-…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> AT1G01140.1 1             <span style="text-decoration: underline;">64</span>166    <span style="text-decoration: underline;">67</span>774   <span style="text-decoration: underline;">65</span>970  -1                14 TDG-1-…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> AT1G01390.2 1            <span style="text-decoration: underline;">148</span>013   <span style="text-decoration: underline;">149</span>848  <span style="text-decoration: underline;">148</span>930. -1                41 TDG-1-…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> AT1G01420.2 1            <span style="text-decoration: underline;">154</span>367   <span style="text-decoration: underline;">156</span>178  <span style="text-decoration: underline;">155</span>272. -1                44 TDG-1-…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> AT1G01580.2 1            <span style="text-decoration: underline;">208</span>995   <span style="text-decoration: underline;">213</span>082  <span style="text-decoration: underline;">211</span>038. 1                 61 TDG-1-…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> AT1G01590.1 1            <span style="text-decoration: underline;">214</span>150   <span style="text-decoration: underline;">217</span>734  <span style="text-decoration: underline;">215</span>942  1                 62 TDG-1-…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with abbreviated variable name ¹​tandem_group</span></span>
 </code></pre></div>
     </div>
   </div>
@@ -151,7 +184,7 @@ whole-genome synteny browsers. <em>Bioinformatics</em>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

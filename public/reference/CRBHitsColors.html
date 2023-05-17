@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CRBHits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.5</span>
       </span>
     </div>
 
@@ -54,7 +54,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>CRBHitsColors</h1>
-    <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/masterR/CRBHitsColors.R" class="external-link"><code>R/CRBHitsColors.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/develR/CRBHitsColors.R" class="external-link"><code>R/CRBHitsColors.R</code></a></small>
     <div class="hidden name"><code>CRBHitsColors.Rd</code></div>
     </div>
 
@@ -63,7 +63,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">CRBHitsColors</span><span class="op">(</span><span class="va">n</span>, alpha.perc <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">CRBHitsColors</span><span class="op">(</span><span class="va">n</span>, alpha.perc <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -71,12 +71,17 @@
     <dl><dt>n</dt>
 <dd><p>The number of colors (greater than or equal to 1) to be in the
 palette [mandatory]</p></dd>
+
+
 <dt>alpha.perc</dt>
 <dd><p>an alpha-transparency level in percent [default: 0]</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>CRBHits specific color palette</p>
+    
+
+<p>CRBHits specific color palette</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -89,10 +94,10 @@ palette [mandatory]</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">9</span>, pch<span class="op">=</span><span class="fl">20</span>, col<span class="op">=</span><span class="fu">CRBHitsColors</span><span class="op">(</span><span class="fl">9</span><span class="op">)</span>, cex<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">9</span>, pch<span class="op">=</span><span class="fl">20</span>, col<span class="op">=</span><span class="fu">CRBHitsColors</span><span class="op">(</span><span class="fl">9</span><span class="op">)</span>, cex<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="CRBHitsColors-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co">## use alpha</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">9</span>, pch<span class="op">=</span><span class="fl">20</span>, col<span class="op">=</span><span class="fu">CRBHitsColors</span><span class="op">(</span><span class="fl">9</span>, <span class="fl">50</span><span class="op">)</span>, cex<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## use alpha</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">9</span>, pch<span class="op">=</span><span class="fl">20</span>, col<span class="op">=</span><span class="fu">CRBHitsColors</span><span class="op">(</span><span class="fl">9</span>, <span class="fl">50</span><span class="op">)</span>, cex<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="CRBHitsColors-2.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -108,7 +113,7 @@ palette [mandatory]</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

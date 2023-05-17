@@ -20,7 +20,7 @@ positions in base pairs but instead using gene order (gene.idx)."><meta property
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CRBHits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.5</span>
       </span>
     </div>
 
@@ -57,7 +57,7 @@ positions in base pairs but instead using gene order (gene.idx)."><meta property
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>rbh2dagchainer</h1>
-    <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/masterR/rbh2dagchainer.R" class="external-link"><code>R/rbh2dagchainer.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/develR/rbh2dagchainer.R" class="external-link"><code>R/rbh2dagchainer.R</code></a></small>
     <div class="hidden name"><code>rbh2dagchainer.Rd</code></div>
     </div>
 
@@ -69,33 +69,33 @@ positions in base pairs but instead using gene order (gene.idx).</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">rbh2dagchainer</span><span class="op">(</span>
-  <span class="va">rbhpairs</span>,
-  selfblast1 <span class="op">=</span> <span class="cn">NULL</span>,
-  selfblast2 <span class="op">=</span> <span class="cn">NULL</span>,
-  gene.position.cds1 <span class="op">=</span> <span class="cn">NULL</span>,
-  gene.position.cds2 <span class="op">=</span> <span class="cn">NULL</span>,
-  dagchainerpath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/find.package.html" class="external-link">find.package</a></span><span class="op">(</span><span class="st">"CRBHits"</span><span class="op">)</span>, <span class="st">"/extdata/dagchainer/"</span><span class="op">)</span>,
-  gap_open_penalty <span class="op">=</span> <span class="fl">0</span>,
-  gap_extension_penalty <span class="op">=</span> <span class="op">-</span><span class="fl">3</span>,
-  gap_length <span class="op">=</span> <span class="fl">10000</span>,
-  max_match_score <span class="op">=</span> <span class="fl">50</span>,
-  max_dist_allowed <span class="op">=</span> <span class="fl">2e+05</span>,
-  max_evalue <span class="op">=</span> <span class="fl">0.001</span>,
-  ignore_tandem <span class="op">=</span> <span class="cn">TRUE</span>,
-  only_tandem <span class="op">=</span> <span class="cn">FALSE</span>,
-  min_number_aligned_pairs <span class="op">=</span> <span class="fl">5</span>,
-  type <span class="op">=</span> <span class="st">"bp"</span>,
-  plotDotPlot <span class="op">=</span> <span class="cn">FALSE</span>,
-  DotPlotTitle <span class="op">=</span> <span class="st">"DAGchainer results"</span>,
-  colorBy <span class="op">=</span> <span class="st">"none"</span>,
-  kaks <span class="op">=</span> <span class="cn">NULL</span>,
-  ka.max <span class="op">=</span> <span class="fl">5</span>,
-  ks.max <span class="op">=</span> <span class="fl">5</span>,
-  ka.min <span class="op">=</span> <span class="fl">0</span>,
-  ks.min <span class="op">=</span> <span class="fl">0</span>,
-  select.chr <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">rbh2dagchainer</span><span class="op">(</span></span>
+<span>  <span class="va">rbhpairs</span>,</span>
+<span>  selfblast1 <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  selfblast2 <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  gene.position.cds1 <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  gene.position.cds2 <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  dagchainerpath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/find.package.html" class="external-link">find.package</a></span><span class="op">(</span><span class="st">"CRBHits"</span><span class="op">)</span>, <span class="st">"/extdata/dagchainer/"</span><span class="op">)</span>,</span>
+<span>  gap_open_penalty <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  gap_extension_penalty <span class="op">=</span> <span class="op">-</span><span class="fl">3</span>,</span>
+<span>  gap_length <span class="op">=</span> <span class="fl">10000</span>,</span>
+<span>  max_match_score <span class="op">=</span> <span class="fl">50</span>,</span>
+<span>  max_dist_allowed <span class="op">=</span> <span class="fl">2e+05</span>,</span>
+<span>  max_evalue <span class="op">=</span> <span class="fl">0.001</span>,</span>
+<span>  ignore_tandem <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  only_tandem <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  min_number_aligned_pairs <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"bp"</span>,</span>
+<span>  plotDotPlot <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  DotPlotTitle <span class="op">=</span> <span class="st">"DAGchainer results"</span>,</span>
+<span>  colorBy <span class="op">=</span> <span class="st">"none"</span>,</span>
+<span>  kaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ka.max <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  ks.max <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  ka.min <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  ks.min <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  select.chr <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -103,67 +103,162 @@ positions in base pairs but instead using gene order (gene.idx).</p>
     <dl><dt>rbhpairs</dt>
 <dd><p>(conditional-)reciprocal best hit (CRBHit) pair result
 (see <code><a href="cds2rbh.html">cds2rbh</a></code>) [mandatory]</p></dd>
+
+
 <dt>selfblast1</dt>
 <dd><p>(conditional-)reciprocal best hit (CRBHit) pair selfblast
 result for cds1 sequences (see <code><a href="cds2rbh.html">cds2rbh</a></code>) [optional]</p></dd>
+
+
 <dt>selfblast2</dt>
 <dd><p>(conditional-)reciprocal best hit (CRBHit) pair selfblast
 result for cds2 sequences (see <code><a href="cds2rbh.html">cds2rbh</a></code>) [optional]</p></dd>
+
+
 <dt>gene.position.cds1</dt>
 <dd><p>specify gene position for cds1 sequences
 (see <code><a href="cds2genepos.html">cds2genepos</a></code>) [default: NULL]</p></dd>
+
+
 <dt>gene.position.cds2</dt>
 <dd><p>specify gene position for cds2 sequences
 (see <code><a href="cds2genepos.html">cds2genepos</a></code>) [default: NULL]</p></dd>
+
+
 <dt>dagchainerpath</dt>
 <dd><p>specify the PATH to the DAGchainer binaries
 [default: /extdata/dagchainer/]</p></dd>
+
+
 <dt>gap_open_penalty</dt>
 <dd><p>gap open penalty [default: 0]</p></dd>
+
+
 <dt>gap_extension_penalty</dt>
 <dd><p>gap extension penalty [default: -3]</p></dd>
+
+
 <dt>gap_length</dt>
 <dd><p>length of a gap (avgerage distance expected between two
 syntenic genes); if type is set to "idx" use 1 [default: 10000]</p></dd>
+
+
 <dt>max_match_score</dt>
 <dd><p>Maximum match score [default: 50]</p></dd>
+
+
 <dt>max_dist_allowed</dt>
 <dd><p>maximum distance allowed between two matches;
 if type is set to "idx" use 20 [default: 200000]</p></dd>
+
+
 <dt>max_evalue</dt>
 <dd><p>Maximum E-value [default: 1e-3]</p></dd>
+
+
 <dt>ignore_tandem</dt>
 <dd><p>ignore tandem duplicates [default = TRUE]</p></dd>
+
+
 <dt>only_tandem</dt>
 <dd><p>only tandem alignments [default = FALSE]</p></dd>
+
+
 <dt>min_number_aligned_pairs</dt>
 <dd><p>Minimum number of Aligned Pairs [default: 5]</p></dd>
+
+
 <dt>type</dt>
 <dd><p>specify if gene order index "idx" or gene base pair position
 "bp" should be extracted and used with DAGchainer [default: bp]</p></dd>
+
+
 <dt>plotDotPlot</dt>
 <dd><p>specify if dotplot should be plotted [default: FALSE]</p></dd>
+
+
 <dt>DotPlotTitle</dt>
 <dd><p>specify DotPlot title [default: 'DAGchainer results']</p></dd>
+
+
 <dt>colorBy</dt>
 <dd><p>specify if dagchainer groups should be colored by "Ka", "Ks",
 "Ka/Ks" or "none" [default: none]</p></dd>
+
+
 <dt>kaks</dt>
 <dd><p>specify Ka/Ks input obtained via `rbh2kaks()` [default: NULL]</p></dd>
+
+
 <dt>ka.max</dt>
 <dd><p>specify max Ka to be filtered [default: 5]</p></dd>
+
+
 <dt>ks.max</dt>
 <dd><p>specify max Ks to be filtered [default: 5]</p></dd>
+
+
 <dt>ka.min</dt>
 <dd><p>specify min Ka to be filtered [default: 0]</p></dd>
+
+
 <dt>ks.min</dt>
 <dd><p>specify min Ks to be filtered [default: 0]</p></dd>
+
+
 <dt>select.chr</dt>
 <dd><p>filter results for chromosome names [default: NULL]</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>DAGchanier</code> results<br>1: $gene1.chr<br>2: $gene1.seq.id<br>3: $gene1.start<br>4: $gene1.end<br>5: $gene1.mid<br>6: $gene1.idx<br>7: $gene2.chr<br>8: $gene2.seq.id<br>9: $gene2.start<br>10: $gene2.end<br>11: $gene2.mid<br>12: $gene2.idx<br>13: $evalue<br>14: $score<br></p>
+    
+
+<p><code>DAGchanier</code> results<br></p>
+
+
+<p>1: $gene1.chr<br></p>
+
+
+<p>2: $gene1.seq.id<br></p>
+
+
+<p>3: $gene1.start<br></p>
+
+
+<p>4: $gene1.end<br></p>
+
+
+<p>5: $gene1.mid<br></p>
+
+
+<p>6: $gene1.idx<br></p>
+
+
+<p>7: $gene2.chr<br></p>
+
+
+<p>8: $gene2.seq.id<br></p>
+
+
+<p>9: $gene2.start<br></p>
+
+
+<p>10: $gene2.end<br></p>
+
+
+<p>11: $gene2.mid<br></p>
+
+
+<p>12: $gene2.idx<br></p>
+
+
+<p>13: $evalue<br></p>
+
+
+<p>14: $score<br></p>
+
+
     </div>
     <div id="references">
     <h2>References</h2>
@@ -185,27 +280,27 @@ genome duplications and synteny. <em>Bioinformatics.</em>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## compile dagchainer</span></span>
-<span class="r-in"><span class="fu">CRBHits</span><span class="fu">::</span><span class="fu"><a href="make_dagchainer.html">make_dagchainer</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## load example sequence data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ath"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## get selfhits CRBHit pairs</span></span>
-<span class="r-in"><span class="va">ath_selfhits_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="cds2rbh.html">cds2rbh</a></span><span class="op">(</span></span>
-<span class="r-in">    cds1<span class="op">=</span><span class="va">ath</span>,</span>
-<span class="r-in">    cds2<span class="op">=</span><span class="va">ath</span>,</span>
-<span class="r-in">    plotCurve<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## compile dagchainer</span></span></span>
+<span class="r-in"><span><span class="fu">CRBHits</span><span class="fu">::</span><span class="fu"><a href="make_dagchainer.html">make_dagchainer</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## load example sequence data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ath"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## get selfhits CRBHit pairs</span></span></span>
+<span class="r-in"><span><span class="va">ath_selfhits_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="cds2rbh.html">cds2rbh</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    cds1<span class="op">=</span><span class="va">ath</span>,</span></span>
+<span class="r-in"><span>    cds2<span class="op">=</span><span class="va">ath</span>,</span></span>
+<span class="r-in"><span>    plotCurve<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="rbh2dagchainer-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co">## get gene position</span></span>
-<span class="r-in"><span class="va">ath.genepos</span> <span class="op">&lt;-</span> <span class="fu"><a href="cds2genepos.html">cds2genepos</a></span><span class="op">(</span></span>
-<span class="r-in">    cds<span class="op">=</span><span class="va">ath</span>,</span>
-<span class="r-in">    source<span class="op">=</span><span class="st">"ENSEMBL"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## get DAGchainer results</span></span>
-<span class="r-in"><span class="va">ath_selfblast_crbh.dagchainer</span> <span class="op">&lt;-</span> <span class="fu">rbh2dagchainer</span><span class="op">(</span></span>
-<span class="r-in">    rbhpairs<span class="op">=</span><span class="va">ath_selfhits_crbh</span>,</span>
-<span class="r-in">    gene.position.cds1<span class="op">=</span><span class="va">ath.genepos</span>,</span>
-<span class="r-in">    gene.position.cds2<span class="op">=</span><span class="va">ath.genepos</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/private/var/folders/1_/x30smsdj6mlgnvfrgvx8s4nh0000gp/T/Rtmpui3yzv/temp_libpathb9742d9b1c41/CRBHits/extdata/dagchainer/run_DAG_chainer.pl -i /var/folders/1_/x30smsdj6mlgnvfrgvx8s4nh0000gp/T//RtmpYZtlnd/filebb8e4c7ed19a -o 0 -e -3 -g 10000 -M 50 -D 200000 -E 0.001 -A 5 -I -s"</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_selfblast_crbh.dagchainer</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## get gene position</span></span></span>
+<span class="r-in"><span><span class="va">ath.genepos</span> <span class="op">&lt;-</span> <span class="fu"><a href="cds2genepos.html">cds2genepos</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    cds<span class="op">=</span><span class="va">ath</span>,</span></span>
+<span class="r-in"><span>    source<span class="op">=</span><span class="st">"ENSEMBL"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## get DAGchainer results</span></span></span>
+<span class="r-in"><span><span class="va">ath_selfblast_crbh.dagchainer</span> <span class="op">&lt;-</span> <span class="fu">rbh2dagchainer</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    rbhpairs<span class="op">=</span><span class="va">ath_selfhits_crbh</span>,</span></span>
+<span class="r-in"><span>    gene.position.cds1<span class="op">=</span><span class="va">ath.genepos</span>,</span></span>
+<span class="r-in"><span>    gene.position.cds2<span class="op">=</span><span class="va">ath.genepos</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/private/var/folders/1_/x30smsdj6mlgnvfrgvx8s4nh0000gp/T/RtmpUlQpYf/temp_libpath20e442b72479/CRBHits/extdata/dagchainer/run_DAG_chainer.pl -i /var/folders/1_/x30smsdj6mlgnvfrgvx8s4nh0000gp/T//Rtmpc7PkRJ/file21c061b38bbc -o 0 -e -3 -g 10000 -M 50 -D 200000 -E 0.001 -A 5 -I -s"</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_selfblast_crbh.dagchainer</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   gene1.chr gene1.seq.id gene1.start gene1.end gene1.mid gene1.idx gene2.chr</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1     AA1:1  AT1G05100.1     1469541   1470881   1470211       437     AA1:1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2     AA1:1  AT1G05400.1     1584073   1585421   1584747       468     AA1:1</span>
@@ -227,11 +322,11 @@ genome duplications and synteny. <em>Bioinformatics.</em>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 AA1:1:AA1:1:1.rev</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 AA1:1:AA1:1:1.rev</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 AA1:1:AA1:1:1.rev</span>
-<span class="r-in"><span class="co">## plot dagchainer</span></span>
-<span class="r-in"><span class="fu"><a href="plot_dagchainer.html">plot_dagchainer</a></span><span class="op">(</span></span>
-<span class="r-in">    dag<span class="op">=</span><span class="va">ath_selfblast_crbh.dagchainer</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Scale for 'colour' is already present. Adding another scale for 'colour',</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> which will replace the existing scale.</span>
+<span class="r-in"><span><span class="co">## plot dagchainer</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="plot_dagchainer.html">plot_dagchainer</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    dag<span class="op">=</span><span class="va">ath_selfblast_crbh.dagchainer</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Scale for <span style="color: #00BB00;">colour</span> is already present.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Adding another scale for <span style="color: #00BB00;">colour</span>, which will replace the existing scale.</span>
 <span class="r-plt img"><img src="rbh2dagchainer-2.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -247,7 +342,7 @@ genome duplications and synteny. <em>Bioinformatics.</em>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CRBHits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.5</span>
       </span>
     </div>
 
@@ -89,9 +89,9 @@
                         <h4 data-toc-skip class="author">Kristian K
 Ullrich</h4>
             
-            <h4 data-toc-skip class="date">2022-05-07</h4>
+            <h4 data-toc-skip class="date">2023-05-17</h4>
       
-      <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/mastervignettes/V01CRBHitsBasicVignette.Rmd" class="external-link"><code>vignettes/V01CRBHitsBasicVignette.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/develvignettes/V01CRBHitsBasicVignette.Rmd" class="external-link"><code>vignettes/V01CRBHitsBasicVignette.Rmd</code></a></small>
       <div class="hidden name"><code>V01CRBHitsBasicVignette.Rmd</code></div>
 
     </div>
@@ -186,35 +186,35 @@ into a codon based alignment.</p>
 <code>vignette.paths[1]</code>, the <code>kakscalcpath</code> as
 <code>vignette.paths[2]</code> and the <code>dagchainerpath</code> as
 <code>vignette.paths[3]</code> to be able to build the Vignette.</p>
-<p>However, once you have compiled last-1282, KaKs_Calculator2.0 and
+<p>However, once you have compiled last-1453, KaKs_Calculator2.0 and
 DAGchainer with the functions <code><a href="../reference/make_last.html">make_last()</a></code>,
 <code><a href="../reference/make_KaKs_Calculator2.html">make_KaKs_Calculator2()</a></code> and <code><a href="../reference/make_dagchainer.html">make_dagchainer()</a></code>
 you won’t need to specify the paths anymore. Please remove them if you
 would like to repeat the examples.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## load vignette specific libraries</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bioconductor.org/packages/Biostrings" class="external-link">Biostrings</a></span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jeroen/curl" class="external-link">curl</a></span><span class="op">)</span><span class="op">)</span>
-<span class="co">## compile LAST, KaKs_Calculator2.0 and DAGchainer for the vignette</span>
-<span class="va">vignette.paths</span> <span class="op">&lt;-</span> <span class="fu">CRBHits</span><span class="fu">::</span><span class="fu"><a href="../reference/make_vignette.html">make_vignette</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">## load vignette specific libraries</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bioconductor.org/packages/Biostrings" class="external-link">Biostrings</a></span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jeroen/curl" class="external-link">curl</a></span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">## compile LAST, KaKs_Calculator2.0 and DAGchainer for the vignette</span></span>
+<span><span class="va">vignette.paths</span> <span class="op">&lt;-</span> <span class="fu">CRBHits</span><span class="fu">::</span><span class="fu"><a href="../reference/make_vignette.html">make_vignette</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="installation">1. <span id="install">Installation</span><a class="anchor" aria-label="anchor" href="#installation"></a>
 </h3>
 <p>See the R package page for a detailed description of the install
 process and its dependencies <a href="https://mpievolbio-it.pages.gwdg.de/crbhits/" class="external-link">https://mpievolbio-it.pages.gwdg.de/crbhits/</a>.</p>
-<pre><code><span class="co">## see a detailed description of installation prerequisites at</span>
-<span class="co">## https://mpievolbio-it.pages.gwdg.de/crbhits/</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span>
-<span class="co">## from gitlab</span>
-<span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_gitlab</a></span><span class="op">(</span><span class="st">"mpievolbio-it/crbhits"</span>, host <span class="op">=</span> <span class="st">"https://gitlab.gwdg.de"</span>,
-               build_vignettes <span class="op">=</span> <span class="cn">TRUE</span>, dependencies <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="co">## from github</span>
-<span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"kullrich/CRBHits"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span>, dependencies <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre>
+<pre><code><span><span class="co">## see a detailed description of installation prerequisites at</span></span>
+<span><span class="co">## https://mpievolbio-it.pages.gwdg.de/crbhits/</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span></span>
+<span><span class="co">## from gitlab</span></span>
+<span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_gitlab.html" class="external-link">install_gitlab</a></span><span class="op">(</span><span class="st">"mpievolbio-it/crbhits"</span>, host <span class="op">=</span> <span class="st">"https://gitlab.gwdg.de"</span>,</span>
+<span>               build_vignettes <span class="op">=</span> <span class="cn">TRUE</span>, dependencies <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">## from github</span></span>
+<span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"kullrich/CRBHits"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span>, dependencies <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre>
 <p><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a>
 needs <a href="https://gitlab.com/mcfrith/last" class="external-link">LAST</a>, <a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download" class="external-link">KaKs_Calculator2.0</a>
 and <a href="http://dagchainer.sourceforge.net/" class="external-link">DAGchainer</a> to be
@@ -226,21 +226,21 @@ be compiled for Linux/Unix/macOS with the functions
 <code><a href="../reference/make_dagchainer.html">make_dagchainer()</a></code>.</p>
 <p>For the windows platform the user needs to use e.g. <a href="https://www.cygwin.com/" class="external-link">https://www.cygwin.com/</a> to be able to
 compile the prerequisites.</p>
-<pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a></span><span class="op">)</span>
-<span class="co">## compile last-1282</span>
-<span class="fu"><a href="../reference/make_last.html">make_last</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">## compile KaKs_Calculator2.0</span>
-<span class="fu"><a href="../reference/make_KaKs_Calculator2.html">make_KaKs_Calculator2</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">## compile DAGchainer</span>
-<span class="fu"><a href="../reference/make_dagchainer.html">make_dagchainer</a></span><span class="op">(</span><span class="op">)</span></code></pre>
+<pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a></span><span class="op">)</span></span>
+<span><span class="co">## compile last-1453</span></span>
+<span><span class="fu"><a href="../reference/make_last.html">make_last</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">## compile KaKs_Calculator2.0</span></span>
+<span><span class="fu"><a href="../reference/make_KaKs_Calculator2.html">make_KaKs_Calculator2</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">## compile DAGchainer</span></span>
+<span><span class="fu"><a href="../reference/make_dagchainer.html">make_dagchainer</a></span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="conditional-reciprocal-best-hits---algorithm">2. <span id="crbhalgorithm">Conditional Reciprocal Best Hits -
 Algorithm</span><a class="anchor" aria-label="anchor" href="#conditional-reciprocal-best-hits---algorithm"></a>
 </h3>
-<div class="figure">
-<img src="cds2rbhoverview.png" width="400" alt=""><p class="caption">Figure: Overview of the <code><a href="../reference/cds2rbh.html">cds2rbh()</a></code>
-function</p>
+<div class="float">
+<img src="cds2rbhoverview.png" width="400" alt="Figure: Overview of the cds2rbh() function"><div class="figcaption">Figure: Overview of the <code><a href="../reference/cds2rbh.html">cds2rbh()</a></code>
+function</div>
 </div>
 <p>The CRBH algorithm was introduced by <a href="http://www.plosgenetics.org/article/info%3Adoi%2F10.1371%2Fjournal.pgen.1004365" class="external-link">Aubry
 S, Kelly S et al. (2014)</a> and ported to python <a href="https://pypi.org/project/shmlast/" class="external-link">shmlast</a> (<a href="https://joss.theoj.org/papers/10.21105/joss.00142" class="external-link">Scott C.
@@ -261,9 +261,9 @@ function (R vector input) or the <code><a href="../reference/cdsfile2rbh.html">c
 <p>To activate/deactivate specific options use the parameters
 <code>@param</code> given and explained for each function (see
 <code>?cds2rbh()</code> and <code>?cdsfile2rbh()</code>).</p>
-<div class="figure">
-<img src="cds2rbh.png" width="800" alt=""><p class="caption">Figure: Individual steps of the
-<code><a href="../reference/cds2rbh.html">cds2rbh()</a></code> function</p>
+<div class="float">
+<img src="cds2rbh.png" width="800" alt="Figure: Individual steps of the cds2rbh() function"><div class="figcaption">Figure: Individual steps of the
+<code><a href="../reference/cds2rbh.html">cds2rbh()</a></code> function</div>
 </div>
 <div class="section level4">
 <h4 id="step-sequence-similarity-search-last">2.1. <span id="crbhstep1">1. step: sequence similarity search
@@ -291,7 +291,7 @@ inputs with the <code><a href="../reference/cdsfile2rbh.html">cdsfile2rbh()</a><
 <p><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a>
 uses either the function <code><a href="../reference/cdsfile2aafile.html">cdsfile2aafile()</a></code> to translate a
 coding sequence <strong>fasta</strong> file into its corresponding
-protein sequence <strong>fasta</strong> file or <code><a href="../reference/cds2aa.html">cds2aa()</a></code> to
+protein sequence <strong>fasta</strong> file or <code>cds2aa()</code> to
 translate a <code>DNAStringSet</code> into a <code>AAStringSet</code>.
 Thereby it removes all sequences that are not a multiple of three which
 can not be parsed correctly.</p>
@@ -299,15 +299,15 @@ can not be parsed correctly.</p>
 sequences would be a multiple of three or rely on the input files
 generated by other sources.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## example how to check coding sequences if all are a mutiple of three</span>
-
-<span class="co">## load CDS file</span>
-<span class="va">cdsfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"fasta"</span>, <span class="st">"ath.cds.fasta.gz"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span>
-<span class="va">cds</span> <span class="op">&lt;-</span> <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html" class="external-link">readDNAStringSet</a></span><span class="op">(</span><span class="va">cdsfile</span><span class="op">)</span>
-<span class="co">## the following statement should return TRUE,</span>
-<span class="co">## if all sequences are a mutiple of three</span>
-<span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="fu">Biostrings</span><span class="fu">::</span><span class="fu">width</span><span class="op">(</span><span class="va">cds</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">3</span><span class="op">==</span><span class="fl">0</span><span class="op">)</span>
-<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">## example how to check coding sequences if all are a mutiple of three</span></span>
+<span></span>
+<span><span class="co">## load CDS file</span></span>
+<span><span class="va">cdsfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"fasta"</span>, <span class="st">"ath.cds.fasta.gz"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span></span>
+<span><span class="va">cds</span> <span class="op">&lt;-</span> <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html" class="external-link">readDNAStringSet</a></span><span class="op">(</span><span class="va">cdsfile</span><span class="op">)</span></span>
+<span><span class="co">## the following statement should return TRUE,</span></span>
+<span><span class="co">## if all sequences are a mutiple of three</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="fu">Biostrings</span><span class="fu">::</span><span class="fu">width</span><span class="op">(</span><span class="va">cds</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">3</span><span class="op">==</span><span class="fl">0</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
 </div>
 <div class="section level5">
 <h5 id="get-longest-isoform-from-ncbi-or-ensembl-input-optional">2.1.2. <span id="isoform">Get Longest Isoform from NCBI or ENSEMBL
@@ -316,28 +316,28 @@ Input (optional)</span><a class="anchor" aria-label="anchor" href="#get-longest-
 <p>It is also possible to use an URL to directly access coding sequences
 from <a href="https://www.ncbi.nlm.nih.gov/genome" class="external-link">NCBI</a> or <a href="ftp://ftp.ensembl.org/pub/current_fasta">ENSEMBL</a> and reduce
 this input to the longest annotated isoform.</p>
-<pre><code><span class="co">## example how to access CDS from URL and get longest isoform</span>
-
-<span class="co">## get coding sequences for Homo sapiens from NCBI</span>
-<span class="va">HOMSAP.cds.NCBI.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span>
-  <span class="st">"https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/001/405/"</span>,
-  <span class="st">"GCF_000001405.39_GRCh38.p13/"</span>,
-  <span class="st">"GCF_000001405.39_GRCh38.p13_cds_from_genomic.fna.gz"</span><span class="op">)</span>
-<span class="va">HOMSAP.cds.NCBI</span> <span class="op">&lt;-</span> <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html" class="external-link">readDNAStringSet</a></span><span class="op">(</span><span class="va">HOMSAP.cds.NCBI.url</span><span class="op">)</span>
-<span class="co">## reduce to the longest isoform</span>
-<span class="va">HOMSAP.cds.NCBI.longest</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/isoform2longest.html">isoform2longest</a></span><span class="op">(</span><span class="va">HOMSAP.cds.NCBI</span>, <span class="st">"NCBI"</span><span class="op">)</span>
-<span class="co">## get coding sequences for Homo sapiens from ENSEMBL</span>
-<span class="va">HOMSAP.cds.ENSEMBL.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span>
-  <span class="st">"ftp://ftp.ensembl.org/pub/release-101/fasta/"</span>,
-  <span class="st">"homo_sapiens/cds/Homo_sapiens.GRCh38.cds.all.fa.gz"</span><span class="op">)</span>
-<span class="va">HOMSAP.cds.ENSEMBL.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="va">HOMSAP.cds.ENSEMBL.url</span>, <span class="va">HOMSAP.cds.ENSEMBL.file</span>, quiet<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>
-<span class="va">HOMSAP.cds.ENSEMBL</span> <span class="op">&lt;-</span> <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html" class="external-link">readDNAStringSet</a></span><span class="op">(</span><span class="va">HOMSAP.cds.ENSEMBL.file</span><span class="op">)</span>
-<span class="co">## reduce to the longest isoform</span>
-<span class="va">HOMSAP.cds.ENSEMBL.longest</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/isoform2longest.html">isoform2longest</a></span><span class="op">(</span><span class="va">HOMSAP.cds.ENSEMBL</span>, <span class="st">"ENSEMBL"</span><span class="op">)</span>
-
-<span class="co">## get help</span>
-<span class="co">#?isoform2longest</span></code></pre>
+<pre><code><span><span class="co">## example how to access CDS from URL and get longest isoform</span></span>
+<span></span>
+<span><span class="co">## get coding sequences for Homo sapiens from NCBI</span></span>
+<span><span class="va">HOMSAP.cds.NCBI.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
+<span>  <span class="st">"https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/001/405/"</span>,</span>
+<span>  <span class="st">"GCF_000001405.39_GRCh38.p13/"</span>,</span>
+<span>  <span class="st">"GCF_000001405.39_GRCh38.p13_cds_from_genomic.fna.gz"</span><span class="op">)</span></span>
+<span><span class="va">HOMSAP.cds.NCBI</span> <span class="op">&lt;-</span> <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html" class="external-link">readDNAStringSet</a></span><span class="op">(</span><span class="va">HOMSAP.cds.NCBI.url</span><span class="op">)</span></span>
+<span><span class="co">## reduce to the longest isoform</span></span>
+<span><span class="va">HOMSAP.cds.NCBI.longest</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/isoform2longest.html">isoform2longest</a></span><span class="op">(</span><span class="va">HOMSAP.cds.NCBI</span>, <span class="st">"NCBI"</span><span class="op">)</span></span>
+<span><span class="co">## get coding sequences for Homo sapiens from ENSEMBL</span></span>
+<span><span class="va">HOMSAP.cds.ENSEMBL.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
+<span>  <span class="st">"ftp://ftp.ensembl.org/pub/release-101/fasta/"</span>,</span>
+<span>  <span class="st">"homo_sapiens/cds/Homo_sapiens.GRCh38.cds.all.fa.gz"</span><span class="op">)</span></span>
+<span><span class="va">HOMSAP.cds.ENSEMBL.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="va">HOMSAP.cds.ENSEMBL.url</span>, <span class="va">HOMSAP.cds.ENSEMBL.file</span>, quiet<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">HOMSAP.cds.ENSEMBL</span> <span class="op">&lt;-</span> <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html" class="external-link">readDNAStringSet</a></span><span class="op">(</span><span class="va">HOMSAP.cds.ENSEMBL.file</span><span class="op">)</span></span>
+<span><span class="co">## reduce to the longest isoform</span></span>
+<span><span class="va">HOMSAP.cds.ENSEMBL.longest</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/isoform2longest.html">isoform2longest</a></span><span class="op">(</span><span class="va">HOMSAP.cds.ENSEMBL</span>, <span class="st">"ENSEMBL"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## get help</span></span>
+<span><span class="co">#?isoform2longest</span></span></code></pre>
 <p><strong>Note:</strong> It is also possible to obtain and select the
 longest/primary isoform from CDS Input sources other than NCBI or
 Ensembl. This can be achieved by parsing a GTF/GFF3 file. This special
@@ -356,56 +356,56 @@ length.</p>
 the <code>crbh</code> <code>@param</code>of the <code><a href="../reference/cds2rbh.html">cds2rbh()</a></code>
 or <code><a href="../reference/cdsfile2rbh.html">cdsfile2rbh()</a></code> function.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## example how to get CRBHit pairs from two CDS using classical RBH</span>
-
-<span class="co">## define CDS file1</span>
-<span class="va">cdsfile1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"fasta"</span>, <span class="st">"ath.cds.fasta.gz"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span>
-<span class="co">## define CDS file2</span>
-<span class="va">cdsfile2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"fasta"</span>, <span class="st">"aly.cds.fasta.gz"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span>
-<span class="co">## get CDS1</span>
-<span class="va">cds1</span> <span class="op">&lt;-</span> <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html" class="external-link">readDNAStringSet</a></span><span class="op">(</span><span class="va">cdsfile1</span><span class="op">)</span>
-<span class="co">## get CDS2</span>
-<span class="va">cds2</span> <span class="op">&lt;-</span> <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html" class="external-link">readDNAStringSet</a></span><span class="op">(</span><span class="va">cdsfile2</span><span class="op">)</span>
-<span class="co">## example how to perform classical RBH</span>
-<span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span>
-    cds1<span class="op">=</span><span class="va">cds1</span>,
-    cds2<span class="op">=</span><span class="va">cds2</span>,
-    crbh<span class="op">=</span><span class="cn">FALSE</span>,
-    lastpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
-<span class="co">## show summary</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">)</span>
-<span class="co">#&gt;            Length Class      Mode</span>
-<span class="co">#&gt; crbh.pairs  3     data.frame list</span>
-<span class="co">#&gt; crbh1      16     data.frame list</span>
-<span class="co">#&gt; crbh2      16     data.frame list</span>
-
-<span class="co">## get help</span>
-<span class="co">#?cds2rbh</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">## example how to get CRBHit pairs from two CDS using classical RBH</span></span>
+<span></span>
+<span><span class="co">## define CDS file1</span></span>
+<span><span class="va">cdsfile1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"fasta"</span>, <span class="st">"ath.cds.fasta.gz"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span></span>
+<span><span class="co">## define CDS file2</span></span>
+<span><span class="va">cdsfile2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"fasta"</span>, <span class="st">"aly.cds.fasta.gz"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span></span>
+<span><span class="co">## get CDS1</span></span>
+<span><span class="va">cds1</span> <span class="op">&lt;-</span> <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html" class="external-link">readDNAStringSet</a></span><span class="op">(</span><span class="va">cdsfile1</span><span class="op">)</span></span>
+<span><span class="co">## get CDS2</span></span>
+<span><span class="va">cds2</span> <span class="op">&lt;-</span> <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html" class="external-link">readDNAStringSet</a></span><span class="op">(</span><span class="va">cdsfile2</span><span class="op">)</span></span>
+<span><span class="co">## example how to perform classical RBH</span></span>
+<span><span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span></span>
+<span>    cds1<span class="op">=</span><span class="va">cds1</span>,</span>
+<span>    cds2<span class="op">=</span><span class="va">cds2</span>,</span>
+<span>    crbh<span class="op">=</span><span class="cn">FALSE</span>,</span>
+<span>    lastpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">## show summary</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">)</span></span>
+<span><span class="co">#&gt;            Length Class      Mode</span></span>
+<span><span class="co">#&gt; crbh.pairs  3     data.frame list</span></span>
+<span><span class="co">#&gt; crbh1      16     data.frame list</span></span>
+<span><span class="co">#&gt; crbh2      16     data.frame list</span></span>
+<span></span>
+<span><span class="co">## get help</span></span>
+<span><span class="co">#?cds2rbh</span></span></code></pre></div>
 <p>Like <a href="https://pypi.org/project/shmlast/" class="external-link">shmlast</a>, <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a> plots
 the fitted model of the CRBH e-value based algorithm. The CRBH algorithm
 can be performed and visualized as follows:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## example how to get CRBHit pairs using one thread</span>
-<span class="co">## and plot CRBHit algorithm fitting curve</span>
-
-<span class="co">## example how to perform CRBH</span>
-<span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span>
-    cds1<span class="op">=</span><span class="va">cds1</span>,
-    cds2<span class="op">=</span><span class="va">cds2</span>,
-    plotCurve<span class="op">=</span><span class="cn">TRUE</span>,
-    lastpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">## example how to get CRBHit pairs using one thread</span></span>
+<span><span class="co">## and plot CRBHit algorithm fitting curve</span></span>
+<span></span>
+<span><span class="co">## example how to perform CRBH</span></span>
+<span><span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span></span>
+<span>    cds1<span class="op">=</span><span class="va">cds1</span>,</span>
+<span>    cds2<span class="op">=</span><span class="va">cds2</span>,</span>
+<span>    plotCurve<span class="op">=</span><span class="cn">TRUE</span>,</span>
+<span>    lastpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <p><img src="V01CRBHitsBasicVignette_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## show summary</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">)</span>
-<span class="co">#&gt;               Length Class      Mode    </span>
-<span class="co">#&gt; crbh.pairs     3     data.frame list    </span>
-<span class="co">#&gt; crbh1         16     data.frame list    </span>
-<span class="co">#&gt; crbh2         16     data.frame list    </span>
-<span class="co">#&gt; rbh1_rbh2_fit  1     -none-     function</span>
-
-<span class="co">## get help</span>
-<span class="co">#?cds2rbh</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">## show summary</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">)</span></span>
+<span><span class="co">#&gt;               Length Class      Mode    </span></span>
+<span><span class="co">#&gt; crbh.pairs     3     data.frame list    </span></span>
+<span><span class="co">#&gt; crbh1         16     data.frame list    </span></span>
+<span><span class="co">#&gt; crbh2         16     data.frame list    </span></span>
+<span><span class="co">#&gt; rbh1_rbh2_fit  1     -none-     function</span></span>
+<span></span>
+<span><span class="co">## get help</span></span>
+<span><span class="co">#?cds2rbh</span></span></code></pre></div>
 <p>Both, <code><a href="../reference/cdsfile2rbh.html">cdsfile2rbh()</a></code> and <code><a href="../reference/cds2rbh.html">cds2rbh()</a></code> function,
 return a list of three <code>data.frame</code>’s which contain the CRBH
 pairs (<code>$crbh.pairs</code>) retained, the query &gt; target
@@ -415,97 +415,97 @@ blast-like output matrix (<code>$crbh2</code>). For each matrix the
 (<code>rbh</code>) or if it is a conditional secondary hit retained
 because of RBH fitting (CRBH algorithm) (<code>sec</code>).</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## example showing cds2rbh() results</span>
-
-<span class="co">## show dimension and first parts of retained hit pairs</span>
-<span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span><span class="op">)</span>
-<span class="co">#&gt; [1] 211   3</span>
-<span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span><span class="op">)</span>
-<span class="co">#&gt;           aa1                   aa2 rbh_class</span>
-<span class="co">#&gt; 1 AT1G01040.1 Al_scaffold_0001_3256       rbh</span>
-<span class="co">#&gt; 2 AT1G01050.1  Al_scaffold_0001_128       rbh</span>
-<span class="co">#&gt; 3 AT1G01080.3  Al_scaffold_0001_125       rbh</span>
-<span class="co">#&gt; 4 AT1G01180.1  Al_scaffold_0001_114       rbh</span>
-<span class="co">#&gt; 5 AT1G01190.2 Al_scaffold_0001_4419       rbh</span>
-<span class="co">#&gt; 6 AT1G01260.3 Al_scaffold_0001_1326       rbh</span>
-
-<span class="co">## show first retained hit pairs for the query &gt; target matrix</span>
-<span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh1</span><span class="op">)</span>
-<span class="co">#&gt;      query_id            subject_id perc_identity alignment_length mismatches</span>
-<span class="co">#&gt; 1 AT1G01040.1 Al_scaffold_0001_3256         31.09              119         73</span>
-<span class="co">#&gt; 2 AT1G01050.1  Al_scaffold_0001_128        100.00              213          0</span>
-<span class="co">#&gt; 3 AT1G01080.3  Al_scaffold_0001_125         90.75              281         19</span>
-<span class="co">#&gt; 4 AT1G01180.1  Al_scaffold_0001_114         92.88              309         19</span>
-<span class="co">#&gt; 5 AT1G01190.2 Al_scaffold_0001_4419         33.33               81         51</span>
-<span class="co">#&gt; 6 AT1G01260.3 Al_scaffold_0001_1326         44.94               89         41</span>
-<span class="co">#&gt;   gap_opens q_start q_end s_start s_end   evalue bit_score query_length</span>
-<span class="co">#&gt; 1         2     650   768     354   463  4.0e-06      47.0         1910</span>
-<span class="co">#&gt; 2         0       1   213       1   213 1.5e-160     493.0          213</span>
-<span class="co">#&gt; 3         3       1   275       1   280 5.9e-178     551.0          287</span>
-<span class="co">#&gt; 4         1       1   306       1   309 2.9e-218     668.0          308</span>
-<span class="co">#&gt; 5         2     450   529      91   169  9.6e-09      53.6          541</span>
-<span class="co">#&gt; 6         1     409   497     251   331  3.4e-16      78.3          591</span>
-<span class="co">#&gt;   subject_length raw_score rbh_class</span>
-<span class="co">#&gt; 1            540        99       rbh</span>
-<span class="co">#&gt; 2            213      1110       rbh</span>
-<span class="co">#&gt; 3            299      1240       rbh</span>
-<span class="co">#&gt; 4            316      1505       rbh</span>
-<span class="co">#&gt; 5            189       114       rbh</span>
-<span class="co">#&gt; 6            451       170       rbh</span>
-
-<span class="co">## get the number of CRBHit classified as rbh and sec hit pairs</span>
-<span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh1</span><span class="op">$</span><span class="va">rbh_class</span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; rbh sec </span>
-<span class="co">#&gt; 181  30</span>
-<span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh2</span><span class="op">$</span><span class="va">rbh_class</span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; rbh sec </span>
-<span class="co">#&gt; 181  30</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">## example showing cds2rbh() results</span></span>
+<span></span>
+<span><span class="co">## show dimension and first parts of retained hit pairs</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 211   3</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span><span class="op">)</span></span>
+<span><span class="co">#&gt;           aa1                   aa2 rbh_class</span></span>
+<span><span class="co">#&gt; 1 AT1G01040.1 Al_scaffold_0001_3256       rbh</span></span>
+<span><span class="co">#&gt; 2 AT1G01050.1  Al_scaffold_0001_128       rbh</span></span>
+<span><span class="co">#&gt; 3 AT1G01080.3  Al_scaffold_0001_125       rbh</span></span>
+<span><span class="co">#&gt; 4 AT1G01180.1  Al_scaffold_0001_114       rbh</span></span>
+<span><span class="co">#&gt; 5 AT1G01190.2 Al_scaffold_0001_4419       rbh</span></span>
+<span><span class="co">#&gt; 6 AT1G01260.3 Al_scaffold_0001_1326       rbh</span></span>
+<span></span>
+<span><span class="co">## show first retained hit pairs for the query &gt; target matrix</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh1</span><span class="op">)</span></span>
+<span><span class="co">#&gt;      query_id            subject_id perc_identity alignment_length mismatches</span></span>
+<span><span class="co">#&gt; 1 AT1G01040.1 Al_scaffold_0001_3256         31.09              119         73</span></span>
+<span><span class="co">#&gt; 2 AT1G01050.1  Al_scaffold_0001_128        100.00              213          0</span></span>
+<span><span class="co">#&gt; 3 AT1G01080.3  Al_scaffold_0001_125         90.75              281         19</span></span>
+<span><span class="co">#&gt; 4 AT1G01180.1  Al_scaffold_0001_114         92.88              309         19</span></span>
+<span><span class="co">#&gt; 5 AT1G01190.2 Al_scaffold_0001_4419         33.33               81         51</span></span>
+<span><span class="co">#&gt; 6 AT1G01260.3 Al_scaffold_0001_1326         44.94               89         41</span></span>
+<span><span class="co">#&gt;   gap_opens q_start q_end s_start s_end   evalue bit_score query_length</span></span>
+<span><span class="co">#&gt; 1         2     650   768     354   463  4.0e-06      47.0         1910</span></span>
+<span><span class="co">#&gt; 2         0       1   213       1   213 1.5e-160     493.0          213</span></span>
+<span><span class="co">#&gt; 3         3       1   275       1   280 5.9e-178     551.0          287</span></span>
+<span><span class="co">#&gt; 4         1       1   306       1   309 2.9e-218     668.0          308</span></span>
+<span><span class="co">#&gt; 5         2     450   529      91   169  9.6e-09      53.6          541</span></span>
+<span><span class="co">#&gt; 6         1     409   497     251   331  3.4e-16      78.3          591</span></span>
+<span><span class="co">#&gt;   subject_length raw_score rbh_class</span></span>
+<span><span class="co">#&gt; 1            540        99       rbh</span></span>
+<span><span class="co">#&gt; 2            213      1110       rbh</span></span>
+<span><span class="co">#&gt; 3            299      1240       rbh</span></span>
+<span><span class="co">#&gt; 4            316      1505       rbh</span></span>
+<span><span class="co">#&gt; 5            189       114       rbh</span></span>
+<span><span class="co">#&gt; 6            451       170       rbh</span></span>
+<span></span>
+<span><span class="co">## get the number of CRBHit classified as rbh and sec hit pairs</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh1</span><span class="op">$</span><span class="va">rbh_class</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; rbh sec </span></span>
+<span><span class="co">#&gt; 181  30</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh2</span><span class="op">$</span><span class="va">rbh_class</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; rbh sec </span></span>
+<span><span class="co">#&gt; 181  30</span></span></code></pre></div>
 <p>If the <code>@param</code> <code>crbh</code> was set to
 <code>TRUE</code>, the CRBH algorithm was applied and the fitting
 function will also be returned. The fitting function can than be used
 for manual plotting as follows:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## example how to use the fitting function for manual plotting</span>
-
-<span class="co">## plot fitting function</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/curve.html" class="external-link">curve</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="fu">rbh1_rbh2_fit</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,
-    from<span class="op">=</span><span class="fl">1</span>,
-    to<span class="op">=</span><span class="fl">1000</span>,
-    xlab<span class="op">=</span><span class="st">"alnlength"</span>,
-    ylab<span class="op">=</span><span class="st">"-log10(evalue)"</span>,
-    main<span class="op">=</span><span class="st">"CRBH fitting"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">## example how to use the fitting function for manual plotting</span></span>
+<span></span>
+<span><span class="co">## plot fitting function</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/curve.html" class="external-link">curve</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="fu">rbh1_rbh2_fit</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
+<span>    from<span class="op">=</span><span class="fl">1</span>,</span>
+<span>    to<span class="op">=</span><span class="fl">1000</span>,</span>
+<span>    xlab<span class="op">=</span><span class="st">"alnlength"</span>,</span>
+<span>    ylab<span class="op">=</span><span class="st">"-log10(evalue)"</span>,</span>
+<span>    main<span class="op">=</span><span class="st">"CRBH fitting"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="V01CRBHitsBasicVignette_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 <p>One can also specify if a hit pair which is only found in one
 direction should be retained, which will be classified as
 (<code>single</code>).</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## example how to retain single direction secondary homologs</span>
-
-<span class="co">## get CRBHit pairs with keepSingleDirection = TRUE</span>
-<span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span>
-    cds1<span class="op">=</span><span class="va">cds1</span>,
-    cds2<span class="op">=</span><span class="va">cds2</span>,
-    plotCurve<span class="op">=</span><span class="cn">TRUE</span>,
-    keepSingleDirection<span class="op">=</span><span class="cn">TRUE</span>,
-    lastpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">## example how to retain single direction secondary homologs</span></span>
+<span></span>
+<span><span class="co">## get CRBHit pairs with keepSingleDirection = TRUE</span></span>
+<span><span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span></span>
+<span>    cds1<span class="op">=</span><span class="va">cds1</span>,</span>
+<span>    cds2<span class="op">=</span><span class="va">cds2</span>,</span>
+<span>    plotCurve<span class="op">=</span><span class="cn">TRUE</span>,</span>
+<span>    keepSingleDirection<span class="op">=</span><span class="cn">TRUE</span>,</span>
+<span>    lastpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <p><img src="V01CRBHitsBasicVignette_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## get the number of CRBHit classified as rbh and sec hit pairs</span>
-<span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh1</span><span class="op">$</span><span class="va">rbh_class</span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;    rbh    sec single </span>
-<span class="co">#&gt;    181     30      1</span>
-<span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh2</span><span class="op">$</span><span class="va">rbh_class</span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;    rbh    sec single </span>
-<span class="co">#&gt;    181     30      2</span>
-<span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">)</span>
-<span class="co">#&gt; NULL</span>
-
-<span class="co">## get help</span>
-<span class="co">#?cds2rbh</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">## get the number of CRBHit classified as rbh and sec hit pairs</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh1</span><span class="op">$</span><span class="va">rbh_class</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;    rbh    sec single </span></span>
+<span><span class="co">#&gt;    181     30      1</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh2</span><span class="op">$</span><span class="va">rbh_class</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;    rbh    sec single </span></span>
+<span><span class="co">#&gt;    181     30      2</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">)</span></span>
+<span><span class="co">#&gt; NULL</span></span>
+<span></span>
+<span><span class="co">## get help</span></span>
+<span><span class="co">#?cds2rbh</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level4">
@@ -542,22 +542,22 @@ length}\)</span>.</p>
 <code>@param</code> <code>qcov</code> as follows:
 <code>cds2rbh(..., qcov = 0.5)</code></p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## example how to filter prior crbh for query coverage of 50%</span>
-
-<span class="co">## get CRBHit pairs with direct query coverage filter</span>
-<span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span>
-    cds1<span class="op">=</span><span class="va">cds1</span>,
-    cds2<span class="op">=</span><span class="va">cds2</span>,
-    plotCurve<span class="op">=</span><span class="cn">TRUE</span>,
-    qcov<span class="op">=</span><span class="fl">0.5</span>,
-    lastpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">## example how to filter prior crbh for query coverage of 50%</span></span>
+<span></span>
+<span><span class="co">## get CRBHit pairs with direct query coverage filter</span></span>
+<span><span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span></span>
+<span>    cds1<span class="op">=</span><span class="va">cds1</span>,</span>
+<span>    cds2<span class="op">=</span><span class="va">cds2</span>,</span>
+<span>    plotCurve<span class="op">=</span><span class="cn">TRUE</span>,</span>
+<span>    qcov<span class="op">=</span><span class="fl">0.5</span>,</span>
+<span>    lastpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <p><img src="V01CRBHitsBasicVignette_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span><span class="op">)</span>
-<span class="co">#&gt; [1] 145   3</span>
-
-<span class="co">## get help</span>
-<span class="co">#?cds2rbh</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 145   3</span></span>
+<span></span>
+<span><span class="co">## get help</span></span>
+<span><span class="co">#?cds2rbh</span></span></code></pre></div>
 <p>In addition, the users can filter for the <strong>twilight zone of
 protein sequence alignments</strong> according to <a href="https://academic.oup.com/peds/article/12/2/85/1550637" class="external-link">Rost B.
 (1999)</a>. This <strong>twilight zone</strong> indicates proteins,
@@ -579,59 +579,59 @@ between alignment length and protein identity is defined for the
 protein identity given the alignemnet length <span class="math inline">\(L_{\text{hit pair}}\)</span>. If the actual <span class="math inline">\(pident_{\text{hit pair}} &gt;= f(x_{\text{hit
 pair}})\)</span> the hit pair is retained.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## detailed explanation for the Rost (1999) twilight-zone filter</span>
-
-<span class="co">## define eq2 from Rost (1999)</span>
-<span class="va">get_pident_by_length</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span>
-    <span class="va">eq2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">L</span><span class="op">)</span><span class="op">{</span>
-        <span class="kw">if</span><span class="op">(</span><span class="va">L</span><span class="op">&lt;=</span><span class="fl">11</span><span class="op">)</span><span class="op">{</span><span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span><span class="op">}</span>
-        <span class="kw">if</span><span class="op">(</span><span class="va">L</span><span class="op">&lt;=</span><span class="fl">450</span><span class="op">)</span><span class="op">{</span><span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fl">480</span><span class="op">*</span><span class="op">(</span><span class="va">L</span><span class="op">^</span><span class="op">(</span><span class="op">-</span><span class="fl">0.32</span><span class="op">*</span><span class="op">(</span><span class="fl">1</span><span class="op">+</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="op">-</span><span class="va">L</span><span class="op">/</span><span class="fl">1000</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">}</span>
-        <span class="kw">if</span><span class="op">(</span><span class="va">L</span><span class="op">&gt;</span><span class="fl">450</span><span class="op">)</span><span class="op">{</span><span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fl">19.5</span><span class="op">)</span><span class="op">}</span>
-    <span class="op">}</span>
-    <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">eq2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="op">}</span>
-
-<span class="co">## plot expected pident by alignment length using eq2 from Rost (1999)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/curve.html" class="external-link">curve</a></span><span class="op">(</span><span class="va">get_pident_by_length</span>,
-    <span class="fl">11</span>,
-    <span class="fl">500</span>,
-    pch<span class="op">=</span><span class="fl">20</span>,
-    xlab<span class="op">=</span><span class="st">"alignment length"</span>,
-    ylab<span class="op">=</span><span class="st">"pident"</span>,
-    main<span class="op">=</span><span class="st">"expected protein identity (eq2; Rost B. 1999)"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">## detailed explanation for the Rost (1999) twilight-zone filter</span></span>
+<span></span>
+<span><span class="co">## define eq2 from Rost (1999)</span></span>
+<span><span class="va">get_pident_by_length</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
+<span>    <span class="va">eq2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">L</span><span class="op">)</span><span class="op">{</span></span>
+<span>        <span class="kw">if</span><span class="op">(</span><span class="va">L</span><span class="op">&lt;=</span><span class="fl">11</span><span class="op">)</span><span class="op">{</span><span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span><span class="op">}</span></span>
+<span>        <span class="kw">if</span><span class="op">(</span><span class="va">L</span><span class="op">&lt;=</span><span class="fl">450</span><span class="op">)</span><span class="op">{</span><span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fl">480</span><span class="op">*</span><span class="op">(</span><span class="va">L</span><span class="op">^</span><span class="op">(</span><span class="op">-</span><span class="fl">0.32</span><span class="op">*</span><span class="op">(</span><span class="fl">1</span><span class="op">+</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="op">-</span><span class="va">L</span><span class="op">/</span><span class="fl">1000</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">}</span></span>
+<span>        <span class="kw">if</span><span class="op">(</span><span class="va">L</span><span class="op">&gt;</span><span class="fl">450</span><span class="op">)</span><span class="op">{</span><span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fl">19.5</span><span class="op">)</span><span class="op">}</span></span>
+<span>    <span class="op">}</span></span>
+<span>    <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">eq2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co">## plot expected pident by alignment length using eq2 from Rost (1999)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/curve.html" class="external-link">curve</a></span><span class="op">(</span><span class="va">get_pident_by_length</span>,</span>
+<span>    <span class="fl">11</span>,</span>
+<span>    <span class="fl">500</span>,</span>
+<span>    pch<span class="op">=</span><span class="fl">20</span>,</span>
+<span>    xlab<span class="op">=</span><span class="st">"alignment length"</span>,</span>
+<span>    ylab<span class="op">=</span><span class="st">"pident"</span>,</span>
+<span>    main<span class="op">=</span><span class="st">"expected protein identity (eq2; Rost B. 1999)"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="V01CRBHitsBasicVignette_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
 <p>This <strong>twilight zone</strong> filter can be directly used by
 the <code>@param</code> <code>rost1999</code> set to
 <code>TRUE</code>.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## example how to filter prior crbh for eq2 from Rost (1999)</span>
-
-<span class="co">## get CRBHit pairs with direct twilight-zone filter</span>
-<span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span>
-    cds1<span class="op">=</span><span class="va">cds1</span>,
-    cds2<span class="op">=</span><span class="va">cds2</span>,
-    plotCurve<span class="op">=</span><span class="cn">TRUE</span>,
-    rost1999<span class="op">=</span><span class="cn">TRUE</span>,
-    lastpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">## example how to filter prior crbh for eq2 from Rost (1999)</span></span>
+<span></span>
+<span><span class="co">## get CRBHit pairs with direct twilight-zone filter</span></span>
+<span><span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span></span>
+<span>    cds1<span class="op">=</span><span class="va">cds1</span>,</span>
+<span>    cds2<span class="op">=</span><span class="va">cds2</span>,</span>
+<span>    plotCurve<span class="op">=</span><span class="cn">TRUE</span>,</span>
+<span>    rost1999<span class="op">=</span><span class="cn">TRUE</span>,</span>
+<span>    lastpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <p><img src="V01CRBHitsBasicVignette_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span><span class="op">)</span>
-<span class="co">#&gt; [1] 208   3</span>
-
-<span class="co">## get help</span>
-<span class="co">#?cds2rbh</span>
-<span class="co">## get help</span>
-<span class="co">#?filter.alnlen</span>
-<span class="co">## get help</span>
-<span class="co">#?filter.eval</span>
-<span class="co">## get help</span>
-<span class="co">#?filter.pident</span>
-<span class="co">## get help</span>
-<span class="co">#?filter.qcov</span>
-<span class="co">## get help</span>
-<span class="co">#?filter.rost1999</span>
-<span class="co">## get help</span>
-<span class="co">#?filter.tcov</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 208   3</span></span>
+<span></span>
+<span><span class="co">## get help</span></span>
+<span><span class="co">#?cds2rbh</span></span>
+<span><span class="co">## get help</span></span>
+<span><span class="co">#?filter.alnlen</span></span>
+<span><span class="co">## get help</span></span>
+<span><span class="co">#?filter.eval</span></span>
+<span><span class="co">## get help</span></span>
+<span><span class="co">#?filter.pident</span></span>
+<span><span class="co">## get help</span></span>
+<span><span class="co">#?filter.qcov</span></span>
+<span><span class="co">## get help</span></span>
+<span><span class="co">#?filter.rost1999</span></span>
+<span><span class="co">## get help</span></span>
+<span><span class="co">#?filter.tcov</span></span></code></pre></div>
 </div>
 <div class="section level5">
 <h5 id="custom-filter">2.2.2. <span id="filters">Custom Filter</span><a class="anchor" aria-label="anchor" href="#custom-filter"></a>
@@ -639,28 +639,28 @@ the <code>@param</code> <code>rost1999</code> set to
 <p>The user can also define its own filter function and apply it to the
 blast-like output prior fitting and calculating CRBHs as follows:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## example for a custom filters</span>
-
-<span class="co">## define custom filter for e.g. bit score (column 12)</span>
-<span class="va">myfilter1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">rbh</span>, <span class="va">value</span><span class="op">=</span><span class="fl">500.0</span><span class="op">)</span><span class="op">{</span>
-    <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">rbh</span>, <span class="va">bit_score</span><span class="op">&gt;=</span><span class="va">value</span><span class="op">)</span><span class="op">)</span>
-<span class="op">}</span>
-<span class="co">## define custom filter for e.g. corrected query_coverage</span>
-<span class="va">myfilter2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">rbh</span>, <span class="va">value</span><span class="op">=</span><span class="fl">0.5</span><span class="op">)</span><span class="op">{</span>
-    <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">rbh</span>,
-        <span class="op">(</span><span class="op">(</span><span class="va">alignment_length</span><span class="op">-</span><span class="va">mismatches</span><span class="op">-</span><span class="va">gap_opens</span><span class="op">)</span> <span class="op">/</span> <span class="va">query_length</span><span class="op">)</span><span class="op">&gt;=</span><span class="va">value</span><span class="op">)</span><span class="op">)</span>
-<span class="op">}</span>
-<span class="co">## get CRBHit pairs with custom filter list</span>
-<span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span>
-    cds1<span class="op">=</span><span class="va">cds1</span>,
-    cds2<span class="op">=</span><span class="va">cds2</span>,
-    plotCurve<span class="op">=</span><span class="cn">TRUE</span>,
-    filter<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">myfilter1</span>, <span class="va">myfilter2</span><span class="op">)</span>,
-    lastpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">## example for a custom filters</span></span>
+<span></span>
+<span><span class="co">## define custom filter for e.g. bit score (column 12)</span></span>
+<span><span class="va">myfilter1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">rbh</span>, <span class="va">value</span><span class="op">=</span><span class="fl">500.0</span><span class="op">)</span><span class="op">{</span></span>
+<span>    <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">rbh</span>, <span class="va">bit_score</span><span class="op">&gt;=</span><span class="va">value</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="co">## define custom filter for e.g. corrected query_coverage</span></span>
+<span><span class="va">myfilter2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">rbh</span>, <span class="va">value</span><span class="op">=</span><span class="fl">0.5</span><span class="op">)</span><span class="op">{</span></span>
+<span>    <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">rbh</span>,</span>
+<span>        <span class="op">(</span><span class="op">(</span><span class="va">alignment_length</span><span class="op">-</span><span class="va">mismatches</span><span class="op">-</span><span class="va">gap_opens</span><span class="op">)</span> <span class="op">/</span> <span class="va">query_length</span><span class="op">)</span><span class="op">&gt;=</span><span class="va">value</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="co">## get CRBHit pairs with custom filter list</span></span>
+<span><span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span></span>
+<span>    cds1<span class="op">=</span><span class="va">cds1</span>,</span>
+<span>    cds2<span class="op">=</span><span class="va">cds2</span>,</span>
+<span>    plotCurve<span class="op">=</span><span class="cn">TRUE</span>,</span>
+<span>    filter<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">myfilter1</span>, <span class="va">myfilter2</span><span class="op">)</span>,</span>
+<span>    lastpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <p><img src="V01CRBHitsBasicVignette_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span><span class="op">)</span>
-<span class="co">#&gt; [1] 58  3</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 58  3</span></span></code></pre></div>
 </div>
 <div class="section level5">
 <h5 id="extract-rbhs">2.2.3. <span id="rbhextraction">Extract RBHs</span><a class="anchor" aria-label="anchor" href="#extract-rbhs"></a>
@@ -678,54 +678,54 @@ because of RBH fitting (CRBH algorithm) (<code>sec</code>).</p>
 <p>To extract just the RBHs one can subset based on the
 <code>rbh_class</code> columns as follows:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## example to extract CRBHit pairs classified as rbh</span>
-
-<span class="co">## reduce to rbh_class rbh</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ath_aly_crbh"</span>, package <span class="op">=</span> <span class="st">"CRBHits"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh1</span>, <span class="va">rbh_class</span><span class="op">==</span><span class="st">"rbh"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt;      query_id            subject_id perc_identity alignment_length mismatches</span>
-<span class="co">#&gt; 1 AT1G01040.1 Al_scaffold_0001_3256         31.09              119         73</span>
-<span class="co">#&gt; 2 AT1G01050.1  Al_scaffold_0001_128        100.00              213          0</span>
-<span class="co">#&gt; 3 AT1G01080.3  Al_scaffold_0001_125         90.75              281         19</span>
-<span class="co">#&gt; 4 AT1G01180.1  Al_scaffold_0001_114         92.88              309         19</span>
-<span class="co">#&gt; 5 AT1G01190.2 Al_scaffold_0001_4419         33.33               81         51</span>
-<span class="co">#&gt; 6 AT1G01260.3 Al_scaffold_0001_1326         44.94               89         41</span>
-<span class="co">#&gt;   gap_opens q_start q_end s_start s_end   evalue bit_score query_length</span>
-<span class="co">#&gt; 1         2     650   768     354   463  4.0e-06      47.0         1910</span>
-<span class="co">#&gt; 2         0       1   213       1   213 1.5e-160     493.0          213</span>
-<span class="co">#&gt; 3         3       1   275       1   280 5.9e-178     551.0          287</span>
-<span class="co">#&gt; 4         1       1   306       1   309 2.9e-218     668.0          308</span>
-<span class="co">#&gt; 5         2     450   529      91   169  9.6e-09      53.6          541</span>
-<span class="co">#&gt; 6         1     409   497     251   331  3.4e-16      78.3          591</span>
-<span class="co">#&gt;   subject_length raw_score rbh_class</span>
-<span class="co">#&gt; 1            540        99       rbh</span>
-<span class="co">#&gt; 2            213      1110       rbh</span>
-<span class="co">#&gt; 3            299      1240       rbh</span>
-<span class="co">#&gt; 4            316      1505       rbh</span>
-<span class="co">#&gt; 5            189       114       rbh</span>
-<span class="co">#&gt; 6            451       170       rbh</span>
-<span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh2</span>, <span class="va">rbh_class</span><span class="op">==</span><span class="st">"rbh"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt;                query_id  subject_id perc_identity alignment_length mismatches</span>
-<span class="co">#&gt; 1 Al_scaffold_0001_1000 AT1G04940.1         40.48               42         25</span>
-<span class="co">#&gt; 2 Al_scaffold_0001_1004 AT1G10280.1         99.27              413          3</span>
-<span class="co">#&gt; 3 Al_scaffold_0001_1120 AT1G08040.1         45.67              300        151</span>
-<span class="co">#&gt; 4  Al_scaffold_0001_114 AT1G01180.1         92.88              309         19</span>
-<span class="co">#&gt; 5 Al_scaffold_0001_1146 AT1G09740.1         32.54              169        105</span>
-<span class="co">#&gt; 6 Al_scaffold_0001_1151 AT1G03300.1         33.28              673        377</span>
-<span class="co">#&gt;   gap_opens q_start q_end s_start s_end        evalue bit_score query_length</span>
-<span class="co">#&gt; 1         0      81   122     166   207  5.400000e-07      46.1          186</span>
-<span class="co">#&gt; 2         0       1   413       1   413 9.881313e-324     980.0          413</span>
-<span class="co">#&gt; 3         8      83   379      92   382  2.300000e-80     281.0          437</span>
-<span class="co">#&gt; 4         1       1   309       1   306 8.100000e-218     668.0          316</span>
-<span class="co">#&gt; 5         4      34   197       4   168  1.200000e-16      78.3          274</span>
-<span class="co">#&gt; 6        19       7   611       3   671  1.300000e-85     304.0          611</span>
-<span class="co">#&gt;   subject_length raw_score rbh_class</span>
-<span class="co">#&gt; 1            275        97       rbh</span>
-<span class="co">#&gt; 2            413      2212       rbh</span>
-<span class="co">#&gt; 3            383       629       rbh</span>
-<span class="co">#&gt; 4            308      1505       rbh</span>
-<span class="co">#&gt; 5            172       170       rbh</span>
-<span class="co">#&gt; 6            671       681       rbh</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">## example to extract CRBHit pairs classified as rbh</span></span>
+<span></span>
+<span><span class="co">## reduce to rbh_class rbh</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ath_aly_crbh"</span>, package <span class="op">=</span> <span class="st">"CRBHits"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh1</span>, <span class="va">rbh_class</span><span class="op">==</span><span class="st">"rbh"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;      query_id            subject_id perc_identity alignment_length mismatches</span></span>
+<span><span class="co">#&gt; 1 AT1G01040.1 Al_scaffold_0001_3256         31.09              119         73</span></span>
+<span><span class="co">#&gt; 2 AT1G01050.1  Al_scaffold_0001_128        100.00              213          0</span></span>
+<span><span class="co">#&gt; 3 AT1G01080.3  Al_scaffold_0001_125         90.75              281         19</span></span>
+<span><span class="co">#&gt; 4 AT1G01180.1  Al_scaffold_0001_114         92.88              309         19</span></span>
+<span><span class="co">#&gt; 5 AT1G01190.2 Al_scaffold_0001_4419         33.33               81         51</span></span>
+<span><span class="co">#&gt; 6 AT1G01260.3 Al_scaffold_0001_1326         44.94               89         41</span></span>
+<span><span class="co">#&gt;   gap_opens q_start q_end s_start s_end   evalue bit_score query_length</span></span>
+<span><span class="co">#&gt; 1         2     650   768     354   463  4.0e-06      47.0         1910</span></span>
+<span><span class="co">#&gt; 2         0       1   213       1   213 1.5e-160     493.0          213</span></span>
+<span><span class="co">#&gt; 3         3       1   275       1   280 5.9e-178     551.0          287</span></span>
+<span><span class="co">#&gt; 4         1       1   306       1   309 2.9e-218     668.0          308</span></span>
+<span><span class="co">#&gt; 5         2     450   529      91   169  9.6e-09      53.6          541</span></span>
+<span><span class="co">#&gt; 6         1     409   497     251   331  3.4e-16      78.3          591</span></span>
+<span><span class="co">#&gt;   subject_length raw_score rbh_class</span></span>
+<span><span class="co">#&gt; 1            540        99       rbh</span></span>
+<span><span class="co">#&gt; 2            213      1110       rbh</span></span>
+<span><span class="co">#&gt; 3            299      1240       rbh</span></span>
+<span><span class="co">#&gt; 4            316      1505       rbh</span></span>
+<span><span class="co">#&gt; 5            189       114       rbh</span></span>
+<span><span class="co">#&gt; 6            451       170       rbh</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh2</span>, <span class="va">rbh_class</span><span class="op">==</span><span class="st">"rbh"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;                query_id  subject_id perc_identity alignment_length mismatches</span></span>
+<span><span class="co">#&gt; 1 Al_scaffold_0001_1000 AT1G04940.1         40.48               42         25</span></span>
+<span><span class="co">#&gt; 2 Al_scaffold_0001_1004 AT1G10280.1         99.27              413          3</span></span>
+<span><span class="co">#&gt; 3 Al_scaffold_0001_1120 AT1G08040.1         45.67              300        151</span></span>
+<span><span class="co">#&gt; 4  Al_scaffold_0001_114 AT1G01180.1         92.88              309         19</span></span>
+<span><span class="co">#&gt; 5 Al_scaffold_0001_1146 AT1G09740.1         32.54              169        105</span></span>
+<span><span class="co">#&gt; 6 Al_scaffold_0001_1151 AT1G03300.1         33.28              673        377</span></span>
+<span><span class="co">#&gt;   gap_opens q_start q_end s_start s_end        evalue bit_score query_length</span></span>
+<span><span class="co">#&gt; 1         0      81   122     166   207  5.400000e-07      46.1          186</span></span>
+<span><span class="co">#&gt; 2         0       1   413       1   413 9.881313e-324     980.0          413</span></span>
+<span><span class="co">#&gt; 3         8      83   379      92   382  2.300000e-80     281.0          437</span></span>
+<span><span class="co">#&gt; 4         1       1   309       1   306 8.100000e-218     668.0          316</span></span>
+<span><span class="co">#&gt; 5         4      34   197       4   168  1.200000e-16      78.3          274</span></span>
+<span><span class="co">#&gt; 6        19       7   611       3   671  1.300000e-85     304.0          611</span></span>
+<span><span class="co">#&gt;   subject_length raw_score rbh_class</span></span>
+<span><span class="co">#&gt; 1            275        97       rbh</span></span>
+<span><span class="co">#&gt; 2            413      2212       rbh</span></span>
+<span><span class="co">#&gt; 3            383       629       rbh</span></span>
+<span><span class="co">#&gt; 4            308      1505       rbh</span></span>
+<span><span class="co">#&gt; 5            172       170       rbh</span></span>
+<span><span class="co">#&gt; 6            671       681       rbh</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level4">
@@ -773,20 +773,20 @@ fitting a cutoff at that alignment length using the mean of the <span class="mat
 <code>fit.type = "mean"</code> or <code>fit.type = "median"</code> to
 get alternative fitting curves.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## example how to get crbh from two coding fasta files using median fitting</span>
-
-<span class="co">## get CRBHit pairs with median fitting</span>
-<span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span>
-    cds1<span class="op">=</span><span class="va">cds1</span>,
-    cds2<span class="op">=</span><span class="va">cds2</span>,
-    plotCurve<span class="op">=</span><span class="cn">TRUE</span>,
-    fit.type<span class="op">=</span><span class="st">"median"</span>,
-    lastpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">## example how to get crbh from two coding fasta files using median fitting</span></span>
+<span></span>
+<span><span class="co">## get CRBHit pairs with median fitting</span></span>
+<span><span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span></span>
+<span>    cds1<span class="op">=</span><span class="va">cds1</span>,</span>
+<span>    cds2<span class="op">=</span><span class="va">cds2</span>,</span>
+<span>    plotCurve<span class="op">=</span><span class="cn">TRUE</span>,</span>
+<span>    fit.type<span class="op">=</span><span class="st">"median"</span>,</span>
+<span>    lastpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <p><img src="V01CRBHitsBasicVignette_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="co">## get help</span>
-<span class="co">#?cds2rbh</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="co">## get help</span></span>
+<span><span class="co">#?cds2rbh</span></span></code></pre></div>
 <p>As described earlier, <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a> features
 downstream anaylsis like batch calculating synonymous (Ks) and
 nonsynonymous substitutions (Ka) per orthologous sequence pair. The
@@ -798,9 +798,9 @@ functionalities.</p>
 <div class="section level3">
 <h3 id="kaks-calculations">3. <span id="KaKs">Ka/Ks Calculations</span><a class="anchor" aria-label="anchor" href="#kaks-calculations"></a>
 </h3>
-<div class="figure">
-<img src="rbh2kaksoverview.png" width="800" alt=""><p class="caption">Figure: Overview of the <code><a href="../reference/rbh2kaks.html">rbh2kaks()</a></code>
-function steps</p>
+<div class="float">
+<img src="rbh2kaksoverview.png" width="800" alt="Figure: Overview of the rbh2kaks() function steps"><div class="figcaption">Figure: Overview of the <code><a href="../reference/rbh2kaks.html">rbh2kaks()</a></code>
+function steps</div>
 </div>
 <p>The resulting CRBHs (see #crbhalgorithm) can be further processed to
 e.g. filtered for Tandem Duplicate (see <a href="https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V02KaKsVignette.html" class="external-link">CRBHits
@@ -819,9 +819,9 @@ specify <em>gene positions</em> for both Input CDS (can be extracted
 automatically from <em>NCBI</em> or <em>ENSEMBL</em> Input (see
 <code><a href="../reference/cds2genepos.html">cds2genepos()</a></code> function)) and supply <em>selfblast</em>
 results for both Input CDS.</p>
-<div class="figure">
-<img src="rbh2kaks.png" width="600" alt=""><p class="caption">Figure: Individual steps of the
-<code><a href="../reference/rbh2kaks.html">rbh2kaks()</a></code> function</p>
+<div class="float">
+<img src="rbh2kaks.png" width="600" alt="Figure: Individual steps of the rbh2kaks() function"><div class="figcaption">Figure: Individual steps of the
+<code><a href="../reference/rbh2kaks.html">rbh2kaks()</a></code> function</div>
 </div>
 <div class="section level4">
 <h4 id="codon-alignments---cds2codonaln-function">3.1. <span id="cds2codon">Codon Alignments - cds2codonaln()
@@ -829,63 +829,65 @@ Function</span><a class="anchor" aria-label="anchor" href="#codon-alignments---c
 </h4>
 <p>To be able to calculate synonymous (Ks) and non-synonymous (Ka)
 substitutions, one needs to use a codon alignment.</p>
-<p>The <code><a href="../reference/cds2codonaln.html">cds2codonaln()</a></code> function takes two single nucleotide
-sequences as input t obtain such a codon alignment. The function will
-convert the nucleotide sequences into amino acid sequences, align them
-with the help of the <code><a href="https://rdrr.io/pkg/Biostrings/man/pairwiseAlignment.html" class="external-link">pairwiseAlignment()</a></code> function from the
+<p>The <code><a href="https://mpievolbio-it.pages.gwdg.de/MSA2dist/reference/cds2codonaln.html" class="external-link">MSA2dist::cds2codonaln()</a></code> function takes two single
+nucleotide sequences as input to obtain such a codon alignment. The
+function will convert the nucleotide sequences into amino acid
+sequences, align them with the help of the
+<code><a href="https://rdrr.io/pkg/Biostrings/man/pairwiseAlignment.html" class="external-link">pairwiseAlignment()</a></code> function from the
 <code>Biostrings</code> R package and convert this alignment back into a
 codon alignment.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## example to get a codon alignment</span>
-
-<span class="co">## define two CDS</span>
-<span class="va">cds1</span> <span class="op">&lt;-</span> <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/DNAString-class.html" class="external-link">DNAString</a></span><span class="op">(</span><span class="st">"ATGCAACATTGC"</span><span class="op">)</span>
-<span class="va">cds2</span> <span class="op">&lt;-</span> <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/DNAString-class.html" class="external-link">DNAString</a></span><span class="op">(</span><span class="st">"ATGCATTGC"</span><span class="op">)</span>
-<span class="co">## get codon alignment</span>
-<span class="fu"><a href="../reference/cds2codonaln.html">cds2codonaln</a></span><span class="op">(</span>
-    cds1<span class="op">=</span><span class="va">cds1</span>,
-    cds2<span class="op">=</span><span class="va">cds2</span><span class="op">)</span>
-<span class="co">#&gt; DNAStringSet object of length 2:</span>
-<span class="co">#&gt;     width seq                                               names               </span>
-<span class="co">#&gt; [1]    12 <span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #FFD7AF;">T</span><span style="color: #000000; background-color: #AFFFFF;">G</span><span style="color: #000000; background-color: #AFFFAF;">C</span><span style="color: #000000; background-color: #FFAFAF;">AA</span><span style="color: #000000; background-color: #AFFFAF;">C</span><span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #FFD7AF;">TT</span><span style="color: #000000; background-color: #AFFFFF;">G</span><span style="color: #000000; background-color: #AFFFAF;">C</span>                                      cds1</span>
-<span class="co">#&gt; [2]    12 <span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #FFD7AF;">T</span><span style="color: #000000; background-color: #AFFFFF;">G</span>---<span style="color: #000000; background-color: #AFFFAF;">C</span><span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #FFD7AF;">TT</span><span style="color: #000000; background-color: #AFFFFF;">G</span><span style="color: #000000; background-color: #AFFFAF;">C</span>                                      cds2</span>
-
-<span class="co">## get help</span>
-<span class="co">#?cds2codonaln</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">## example to get a codon alignment</span></span>
+<span></span>
+<span><span class="co">## define two CDS</span></span>
+<span><span class="va">cds1</span> <span class="op">&lt;-</span> <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/DNAString-class.html" class="external-link">DNAString</a></span><span class="op">(</span><span class="st">"ATGCAACATTGC"</span><span class="op">)</span></span>
+<span><span class="va">cds2</span> <span class="op">&lt;-</span> <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/DNAString-class.html" class="external-link">DNAString</a></span><span class="op">(</span><span class="st">"ATGCATTGC"</span><span class="op">)</span></span>
+<span><span class="co">## get codon alignment</span></span>
+<span><span class="fu">MSA2dist</span><span class="fu">::</span><span class="fu"><a href="https://mpievolbio-it.pages.gwdg.de/MSA2dist/reference/cds2codonaln.html" class="external-link">cds2codonaln</a></span><span class="op">(</span></span>
+<span>    cds1<span class="op">=</span><span class="va">cds1</span>,</span>
+<span>    cds2<span class="op">=</span><span class="va">cds2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; DNAStringSet object of length 2:</span></span>
+<span><span class="co">#&gt;     width seq                                               names               </span></span>
+<span><span class="co">#&gt; [1]    12 <span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #FFD7AF;">T</span><span style="color: #000000; background-color: #AFFFFF;">G</span><span style="color: #000000; background-color: #AFFFAF;">C</span><span style="color: #000000; background-color: #FFAFAF;">AA</span><span style="color: #000000; background-color: #AFFFAF;">C</span><span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #FFD7AF;">TT</span><span style="color: #000000; background-color: #AFFFFF;">G</span><span style="color: #000000; background-color: #AFFFAF;">C</span>                                      cds1</span></span>
+<span><span class="co">#&gt; [2]    12 <span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #FFD7AF;">T</span><span style="color: #000000; background-color: #AFFFFF;">G</span>---<span style="color: #000000; background-color: #AFFFAF;">C</span><span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #FFD7AF;">TT</span><span style="color: #000000; background-color: #AFFFFF;">G</span><span style="color: #000000; background-color: #AFFFAF;">C</span>                                      cds2</span></span>
+<span></span>
+<span><span class="co">## get help</span></span>
+<span><span class="co">#?MSA2dist::cds2codonaln</span></span></code></pre></div>
 <p>The user can alter some <code>@param</code> to change the alignment
 parameters, like <code>type</code>, <code>substitutionMatrix</code>,
 <code>gapOpening</code> and <code>gapExtension</code> costs as defined
 by the <code><a href="https://rdrr.io/pkg/Biostrings/man/pairwiseAlignment.html" class="external-link">pairwiseAlignment()</a></code> function from the
 <code>Biostrings</code> R package.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## example to alter the substitionMatrix and use the BLOSUM45 cost matrix</span>
-<span class="co">## for the codon alignment</span>
-
-<span class="co">## get codon alignemnt with BLOSUM45 cost matrix</span>
-<span class="fu"><a href="../reference/cds2codonaln.html">cds2codonaln</a></span><span class="op">(</span>
-    cds1<span class="op">=</span><span class="va">cds1</span>,
-    cds2<span class="op">=</span><span class="va">cds2</span>,
-    substitutionMatrix<span class="op">=</span><span class="st">"BLOSUM45"</span><span class="op">)</span>
-<span class="co">#&gt; DNAStringSet object of length 2:</span>
-<span class="co">#&gt;     width seq                                               names               </span>
-<span class="co">#&gt; [1]    12 <span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #FFD7AF;">T</span><span style="color: #000000; background-color: #AFFFFF;">G</span><span style="color: #000000; background-color: #AFFFAF;">C</span><span style="color: #000000; background-color: #FFAFAF;">AA</span><span style="color: #000000; background-color: #AFFFAF;">C</span><span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #FFD7AF;">TT</span><span style="color: #000000; background-color: #AFFFFF;">G</span><span style="color: #000000; background-color: #AFFFAF;">C</span>                                      cds1</span>
-<span class="co">#&gt; [2]    12 <span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #FFD7AF;">T</span><span style="color: #000000; background-color: #AFFFFF;">G</span>---<span style="color: #000000; background-color: #AFFFAF;">C</span><span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #FFD7AF;">TT</span><span style="color: #000000; background-color: #AFFFFF;">G</span><span style="color: #000000; background-color: #AFFFAF;">C</span>                                      cds2</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">## example to alter the substitionMatrix and use the BLOSUM45 cost matrix</span></span>
+<span><span class="co">## for the codon alignment</span></span>
+<span></span>
+<span><span class="co">## get codon alignemnt with BLOSUM45 cost matrix</span></span>
+<span><span class="fu">MSA2dist</span><span class="fu">::</span><span class="fu"><a href="https://mpievolbio-it.pages.gwdg.de/MSA2dist/reference/cds2codonaln.html" class="external-link">cds2codonaln</a></span><span class="op">(</span></span>
+<span>    cds1<span class="op">=</span><span class="va">cds1</span>,</span>
+<span>    cds2<span class="op">=</span><span class="va">cds2</span>,</span>
+<span>    substitutionMatrix<span class="op">=</span><span class="st">"BLOSUM45"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; DNAStringSet object of length 2:</span></span>
+<span><span class="co">#&gt;     width seq                                               names               </span></span>
+<span><span class="co">#&gt; [1]    12 <span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #FFD7AF;">T</span><span style="color: #000000; background-color: #AFFFFF;">G</span><span style="color: #000000; background-color: #AFFFAF;">C</span><span style="color: #000000; background-color: #FFAFAF;">AA</span><span style="color: #000000; background-color: #AFFFAF;">C</span><span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #FFD7AF;">TT</span><span style="color: #000000; background-color: #AFFFFF;">G</span><span style="color: #000000; background-color: #AFFFAF;">C</span>                                      cds1</span></span>
+<span><span class="co">#&gt; [2]    12 <span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #FFD7AF;">T</span><span style="color: #000000; background-color: #AFFFFF;">G</span>---<span style="color: #000000; background-color: #AFFFAF;">C</span><span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #FFD7AF;">TT</span><span style="color: #000000; background-color: #AFFFFF;">G</span><span style="color: #000000; background-color: #AFFFAF;">C</span>                                      cds2</span></span></code></pre></div>
 <p>The user can also remove gaps in the codon alignment.</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## example to remove codon gaps</span>
-
-<span class="co">## get codon alignment with gaps removed</span>
-<span class="fu"><a href="../reference/cds2codonaln.html">cds2codonaln</a></span><span class="op">(</span>
-    cds1<span class="op">=</span><span class="va">cds1</span>,
-    cds2<span class="op">=</span><span class="va">cds2</span>,
-    remove.gaps<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; DNAStringSet object of length 2:</span>
-<span class="co">#&gt;     width seq                                               names               </span>
-<span class="co">#&gt; [1]     9 <span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #FFD7AF;">T</span><span style="color: #000000; background-color: #AFFFFF;">G</span><span style="color: #000000; background-color: #AFFFAF;">C</span><span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #FFD7AF;">TT</span><span style="color: #000000; background-color: #AFFFFF;">G</span><span style="color: #000000; background-color: #AFFFAF;">C</span>                                         cds1</span>
-<span class="co">#&gt; [2]     9 <span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #FFD7AF;">T</span><span style="color: #000000; background-color: #AFFFFF;">G</span><span style="color: #000000; background-color: #AFFFAF;">C</span><span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #FFD7AF;">TT</span><span style="color: #000000; background-color: #AFFFFF;">G</span><span style="color: #000000; background-color: #AFFFAF;">C</span>                                         cds2</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">## example to remove codon gaps</span></span>
+<span></span>
+<span><span class="co">## get codon alignment with gaps removed</span></span>
+<span><span class="fu">MSA2dist</span><span class="fu">::</span><span class="fu"><a href="https://mpievolbio-it.pages.gwdg.de/MSA2dist/reference/cds2codonaln.html" class="external-link">cds2codonaln</a></span><span class="op">(</span></span>
+<span>    cds1<span class="op">=</span><span class="va">cds1</span>,</span>
+<span>    cds2<span class="op">=</span><span class="va">cds2</span>,</span>
+<span>    remove.gaps<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; DNAStringSet object of length 2:</span></span>
+<span><span class="co">#&gt;     width seq                                               names               </span></span>
+<span><span class="co">#&gt; [1]     9 <span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #FFD7AF;">T</span><span style="color: #000000; background-color: #AFFFFF;">G</span><span style="color: #000000; background-color: #AFFFAF;">C</span><span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #FFD7AF;">TT</span><span style="color: #000000; background-color: #AFFFFF;">G</span><span style="color: #000000; background-color: #AFFFAF;">C</span>                                         cds1</span></span>
+<span><span class="co">#&gt; [2]     9 <span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #FFD7AF;">T</span><span style="color: #000000; background-color: #AFFFFF;">G</span><span style="color: #000000; background-color: #AFFFAF;">C</span><span style="color: #000000; background-color: #FFAFAF;">A</span><span style="color: #000000; background-color: #FFD7AF;">TT</span><span style="color: #000000; background-color: #AFFFFF;">G</span><span style="color: #000000; background-color: #AFFFAF;">C</span>                                         cds2</span></span></code></pre></div>
 </div>
 <div class="section level4">
-<h4 id="cds2kaks-function">3.2. <span id="cds2kaks">cds2kaks() Function</span><a class="anchor" aria-label="anchor" href="#cds2kaks-function"></a>
+<h4 id="msa2distdnastring2kaks-function">3.2. <span id="cds2kaks">MSA2dist::dnastring2kaks()
+Function</span><a class="anchor" aria-label="anchor" href="#msa2distdnastring2kaks-function"></a>
 </h4>
 <p>The Ka/Ks (dN/dS) values can be obtained either via the codon model
 of <a href="https://www.ncbi.nlm.nih.gov/pubmed/8433381" class="external-link">Li WH.
@@ -894,42 +896,59 @@ or the model <a href="https://www.ncbi.nlm.nih.gov/pubmed/10666704" class="exter
 Z and Nielson R. (2000)</a> implemented in <a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download" class="external-link">KaKs_Calculator2.0</a>
 (see <a href="#quickinstall">Quick Installation</a> how to compile the
 prerequisites).</p>
-<p>The <code><a href="../reference/cds2kaks.html">cds2kaks()</a></code> function takes two single nucleotide
-sequences as input to obtain a codon alignment and calculate Ka/Ks.</p>
+<p>The <code><a href="https://mpievolbio-it.pages.gwdg.de/MSA2dist/reference/dnastring2kaks.html" class="external-link">MSA2dist::dnastring2kaks()</a></code> function takes single
+nucleotide sequences as input to obtain a codon alignment and calculate
+Ka/Ks.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## calculate Ka/Ks on two CDS</span>
-
-<span class="co">## load example sequence data</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ath"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"aly"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span>
-<span class="co">## select a sequence pair according to a best hit pair (done for you)</span>
-<span class="va">cds1</span> <span class="op">&lt;-</span> <span class="va">ath</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>
-<span class="va">cds2</span> <span class="op">&lt;-</span> <span class="va">aly</span><span class="op">[</span><span class="fl">282</span><span class="op">]</span>
-<span class="co">## calculate Ka/Ks values on two CDS using Li model</span>
-<span class="fu"><a href="../reference/cds2kaks.html">cds2kaks</a></span><span class="op">(</span>
-    cds1<span class="op">=</span><span class="va">cds1</span>,
-    cds2<span class="op">=</span><span class="va">cds2</span>,
-    model<span class="op">=</span><span class="st">"Li"</span><span class="op">)</span>
-<span class="co">#&gt;         ka         ks        vka        vks </span>
-<span class="co">#&gt; 1.02338181 9.99999900 0.01140267 9.99999900</span>
-
-<span class="co">## get help</span>
-<span class="co">#?cds2kaks</span></code></pre></div>
-<p>All parameters which can be used by the <code><a href="../reference/cds2codonaln.html">cds2codonaln()</a></code>
-function can be overgiven to e.g. use an alternative
-<code>substitutionMatrix</code>.</p>
+<code class="sourceCode R"><span><span class="co">## calculate Ka/Ks on two CDS</span></span>
+<span></span>
+<span><span class="co">## load example sequence data</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ath"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"aly"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span></span>
+<span><span class="co">## select a sequence pair according to a best hit pair (done for you)</span></span>
+<span><span class="va">cds1</span> <span class="op">&lt;-</span> <span class="va">ath</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
+<span><span class="va">cds2</span> <span class="op">&lt;-</span> <span class="va">aly</span><span class="op">[</span><span class="fl">282</span><span class="op">]</span></span>
+<span><span class="co">## calculate Ka/Ks values on two CDS using Li model</span></span>
+<span><span class="fu">MSA2dist</span><span class="fu">::</span><span class="fu"><a href="https://mpievolbio-it.pages.gwdg.de/MSA2dist/reference/dnastring2kaks.html" class="external-link">dnastring2kaks</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">cds1</span>,</span>
+<span>    <span class="va">cds2</span><span class="op">)</span>,</span>
+<span>    model<span class="op">=</span><span class="st">"Li"</span>,</span>
+<span>    isMSA<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">#&gt;                                                                                                                                                                                                                                                                               OUT</span></span>
+<span><span class="co">#&gt; Comp1                                                                                                                                                                                                                                                                           1</span></span>
+<span><span class="co">#&gt; Comp2                                                                                                                                                                                                                                                                           2</span></span>
+<span><span class="co">#&gt; seq1                                         AT1G01010.1_cds_chromosome:TAIR10:1:3631:5899:1_gene:AT1G01010_gene_biotype:protein_coding_transcript_biotype:protein_coding_gene_symbol:NAC001_description:NAC_domain-containing_protein_1_[Source:UniProtKB/Swiss-Prot;Acc:Q0WV96]</span></span>
+<span><span class="co">#&gt; seq2  Al_scaffold_0001_283_cds_chromosome:v.1.0:1:1082169:1084227:1_gene:Al_scaffold_0001_283_gene_biotype:protein_coding_transcript_biotype:protein_coding_description:DTW_domain-containing_protein_[Source:Projected_from_Arabidopsis_thaliana_(AT1G03687)_TAIR;Acc:AT1G03687]</span></span>
+<span><span class="co">#&gt; ka                                                                                                                                                                                                                                                               1.02338181273445</span></span>
+<span><span class="co">#&gt; ks                                                                                                                                                                                                                                                                       9.999999</span></span>
+<span><span class="co">#&gt; vka                                                                                                                                                                                                                                                            0.0114026707748616</span></span>
+<span><span class="co">#&gt; vks                                                                                                                                                                                                                                                                      9.999999</span></span>
+<span></span>
+<span><span class="co">## get help</span></span>
+<span><span class="co">#?MSA2dist::dnastring2kaks</span></span></code></pre></div>
+<p>All parameters which can be used by the
+<code><a href="https://mpievolbio-it.pages.gwdg.de/MSA2dist/reference/cds2codonaln.html" class="external-link">MSA2dist::cds2codonaln()</a></code> function can be overgiven to
+e.g. use an alternative <code>substitutionMatrix</code>.</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## example to use an alternative substitutionMatrix for the codon alignment</span>
-<span class="co">## and obtain Ka/Ks</span>
-
-<span class="co">## calculate Ka/Ks values on two CDS using Li model and BLOSUM45 cost matrix</span>
-<span class="fu"><a href="../reference/cds2kaks.html">cds2kaks</a></span><span class="op">(</span>
-    cds1<span class="op">=</span><span class="va">cds1</span>,
-    cds2<span class="op">=</span><span class="va">cds2</span>,
-    model<span class="op">=</span><span class="st">"Li"</span>,
-    substitutionMatrix<span class="op">=</span><span class="st">"BLOSUM45"</span><span class="op">)</span>
-<span class="co">#&gt;          ka          ks         vka         vks </span>
-<span class="co">#&gt; 0.878034285 9.999999000 0.009456807 9.999999000</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">## example to use an alternative substitutionMatrix for the codon alignment</span></span>
+<span><span class="co">## and obtain Ka/Ks</span></span>
+<span></span>
+<span><span class="co">## calculate Ka/Ks values on two CDS using Li model and BLOSUM45 cost matrix</span></span>
+<span><span class="fu">MSA2dist</span><span class="fu">::</span><span class="fu"><a href="https://mpievolbio-it.pages.gwdg.de/MSA2dist/reference/dnastring2kaks.html" class="external-link">dnastring2kaks</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">cds1</span>,</span>
+<span>    <span class="va">cds2</span><span class="op">)</span>,</span>
+<span>    model<span class="op">=</span><span class="st">"Li"</span>,</span>
+<span>    isMSA<span class="op">=</span><span class="cn">FALSE</span>,</span>
+<span>    substitutionMatrix<span class="op">=</span><span class="st">"BLOSUM45"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;                                                                                                                                                                                                                                                                               OUT</span></span>
+<span><span class="co">#&gt; Comp1                                                                                                                                                                                                                                                                           1</span></span>
+<span><span class="co">#&gt; Comp2                                                                                                                                                                                                                                                                           2</span></span>
+<span><span class="co">#&gt; seq1                                         AT1G01010.1_cds_chromosome:TAIR10:1:3631:5899:1_gene:AT1G01010_gene_biotype:protein_coding_transcript_biotype:protein_coding_gene_symbol:NAC001_description:NAC_domain-containing_protein_1_[Source:UniProtKB/Swiss-Prot;Acc:Q0WV96]</span></span>
+<span><span class="co">#&gt; seq2  Al_scaffold_0001_283_cds_chromosome:v.1.0:1:1082169:1084227:1_gene:Al_scaffold_0001_283_gene_biotype:protein_coding_transcript_biotype:protein_coding_description:DTW_domain-containing_protein_[Source:Projected_from_Arabidopsis_thaliana_(AT1G03687)_TAIR;Acc:AT1G03687]</span></span>
+<span><span class="co">#&gt; ka                                                                                                                                                                                                                                                              0.878034285447893</span></span>
+<span><span class="co">#&gt; ks                                                                                                                                                                                                                                                                       9.999999</span></span>
+<span><span class="co">#&gt; vka                                                                                                                                                                                                                                                           0.00945680717088392</span></span>
+<span><span class="co">#&gt; vks                                                                                                                                                                                                                                                                      9.999999</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="rbh2kaks-function">3.3. <span id="rbh2kaks">rbh2kaks() Function</span><a class="anchor" aria-label="anchor" href="#rbh2kaks-function"></a>
@@ -948,102 +967,103 @@ the reciprocal best hit pair matrix with the <code><a href="../reference/cds2rbh
 the <code><a href="../reference/cdsfile2rbh.html">cdsfile2rbh()</a></code> function, this should not be a
 problem.</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## example how to get CRBHit pairs from two coding fasta files</span>
-<span class="va">cdsfile1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"fasta"</span>, <span class="st">"ath.cds.fasta.gz"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span>
-<span class="va">cdsfile2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"fasta"</span>, <span class="st">"aly.cds.fasta.gz"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span>
-
-<span class="va">ath</span> <span class="op">&lt;-</span> <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html" class="external-link">readDNAStringSet</a></span><span class="op">(</span><span class="va">cdsfile1</span><span class="op">)</span>
-<span class="va">aly</span> <span class="op">&lt;-</span> <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html" class="external-link">readDNAStringSet</a></span><span class="op">(</span><span class="va">cdsfile2</span><span class="op">)</span>
-
-<span class="co">## the following function calculates CRBHit pairs</span>
-<span class="co">## using one thread and plots the fitted curve</span>
-<span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span>
-    cds1<span class="op">=</span><span class="va">ath</span>,
-    cds2<span class="op">=</span><span class="va">aly</span>,
-    lastpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
-
-<span class="co">## calculate Ka/Ks using the CRBHit pairs</span>
-<span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span><span class="op">)</span>
-<span class="va">ath_aly_crbh.kaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span>
-    rbhpairs<span class="op">=</span><span class="va">ath_aly_crbh</span>,
-    cds1<span class="op">=</span><span class="va">ath</span>,
-    cds2<span class="op">=</span><span class="va">aly</span>,
-    model<span class="op">=</span><span class="st">"Li"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh.kaks</span><span class="op">)</span>
-<span class="co">#&gt;           aa1                   aa2 rbh_class         ka        ks          vka</span>
-<span class="co">#&gt; 1 AT1G01040.1 Al_scaffold_0001_3256       rbh 0.74651201 9.9999990 0.0032172312</span>
-<span class="co">#&gt; 2 AT1G01050.1  Al_scaffold_0001_128       rbh 0.00000000 0.1831839 0.0000000000</span>
-<span class="co">#&gt; 3 AT1G01080.3  Al_scaffold_0001_125       rbh 0.05680851 0.1390746 0.0001612571</span>
-<span class="co">#&gt; 4 AT1G01180.1  Al_scaffold_0001_114       rbh 0.03656808 0.1543978 0.0001014973</span>
-<span class="co">#&gt; 5 AT1G01190.2 Al_scaffold_0001_4419       rbh 0.75036088 9.9999990 0.0093948533</span>
-<span class="co">#&gt; 6 AT1G01260.3 Al_scaffold_0001_1326       rbh 0.78228833 9.9999990 0.0051807370</span>
-<span class="co">#&gt;           vks</span>
-<span class="co">#&gt; 1 9.999999000</span>
-<span class="co">#&gt; 2 0.003022307</span>
-<span class="co">#&gt; 3 0.001531756</span>
-<span class="co">#&gt; 4 0.001249826</span>
-<span class="co">#&gt; 5 9.999999000</span>
-<span class="co">#&gt; 6 9.999999000</span>
-
-<span class="co">## get help</span>
-<span class="co">#?rbh2kaks</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">## example how to get CRBHit pairs from two coding fasta files</span></span>
+<span><span class="va">cdsfile1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"fasta"</span>, <span class="st">"ath.cds.fasta.gz"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span></span>
+<span><span class="va">cdsfile2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"fasta"</span>, <span class="st">"aly.cds.fasta.gz"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ath</span> <span class="op">&lt;-</span> <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html" class="external-link">readDNAStringSet</a></span><span class="op">(</span><span class="va">cdsfile1</span><span class="op">)</span></span>
+<span><span class="va">aly</span> <span class="op">&lt;-</span> <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html" class="external-link">readDNAStringSet</a></span><span class="op">(</span><span class="va">cdsfile2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## the following function calculates CRBHit pairs</span></span>
+<span><span class="co">## using one thread and plots the fitted curve</span></span>
+<span><span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span></span>
+<span>    cds1<span class="op">=</span><span class="va">ath</span>,</span>
+<span>    cds2<span class="op">=</span><span class="va">aly</span>,</span>
+<span>    lastpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## calculate Ka/Ks using the CRBHit pairs</span></span>
+<span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span><span class="op">)</span></span>
+<span><span class="va">ath_aly_crbh.kaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span></span>
+<span>    rbhpairs<span class="op">=</span><span class="va">ath_aly_crbh</span>,</span>
+<span>    cds1<span class="op">=</span><span class="va">ath</span>,</span>
+<span>    cds2<span class="op">=</span><span class="va">aly</span>,</span>
+<span>    model<span class="op">=</span><span class="st">"Li"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh.kaks</span><span class="op">)</span></span>
+<span><span class="co">#&gt;           aa1                   aa2 rbh_class         ka        ks          vka</span></span>
+<span><span class="co">#&gt; 1 AT1G01040.1 Al_scaffold_0001_3256       rbh 0.74651201 9.9999990 0.0032172312</span></span>
+<span><span class="co">#&gt; 2 AT1G01050.1  Al_scaffold_0001_128       rbh 0.00000000 0.1831839 0.0000000000</span></span>
+<span><span class="co">#&gt; 3 AT1G01080.3  Al_scaffold_0001_125       rbh 0.05680851 0.1390746 0.0001612571</span></span>
+<span><span class="co">#&gt; 4 AT1G01180.1  Al_scaffold_0001_114       rbh 0.03656808 0.1543978 0.0001014973</span></span>
+<span><span class="co">#&gt; 5 AT1G01190.2 Al_scaffold_0001_4419       rbh 0.75036088 9.9999990 0.0093948533</span></span>
+<span><span class="co">#&gt; 6 AT1G01260.3 Al_scaffold_0001_1326       rbh 0.78228833 9.9999990 0.0051807370</span></span>
+<span><span class="co">#&gt;           vks</span></span>
+<span><span class="co">#&gt; 1 9.999999000</span></span>
+<span><span class="co">#&gt; 2 0.003022307</span></span>
+<span><span class="co">#&gt; 3 0.001531756</span></span>
+<span><span class="co">#&gt; 4 0.001249826</span></span>
+<span><span class="co">#&gt; 5 9.999999000</span></span>
+<span><span class="co">#&gt; 6 9.999999000</span></span>
+<span></span>
+<span><span class="co">## get help</span></span>
+<span><span class="co">#?rbh2kaks</span></span></code></pre></div>
 <p>The Ka/Ks calculations can be parallelized.</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## calculate Ka/Ks using the CRBHit pairs and multiple threads</span>
-<span class="va">ath_aly_crbh.kaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span>
-    rbhpairs<span class="op">=</span><span class="va">ath_aly_crbh</span>,
-    cds1<span class="op">=</span><span class="va">ath</span>,
-    cds2<span class="op">=</span><span class="va">aly</span>,
-    model<span class="op">=</span><span class="st">"Li"</span>,
-    threads<span class="op">=</span><span class="fl">2</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh.kaks</span><span class="op">)</span>
-<span class="co">#&gt;           aa1                   aa2 rbh_class         ka        ks          vka</span>
-<span class="co">#&gt; 1 AT1G01040.1 Al_scaffold_0001_3256       rbh 0.74651201 9.9999990 0.0032172312</span>
-<span class="co">#&gt; 2 AT1G01050.1  Al_scaffold_0001_128       rbh 0.00000000 0.1831839 0.0000000000</span>
-<span class="co">#&gt; 3 AT1G01080.3  Al_scaffold_0001_125       rbh 0.05680851 0.1390746 0.0001612571</span>
-<span class="co">#&gt; 4 AT1G01180.1  Al_scaffold_0001_114       rbh 0.03656808 0.1543978 0.0001014973</span>
-<span class="co">#&gt; 5 AT1G01190.2 Al_scaffold_0001_4419       rbh 0.75036088 9.9999990 0.0093948533</span>
-<span class="co">#&gt; 6 AT1G01260.3 Al_scaffold_0001_1326       rbh 0.78228833 9.9999990 0.0051807370</span>
-<span class="co">#&gt;           vks</span>
-<span class="co">#&gt; 1 9.999999000</span>
-<span class="co">#&gt; 2 0.003022307</span>
-<span class="co">#&gt; 3 0.001531756</span>
-<span class="co">#&gt; 4 0.001249826</span>
-<span class="co">#&gt; 5 9.999999000</span>
-<span class="co">#&gt; 6 9.999999000</span>
-
-<span class="co">## get help</span>
-<span class="co">#?rbh2kaks</span></code></pre></div>
-<p>Like for the <code><a href="../reference/cds2kaks.html">cds2kaks()</a></code> function, all parameters which
-can be used by the <code><a href="../reference/cds2codonaln.html">cds2codonaln()</a></code> function can be overgiven
-to e.g. use an alternative <code>substitutionMatrix</code>.</p>
+<code class="sourceCode R"><span><span class="co">## calculate Ka/Ks using the CRBHit pairs and multiple threads</span></span>
+<span><span class="va">ath_aly_crbh.kaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span></span>
+<span>    rbhpairs<span class="op">=</span><span class="va">ath_aly_crbh</span>,</span>
+<span>    cds1<span class="op">=</span><span class="va">ath</span>,</span>
+<span>    cds2<span class="op">=</span><span class="va">aly</span>,</span>
+<span>    model<span class="op">=</span><span class="st">"Li"</span>,</span>
+<span>    threads<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh.kaks</span><span class="op">)</span></span>
+<span><span class="co">#&gt;           aa1                   aa2 rbh_class         ka        ks          vka</span></span>
+<span><span class="co">#&gt; 1 AT1G01040.1 Al_scaffold_0001_3256       rbh 0.74651201 9.9999990 0.0032172312</span></span>
+<span><span class="co">#&gt; 2 AT1G01050.1  Al_scaffold_0001_128       rbh 0.00000000 0.1831839 0.0000000000</span></span>
+<span><span class="co">#&gt; 3 AT1G01080.3  Al_scaffold_0001_125       rbh 0.05680851 0.1390746 0.0001612571</span></span>
+<span><span class="co">#&gt; 4 AT1G01180.1  Al_scaffold_0001_114       rbh 0.03656808 0.1543978 0.0001014973</span></span>
+<span><span class="co">#&gt; 5 AT1G01190.2 Al_scaffold_0001_4419       rbh 0.75036088 9.9999990 0.0093948533</span></span>
+<span><span class="co">#&gt; 6 AT1G01260.3 Al_scaffold_0001_1326       rbh 0.78228833 9.9999990 0.0051807370</span></span>
+<span><span class="co">#&gt;           vks</span></span>
+<span><span class="co">#&gt; 1 9.999999000</span></span>
+<span><span class="co">#&gt; 2 0.003022307</span></span>
+<span><span class="co">#&gt; 3 0.001531756</span></span>
+<span><span class="co">#&gt; 4 0.001249826</span></span>
+<span><span class="co">#&gt; 5 9.999999000</span></span>
+<span><span class="co">#&gt; 6 9.999999000</span></span>
+<span></span>
+<span><span class="co">## get help</span></span>
+<span><span class="co">#?rbh2kaks</span></span></code></pre></div>
+<p>Like for the <code><a href="https://mpievolbio-it.pages.gwdg.de/MSA2dist/reference/dnastring2kaks.html" class="external-link">MSA2dist::dnastring2kaks()</a></code> function, all
+parameters which can be used by the
+<code><a href="https://mpievolbio-it.pages.gwdg.de/MSA2dist/reference/cds2codonaln.html" class="external-link">MSA2dist::cds2codonaln()</a></code> function can be overgiven to
+e.g. use an alternative <code>substitutionMatrix</code>.</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## calculate Ka/Ks using the CRBHit pairs and multiple threads</span>
-<span class="va">ath_aly_crbh.kaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span>
-    rbhpairs<span class="op">=</span><span class="va">ath_aly_crbh</span>,
-    cds1<span class="op">=</span><span class="va">ath</span>,
-    cds2<span class="op">=</span><span class="va">aly</span>,
-    model<span class="op">=</span><span class="st">"Li"</span>,
-    threads<span class="op">=</span><span class="fl">2</span>,
-    substitutionMatrix<span class="op">=</span><span class="st">"BLOSUM45"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh.kaks</span><span class="op">)</span>
-<span class="co">#&gt;           aa1                   aa2 rbh_class         ka        ks          vka</span>
-<span class="co">#&gt; 1 AT1G01040.1 Al_scaffold_0001_3256       rbh 0.69109360 9.9999990 0.0029376709</span>
-<span class="co">#&gt; 2 AT1G01050.1  Al_scaffold_0001_128       rbh 0.00000000 0.1831839 0.0000000000</span>
-<span class="co">#&gt; 3 AT1G01080.3  Al_scaffold_0001_125       rbh 0.05638742 0.1366968 0.0001613461</span>
-<span class="co">#&gt; 4 AT1G01180.1  Al_scaffold_0001_114       rbh 0.03656808 0.1543978 0.0001014973</span>
-<span class="co">#&gt; 5 AT1G01190.2 Al_scaffold_0001_4419       rbh 0.66169565 9.9999990 0.0073901048</span>
-<span class="co">#&gt; 6 AT1G01260.3 Al_scaffold_0001_1326       rbh 0.75382109 9.9999990 0.0047473367</span>
-<span class="co">#&gt;           vks</span>
-<span class="co">#&gt; 1 9.999999000</span>
-<span class="co">#&gt; 2 0.003022307</span>
-<span class="co">#&gt; 3 0.001436133</span>
-<span class="co">#&gt; 4 0.001249826</span>
-<span class="co">#&gt; 5 9.999999000</span>
-<span class="co">#&gt; 6 9.999999000</span>
-
-<span class="co">## get help</span>
-<span class="co">#?rbh2kaks</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">## calculate Ka/Ks using the CRBHit pairs and multiple threads</span></span>
+<span><span class="va">ath_aly_crbh.kaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span></span>
+<span>    rbhpairs<span class="op">=</span><span class="va">ath_aly_crbh</span>,</span>
+<span>    cds1<span class="op">=</span><span class="va">ath</span>,</span>
+<span>    cds2<span class="op">=</span><span class="va">aly</span>,</span>
+<span>    model<span class="op">=</span><span class="st">"Li"</span>,</span>
+<span>    threads<span class="op">=</span><span class="fl">2</span>,</span>
+<span>    substitutionMatrix<span class="op">=</span><span class="st">"BLOSUM45"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh.kaks</span><span class="op">)</span></span>
+<span><span class="co">#&gt;           aa1                   aa2 rbh_class         ka        ks          vka</span></span>
+<span><span class="co">#&gt; 1 AT1G01040.1 Al_scaffold_0001_3256       rbh 0.69109360 9.9999990 0.0029376709</span></span>
+<span><span class="co">#&gt; 2 AT1G01050.1  Al_scaffold_0001_128       rbh 0.00000000 0.1831839 0.0000000000</span></span>
+<span><span class="co">#&gt; 3 AT1G01080.3  Al_scaffold_0001_125       rbh 0.05638742 0.1366968 0.0001613461</span></span>
+<span><span class="co">#&gt; 4 AT1G01180.1  Al_scaffold_0001_114       rbh 0.03656808 0.1543978 0.0001014973</span></span>
+<span><span class="co">#&gt; 5 AT1G01190.2 Al_scaffold_0001_4419       rbh 0.66169565 9.9999990 0.0073901048</span></span>
+<span><span class="co">#&gt; 6 AT1G01260.3 Al_scaffold_0001_1326       rbh 0.75382109 9.9999990 0.0047473367</span></span>
+<span><span class="co">#&gt;           vks</span></span>
+<span><span class="co">#&gt; 1 9.999999000</span></span>
+<span><span class="co">#&gt; 2 0.003022307</span></span>
+<span><span class="co">#&gt; 3 0.001436133</span></span>
+<span><span class="co">#&gt; 4 0.001249826</span></span>
+<span><span class="co">#&gt; 5 9.999999000</span></span>
+<span><span class="co">#&gt; 6 9.999999000</span></span>
+<span></span>
+<span><span class="co">## get help</span></span>
+<span><span class="co">#?rbh2kaks</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level3">
@@ -1140,7 +1160,7 @@ models.</strong> <em>Molecular Biology and Evolution</em>,
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

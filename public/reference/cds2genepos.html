@@ -18,7 +18,7 @@ ENSEMBL CDS input."><meta property="og:image" content="/logo.png"><!-- mathjax -
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CRBHits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.5</span>
       </span>
     </div>
 
@@ -55,7 +55,7 @@ ENSEMBL CDS input."><meta property="og:image" content="/logo.png"><!-- mathjax -
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>cds2genepos</h1>
-    <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/masterR/cds2genepos.R" class="external-link"><code>R/cds2genepos.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/develR/cds2genepos.R" class="external-link"><code>R/cds2genepos.R</code></a></small>
     <div class="hidden name"><code>cds2genepos.Rd</code></div>
     </div>
 
@@ -65,22 +65,52 @@ ENSEMBL CDS input.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">cds2genepos</span><span class="op">(</span><span class="va">cds</span>, source <span class="op">=</span> <span class="st">"NCBI"</span>, keep.names <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">cds2genepos</span><span class="op">(</span><span class="va">cds</span>, source <span class="op">=</span> <span class="st">"NCBI"</span>, keep.names <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>cds</dt>
 <dd><p><code>DNAStringSet</code> [mandatory]</p></dd>
+
+
 <dt>source</dt>
 <dd><p>source indicating either NCBI or ENSEMBL [default: NCBI]</p></dd>
+
+
 <dt>keep.names</dt>
 <dd><p>vector indicating gene ids to be kept before chromosomal
 position assignment [default: NULL]</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>matrix</code>1: $gene.seq.id<br>2: $gene.chr<br>3: $gene.start<br>4: $gene.end<br>5: $gene.mid<br>6: $gene.strand<br>7: $gene.idx<br></p>
+    
+
+<p><code>matrix</code></p>
+
+
+<p>1: $gene.seq.id<br></p>
+
+
+<p>2: $gene.chr<br></p>
+
+
+<p>3: $gene.start<br></p>
+
+
+<p>4: $gene.end<br></p>
+
+
+<p>5: $gene.mid<br></p>
+
+
+<p>6: $gene.strand<br></p>
+
+
+<p>7: $gene.idx<br></p>
+
+
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -93,25 +123,25 @@ position assignment [default: NULL]</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## load example sequence data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ath"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ath.genepos</span> <span class="op">&lt;-</span> <span class="fu">cds2genepos</span><span class="op">(</span></span>
-<span class="r-in">    cds<span class="op">=</span><span class="va">ath</span>,</span>
-<span class="r-in">    source<span class="op">=</span><span class="st">"ENSEMBL"</span><span class="op">)</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co">## load example sequence data</span></span>
-<span class="r-in"><span class="co">## set EnsemblPlants URL</span></span>
-<span class="r-in"><span class="va">ensemblPlants</span> <span class="op">&lt;-</span> <span class="st">"ftp://ftp.ensemblgenomes.org/pub/plants/release-48/fasta/"</span></span>
-<span class="r-in"><span class="co">## set Arabidopsis thaliana CDS URL</span></span>
-<span class="r-in"><span class="va">ARATHA.cds.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">ensemblPlants</span>,</span>
-<span class="r-in">    <span class="st">"arabidopsis_thaliana/cds/Arabidopsis_thaliana.TAIR10.cds.all.fa.gz"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ARATHA.cds.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## download CDS</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="va">ARATHA.cds.url</span>, <span class="va">ARATHA.cds.file</span>, quiet<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ARATHA.cds</span> <span class="op">&lt;-</span> <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html" class="external-link">readDNAStringSet</a></span><span class="op">(</span><span class="va">ARATHA.cds.file</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## get gene position</span></span>
-<span class="r-in"><span class="va">ARATHA.cds.genepos</span> <span class="op">&lt;-</span> <span class="fu">cds2genepos</span><span class="op">(</span><span class="va">ARATHA.cds</span>, <span class="st">"ENSEMBL"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## load example sequence data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ath"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ath.genepos</span> <span class="op">&lt;-</span> <span class="fu">cds2genepos</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    cds<span class="op">=</span><span class="va">ath</span>,</span></span>
+<span class="r-in"><span>    source<span class="op">=</span><span class="st">"ENSEMBL"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co">## load example sequence data</span></span></span>
+<span class="r-in"><span><span class="co">## set EnsemblPlants URL</span></span></span>
+<span class="r-in"><span><span class="va">ensemblPlants</span> <span class="op">&lt;-</span> <span class="st">"ftp://ftp.ensemblgenomes.org/pub/plants/release-48/fasta/"</span></span></span>
+<span class="r-in"><span><span class="co">## set Arabidopsis thaliana CDS URL</span></span></span>
+<span class="r-in"><span><span class="va">ARATHA.cds.url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">ensemblPlants</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"arabidopsis_thaliana/cds/Arabidopsis_thaliana.TAIR10.cds.all.fa.gz"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ARATHA.cds.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## download CDS</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="va">ARATHA.cds.url</span>, <span class="va">ARATHA.cds.file</span>, quiet<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ARATHA.cds</span> <span class="op">&lt;-</span> <span class="fu">Biostrings</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Biostrings/man/XStringSet-io.html" class="external-link">readDNAStringSet</a></span><span class="op">(</span><span class="va">ARATHA.cds.file</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## get gene position</span></span></span>
+<span class="r-in"><span><span class="va">ARATHA.cds.genepos</span> <span class="op">&lt;-</span> <span class="fu">cds2genepos</span><span class="op">(</span><span class="va">ARATHA.cds</span>, <span class="st">"ENSEMBL"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -126,7 +156,7 @@ position assignment [default: NULL]</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

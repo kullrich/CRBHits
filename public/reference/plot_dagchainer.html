@@ -19,7 +19,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CRBHits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.5</span>
       </span>
     </div>
 
@@ -56,7 +56,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>plot_dagchainer</h1>
-    <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/masterR/plot_dagchainer.R" class="external-link"><code>R/plot_dagchainer.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/develR/plot_dagchainer.R" class="external-link"><code>R/plot_dagchainer.R</code></a></small>
     <div class="hidden name"><code>plot_dagchainer.Rd</code></div>
     </div>
 
@@ -67,17 +67,17 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">plot_dagchainer</span><span class="op">(</span>
-  <span class="va">dag</span>,
-  DotPlotTitle <span class="op">=</span> <span class="st">"DAGchainer results"</span>,
-  colorBy <span class="op">=</span> <span class="st">"none"</span>,
-  kaks <span class="op">=</span> <span class="cn">NULL</span>,
-  ka.max <span class="op">=</span> <span class="fl">5</span>,
-  ks.max <span class="op">=</span> <span class="fl">5</span>,
-  ka.min <span class="op">=</span> <span class="fl">0</span>,
-  ks.min <span class="op">=</span> <span class="fl">0</span>,
-  select.chr <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_dagchainer</span><span class="op">(</span></span>
+<span>  <span class="va">dag</span>,</span>
+<span>  DotPlotTitle <span class="op">=</span> <span class="st">"DAGchainer results"</span>,</span>
+<span>  colorBy <span class="op">=</span> <span class="st">"none"</span>,</span>
+<span>  kaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ka.max <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  ks.max <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  ka.min <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  ks.min <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  select.chr <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -85,27 +85,46 @@
     <dl><dt>dag</dt>
 <dd><p>specify DAGchainer results as obtained via
 `rbh2dagchainer()` [mandatory]</p></dd>
+
+
 <dt>DotPlotTitle</dt>
 <dd><p>specify DotPlot title [default: DAGchainer results]</p></dd>
+
+
 <dt>colorBy</dt>
 <dd><p>specify if dagchainer groups should be colored by "Ka",
 "Ks", "Ka/Ks" or "none" [default: none]</p></dd>
+
+
 <dt>kaks</dt>
 <dd><p>specify Ka/Ks input obtained via `rbh2kaks()` [default: NULL]</p></dd>
+
+
 <dt>ka.max</dt>
 <dd><p>specify max Ka to be filtered [default: 5]</p></dd>
+
+
 <dt>ks.max</dt>
 <dd><p>specify max Ks to be filtered [default: 5]</p></dd>
+
+
 <dt>ka.min</dt>
 <dd><p>specify min Ka to be filtered [default: 0]</p></dd>
+
+
 <dt>ks.min</dt>
 <dd><p>specify min Ks to be filtered [default: 0]</p></dd>
+
+
 <dt>select.chr</dt>
 <dd><p>filter results for chromosome names [default: NULL]</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>synteny plot</p>
+    
+
+<p>synteny plot</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -114,16 +133,16 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## load example sequence data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ath_aly_ncbi_dagchainer"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## plot DAGchainer results - default</span></span>
-<span class="r-in"><span class="fu">plot_dagchainer</span><span class="op">(</span></span>
-<span class="r-in">    dag<span class="op">=</span><span class="va">ath_aly_ncbi_dagchainer</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## load example sequence data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ath_aly_ncbi_dagchainer"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## plot DAGchainer results - default</span></span></span>
+<span class="r-in"><span><span class="fu">plot_dagchainer</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    dag<span class="op">=</span><span class="va">ath_aly_ncbi_dagchainer</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot_dagchainer-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co">## chromosome subset</span></span>
-<span class="r-in"><span class="fu">plot_dagchainer</span><span class="op">(</span></span>
-<span class="r-in">    dag<span class="op">=</span><span class="va">ath_aly_ncbi_dagchainer</span>,</span>
-<span class="r-in">    select.chr<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NC_000932.1"</span>, <span class="st">"NC_034379.1"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## chromosome subset</span></span></span>
+<span class="r-in"><span><span class="fu">plot_dagchainer</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    dag<span class="op">=</span><span class="va">ath_aly_ncbi_dagchainer</span>,</span></span>
+<span class="r-in"><span>    select.chr<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NC_000932.1"</span>, <span class="st">"NC_034379.1"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot_dagchainer-2.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -139,7 +158,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

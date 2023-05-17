@@ -93,10 +93,10 @@ cds2kaks <- function(cds1, cds2,
                 prerequisites. Try to use make_KaKs_Calculator2() function.")
         }
     }
-    if(class(cds1)=="DNAStringSet" & length(cds1)!=1){
+    if(is(cds1, "DNAStringSet") & length(cds1)!=1){
         stop("Error: cds1 needs to contain only one sequence")
     }
-    if(class(cds2)=="DNAStringSet" & length(cds2)!=1){
+    if(is(cds2, "DNAStringSet") & length(cds2)!=1){
         stop("Error: cds2 needs to contain only one sequence")
     }
     if(!model %in% c("Li", "YN", "NG86")){

@@ -21,7 +21,7 @@ DNAStringSet vectors."><meta property="og:image" content="/logo.png"><!-- mathja
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CRBHits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.5</span>
       </span>
     </div>
 
@@ -58,7 +58,7 @@ DNAStringSet vectors."><meta property="og:image" content="/logo.png"><!-- mathja
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>rbh2kaks</h1>
-    <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/masterR/rbh2kaks.R" class="external-link"><code>R/rbh2kaks.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/develR/rbh2kaks.R" class="external-link"><code>R/rbh2kaks.R</code></a></small>
     <div class="hidden name"><code>rbh2kaks.Rd</code></div>
     </div>
 
@@ -71,23 +71,23 @@ columns must match the names of the corresponding <code>cds1</code> and <code>cd
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">rbh2kaks</span><span class="op">(</span>
-  <span class="va">rbhpairs</span>,
-  <span class="va">cds1</span>,
-  <span class="va">cds2</span>,
-  model <span class="op">=</span> <span class="st">"Li"</span>,
-  plotHistPlot <span class="op">=</span> <span class="cn">FALSE</span>,
-  plotDotPlot <span class="op">=</span> <span class="cn">FALSE</span>,
-  dag <span class="op">=</span> <span class="cn">NULL</span>,
-  gene.position.cds1 <span class="op">=</span> <span class="cn">NULL</span>,
-  gene.position.cds2 <span class="op">=</span> <span class="cn">NULL</span>,
-  tandem.dups.cds1 <span class="op">=</span> <span class="cn">NULL</span>,
-  tandem.dups.cds2 <span class="op">=</span> <span class="cn">NULL</span>,
-  colorBy <span class="op">=</span> <span class="st">"none"</span>,
-  threads <span class="op">=</span> <span class="fl">1</span>,
-  kakscalcpath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/find.package.html" class="external-link">find.package</a></span><span class="op">(</span><span class="st">"CRBHits"</span><span class="op">)</span>, <span class="st">"/extdata/KaKs_Calculator2.0/src/"</span><span class="op">)</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">rbh2kaks</span><span class="op">(</span></span>
+<span>  <span class="va">rbhpairs</span>,</span>
+<span>  <span class="va">cds1</span>,</span>
+<span>  <span class="va">cds2</span>,</span>
+<span>  model <span class="op">=</span> <span class="st">"Li"</span>,</span>
+<span>  plotHistPlot <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  plotDotPlot <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  dag <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  gene.position.cds1 <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  gene.position.cds2 <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  tandem.dups.cds1 <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  tandem.dups.cds2 <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  colorBy <span class="op">=</span> <span class="st">"none"</span>,</span>
+<span>  threads <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  kakscalcpath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/find.package.html" class="external-link">find.package</a></span><span class="op">(</span><span class="st">"CRBHits"</span><span class="op">)</span>, <span class="st">"/extdata/KaKs_Calculator2.0/src/"</span><span class="op">)</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -95,50 +95,84 @@ columns must match the names of the corresponding <code>cds1</code> and <code>cd
     <dl><dt>rbhpairs</dt>
 <dd><p>(conditional-)reciprocal best hit (CRBHit) pair result
 (see <code><a href="cds2rbh.html">cds2rbh</a></code>) [mandatory]</p></dd>
+
+
 <dt>cds1</dt>
 <dd><p>cds1 sequences as <code>DNAStringSet</code> or <code>url</code> for first
 crbh pairs column [mandatory]</p></dd>
+
+
 <dt>cds2</dt>
 <dd><p>cds2 sequences as <code>DNAStringSet</code> or <code>url</code> for second
 crbh pairs column [mandatory]</p></dd>
+
+
 <dt>model</dt>
-<dd><p>specify codon model either "Li" or "YN" [default: Li]</p></dd>
+<dd><p>specify codon model either "Li" or "NG86"
+or one of KaKs_Calculator2 model "NG", "LWL", "LPB", "MLWL",
+"MLPB", "GY", "YN", "MYN", "MS", "MA", "GNG", "GLWL", "GLPB",
+"GMLWL", "GMLPB", "GYN", "GMYN" [default: Li]</p></dd>
+
+
 <dt>plotHistPlot</dt>
 <dd><p>specify if histogram should be plotted [default: TRUE]</p></dd>
+
+
 <dt>plotDotPlot</dt>
 <dd><p>specify if dotplot should be plotted (mandatory to define
 <code>gene.position.cds1</code> and <code>gene.position.cds1</code>) [default: FALSE]</p></dd>
+
+
 <dt>dag</dt>
 <dd><p>specify DAGchainer results as obtained via `rbh2dagchainer()`
 [default: NULL]</p></dd>
+
+
 <dt>gene.position.cds1</dt>
 <dd><p>specify gene position for cds1 sequences
 (see <code><a href="cds2genepos.html">cds2genepos</a></code>) [default: NULL]</p></dd>
+
+
 <dt>gene.position.cds2</dt>
 <dd><p>specify gene position for cds2 sequences
 (see <code><a href="cds2genepos.html">cds2genepos</a></code>) [default: NULL]</p></dd>
+
+
 <dt>tandem.dups.cds1</dt>
 <dd><p>specify tandem duplicates for cds1 sequences
 (see <code><a href="tandemdups.html">tandemdups</a></code>) [default: NULL]</p></dd>
+
+
 <dt>tandem.dups.cds2</dt>
 <dd><p>specify tandem duplicates for cds2 sequences
 (see <code><a href="tandemdups.html">tandemdups</a></code>) [default: NULL]</p></dd>
+
+
 <dt>colorBy</dt>
 <dd><p>specify if Ka/Ks gene pairs should be colored by "rbh_class",
 dagchainer", "tandemdups" or "none" [default: none]</p></dd>
+
+
 <dt>threads</dt>
 <dd><p>number of parallel threads [default: 1]</p></dd>
+
+
 <dt>kakscalcpath</dt>
 <dd><p>specify the PATH to the KaKs_Calculator binaries
 [default: /extdata/KaKs_Calculator2.0/src/]</p></dd>
+
+
 <dt>...</dt>
 <dd><p>other codon alignment parameters
-(see <code><a href="cds2codonaln.html">cds2codonaln</a></code>) and other plot_kaks parameters
+(see <code><a href="https://mpievolbio-it.pages.gwdg.de/MSA2dist/reference/cds2codonaln.html" class="external-link">cds2codonaln</a></code>) and other plot_kaks parameters
 (see <code><a href="plot_kaks.html">plot_kaks</a></code>)</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Ka/Ks values</p>
+    
+
+<p>Ka/Ks values</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -153,7 +187,7 @@ nonsynonymous substitution rates under realistic evolutionary models.
     </div>
     <div id="see-also">
     <h2>See also</h2>
-    <div class="dont-index"><p><code><a href="cds2kaks.html">cds2kaks</a></code>,
+    <div class="dont-index"><p><code><a href="https://mpievolbio-it.pages.gwdg.de/MSA2dist/reference/dnastring2kaks.html" class="external-link">dnastring2kaks</a></code>,
 <code><a href="isoform2longest.html">isoform2longest</a></code>,
 <code><a href="cds2genepos.html">cds2genepos</a></code>,
 <code><a href="plot_kaks.html">plot_kaks</a></code>,
@@ -167,19 +201,19 @@ nonsynonymous substitution rates under realistic evolutionary models.
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## load example sequence data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ath"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"aly"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## load example CRBHit pairs</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ath_aly_crbh"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## only analyse subset of CRBHit pairs</span></span>
-<span class="r-in"><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ath_aly_crbh.kaks</span> <span class="op">&lt;-</span> <span class="fu">rbh2kaks</span><span class="op">(</span></span>
-<span class="r-in">    rbhpairs<span class="op">=</span><span class="va">ath_aly_crbh</span>,</span>
-<span class="r-in">    cds1<span class="op">=</span><span class="va">ath</span>,</span>
-<span class="r-in">    cds2<span class="op">=</span><span class="va">aly</span>,</span>
-<span class="r-in">    model<span class="op">=</span><span class="st">"Li"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh.kaks</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## load example sequence data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ath"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"aly"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## load example CRBHit pairs</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ath_aly_crbh"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## only analyse subset of CRBHit pairs</span></span></span>
+<span class="r-in"><span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span><span class="op">$</span><span class="va">crbh.pairs</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ath_aly_crbh.kaks</span> <span class="op">&lt;-</span> <span class="fu">rbh2kaks</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    rbhpairs<span class="op">=</span><span class="va">ath_aly_crbh</span>,</span></span>
+<span class="r-in"><span>    cds1<span class="op">=</span><span class="va">ath</span>,</span></span>
+<span class="r-in"><span>    cds2<span class="op">=</span><span class="va">aly</span>,</span></span>
+<span class="r-in"><span>    model<span class="op">=</span><span class="st">"Li"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh.kaks</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           aa1                   aa2 rbh_class         ka        ks          vka</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 AT1G01040.1 Al_scaffold_0001_3256       rbh 0.74651201 9.9999990 0.0032172312</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 AT1G01050.1  Al_scaffold_0001_128       rbh 0.00000000 0.1831839 0.0000000000</span>
@@ -194,8 +228,8 @@ nonsynonymous substitution rates under realistic evolutionary models.
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.001249826</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 9.999999000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 9.999999000</span>
-<span class="r-in"><span class="co">## plot kaks</span></span>
-<span class="r-in"><span class="va">g.kaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="plot_kaks.html">plot_kaks</a></span><span class="op">(</span><span class="va">ath_aly_crbh.kaks</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## plot kaks</span></span></span>
+<span class="r-in"><span><span class="va">g.kaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="plot_kaks.html">plot_kaks</a></span><span class="op">(</span><span class="va">ath_aly_crbh.kaks</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="rbh2kaks-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -211,7 +245,7 @@ nonsynonymous substitution rates under realistic evolutionary models.
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

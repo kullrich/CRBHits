@@ -139,8 +139,8 @@ rbh2kaks <- function(rbhpairs, cds1, cds2,
     get_cds_by_name <- function(x, cds){
         return(cds[names(cds)==x])
     }
-    if(class(cds1)=="character"){cds1 <- Biostrings::readDNAStringSet(cds1)}
-    if(class(cds2)=="character"){cds2 <- Biostrings::readDNAStringSet(cds2)}
+    if(is(cds1, "character")){cds1 <- Biostrings::readDNAStringSet(cds1)}
+    if(is(cds2, "character")){cds2 <- Biostrings::readDNAStringSet(cds2)}
     names(cds1) <- stringr::word(names(cds1), 1)
     names(cds2) <- stringr::word(names(cds2), 1)
     #doMC::registerDoMC(threads)
