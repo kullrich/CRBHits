@@ -85,8 +85,8 @@
 #' ## load example sequence data
 #' data("ath", package="CRBHits")
 #' data("aly", package="CRBHits")
-#' ath.aa <- cds2aa(ath)
-#' aly.aa <- cds2aa(aly)
+#' ath.aa <- MSA2dist::cds2aa(ath)
+#' aly.aa <- MSA2dist::cds2aa(aly)
 #' ## get CRBHit pairs
 #' ath_aly_crbh <- aa2rbh(
 #'     aa1=ath.aa,

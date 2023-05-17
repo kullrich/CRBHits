@@ -12,7 +12,7 @@
 #' @param kakscalcpath specify the PATH to the KaKs_Calculator binaries
 #' [default: /extdata/KaKs_Calculator2.0/src/]
 #' @param ... other codon alignment parameters (see
-#' \code{\link[CRBHits]{cds2codonaln}})
+#' \code{\link[MSA2dist]{cds2codonaln}})
 #' @return vector of ka/ks values as specified by \code{seqinr::kaks} or
 #' \code{KaKs_Calculator2.0}
 #' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet

@@ -34,7 +34,7 @@
 #' @param kakscalcpath specify the PATH to the KaKs_Calculator binaries
 #' [default: /extdata/KaKs_Calculator2.0/src/]
 #' @param ... other codon alignment parameters
-#' (see \code{\link[CRBHits]{cds2codonaln}}) and other plot_kaks parameters
+#' (see \code{\link[MSA2dist]{cds2codonaln}}) and other plot_kaks parameters
 #' (see \code{\link[CRBHits]{plot_kaks}})
 #' @return Ka/Ks values
 #' @importFrom parallel makeForkCluster stopCluster

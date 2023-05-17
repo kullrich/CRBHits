@@ -44,7 +44,7 @@ aa <- Biostrings::readAAStringSet(aafile)
 aa
 }
 \seealso{
-\code{\link[CRBHits]{cds2aa}}
+\code{\link[MSA2dist]{cds2aa}}
 }
 \author{
 Kristian K Ullrich

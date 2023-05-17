@@ -12,6 +12,7 @@
 #' @importFrom stringr word str_split_fixed str_split
 #' @importFrom tidyr %>% unite
 #' @importFrom dplyr filter select mutate summarise arrange distinct ungroup
+#' desc
 #' @importFrom curl curl_download
 #' @seealso \code{\link[Biostrings]{XStringSet-class}}
 #' @examples
@@ -68,6 +69,20 @@ gtf2longest <- function(gtffile,
     removeNonCoding=TRUE,
     source="NCBI"
     ){
+    seqname <- NULL
+    #source <- NULL
+    feature <- NULL
+    start <- NULL
+    end <- NULL
+    #score <- NULL
+    strand <- NULL
+    #frame <- NULL
+    attribute <- NULL
+    geneID <- NULL
+    cdsID <- NULL
+    transcriptID <- NULL
+    transcriptLENGTH <- NULL
+    mid <- NULL
     gtf <- readr::read_tsv(gtffile, col_names = FALSE, comment = "#")
     colnames(gtf) <- c("seqname", "source", "feature", "start", "end",
         "score", "strand", "frame", "attribute")

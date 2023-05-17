@@ -12,7 +12,7 @@
 #' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet
 #' readDNAStringSet readAAStringSet writeXStringSet width subseq
 #' @importFrom MSA2dist cds2aa
-#' @seealso \code{\link[CRBHits]{cds2aa}}
+#' @seealso \code{\link[MSA2dist]{cds2aa}}
 #' @examples
 #' ## define file path
 #' cdsfile <- system.file("fasta", "ath.cds.fasta.gz", package="CRBHits")

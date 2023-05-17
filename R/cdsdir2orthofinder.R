@@ -39,8 +39,6 @@
 #' Rost 1999 [default: FALSE]
 #' @param filter specify additional custom filters as list to be applied on
 #' hit pairs [default: NULL]
-#' @param plotCurve specify if crbh fitting curve should be plotted
-#' [default: FALSE]
 #' @param fit.type specify if mean or median should be used for fitting
 #' [default: mean]
 #' @param fit.varweight factor for fitting function to consider neighborhood
@@ -48,11 +46,12 @@
 #' @param fit.min specify minimum neighborhood alignment length
 #' [default: 5]
 #' @param threads number of parallel threads [default: 1]
+#' @param remove specify if last result files should be removed [default: TRUE]
 #' @return List of three (crbh=FALSE)\cr
 #' @importFrom Biostrings writeXStringSet
 #' @importFrom graphics legend par points
 #' @importFrom stats median splinefun
-#' @importFrom utils read.table
+#' @importFrom utils read.table combn
 #' @importFrom tidyr %>%
 #' @seealso \code{\link[CRBHits]{aafile2rbh}}
 #' @references Aubry S, Kelly S et al. (2014) Deep Evolutionary Comparison of
@@ -142,26 +141,26 @@ cdsdir2orthofinder <- function(dir,
     # write SpeciesIDs.txt
     sink(file.path(outpath, "SpeciesIDs.txt"))
     cat(
-        apply(cbind(aa_species, aa_files),1,
+        apply(cbind(cds_species, cds_files),1,
             function(x){paste0(x[1],": ",x[2])}), sep="\n"
     )
     sink(NULL)
-    # extract sequence names, create aa_species_files
+    # extract sequence names, create cds_species_files
     # and perform selfblast
     aa_sequence_names <- data.frame()
-    for(i in seq_along(aa_files)){
+    for(i in seq_along(cds_files)){
         tmp_aa <- Biostrings::readAAStringSet(
-            file.path(dir, aa_files[i]))
+            file.path(dir, cds_files[i]))
         tmp_aa_names <- paste0(
-            aa_species[i], "_", seq_along(tmp_aa)-1)
+            cds_species[i], "_", seq_along(tmp_aa)-1)
         aa_sequence_names <- rbind(aa_sequence_names,
             data.frame(tmp_aa_names, stringr::word(names(tmp_aa))))
         names(tmp_aa) <- tmp_aa_names
         Biostrings::writeXStringSet(tmp_aa,
-            file.path(outpath, aa_species_files[i]))
+            file.path(outpath, cds_species_files[i]))
         tmp_aa_rbh <- aafile2rbh(
-            aafile1 = file.path(outpath, aa_species_files[i]),
-            aafile2 = file.path(outpath, aa_species_files[i]),
+            aafile1 = file.path(outpath, cds_species_files[i]),
+            aafile2 = file.path(outpath, cds_species_files[i]),
             searchtool=searchtool,
             lastpath=lastpath,
             lastD=lastD,
@@ -187,8 +186,8 @@ cdsdir2orthofinder <- function(dir,
             remove=remove)
         write.table(tmp_aa_rbh$crbh1[,1:12], sep="\t", quote=FALSE,
             col.names=FALSE, row.names=FALSE,
-            file=file.path(outpath, paste0("Blast", aa_species[i], "_",
-            aa_species[i], ".txt")))
+            file=file.path(outpath, paste0("Blast", cds_species[i], "_",
+            cds_species[i], ".txt")))
     }
     # write SequenceIDs.txt
     sink(file.path(outpath, "SequenceIDs.txt"))
@@ -197,11 +196,11 @@ cdsdir2orthofinder <- function(dir,
     )
     sink(NULL)
     # combn
-    to_calc <- t(combn(aa_species, 2))
+    to_calc <- t(combn(cds_species, 2))
     apply(to_calc,1,function(x){
         tmp_aa_rbh <- aafile2rbh(
-            aafile1 = file.path(outpath, aa_species_files[x[1]+1]),
-            aafile2 = file.path(outpath, aa_species_files[x[2]+1]),
+            aafile1 = file.path(outpath, cds_species_files[x[1]+1]),
+            aafile2 = file.path(outpath, cds_species_files[x[2]+1]),
             searchtool=searchtool,
             lastpath=lastpath,
             lastD=lastD,

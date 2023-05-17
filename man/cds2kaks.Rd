@@ -25,7 +25,7 @@ cds2kaks(
 [default: /extdata/KaKs_Calculator2.0/src/]}
 
 \item{...}{other codon alignment parameters (see
-\code{\link[CRBHits]{cds2codonaln}})}
+\code{\link[MSA2dist]{cds2codonaln}})}
 }
 \value{
 vector of ka/ks values as specified by \code{seqinr::kaks} or

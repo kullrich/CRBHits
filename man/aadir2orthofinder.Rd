@@ -97,8 +97,7 @@ hit pairs [default: NULL]}
 
 \item{threads}{number of parallel threads [default: 1]}
 
-\item{plotCurve}{specify if crbh fitting curve should be plotted
-[default: FALSE]}
+\item{remove}{specify if last result files should be removed [default: TRUE]}
 }
 \value{
 List of three (crbh=FALSE)\cr

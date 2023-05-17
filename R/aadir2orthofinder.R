@@ -42,8 +42,6 @@
 #' Rost 1999 [default: FALSE]
 #' @param filter specify additional custom filters as list to be applied on
 #' hit pairs [default: NULL]
-#' @param plotCurve specify if crbh fitting curve should be plotted
-#' [default: FALSE]
 #' @param fit.type specify if mean or median should be used for fitting
 #' [default: mean]
 #' @param fit.varweight factor for fitting function to consider neighborhood
@@ -51,11 +49,12 @@
 #' @param fit.min specify minimum neighborhood alignment length
 #' [default: 5]
 #' @param threads number of parallel threads [default: 1]
+#' @param remove specify if last result files should be removed [default: TRUE]
 #' @return List of three (crbh=FALSE)\cr
 #' @importFrom Biostrings writeXStringSet
 #' @importFrom graphics legend par points
 #' @importFrom stats median splinefun
-#' @importFrom utils read.table
+#' @importFrom utils read.table combn
 #' @importFrom tidyr %>%
 #' @seealso \code{\link[CRBHits]{aafile2rbh}}
 #' @references Aubry S, Kelly S et al. (2014) Deep Evolutionary Comparison of
