@@ -72,7 +72,7 @@ Ka/Ks plot
 }
 \description{
 This function plots Ka/Ks results obtained via
-`rbh2kaks()` function.
+`rbh2kaks()` function or `MSA2dist::dnastring2kaks()` function.
 }
 \examples{
 ## load example sequence data
