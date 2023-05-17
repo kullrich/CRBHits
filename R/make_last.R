@@ -1,6 +1,6 @@
 #' @title make_last
 #' @name make_last
-#' @description This function tries to build the prerequisite last-1418 from
+#' @description This function tries to build the prerequisite last-1453 from
 #' source code forked within CRBHits
 #' @return compile last
 #' @references Kiełbasa SM et al. (2011) Adaptive seeds tame genomic sequence
@@ -11,11 +11,11 @@
 make_last <- function(){
     curwd <- getwd()
     lastpath <- paste0(find.package("CRBHits"),
-        "/extdata/last-1418/")
+        "/extdata/last-1453/")
     if(!dir.exists(lastpath)){
         setwd(paste0(find.package("CRBHits"), "/extdata/"))
-        system2(command="unzip", args = "last-1418.zip")
-        setwd(paste0(find.package("CRBHits"), "/extdata/last-1418/"))
+        system2(command="unzip", args = "last-1453.zip")
+        setwd(paste0(find.package("CRBHits"), "/extdata/last-1453/"))
     }
     if(!file.exists(paste0(lastpath, "bin/lastdb"))){
         # see more installation information here, if make fails

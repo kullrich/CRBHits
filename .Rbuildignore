@@ -17,3 +17,4 @@ CODE_OF_CONDUCT.md
 pkgdown/
 vignettes/V01*.png
 vignettes/V02*.png
+^\.github$

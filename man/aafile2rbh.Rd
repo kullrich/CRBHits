@@ -7,8 +7,14 @@
 aafile2rbh(
   aafile1,
   aafile2,
-  lastpath = paste0(find.package("CRBHits"), "/extdata/last-1418/bin/"),
+  searchtool = "last",
+  lastpath = paste0(find.package("CRBHits"), "/extdata/last-1453/bin/"),
   lastD = 1e+06,
+  mmseqs2path = NULL,
+  mmseqs2sensitivity = 5.7,
+  diamondpath = NULL,
+  diamondsensitivity = "--sensitive",
+  diamondmaxtargetseqs = "-k0",
   outpath = "/tmp",
   crbh = TRUE,
   keepSingleDirection = FALSE,
@@ -32,11 +38,30 @@ aafile2rbh(
 
 \item{aafile2}{aa2 fasta file [mandatory]}
 
+\item{searchtool}{specify sequence search algorithm last, mmseqs2 or diamond
+[default: last]}
+
 \item{lastpath}{specify the PATH to the last binaries
-[default: /extdata/last-1418/bin/]}
+[default: /extdata/last-1453/bin/]}
 
 \item{lastD}{last option D: query letters per random alignment
 [default: 1e6]}
+
+\item{mmseqs2path}{specify the PATH to the mmseqs2 binaries
+[default: NULL]}
+
+\item{mmseqs2sensitivity}{specify the sensitivity option of mmseqs2
+[default: 5.7]}
+
+\item{diamondpath}{specify the PATH to the diamond binaries
+[default: NULL]}
+
+\item{diamondsensitivity}{specify the sensitivity option of diamond
+[default: --sensitive]}
+
+\item{diamondmaxtargetseqs}{specify the maximum number of target sequences
+per query option of diamond
+[default: -k0]}
 
 \item{outpath}{specify the output PATH [default: /tmp]}
 
@@ -76,21 +101,6 @@ hit pairs [default: NULL]}
 \item{threads}{number of parallel threads [default: 1]}
 
 \item{remove}{specify if last result files should be removed [default: TRUE]}
-
-\item{searchtool}{specify sequence search algorithm last, mmseqs2 or diamond
-[default: last]}
-
-\item{mmseqs2path}{specify the PATH to the mmseqs2 binaries
-[default: NULL]}
-
-\item{mmseqs2sensitivity}{specify the sensitivity option of mmseqs2
-[default: 5.7]}
-
-\item{diamondpath}{specify the PATH to the diamond binaries
-[default: NULL]}
-
-\item{diamondsensitivity}{specify the sensitivity option of diamond
-[default: --sensitive]}
 }
 \value{
 List of three (crbh=FALSE)\cr
@@ -119,7 +129,7 @@ If one specifies aafile1 and aafile2 as the same input a selfblast is
 conducted.
 }
 \examples{
-## compile last-1418 within CRBHits
+## compile last-1453 within CRBHits
 CRBHits::make_last()
 ## load example sequence data
 athfile <- system.file("fasta", "ath.aa.fasta.gz", package="CRBHits")

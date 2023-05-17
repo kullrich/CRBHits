@@ -378,4 +378,117 @@ gff2longest <- function(gff3file,
         return(setNames(list(gff3.transcript.genepos, cds),
             c("genepos", "cds")))
     }
+    if(source=="BAKTA"){
+        gff3 <- readr::read_tsv(gff3file, col_names = FALSE, comment = "#")
+        colnames(gff3) <- c("seqname", "source", "feature", "start", "end",
+            "score", "strand", "frame", "attribute")
+        ## extract gene
+        #gff3.gene <- gff3 %>% dplyr::filter(feature == "gene")
+        ## extract mRNA
+        #gff3.mRNA <- gff3 %>% dplyr::filter(feature == "mRNA")
+        ## extract CDS
+        gff3.CDS <- gff3 %>% dplyr::filter(feature == "CDS")
+        ## extract ID
+        #gff3.gene <- (gff3.gene %>%
+        #dplyr::mutate(geneID = gsub(" ", "", gsub("\"", "",
+        #    gsub("ID=", "",
+        #    stringr::str_split_fixed(attribute, ";", 2)[,1])))))
+        #gff3.mRNA <- (gff3.mRNA %>%
+        #dplyr::mutate(transcriptID = gsub(" ", "", gsub("\"", "",
+        #    gsub("ID=", "",
+        #    stringr::str_split_fixed(attribute, ";", 2)[,1])))))
+        gff3.CDS <- (gff3.CDS %>%
+        dplyr::mutate(cdsID = gsub(" ", "", gsub("\"", "",
+            gsub("ID=", "",
+            stringr::str_split_fixed(attribute, ";", 2)[,1])))))
+        ## extract geneID
+        #gff3.mRNA <- (gff3.mRNA %>%
+        #dplyr::mutate(geneID = gsub(" ", "", gsub("\"", "",
+        #    gsub("Parent=", "",
+        #    stringr::str_split_fixed(attribute, ";", 3)[,2])))))
+        ## extract transcriptID
+        #gff3.CDS <- (gff3.CDS %>%
+        #dplyr::mutate(transcriptID = gsub(" ", "", gsub("\"", "",
+        #    gsub("Parent=", "",
+        #    stringr::str_split_fixed(attribute, ";", 3)[,2])))))
+        ## add geneID
+        gff3.CDS <- (gff3.CDS %>%
+        dplyr::mutate(transcriptID = gff3.CDS$cdsID))
+        #gff3.CDS <- (gff3.CDS %>%
+        #    dplyr::mutate(geneID =
+        #    gff3.mRNA$geneID[match(gff3.CDS$transcriptID,
+        #    gff3.mRNA$transcriptID)]))
+        gff3.CDS <- (gff3.CDS %>%
+        dplyr::mutate(geneID = gff3.CDS$cdsID))
+        ## if geneID is NA use transcriptID
+        #gff3.CDS[which(is.na(gff3.CDS$geneID)),]$geneID <- gff3.CDS[which(
+        #    is.na(gff3.CDS$geneID)),]$transcriptID
+        ## extract width per isoform
+        gff3.transcript <- (gff3.CDS %>%
+            dplyr::group_by(transcriptID) %>%
+                dplyr::summarise(
+                transcriptID=unique(transcriptID),
+                seqname=unique(seqname),
+                start=min(start),
+                end=max(end),
+                strand=unique(strand),
+                geneID=unique(geneID),
+                cdsID=unique(cdsID),
+                transcriptLENGTH=sum(end-start+1)))
+        ## retain only longest mRNA isoform
+        gff3.transcript.longest <- (gff3.transcript %>%
+            dplyr::arrange(seqname, desc(transcriptLENGTH),
+            cdsID, geneID, start) %>%
+            dplyr::ungroup() %>%
+            dplyr::distinct(geneID, .keep_all=TRUE) %>%
+            dplyr::mutate(mid=start + (end-start)/2))
+        if(removeNonCoding){
+            gff3.transcript.longest <- (gff3.transcript.longest %>%
+                dplyr::filter(!is.na(transcriptLENGTH)))
+        }
+        ## add gene idx
+        gff3.transcript.longest.ordered <- gff3.transcript.longest[
+            order(gff3.transcript.longest$seqname,
+            gff3.transcript.longest$mid,
+            gff3.transcript.longest$cdsID,
+            decreasing=FALSE, method="radix"), , drop=FALSE]
+        gene.mid.idx <- gff3.transcript.longest.ordered %>%
+            dplyr::select(seqname, mid) %>%
+            tidyr::unite("gene.chr.mid", sep=":")
+        gene.mid.idx.red <- gff3.transcript.longest.ordered %>%
+            dplyr::distinct(seqname, mid) %>%
+            tidyr::unite("gene.chr.mid", sep=":")
+        gene.mid.idx.red <- dplyr::mutate(gene.mid.idx.red,
+            gene.idx=seq(from=1, to=dim(gene.mid.idx.red)[1]))
+        gene.idx <- gene.mid.idx.red$gene.idx[match(gene.mid.idx$gene.chr.mid,
+            gene.mid.idx.red$gene.chr.mid)]
+        gff3.transcript.longest.ordered <- dplyr::mutate(
+            gff3.transcript.longest.ordered, gene.idx=gene.idx)
+        ## create gene position matrix to be used for downstream analysis
+        gff3.transcript.genepos <- as.data.frame(
+            gff3.transcript.longest.ordered %>%
+            dplyr::select(
+                gene.seq.id=cdsID,
+                gene.chr=seqname,
+                gene.start=start,
+                gene.end=end,
+                gene.mid=mid,
+                gene.strand=strand,
+                gene.idx=gene.idx))
+        gff3.transcript.genepos$gene.seq.id <- gsub("cds-", "",
+            gff3.transcript.genepos$gene.seq.id)
+        attr(gff3.transcript.genepos, "CRBHits.class") <- "genepos"
+        if(!is.null(cds)){
+            names(cds) <- apply(stringr::str_split_fixed(
+                unlist(lapply(
+                stringr::str_split(stringr::word(names(cds)), "_cds_"),
+                function(x) rev(x)[[1]])), "_", 3)[, c(1, 2)], 1,
+                function(x) paste0(x, collapse="_"))
+            cds <- cds[names(cds) %in% gff3.transcript.genepos$gene.seq.id]
+            cds <- cds[match(gff3.transcript.genepos$gene.seq.id,
+                stringr::word(names(cds)))]
+        }
+        return(setNames(list(gff3.transcript.genepos, cds),
+            c("genepos", "cds")))
+    }
 }

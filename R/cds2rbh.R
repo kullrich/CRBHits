@@ -15,7 +15,7 @@
 #' @param searchtool specify sequence search algorithm last, mmseqs2 or diamond
 #' [default: last]
 #' @param lastpath specify the PATH to the last binaries
-#' [default: /extdata/last-1418/bin/]
+#' [default: /extdata/last-1453/bin/]
 #' @param lastD last option D: query letters per random alignment
 #' [default: 1e6]
 #' @param mmseqs2path specify the PATH to the mmseqs2 binaries
@@ -26,6 +26,9 @@
 #' [default: NULL]
 #' @param diamondsensitivity specify the sensitivity option of diamond
 #' [default: --sensitive]
+#' @param diamondmaxtargetseqs specify the maximum number of target sequences
+#' per query option of diamond
+#' [default: -k0]
 #' @param outpath specify the output PATH [default: /tmp]
 #' @param crbh specify if conditional-reciprocal hit pairs should be retained
 #' as secondary hits [default: TRUE]
@@ -92,7 +95,7 @@
 #' @references Rost B. (1999). Twilight zone of protein sequence alignments.
 #' \emph{Protein Engineering}, \bold{12(2)}, 85-94.
 #' @examples
-#' ## compile last-1418 within CRBHits
+#' ## compile last-1453 within CRBHits
 #' CRBHits::make_last()
 #' ## load example sequence data
 #' data("ath", package="CRBHits")
@@ -142,12 +145,13 @@
 cds2rbh <- function(cds1, cds2,
     searchtool="last",
     lastpath=paste0(find.package("CRBHits"),
-        "/extdata/last-1418/bin/"),
+        "/extdata/last-1453/bin/"),
     lastD=1e6,
     mmseqs2path=NULL,
     mmseqs2sensitivity=5.7,
     diamondpath=NULL,
     diamondsensitivity="--sensitive",
+    diamondmaxtargetseqs="-k0",
     outpath="/tmp",
     crbh=TRUE,
     keepSingleDirection=FALSE,
@@ -329,12 +333,14 @@ cds2rbh <- function(cds1, cds2,
         system2(command=paste0(diamondpath, "diamond"),
             args = c("blastp", "--ignore-warnings", "-d", aa2dbfile,
                 "-q", aa1file, "-o", aa1_aa2_lastout, diamondsensitivity,
+                diamondmaxtargetseqs,
                 "-f", "6", "qseqid", "sseqid", "pident", "length", "mismatch",
                 "gapopen", "qstart", "qend", "sstart", "send", "evalue",
                 "bitscore", "qlen", "slen", "score"))
         system2(command=paste0(diamondpath, "diamond"),
             args = c("blastp", "--ignore-warnings", "-d", aa1dbfile,
                 "-q", aa2file, "-o", aa2_aa1_lastout, diamondsensitivity,
+                diamondmaxtargetseqs,
                 "-f", "6", "qseqid", "sseqid", "pident", "length", "mismatch",
                 "gapopen", "qstart", "qend", "sstart", "send", "evalue",
                 "bitscore", "qlen", "slen", "score"))

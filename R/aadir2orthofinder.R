@@ -14,7 +14,7 @@
 #' @param searchtool specify sequence search algorithm last, mmseqs2 or diamond
 #' [default: last]
 #' @param lastpath specify the PATH to the last binaries
-#' [default: /extdata/last-1418/bin/]
+#' [default: /extdata/last-1453/bin/]
 #' @param lastD last option D: query letters per random alignment
 #' [default: 1e6]
 #' @param mmseqs2path specify the PATH to the mmseqs2 binaries
@@ -25,6 +25,9 @@
 #' [default: NULL]
 #' @param diamondsensitivity specify the sensitivity option of diamond
 #' [default: --sensitive]
+#' @param diamondmaxtargetseqs specify the maximum number of target sequences
+#' per query option of diamond
+#' [default: -k0]
 #' @param outpath specify the output PATH [default: /tmp]
 #' @param crbh specify if conditional-reciprocal hit pairs should be retained
 #' as secondary hits [default: TRUE]
@@ -64,7 +67,7 @@
 #' @references Rost B. (1999). Twilight zone of protein sequence alignments.
 #' \emph{Protein Engineering}, \bold{12(2)}, 85-94.
 #' @examples
-#' ## compile last-1282 within CRBHits
+#' ## compile last-1453 within CRBHits
 #' CRBHits::make_last()
 #' @export aadir2orthofinder
 #' @author Kristian K Ullrich
@@ -73,12 +76,13 @@ aadir2orthofinder <- function(dir,
     file_ending="*",
     searchtool="last",
     lastpath=paste0(find.package("CRBHits"),
-        "/extdata/last-1418/bin/"),
+        "/extdata/last-1453/bin/"),
     lastD=1e6,
     mmseqs2path=NULL,
     mmseqs2sensitivity=5.7,
     diamondpath=NULL,
     diamondsensitivity="--sensitive",
+    diamondmaxtargetseqs="-k0",
     outpath="/tmp",
     crbh=TRUE,
     keepSingleDirection=FALSE,
@@ -169,6 +173,7 @@ aadir2orthofinder <- function(dir,
             mmseqs2sensitivity=mmseqs2sensitivity,
             diamondpath=diamondpath,
             diamondsensitivity=diamondsensitivity,
+            diamondmaxtargetseqs=diamondmaxtargetseqs,
             outpath=outpath,
             crbh=crbh,
             keepSingleDirection=keepSingleDirection,
@@ -209,6 +214,7 @@ aadir2orthofinder <- function(dir,
             mmseqs2sensitivity=mmseqs2sensitivity,
             diamondpath=diamondpath,
             diamondsensitivity=diamondsensitivity,
+            diamondmaxtargetseqs=diamondmaxtargetseqs,
             outpath=outpath,
             crbh=crbh,
             keepSingleDirection=keepSingleDirection,

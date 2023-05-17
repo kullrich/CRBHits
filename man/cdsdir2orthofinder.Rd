@@ -2,14 +2,13 @@
 % Please edit documentation in R/cdsdir2orthofinder.R
 \name{cdsdir2orthofinder}
 \alias{cdsdir2orthofinder}
-\alias{cds2rbh}
 \title{cdsdir2orthofinder}
 \usage{
-cds2rbh(
-  cds1,
-  cds2,
+cdsdir2orthofinder(
+  dir,
+  file_ending = "*",
   searchtool = "last",
-  lastpath = paste0(find.package("CRBHits"), "/extdata/last-1282/bin/"),
+  lastpath = paste0(find.package("CRBHits"), "/extdata/last-1453/bin/"),
   lastD = 1e+06,
   mmseqs2path = NULL,
   mmseqs2sensitivity = 5.7,
@@ -25,30 +24,23 @@ cds2rbh(
   alnlen = 0,
   rost1999 = FALSE,
   filter = NULL,
-  plotCurve = FALSE,
   fit.type = "mean",
   fit.varweight = 0.1,
   fit.min = 5,
-  longest.isoform = FALSE,
-  isoform.source = "NCBI",
   threads = 1,
-  remove = TRUE,
-  shorten1 = FALSE,
-  frame1 = 1,
-  framelist1 = NULL,
-  genetic.code1 = NULL,
-  shorten2 = FALSE,
-  frame2 = 1,
-  framelist2 = NULL,
-  genetic.code2 = NULL
+  remove = TRUE
 )
 }
 \arguments{
+\item{dir}{directory containing AA fasta files [mandatory]}
+
+\item{file_ending}{define file ending to consider [default: *]}
+
 \item{searchtool}{specify sequence search algorithm last, mmseqs2 or diamond
 [default: last]}
 
 \item{lastpath}{specify the PATH to the last binaries
-[default: /extdata/last-1282/bin/]}
+[default: /extdata/last-1453/bin/]}
 
 \item{lastD}{last option D: query letters per random alignment
 [default: 1e6]}
@@ -89,9 +81,6 @@ Rost 1999 [default: FALSE]}
 \item{filter}{specify additional custom filters as list to be applied on
 hit pairs [default: NULL]}
 
-\item{plotCurve}{specify if crbh fitting curve should be plotted
-[default: FALSE]}
-
 \item{fit.type}{specify if mean or median should be used for fitting
 [default: mean]}
 
@@ -103,7 +92,8 @@ hit pairs [default: NULL]}
 
 \item{threads}{number of parallel threads [default: 1]}
 
-\item{dir}{directory containing CDS fasta files [mandatory]}
+\item{plotCurve}{specify if crbh fitting curve should be plotted
+[default: FALSE]}
 }
 \value{
 List of three (crbh=FALSE)\cr
@@ -111,7 +101,7 @@ List of three (crbh=FALSE)\cr
 \description{
 This function calculates (conditional-)reciprocal best hit
 (CRBHit) pairs for all possible comparison including self
-comparison from a directory of CDS fasta files.
+comparison from a directory of AA fasta files.
 Sequence searches are performed with \bold{last}
 \emph{Kiełbasa, SM et al. (2011)} [default]
 or with \bold{mmseqs2}
@@ -120,50 +110,8 @@ or with \bold{diamond}
 \emph{Buchfink, B et al. (2021)}.
 }
 \examples{
-## compile last-1282 within CRBHits
+## compile last-1453 within CRBHits
 CRBHits::make_last()
-## load example sequence data
-data("ath", package="CRBHits")
-data("aly", package="CRBHits")
-## get CRBHit pairs
-ath_aly_crbh <- cds2rbh(
-    cds1=ath,
-    cds2=aly,
-    plotCurve=TRUE)
-dim(ath_aly_crbh$crbh.pairs)
-## get classical reciprocal best hit (RBHit) pairs
-ath_aly_rbh <- cds2rbh(
-    cds1=ath,
-    cds2=aly,
-    crbh=FALSE)
-dim(ath_aly_rbh$crbh.pairs)
-## filter for evalue 1e-100
-ath_aly_crbh.eval100 <- cds2rbh(
-    cds1=ath,
-    cds2=aly,
-    eval=1e-100)
-dim(ath_aly_crbh.eval100$crbh.pairs)
-## filter for query coverage
-ath_aly_crbh.qcov <- cds2rbh(
-    cds1=ath,
-    cds2=aly,
-    qcov=0.5)
-dim(ath_aly_crbh.qcov$crbh.pairs)
-## custom filter for e.g. bit score (column 12)
-## Note: multiple filters can be given in filter param as list
-myfilter <- function(rbh, value=500.0){
-    return(rbh[as.numeric(rbh[, 12])>=value, , drop=FALSE])
-}
-ath_aly_crbh.custom <- cds2rbh(
-    cds1=ath,
-    cds2=aly,
-    filter=list(myfilter))
-dim(ath_aly_crbh.custom$crbh.pairs)
-## selfblast
-ath_selfblast_crbh <- cds2rbh(
-    cds1=ath,
-    cds2=ath,
-    plotCurve=TRUE)
 }
 \references{
 Aubry S, Kelly S et al. (2014) Deep Evolutionary Comparison of
@@ -178,8 +126,7 @@ Rost B. (1999). Twilight zone of protein sequence alignments.
 \emph{Protein Engineering}, \bold{12(2)}, 85-94.
 }
 \seealso{
-\code{\link[CRBHits]{cdsfile2rbh}},
-\code{\link[CRBHits]{isoform2longest}}
+\code{\link[CRBHits]{aafile2rbh}}
 }
 \author{
 Kristian K Ullrich

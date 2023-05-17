@@ -8,12 +8,13 @@ aadir2orthofinder(
   dir,
   file_ending = "*",
   searchtool = "last",
-  lastpath = paste0(find.package("CRBHits"), "/extdata/last-1282/bin/"),
+  lastpath = paste0(find.package("CRBHits"), "/extdata/last-1453/bin/"),
   lastD = 1e+06,
   mmseqs2path = NULL,
   mmseqs2sensitivity = 5.7,
   diamondpath = NULL,
   diamondsensitivity = "--sensitive",
+  diamondmaxtargetseqs = "-k0",
   outpath = "/tmp",
   crbh = TRUE,
   keepSingleDirection = FALSE,
@@ -27,7 +28,8 @@ aadir2orthofinder(
   fit.type = "mean",
   fit.varweight = 0.1,
   fit.min = 5,
-  threads = 1
+  threads = 1,
+  remove = TRUE
 )
 }
 \arguments{
@@ -39,7 +41,7 @@ aadir2orthofinder(
 [default: last]}
 
 \item{lastpath}{specify the PATH to the last binaries
-[default: /extdata/last-1282/bin/]}
+[default: /extdata/last-1453/bin/]}
 
 \item{lastD}{last option D: query letters per random alignment
 [default: 1e6]}
@@ -55,6 +57,10 @@ aadir2orthofinder(
 
 \item{diamondsensitivity}{specify the sensitivity option of diamond
 [default: --sensitive]}
+
+\item{diamondmaxtargetseqs}{specify the maximum number of target sequences
+per query option of diamond
+[default: -k0]}
 
 \item{outpath}{specify the output PATH [default: /tmp]}
 
@@ -109,7 +115,7 @@ or with \bold{diamond}
 \emph{Buchfink, B et al. (2021)}.
 }
 \examples{
-## compile last-1282 within CRBHits
+## compile last-1453 within CRBHits
 CRBHits::make_last()
 }
 \references{

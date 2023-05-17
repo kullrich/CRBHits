@@ -10,7 +10,7 @@ make_last()
 compile last
 }
 \description{
-This function tries to build the prerequisite last-1418 from
+This function tries to build the prerequisite last-1453 from
 source code forked within CRBHits
 }
 \references{
