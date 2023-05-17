@@ -65,10 +65,10 @@ plot_kaks <- function(kaks,
     select.chr=NULL,
     doPlot=TRUE){
     if(attributes(kaks)$CRBHits.class!="kaks" &
-        attributes(kaks)$CRBHits.class!="dnastring2kaks"){
+        attributes(kaks)$MSA2dist.class!="dnastring2kaks"){
         stop("Please obtain Ka/Ks via the rbh2kaks() function or via the
-            MSA2dist::dnastring2kaks() function or add a 'kaks' class
-            attribute")
+            MSA2dist::dnastring2kaks() function or add a CRBHits.class
+            attribute with the value 'kaks' via the attr function")
     }
     if(attributes(kaks)$CRBHits.class=="dnastring2kaks"){
         if(attributes(kaks)$model=="Li"){

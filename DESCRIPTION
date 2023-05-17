@@ -28,6 +28,7 @@ Imports:
   grDevices,
   methods,
   parallel,
+  readr,
   rlang,
   seqinr,
   stats,
