@@ -14,7 +14,7 @@ make_last <- function(){
         "/extdata/last-1453/")
     if(!dir.exists(lastpath)){
         setwd(paste0(find.package("CRBHits"), "/extdata/"))
-        system2(command="unzip", args = "last-1453.zip")
+        system2(command="unzip", args="last-1453.zip")
         setwd(paste0(find.package("CRBHits"), "/extdata/last-1453/"))
     }
     if(!file.exists(paste0(lastpath, "bin/lastdb"))){

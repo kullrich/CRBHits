@@ -8,7 +8,7 @@ cds2kaks(
   cds1,
   cds2,
   model = "Li",
-  kakscalcpath = paste0(find.package("CRBHits"), "/extdata/KaKs_Calculator2.0/src/"),
+  kakscalcpath = paste0(find.package("CRBHits"), "/extdata/KaKs_Calculator2.0_src/src/"),
   ...
 )
 }
@@ -22,7 +22,7 @@ cds2kaks(
 \item{model}{specify codon model either "Li" or "YN" or "NG86" [default: Li]}
 
 \item{kakscalcpath}{specify the PATH to the KaKs_Calculator binaries
-[default: /extdata/KaKs_Calculator2.0/src/]}
+[default: /extdata/KaKs_Calculator2.0_src/src/]}
 
 \item{...}{other codon alignment parameters (see
 \code{\link[MSA2dist]{cds2codonaln}})}

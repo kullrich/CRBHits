@@ -283,7 +283,7 @@
 <span><span class="op">?</span><span class="va">cds2rbh</span></span>
 <span></span>
 <span><span class="co">## example how to use conda version of KaKs_Calculator2.0</span></span>
-<span><span class="va">my.kakspath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/KaKs_Calculator2/KaKs_Calculator2.0/src"</span></span>
+<span><span class="va">my.kakspath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/KaKs_Calculator2/KaKs_Calculator2.0_src/src"</span></span>
 <span><span class="va">ath_aly_crbh.kaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rbh2kaks.html">rbh2kaks</a></span><span class="op">(</span><span class="va">ath_aly_crbh</span>,</span>
 <span>                              <span class="va">ath</span>, <span class="va">aly</span>, model <span class="op">=</span> <span class="st">"YN"</span>,</span>
 <span>                              kakscalcpath <span class="op">=</span> <span class="va">my.kakspath</span><span class="op">)</span></span>
@@ -337,7 +337,7 @@ conda install diamond</code></pre>
 <p>The source code for the prerequisites (LAST, KaKs_Calculator2.0, DAGchainer) are forked within <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a>.</p>
 <ul>
 <li>
-<a href="https://gitlab.com/mcfrith/last" class="external-link">LAST</a> <a href="https://gitlab.com/mcfrith/last/-/archive/1418/last-1453.zip" class="external-link">https://gitlab.com/mcfrith/last/-/archive/1453/last-1453.zip</a>
+<a href="https://gitlab.com/mcfrith/last" class="external-link">LAST</a> <a href="https://gitlab.com/mcfrith/last/-/archive/1453/last-1453.zip" class="external-link">https://gitlab.com/mcfrith/last/-/archive/1453/last-1453.zip</a>
 </li>
 </ul>
 <p>To compile the forked version of <a href="https://gitlab.com/mcfrith/last" class="external-link">LAST</a> within the <code>CRBHits</code> R package directory try to use the function <code><a href="reference/make_last.html">make_last()</a></code>:</p>
@@ -367,7 +367,7 @@ conda install diamond</code></pre>
 mkdir /tmp/last
 cd /tmp/last
 ## donwload last-1453
-curl -O https://gitlab.com/mcfrith/last/-/archive/1418/last-1453.zip
+curl -O https://gitlab.com/mcfrith/last/-/archive/1453/last-1453.zip
 unzip last-1453.zip
 cd last-1453
 ## compile LAST
@@ -379,9 +379,9 @@ make</code></pre>
 mkdir /tmp/KaKs_Calculator2
 cd /tmp/KaKs_Calculator2
 ## donwload KaKs_Calculator2
-curl -O https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/raw/master/inst/extdata/KaKs_Calculator2.0.tar.gz
-tar -xvf KaKs_Calculator2.0.tar.gz
-cd KaKs_Calculator2.0/src
+curl -O https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/raw/devel/inst/extdata/KaKs_Calculator2.0_src.tar.gz
+tar -xvf KaKs_Calculator2.0_src.tar.gz
+cd KaKs_Calculator2.0_src/src
 ## compile KaKs_Calculator2
 make clean
 make</code></pre>
@@ -392,7 +392,7 @@ make</code></pre>
 mkdir /tmp/DAGchainer
 cd /tmp/DAGchainer
 ## donwload DAGchainer
-curl -O https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/raw/master/inst/extdata/dagchainer.zip
+curl -O https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/raw/devel/inst/extdata/dagchainer.zip
 unzip dagchainer.zip
 cd dagchainer
 ## compile DAGchainer
@@ -400,7 +400,7 @@ make</code></pre>
 <p>If you would like to use your own compiled versions of <code>LAST</code>, <code>KaKs_Calculator2.0</code> and <code>DAGchainer</code> you need to set the correct <code>@param</code> in the corresponding functions of <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a>.</p>
 <pre><code><span><span class="co">## example how to use own compiled versions of LAST, KaKs_Calculator2.0 and DAGchainer</span></span>
 <span><span class="va">my.lastpath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/last/last-1453/bin"</span></span>
-<span><span class="va">my.kakspath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/KaKs_Calculator2/KaKs_Calculator2.0/src"</span></span>
+<span><span class="va">my.kakspath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/KaKs_Calculator2/KaKs_Calculator2.0_src/src"</span></span>
 <span><span class="va">my.dagchainerpath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/dagcahiner"</span></span>
 <span></span>
 <span><span class="op">?</span><span class="va">cds2rbh</span></span>
@@ -441,7 +441,7 @@ make</code></pre>
 </h2>
 <p>If you would like to contribute to CRBHits, please file an issue so that one can establish a statement of need, avoid redundant work, and track progress on your contribution.</p>
 <p>Before you do a pull request, you should always file an issue and make sure that someone from the CRBHits developer team agrees that it’s a problem, and is happy with your basic proposal for fixing it.</p>
-<p>Once an issue has been filed and we’ve identified how to best orient your contribution with package development as a whole, <a href="https://docs.github.com/en/github/getting-started-with-github/fork-a-repo" class="external-link">fork</a> the <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits.git" class="external-link">main repo</a>, branch off a <a href="https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-branches" class="external-link">feature branch</a> from <code>master</code>, <a href="https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/committing-and-reviewing-changes-to-your-project" class="external-link">commit</a> and <a href="https://docs.github.com/en/github/using-git/pushing-commits-to-a-remote-repository" class="external-link">push</a> your changes to your fork and submit a <a href="https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/proposing-changes-to-your-work-with-pull-requests" class="external-link">pull request</a> for <code>CRBHits:master</code>.</p>
+<p>Once an issue has been filed and we’ve identified how to best orient your contribution with package development as a whole, <a href="https://docs.github.com/en/github/getting-started-with-github/fork-a-repo" class="external-link">fork</a> the <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits.git" class="external-link">main repo</a>, branch off a <a href="https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-branches" class="external-link">feature branch</a> from <code>devel</code>, <a href="https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/committing-and-reviewing-changes-to-your-project" class="external-link">commit</a> and <a href="https://docs.github.com/en/github/using-git/pushing-commits-to-a-remote-repository" class="external-link">push</a> your changes to your fork and submit a <a href="https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/proposing-changes-to-your-work-with-pull-requests" class="external-link">pull request</a> for <code>CRBHits:devel</code>.</p>
 <p>By contributing to this project, you agree to abide by the Code of Conduct terms.</p>
 </div>
 <div class="section level2">
@@ -453,7 +453,7 @@ make</code></pre>
 <div class="section level2">
 <h2 id="code-of-conduct---participation-guidelines">Code of Conduct - Participation guidelines<a class="anchor" aria-label="anchor" href="#code-of-conduct---participation-guidelines"></a>
 </h2>
-<p>This repository adhere to <a href="http://contributor-covenant.org" class="external-link">Contributor Covenant</a> code of conduct for in any interactions you have within this project. (see <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/blob/master/CODE_OF_CONDUCT.md" class="external-link">Code of Conduct</a>)</p>
+<p>This repository adhere to <a href="http://contributor-covenant.org" class="external-link">Contributor Covenant</a> code of conduct for in any interactions you have within this project. (see <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/blob/devel/CODE_OF_CONDUCT.md" class="external-link">Code of Conduct</a>)</p>
 <p>See also the policy against sexualized discrimination, harassment and violence for the Max Planck Society <a href="https://www.mpg.de/11961177/code-of-conduct-en.pdf" class="external-link">Code-of-Conduct</a>.</p>
 <p>By contributing to this project, you agree to abide by its terms.</p>
 </div>
@@ -536,7 +536,7 @@ make</code></pre>
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/commits/master" class="external-link"><img src="https://gitlab.gwdg.de/mpievolbio-it/crbhits/badges/master/pipeline.svg" alt="pipeline status"></a></li>
+<li><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/commits/devel" class="external-link"><img src="https://gitlab.gwdg.de/mpievolbio-it/crbhits/badges/devel/pipeline.svg" alt="pipeline status"></a></li>
 <li><a href="CODE_OF_CONDUCT.html"><img src="https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg" alt="Contributor Covenant"></a></li>
 <li><a href="http://opensource.org/licenses/MIT" class="external-link"><img src="http://img.shields.io/badge/license-MIT-brightgreen.svg" alt="MITlicense"></a></li>
 <li><a href="https://doi.org/10.21105/joss.02424" class="external-link"><img src="https://joss.theoj.org/papers/10.21105/joss.02424/status.svg" alt="DOI"></a></li>

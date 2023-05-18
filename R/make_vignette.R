@@ -22,9 +22,9 @@ make_vignette <- function(){
     system2(command="cd", args=c(paste0(LastTempDir, "/last-1453/;"), "make"))
     KaKsCalcTempDir <- tempdir()
     system2(command="tar", args=c("-C", KaKsCalcTempDir, "-xvf",
-        paste0(CRBHits_root, "/extdata/KaKs_Calculator2.0.tar.gz")))
+        paste0(CRBHits_root, "/extdata/KaKs_Calculator2.0_src.tar.gz")))
     system2(command="cd", args=c(
-        paste0(KaKsCalcTempDir, "/KaKs_Calculator2.0/src/;"),
+        paste0(KaKsCalcTempDir, "/KaKs_Calculator2.0_src/src/;"),
         "make", "clean;", "make"))
     DAGchainerTempDir <- tempdir()
     system2(command="unzip", args=c("-o", paste0(CRBHits_root,
@@ -33,6 +33,6 @@ make_vignette <- function(){
         "make"))
     return(c(
         paste0(LastTempDir, "/last-1453/bin/"),
-        paste0(KaKsCalcTempDir, "/KaKs_Calculator2.0/src/"),
+        paste0(KaKsCalcTempDir, "/KaKs_Calculator2.0_src/src/"),
         paste0(DAGchainerTempDir, "/dagchainer/")))
 }

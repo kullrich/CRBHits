@@ -10,7 +10,7 @@
 #' [mandatory]
 #' @param model specify codon model either "Li" or "YN" or "NG86" [default: Li]
 #' @param kakscalcpath specify the PATH to the KaKs_Calculator binaries
-#' [default: /extdata/KaKs_Calculator2.0/src/]
+#' [default: /extdata/KaKs_Calculator2.0_src/src/]
 #' @param ... other codon alignment parameters (see
 #' \code{\link[MSA2dist]{cds2codonaln}})
 #' @return vector of ka/ks values as specified by \code{seqinr::kaks} or
@@ -73,7 +73,7 @@
 cds2kaks <- function(cds1, cds2,
     model="Li",
     kakscalcpath=paste0(find.package("CRBHits"),
-        "/extdata/KaKs_Calculator2.0/src/"),
+        "/extdata/KaKs_Calculator2.0_src/src/"),
     ...
     ){
     if(model=="YN"){

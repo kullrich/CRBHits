@@ -202,7 +202,7 @@ ath_aly_crbh <- cds2rbh(ath, aly, plotCurve = TRUE,
 ?cds2rbh
 
 ## example how to use conda version of KaKs_Calculator2.0
-my.kakspath <- "/tmp/KaKs_Calculator2/KaKs_Calculator2.0/src"
+my.kakspath <- "/tmp/KaKs_Calculator2/KaKs_Calculator2.0_src/src"
 ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh,
                               ath, aly, model = "YN",
                               kakscalcpath = my.kakspath)
@@ -260,7 +260,7 @@ cds2rbh(., ., mmseqs2path=my.diamondpath, searchtool="diamond")
 
 The source code for the prerequisites (LAST, KaKs_Calculator2.0, DAGchainer) are forked within [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits). 
 
-- [LAST](https://gitlab.com/mcfrith/last) [https://gitlab.com/mcfrith/last/-/archive/1453/last-1453.zip](https://gitlab.com/mcfrith/last/-/archive/1418/last-1453.zip)
+- [LAST](https://gitlab.com/mcfrith/last) [https://gitlab.com/mcfrith/last/-/archive/1453/last-1453.zip](https://gitlab.com/mcfrith/last/-/archive/1453/last-1453.zip)
 
 To compile the forked version of [LAST](https://gitlab.com/mcfrith/last) within the `CRBHits` R package directory try to use the function `make_last()`:
 
@@ -300,7 +300,7 @@ To compile [LAST](https://gitlab.com/mcfrith/last) yourself on Linux/Unix/macOS 
 mkdir /tmp/last
 cd /tmp/last
 ## donwload last-1453
-curl -O https://gitlab.com/mcfrith/last/-/archive/1418/last-1453.zip
+curl -O https://gitlab.com/mcfrith/last/-/archive/1453/last-1453.zip
 unzip last-1453.zip
 cd last-1453
 ## compile LAST
@@ -317,9 +317,9 @@ __Note:__ Due to some changes in the latest **g++** compilers the source code wa
 mkdir /tmp/KaKs_Calculator2
 cd /tmp/KaKs_Calculator2
 ## donwload KaKs_Calculator2
-curl -O https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/raw/devel/inst/extdata/KaKs_Calculator2.0.tar.gz
-tar -xvf KaKs_Calculator2.0.tar.gz
-cd KaKs_Calculator2.0/src
+curl -O https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/raw/devel/inst/extdata/KaKs_Calculator2.0_src.tar.gz
+tar -xvf KaKs_Calculator2.0_src.tar.gz
+cd KaKs_Calculator2.0_src/src
 ## compile KaKs_Calculator2
 make clean
 make
@@ -347,7 +347,7 @@ If you would like to use your own compiled versions of `LAST`, `KaKs_Calculator2
 ```
 ## example how to use own compiled versions of LAST, KaKs_Calculator2.0 and DAGchainer
 my.lastpath <- "/tmp/last/last-1453/bin"
-my.kakspath <- "/tmp/KaKs_Calculator2/KaKs_Calculator2.0/src"
+my.kakspath <- "/tmp/KaKs_Calculator2/KaKs_Calculator2.0_src/src"
 my.dagchainerpath <- "/tmp/dagcahiner"
 
 ?cds2rbh

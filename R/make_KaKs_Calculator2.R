@@ -12,12 +12,12 @@
 make_KaKs_Calculator2 <- function(){
     curwd <- getwd()
     kakscalcpath = paste0(find.package("CRBHits"),
-        "/extdata/KaKs_Calculator2.0/src/")
+        "/extdata/KaKs_Calculator2.0_src/src/")
     if(!dir.exists(kakscalcpath)){
         setwd(paste0(find.package("CRBHits"), "/extdata/"))
-        system2(command="tar", args = c("-xvf", "KaKs_Calculator2.0.tar.gz"))
+        system2(command="tar", args=c("-xvf", "KaKs_Calculator2.0_src.tar.gz"))
         setwd(paste0(find.package("CRBHits"),
-            "/extdata/KaKs_Calculator2.0/src/"))
+            "/extdata/KaKs_Calculator2.0_src/src/"))
         system2(command="make", args= "clean")
         system2("make")
     }

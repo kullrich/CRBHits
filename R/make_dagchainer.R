@@ -15,7 +15,7 @@ make_dagchainer <- function(){
         "/extdata/dagchainer/")
     if(!dir.exists(dagchainerpath)){
         setwd(paste0(find.package("CRBHits"), "/extdata/"))
-        system2(command="unzip", "dagchainer.zip")
+        system2(command="unzip", args="dagchainer.zip")
         setwd(paste0(find.package("CRBHits"), "/extdata/dagchainer/"))
     }
     if(!file.exists(paste0(dagchainerpath, "dagchainer"))){
