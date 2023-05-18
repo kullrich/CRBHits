@@ -1,6 +1,6 @@
 # CRBHits <a href="https://mpievolbio-it.pages.gwdg.de/crbhits/"><img src="man/figures/logo.png" align="right" height="160" /></a>
 
-[![pipeline status](https://gitlab.gwdg.de/mpievolbio-it/crbhits/badges/master/pipeline.svg)](https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/commits/master)
+[![pipeline status](https://gitlab.gwdg.de/mpievolbio-it/crbhits/badges/devel/pipeline.svg)](https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/commits/devel)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
 [![MITlicense](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 [![DOI](https://joss.theoj.org/papers/10.21105/joss.02424/status.svg)](https://doi.org/10.21105/joss.02424)
@@ -317,7 +317,7 @@ __Note:__ Due to some changes in the latest **g++** compilers the source code wa
 mkdir /tmp/KaKs_Calculator2
 cd /tmp/KaKs_Calculator2
 ## donwload KaKs_Calculator2
-curl -O https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/raw/master/inst/extdata/KaKs_Calculator2.0.tar.gz
+curl -O https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/raw/devel/inst/extdata/KaKs_Calculator2.0.tar.gz
 tar -xvf KaKs_Calculator2.0.tar.gz
 cd KaKs_Calculator2.0/src
 ## compile KaKs_Calculator2
@@ -335,7 +335,7 @@ __Note:__ Due to some changes in the latest **g++** compilers the source code wa
 mkdir /tmp/DAGchainer
 cd /tmp/DAGchainer
 ## donwload DAGchainer
-curl -O https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/raw/master/inst/extdata/dagchainer.zip
+curl -O https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/raw/devel/inst/extdata/dagchainer.zip
 unzip dagchainer.zip
 cd dagchainer
 ## compile DAGchainer
@@ -388,7 +388,7 @@ If you would like to contribute to CRBHits, please file an issue so that one can
 
 Before you do a pull request, you should always file an issue and make sure that someone from the CRBHits developer team agrees that it’s a problem, and is happy with your basic proposal for fixing it.
 
-Once an issue has been filed and we've identified how to best orient your contribution with package development as a whole, [fork](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) the [main repo](https://gitlab.gwdg.de/mpievolbio-it/crbhits.git), branch off a [feature branch](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-branches) from `master`, [commit](https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/committing-and-reviewing-changes-to-your-project) and [push](https://docs.github.com/en/github/using-git/pushing-commits-to-a-remote-repository) your changes to your fork and submit a [pull request](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/proposing-changes-to-your-work-with-pull-requests) for `CRBHits:master`.
+Once an issue has been filed and we've identified how to best orient your contribution with package development as a whole, [fork](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) the [main repo](https://gitlab.gwdg.de/mpievolbio-it/crbhits.git), branch off a [feature branch](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-branches) from `devel`, [commit](https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/committing-and-reviewing-changes-to-your-project) and [push](https://docs.github.com/en/github/using-git/pushing-commits-to-a-remote-repository) your changes to your fork and submit a [pull request](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/proposing-changes-to-your-work-with-pull-requests) for `CRBHits:devel`.
 
 By contributing to this project, you agree to abide by the Code of Conduct terms.
 
@@ -400,7 +400,7 @@ or use the issue tracker at [https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues
 
 ## Code of Conduct - Participation guidelines
 
-This repository adhere to [Contributor Covenant](http://contributor-covenant.org) code of conduct for in any interactions you have within this project. (see [Code of Conduct](https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/blob/master/CODE_OF_CONDUCT.md))
+This repository adhere to [Contributor Covenant](http://contributor-covenant.org) code of conduct for in any interactions you have within this project. (see [Code of Conduct](https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/blob/devel/CODE_OF_CONDUCT.md))
 
 See also the policy against sexualized discrimination, harassment and violence for the Max Planck Society [Code-of-Conduct](https://www.mpg.de/11961177/code-of-conduct-en.pdf).
 
