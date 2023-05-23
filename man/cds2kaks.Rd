@@ -19,7 +19,10 @@ cds2kaks(
 \item{cds2}{single cds2 sequence as \code{DNAStringSet} or \code{DNAString}
 [mandatory]}
 
-\item{model}{specify codon model either "Li" or "YN" or "NG86" [default: Li]}
+\item{model}{specify codon model either "Li" or "NG86"
+or one of KaKs_Calculator2 model "NG", "LWL", "LPB", "MLWL",
+"MLPB", "GY", "YN", "MYN", "MS", "MA", "GNG", "GLWL", "GLPB",
+"GMLWL", "GMLPB", "GYN", "GMYN" [default: Li]}
 
 \item{kakscalcpath}{specify the PATH to the KaKs_Calculator binaries
 [default: /extdata/KaKs_Calculator2.0_src/src/]}

@@ -8,7 +8,10 @@
 #' [mandatory]
 #' @param cds2 single cds2 sequence as \code{DNAStringSet} or \code{DNAString}
 #' [mandatory]
-#' @param model specify codon model either "Li" or "YN" or "NG86" [default: Li]
+#' @param model specify codon model either "Li" or "NG86"
+#' or one of KaKs_Calculator2 model "NG", "LWL", "LPB", "MLWL",
+#' "MLPB", "GY", "YN", "MYN", "MS", "MA", "GNG", "GLWL", "GLPB",
+#' "GMLWL", "GMLPB", "GYN", "GMYN" [default: Li]
 #' @param kakscalcpath specify the PATH to the KaKs_Calculator binaries
 #' [default: /extdata/KaKs_Calculator2.0_src/src/]
 #' @param ... other codon alignment parameters (see
@@ -76,7 +79,9 @@ cds2kaks <- function(cds1, cds2,
         "/extdata/KaKs_Calculator2.0_src/src/"),
     ...
     ){
-    if(model=="YN"){
+    if(model %in% c("NG", "LWL", "LPB", "MLWL",
+        "MLPB", "GY", "YN", "MYN", "MS", "MA", "GNG", "GLWL", "GLPB",
+        "GMLWL", "GMLPB", "GYN", "GMYN")){
         if(!dir.exists(kakscalcpath)){
             stop("Error: KaKs_Calculator2.0 PATH does not exist. Please specify
                 correct PATH and/or look into package installation
@@ -99,20 +104,25 @@ cds2kaks <- function(cds1, cds2,
     if(is(cds2, "DNAStringSet") & length(cds2)!=1){
         stop("Error: cds2 needs to contain only one sequence")
     }
-    if(!model %in% c("Li", "YN", "NG86")){
-        stop("Error: either choose model 'Li' or 'YN' or 'NG86'")
+    if(!model %in% c("Li", "NG86", "NG", "LWL", "LPB", "MLWL",
+        "MLPB", "GY", "YN", "MYN", "MS", "MA", "GNG", "GLWL",
+        "GLPB", "GMLWL", "GMLPB", "GYN", "GMYN")){
+        stop("Error: either choose model 'Li', 'NG86', 'NG',
+            'LWL', 'LPB', 'MLWL', 'MLPB', 'GY', 'YN', 'MYN',
+            'MS', 'MA', 'GNG', 'GLWL', 'GLPB', 'GMLWL',
+             'GMLPB', 'GYN', 'GMYN'")
     }
     if(model=="Li"){
         cds1.cds2.kaks <- unlist(seqinr::kaks(MSA2dist::dnastring2aln(
             MSA2dist::cds2codonaln(cds1, cds2, ...))))
         return(cds1.cds2.kaks)
-    }
-    if(model=="NG86"){
+    } else if(model=="NG86"){
         cds1.cds2.kaks <- MSA2dist::codonmat2pnps(MSA2dist::dnastring2codonmat(
             MSA2dist::cds2codonaln(cds1, cds2, ...)))
         return(cds1.cds2.kaks)
-    }
-    if(model=="YN"){
+    } else if(model %in% c("NG", "LWL", "LPB", "MLWL",
+        "MLPB", "GY", "YN", "MYN", "MS", "MA", "GNG", "GLWL", "GLPB",
+        "GMLWL", "GMLPB", "GYN", "GMYN")){
         tmp <- tempfile()
         tmp.codonaln <- MSA2dist::cds2codonaln(cds1, cds2, ...)
         #create AXT file for KaKs_Calculator2.0
