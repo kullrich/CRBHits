@@ -132,10 +132,10 @@ cds2kaks <- function(cds1, cds2,
             cat(as.character(tmp.codonaln[2][[1]]), "\n", sep="")
         sink(NULL)
         system2(command=paste0(kakscalcpath, "KaKs_Calculator"),
-            args=c("-i", tmp, "-o", paste0(tmp, ".YN"), "-m", "YN"),
+            args=c("-i", tmp, "-o", paste0(tmp, ".", model), "-m", model),
             stdout=FALSE,
             stderr=FALSE)
-        cds1.cds2.kaks <- unlist(strsplit(readLines(paste0(tmp, ".YN"))[2],
+        cds1.cds2.kaks <- unlist(strsplit(readLines(paste0(tmp, ".", model))[2],
             "\t"))
         names(cds1.cds2.kaks) <- c("Sequence", "Method", "ka", "ks", "ka/ks",
             "pValue", "Length", "SSites", "NSites", "FoldSites",
@@ -144,7 +144,7 @@ cds2kaks <- function(cds1, cds2,
             "SubstitutionRateRatio", "GC", "MLScore", "AICc", "AkaikeWeight",
             "Model")
         system2(command="rm", args=tmp)
-        system2(command="rm", args=paste0(tmp, ".YN"))
+        system2(command="rm", args=paste0(tmp, ".", model))
         return(cds1.cds2.kaks)
     }
 }
