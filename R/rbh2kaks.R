@@ -89,7 +89,7 @@ rbh2kaks <- function(rbhpairs, cds1, cds2,
     colorBy="none",
     threads=1,
     kakscalcpath=paste0(find.package("CRBHits"),
-        "/extdata/KaKs_Calculator2.0/src/"),
+        "/extdata/KaKs_Calculator2.0_src/src/"),
     ...
     ){
     if(attributes(rbhpairs)$CRBHits.class!="crbh"){
