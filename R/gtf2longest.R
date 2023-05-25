@@ -163,11 +163,13 @@ gtf2longest <- function(gtffile,
                 gene.idx=gene.idx))
         attr(gtf.transcript.genepos, "CRBHits.class") <- "genepos"
         if(!is.null(cds)){
-            names(cds) <- apply(stringr::str_split_fixed(
+            new_names <- unlist(lapply(stringr::str_split(
                 unlist(lapply(
                 stringr::str_split(stringr::word(names(cds)), "_cds_"),
-                function(x) rev(x)[[1]])), "_", 3)[, c(1, 2)], 1,
-                function(x) paste0(x, collapse="_"))
+                function(x) rev(x)[[1]])), "_"),
+                function(x) paste0(rev(rev(x)[-1]), collapse="_")))
+            new_names[which(new_names=="")]<-stringr::word(names(cds))[which(new_names=="")]
+            names(cds) <- new_names
             cds <- cds[names(cds) %in% gtf.transcript.genepos$gene.seq.id]
             cds <- cds[match(gtf.transcript.genepos$gene.seq.id,
                 stringr::word(names(cds)))]
