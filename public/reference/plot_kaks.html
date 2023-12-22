@@ -185,9 +185,9 @@
 <span class="r-in"><span><span class="co">## Calculate Ka/Ks values based on MSA</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"hiv"</span>, package<span class="op">=</span><span class="st">"MSA2dist"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">hiv_kaks</span> <span class="op">&lt;-</span> <span class="fu">MSA2dist</span><span class="fu">::</span><span class="fu"><a href="https://mpievolbio-it.pages.gwdg.de/MSA2dist/reference/dnastring2kaks.html" class="external-link">dnastring2kaks</a></span><span class="op">(</span><span class="va">hiv</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining, by = c("seq1", "seq2")</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining, by = c("seq1", "seq2")</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining, by = c("seq1", "seq2")</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining with `by = join_by(seq1, seq2)`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining with `by = join_by(seq1, seq2)`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining with `by = join_by(seq1, seq2)`</span>
 <span class="r-in"><span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu">plot_kaks</span><span class="op">(</span><span class="va">hiv_kaks</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot_kaks-2.png" alt="" width="700" height="433"></span>
 </code></pre></div>
@@ -204,7 +204,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

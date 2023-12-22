@@ -89,7 +89,7 @@
                         <h4 data-toc-skip class="author">Kristian K
 Ullrich</h4>
             
-            <h4 data-toc-skip class="date">2023-05-23</h4>
+            <h4 data-toc-skip class="date">2023-12-22</h4>
       
       <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/develvignettes/V01CRBHitsBasicVignette.Rmd" class="external-link"><code>vignettes/V01CRBHitsBasicVignette.Rmd</code></a></small>
       <div class="hidden name"><code>V01CRBHitsBasicVignette.Rmd</code></div>
@@ -186,7 +186,7 @@ into a codon based alignment.</p>
 <code>vignette.paths[1]</code>, the <code>kakscalcpath</code> as
 <code>vignette.paths[2]</code> and the <code>dagchainerpath</code> as
 <code>vignette.paths[3]</code> to be able to build the Vignette.</p>
-<p>However, once you have compiled last-1453, KaKs_Calculator2.0 and
+<p>However, once you have compiled last-1521, KaKs_Calculator2.0 and
 DAGchainer with the functions <code><a href="../reference/make_last.html">make_last()</a></code>,
 <code><a href="../reference/make_KaKs_Calculator2.html">make_KaKs_Calculator2()</a></code> and <code><a href="../reference/make_dagchainer.html">make_dagchainer()</a></code>
 you won’t need to specify the paths anymore. Please remove them if you
@@ -198,7 +198,7 @@ would like to repeat the examples.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jeroen/curl" class="external-link">curl</a></span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jeroen.r-universe.dev/curl" class="external-link">curl</a></span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">## compile LAST, KaKs_Calculator2.0 and DAGchainer for the vignette</span></span>
 <span><span class="va">vignette.paths</span> <span class="op">&lt;-</span> <span class="fu">CRBHits</span><span class="fu">::</span><span class="fu"><a href="../reference/make_vignette.html">make_vignette</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -211,10 +211,10 @@ process and its dependencies <a href="https://mpievolbio-it.pages.gwdg.de/crbhit
 <span><span class="co">## https://mpievolbio-it.pages.gwdg.de/crbhits/</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span></span>
 <span><span class="co">## from gitlab</span></span>
-<span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_gitlab.html" class="external-link">install_gitlab</a></span><span class="op">(</span><span class="st">"mpievolbio-it/crbhits"</span>, host <span class="op">=</span> <span class="st">"https://gitlab.gwdg.de"</span>,</span>
+<span><span class="fu">install_gitlab</span><span class="op">(</span><span class="st">"mpievolbio-it/crbhits"</span>, host <span class="op">=</span> <span class="st">"https://gitlab.gwdg.de"</span>,</span>
 <span>               build_vignettes <span class="op">=</span> <span class="cn">TRUE</span>, dependencies <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="co">## from github</span></span>
-<span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"kullrich/CRBHits"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span>, dependencies <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre>
+<span><span class="fu">install_github</span><span class="op">(</span><span class="st">"kullrich/CRBHits"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span>, dependencies <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre>
 <p><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a>
 needs <a href="https://gitlab.com/mcfrith/last" class="external-link">LAST</a>, <a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download" class="external-link">KaKs_Calculator2.0</a>
 and <a href="http://dagchainer.sourceforge.net/" class="external-link">DAGchainer</a> to be
@@ -227,7 +227,7 @@ be compiled for Linux/Unix/macOS with the functions
 <p>For the windows platform the user needs to use e.g. <a href="https://www.cygwin.com/" class="external-link">https://www.cygwin.com/</a> to be able to
 compile the prerequisites.</p>
 <pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a></span><span class="op">)</span></span>
-<span><span class="co">## compile last-1453</span></span>
+<span><span class="co">## compile last-1521</span></span>
 <span><span class="fu"><a href="../reference/make_last.html">make_last</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">## compile KaKs_Calculator2.0</span></span>
 <span><span class="fu"><a href="../reference/make_KaKs_Calculator2.html">make_KaKs_Calculator2</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -1160,7 +1160,7 @@ models.</strong> <em>Molecular Biology and Evolution</em>,
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
