@@ -107,8 +107,8 @@ tandemdups <- function(rbhpairs,
             dplyr::distinct(gene1.idx, gene2.idx, .keep_all = TRUE)
         #get gene distance
         selfhits_per_chr.distinct <- selfhits_per_chr.distinct %>%
-            dplyr::mutate(gene.dist = abs(selfhits_per_chr$gene1.idx-
-            selfhits_per_chr$gene2.idx))
+            dplyr::mutate(gene.dist = abs(selfhits_per_chr.distinct$gene1.idx-
+            selfhits_per_chr.distinct$gene2.idx))
         #retain only hits with smaller gene distance as dupdist
         selfhits_per_chr.distinct.dupdist <- selfhits_per_chr.distinct %>%
             dplyr::filter(gene.dist <= dupdist)

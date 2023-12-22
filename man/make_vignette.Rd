@@ -10,7 +10,7 @@ make_vignette()
 path of prerequisites
 }
 \description{
-This function tries to build the prerequisite last-1453,
+This function tries to build the prerequisite last-1521,
 KaKs_calculator2.0 and DAGchainer from source code forked within CRBHits
 }
 \references{

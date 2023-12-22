@@ -12,7 +12,7 @@
 #' @importFrom stringr word str_split_fixed str_split
 #' @importFrom tidyr %>% unite
 #' @importFrom dplyr filter select mutate summarise arrange distinct ungroup
-#' desc
+#' desc reframe
 #' @importFrom readr read_tsv
 #' @importFrom curl curl_download
 #' @seealso \code{\link[Biostrings]{XStringSet-class}}
@@ -88,6 +88,8 @@ gff2longest <- function(gff3file,
         gff3 <- readr::read_tsv(gff3file, col_names = FALSE, comment = "#")
         colnames(gff3) <- c("seqname", "source", "feature", "start", "end",
             "score", "strand", "frame", "attribute")
+        rm_idx <- c(which(gff3$end<gff3$start), which(gff3$strand=="?"))
+        if(length(rm_idx)>0){gff3 <- gff3[-rm_idx, ]}
         ## extract gene
         gff3.gene <- gff3 %>% dplyr::filter(feature == "gene")
         ## extract mRNA
@@ -96,27 +98,79 @@ gff2longest <- function(gff3file,
         gff3.CDS <- gff3 %>% dplyr::filter(feature == "CDS")
         ## extract ID
         gff3.gene <- (gff3.gene %>%
-        dplyr::mutate(geneID = gsub(" ", "", gsub("\"", "",
-            gsub("ID=", "",
-            stringr::str_split_fixed(attribute, ";", 2)[,1])))))
+        dplyr::mutate(dbxref_geneID = unlist(lapply(lapply(
+            stringr::str_split(gff3.gene$attribute, ";"), function(x) {
+                    x[grep("Dbxref=", x)]}), function(x) {
+                    stringr::str_split_fixed(x, "GeneID:", 2)[,2]}))))
+        gff3.gene <- (gff3.gene %>%
+        dplyr::mutate(geneID = unlist(lapply(lapply(
+            stringr::str_split(gff3.gene$attribute, ";"), function(x) {
+                    x[grep("ID=", x)]}), function(x) {
+                    stringr::str_split_fixed(x, "ID=", 2)[,2]}))))
+        gff3.gene <- (gff3.gene %>%
+        dplyr::mutate(locusTAG = unlist(lapply(lapply(lapply(
+            stringr::str_split(gff3.gene$attribute, ";"), function(x) {
+            x[grep("locus_tag=", x)]}), function(x) {
+            stringr::str_split_fixed(x, "locus_tag=", 2)[,2]}),
+            function(x) {
+            ifelse(length(x)==1, x, "")}))))
         gff3.mRNA <- (gff3.mRNA %>%
-        dplyr::mutate(transcriptID = gsub(" ", "", gsub("\"", "",
-            gsub("ID=", "",
-            stringr::str_split_fixed(attribute, ";", 2)[,1])))))
-        gff3.CDS <- (gff3.CDS %>%
-        dplyr::mutate(cdsID = gsub(" ", "", gsub("\"", "",
-            gsub("ID=", "",
-            stringr::str_split_fixed(attribute, ";", 2)[,1])))))
-        ## extract geneID
+        dplyr::mutate(dbxref_geneID = unlist(lapply(lapply(lapply(
+            stringr::str_split(gff3.mRNA$attribute, ";"), function(x) {
+            x[grep("Dbxref=", x)]}), function(x) {
+            unlist(stringr::str_split(x, ","))}), function(x) {
+            stringr::str_split_fixed(x[grep("GeneID:", x)],
+            "GeneID:", 2)[,2]}))))
         gff3.mRNA <- (gff3.mRNA %>%
-        dplyr::mutate(geneID = gsub(" ", "", gsub("\"", "",
-            gsub("Parent=", "",
-            stringr::str_split_fixed(attribute, ";", 3)[,2])))))
-        ## extract transcriptID
+        dplyr::mutate(transcriptID = unlist(lapply(lapply(
+            stringr::str_split(gff3.mRNA$attribute, ";"), function(x) {
+            x[grep("ID=", x)]}), function(x) {
+            stringr::str_split_fixed(x, "ID=", 2)[,2]}))))
+        ## extract mRNA$parentID == gene$geneID
+        gff3.mRNA <- (gff3.mRNA %>%
+        dplyr::mutate(geneID = unlist(lapply(lapply(
+            stringr::str_split(gff3.mRNA$attribute, ";"), function(x) {
+            x[grep("Parent=", x)]}), function(x) {
+            stringr::str_split_fixed(x, "Parent=", 2)[,2]}))))
+        gff3.mRNA <- (gff3.mRNA %>%
+        dplyr::mutate(locusTAG = unlist(lapply(lapply(lapply(
+            stringr::str_split(gff3.mRNA$attribute, ";"), function(x) {
+            x[grep("locus_tag=", x)]}), function(x) {
+            stringr::str_split_fixed(x, "locus_tag=", 2)[,2]}),
+            function(x) {
+            ifelse(length(x)==1, x, "")}))))
         gff3.CDS <- (gff3.CDS %>%
-        dplyr::mutate(transcriptID = gsub(" ", "", gsub("\"", "",
-            gsub("Parent=", "",
-            stringr::str_split_fixed(attribute, ";", 3)[,2])))))
+        dplyr::mutate(dbxref_geneID = unlist(lapply(lapply(lapply(
+            stringr::str_split(gff3.CDS$attribute, ";"), function(x) {
+            x[grep("Dbxref=", x)]}), function(x) {
+            unlist(stringr::str_split(x, ","))}), function(x) {
+            stringr::str_split_fixed(x[grep("GeneID:", x)],
+            "GeneID:", 2)[,2]}))))
+        gff3.CDS <- (gff3.CDS %>%
+        dplyr::mutate(cdsID = unlist(lapply(lapply(
+            stringr::str_split(gff3.CDS$attribute, ";"), function(x) {
+            x[grep("ID=", x)]}), function(x) {
+            stringr::str_split_fixed(x, "ID=", 2)[,2]}))))
+        ## extract CDS$parentID == mRNA$transcriptID
+        gff3.CDS <- (gff3.CDS %>%
+        dplyr::mutate(transcriptID = unlist(lapply(lapply(
+            stringr::str_split(gff3.CDS$attribute, ";"), function(x) {
+            x[grep("Parent=", x)]}), function(x) {
+            stringr::str_split_fixed(x, "Parent=", 2)[,2]}))))
+        gff3.CDS <- (gff3.CDS %>%
+        dplyr::mutate(proteinID = unlist(lapply(lapply(lapply(
+            stringr::str_split(gff3.CDS$attribute, ";"), function(x) {
+            x[grep("protein_id=", x)]}), function(x) {
+            stringr::str_split_fixed(x, "protein_id=", 2)[,2]}),
+            function(x) {
+            ifelse(length(x)==1, x, "")}))))
+        gff3.CDS <- (gff3.CDS %>%
+        dplyr::mutate(locusTAG = unlist(lapply(lapply(lapply(
+            stringr::str_split(gff3.CDS$attribute, ";"), function(x) {
+            x[grep("locus_tag=", x)]}), function(x) {
+            stringr::str_split_fixed(x, "locus_tag=", 2)[,2]}),
+            function(x) {
+            ifelse(length(x)==1, x, "")}))))
         ## add geneID
         gff3.CDS <- (gff3.CDS %>%
             dplyr::mutate(geneID =
@@ -128,7 +182,7 @@ gff2longest <- function(gff3file,
         ## extract width per isoform
         gff3.transcript <- (gff3.CDS %>%
             dplyr::group_by(transcriptID) %>%
-                dplyr::summarise(
+                dplyr::reframe(
                 transcriptID=unique(transcriptID),
                 seqname=unique(seqname),
                 start=min(start),
@@ -136,6 +190,8 @@ gff2longest <- function(gff3file,
                 strand=unique(strand),
                 geneID=unique(geneID),
                 cdsID=unique(cdsID),
+                proteinID=unique(proteinID),
+                dbxref_geneID=unique(dbxref_geneID),
                 transcriptLENGTH=sum(end-start+1)))
         ## retain only longest mRNA isoform
         gff3.transcript.longest <- (gff3.transcript %>%
@@ -176,7 +232,12 @@ gff2longest <- function(gff3file,
                 gene.end=end,
                 gene.mid=mid,
                 gene.strand=strand,
-                gene.idx=gene.idx))
+                gene.idx=gene.idx,
+                geneID=geneID,
+                dbxref_geneID=dbxref_geneID,
+                transcriptID=transcriptID,
+                cdsID=cdsID,
+                proteinID=proteinID))
         gff3.transcript.genepos$gene.seq.id <- gsub("cds-", "",
             gff3.transcript.genepos$gene.seq.id)
         attr(gff3.transcript.genepos, "CRBHits.class") <- "genepos"

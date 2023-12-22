@@ -85,12 +85,12 @@ plot_kaks <- function(kaks,
             kaks$kaks[is.infinite(kaks$kaks)] <- NA
         }
         else if(attributes(kaks)$model!="Li"){
-            suppressWarnings(kaks$ka <- as.numeric(kaks$Ka))
+            suppressWarnings(kaks$ka <- as.numeric(kaks$ka))
             kaks$ka <- unlist(lapply(kaks$ka,
                 function(x) ifelse(x>ka.max, NA, x)))
             kaks$ka <- unlist(lapply(kaks$ka,
                 function(x) ifelse(x<ka.min, NA, x)))
-            suppressWarnings(kaks$ks <- as.numeric(kaks$Ks))
+            suppressWarnings(kaks$ks <- as.numeric(kaks$ks))
             kaks$ks <- unlist(lapply(kaks$ks,
                 function(x) ifelse(x>ks.max, NA, x)))
             kaks$ks <- unlist(lapply(kaks$ks,

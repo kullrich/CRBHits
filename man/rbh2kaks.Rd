@@ -18,7 +18,7 @@ rbh2kaks(
   tandem.dups.cds2 = NULL,
   colorBy = "none",
   threads = 1,
-  kakscalcpath = paste0(find.package("CRBHits"), "/extdata/KaKs_Calculator2.0/src/"),
+  kakscalcpath = paste0(find.package("CRBHits"), "/extdata/KaKs_Calculator2.0_src/src/"),
   ...
 )
 }

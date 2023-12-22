@@ -17,7 +17,7 @@
 #' @param searchtool specify sequence search algorithm last, mmseqs2 or diamond
 #' [default: last]
 #' @param lastpath specify the PATH to the last binaries
-#' [default: /extdata/last-1453/bin/]
+#' [default: /extdata/last-1521/bin/]
 #' @param lastD last option D: query letters per random alignment
 #' [default: 1e6]
 #' @param mmseqs2path specify the PATH to the mmseqs2 binaries
@@ -81,7 +81,7 @@
 #' @references Rost B. (1999). Twilight zone of protein sequence alignments.
 #' \emph{Protein Engineering}, \bold{12(2)}, 85-94.
 #' @examples
-#' ## compile last-1453 within CRBHits
+#' ## compile last-1521 within CRBHits
 #' CRBHits::make_last()
 #' ## load example sequence data
 #' athfile <- system.file("fasta", "ath.aa.fasta.gz", package="CRBHits")
@@ -110,7 +110,7 @@
 aafile2rbh <- function(aafile1, aafile2,
     searchtool="last",
     lastpath=paste0(find.package("CRBHits"),
-        "/extdata/last-1453/bin/"),
+        "/extdata/last-1521/bin/"),
     lastD=1e6,
     mmseqs2path=NULL,
     mmseqs2sensitivity=5.7,
