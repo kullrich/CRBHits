@@ -198,7 +198,7 @@ would like to repeat the examples.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jeroen/curl" class="external-link">curl</a></span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jeroen.r-universe.dev/curl" class="external-link">curl</a></span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">## compile LAST, KaKs_Calculator2.0 and DAGchainer for the vignette</span></span>
 <span><span class="va">vignette.paths</span> <span class="op">&lt;-</span> <span class="fu">CRBHits</span><span class="fu">::</span><span class="fu"><a href="../reference/make_vignette.html">make_vignette</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -238,9 +238,9 @@ compile the prerequisites.</p>
 <h3 id="conditional-reciprocal-best-hits---algorithm">2. <span id="crbhalgorithm">Conditional Reciprocal Best Hits -
 Algorithm</span><a class="anchor" aria-label="anchor" href="#conditional-reciprocal-best-hits---algorithm"></a>
 </h3>
-<div class="figure">
-<img src="cds2rbhoverview.png" width="400" alt=""><p class="caption">Figure: Overview of the <code><a href="../reference/cds2rbh.html">cds2rbh()</a></code>
-function</p>
+<div class="float">
+<img src="cds2rbhoverview.png" width="400" alt="Figure: Overview of the cds2rbh() function"><div class="figcaption">Figure: Overview of the <code><a href="../reference/cds2rbh.html">cds2rbh()</a></code>
+function</div>
 </div>
 <p>The CRBH algorithm was introduced by <a href="http://www.plosgenetics.org/article/info%3Adoi%2F10.1371%2Fjournal.pgen.1004365" class="external-link">Aubry
 S, Kelly S et al. (2014)</a> and ported to python <a href="https://pypi.org/project/shmlast/" class="external-link">shmlast</a> (<a href="https://joss.theoj.org/papers/10.21105/joss.00142" class="external-link">Scott C.
@@ -261,9 +261,9 @@ function (R vector input) or the <code><a href="../reference/cdsfile2rbh.html">c
 <p>To activate/deactivate specific options use the parameters
 <code>@param</code> given and explained for each function (see
 <code>?cds2rbh()</code> and <code>?cdsfile2rbh()</code>).</p>
-<div class="figure">
-<img src="cds2rbh.png" width="800" alt=""><p class="caption">Figure: Individual steps of the
-<code><a href="../reference/cds2rbh.html">cds2rbh()</a></code> function</p>
+<div class="float">
+<img src="cds2rbh.png" width="800" alt="Figure: Individual steps of the cds2rbh() function"><div class="figcaption">Figure: Individual steps of the
+<code><a href="../reference/cds2rbh.html">cds2rbh()</a></code> function</div>
 </div>
 <div class="section level4">
 <h4 id="step-sequence-similarity-search-last">2.1. <span id="crbhstep1">1. step: sequence similarity search
@@ -798,9 +798,9 @@ functionalities.</p>
 <div class="section level3">
 <h3 id="kaks-calculations">3. <span id="KaKs">Ka/Ks Calculations</span><a class="anchor" aria-label="anchor" href="#kaks-calculations"></a>
 </h3>
-<div class="figure">
-<img src="rbh2kaksoverview.png" width="800" alt=""><p class="caption">Figure: Overview of the <code><a href="../reference/rbh2kaks.html">rbh2kaks()</a></code>
-function steps</p>
+<div class="float">
+<img src="rbh2kaksoverview.png" width="800" alt="Figure: Overview of the rbh2kaks() function steps"><div class="figcaption">Figure: Overview of the <code><a href="../reference/rbh2kaks.html">rbh2kaks()</a></code>
+function steps</div>
 </div>
 <p>The resulting CRBHs (see #crbhalgorithm) can be further processed to
 e.g. filtered for Tandem Duplicate (see <a href="https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V02KaKsVignette.html" class="external-link">CRBHits
@@ -819,9 +819,9 @@ specify <em>gene positions</em> for both Input CDS (can be extracted
 automatically from <em>NCBI</em> or <em>ENSEMBL</em> Input (see
 <code><a href="../reference/cds2genepos.html">cds2genepos()</a></code> function)) and supply <em>selfblast</em>
 results for both Input CDS.</p>
-<div class="figure">
-<img src="rbh2kaks.png" width="600" alt=""><p class="caption">Figure: Individual steps of the
-<code><a href="../reference/rbh2kaks.html">rbh2kaks()</a></code> function</p>
+<div class="float">
+<img src="rbh2kaks.png" width="600" alt="Figure: Individual steps of the rbh2kaks() function"><div class="figcaption">Figure: Individual steps of the
+<code><a href="../reference/rbh2kaks.html">rbh2kaks()</a></code> function</div>
 </div>
 <div class="section level4">
 <h4 id="codon-alignments---cds2codonaln-function">3.1. <span id="cds2codon">Codon Alignments - cds2codonaln()

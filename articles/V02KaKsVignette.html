@@ -187,7 +187,7 @@ would like to repeat the examples.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jeroen/curl" class="external-link">curl</a></span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jeroen.r-universe.dev/curl" class="external-link">curl</a></span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">## compile LAST, KaKs_Calculator2.0 and DAGchainer for the vignette</span></span>
 <span><span class="va">vignette.paths</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_vignette.html">make_vignette</a></span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
@@ -452,9 +452,9 @@ Basic Vignette</a>.</p>
 <span></span>
 <span><span class="co">## get help</span></span>
 <span><span class="co">#?cds2rbh</span></span></code></pre>
-<div class="figure">
-<img src="V02-CRBHit-pairs-ARATHA-ARALYR.png" alt=""><p class="caption">Figure: CRBHit pairs between A. thaliana and A.
-lyrata</p>
+<div class="float">
+<img src="V02-CRBHit-pairs-ARATHA-ARALYR.png" alt="Figure: CRBHit pairs between A. thaliana and A. lyrata"><div class="figcaption">Figure: CRBHit pairs between A. thaliana and A.
+lyrata</div>
 </div>
 </div>
 <div class="section level4">
@@ -641,9 +641,9 @@ and provide gene position information for the same input data.</p>
 <span>    plotCurve<span class="op">=</span><span class="cn">TRUE</span>,</span>
 <span>    lastpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">ARATHA_selfblast_crbh</span><span class="op">)</span><span class="op">$</span><span class="va">selfblast</span></span></code></pre>
-<div class="figure">
-<img src="V02-CRBHit-pairs-selfblast-ARATHA.png" alt=""><p class="caption">Figure: selfblast CRBHit pairs between of A.
-thaliana</p>
+<div class="float">
+<img src="V02-CRBHit-pairs-selfblast-ARATHA.png" alt="Figure: selfblast CRBHit pairs between of A. thaliana"><div class="figcaption">Figure: selfblast CRBHit pairs between of A.
+thaliana</div>
 </div>
 <pre><code><span><span class="co">## get selfblast CRBHit pairs for A. lyrata</span></span>
 <span><span class="va">ARALYR_selfblast_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span></span>
@@ -657,9 +657,9 @@ thaliana</p>
 <span>    plotCurve<span class="op">=</span><span class="cn">TRUE</span>,</span>
 <span>    lastpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">ARALYR_selfblast_crbh</span><span class="op">)</span><span class="op">$</span><span class="va">selfblast</span></span></code></pre>
-<div class="figure">
-<img src="V02-CRBHit-pairs-selfblast-ARALYR.png" alt=""><p class="caption">Figure: selfblast CRBHit pairs between of A.
-lyrata</p>
+<div class="float">
+<img src="V02-CRBHit-pairs-selfblast-ARALYR.png" alt="Figure: selfblast CRBHit pairs between of A. lyrata"><div class="figcaption">Figure: selfblast CRBHit pairs between of A.
+lyrata</div>
 </div>
 <pre><code><span><span class="co">## get gene position for A. thaliana longest isoforms</span></span>
 <span><span class="va">ARATHA.cds.longest.genepos</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2genepos.html">cds2genepos</a></span><span class="op">(</span></span>
@@ -706,8 +706,8 @@ their chromosomal gene position as follows:</p>
 <span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">gene.chr</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_colour_manual</a></span><span class="op">(</span>values<span class="op">=</span></span>
 <span>    <span class="fu"><a href="../reference/CRBHitsColors.html">CRBHitsColors</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">tandem_group_size</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre>
-<div class="figure">
-<img src="V02-tandemdups-ARATHA.png" alt=""><p class="caption">Figure: Tandem duplicates A. thaliana</p>
+<div class="float">
+<img src="V02-tandemdups-ARATHA.png" alt="Figure: Tandem duplicates A. thaliana"><div class="figcaption">Figure: Tandem duplicates A. thaliana</div>
 </div>
 </div>
 <div class="section level4">
@@ -758,9 +758,9 @@ can be directly applied on the DAGchainer results.</p>
 <span><span class="co">## plot DAGchainer results for each chromosome combination</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">ARATHA_ARALYR_crbh.dagchainer.bp</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/plot_dagchainer.html">plot_dagchainer</a></span><span class="op">(</span><span class="va">ARATHA_ARALYR_crbh.dagchainer.bp</span><span class="op">)</span></span></code></pre>
-<div class="figure">
-<img src="V02-dagchainer-default-ARATHA-ARALYR.png" alt=""><p class="caption">Figure: Dagchainer results of A. thaliana and A.
-lyrata</p>
+<div class="float">
+<img src="V02-dagchainer-default-ARATHA-ARALYR.png" alt="Figure: Dagchainer results of A. thaliana and A. lyrata"><div class="figcaption">Figure: Dagchainer results of A. thaliana and A.
+lyrata</div>
 </div>
 <pre><code><span><span class="co">## plot DAGchainer results selected chromosomes</span></span>
 <span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_dagchainer.html">plot_dagchainer</a></span><span class="op">(</span></span>
@@ -773,31 +773,34 @@ lyrata</p>
 <span>    <span class="st">"AA2:NW_003302551.1"</span>, <span class="st">"AA2:NW_003302550.1"</span>,</span>
 <span>    <span class="st">"AA2:NW_003302549.1"</span>, <span class="st">"AA2:NW_003302548.1"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">g</span></span></code></pre>
-<div class="figure">
-<img src="V02-dagchainer-default-ARATHA-ARALYR-selected-chr.png" alt=""><p class="caption">Figure: Dagchainer results selected chromosomes</p>
+<div class="float">
+<img src="V02-dagchainer-default-ARATHA-ARALYR-selected-chr.png" alt="Figure: Dagchainer results selected chromosomes"><div class="figcaption">Figure: Dagchainer results selected
+chromosomes</div>
 </div>
 <pre><code><span><span class="co">## change title size</span></span>
 <span><span class="va">g</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>title<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">16</span><span class="op">)</span><span class="op">)</span></span></code></pre>
-<div class="figure">
-<img src="V02-dagchainer-default-ARATHA-ARALYR-selected-chr-title-size.png" alt=""><p class="caption">Figure: Dagchainer results altered title size</p>
+<div class="float">
+<img src="V02-dagchainer-default-ARATHA-ARALYR-selected-chr-title-size.png" alt="Figure: Dagchainer results altered title size"><div class="figcaption">Figure: Dagchainer results altered title
+size</div>
 </div>
 <pre><code><span><span class="co">## change axis title size (gene1.mid; gene2.mid)</span></span>
 <span><span class="va">g</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.title.x<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">16</span><span class="op">)</span>,</span>
 <span>    axis.title.y<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">16</span><span class="op">)</span><span class="op">)</span></span></code></pre>
-<div class="figure">
-<img src="V02-dagchainer-default-ARATHA-ARALYR-selected-chr-axis-size.png" alt=""><p class="caption">Figure: Dagchainer results altered axis title
-size</p>
+<div class="float">
+<img src="V02-dagchainer-default-ARATHA-ARALYR-selected-chr-axis-size.png" alt="Figure: Dagchainer results altered axis title size"><div class="figcaption">Figure: Dagchainer results altered axis title
+size</div>
 </div>
 <pre><code><span><span class="co">## change grid title size</span></span>
 <span><span class="va">g</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>strip.text.x<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">16</span><span class="op">)</span>, strip.text.y<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">16</span><span class="op">)</span><span class="op">)</span></span></code></pre>
-<div class="figure">
-<img src="V02-dagchainer-default-ARATHA-ARALYR-selected-chr-grid-title-size.png" alt=""><p class="caption">Figure: Dagchainer results altered grid title
-size</p>
+<div class="float">
+<img src="V02-dagchainer-default-ARATHA-ARALYR-selected-chr-grid-title-size.png" alt="Figure: Dagchainer results altered grid title size"><div class="figcaption">Figure: Dagchainer results altered grid title
+size</div>
 </div>
 <pre><code><span><span class="co">## change grid axis size and angle</span></span>
 <span><span class="va">g</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text.x<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">12</span>, angle<span class="op">=</span><span class="fl">90</span><span class="op">)</span><span class="op">)</span></span></code></pre>
-<div class="figure">
-<img src="V02-dagchainer-default-ARATHA-ARALYR-selected-chr-grid-axis-size.png" alt=""><p class="caption">Figure: Dagchainer results altered grid angle</p>
+<div class="float">
+<img src="V02-dagchainer-default-ARATHA-ARALYR-selected-chr-grid-axis-size.png" alt="Figure: Dagchainer results altered grid angle"><div class="figcaption">Figure: Dagchainer results altered grid
+angle</div>
 </div>
 <pre><code><span><span class="co">## get help</span></span>
 <span><span class="co">#?plot_dagchainer</span></span></code></pre>
@@ -999,9 +1002,9 @@ applied on the Ka/Ks results.</p>
 <span></span>
 <span><span class="co">## plot Ka/Ks results as histogram colored by Ka/Ks values</span></span>
 <span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_kaks.html">plot_kaks</a></span><span class="op">(</span>kaks<span class="op">=</span><span class="va">ath_aly_ncbi_kaks</span><span class="op">)</span></span></code></pre>
-<div class="figure">
-<img src="V02-kaks-hist.png" alt=""><p class="caption">Figure: Ka/Ks results as histogram colored by
-Ka/ks</p>
+<div class="float">
+<img src="V02-kaks-hist.png" alt="Figure: Ka/Ks results as histogram colored by Ka/ks"><div class="figcaption">Figure: Ka/Ks results as histogram colored by
+Ka/ks</div>
 </div>
 <pre><code><span><span class="co">## plot Ka/Ks results as histogram filter for ka.min, ka.max, ks.min, ks.max</span></span>
 <span><span class="va">g.min_max</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_kaks.html">plot_kaks</a></span><span class="op">(</span></span>
@@ -1010,9 +1013,9 @@ Ka/ks</p>
 <span>    ka.max<span class="op">=</span><span class="fl">1</span>,</span>
 <span>    ks.min<span class="op">=</span><span class="fl">0</span>,</span>
 <span>    ks.max<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></code></pre>
-<div class="figure">
-<img src="V02-kaks-hist-min-max.png" alt=""><p class="caption">Figure: Ka/Ks results filtered for ka.min, ka.max,
-ks.max</p>
+<div class="float">
+<img src="V02-kaks-hist-min-max.png" alt="Figure: Ka/Ks results filtered for ka.min, ka.max, ks.max"><div class="figcaption">Figure: Ka/Ks results filtered for ka.min,
+ka.max, ks.max</div>
 </div>
 <pre><code><span><span class="co">## select subset of chromosomes - needs gene position information</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ARATHA.cds.longest.genepos</span><span class="op">)</span></span>
@@ -1026,8 +1029,9 @@ ks.max</p>
 <span>    <span class="st">"NC_003071.7"</span>,</span>
 <span>    <span class="st">"NW_003302551.1"</span>,</span>
 <span>    <span class="st">"NW_003302554.1"</span><span class="op">)</span><span class="op">)</span></span></code></pre>
-<div class="figure">
-<img src="V02-kaks-hist-chr.png" alt=""><p class="caption">Figure: Ka/Ks results filtered for chromosomes</p>
+<div class="float">
+<img src="V02-kaks-hist-chr.png" alt="Figure: Ka/Ks results filtered for chromosomes"><div class="figcaption">Figure: Ka/Ks results filtered for
+chromosomes</div>
 </div>
 <pre><code><span><span class="co">## plot Ka/Ks results and split by chromosome - needs gene position information</span></span>
 <span></span>
@@ -1041,8 +1045,8 @@ ks.max</p>
 <span>    <span class="st">"NW_003302551.1"</span>,</span>
 <span>    <span class="st">"NW_003302554.1"</span><span class="op">)</span>,</span>
 <span>    splitByChr<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
-<div class="figure">
-<img src="V02-kaks-hist-chr-split.png" alt=""><p class="caption">Figure: Ka/Ks results split by chromosomes</p>
+<div class="float">
+<img src="V02-kaks-hist-chr-split.png" alt="Figure: Ka/Ks results split by chromosomes"><div class="figcaption">Figure: Ka/Ks results split by chromosomes</div>
 </div>
 <p><strong>Note:</strong> Default <strong>data.frame</strong> handling
 with the <strong>dplyr</strong> package is possible on the original
@@ -1064,8 +1068,8 @@ function:</p>
 <span><span class="co">## filter for Ks values &lt; 1 on plot object and plot</span></span>
 <span><span class="va">g.split</span><span class="op">$</span><span class="va">g.kaks</span><span class="op">$</span><span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">ks</span><span class="op">&lt;</span><span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span>binwidth<span class="op">=</span><span class="fl">0.1</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">ks</span><span class="op">)</span><span class="op">)</span></span></code></pre>
-<div class="figure">
-<img src="V02-ks-hist.png" alt=""><p class="caption">Figure: Ks results as histogram</p>
+<div class="float">
+<img src="V02-ks-hist.png" alt="Figure: Ks results as histogram"><div class="figcaption">Figure: Ks results as histogram</div>
 </div>
 </div>
 <div class="section level3">
@@ -1120,9 +1124,9 @@ release-101</a> is used.</p>
 <span>    threads<span class="op">=</span><span class="fl">2</span>,</span>
 <span>    plotCurve<span class="op">=</span><span class="cn">TRUE</span>,</span>
 <span>    lastpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code></pre>
-<div class="figure">
-<img src="V02-CRBHit-pairs-HOMSAP-PANTRO.png" alt=""><p class="caption">Figure: CRBHit pairs of H. sapiens and P.
-troglodytes</p>
+<div class="float">
+<img src="V02-CRBHit-pairs-HOMSAP-PANTRO.png" alt="Figure: CRBHit pairs of H. sapiens and P. troglodytes"><div class="figcaption">Figure: CRBHit pairs of H. sapiens and P.
+troglodytes</div>
 </div>
 <pre><code><span><span class="co">## get gene position for H. sapiens longest isoforms</span></span>
 <span><span class="va">HOMSAP.cds.longest.genepos</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2genepos.html">cds2genepos</a></span><span class="op">(</span></span>
@@ -1150,9 +1154,9 @@ troglodytes</p>
 <span>    select.chr<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>    <span class="st">"AA1:1"</span>,<span class="st">"AA1:2"</span>,<span class="st">"AA1:3"</span>,<span class="st">"AA1:4"</span>,<span class="st">"AA1:5"</span>,<span class="st">"AA1:14"</span>,</span>
 <span>    <span class="st">"AA2:1"</span>,<span class="st">"AA2:3"</span>,<span class="st">"AA2:4"</span>,<span class="st">"AA2:5"</span>,<span class="st">"AA2:14"</span><span class="op">)</span><span class="op">)</span></span></code></pre>
-<div class="figure">
-<img src="V02-dagchainer-default-HOMSAP-PANTRO-chr.png" alt=""><p class="caption">Figure: Dagchainer results of H. sapiens and P.
-troglodytes</p>
+<div class="float">
+<img src="V02-dagchainer-default-HOMSAP-PANTRO-chr.png" alt="Figure: Dagchainer results of H. sapiens and P. troglodytes"><div class="figcaption">Figure: Dagchainer results of H. sapiens and P.
+troglodytes</div>
 </div>
 <pre><code><span><span class="co">## get selfblast CRBHit pairs for H. sapiens</span></span>
 <span><span class="va">HOMSAP_selfblast_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span></span>
@@ -1200,9 +1204,9 @@ troglodytes</p>
 <span>    select.chr<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>    <span class="st">"AA1:1"</span>,<span class="st">"AA1:2"</span>,<span class="st">"AA1:3"</span>,<span class="st">"AA1:4"</span>,<span class="st">"AA1:5"</span>,<span class="st">"AA1:14"</span>,</span>
 <span>    <span class="st">"AA2:1"</span>,<span class="st">"AA2:3"</span>,<span class="st">"AA2:4"</span>,<span class="st">"AA2:5"</span>,<span class="st">"AA2:14"</span><span class="op">)</span><span class="op">)</span></span></code></pre>
-<div class="figure">
-<img src="V02-dagchainer-inter-plus-intra-HOMSAP-PANTRO-chr.png" alt=""><p class="caption">Figure: Dagchainer results of H. sapiens and P.
-troglodytes</p>
+<div class="float">
+<img src="V02-dagchainer-inter-plus-intra-HOMSAP-PANTRO-chr.png" alt="Figure: Dagchainer results of H. sapiens and P. troglodytes"><div class="figcaption">Figure: Dagchainer results of H. sapiens and P.
+troglodytes</div>
 </div>
 <p><strong>Note:</strong> The following example can take some time and
 is not calculated by the vignette building process.</p>
@@ -1220,9 +1224,9 @@ is not calculated by the vignette building process.</p>
 <span></span>
 <span><span class="co">## plot Ka/Ks results as histogram colored by Ka/Ks values</span></span>
 <span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_kaks.html">plot_kaks</a></span><span class="op">(</span><span class="va">hom_pan_ensembl_kaks</span><span class="op">)</span></span></code></pre>
-<div class="figure">
-<img src="V02-kaks-hist-HOMSAP-PANTRO.png" alt=""><p class="caption">Figure: Ka/Ks results of H. sapiens and P.
-troglodytes</p>
+<div class="float">
+<img src="V02-kaks-hist-HOMSAP-PANTRO.png" alt="Figure: Ka/Ks results of H. sapiens and P. troglodytes"><div class="figcaption">Figure: Ka/Ks results of H. sapiens and P.
+troglodytes</div>
 </div>
 </div>
 <div class="section level3">

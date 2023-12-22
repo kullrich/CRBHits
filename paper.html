@@ -64,8 +64,8 @@
 <p>The CRBH algorithm was introduced by @aubry2014deep and builds upon the traditional RBH approach to find additional orthologous sequences between two sets of sequences. As described earlier [@aubry2014deep; @scott2017shmlast], CRBH uses the sequence search results to fit an expect value (E-value) cutoff given each RBH to subsequently add sequence pairs to the list of bona-fide orthologs given their alignment length.</p>
 <p>Unfortunately, as mentioned by @scott2017shmlast, the original implementation of CRBH (<a href="https://github.com/cboursnell/crb-blast" class="external-link">crb-blast</a>) lag improved blast-like search algorithm to speed up the analysis. As a consequence, @scott2017shmlast ported CRBH to python <a href="https://github.com/camillescott/shmlast" class="external-link">shmlast</a>, while <a href="https://github.com/camillescott/shmlast" class="external-link">shmlast</a> cannot deal with IUPAC nucleotide code so far.</p>
 <p><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a> constitutes a new R package, which build upon previous implementations and ports CRBH into the <a href="https://cran.r-project.org/" class="external-link">R</a> environment, which is popular among biologists. <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a> improve CRBH by additional implemented filter steps [@rost1999twilight] and the possibility to apply custom filters prior E-value fitting. Further, the resulting CRBH pairs can be evaluated for the presence of tandem duplicated genes, gene order based syntenic groups and evolutionary rates.</p>
-<div class="figure">
-<img src="reference/figures/figure1.png" alt=""><p class="caption">Overview of the two main pipeline function and its subtasks. cds2rbh(): from CDS to CRBHit pairs; rbh2kaks(): from CRBHit pairs to Ka/Ks values.</p>
+<div class="float">
+<img src="reference/figures/figure1.png" alt="Overview of the two main pipeline function and its subtasks. cds2rbh(): from CDS to CRBHit pairs; rbh2kaks(): from CRBHit pairs to Ka/Ks values."><div class="figcaption">Overview of the two main pipeline function and its subtasks. cds2rbh(): from CDS to CRBHit pairs; rbh2kaks(): from CRBHit pairs to Ka/Ks values.</div>
 </div>
 </div>
 <div class="section level1">
@@ -104,8 +104,8 @@
 <span>                              isoform.source <span class="op">=</span> <span class="st">"NCBI"</span>, plotCurve <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                              threads <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span>
 <span><span class="co">#get help ?cdsfile2rbh</span></span></code></pre></div>
-<div class="figure">
-<img src="reference/figures/figure2.png" alt=""><p class="caption">Accepted condition reciprocal best hits based on RBH fitting.</p>
+<div class="float">
+<img src="reference/figures/figure2.png" alt="Accepted condition reciprocal best hits based on RBH fitting."><div class="figcaption">Accepted condition reciprocal best hits based on RBH fitting.</div>
 </div>
 <p>The obtained CRBHit pairs can also be used to calculate synonymous (Ks) and nonsynonymous (Ka) substitutions per hit pair using either the model from @li1993unbiased or from @yang2000estimating.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -148,8 +148,8 @@
 <span><span class="co">#get help ?rbh2dagchainer</span></span>
 <span><span class="co">#get help ?plot.dagchainer</span></span>
 <span><span class="co">#get help ?plot.kaks</span></span></code></pre></div>
-<div class="figure">
-<img src="reference/figures/figure3.png" alt=""><p class="caption">Selfblast CRBHit pair results for <em>Arabidopsis thaliana</em>. (A) DAGchainer dotplot per chromosome colored by syntenic group and (B) colored by Ks. (C) Histogram of Ks values colored by syntenic group.</p>
+<div class="float">
+<img src="reference/figures/figure3.png" alt="Selfblast CRBHit pair results for Arabidopsis thaliana. (A) DAGchainer dotplot per chromosome colored by syntenic group and (B) colored by Ks. (C) Histogram of Ks values colored by syntenic group."><div class="figcaption">Selfblast CRBHit pair results for <em>Arabidopsis thaliana</em>. (A) DAGchainer dotplot per chromosome colored by syntenic group and (B) colored by Ks. (C) Histogram of Ks values colored by syntenic group.</div>
 </div>
 <table class="table"><caption>Performance comparison for CRBHit pair (<em>Schizosaccharomyces pombe</em> vs. <em>Nematostella vectensis</em>) and Ka/Ks calculations (Intel Xeon CPU E5-2620 v3 @ 2.40GHz; 3411 hit pairs; 2 x Threads).</caption>
 <colgroup><col width="20%"><col width="20%"><col width="20%"><col width="20%"><col width="20%"></colgroup><thead><tr class="header"><th>Number of Threads</th>
@@ -185,8 +185,8 @@
 <div class="section level1">
 <h1 id="availability">Availability<a class="anchor" aria-label="anchor" href="#availability"></a></h1>
 <p><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a> is an open source software made available under the MIT license. It can be installed from its gitlab repository using the <a href="https://devtools.r-lib.org" class="external-link">devtools</a> package.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_gitlab</span>(<span class="st">"mpievolbio-it/crbhits"</span>, </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a> <span class="at">host =</span> <span class="st">"https://gitlab.gwdg.de"</span>)<span class="st">", build_vignettes = TRUE)</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_gitlab</span>(<span class="st">"mpievolbio-it/crbhits"</span>, </span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a> <span class="at">host =</span> <span class="st">"https://gitlab.gwdg.de"</span>)<span class="st">", build_vignettes = TRUE)</span></span></code></pre></div>
 <p>The R package website, which contain a detailed HOWTO to install the prerequisites (mentioned above) and package vignettes are availbale at <a href="https://mpievolbio-it.pages.gwdg.de/crbhits" class="external-link">https://mpievolbio-it.pages.gwdg.de/crbhits</a>.</p>
 </div>
 <div class="section level1">
