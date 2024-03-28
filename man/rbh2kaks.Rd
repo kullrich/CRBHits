@@ -18,7 +18,6 @@ rbh2kaks(
   tandem.dups.cds2 = NULL,
   colorBy = "none",
   threads = 1,
-  kakscalcpath = paste0(find.package("CRBHits"), "/extdata/KaKs_Calculator2.0_src/src/"),
   ...
 )
 }
@@ -61,9 +60,6 @@ or one of KaKs_Calculator2 model "NG", "LWL", "LPB", "MLWL",
 dagchainer", "tandemdups" or "none" [default: none]}
 
 \item{threads}{number of parallel threads [default: 1]}
-
-\item{kakscalcpath}{specify the PATH to the KaKs_Calculator binaries
-[default: /extdata/KaKs_Calculator2.0/src/]}
 
 \item{...}{other codon alignment parameters
 (see \code{\link[MSA2dist]{cds2codonaln}}) and other plot_kaks parameters

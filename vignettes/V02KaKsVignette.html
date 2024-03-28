@@ -12,7 +12,7 @@
 
 <meta name="author" content="Kristian K Ullrich" />
 
-<meta name="date" content="2023-12-22" />
+<meta name="date" content="2024-03-28" />
 
 <title>KaKs Vignette</title>
 
@@ -239,7 +239,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">KaKs Vignette</h1>
 <h4 class="author">Kristian K Ullrich</h4>
-<h4 class="date">2023-12-22</h4>
+<h4 class="date">2024-03-28</h4>
 
 
 
@@ -310,14 +310,13 @@ or have a look at the <a href="https://mpievolbio-it.pages.gwdg.de/crbhits/artic
 Basic Vignette</a>.</p>
 <p><strong>Note:</strong></p>
 <p>In this Vignette the <code>lastpath</code> is defined as
-<code>vignette.paths[1]</code>, the <code>kakscalcpath</code> as
-<code>vignette.paths[2]</code> and the <code>dagchainerpath</code> as
-<code>vignette.paths[3]</code> to be able to build the Vignette.</p>
-<p>However, once you have compiled last-1521, KaKs_Calculator2.0 and
-DAGchainer with the functions <code>make_last()</code>,
-<code>make_KaKs_Calculator2()</code> and <code>make_dagchainer()</code>
-you won’t need to specify the paths anymore. Please remove them if you
-would like to repeat the examples.</p>
+<code>vignette.paths[1]</code> and the <code>dagchainerpath</code> as
+<code>vignette.paths[2]</code> to be able to build the Vignette.</p>
+<p>However, once you have compiled last-1542, KaKs_Calculator2.0 and
+DAGchainer with the functions <code>make_last()</code> and
+<code>make_dagchainer()</code> you won’t need to specify the paths
+anymore. Please remove them if you would like to repeat the
+examples.</p>
 <pre><code>## load vignette specific libraries
 library(CRBHits)
 suppressPackageStartupMessages(library(Biostrings))
@@ -866,7 +865,7 @@ ARATHA_ARALYR_crbh.dagchainer.bp &lt;- rbh2dagchainer(
     type=&quot;bp&quot;,
     gap_length=10000,
     max_dist_allowed=200000,
-    dagchainerpath=vignette.paths[3])
+    dagchainerpath=vignette.paths[2])
 
 ## DAGchainer using gene index (gene order)
 ARATHA_ARALYR_crbh.dagchainer.idx &lt;- rbh2dagchainer(
@@ -876,7 +875,7 @@ ARATHA_ARALYR_crbh.dagchainer.idx &lt;- rbh2dagchainer(
     type=&quot;idx&quot;,
     gap_length=1,
     max_dist_allowed=20,
-    dagchainerpath=vignette.paths[3])
+    dagchainerpath=vignette.paths[2])
 
 ## get help
 #?rbh2dagchainer</code></pre>
@@ -955,7 +954,7 @@ ARATHA_selfblast_crbh.dagchainer.ignore_tandem.bp &lt;- rbh2dagchainer(
     max_dist_allowed=200000,
     ignore_tandem=TRUE,
     only_tandem=FALSE,
-    dagchainerpath=vignette.paths[3])
+    dagchainerpath=vignette.paths[2])
 
 ## DAGchainer using gene base pair (gene bp start end)
 ## use tandem duplicates
@@ -969,7 +968,7 @@ ARATHA_selfblast_crbh.dagchainer.tandem.bp &lt;- rbh2dagchainer(
     max_dist_allowed=200000,
     ignore_tandem=FALSE,
     only_tandem=FALSE,
-    dagchainerpath=vignette.paths[3])
+    dagchainerpath=vignette.paths[2])
 
 ## DAGchainer using gene base pair (gene bp start end)
 ## use only tandem duplicates
@@ -983,7 +982,7 @@ ARATHA_selfblast_crbh.dagchainer.only_tandem.bp &lt;- rbh2dagchainer(
     max_dist_allowed=200000,
     ignore_tandem=FALSE,
     only_tandem=TRUE,
-    dagchainerpath=vignette.paths[3])
+    dagchainerpath=vignette.paths[2])
 
 ## get help
 #?rbh2dagchainer</code></pre>
@@ -1019,7 +1018,7 @@ ARATHA_ARALYR_crbh.dagchainer.ignore_tandem.bp &lt;- rbh2dagchainer(
     max_dist_allowed=200000,
     ignore_tandem=TRUE,
     only_tandem=FALSE,
-    dagchainerpath=vignette.paths[3])
+    dagchainerpath=vignette.paths[2])
 
 ## DAGchainer using gene base pair (gene bp start end)
 ## use tandem duplicates
@@ -1035,7 +1034,7 @@ ARATHA_ARALYR_crbh.dagchainer.tandem.bp &lt;- rbh2dagchainer(
     max_dist_allowed=200000,
     ignore_tandem=FALSE,
     only_tandem=FALSE,
-    dagchainerpath=vignette.paths[3])
+    dagchainerpath=vignette.paths[2])
     
 ## DAGchainer using gene base pair (gene bp start end)
 ## use only tandem duplicates
@@ -1051,7 +1050,7 @@ ARATHA_ARALYR_crbh.dagchainer.only_tandem.bp &lt;- rbh2dagchainer(
     max_dist_allowed=200000,
     ignore_tandem=FALSE,
     only_tandem=TRUE,
-    dagchainerpath=vignette.paths[3])
+    dagchainerpath=vignette.paths[2])
 
 ## get help
 #?rbh2dagchainer</code></pre>
@@ -1286,7 +1285,7 @@ HOMSAP_PANTRO_crbh.dagchainer.bp &lt;- rbh2dagchainer(
     type=&quot;bp&quot;,
     gap_length=10000,
     max_dist_allowed=200000,
-    dagchainerpath=vignette.paths[3])
+    dagchainerpath=vignette.paths[2])
 
 ## plot DAGchainer results for selected chromosome combinations
 plot_dagchainer(
@@ -1337,7 +1336,7 @@ HOMSAP_PANTRO_crbh.dagchainer.tandem.bp &lt;- rbh2dagchainer(
     max_dist_allowed=200000,
     ignore_tandem=FALSE,
     only_tandem=FALSE,
-    dagchainerpath=vignette.paths[3])
+    dagchainerpath=vignette.paths[2])
 
 ## plot DAGchainer results for selected chromosome combinations
 plot_dagchainer(

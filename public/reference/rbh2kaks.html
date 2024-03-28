@@ -21,7 +21,7 @@ DNAStringSet vectors."><meta property="og:image" content="/logo.png"><!-- mathja
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CRBHits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.6</span>
       </span>
     </div>
 
@@ -85,7 +85,6 @@ columns must match the names of the corresponding <code>cds1</code> and <code>cd
 <span>  tandem.dups.cds2 <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  colorBy <span class="op">=</span> <span class="st">"none"</span>,</span>
 <span>  threads <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  kakscalcpath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/find.package.html" class="external-link">find.package</a></span><span class="op">(</span><span class="st">"CRBHits"</span><span class="op">)</span>, <span class="st">"/extdata/KaKs_Calculator2.0_src/src/"</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -157,11 +156,6 @@ dagchainer", "tandemdups" or "none" [default: none]</p></dd>
 <dd><p>number of parallel threads [default: 1]</p></dd>
 
 
-<dt>kakscalcpath</dt>
-<dd><p>specify the PATH to the KaKs_Calculator binaries
-[default: /extdata/KaKs_Calculator2.0/src/]</p></dd>
-
-
 <dt>...</dt>
 <dd><p>other codon alignment parameters
 (see <code><a href="https://mpievolbio-it.pages.gwdg.de/MSA2dist/reference/cds2codonaln.html" class="external-link">cds2codonaln</a></code>) and other plot_kaks parameters
@@ -214,20 +208,34 @@ nonsynonymous substitution rates under realistic evolutionary models.
 <span class="r-in"><span>    cds2<span class="op">=</span><span class="va">aly</span>,</span></span>
 <span class="r-in"><span>    model<span class="op">=</span><span class="st">"Li"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh.kaks</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           aa1                   aa2 rbh_class         ka        ks          vka</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 AT1G01040.1 Al_scaffold_0001_3256       rbh 0.74651201 9.9999990 0.0032172312</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 AT1G01050.1  Al_scaffold_0001_128       rbh 0.00000000 0.1831839 0.0000000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 AT1G01080.3  Al_scaffold_0001_125       rbh 0.05680851 0.1390746 0.0001612571</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 AT1G01180.1  Al_scaffold_0001_114       rbh 0.03656808 0.1543978 0.0001014973</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 AT1G01190.2 Al_scaffold_0001_4419       rbh 0.75036088 9.9999990 0.0093948533</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 AT1G01260.3 Al_scaffold_0001_1326       rbh 0.78228833 9.9999990 0.0051807370</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           vks</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 9.999999000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.003022307</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.001531756</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.001249826</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 9.999999000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 9.999999000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           aa1                   aa2 rbh_class Comp1 Comp2        seq1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 AT1G01040.1 Al_scaffold_0001_3256       rbh     1     7 AT1G01040.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 AT1G01050.1  Al_scaffold_0001_128       rbh     2     8 AT1G01050.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 AT1G01080.3  Al_scaffold_0001_125       rbh     3     9 AT1G01080.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 AT1G01180.1  Al_scaffold_0001_114       rbh     4    10 AT1G01180.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 AT1G01190.2 Al_scaffold_0001_4419       rbh     5    11 AT1G01190.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 AT1G01260.3 Al_scaffold_0001_1326       rbh     6    12 AT1G01260.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    seq2                 ka                ks</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Al_scaffold_0001_3256   3.47214301182417          9.999999</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Al_scaffold_0001_128                  0 0.183183948635914</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Al_scaffold_0001_125 0.0790506471613155 0.163580204777153</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  Al_scaffold_0001_114 0.0352750842763028 0.152463286123433</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 Al_scaffold_0001_4419   1.92163132810055          9.999999</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 Al_scaffold_0001_1326           9.999999          9.999999</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    vka                 vks                 Ka                Ks</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1     23.3505377395771            9.999999   3.47214301182417          9.999999</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                    0 0.00302230749742857                  0 0.183183948635914</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.000268905965208751 0.00195629182238787 0.0790506471613155 0.163580204777153</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.000103935713186579 0.00124033104730168 0.0352750842763028 0.152463286123433</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    0.197145150583422            9.999999   1.92163132810055          9.999999</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6             9.999999            9.999999           9.999999          9.999999</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       Ka/Ks</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.3472143</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.4832531</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.2313677</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.1921632</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 1.0000000</span>
 <span class="r-in"><span><span class="co">## plot kaks</span></span></span>
 <span class="r-in"><span><span class="va">g.kaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="plot_kaks.html">plot_kaks</a></span><span class="op">(</span><span class="va">ath_aly_crbh.kaks</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="rbh2kaks-1.png" alt="" width="700" height="433"></span>

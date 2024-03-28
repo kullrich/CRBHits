@@ -70,12 +70,11 @@ or have a look at the
 
 __Note:__
 
-In this Vignette the `lastpath` is defined as `vignette.paths[1]`, the
-`kakscalcpath` as `vignette.paths[2]` and the `dagchainerpath` as
-`vignette.paths[3]` to be able to build the Vignette.
+In this Vignette the `lastpath` is defined as `vignette.paths[1]` and the `dagchainerpath` as
+`vignette.paths[2]` to be able to build the Vignette.
 
-However, once you have compiled last-1521, KaKs_Calculator2.0 and DAGchainer
-with the functions `make_last()`, `make_KaKs_Calculator2()` and
+However, once you have compiled last-1542, KaKs_Calculator2.0 and DAGchainer
+with the functions `make_last()` and
 `make_dagchainer()` you won't need to specify the paths anymore. Please remove
 them if you would like to repeat the examples.
 
@@ -660,7 +659,7 @@ ARATHA_ARALYR_crbh.dagchainer.bp <- rbh2dagchainer(
     type="bp",
     gap_length=10000,
     max_dist_allowed=200000,
-    dagchainerpath=vignette.paths[3])
+    dagchainerpath=vignette.paths[2])
 
 ## DAGchainer using gene index (gene order)
 ARATHA_ARALYR_crbh.dagchainer.idx <- rbh2dagchainer(
@@ -670,7 +669,7 @@ ARATHA_ARALYR_crbh.dagchainer.idx <- rbh2dagchainer(
     type="idx",
     gap_length=1,
     max_dist_allowed=20,
-    dagchainerpath=vignette.paths[3])
+    dagchainerpath=vignette.paths[2])
 
 ## get help
 #?rbh2dagchainer
@@ -756,7 +755,7 @@ ARATHA_selfblast_crbh.dagchainer.ignore_tandem.bp <- rbh2dagchainer(
     max_dist_allowed=200000,
     ignore_tandem=TRUE,
     only_tandem=FALSE,
-    dagchainerpath=vignette.paths[3])
+    dagchainerpath=vignette.paths[2])
 
 ## DAGchainer using gene base pair (gene bp start end)
 ## use tandem duplicates
@@ -770,7 +769,7 @@ ARATHA_selfblast_crbh.dagchainer.tandem.bp <- rbh2dagchainer(
     max_dist_allowed=200000,
     ignore_tandem=FALSE,
     only_tandem=FALSE,
-    dagchainerpath=vignette.paths[3])
+    dagchainerpath=vignette.paths[2])
 
 ## DAGchainer using gene base pair (gene bp start end)
 ## use only tandem duplicates
@@ -784,7 +783,7 @@ ARATHA_selfblast_crbh.dagchainer.only_tandem.bp <- rbh2dagchainer(
     max_dist_allowed=200000,
     ignore_tandem=FALSE,
     only_tandem=TRUE,
-    dagchainerpath=vignette.paths[3])
+    dagchainerpath=vignette.paths[2])
 
 ## get help
 #?rbh2dagchainer
@@ -830,7 +829,7 @@ ARATHA_ARALYR_crbh.dagchainer.ignore_tandem.bp <- rbh2dagchainer(
     max_dist_allowed=200000,
     ignore_tandem=TRUE,
     only_tandem=FALSE,
-    dagchainerpath=vignette.paths[3])
+    dagchainerpath=vignette.paths[2])
 
 ## DAGchainer using gene base pair (gene bp start end)
 ## use tandem duplicates
@@ -846,7 +845,7 @@ ARATHA_ARALYR_crbh.dagchainer.tandem.bp <- rbh2dagchainer(
     max_dist_allowed=200000,
     ignore_tandem=FALSE,
     only_tandem=FALSE,
-    dagchainerpath=vignette.paths[3])
+    dagchainerpath=vignette.paths[2])
     
 ## DAGchainer using gene base pair (gene bp start end)
 ## use only tandem duplicates
@@ -862,7 +861,7 @@ ARATHA_ARALYR_crbh.dagchainer.only_tandem.bp <- rbh2dagchainer(
     max_dist_allowed=200000,
     ignore_tandem=FALSE,
     only_tandem=TRUE,
-    dagchainerpath=vignette.paths[3])
+    dagchainerpath=vignette.paths[2])
 
 ## get help
 #?rbh2dagchainer
@@ -1115,7 +1114,7 @@ HOMSAP_PANTRO_crbh.dagchainer.bp <- rbh2dagchainer(
     type="bp",
     gap_length=10000,
     max_dist_allowed=200000,
-    dagchainerpath=vignette.paths[3])
+    dagchainerpath=vignette.paths[2])
 
 ## plot DAGchainer results for selected chromosome combinations
 plot_dagchainer(
@@ -1169,7 +1168,7 @@ HOMSAP_PANTRO_crbh.dagchainer.tandem.bp <- rbh2dagchainer(
     max_dist_allowed=200000,
     ignore_tandem=FALSE,
     only_tandem=FALSE,
-    dagchainerpath=vignette.paths[3])
+    dagchainerpath=vignette.paths[2])
 
 ## plot DAGchainer results for selected chromosome combinations
 plot_dagchainer(

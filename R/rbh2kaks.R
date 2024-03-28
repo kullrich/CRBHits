@@ -31,8 +31,6 @@
 #' @param colorBy specify if Ka/Ks gene pairs should be colored by "rbh_class",
 #' dagchainer", "tandemdups" or "none" [default: none]
 #' @param threads number of parallel threads [default: 1]
-#' @param kakscalcpath specify the PATH to the KaKs_Calculator binaries
-#' [default: /extdata/KaKs_Calculator2.0/src/]
 #' @param ... other codon alignment parameters
 #' (see \code{\link[MSA2dist]{cds2codonaln}}) and other plot_kaks parameters
 #' (see \code{\link[CRBHits]{plot_kaks}})
@@ -88,8 +86,6 @@ rbh2kaks <- function(rbhpairs, cds1, cds2,
     tandem.dups.cds2=NULL,
     colorBy="none",
     threads=1,
-    kakscalcpath=paste0(find.package("CRBHits"),
-        "/extdata/KaKs_Calculator2.0_src/src/"),
     ...
     ){
     if(attributes(rbhpairs)$CRBHits.class!="crbh"){
@@ -144,26 +140,36 @@ rbh2kaks <- function(rbhpairs, cds1, cds2,
     names(cds1) <- stringr::word(names(cds1), 1)
     names(cds2) <- stringr::word(names(cds2), 1)
     #doMC::registerDoMC(threads)
-    if (.Platform$OS.type == "windows") {
-        cl <- parallel::makeCluster(threads)
-    }
-    if (.Platform$OS.type != "windows") {
-        cl <- parallel::makeForkCluster(threads)
-    }
-    doParallel::registerDoParallel(cl)
-    i <- NULL
+    #if (.Platform$OS.type == "windows") {
+    #    cl <- parallel::makeCluster(threads)
+    #}
+    #if (.Platform$OS.type != "windows") {
+    #    cl <- parallel::makeForkCluster(threads)
+    #}
+    #doParallel::registerDoParallel(cl)
+    #i <- NULL
     rbhpairs.crbh.pairs <- rbhpairs$crbh.pairs
-    rbh.kaks <- foreach::foreach(i=seq(from=1, to=dim(rbhpairs.crbh.pairs)[1]),
-        .combine = rbind) %dopar% {
+    cds <- c(
+        do.call(c, unlist(lapply(rbhpairs.crbh.pairs$aa1, function(x) {
+            get_cds_by_name(x, cds1)}))),
+        do.call(c, unlist(lapply(rbhpairs.crbh.pairs$aa2, function(x) {
+            get_cds_by_name(x, cds2)}))))
+    idx <- lapply(apply(cbind(seq(from=1, to=length(rbhpairs.crbh.pairs$aa1)),
+        seq(from=length(rbhpairs.crbh.pairs$aa1)+1,
+        to=2*length(rbhpairs.crbh.pairs$aa1))),1,as.list),unlist)
+    #rbh.kaks <- foreach::foreach(i=seq(from=1, to=dim(rbhpairs.crbh.pairs)[1]),
+        #.combine = rbind) %dopar% {
         #t(MSA2dist::dnastring2kaks(c(
         #    get_cds_by_name(rbhpairs.crbh.pairs[i,1], cds1),
         #    get_cds_by_name(rbhpairs.crbh.pairs[i,2], cds2)), model=model,
         #    isMSA=FALSE, threads=1, ...))
-        CRBHits::cds2kaks(get_cds_by_name(rbhpairs.crbh.pairs[i,1], cds1),
-            get_cds_by_name(rbhpairs.crbh.pairs[i,2], cds2), model=model,
-            kakscalcpath=kakscalcpath, ...)
-    }
-    parallel::stopCluster(cl)
+        #CRBHits::cds2kaks(get_cds_by_name(rbhpairs.crbh.pairs[i,1], cds1),
+            #get_cds_by_name(rbhpairs.crbh.pairs[i,2], cds2), model=model,
+            #kakscalcpath=kakscalcpath, ...)
+    #}
+    #parallel::stopCluster(cl)
+    rbh.kaks <- MSA2dist::indices2kaks(cds, idx, model=model, threads=threads,
+        isMSA=FALSE, ...)
     out <- cbind(rbhpairs.crbh.pairs, rbh.kaks)
     attr(out, "CRBHits.class") <- "kaks"
     if(model=="Li"){

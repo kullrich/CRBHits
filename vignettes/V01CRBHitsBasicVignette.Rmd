@@ -74,12 +74,11 @@ sequence alignment back into a codon based alignment.
 
 __Note:__
 
-In this Vignette the `lastpath` is defined as `vignette.paths[1]`,
-the `kakscalcpath` as `vignette.paths[2]` and the `dagchainerpath` as
-`vignette.paths[3]` to be able to build the Vignette.
+In this Vignette the `lastpath` is defined as `vignette.paths[1]` and the `dagchainerpath` as
+`vignette.paths[2]` to be able to build the Vignette.
 
-However, once you have compiled last-1521, KaKs_Calculator2.0 and DAGchainer
-with the functions `make_last()`, `make_KaKs_Calculator2()` and
+However, once you have compiled last-1542 and DAGchainer
+with the functions `make_last()` and
 `make_dagchainer()` you won't need to specify the paths anymore. Please remove
 them if you would like to repeat the examples.
 
@@ -91,7 +90,7 @@ suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(ggplot2))
 suppressPackageStartupMessages(library(gridExtra))
 suppressPackageStartupMessages(library(curl))
-## compile LAST, KaKs_Calculator2.0 and DAGchainer for the vignette
+## compile LAST and DAGchainer for the vignette
 vignette.paths <- CRBHits::make_vignette()
 ```
 
@@ -113,14 +112,11 @@ install_github("kullrich/CRBHits", build_vignettes = TRUE, dependencies = FALSE)
 ```
 
 [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) needs
-[LAST](https://gitlab.com/mcfrith/last),
-[KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download) and [DAGchainer](http://dagchainer.sourceforge.net/) to be installed before one
-can efficiently use it.
+[LAST](https://gitlab.com/mcfrith/last) and [DAGchainer](http://dagchainer.sourceforge.net/) to be installed before one can efficiently use it.
 
-All prerequisites (LAST, KaKs_Calculator2.0, DAGchainer) are forked within
+All prerequisites (LAST, DAGchainer) are forked within
 [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) and can be compiled for
-Linux/Unix/macOS with the functions `make_last()`, `make_KaKs_Calculator2()`
-and  `make_dagchainer()`.
+Linux/Unix/macOS with the functions `make_last()` and  `make_dagchainer()`.
 
 For the windows platform the user needs to use e.g.
 [https://www.cygwin.com/](https://www.cygwin.com/) to be able to compile the
@@ -128,10 +124,8 @@ prerequisites.
 
 ```
 library(CRBHits)
-## compile last-1521
+## compile last-1542
 make_last()
-## compile KaKs_Calculator2.0
-make_KaKs_Calculator2()
 ## compile DAGchainer
 make_dagchainer()
 ```

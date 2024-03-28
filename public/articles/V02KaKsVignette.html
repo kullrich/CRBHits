@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CRBHits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.6</span>
       </span>
     </div>
 
@@ -89,7 +89,7 @@
                         <h4 data-toc-skip class="author">Kristian K
 Ullrich</h4>
             
-            <h4 data-toc-skip class="date">2023-12-22</h4>
+            <h4 data-toc-skip class="date">2024-03-28</h4>
       
       <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/develvignettes/V02KaKsVignette.Rmd" class="external-link"><code>vignettes/V02KaKsVignette.Rmd</code></a></small>
       <div class="hidden name"><code>V02KaKsVignette.Rmd</code></div>
@@ -173,14 +173,13 @@ or have a look at the <a href="https://mpievolbio-it.pages.gwdg.de/crbhits/artic
 Basic Vignette</a>.</p>
 <p><strong>Note:</strong></p>
 <p>In this Vignette the <code>lastpath</code> is defined as
-<code>vignette.paths[1]</code>, the <code>kakscalcpath</code> as
-<code>vignette.paths[2]</code> and the <code>dagchainerpath</code> as
-<code>vignette.paths[3]</code> to be able to build the Vignette.</p>
-<p>However, once you have compiled last-1521, KaKs_Calculator2.0 and
-DAGchainer with the functions <code><a href="../reference/make_last.html">make_last()</a></code>,
-<code><a href="../reference/make_KaKs_Calculator2.html">make_KaKs_Calculator2()</a></code> and <code><a href="../reference/make_dagchainer.html">make_dagchainer()</a></code>
-you won’t need to specify the paths anymore. Please remove them if you
-would like to repeat the examples.</p>
+<code>vignette.paths[1]</code> and the <code>dagchainerpath</code> as
+<code>vignette.paths[2]</code> to be able to build the Vignette.</p>
+<p>However, once you have compiled last-1542, KaKs_Calculator2.0 and
+DAGchainer with the functions <code><a href="../reference/make_last.html">make_last()</a></code> and
+<code><a href="../reference/make_dagchainer.html">make_dagchainer()</a></code> you won’t need to specify the paths
+anymore. Please remove them if you would like to repeat the
+examples.</p>
 <pre><code><span><span class="co">## load vignette specific libraries</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bioconductor.org/packages/Biostrings" class="external-link">Biostrings</a></span><span class="op">)</span><span class="op">)</span></span>
@@ -737,7 +736,7 @@ pairs.</p>
 <span>    type<span class="op">=</span><span class="st">"bp"</span>,</span>
 <span>    gap_length<span class="op">=</span><span class="fl">10000</span>,</span>
 <span>    max_dist_allowed<span class="op">=</span><span class="fl">200000</span>,</span>
-<span>    dagchainerpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>    dagchainerpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## DAGchainer using gene index (gene order)</span></span>
 <span><span class="va">ARATHA_ARALYR_crbh.dagchainer.idx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rbh2dagchainer.html">rbh2dagchainer</a></span><span class="op">(</span></span>
@@ -747,7 +746,7 @@ pairs.</p>
 <span>    type<span class="op">=</span><span class="st">"idx"</span>,</span>
 <span>    gap_length<span class="op">=</span><span class="fl">1</span>,</span>
 <span>    max_dist_allowed<span class="op">=</span><span class="fl">20</span>,</span>
-<span>    dagchainerpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>    dagchainerpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## get help</span></span>
 <span><span class="co">#?rbh2dagchainer</span></span></code></pre>
@@ -820,7 +819,7 @@ species.</p>
 <span>    max_dist_allowed<span class="op">=</span><span class="fl">200000</span>,</span>
 <span>    ignore_tandem<span class="op">=</span><span class="cn">TRUE</span>,</span>
 <span>    only_tandem<span class="op">=</span><span class="cn">FALSE</span>,</span>
-<span>    dagchainerpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>    dagchainerpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## DAGchainer using gene base pair (gene bp start end)</span></span>
 <span><span class="co">## use tandem duplicates</span></span>
@@ -834,7 +833,7 @@ species.</p>
 <span>    max_dist_allowed<span class="op">=</span><span class="fl">200000</span>,</span>
 <span>    ignore_tandem<span class="op">=</span><span class="cn">FALSE</span>,</span>
 <span>    only_tandem<span class="op">=</span><span class="cn">FALSE</span>,</span>
-<span>    dagchainerpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>    dagchainerpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## DAGchainer using gene base pair (gene bp start end)</span></span>
 <span><span class="co">## use only tandem duplicates</span></span>
@@ -848,7 +847,7 @@ species.</p>
 <span>    max_dist_allowed<span class="op">=</span><span class="fl">200000</span>,</span>
 <span>    ignore_tandem<span class="op">=</span><span class="cn">FALSE</span>,</span>
 <span>    only_tandem<span class="op">=</span><span class="cn">TRUE</span>,</span>
-<span>    dagchainerpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>    dagchainerpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## get help</span></span>
 <span><span class="co">#?rbh2dagchainer</span></span></code></pre>
@@ -884,7 +883,7 @@ intra species hits.</p>
 <span>    max_dist_allowed<span class="op">=</span><span class="fl">200000</span>,</span>
 <span>    ignore_tandem<span class="op">=</span><span class="cn">TRUE</span>,</span>
 <span>    only_tandem<span class="op">=</span><span class="cn">FALSE</span>,</span>
-<span>    dagchainerpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>    dagchainerpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## DAGchainer using gene base pair (gene bp start end)</span></span>
 <span><span class="co">## use tandem duplicates</span></span>
@@ -900,7 +899,7 @@ intra species hits.</p>
 <span>    max_dist_allowed<span class="op">=</span><span class="fl">200000</span>,</span>
 <span>    ignore_tandem<span class="op">=</span><span class="cn">FALSE</span>,</span>
 <span>    only_tandem<span class="op">=</span><span class="cn">FALSE</span>,</span>
-<span>    dagchainerpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>    dagchainerpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
 <span>    </span>
 <span><span class="co">## DAGchainer using gene base pair (gene bp start end)</span></span>
 <span><span class="co">## use only tandem duplicates</span></span>
@@ -916,7 +915,7 @@ intra species hits.</p>
 <span>    max_dist_allowed<span class="op">=</span><span class="fl">200000</span>,</span>
 <span>    ignore_tandem<span class="op">=</span><span class="cn">FALSE</span>,</span>
 <span>    only_tandem<span class="op">=</span><span class="cn">TRUE</span>,</span>
-<span>    dagchainerpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>    dagchainerpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## get help</span></span>
 <span><span class="co">#?rbh2dagchainer</span></span></code></pre>
@@ -1146,7 +1145,7 @@ troglodytes</div>
 <span>    type<span class="op">=</span><span class="st">"bp"</span>,</span>
 <span>    gap_length<span class="op">=</span><span class="fl">10000</span>,</span>
 <span>    max_dist_allowed<span class="op">=</span><span class="fl">200000</span>,</span>
-<span>    dagchainerpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>    dagchainerpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## plot DAGchainer results for selected chromosome combinations</span></span>
 <span><span class="fu"><a href="../reference/plot_dagchainer.html">plot_dagchainer</a></span><span class="op">(</span></span>
@@ -1196,7 +1195,7 @@ troglodytes</div>
 <span>    max_dist_allowed<span class="op">=</span><span class="fl">200000</span>,</span>
 <span>    ignore_tandem<span class="op">=</span><span class="cn">FALSE</span>,</span>
 <span>    only_tandem<span class="op">=</span><span class="cn">FALSE</span>,</span>
-<span>    dagchainerpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>    dagchainerpath<span class="op">=</span><span class="va">vignette.paths</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## plot DAGchainer results for selected chromosome combinations</span></span>
 <span><span class="fu"><a href="../reference/plot_dagchainer.html">plot_dagchainer</a></span><span class="op">(</span></span>

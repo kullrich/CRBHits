@@ -1,6 +1,6 @@
 Package: CRBHits
 Title: Conditional reciprocal best hits (CRBHits) in R
-Version: 0.0.5
+Version: 0.0.6
 Authors@R: 
     person(given = "Kristian K",
            family = "Ullrich",
@@ -48,7 +48,6 @@ biocViews: Software, Alignment, Genetics
 NeedsCompilation: yes
 SystemRequirements:
   LAST (https://anaconda.org/bioconda/last),
-  KaKs_Calculator2.0 (https://anaconda.org/bioconda/kakscalculator2),
   DAGchainer (https://anaconda.org/bioconda/dagchainer),
   GNU make,
   libcurl (deb: libcurl4-openssl-dev or CentOS: libcurl-devel),
@@ -60,4 +59,4 @@ URL:
   https://gitlab.gwdg.de/mpievolbio-it/crbhits,
   https://mpievolbio-it.pages.gwdg.de/crbhits/
 BugReports: https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1

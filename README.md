@@ -28,7 +28,7 @@ This is in contrast to [crb-blast](https://github.com/cboursnell/crb-blast), whi
 
 The resulting CRBHit pairs can be used to obtain pairwise codon alignments, which are further used to calculate synonymous and nonsynonymous substitutions using parallelization.
 
-The Ka/Ks (also sometimes denoted as dN/dS) values can be obtained either via the codon model of [Li WH. (1999)](https://www.ncbi.nlm.nih.gov/pubmed/8433381) as implemented in the R package [seqinr](https://cran.r-project.org/web/packages/seqinr/index.html) or the model of [Yang Z and Nielson R. (2000)](https://www.ncbi.nlm.nih.gov/pubmed/10666704) as implemented in [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download).
+The Ka/Ks (also sometimes denoted as dN/dS) values can be obtained either via the codon model of [Li WH. (1999)](https://www.ncbi.nlm.nih.gov/pubmed/8433381) as implemented in the R package [seqinr](https://cran.r-project.org/web/packages/seqinr/index.html) or the model of [Yang Z and Nielson R. (2000)](https://www.ncbi.nlm.nih.gov/pubmed/10666704) and other models from the software  [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download) as ported in the R package [MSA2dist](https://github.com/kullrich/MSA2dist).
 
 The following two images show the two main functions of the package `cds2rbh()` and `rbh2kaks()`, which are described in more detail in the package vignettes.
 
@@ -79,11 +79,10 @@ devtools::install_gitlab("mpievolbio-it/crbhits", host = "https://gitlab.gwdg.de
 build_vignettes = FALSE, dependencies = TRUE)
 #devtools::install_github("kullrich/CRBHits", build_vignettes = FALSE, dependencies = TRUE)
 CRBHits::make_last()
-CRBHits::make_KaKs_Calculator2()
 CRBHits::make_dagchainer()
 ```
 
-If the functions `CRBHits::make_last()`, `CRBHits::make_KaKs_Calculator2()` and `CRBHits::make_dagchainer()` fail on your system to install the prerequisites, please take a look at the [detailed description](#prerequisites) how to install via e.g. [conda](https://www.anaconda.com/) or to compile from source.
+If the functions `CRBHits::make_last()` and `CRBHits::make_dagchainer()` fail on your system to install the prerequisites, please take a look at the [detailed description](#prerequisites) how to install via e.g. [conda](https://www.anaconda.com/) or to compile from source.
 
 ## Vignettes
 
@@ -109,7 +108,7 @@ These vignettes introduce  [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhit
 ```
 library(CRBHits)
 ## prerequisite: last
-## if not done yet, try to compile last-1521 - uncomment the following line
+## if not done yet, try to compile last-1542 - uncomment the following line
 #CRBHits::make_last()
 ## conditional reciprocal best hits (CRBHit pairs)
 data("ath", package="CRBHits")
@@ -136,9 +135,6 @@ g.kaks.Li <- plot_kaks(ath_aly_crbh.kaks.Li)
 ?plot_kaks
 
 ## kaks calculation - subset model "YN"
-## prerequisite: KaKs_Calculator2
-## if not done yet, try to compile KaKs_Calculator2 - uncomment the following line
-#CRBHits::make_KaKs_Calculator2()
 ath_aly_crbh.kaks.YN <- rbh2kaks(
     rbhpairs=ath_aly_crbh,
     cds1=ath,
@@ -187,16 +183,9 @@ ath_aly_crbh <- cds2rbh(ath, aly, plotCurve = TRUE,
                         lastpath = my.lastpath)
 ?cds2rbh
 
-## example how to use conda version of KaKs_Calculator2.0
-my.kakspath <- paste0(dirname(system2("which", "KaKs_Calculator", stdout=TRUE)), "/")
-ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh,
-                              ath, aly, model = "YN",
-                              kakscalcpath = my.kakspath)
-?rbh2kaks
-
 ##### see section compile external tools from original source code
 ## example how to use own compiled version of LAST
-my.lastpath <- "/tmp/last/last-1521/bin"
+my.lastpath <- "/tmp/last/last-1542/bin"
 ath_aly_crbh <- cds2rbh(ath, aly, plotCurve = TRUE,
                         lastpath = my.lastpath)
 ?cds2rbh
@@ -213,7 +202,7 @@ ath_aly_crbh.kaks <- rbh2kaks(ath_aly_crbh,
 
 ### install external tools via [bioconda](https://bioconda.github.io/)
 
-If the functions `CRBHits::make_last()`, `CRBHits::make_KaKs_Calculator2()` and `CRBHits::make_dagchainer()` fail on your system to install the prerequisites,
+If the functions `CRBHits::make_last()` and `CRBHits::make_dagchainer()` fail on your system to install the prerequisites,
 there is the possibility to install them via [conda](https://www.anaconda.com/):
 
 ```
@@ -222,7 +211,6 @@ conda config --add channels bioconda
 conda config --add channels conda-forge
 
 conda install last
-conda install kakscalculator2
 conda install dagchainer
 
 #optional sequence search algorithm
@@ -233,16 +221,12 @@ conda install diamond
 After this installation, the prerequisites are supposed to be in the `PATH` and you need to set the correct `@param` in the corresponding functions of [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) like this:
 
 ```
-## example how to use conda versions of LAST, KaKs_Calculator2.0 and DAGchainer
+## example how to use conda versions of LAST and DAGchainer
 my.lastpath <- paste0(dirname(system2("which", "lastdb", stdout=TRUE)), "/")
-my.kakspath <- paste0(dirname(system2("which", "KaKs_Calculator", stdout=TRUE)), "/")
 my.dagchainerpath <- paste0(dirname(system2("which", "dagchainer", stdout=TRUE)), "/")
 
 ?cds2rbh
 cds2rbh(., ., lastpath=my.lastpath)
-
-?rbh2kaks
-rbh2kaks(., ., model="YN", kakscalcpath=my.kakspath)
 
 ?rbh2dagchainer
 rbh2dagchainer(., ., dagchainerpath=my.dagchainerpath)
@@ -258,9 +242,9 @@ cds2rbh(., ., mmseqs2path=my.diamondpath, searchtool="diamond")
 
 ### compile external tools from source code forked within this package
 
-The source code for the prerequisites (LAST, KaKs_Calculator2.0, DAGchainer) are forked within [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits). 
+The source code for the prerequisites (LAST, DAGchainer) are forked within [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits). 
 
-- [LAST](https://gitlab.com/mcfrith/last) [https://gitlab.com/mcfrith/last/-/archive/1521/last-1521.zip](https://gitlab.com/mcfrith/last/-/archive/1521/last-1521.zip)
+- [LAST](https://gitlab.com/mcfrith/last) [https://gitlab.com/mcfrith/last/-/archive/1542/last-1542.zip](https://gitlab.com/mcfrith/last/-/archive/1542/last-1542.zip)
 
 To compile the forked version of [LAST](https://gitlab.com/mcfrith/last) within the `CRBHits` R package directory try to use the function `make_last()`:
 
@@ -272,11 +256,16 @@ CRBHits::make_last()
 
 - [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download)
 
-To compile the forked version of [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download) within the `CRBHits` R package directory try to use the function `make_KaKs_Calculator2()`:
+All models from [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download) have been ported to the `MSA2dist` R package with `Rcpp` and can be obtained via the `MSA2dist::dnastring2kaks()` function. There is no need anymore to compile this external tool.
 
 ```
-## compile KaKs_Calculator2
-CRBHits::make_KaKs_Calculator2()
+## install MSA2dist
+if (!requireNamespace("BiocManager", quietly = TRUE)) {
+    install.packages("BiocManager")
+}
+
+BiocManager::install("MSA2dist")
+?MSA2dist::dnastring2kaks()
 ```
 
 - [DAGchainer](http://dagchainer.sourceforge.net/)
@@ -299,31 +288,15 @@ To compile [LAST](https://gitlab.com/mcfrith/last) yourself on Linux/Unix/macOS 
 ## e.g.
 mkdir /tmp/last
 cd /tmp/last
-## donwload last-1521
-curl -O https://gitlab.com/mcfrith/last/-/archive/1521/last-1521.zip
-unzip last-1521.zip
-cd last-1521
+## donwload last-1542
+curl -O https://gitlab.com/mcfrith/last/-/archive/1542/last-1542.zip
+unzip last-1542.zip
+cd last-1542
 ## compile LAST
 make
 ```
 
-To compile [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download):
-
-__Note:__ Due to some changes in the latest **g++** compilers the source code was altered to meet this changes, which are directly incorporated into the `KaKs_Calculator2.0.tar.gz` that is distributed with [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits). It is recommended to compile from this file (see below):
-
-```
-## create and change into the directory to install KaKs_Calculator2
-## e.g.
-mkdir /tmp/KaKs_Calculator2
-cd /tmp/KaKs_Calculator2
-## donwload KaKs_Calculator2
-curl -O https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/raw/devel/inst/extdata/KaKs_Calculator2.0_src.tar.gz
-tar -xvf KaKs_Calculator2.0_src.tar.gz
-cd KaKs_Calculator2.0_src/src
-## compile KaKs_Calculator2
-make clean
-make
-```
+All models from [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download) have been ported to the `MSA2dist` R package with `Rcpp` and can be obtained via the `MSA2dist::dnastring2kaks()` function. There is no need anymore to compile this external tool.
 
 To compile [DAGchainer](http://dagchainer.sourceforge.net/):
 
@@ -342,19 +315,15 @@ cd dagchainer
 make
 ```
 
-If you would like to use your own compiled versions of `LAST`, `KaKs_Calculator2.0` and `DAGchainer` you need to set the correct `@param` in the corresponding functions of [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits).
+If you would like to use your own compiled versions of `LAST` and `DAGchainer` you need to set the correct `@param` in the corresponding functions of [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits).
 
 ```
 ## example how to use own compiled versions of LAST, KaKs_Calculator2.0 and DAGchainer
-my.lastpath <- "/tmp/last/last-1521/bin"
-my.kakspath <- "/tmp/KaKs_Calculator2/KaKs_Calculator2.0_src/src"
+my.lastpath <- "/tmp/last/last-1542/bin"
 my.dagchainerpath <- "/tmp/dagcahiner"
 
 ?cds2rbh
 cds2rbh(., ., lastpath=my.lastpath)
-
-?rbh2kaks
-rbh2kaks(., ., model="YN", kakscalcpath=my.kakspath)
 
 ?rbh2dagchainer
 rbh2dagchainer(., ., dagchainerpath=my.dagchainerpath)
@@ -370,7 +339,7 @@ MIT (see LICENSE)
 
 The [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) package includes source code that has been published under following licenses:
 
-### last-1521.zip
+### last-1542.zip
 
 GNU General Public License Version 3, 29 June 2007 [GPLv3](https://www.gnu.org/licenses/gpl-3.0.de.html)
 

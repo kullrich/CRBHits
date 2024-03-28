@@ -12,7 +12,7 @@ suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(ggplot2))
 suppressPackageStartupMessages(library(gridExtra))
 suppressPackageStartupMessages(library(curl))
-## compile LAST, KaKs_Calculator2.0 and DAGchainer for the vignette
+## compile LAST and DAGchainer for the vignette
 vignette.paths <- CRBHits::make_vignette()
 
 ## -----------------------------------------------------------------------------
