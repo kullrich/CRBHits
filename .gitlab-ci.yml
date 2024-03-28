@@ -1,4 +1,4 @@
-image: r-base:4.3.2
+image: r-devel:latest
 
 before_script:
   - apt-get update

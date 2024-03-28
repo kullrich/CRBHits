@@ -41,7 +41,7 @@
 #' @importFrom Biostrings DNAString DNAStringSet AAString AAStringSet
 #' readDNAStringSet readAAStringSet writeXStringSet width subseq
 #' @importFrom stringr word
-#' @importFrom MSA2dist dnastring2kaks cds2codonaln
+#' @importFrom MSA2dist dnastring2kaks cds2codonaln indices2kaks
 #' @seealso \code{\link[MSA2dist]{dnastring2kaks}},
 #' \code{\link[CRBHits]{isoform2longest}},
 #' \code{\link[CRBHits]{cds2genepos}},
