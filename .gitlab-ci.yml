@@ -1,4 +1,4 @@
-image: r-devel:latest
+image: rocker/r-devel:latest
 
 before_script:
   - apt-get update
