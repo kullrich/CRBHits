@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CRBHits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.6</span>
       </span>
     </div>
 
@@ -89,7 +89,7 @@
                         <h4 data-toc-skip class="author">Kristian K
 Ullrich</h4>
             
-            <h4 data-toc-skip class="date">2023-12-22</h4>
+            <h4 data-toc-skip class="date">2024-04-04</h4>
       
       <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/develvignettes/V01CRBHitsBasicVignette.Rmd" class="external-link"><code>vignettes/V01CRBHitsBasicVignette.Rmd</code></a></small>
       <div class="hidden name"><code>V01CRBHitsBasicVignette.Rmd</code></div>
@@ -183,12 +183,10 @@ alignment calculation and converting the protein sequence alignment back
 into a codon based alignment.</p>
 <p><strong>Note:</strong></p>
 <p>In this Vignette the <code>lastpath</code> is defined as
-<code>vignette.paths[1]</code>, the <code>kakscalcpath</code> as
-<code>vignette.paths[2]</code> and the <code>dagchainerpath</code> as
-<code>vignette.paths[3]</code> to be able to build the Vignette.</p>
-<p>However, once you have compiled last-1521, KaKs_Calculator2.0 and
-DAGchainer with the functions <code><a href="../reference/make_last.html">make_last()</a></code>,
-<code><a href="../reference/make_KaKs_Calculator2.html">make_KaKs_Calculator2()</a></code> and <code><a href="../reference/make_dagchainer.html">make_dagchainer()</a></code>
+<code>vignette.paths[1]</code> and the <code>dagchainerpath</code> as
+<code>vignette.paths[2]</code> to be able to build the Vignette.</p>
+<p>However, once you have compiled last-1542 and DAGchainer with the
+functions <code><a href="../reference/make_last.html">make_last()</a></code> and <code><a href="../reference/make_dagchainer.html">make_dagchainer()</a></code>
 you won’t need to specify the paths anymore. Please remove them if you
 would like to repeat the examples.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -199,7 +197,7 @@ would like to repeat the examples.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jeroen.r-universe.dev/curl" class="external-link">curl</a></span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">## compile LAST, KaKs_Calculator2.0 and DAGchainer for the vignette</span></span>
+<span><span class="co">## compile LAST and DAGchainer for the vignette</span></span>
 <span><span class="va">vignette.paths</span> <span class="op">&lt;-</span> <span class="fu">CRBHits</span><span class="fu">::</span><span class="fu"><a href="../reference/make_vignette.html">make_vignette</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -216,21 +214,16 @@ process and its dependencies <a href="https://mpievolbio-it.pages.gwdg.de/crbhit
 <span><span class="co">## from github</span></span>
 <span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"kullrich/CRBHits"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span>, dependencies <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre>
 <p><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a>
-needs <a href="https://gitlab.com/mcfrith/last" class="external-link">LAST</a>, <a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download" class="external-link">KaKs_Calculator2.0</a>
-and <a href="http://dagchainer.sourceforge.net/" class="external-link">DAGchainer</a> to be
-installed before one can efficiently use it.</p>
-<p>All prerequisites (LAST, KaKs_Calculator2.0, DAGchainer) are forked
-within <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a> and can
+needs <a href="https://gitlab.com/mcfrith/last" class="external-link">LAST</a> and <a href="http://dagchainer.sourceforge.net/" class="external-link">DAGchainer</a> to be installed
+before one can efficiently use it.</p>
+<p>All prerequisites (LAST, DAGchainer) are forked within <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a> and can
 be compiled for Linux/Unix/macOS with the functions
-<code><a href="../reference/make_last.html">make_last()</a></code>, <code><a href="../reference/make_KaKs_Calculator2.html">make_KaKs_Calculator2()</a></code> and
-<code><a href="../reference/make_dagchainer.html">make_dagchainer()</a></code>.</p>
+<code><a href="../reference/make_last.html">make_last()</a></code> and <code><a href="../reference/make_dagchainer.html">make_dagchainer()</a></code>.</p>
 <p>For the windows platform the user needs to use e.g. <a href="https://www.cygwin.com/" class="external-link">https://www.cygwin.com/</a> to be able to
 compile the prerequisites.</p>
 <pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a></span><span class="op">)</span></span>
-<span><span class="co">## compile last-1521</span></span>
+<span><span class="co">## compile last-1542</span></span>
 <span><span class="fu"><a href="../reference/make_last.html">make_last</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">## compile KaKs_Calculator2.0</span></span>
-<span><span class="fu"><a href="../reference/make_KaKs_Calculator2.html">make_KaKs_Calculator2</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">## compile DAGchainer</span></span>
 <span><span class="fu"><a href="../reference/make_dagchainer.html">make_dagchainer</a></span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
@@ -914,15 +907,16 @@ Ka/Ks.</p>
 <span>    <span class="va">cds2</span><span class="op">)</span>,</span>
 <span>    model<span class="op">=</span><span class="st">"Li"</span>,</span>
 <span>    isMSA<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="co">#&gt;                                                                                                                                                                                                                                                                               OUT</span></span>
-<span><span class="co">#&gt; Comp1                                                                                                                                                                                                                                                                           1</span></span>
-<span><span class="co">#&gt; Comp2                                                                                                                                                                                                                                                                           2</span></span>
-<span><span class="co">#&gt; seq1                                         AT1G01010.1_cds_chromosome:TAIR10:1:3631:5899:1_gene:AT1G01010_gene_biotype:protein_coding_transcript_biotype:protein_coding_gene_symbol:NAC001_description:NAC_domain-containing_protein_1_[Source:UniProtKB/Swiss-Prot;Acc:Q0WV96]</span></span>
-<span><span class="co">#&gt; seq2  Al_scaffold_0001_283_cds_chromosome:v.1.0:1:1082169:1084227:1_gene:Al_scaffold_0001_283_gene_biotype:protein_coding_transcript_biotype:protein_coding_description:DTW_domain-containing_protein_[Source:Projected_from_Arabidopsis_thaliana_(AT1G03687)_TAIR;Acc:AT1G03687]</span></span>
-<span><span class="co">#&gt; ka                                                                                                                                                                                                                                                               1.02338181273445</span></span>
-<span><span class="co">#&gt; ks                                                                                                                                                                                                                                                                       9.999999</span></span>
-<span><span class="co">#&gt; vka                                                                                                                                                                                                                                                            0.0114026707748616</span></span>
-<span><span class="co">#&gt; vks                                                                                                                                                                                                                                                                      9.999999</span></span>
+<span><span class="co">#&gt;   Comp1 Comp2</span></span>
+<span><span class="co">#&gt; 1     1     2</span></span>
+<span><span class="co">#&gt;                                                                                                                                                                                                                                   seq1</span></span>
+<span><span class="co">#&gt; 1 AT1G01010.1_cds_chromosome:TAIR10:1:3631:5899:1_gene:AT1G01010_gene_biotype:protein_coding_transcript_biotype:protein_coding_gene_symbol:NAC001_description:NAC_domain-containing_protein_1_[Source:UniProtKB/Swiss-Prot;Acc:Q0WV96]</span></span>
+<span><span class="co">#&gt;                                                                                                                                                                                                                                                                          seq2</span></span>
+<span><span class="co">#&gt; 1 Al_scaffold_0001_283_cds_chromosome:v.1.0:1:1082169:1084227:1_gene:Al_scaffold_0001_283_gene_biotype:protein_coding_transcript_biotype:protein_coding_description:DTW_domain-containing_protein_[Source:Projected_from_Arabidopsis_thaliana_(AT1G03687)_TAIR;Acc:AT1G03687]</span></span>
+<span><span class="co">#&gt;                 ka       ks              vka      vks               Ka       Ks</span></span>
+<span><span class="co">#&gt; 1 2.78366629351698 9.999999 1.40620782395121 9.999999 2.78366629351698 9.999999</span></span>
+<span><span class="co">#&gt;       Ka/Ks</span></span>
+<span><span class="co">#&gt; 1 0.2783667</span></span>
 <span></span>
 <span><span class="co">## get help</span></span>
 <span><span class="co">#?MSA2dist::dnastring2kaks</span></span></code></pre></div>
@@ -940,15 +934,16 @@ e.g. use an alternative <code>substitutionMatrix</code>.</p>
 <span>    model<span class="op">=</span><span class="st">"Li"</span>,</span>
 <span>    isMSA<span class="op">=</span><span class="cn">FALSE</span>,</span>
 <span>    substitutionMatrix<span class="op">=</span><span class="st">"BLOSUM45"</span><span class="op">)</span></span>
-<span><span class="co">#&gt;                                                                                                                                                                                                                                                                               OUT</span></span>
-<span><span class="co">#&gt; Comp1                                                                                                                                                                                                                                                                           1</span></span>
-<span><span class="co">#&gt; Comp2                                                                                                                                                                                                                                                                           2</span></span>
-<span><span class="co">#&gt; seq1                                         AT1G01010.1_cds_chromosome:TAIR10:1:3631:5899:1_gene:AT1G01010_gene_biotype:protein_coding_transcript_biotype:protein_coding_gene_symbol:NAC001_description:NAC_domain-containing_protein_1_[Source:UniProtKB/Swiss-Prot;Acc:Q0WV96]</span></span>
-<span><span class="co">#&gt; seq2  Al_scaffold_0001_283_cds_chromosome:v.1.0:1:1082169:1084227:1_gene:Al_scaffold_0001_283_gene_biotype:protein_coding_transcript_biotype:protein_coding_description:DTW_domain-containing_protein_[Source:Projected_from_Arabidopsis_thaliana_(AT1G03687)_TAIR;Acc:AT1G03687]</span></span>
-<span><span class="co">#&gt; ka                                                                                                                                                                                                                                                              0.878034285447893</span></span>
-<span><span class="co">#&gt; ks                                                                                                                                                                                                                                                                       9.999999</span></span>
-<span><span class="co">#&gt; vka                                                                                                                                                                                                                                                           0.00945680717088392</span></span>
-<span><span class="co">#&gt; vks                                                                                                                                                                                                                                                                      9.999999</span></span></code></pre></div>
+<span><span class="co">#&gt;   Comp1 Comp2</span></span>
+<span><span class="co">#&gt; 1     1     2</span></span>
+<span><span class="co">#&gt;                                                                                                                                                                                                                                   seq1</span></span>
+<span><span class="co">#&gt; 1 AT1G01010.1_cds_chromosome:TAIR10:1:3631:5899:1_gene:AT1G01010_gene_biotype:protein_coding_transcript_biotype:protein_coding_gene_symbol:NAC001_description:NAC_domain-containing_protein_1_[Source:UniProtKB/Swiss-Prot;Acc:Q0WV96]</span></span>
+<span><span class="co">#&gt;                                                                                                                                                                                                                                                                          seq2</span></span>
+<span><span class="co">#&gt; 1 Al_scaffold_0001_283_cds_chromosome:v.1.0:1:1082169:1084227:1_gene:Al_scaffold_0001_283_gene_biotype:protein_coding_transcript_biotype:protein_coding_description:DTW_domain-containing_protein_[Source:Projected_from_Arabidopsis_thaliana_(AT1G03687)_TAIR;Acc:AT1G03687]</span></span>
+<span><span class="co">#&gt;                 ka       ks              vka      vks               Ka       Ks</span></span>
+<span><span class="co">#&gt; 1 2.61692834721609 9.999999 0.79907852286954 9.999999 2.61692834721609 9.999999</span></span>
+<span><span class="co">#&gt;       Ka/Ks</span></span>
+<span><span class="co">#&gt; 1 0.2616929</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="rbh2kaks-function">3.3. <span id="rbh2kaks">rbh2kaks() Function</span><a class="anchor" aria-label="anchor" href="#rbh2kaks-function"></a>
@@ -989,20 +984,34 @@ problem.</p>
 <span>    cds2<span class="op">=</span><span class="va">aly</span>,</span>
 <span>    model<span class="op">=</span><span class="st">"Li"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh.kaks</span><span class="op">)</span></span>
-<span><span class="co">#&gt;           aa1                   aa2 rbh_class         ka        ks          vka</span></span>
-<span><span class="co">#&gt; 1 AT1G01040.1 Al_scaffold_0001_3256       rbh 0.74651201 9.9999990 0.0032172312</span></span>
-<span><span class="co">#&gt; 2 AT1G01050.1  Al_scaffold_0001_128       rbh 0.00000000 0.1831839 0.0000000000</span></span>
-<span><span class="co">#&gt; 3 AT1G01080.3  Al_scaffold_0001_125       rbh 0.05680851 0.1390746 0.0001612571</span></span>
-<span><span class="co">#&gt; 4 AT1G01180.1  Al_scaffold_0001_114       rbh 0.03656808 0.1543978 0.0001014973</span></span>
-<span><span class="co">#&gt; 5 AT1G01190.2 Al_scaffold_0001_4419       rbh 0.75036088 9.9999990 0.0093948533</span></span>
-<span><span class="co">#&gt; 6 AT1G01260.3 Al_scaffold_0001_1326       rbh 0.78228833 9.9999990 0.0051807370</span></span>
-<span><span class="co">#&gt;           vks</span></span>
-<span><span class="co">#&gt; 1 9.999999000</span></span>
-<span><span class="co">#&gt; 2 0.003022307</span></span>
-<span><span class="co">#&gt; 3 0.001531756</span></span>
-<span><span class="co">#&gt; 4 0.001249826</span></span>
-<span><span class="co">#&gt; 5 9.999999000</span></span>
-<span><span class="co">#&gt; 6 9.999999000</span></span>
+<span><span class="co">#&gt;           aa1                   aa2 rbh_class Comp1 Comp2        seq1</span></span>
+<span><span class="co">#&gt; 1 AT1G01040.1 Al_scaffold_0001_3256       rbh     1     7 AT1G01040.1</span></span>
+<span><span class="co">#&gt; 2 AT1G01050.1  Al_scaffold_0001_128       rbh     2     8 AT1G01050.1</span></span>
+<span><span class="co">#&gt; 3 AT1G01080.3  Al_scaffold_0001_125       rbh     3     9 AT1G01080.3</span></span>
+<span><span class="co">#&gt; 4 AT1G01180.1  Al_scaffold_0001_114       rbh     4    10 AT1G01180.1</span></span>
+<span><span class="co">#&gt; 5 AT1G01190.2 Al_scaffold_0001_4419       rbh     5    11 AT1G01190.2</span></span>
+<span><span class="co">#&gt; 6 AT1G01260.3 Al_scaffold_0001_1326       rbh     6    12 AT1G01260.3</span></span>
+<span><span class="co">#&gt;                    seq2                 ka                ks</span></span>
+<span><span class="co">#&gt; 1 Al_scaffold_0001_3256   3.47214301182417          9.999999</span></span>
+<span><span class="co">#&gt; 2  Al_scaffold_0001_128                  0 0.183183948635914</span></span>
+<span><span class="co">#&gt; 3  Al_scaffold_0001_125 0.0790506471613155 0.163580204777153</span></span>
+<span><span class="co">#&gt; 4  Al_scaffold_0001_114 0.0352750842763028 0.152463286123433</span></span>
+<span><span class="co">#&gt; 5 Al_scaffold_0001_4419   1.92163132810055          9.999999</span></span>
+<span><span class="co">#&gt; 6 Al_scaffold_0001_1326           9.999999          9.999999</span></span>
+<span><span class="co">#&gt;                    vka                 vks                 Ka                Ks</span></span>
+<span><span class="co">#&gt; 1     23.3505377395771            9.999999   3.47214301182417          9.999999</span></span>
+<span><span class="co">#&gt; 2                    0 0.00302230749742857                  0 0.183183948635914</span></span>
+<span><span class="co">#&gt; 3 0.000268905965208751 0.00195629182238787 0.0790506471613155 0.163580204777153</span></span>
+<span><span class="co">#&gt; 4 0.000103935713186579 0.00124033104730168 0.0352750842763028 0.152463286123433</span></span>
+<span><span class="co">#&gt; 5    0.197145150583422            9.999999   1.92163132810055          9.999999</span></span>
+<span><span class="co">#&gt; 6             9.999999            9.999999           9.999999          9.999999</span></span>
+<span><span class="co">#&gt;       Ka/Ks</span></span>
+<span><span class="co">#&gt; 1 0.3472143</span></span>
+<span><span class="co">#&gt; 2 0.0000000</span></span>
+<span><span class="co">#&gt; 3 0.4832531</span></span>
+<span><span class="co">#&gt; 4 0.2313677</span></span>
+<span><span class="co">#&gt; 5 0.1921632</span></span>
+<span><span class="co">#&gt; 6 1.0000000</span></span>
 <span></span>
 <span><span class="co">## get help</span></span>
 <span><span class="co">#?rbh2kaks</span></span></code></pre></div>
@@ -1016,20 +1025,34 @@ problem.</p>
 <span>    model<span class="op">=</span><span class="st">"Li"</span>,</span>
 <span>    threads<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh.kaks</span><span class="op">)</span></span>
-<span><span class="co">#&gt;           aa1                   aa2 rbh_class         ka        ks          vka</span></span>
-<span><span class="co">#&gt; 1 AT1G01040.1 Al_scaffold_0001_3256       rbh 0.74651201 9.9999990 0.0032172312</span></span>
-<span><span class="co">#&gt; 2 AT1G01050.1  Al_scaffold_0001_128       rbh 0.00000000 0.1831839 0.0000000000</span></span>
-<span><span class="co">#&gt; 3 AT1G01080.3  Al_scaffold_0001_125       rbh 0.05680851 0.1390746 0.0001612571</span></span>
-<span><span class="co">#&gt; 4 AT1G01180.1  Al_scaffold_0001_114       rbh 0.03656808 0.1543978 0.0001014973</span></span>
-<span><span class="co">#&gt; 5 AT1G01190.2 Al_scaffold_0001_4419       rbh 0.75036088 9.9999990 0.0093948533</span></span>
-<span><span class="co">#&gt; 6 AT1G01260.3 Al_scaffold_0001_1326       rbh 0.78228833 9.9999990 0.0051807370</span></span>
-<span><span class="co">#&gt;           vks</span></span>
-<span><span class="co">#&gt; 1 9.999999000</span></span>
-<span><span class="co">#&gt; 2 0.003022307</span></span>
-<span><span class="co">#&gt; 3 0.001531756</span></span>
-<span><span class="co">#&gt; 4 0.001249826</span></span>
-<span><span class="co">#&gt; 5 9.999999000</span></span>
-<span><span class="co">#&gt; 6 9.999999000</span></span>
+<span><span class="co">#&gt;           aa1                   aa2 rbh_class Comp1 Comp2        seq1</span></span>
+<span><span class="co">#&gt; 1 AT1G01040.1 Al_scaffold_0001_3256       rbh     1     7 AT1G01040.1</span></span>
+<span><span class="co">#&gt; 2 AT1G01050.1  Al_scaffold_0001_128       rbh     2     8 AT1G01050.1</span></span>
+<span><span class="co">#&gt; 3 AT1G01080.3  Al_scaffold_0001_125       rbh     3     9 AT1G01080.3</span></span>
+<span><span class="co">#&gt; 4 AT1G01180.1  Al_scaffold_0001_114       rbh     4    10 AT1G01180.1</span></span>
+<span><span class="co">#&gt; 5 AT1G01190.2 Al_scaffold_0001_4419       rbh     5    11 AT1G01190.2</span></span>
+<span><span class="co">#&gt; 6 AT1G01260.3 Al_scaffold_0001_1326       rbh     6    12 AT1G01260.3</span></span>
+<span><span class="co">#&gt;                    seq2                 ka                ks</span></span>
+<span><span class="co">#&gt; 1 Al_scaffold_0001_3256   3.47214301182417          9.999999</span></span>
+<span><span class="co">#&gt; 2  Al_scaffold_0001_128                  0 0.183183948635914</span></span>
+<span><span class="co">#&gt; 3  Al_scaffold_0001_125 0.0790506471613155 0.163580204777153</span></span>
+<span><span class="co">#&gt; 4  Al_scaffold_0001_114 0.0352750842763028 0.152463286123433</span></span>
+<span><span class="co">#&gt; 5 Al_scaffold_0001_4419   1.92163132810055          9.999999</span></span>
+<span><span class="co">#&gt; 6 Al_scaffold_0001_1326           9.999999          9.999999</span></span>
+<span><span class="co">#&gt;                    vka                 vks                 Ka                Ks</span></span>
+<span><span class="co">#&gt; 1     23.3505377395771            9.999999   3.47214301182417          9.999999</span></span>
+<span><span class="co">#&gt; 2                    0 0.00302230749742857                  0 0.183183948635914</span></span>
+<span><span class="co">#&gt; 3 0.000268905965208751 0.00195629182238787 0.0790506471613155 0.163580204777153</span></span>
+<span><span class="co">#&gt; 4 0.000103935713186579 0.00124033104730168 0.0352750842763028 0.152463286123433</span></span>
+<span><span class="co">#&gt; 5    0.197145150583422            9.999999   1.92163132810055          9.999999</span></span>
+<span><span class="co">#&gt; 6             9.999999            9.999999           9.999999          9.999999</span></span>
+<span><span class="co">#&gt;       Ka/Ks</span></span>
+<span><span class="co">#&gt; 1 0.3472143</span></span>
+<span><span class="co">#&gt; 2 0.0000000</span></span>
+<span><span class="co">#&gt; 3 0.4832531</span></span>
+<span><span class="co">#&gt; 4 0.2313677</span></span>
+<span><span class="co">#&gt; 5 0.1921632</span></span>
+<span><span class="co">#&gt; 6 1.0000000</span></span>
 <span></span>
 <span><span class="co">## get help</span></span>
 <span><span class="co">#?rbh2kaks</span></span></code></pre></div>
@@ -1047,20 +1070,34 @@ e.g. use an alternative <code>substitutionMatrix</code>.</p>
 <span>    threads<span class="op">=</span><span class="fl">2</span>,</span>
 <span>    substitutionMatrix<span class="op">=</span><span class="st">"BLOSUM45"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_aly_crbh.kaks</span><span class="op">)</span></span>
-<span><span class="co">#&gt;           aa1                   aa2 rbh_class         ka        ks          vka</span></span>
-<span><span class="co">#&gt; 1 AT1G01040.1 Al_scaffold_0001_3256       rbh 0.69109360 9.9999990 0.0029376709</span></span>
-<span><span class="co">#&gt; 2 AT1G01050.1  Al_scaffold_0001_128       rbh 0.00000000 0.1831839 0.0000000000</span></span>
-<span><span class="co">#&gt; 3 AT1G01080.3  Al_scaffold_0001_125       rbh 0.05638742 0.1366968 0.0001613461</span></span>
-<span><span class="co">#&gt; 4 AT1G01180.1  Al_scaffold_0001_114       rbh 0.03656808 0.1543978 0.0001014973</span></span>
-<span><span class="co">#&gt; 5 AT1G01190.2 Al_scaffold_0001_4419       rbh 0.66169565 9.9999990 0.0073901048</span></span>
-<span><span class="co">#&gt; 6 AT1G01260.3 Al_scaffold_0001_1326       rbh 0.75382109 9.9999990 0.0047473367</span></span>
-<span><span class="co">#&gt;           vks</span></span>
-<span><span class="co">#&gt; 1 9.999999000</span></span>
-<span><span class="co">#&gt; 2 0.003022307</span></span>
-<span><span class="co">#&gt; 3 0.001436133</span></span>
-<span><span class="co">#&gt; 4 0.001249826</span></span>
-<span><span class="co">#&gt; 5 9.999999000</span></span>
-<span><span class="co">#&gt; 6 9.999999000</span></span>
+<span><span class="co">#&gt;           aa1                   aa2 rbh_class Comp1 Comp2        seq1</span></span>
+<span><span class="co">#&gt; 1 AT1G01040.1 Al_scaffold_0001_3256       rbh     1     7 AT1G01040.1</span></span>
+<span><span class="co">#&gt; 2 AT1G01050.1  Al_scaffold_0001_128       rbh     2     8 AT1G01050.1</span></span>
+<span><span class="co">#&gt; 3 AT1G01080.3  Al_scaffold_0001_125       rbh     3     9 AT1G01080.3</span></span>
+<span><span class="co">#&gt; 4 AT1G01180.1  Al_scaffold_0001_114       rbh     4    10 AT1G01180.1</span></span>
+<span><span class="co">#&gt; 5 AT1G01190.2 Al_scaffold_0001_4419       rbh     5    11 AT1G01190.2</span></span>
+<span><span class="co">#&gt; 6 AT1G01260.3 Al_scaffold_0001_1326       rbh     6    12 AT1G01260.3</span></span>
+<span><span class="co">#&gt;                    seq2                 ka                ks</span></span>
+<span><span class="co">#&gt; 1 Al_scaffold_0001_3256   2.50636240666698          9.999999</span></span>
+<span><span class="co">#&gt; 2  Al_scaffold_0001_128                  0 0.183183948635914</span></span>
+<span><span class="co">#&gt; 3  Al_scaffold_0001_125 0.0791402331150612 0.160678097213979</span></span>
+<span><span class="co">#&gt; 4  Al_scaffold_0001_114 0.0352750842763028 0.152463286123433</span></span>
+<span><span class="co">#&gt; 5 Al_scaffold_0001_4419   1.91059659851196          9.999999</span></span>
+<span><span class="co">#&gt; 6 Al_scaffold_0001_1326           9.999999          9.999999</span></span>
+<span><span class="co">#&gt;                    vka                 vks                 Ka                Ks</span></span>
+<span><span class="co">#&gt; 1    0.402650330680348            9.999999   2.50636240666698          9.999999</span></span>
+<span><span class="co">#&gt; 2                    0 0.00302230749742857                  0 0.183183948635914</span></span>
+<span><span class="co">#&gt; 3 0.000263092168590708 0.00194014443892422 0.0791402331150612 0.160678097213979</span></span>
+<span><span class="co">#&gt; 4 0.000103935713186579 0.00124033104730168 0.0352750842763028 0.152463286123433</span></span>
+<span><span class="co">#&gt; 5     0.20952606322254            9.999999   1.91059659851196          9.999999</span></span>
+<span><span class="co">#&gt; 6             9.999999            9.999999           9.999999          9.999999</span></span>
+<span><span class="co">#&gt;       Ka/Ks</span></span>
+<span><span class="co">#&gt; 1 0.2506363</span></span>
+<span><span class="co">#&gt; 2 0.0000000</span></span>
+<span><span class="co">#&gt; 3 0.4925390</span></span>
+<span><span class="co">#&gt; 4 0.2313677</span></span>
+<span><span class="co">#&gt; 5 0.1910597</span></span>
+<span><span class="co">#&gt; 6 1.0000000</span></span>
 <span></span>
 <span><span class="co">## get help</span></span>
 <span><span class="co">#?rbh2kaks</span></span></code></pre></div>

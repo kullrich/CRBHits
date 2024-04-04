@@ -58,9 +58,6 @@
     <loc>/reference/cds2genepos.html</loc>
   </url>
   <url>
-    <loc>/reference/cds2kaks.html</loc>
-  </url>
-  <url>
     <loc>/reference/cds2rbh.html</loc>
   </url>
   <url>
@@ -107,12 +104,6 @@
   </url>
   <url>
     <loc>/reference/isoform2longest.html</loc>
-  </url>
-  <url>
-    <loc>/reference/makePostalignedSeqs.html</loc>
-  </url>
-  <url>
-    <loc>/reference/make_KaKs_Calculator2.html</loc>
   </url>
   <url>
     <loc>/reference/make_dagchainer.html</loc>
