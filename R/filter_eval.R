@@ -25,9 +25,9 @@ filter_eval <- function(rbh,
     evalue <- NULL
     if(inverse){
         #return(rbh[as.numeric(rbh[,11])>evalue, , drop=FALSE])
-        return(dplyr::filter(rbh, evalue>eval))
+        return(dplyr::filter(rbh, .data$evalue>eval))
     } else {
         #return(rbh[as.numeric(rbh[,11])<=evalue, , drop=FALSE])
-        return(dplyr::filter(rbh, evalue<=eval))
+        return(dplyr::filter(rbh, .data$evalue<=eval))
     }
 }

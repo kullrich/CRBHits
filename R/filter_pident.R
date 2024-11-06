@@ -25,9 +25,9 @@ filter_pident <- function(rbh,
     perc_identity <- NULL
     if(inverse){
         #return(rbh[as.numeric(rbh[,3])<pident, , drop=FALSE])
-        return(dplyr::filter(rbh, perc_identity<pident))
+        return(dplyr::filter(rbh, .data$perc_identity<pident))
     } else {
         #return(rbh[as.numeric(rbh[,3])>=pident, , drop=FALSE])
-        return(dplyr::filter(rbh, perc_identity>=pident))
+        return(dplyr::filter(rbh, .data$perc_identity>=pident))
     }
 }

@@ -30,7 +30,6 @@ Imports:
   parallel,
   readr,
   rlang,
-  seqinr,
   stats,
   stringr,
   tidyr,
@@ -40,6 +39,7 @@ Suggests:
   rmarkdown,
   knitr,
   devtools,
+  seqinr,
   stringi,
   testthat,
   tibble
@@ -59,4 +59,4 @@ URL:
   https://gitlab.gwdg.de/mpievolbio-it/crbhits,
   https://mpievolbio-it.pages.gwdg.de/crbhits/
 BugReports: https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2

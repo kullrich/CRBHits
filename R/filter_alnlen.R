@@ -25,9 +25,9 @@ filter_alnlen <- function(rbh,
     alignment_length <- NULL
     if(inverse){
         #return(rbh[as.numeric(rbh[,4])<alnlen, , drop=FALSE])
-        return(dplyr::filter(rbh, alignment_length<alnlen))
+        return(dplyr::filter(rbh, .data$alignment_length<alnlen))
     } else {
         #return(rbh[as.numeric(rbh[,4])>=alnlen, , drop=FALSE])
-        return(dplyr::filter(rbh, alignment_length>=alnlen))
+        return(dplyr::filter(rbh, .data$alignment_length>=alnlen))
     }
 }

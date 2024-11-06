@@ -27,10 +27,12 @@ filter_qcov <- function(rbh,
     if(inverse){
         #return(rbh[(as.numeric(rbh[,4])/as.numeric(rbh[,13]))<qcov, ,
         #drop=FALSE])
-        return(dplyr::filter(rbh, (alignment_length / query_length)<qcov))
+        return(dplyr::filter(rbh, (.data$alignment_length /
+            .data$query_length)<qcov))
     } else {
         #return(rbh[(as.numeric(rbh[,4])/as.numeric(rbh[,13]))>=qcov, ,
         #drop=FALSE])
-        return(dplyr::filter(rbh, (alignment_length / query_length)>=qcov))
+        return(dplyr::filter(rbh, (.data$alignment_length /
+            .data$query_length)>=qcov))
     }
 }

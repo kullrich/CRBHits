@@ -32,11 +32,13 @@ filter_rost1999 <- function(rbh,
     #pident_by_length <- get_pident_by_length(as.numeric(rbh[, 4]))
     if(inverse){
         return(dplyr::filter(
-            rbh, perc_identity<get_pident_by_length(alignment_length)))
+            rbh, .data$perc_identity<
+            get_pident_by_length(.data$alignment_length)))
         #return(rbh[as.numeric(rbh[, 3])<pident_by_length, , drop=FALSE])
     } else {
         #return(rbh[as.numeric(rbh[, 3])>=pident_by_length, , drop=FALSE])
         return(dplyr::filter(
-            rbh, perc_identity>=get_pident_by_length(alignment_length)))
+            rbh, .data$perc_identity>=
+            get_pident_by_length(.data$alignment_length)))
     }
 }

@@ -84,6 +84,8 @@ gff2longest <- function(gff3file,
     transcriptID <- NULL
     transcriptLENGTH <- NULL
     mid <- NULL
+    proteinID <- NULL
+    dbxref_geneID <- NULL
     if(source=="NCBI"){
         gff3 <- readr::read_tsv(gff3file, col_names = FALSE, comment = "#")
         colnames(gff3) <- c("seqname", "source", "feature", "start", "end",
