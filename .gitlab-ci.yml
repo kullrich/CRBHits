@@ -3,7 +3,7 @@ image: rocker/r-base:latest
 before_script:
   - apt-get update
   - apt-get -y install pandoc r-cran-devtools r-cran-testthat r-cran-curl
-  - R -e "install.packages('BiocManager'); BiocManager::install(version = "3.20")"
+  - R -e "install.packages('BiocManager'); BiocManager::install(version = '3.20')"
   - R -e "dir(); getwd(); sessionInfo(); install.packages('pkgdown'); devtools::install()"
   - R -e "setwd(paste0(find.package('CRBHits'), '/extdata/')); system(paste0('unzip last-1595.zip')); setwd(paste0(find.package('CRBHits'), '/extdata/last-1595/')); system('make')"
   - R -e "setwd(paste0(find.package('CRBHits'), '/extdata/')); system(paste0('tar -xvf KaKs_Calculator2.0_src.tar.gz')); setwd(paste0(find.package('CRBHits'), '/extdata/KaKs_Calculator2.0_src/src/')); system('make clean'); system('make')"
