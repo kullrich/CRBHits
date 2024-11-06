@@ -13,10 +13,12 @@
 #' conducted.
 #' @param cdsfile1 cds1 fasta file [mandatory]
 #' @param cdsfile2 cds2 fasta file [mandatory]
+#' @param dbfile1 aa1 db file [optional]
+#' @param dbfile2 aa2 db file [optional]
 #' @param searchtool specify sequence search algorithm last, mmseqs2 or diamond
 #' [default: last]
 #' @param lastpath specify the PATH to the last binaries
-#' [default: /extdata/last-1542/bin/]
+#' [default: /extdata/last-1595/bin/]
 #' @param lastD last option D: query letters per random alignment
 #' [default: 1e6]
 #' @param mmseqs2path specify the PATH to the mmseqs2 binaries
@@ -58,14 +60,15 @@
 #' [default: NCBI]
 #' @param threads number of parallel threads [default: 1]
 #' @param remove specify if last result files should be removed [default: TRUE]
+#' @param remove.db specify if last db files should be removed [default: TRUE]
 #' @param shorten1 shorten all sequences to multiple of three [default: FALSE]
-#' @param frame1  indicates the first base of a the first codon [default: 1]
-#' @param framelist1  supply vector of frames for each entry [default: NULL]
+#' @param frame1 indicates the first base of the first codon [default: 1]
+#' @param framelist1 supply vector of frames for each entry [default: NULL]
 #' @param genetic.code1 The genetic code to use for the translation of codons
 #' into Amino Acid letters [default: NULL]
 #' @param shorten2 shorten all sequences to multiple of three [default: FALSE]
-#' @param frame2  indicates the first base of a the first codon [default: 1]
-#' @param framelist2  supply vector of frames for each entry [default: NULL]
+#' @param frame2 indicates the first base of the first codon [default: 1]
+#' @param framelist2 supply vector of frames for each entry [default: NULL]
 #' @param genetic.code2 The genetic code to use for the translation of codons
 #' into Amino Acid letters [default: NULL]
 #' @return List of three (crbh=FALSE)\cr
@@ -99,7 +102,7 @@
 #' @references Rost B. (1999). Twilight zone of protein sequence alignments.
 #' \emph{Protein Engineering}, \bold{12(2)}, 85-94.
 #' @examples
-#' ## compile last-1542 within CRBHits
+#' ## compile last-1595 within CRBHits
 #' CRBHits::make_last()
 #' ## load example sequence data
 #' athfile <- system.file("fasta", "ath.cds.fasta.gz", package="CRBHits")
@@ -126,9 +129,11 @@
 #' @author Kristian K Ullrich
 
 cdsfile2rbh <- function(cdsfile1, cdsfile2,
+    dbfile1=NULL,
+    dbfile2=NULL,
     searchtool="last",
     lastpath=paste0(find.package("CRBHits"),
-        "/extdata/last-1542/bin/"),
+        "/extdata/last-1595/bin/"),
     lastD=1e6,
     mmseqs2path=NULL,
     mmseqs2sensitivity=5.7,
@@ -153,6 +158,7 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
     isoform.source="NCBI",
     threads=1,
     remove=TRUE,
+    remove.db=TRUE,
     shorten1=FALSE,
     frame1=1,
     framelist1=NULL,
@@ -250,6 +256,12 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
     aa2file <- tempfile("aa2_", outpath)
     aa1dbfile <- tempfile("aa1db_", outpath)
     aa2dbfile <- tempfile("aa2db_", outpath)
+    if(!is.null(dbfile1)){
+        aa1dbfile <- dbfile1
+    }
+    if(!is.null(dbfile2)){
+        aa2dbfile <- dbfile2
+    }
     if(searchtool=="last"){
         aa2_aa1_lastout <- tempfile("aa2_aa1_lastout_", outpath)
         aa1_aa2_lastout <- tempfile("aa1_aa2_lastout_", outpath)
@@ -343,10 +355,12 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
     if(remove){
         system2(command="rm", args = aa1file)
         system2(command="rm", args = aa2file)
-        system2(command="rm", args = paste0(aa1dbfile, "*"))
-        system2(command="rm", args = paste0(aa2dbfile, "*"))
         system2(command="rm", args = aa2_aa1_lastout)
         system2(command="rm", args = aa1_aa2_lastout)
+    }
+    if(remove){
+        system2(command="rm", args = paste0(aa1dbfile, "*"))
+        system2(command="rm", args = paste0(aa2dbfile, "*"))
     }
     #selfblast
     if(selfblast){

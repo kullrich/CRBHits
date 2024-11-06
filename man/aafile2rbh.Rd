@@ -7,8 +7,10 @@
 aafile2rbh(
   aafile1,
   aafile2,
+  dbfile1 = NULL,
+  dbfile2 = NULL,
   searchtool = "last",
-  lastpath = paste0(find.package("CRBHits"), "/extdata/last-1542/bin/"),
+  lastpath = paste0(find.package("CRBHits"), "/extdata/last-1595/bin/"),
   lastD = 1e+06,
   mmseqs2path = NULL,
   mmseqs2sensitivity = 5.7,
@@ -30,7 +32,9 @@ aafile2rbh(
   fit.varweight = 0.1,
   fit.min = 5,
   threads = 1,
-  remove = TRUE
+  aafile2tmp = TRUE,
+  remove = TRUE,
+  remove.db = TRUE
 )
 }
 \arguments{
@@ -38,11 +42,15 @@ aafile2rbh(
 
 \item{aafile2}{aa2 fasta file [mandatory]}
 
+\item{dbfile1}{aa1 db file [optional]}
+
+\item{dbfile2}{aa2 db file [optional]}
+
 \item{searchtool}{specify sequence search algorithm last, mmseqs2 or diamond
 [default: last]}
 
 \item{lastpath}{specify the PATH to the last binaries
-[default: /extdata/last-1542/bin/]}
+[default: /extdata/last-1595/bin/]}
 
 \item{lastD}{last option D: query letters per random alignment
 [default: 1e6]}
@@ -100,7 +108,13 @@ hit pairs [default: NULL]}
 
 \item{threads}{number of parallel threads [default: 1]}
 
+\item{aafile2tmp}{specify if aa input files sequenceIDs should be reduced
+to the first word and be written to a temporary aa file
+[default: TRUE]}
+
 \item{remove}{specify if last result files should be removed [default: TRUE]}
+
+\item{remove.db}{specify if last db files should be removed [default: TRUE]}
 }
 \value{
 List of three (crbh=FALSE)\cr
@@ -129,7 +143,7 @@ If one specifies aafile1 and aafile2 as the same input a selfblast is
 conducted.
 }
 \examples{
-## compile last-1542 within CRBHits
+## compile last-1595 within CRBHits
 CRBHits::make_last()
 ## load example sequence data
 athfile <- system.file("fasta", "ath.aa.fasta.gz", package="CRBHits")

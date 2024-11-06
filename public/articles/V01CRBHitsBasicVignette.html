@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CRBHits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.7</span>
       </span>
     </div>
 
@@ -89,7 +89,7 @@
                         <h4 data-toc-skip class="author">Kristian K
 Ullrich</h4>
             
-            <h4 data-toc-skip class="date">2024-03-28</h4>
+            <h4 data-toc-skip class="date">2024-11-06</h4>
       
       <small class="dont-index">Source: <a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits/blob/develvignettes/V01CRBHitsBasicVignette.Rmd" class="external-link"><code>vignettes/V01CRBHitsBasicVignette.Rmd</code></a></small>
       <div class="hidden name"><code>V01CRBHitsBasicVignette.Rmd</code></div>
@@ -185,7 +185,7 @@ into a codon based alignment.</p>
 <p>In this Vignette the <code>lastpath</code> is defined as
 <code>vignette.paths[1]</code> and the <code>dagchainerpath</code> as
 <code>vignette.paths[2]</code> to be able to build the Vignette.</p>
-<p>However, once you have compiled last-1542 and DAGchainer with the
+<p>However, once you have compiled last-1595 and DAGchainer with the
 functions <code><a href="../reference/make_last.html">make_last()</a></code> and <code><a href="../reference/make_dagchainer.html">make_dagchainer()</a></code>
 you won’t need to specify the paths anymore. Please remove them if you
 would like to repeat the examples.</p>
@@ -222,7 +222,7 @@ be compiled for Linux/Unix/macOS with the functions
 <p>For the windows platform the user needs to use e.g. <a href="https://www.cygwin.com/" class="external-link">https://www.cygwin.com/</a> to be able to
 compile the prerequisites.</p>
 <pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gitlab.gwdg.de/mpievolbio-it/crbhits" class="external-link">CRBHits</a></span><span class="op">)</span></span>
-<span><span class="co">## compile last-1542</span></span>
+<span><span class="co">## compile last-1595</span></span>
 <span><span class="fu"><a href="../reference/make_last.html">make_last</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">## compile DAGchainer</span></span>
 <span><span class="fu"><a href="../reference/make_dagchainer.html">make_dagchainer</a></span><span class="op">(</span><span class="op">)</span></span></code></pre>
@@ -826,7 +826,7 @@ substitutions, one needs to use a codon alignment.</p>
 nucleotide sequences as input to obtain such a codon alignment. The
 function will convert the nucleotide sequences into amino acid
 sequences, align them with the help of the
-<code><a href="https://rdrr.io/pkg/Biostrings/man/pairwiseAlignment.html" class="external-link">pairwiseAlignment()</a></code> function from the
+<code><a href="https://rdrr.io/pkg/Biostrings/man/moved_to_pwalign.html" class="external-link">pairwiseAlignment()</a></code> function from the
 <code>Biostrings</code> R package and convert this alignment back into a
 codon alignment.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
@@ -849,7 +849,7 @@ codon alignment.</p>
 <p>The user can alter some <code>@param</code> to change the alignment
 parameters, like <code>type</code>, <code>substitutionMatrix</code>,
 <code>gapOpening</code> and <code>gapExtension</code> costs as defined
-by the <code><a href="https://rdrr.io/pkg/Biostrings/man/pairwiseAlignment.html" class="external-link">pairwiseAlignment()</a></code> function from the
+by the <code><a href="https://rdrr.io/pkg/Biostrings/man/moved_to_pwalign.html" class="external-link">pairwiseAlignment()</a></code> function from the
 <code>Biostrings</code> R package.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## example to alter the substitionMatrix and use the BLOSUM45 cost matrix</span></span>
@@ -1197,7 +1197,7 @@ models.</strong> <em>Molecular Biology and Evolution</em>,
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
 </div>
 
       </footer>

@@ -7,8 +7,10 @@
 cds2rbh(
   cds1,
   cds2,
+  dbfile1 = NULL,
+  dbfile2 = NULL,
   searchtool = "last",
-  lastpath = paste0(find.package("CRBHits"), "/extdata/last-1542/bin/"),
+  lastpath = paste0(find.package("CRBHits"), "/extdata/last-1595/bin/"),
   lastD = 1e+06,
   mmseqs2path = NULL,
   mmseqs2sensitivity = 5.7,
@@ -33,6 +35,7 @@ cds2rbh(
   isoform.source = "NCBI",
   threads = 1,
   remove = TRUE,
+  remove.db = TRUE,
   shorten1 = FALSE,
   frame1 = 1,
   framelist1 = NULL,
@@ -48,11 +51,15 @@ cds2rbh(
 
 \item{cds2}{cds2 sequences as \code{DNAStringSet} [mandatory]}
 
+\item{dbfile1}{aa1 db file [optional]}
+
+\item{dbfile2}{aa2 db file [optional]}
+
 \item{searchtool}{specify sequence search algorithm last, mmseqs2 or diamond
 [default: last]}
 
 \item{lastpath}{specify the PATH to the last binaries
-[default: /extdata/last-1542/bin/]}
+[default: /extdata/last-1595/bin/]}
 
 \item{lastD}{last option D: query letters per random alignment
 [default: 1e6]}
@@ -120,9 +127,11 @@ longest isoform (only possible if data was accessed from NCBI or ENSEMBL)
 
 \item{remove}{specify if last result files should be removed [default: TRUE]}
 
+\item{remove.db}{specify if last db files should be removed [default: TRUE]}
+
 \item{shorten1}{shorten all sequences to multiple of three [default: FALSE]}
 
-\item{frame1}{indicates the first base of a the first codon [default: 1]}
+\item{frame1}{indicates the first base of the first codon [default: 1]}
 
 \item{framelist1}{supply vector of frames for each entry [default: NULL]}
 
@@ -131,7 +140,7 @@ into Amino Acid letters [default: NULL]}
 
 \item{shorten2}{shorten all sequences to multiple of three [default: FALSE]}
 
-\item{frame2}{indicates the first base of a the first codon [default: 1]}
+\item{frame2}{indicates the first base of the first codon [default: 1]}
 
 \item{framelist2}{supply vector of frames for each entry [default: NULL]}
 
@@ -163,7 +172,7 @@ or with \bold{diamond}
 If one specifies cds1 and cds2 as the same input a selfblast is conducted.
 }
 \examples{
-## compile last-1542 within CRBHits
+## compile last-1595 within CRBHits
 CRBHits::make_last()
 ## load example sequence data
 data("ath", package="CRBHits")

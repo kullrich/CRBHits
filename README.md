@@ -108,7 +108,7 @@ These vignettes introduce  [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhit
 ```
 library(CRBHits)
 ## prerequisite: last
-## if not done yet, try to compile last-1542 - uncomment the following line
+## if not done yet, try to compile last-1595 - uncomment the following line
 #CRBHits::make_last()
 ## conditional reciprocal best hits (CRBHit pairs)
 data("ath", package="CRBHits")
@@ -185,7 +185,7 @@ ath_aly_crbh <- cds2rbh(ath, aly, plotCurve = TRUE,
 
 ##### see section compile external tools from original source code
 ## example how to use own compiled version of LAST
-my.lastpath <- "/tmp/last/last-1542/bin"
+my.lastpath <- "/tmp/last/last-1595/bin"
 ath_aly_crbh <- cds2rbh(ath, aly, plotCurve = TRUE,
                         lastpath = my.lastpath)
 ?cds2rbh
@@ -244,7 +244,7 @@ cds2rbh(., ., mmseqs2path=my.diamondpath, searchtool="diamond")
 
 The source code for the prerequisites (LAST, DAGchainer) are forked within [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits). 
 
-- [LAST](https://gitlab.com/mcfrith/last) [https://gitlab.com/mcfrith/last/-/archive/1542/last-1542.zip](https://gitlab.com/mcfrith/last/-/archive/1542/last-1542.zip)
+- [LAST](https://gitlab.com/mcfrith/last) [https://gitlab.com/mcfrith/last/-/archive/1550/last-1595.zip](https://gitlab.com/mcfrith/last/-/archive/1550/last-1595.zip)
 
 To compile the forked version of [LAST](https://gitlab.com/mcfrith/last) within the `CRBHits` R package directory try to use the function `make_last()`:
 
@@ -288,10 +288,10 @@ To compile [LAST](https://gitlab.com/mcfrith/last) yourself on Linux/Unix/macOS 
 ## e.g.
 mkdir /tmp/last
 cd /tmp/last
-## donwload last-1542
-curl -O https://gitlab.com/mcfrith/last/-/archive/1542/last-1542.zip
-unzip last-1542.zip
-cd last-1542
+## donwload last-1595
+curl -O https://gitlab.com/mcfrith/last/-/archive/1550/last-1595.zip
+unzip last-1595.zip
+cd last-1595
 ## compile LAST
 make
 ```
@@ -319,7 +319,7 @@ If you would like to use your own compiled versions of `LAST` and `DAGchainer` y
 
 ```
 ## example how to use own compiled versions of LAST, KaKs_Calculator2.0 and DAGchainer
-my.lastpath <- "/tmp/last/last-1542/bin"
+my.lastpath <- "/tmp/last/last-1595/bin"
 my.dagchainerpath <- "/tmp/dagcahiner"
 
 ?cds2rbh
@@ -339,7 +339,7 @@ MIT (see LICENSE)
 
 The [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) package includes source code that has been published under following licenses:
 
-### last-1542.zip
+### last-1595.zip
 
 GNU General Public License Version 3, 29 June 2007 [GPLv3](https://www.gnu.org/licenses/gpl-3.0.de.html)
 

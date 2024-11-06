@@ -14,10 +14,12 @@
 #' conducted.
 #' @param aafile1 aa1 fasta file [mandatory]
 #' @param aafile2 aa2 fasta file [mandatory]
+#' @param dbfile1 aa1 db file [optional]
+#' @param dbfile2 aa2 db file [optional]
 #' @param searchtool specify sequence search algorithm last, mmseqs2 or diamond
 #' [default: last]
 #' @param lastpath specify the PATH to the last binaries
-#' [default: /extdata/last-1542/bin/]
+#' [default: /extdata/last-1595/bin/]
 #' @param lastD last option D: query letters per random alignment
 #' [default: 1e6]
 #' @param mmseqs2path specify the PATH to the mmseqs2 binaries
@@ -53,7 +55,11 @@
 #' [default: 0.1]
 #' @param fit.min specify minimum neighborhood alignment length [default: 5]
 #' @param threads number of parallel threads [default: 1]
+#' @param aafile2tmp specify if aa input files sequenceIDs should be reduced
+#' to the first word and be written to a temporary aa file
+#' [default: TRUE]
 #' @param remove specify if last result files should be removed [default: TRUE]
+#' @param remove.db specify if last db files should be removed [default: TRUE]
 #' @return List of three (crbh=FALSE)\cr
 #' 1: $crbh.pairs\cr
 #' 2: $crbh1 matrix; query > target\cr
@@ -81,7 +87,7 @@
 #' @references Rost B. (1999). Twilight zone of protein sequence alignments.
 #' \emph{Protein Engineering}, \bold{12(2)}, 85-94.
 #' @examples
-#' ## compile last-1542 within CRBHits
+#' ## compile last-1595 within CRBHits
 #' CRBHits::make_last()
 #' ## load example sequence data
 #' athfile <- system.file("fasta", "ath.aa.fasta.gz", package="CRBHits")
@@ -108,9 +114,11 @@
 #' @author Kristian K Ullrich
 
 aafile2rbh <- function(aafile1, aafile2,
+    dbfile1=NULL,
+    dbfile2=NULL,
     searchtool="last",
     lastpath=paste0(find.package("CRBHits"),
-        "/extdata/last-1542/bin/"),
+        "/extdata/last-1595/bin/"),
     lastD=1e6,
     mmseqs2path=NULL,
     mmseqs2sensitivity=5.7,
@@ -132,7 +140,9 @@ aafile2rbh <- function(aafile1, aafile2,
     fit.varweight=0.1,
     fit.min=5,
     threads=1,
-    remove=TRUE
+    aafile2tmp=TRUE,
+    remove=TRUE,
+    remove.db=TRUE
     ){
     #internal function to fit evalue by length
     fitSpline <- function(alnlength, evalue, fit.type, fit.varweight, fit.min){
@@ -218,10 +228,26 @@ aafile2rbh <- function(aafile1, aafile2,
     if(aafile1==aafile2){
         selfblast <- TRUE
     }
-    aa1file <- tempfile("aa1_", outpath)
-    aa2file <- tempfile("aa2_", outpath)
+    aa1file <- aafile1
+    aa2file <- aafile2
+    if(aafile2tmp){
+        aa1file <- tempfile("aa1_", outpath)
+        aa2file <- tempfile("aa2_", outpath)
+        aa1 <- Biostrings::readAAStringSet(aafile1)
+        aa2 <- Biostrings::readAAStringSet(aafile2)
+        names(aa1) <- stringr::str_split_fixed(names(aa1), " ", 2)[, 1]
+        names(aa2) <- stringr::str_split_fixed(names(aa2), " ", 2)[, 1]
+        Biostrings::writeXStringSet(aa1, file=aa1file)
+        Biostrings::writeXStringSet(aa2, file=aa2file)
+    }
     aa1dbfile <- tempfile("aa1db_", outpath)
     aa2dbfile <- tempfile("aa2db_", outpath)
+    if(!is.null(dbfile1)){
+        aa1dbfile <- dbfile1
+    }
+    if(!is.null(dbfile2)){
+        aa2dbfile <- dbfile2
+    }
     if(searchtool=="last"){
         aa2_aa1_lastout <- tempfile("aa2_aa1_lastout_", outpath)
         aa1_aa2_lastout <- tempfile("aa1_aa2_lastout_", outpath)
@@ -234,17 +260,15 @@ aafile2rbh <- function(aafile1, aafile2,
         aa2_aa1_lastout <- tempfile("aa2_aa1_diamond_", outpath)
         aa1_aa2_lastout <- tempfile("aa1_aa2_diamond_", outpath)
     }
-    aa1 <- Biostrings::readAAStringSet(aafile1)
-    aa2 <- Biostrings::readAAStringSet(aafile2)
-    names(aa1) <- stringr::str_split_fixed(names(aa1), " ", 2)[, 1]
-    names(aa2) <- stringr::str_split_fixed(names(aa2), " ", 2)[, 1]
-    Biostrings::writeXStringSet(aa1, file=aa1file)
-    Biostrings::writeXStringSet(aa2, file=aa2file)
     if(searchtool=="last"){
-        system2(command=paste0(lastpath, "lastdb"),
-            args = c("-p", "-cR01", "-P", threads, aa1dbfile, aa1file))
-        system2(command=paste0(lastpath, "lastdb"),
-            args = c("-p", "-cR01", "-P", threads, aa2dbfile, aa2file))
+        if(!file.exists(paste0(aa1dbfile, ".suf"))){
+            system2(command=paste0(lastpath, "lastdb"),
+                args = c("-p", "-cR01", "-P", threads, aa1dbfile, aa1file))
+        }
+        if(!file.exists(paste0(aa2dbfile, ".suf"))){
+            system2(command=paste0(lastpath, "lastdb"),
+                args = c("-p", "-cR01", "-P", threads, aa2dbfile, aa2file))
+        }
         system2(command=paste0(lastpath, "lastal"),
             args = c("-f", "BlastTab+", "-P", threads, "-D", lastD, aa1dbfile,
             aa2file, ">", aa2_aa1_lastout))
@@ -267,12 +291,16 @@ aafile2rbh <- function(aafile1, aafile2,
                 "tlen,raw")))
     }
     if(searchtool=="diamond"){
-        system2(command=paste0(diamondpath, "diamond"),
-            args = c("makedb", "--in", aa1file,
-                "-d", aa1dbfile))
-        system2(command=paste0(diamondpath, "diamond"),
-            args = c("makedb", "--in", aa2file,
-                "-d", aa2dbfile))
+        if(!file.exists(paste0(aa1dbfile, ".dmnd"))){
+            system2(command=paste0(diamondpath, "diamond"),
+                args = c("makedb", "--in", aa1file,
+                    "-d", aa1dbfile))
+        }
+        if(!file.exists(paste0(aa2dbfile, ".dmnd"))){
+            system2(command=paste0(diamondpath, "diamond"),
+                args = c("makedb", "--in", aa2file,
+                    "-d", aa2dbfile))
+        }
         system2(command=paste0(diamondpath, "diamond"),
             args = c("blastp", "--ignore-warnings", "-d", aa2dbfile,
                 "-q", aa1file, "-o", aa1_aa2_lastout, diamondsensitivity,
@@ -301,12 +329,16 @@ aafile2rbh <- function(aafile1, aafile2,
         aa2_aa1[, "perc_identity"] <- aa2_aa1[, "perc_identity"] * 100
     }
     if(remove){
-        system2(command="rm", args = aa1file)
-        system2(command="rm", args = aa2file)
-        system2(command="rm", args = paste0(aa1dbfile, "*"))
-        system2(command="rm", args = paste0(aa2dbfile, "*"))
+        if(aafile2tmp){
+            system2(command="rm", args = aa1file)
+            system2(command="rm", args = aa2file)
+        }
         system2(command="rm", args = aa2_aa1_lastout)
         system2(command="rm", args = aa1_aa2_lastout)
+    }
+    if(remove.db){
+        system2(command="rm", args = paste0(aa1dbfile, "*"))
+        system2(command="rm", args = paste0(aa2dbfile, "*"))
     }
     #selfblast
     if(selfblast){

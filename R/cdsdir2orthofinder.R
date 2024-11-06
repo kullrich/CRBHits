@@ -2,14 +2,14 @@
 #' @name cdsdir2orthofinder
 #' @description This function calculates (conditional-)reciprocal best hit
 #' (CRBHit) pairs for all possible comparison including self
-#' comparison from a directory of AA fasta files.
+#' comparison from a directory of CDS fasta files.
 #' Sequence searches are performed with \bold{last}
 #' \emph{Kiełbasa, SM et al. (2011)} [default]
 #' or with \bold{mmseqs2}
 #' \emph{Steinegger, M and Soeding, J (2017)}
 #' or with \bold{diamond}
 #' \emph{Buchfink, B et al. (2021)}.
-#' @param dir directory containing AA fasta files [mandatory]
+#' @param dir directory containing CDS fasta files [mandatory]
 #' @param file_ending define file ending to consider [default: *]
 #' @param searchtool specify sequence search algorithm last, mmseqs2 or diamond
 #' [default: last]
@@ -25,7 +25,11 @@
 #' [default: NULL]
 #' @param diamondsensitivity specify the sensitivity option of diamond
 #' [default: --sensitive]
+#' @param diamondmaxtargetseqs specify the maximum number of target sequences
+#' per query option of diamond
+#' [default: -k0]
 #' @param outpath specify the output PATH [default: /tmp]
+#' @param dbpath specify the output PATH [default: /tmp]
 #' @param crbh specify if conditional-reciprocal hit pairs should be retained
 #' as secondary hits [default: TRUE]
 #' @param keepSingleDirection specify if single direction secondary hit pairs
@@ -47,6 +51,7 @@
 #' [default: 5]
 #' @param threads number of parallel threads [default: 1]
 #' @param remove specify if last result files should be removed [default: TRUE]
+#' @param remove.db specify if last db files should be removed [default: TRUE]
 #' @return List of three (crbh=FALSE)\cr
 #' @importFrom Biostrings writeXStringSet
 #' @importFrom graphics legend par points
@@ -72,13 +77,15 @@ cdsdir2orthofinder <- function(dir,
     file_ending="*",
     searchtool="last",
     lastpath=paste0(find.package("CRBHits"),
-        "/extdata/last-1542/bin/"),
+        "/extdata/last-1595/bin/"),
     lastD=1e6,
     mmseqs2path=NULL,
     mmseqs2sensitivity=5.7,
     diamondpath=NULL,
     diamondsensitivity="--sensitive",
+    diamondmaxtargetseqs="-k0",
     outpath="/tmp",
+    dbpath="/tmp",
     crbh=TRUE,
     keepSingleDirection=FALSE,
     eval=1e-3,
@@ -92,7 +99,8 @@ cdsdir2orthofinder <- function(dir,
     fit.varweight=0.1,
     fit.min=5,
     threads=1,
-    remove=TRUE
+    remove=FALSE,
+    remove.db=FALSE
     ){
     if(searchtool=="last"){
         if(!dir.exists(lastpath)){
@@ -135,32 +143,50 @@ cdsdir2orthofinder <- function(dir,
                 prerequisites.")
         }
     }
+    if(!dir.exists(outpath)){
+        dir.create(outpath)
+    }
+    if(!dir.exists(dbpath)){
+        dir.create(dbpath)
+    }
     cds_files <- list.files(dir, file_ending)
     cds_species <- seq_along(cds_files)-1
-    cds_species_files <- paste0("Species", cds_species, ".fa")
+    cds_species_files <- paste0("Species", cds_species, ".cds.fa")
+    aa_species_files <- paste0("Species", cds_species, ".aa.fa")
+    aa_db_files <- paste0("Species", cds_species, ".db")
     # write SpeciesIDs.txt
     sink(file.path(outpath, "SpeciesIDs.txt"))
     cat(
-        apply(cbind(cds_species, cds_files),1,
-            function(x){paste0(x[1],": ",x[2])}), sep="\n"
+        apply(cbind(cds_species, cds_files), 1,
+            function(x){paste0(x[1],": ", x[2])}), sep="\n"
     )
     sink(NULL)
     # extract sequence names, create cds_species_files
     # and perform selfblast
-    aa_sequence_names <- data.frame()
     for(i in seq_along(cds_files)){
-        tmp_aa <- Biostrings::readAAStringSet(
+        tmp_cds <- Biostrings::readDNAStringSet(
             file.path(dir, cds_files[i]))
-        tmp_aa_names <- paste0(
-            cds_species[i], "_", seq_along(tmp_aa)-1)
-        aa_sequence_names <- rbind(aa_sequence_names,
-            data.frame(tmp_aa_names, stringr::word(names(tmp_aa))))
-        names(tmp_aa) <- tmp_aa_names
-        Biostrings::writeXStringSet(tmp_aa,
+        tmp_cds_names <- paste0(
+            cds_species[i], "_", seq_along(tmp_cds)-1)
+        cds_sequence_names <- data.frame(tmp_cds_names,
+            stringr::word(names(tmp_cds)))
+        # write SequenceIDs.txt
+        write.table(cds_sequence_names, sep="\t", quote=FALSE,
+            col.names=FALSE, row.names=FALSE, append=TRUE,
+            file=file.path(outpath, "SequenceIDs.txt"))
+        names(tmp_cds) <- tmp_cds_names
+        Biostrings::writeXStringSet(tmp_cds,
             file.path(outpath, cds_species_files[i]))
-        tmp_aa_rbh <- aafile2rbh(
-            aafile1 = file.path(outpath, cds_species_files[i]),
-            aafile2 = file.path(outpath, cds_species_files[i]),
+        tmp_aa <- MSA2dist::cds2aa(
+            Biostrings::DNAStringSet(
+                gsub("\\.", "-", tmp_cds)), shorten = TRUE)
+        Biostrings::writeXStringSet(tmp_aa,
+            file.path(outpath, aa_species_files[i]))
+        tmp_aa_rbh <- aafile2rbhplus(
+            aafile1 = file.path(outpath, aa_species_files[i]),
+            aafile2 = file.path(outpath, aa_species_files[i]),
+            dbfile1 = file.path(dbpath, aa_db_files[i]),
+            dbfile2 = file.path(dbpath, aa_db_files[i]),
             searchtool=searchtool,
             lastpath=lastpath,
             lastD=lastD,
@@ -168,6 +194,7 @@ cdsdir2orthofinder <- function(dir,
             mmseqs2sensitivity=mmseqs2sensitivity,
             diamondpath=diamondpath,
             diamondsensitivity=diamondsensitivity,
+            diamondmaxtargetseqs=diamondmaxtargetseqs,
             outpath=outpath,
             crbh=crbh,
             keepSingleDirection=keepSingleDirection,
@@ -183,24 +210,22 @@ cdsdir2orthofinder <- function(dir,
             fit.varweight=fit.varweight,
             fit.min=fit.min,
             threads=threads,
-            remove=remove)
+            aafile2tmp=FALSE,
+            remove=remove,
+            remove.db=remove.db)
         write.table(tmp_aa_rbh$crbh1[,1:12], sep="\t", quote=FALSE,
             col.names=FALSE, row.names=FALSE,
             file=file.path(outpath, paste0("Blast", cds_species[i], "_",
             cds_species[i], ".txt")))
     }
-    # write SequenceIDs.txt
-    sink(file.path(outpath, "SequenceIDs.txt"))
-    cat(
-        apply(aa_sequence_names,1,function(x){paste0(x[1],": ",x[2])}), sep="\n"
-    )
-    sink(NULL)
     # combn
     to_calc <- t(combn(cds_species, 2))
-    apply(to_calc,1,function(x){
+    apply(to_calc, 1, function(x){
         tmp_aa_rbh <- aafile2rbh(
-            aafile1 = file.path(outpath, cds_species_files[x[1]+1]),
-            aafile2 = file.path(outpath, cds_species_files[x[2]+1]),
+            aafile1 = file.path(outpath, aa_species_files[x[1]+1]),
+            aafile2 = file.path(outpath, aa_species_files[x[2]+1]),
+            dbfile1 = file.path(dbpath, aa_db_files[x[1]+1]),
+            dbfile2 = file.path(dbpath, aa_db_files[x[2]+1]),
             searchtool=searchtool,
             lastpath=lastpath,
             lastD=lastD,
@@ -208,6 +233,7 @@ cdsdir2orthofinder <- function(dir,
             mmseqs2sensitivity=mmseqs2sensitivity,
             diamondpath=diamondpath,
             diamondsensitivity=diamondsensitivity,
+            diamondmaxtargetseqs=diamondmaxtargetseqs,
             outpath=outpath,
             crbh=crbh,
             keepSingleDirection=keepSingleDirection,
@@ -223,7 +249,9 @@ cdsdir2orthofinder <- function(dir,
             fit.varweight=fit.varweight,
             fit.min=fit.min,
             threads=threads,
-            remove=remove)
+            aafile2tmp=FALSE,
+            remove=remove,
+            remove.db=remove.db)
         write.table(tmp_aa_rbh$crbh1[,1:12], sep="\t", quote=FALSE,
             col.names=FALSE, row.names=FALSE,
             file=file.path(outpath, paste0("Blast", x[1], "_", x[2], ".txt")))

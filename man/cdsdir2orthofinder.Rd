@@ -8,13 +8,15 @@ cdsdir2orthofinder(
   dir,
   file_ending = "*",
   searchtool = "last",
-  lastpath = paste0(find.package("CRBHits"), "/extdata/last-1542/bin/"),
+  lastpath = paste0(find.package("CRBHits"), "/extdata/last-1595/bin/"),
   lastD = 1e+06,
   mmseqs2path = NULL,
   mmseqs2sensitivity = 5.7,
   diamondpath = NULL,
   diamondsensitivity = "--sensitive",
+  diamondmaxtargetseqs = "-k0",
   outpath = "/tmp",
+  dbpath = "/tmp",
   crbh = TRUE,
   keepSingleDirection = FALSE,
   eval = 0.001,
@@ -28,11 +30,12 @@ cdsdir2orthofinder(
   fit.varweight = 0.1,
   fit.min = 5,
   threads = 1,
-  remove = TRUE
+  remove = FALSE,
+  remove.db = FALSE
 )
 }
 \arguments{
-\item{dir}{directory containing AA fasta files [mandatory]}
+\item{dir}{directory containing CDS fasta files [mandatory]}
 
 \item{file_ending}{define file ending to consider [default: *]}
 
@@ -57,7 +60,13 @@ cdsdir2orthofinder(
 \item{diamondsensitivity}{specify the sensitivity option of diamond
 [default: --sensitive]}
 
+\item{diamondmaxtargetseqs}{specify the maximum number of target sequences
+per query option of diamond
+[default: -k0]}
+
 \item{outpath}{specify the output PATH [default: /tmp]}
+
+\item{dbpath}{specify the output PATH [default: /tmp]}
 
 \item{crbh}{specify if conditional-reciprocal hit pairs should be retained
 as secondary hits [default: TRUE]}
@@ -93,6 +102,8 @@ hit pairs [default: NULL]}
 \item{threads}{number of parallel threads [default: 1]}
 
 \item{remove}{specify if last result files should be removed [default: TRUE]}
+
+\item{remove.db}{specify if last db files should be removed [default: TRUE]}
 }
 \value{
 List of three (crbh=FALSE)\cr
@@ -100,7 +111,7 @@ List of three (crbh=FALSE)\cr
 \description{
 This function calculates (conditional-)reciprocal best hit
 (CRBHit) pairs for all possible comparison including self
-comparison from a directory of AA fasta files.
+comparison from a directory of CDS fasta files.
 Sequence searches are performed with \bold{last}
 \emph{Kiełbasa, SM et al. (2011)} [default]
 or with \bold{mmseqs2}
