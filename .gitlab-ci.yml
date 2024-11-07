@@ -1,8 +1,8 @@
-image: rocker/r-base:latest
+image: rocker/r-ver:4.4.2
 
 before_script:
   - apt-get update
-  - apt-get -y install pandoc r-cran-devtools r-cran-testthat r-cran-curl
+  - apt-get -y install pandoc libcurl4-openssl-dev r-cran-devtools r-cran-testthat r-cran-curl
   - R -e "install.packages('BiocManager'); BiocManager::install(version = '3.20')"
   - R -e "dir(); getwd(); sessionInfo(); install.packages('pkgdown'); devtools::install()"
   - R -e "setwd(paste0(find.package('CRBHits'), '/extdata/')); system(paste0('unzip last-1595.zip')); setwd(paste0(find.package('CRBHits'), '/extdata/last-1595/')); system('make')"
