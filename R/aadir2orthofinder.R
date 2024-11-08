@@ -11,23 +11,36 @@
 #' \emph{Buchfink, B et al. (2021)}.
 #' @param dir directory containing AA fasta files [mandatory]
 #' @param file_ending define file ending to consider [default: *]
-#' @param searchtool specify sequence search algorithm last, mmseqs2 or diamond
+#' @param searchtool specify sequence search algorithm last, mmseqs2, diamond or
+#' lambda3
 #' [default: last]
 #' @param lastpath specify the PATH to the last binaries
 #' [default: /extdata/last-1595/bin/]
 #' @param lastD last option D: query letters per random alignment
 #' [default: 1e6]
+#' @param lastm last option m: maximum initial matches per query position
+#' [default: 10]
 #' @param mmseqs2path specify the PATH to the mmseqs2 binaries
 #' [default: NULL]
 #' @param mmseqs2sensitivity specify the sensitivity option of mmseqs2
 #' [default: 5.7]
+#' @param mmseqs2maxseqs mmseqs2 option: Maximum results per query sequence
+#' allowed to pass the prefilter
+#' [default: 300]
 #' @param diamondpath specify the PATH to the diamond binaries
 #' [default: NULL]
 #' @param diamondsensitivity specify the sensitivity option of diamond
 #' [default: --sensitive]
 #' @param diamondmaxtargetseqs specify the maximum number of target sequences
 #' per query option of diamond
-#' [default: -k0]
+#' [default: 0]
+#' @param lambda3path specify the PATH to the lambda3 binaries
+#' [default: NULL]
+#' @param lambda3sensitivity specify the sensitivity option of lambda3
+#' [default: sensitive]
+#' @param lambda3nummatches specify the number of matches per query option of
+#' lambda3
+#' [default: 25]
 #' @param outpath specify the output PATH [default: /tmp]
 #' @param crbh specify if conditional-reciprocal hit pairs should be retained
 #' as secondary hits [default: TRUE]
@@ -77,11 +90,16 @@ aadir2orthofinder <- function(dir,
     lastpath=paste0(find.package("CRBHits"),
         "/extdata/last-1595/bin/"),
     lastD=1e6,
+    lastm=10,
     mmseqs2path=NULL,
     mmseqs2sensitivity=5.7,
+    mmseqs2maxseqs=300,
     diamondpath=NULL,
     diamondsensitivity="--sensitive",
-    diamondmaxtargetseqs="-k0",
+    diamondmaxtargetseqs=0,
+    lambda3path=NULL,
+    lambda3sensitivity="sensitive",
+    lambda3nummatches=25,
     outpath="/tmp",
     crbh=TRUE,
     keepSingleDirection=FALSE,
@@ -139,6 +157,18 @@ aadir2orthofinder <- function(dir,
                 prerequisites.")
         }
     }
+    if(searchtool=="lambda3"){
+        if(!dir.exists(lambda3path)){
+            stop("Error: lambda3 PATH does not exist. Please specify
+                correct PATH and/or look into package installation
+                prerequisites.")
+        }
+        if(!file.exists(paste0(lambda3path, "lambda3"))){
+            stop("Error: lambda3 binary does not exist. Please specify
+                correct PATH and/or look into package installation
+                prerequisites.")
+        }
+    }
     aa_files <- list.files(dir, file_ending)
     aa_species <- seq_along(aa_files)-1
     aa_species_files <- paste0("Species", aa_species, ".fa")
@@ -168,11 +198,16 @@ aadir2orthofinder <- function(dir,
             searchtool=searchtool,
             lastpath=lastpath,
             lastD=lastD,
+            lastm=lastm,
             mmseqs2path=mmseqs2path,
             mmseqs2sensitivity=mmseqs2sensitivity,
+            mmseqs2maxseqs=mmseqs2maxseqs,
             diamondpath=diamondpath,
             diamondsensitivity=diamondsensitivity,
             diamondmaxtargetseqs=diamondmaxtargetseqs,
+            lambda3path=lambda3path,
+            lambda3sensitivity=lambda3sensitivity,
+            lambda3nummatches=lambda3nummatches,
             outpath=outpath,
             crbh=crbh,
             keepSingleDirection=keepSingleDirection,
@@ -209,11 +244,16 @@ aadir2orthofinder <- function(dir,
             searchtool=searchtool,
             lastpath=lastpath,
             lastD=lastD,
+            lastm=lastm,
             mmseqs2path=mmseqs2path,
             mmseqs2sensitivity=mmseqs2sensitivity,
+            mmseqs2maxseqs=mmseqs2maxseqs,
             diamondpath=diamondpath,
             diamondsensitivity=diamondsensitivity,
             diamondmaxtargetseqs=diamondmaxtargetseqs,
+            lambda3path=lambda3path,
+            lambda3sensitivity=lambda3sensitivity,
+            lambda3nummatches=lambda3nummatches,
             outpath=outpath,
             crbh=crbh,
             keepSingleDirection=keepSingleDirection,

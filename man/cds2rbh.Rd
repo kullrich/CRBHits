@@ -12,11 +12,16 @@ cds2rbh(
   searchtool = "last",
   lastpath = paste0(find.package("CRBHits"), "/extdata/last-1595/bin/"),
   lastD = 1e+06,
+  lastm = 10,
   mmseqs2path = NULL,
   mmseqs2sensitivity = 5.7,
+  mmseqs2maxseqs = 300,
   diamondpath = NULL,
   diamondsensitivity = "--sensitive",
-  diamondmaxtargetseqs = "-k0",
+  diamondmaxtargetseqs = 0,
+  lambda3path = NULL,
+  lambda3sensitivity = "sensitive",
+  lambda3nummatches = 25,
   outpath = "/tmp",
   crbh = TRUE,
   keepSingleDirection = FALSE,
@@ -55,7 +60,8 @@ cds2rbh(
 
 \item{dbfile2}{aa2 db file [optional]}
 
-\item{searchtool}{specify sequence search algorithm last, mmseqs2 or diamond
+\item{searchtool}{specify sequence search algorithm last, mmseqs2, diamond or
+lambda3
 [default: last]}
 
 \item{lastpath}{specify the PATH to the last binaries
@@ -64,11 +70,18 @@ cds2rbh(
 \item{lastD}{last option D: query letters per random alignment
 [default: 1e6]}
 
+\item{lastm}{last option m: maximum initial matches per query position
+[default: 10]}
+
 \item{mmseqs2path}{specify the PATH to the mmseqs2 binaries
 [default: NULL]}
 
 \item{mmseqs2sensitivity}{specify the sensitivity option of mmseqs2
 [default: 5.7]}
+
+\item{mmseqs2maxseqs}{mmseqs2 option: Maximum results per query sequence
+allowed to pass the prefilter
+[default: 300]}
 
 \item{diamondpath}{specify the PATH to the diamond binaries
 [default: NULL]}
@@ -78,7 +91,17 @@ cds2rbh(
 
 \item{diamondmaxtargetseqs}{specify the maximum number of target sequences
 per query option of diamond
-[default: -k0]}
+[default: 0]}
+
+\item{lambda3path}{specify the PATH to the lambda3 binaries
+[default: NULL]}
+
+\item{lambda3sensitivity}{specify the sensitivity option of lambda3
+[default: sensitive]}
+
+\item{lambda3nummatches}{specify the number of matches per query option of
+lambda3
+[default: 25]}
 
 \item{outpath}{specify the output PATH [default: /tmp]}
 

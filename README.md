@@ -1,4 +1,4 @@
-# CRBHits <a href="https://mpievolbio-it.pages.gwdg.de/crbhits/"><img src="man/figures/logo.png" align="right" height="160" /></a>
+# CRBHits <a href="https://kullrich.github.io/CRBHits/"><img src="man/figures/logo.png" align="right" height="160" /></a>
 
 [![pipeline status](https://gitlab.gwdg.de/mpievolbio-it/crbhits/badges/devel/pipeline.svg)](https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/commits/devel)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
@@ -8,21 +8,21 @@
 CRBHits - From Conditional Reciprocal Best Hits to Codon Alignments and Ka/Ks in R
 =========
 
-R package source code: [https://gitlab.gwdg.de/mpievolbio-it/crbhits](https://gitlab.gwdg.de/mpievolbio-it/crbhits)
+R package source code: [https://github.com/kullrich/CRBHits](https://github.com/kullrich/CRBHits)
 
-R package pages: [https://mpievolbio-it.pages.gwdg.de/crbhits/](https://mpievolbio-it.pages.gwdg.de/crbhits/)
+R package pages: [https://kullrich.github.io/CRBHits/](https://kullrich.github.io/CRBHits/)
 
-R package issues: [https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues](https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues)
+R package issues: [https://github.com/kullrich/CRBHits/issues](https://github.com/kullrich/CRBHits/issues)
 
 # CRBHits - Description
 
-[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) is a reimplementation of the Conditional Reciprocal Best Hit (CRBH) algorithm [crb-blast](https://github.com/cboursnell/crb-blast) in R. It covers all necessary steps from CRBHit pair calculation to Codon Alignments and Ka/Ks.
+[CRBHits](https://github.com/kullrich/CRBHits) is a reimplementation of the Conditional Reciprocal Best Hit (CRBH) algorithm [crb-blast](https://github.com/cboursnell/crb-blast) in R. It covers all necessary steps from CRBHit pair calculation to Codon Alignments and Ka/Ks.
 
 The CRBH algorithm was introduced by [Aubry S, Kelly S et al. (2014)](http://www.plosgenetics.org/article/info%3Adoi%2F10.1371%2Fjournal.pgen.1004365) and ported to python [shmlast](https://pypi.org/project/shmlast/) ([Scott C. 2017](https://joss.theoj.org/papers/10.21105/joss.00142)) which benefits from the blast-like sequence search software [LAST](https://gitlab.com/mcfrith/last) ([Kiełbasa SM et al. 2011](https://genome.cshlp.org/content/21/3/487.long)).
 
-Like [shmlast](https://pypi.org/project/shmlast/), [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) plots the fitted model of the CRBHit evalue based algorithm. In addition users can filter the CRBHit pairs prior fitting for other criteria like evalue, protein identity and/or the twilight zone of protein sequence alignments according to [Rost B. (1999)](https://academic.oup.com/peds/article/12/2/85/1550637).
+Like [shmlast](https://pypi.org/project/shmlast/), [CRBHits](https://github.com/kullrich/CRBHits) plots the fitted model of the CRBHit evalue based algorithm. In addition users can filter the CRBHit pairs prior fitting for other criteria like evalue, protein identity and/or the twilight zone of protein sequence alignments according to [Rost B. (1999)](https://academic.oup.com/peds/article/12/2/85/1550637).
 
-[CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) only takes coding nucleotide sequences as the query and target inputs, since the secondary aim of CRBHits is to calculate synonymous and non-synonymous substitutions with the R package [seqinr](https://cran.r-project.org/web/packages/seqinr/index.html) ([Sharif D, Lobry JR. 2007](https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10)) or the external tool [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download) ([Wang D, Zhang Y et al. 2010](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5054116/)).
+[CRBHits](https://github.com/kullrich/CRBHits) only takes coding nucleotide sequences as the query and target inputs, since the secondary aim of CRBHits is to calculate synonymous and non-synonymous substitutions with the R package [seqinr](https://cran.r-project.org/web/packages/seqinr/index.html) ([Sharif D, Lobry JR. 2007](https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10)) or the external tool [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download) ([Wang D, Zhang Y et al. 2010](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5054116/)).
 
 This is in contrast to [crb-blast](https://github.com/cboursnell/crb-blast), which can take proteins or nucleotides as the target sequences and in contrast to [shmlast](https://pypi.org/project/shmlast/), which uses nucleotides as queries and proteins as target sequences.
 
@@ -32,13 +32,36 @@ The Ka/Ks (also sometimes denoted as dN/dS) values can be obtained either via th
 
 The following two images show the two main functions of the package `cds2rbh()` and `rbh2kaks()`, which are described in more detail in the package vignettes.
 
-<img src="./vignettes/cds2rbhoverview.png" alt="Figure: Overview of the `cds2rbh()` function" width="200">
+<img src="./vignettes/cds2rbhoverview.png" alt="Figure: Overview of the `cds2rbh()` function" width="400">
 
-<img src="./vignettes/rbh2kaksoverview.png" alt="Figure: Overview of the `rbh2kaks()` function" width="200">
+<img src="./vignettes/rbh2kaksoverview.png" alt="Figure: Overview of the `rbh2kaks()` function" width="400">
+
+Comparing the primary transcripts from [*Arabidopsis thaliana*](https://ftp.psb.ugent.be/pub/plaza/plaza_public_dicots_05/Fasta/cds.selected_transcript.ath.fasta.gz) and [*Arabidopsis lyrata*](https://ftp.psb.ugent.be/pub/plaza/plaza_public_dicots_05/Fasta/cds.selected_transcript.aly.fasta.gz) to get conditional recirpocal best hit pairs takes the following runtime, depending on the selected search tool:
+
+Hardware used:
+
+- Apple M1 Max (10-core CPU with 8 performance cores and 2 efficiency cores)
+
+| search tool | version | sensitivity | threads | runtime (sec) | crbh.pairs |
+|-------------|---------|-------------|---------|---------|------------|
+| last | v1595 | -D 1e6 -m 25 | 10 | 21.811 | 31045 | 
+| mmseqs2 | v15.6f452 | -s 1.0 --max-seqs 25 | 10 | 38.200 | 28625 |
+| mmseqs2 | v15.6f452 | -s 4.0 --max-seqs 25 | 10 | 36.530 | 28938 |
+| mmseqs2 | v15.6f452 | -s 5.7 --max-seqs 25 | 10 | 50.643 | 28951 |
+| mmseqs2 | v15.6f452 | -s 7.5 --max-seqs 25 | 10 | 115.081 | 28957 |
+| diamond | v2.1.10 | --fast --max-target-seqs 25 | 10 | 19.039 | 31807 |
+| diamond | v2.1.10 | --sensitive --max-target-seqs 25 | 10 | 51.435 | 31233 |
+| lambda3 | v3.1.0 | -p fast --num-matches 25 | 10 | 37.440 | 33685 |
+| lambda3 | v3.1.0 | -p sensitive --num-matches 25 | 10 | 50.093 | 33185 |
+
+Overlap of either reciprocal best hit pairs (RBH) or conditional reciprocal best hit
+pairs (CRBH) found between the search tools:
+
+<img src="./man/figures/searchtool_comparison_venn.png" alt="Figure: Overlap of search tool results" width="800">
 
 # Installation
 
-see also here for the R package pages [https://mpievolbio-it.pages.gwdg.de/crbhits/](https://mpievolbio-it.pages.gwdg.de/crbhits/)
+see also here for the R package pages [https://kullrich.github.io/CRBHits/](https://kullrich.github.io/CRBHits/)
 
 ## R specific installation prerequisites
 
@@ -72,12 +95,10 @@ sudo yum install libcurl-devel openssl-devel libxml2-devel mesa-libGLU-devel lib
 install.packages("devtools")
 ```
 
-### install [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits)
+### install [CRBHits](https://github.com/kullrich/CRBHits)
 
 ```
-devtools::install_gitlab("mpievolbio-it/crbhits", host = "https://gitlab.gwdg.de",
-build_vignettes = FALSE, dependencies = TRUE)
-#devtools::install_github("kullrich/CRBHits", build_vignettes = FALSE, dependencies = TRUE)
+devtools::install_github("kullrich/CRBHits", build_vignettes = FALSE, dependencies = TRUE)
 CRBHits::make_last()
 CRBHits::make_dagchainer()
 ```
@@ -86,15 +107,15 @@ If the functions `CRBHits::make_last()` and `CRBHits::make_dagchainer()` fail on
 
 ## Vignettes
 
-These vignettes introduce  [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits)
+These vignettes introduce  [CRBHits](https://github.com/kullrich/CRBHits)
 
-- [CRBHits Basic Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V01CRBHitsBasicVignette.html) - Basic Usage of CRBHits
+- [CRBHits Basic Vignette](https://kullrich.github.io/CRBHits/articles/V01CRBHitsBasicVignette.html) - Basic Usage of CRBHits
     - includes CRBHit pair calculation
     - includes CRBHit pair filtering
     - includes Longest Isoform selection
     - includes Codon alignments
     - includes Ka/Ks calculations
-- [KaKs Vignette](https://mpievolbio-it.pages.gwdg.de/crbhits/articles/V02KaKsVignette.html) - KaKs Calculations between two species and subsequent data filter steps
+- [KaKs Vignette](https://kullrich.github.io/CRBHits/articles/V02KaKsVignette.html) - KaKs Calculations between two species and subsequent data filter steps
     - includes *Arabidopsis thalina* and *Arabidopsis lyrata* CRBHit pair calculation
     - includes *Homo sapiens* and *Pan troglodytes* CRBHit pair calculation
     - inlcudes Longest Isoform selection
@@ -206,7 +227,6 @@ If the functions `CRBHits::make_last()` and `CRBHits::make_dagchainer()` fail on
 there is the possibility to install them via [conda](https://www.anaconda.com/):
 
 ```
-conda config --add channels defaults
 conda config --add channels bioconda
 conda config --add channels conda-forge
 
@@ -216,9 +236,10 @@ conda install dagchainer
 #optional sequence search algorithm
 conda install mmseqs2
 conda install diamond
+conda install lambda
 ```
 
-After this installation, the prerequisites are supposed to be in the `PATH` and you need to set the correct `@param` in the corresponding functions of [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) like this:
+After this installation, the prerequisites are supposed to be in the `PATH` and you need to set the correct `@param` in the corresponding functions of [CRBHits](https://github.com/kullrich/CRBHits) like this:
 
 ```
 ## example how to use conda versions of LAST and DAGchainer
@@ -231,20 +252,22 @@ cds2rbh(., ., lastpath=my.lastpath)
 ?rbh2dagchainer
 rbh2dagchainer(., ., dagchainerpath=my.dagchainerpath)
 
-## example how to use conda versions of MMSEQS2 and DIAMOND
+## example how to use conda versions of MMSEQS2 and DIAMOND and LAMBDA
 my.mmseqs2path <- paste0(dirname(system2("which", "mmseqs", stdout=TRUE)), "/")
 my.diamondpath <- paste0(dirname(system2("which", "diamond", stdout=TRUE)), "/")
+my.lambda3path <- paste0(dirname(system2("which", "lambda3", stdout=TRUE)), "/")
 
 ?cds2rbh
 cds2rbh(., ., mmseqs2path=my.mmseqs2path, searchtool="mmseqs2")
-cds2rbh(., ., mmseqs2path=my.diamondpath, searchtool="diamond")
+cds2rbh(., ., diamondpath=my.diamondpath, searchtool="diamond")
+cds2rbh(., ., lambda3path=my.lambda3path, searchtool="lambda3")
 ```
 
 ### compile external tools from source code forked within this package
 
-The source code for the prerequisites (LAST, DAGchainer) are forked within [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits). 
+The source code for the prerequisites (LAST, DAGchainer) are forked within [CRBHits](https://github.com/kullrich/CRBHits). 
 
-- [LAST](https://gitlab.com/mcfrith/last) [https://gitlab.com/mcfrith/last/-/archive/1550/last-1595.zip](https://gitlab.com/mcfrith/last/-/archive/1550/last-1595.zip)
+- [LAST](https://gitlab.com/mcfrith/last) [https://gitlab.com/mcfrith/last/-/archive/1595/last-1595.zip](https://gitlab.com/mcfrith/last/-/archive/1595/last-1595.zip)
 
 To compile the forked version of [LAST](https://gitlab.com/mcfrith/last) within the `CRBHits` R package directory try to use the function `make_last()`:
 
@@ -300,7 +323,7 @@ All models from [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalcul
 
 To compile [DAGchainer](http://dagchainer.sourceforge.net/):
 
-__Note:__ Due to some changes in the latest **g++** compilers the source code was altered to meet this changes, which are directly incorporated into the `dagchainer.zip` that is distributed with [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits). It is recommended to compile from this file (see below):
+__Note:__ Due to some changes in the latest **g++** compilers the source code was altered to meet this changes, which are directly incorporated into the `dagchainer.zip` that is distributed with [CRBHits](https://github.com/kullrich/CRBHits). It is recommended to compile from this file (see below):
 
 ```
 ## create and change into the directory to install DAGchainer
@@ -308,14 +331,14 @@ __Note:__ Due to some changes in the latest **g++** compilers the source code wa
 mkdir /tmp/DAGchainer
 cd /tmp/DAGchainer
 ## donwload DAGchainer
-curl -O https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/raw/devel/inst/extdata/dagchainer.zip
+curl -O https://github.com/kullrich/CRBHits/-/raw/devel/inst/extdata/dagchainer.zip
 unzip dagchainer.zip
 cd dagchainer
 ## compile DAGchainer
 make
 ```
 
-If you would like to use your own compiled versions of `LAST` and `DAGchainer` you need to set the correct `@param` in the corresponding functions of [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits).
+If you would like to use your own compiled versions of `LAST` and `DAGchainer` you need to set the correct `@param` in the corresponding functions of [CRBHits](https://github.com/kullrich/CRBHits).
 
 ```
 ## example how to use own compiled versions of LAST, KaKs_Calculator2.0 and DAGchainer
@@ -330,14 +353,19 @@ rbh2dagchainer(., ., dagchainerpath=my.dagchainerpath)
 ```
 
 To compile [MMseqs2](https://github.com/soedinglab/MMseqs2)
+Pre-compiled [MMseqs2 binaries](https://github.com/soedinglab/MMseqs2/releases)
 
 To compile [diamond](https://github.com/bbuchfink/diamond/wiki)
+Pre-compiled [diamond binaries](https://github.com/bbuchfink/diamond/releases)
+
+To compile [lambda3](https://github.com/seqan/lambda)
+Pre-compiled [lambda3 binaries](https://github.com/seqan/lambda/releases)
 
 ## License
 
 MIT (see LICENSE)
 
-The [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) package includes source code that has been published under following licenses:
+The [CRBHits](https://github.com/kullrich/CRBHits) package includes source code that has been published under following licenses:
 
 ### last-1595.zip
 
@@ -357,19 +385,19 @@ If you would like to contribute to CRBHits, please file an issue so that one can
 
 Before you do a pull request, you should always file an issue and make sure that someone from the CRBHits developer team agrees that it’s a problem, and is happy with your basic proposal for fixing it.
 
-Once an issue has been filed and we've identified how to best orient your contribution with package development as a whole, [fork](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) the [main repo](https://gitlab.gwdg.de/mpievolbio-it/crbhits.git), branch off a [feature branch](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-branches) from `devel`, [commit](https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/committing-and-reviewing-changes-to-your-project) and [push](https://docs.github.com/en/github/using-git/pushing-commits-to-a-remote-repository) your changes to your fork and submit a [pull request](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/proposing-changes-to-your-work-with-pull-requests) for `CRBHits:devel`.
+Once an issue has been filed and we've identified how to best orient your contribution with package development as a whole, [fork](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) the [main repo](https://github.com/kullrich/CRBHits.git), branch off a [feature branch](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-branches) from `devel`, [commit](https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/committing-and-reviewing-changes-to-your-project) and [push](https://docs.github.com/en/github/using-git/pushing-commits-to-a-remote-repository) your changes to your fork and submit a [pull request](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/proposing-changes-to-your-work-with-pull-requests) for `CRBHits:devel`.
 
 By contributing to this project, you agree to abide by the Code of Conduct terms.
 
 ## Bug reports
 
-Please report any errors or requests regarding [CRBHits](https://gitlab.gwdg.de/mpievolbio-it/crbhits) to Kristian Ullrich (ullrich@evolbio.mpg.de)
+Please report any errors or requests regarding [CRBHits](https://github.com/kullrich/CRBHits) to Kristian Ullrich (ullrich@evolbio.mpg.de)
 
-or use the issue tracker at [https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues](https://gitlab.gwdg.de/mpievolbio-it/crbhits/issues)
+or use the issue tracker at [https://github.com/kullrich/CRBHits/issues](https://github.com/kullrich/CRBHits/issues)
 
 ## Code of Conduct - Participation guidelines
 
-This repository adhere to [Contributor Covenant](http://contributor-covenant.org) code of conduct for in any interactions you have within this project. (see [Code of Conduct](https://gitlab.gwdg.de/mpievolbio-it/crbhits/-/blob/devel/CODE_OF_CONDUCT.md))
+This repository adhere to [Contributor Covenant](http://contributor-covenant.org) code of conduct for in any interactions you have within this project. (see [Code of Conduct](https://github.com/kullrich/CRBHits/-/blob/devel/CODE_OF_CONDUCT.md))
 
 See also the policy against sexualized discrimination, harassment and violence for the Max Planck Society [Code-of-Conduct](https://www.mpg.de/11961177/code-of-conduct-en.pdf).
 
@@ -390,6 +418,8 @@ Ganeshan S., Dickover RE., Korber BT., Bryson YJ., Wolinsky SM. (1997). **Human 
 Haas B. J., Delcher A. L., Wortman J. R., and Salzberg S. L. (2004). **DAGchainer: a tool for mining segmental genome duplications and synteny.** *Bioinformatics*, **20(18)**, 3643-3646. [https://doi.org/10.1093/bioinformatics/bth397](https://doi.org/10.1093/bioinformatics/bth397)
 
 Haug-Baltzell A., Stephens S. A., Davey S., Scheidegger C. E., Lyons E. (2017). **SynMap2 and SynMap3D: web-based wholge-genome synteny browsers.** *Bioinformatics*, **33(14)**, 2197-2198. [https://academic.oup.com/bioinformatics/article/33/14/2197/3072872](https://academic.oup.com/bioinformatics/article/33/14/2197/3072872)
+
+Hauswedell, H., Hetzel, S., Gottlieb, S. G., Kretzmer, H., Meissner, A., and Reinert, K. (2024). **Lambda3: homology search for protein, nucleotide, and bisulfite-converted sequences.** *Bioinformatics*, 40(3), btae097. [https://doi.org/10.1093/bioinformatics/btae097](https://doi.org/10.1093/bioinformatics/btae097)
 
 Kiełbasa S. M., Wan R., Sato K., Horton P., and Frith M. C. (2011). **Adaptive seeds tame genomic sequence comparison.** *Genome Research*, **21(3)**, 487-493. [https://doi.org/10.1101/gr.113985.110](https://doi.org/10.1101/gr.113985.110)
 

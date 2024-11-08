@@ -16,23 +16,36 @@
 #' @param aafile2 aa2 fasta file [mandatory]
 #' @param dbfile1 aa1 db file [optional]
 #' @param dbfile2 aa2 db file [optional]
-#' @param searchtool specify sequence search algorithm last, mmseqs2 or diamond
+#' @param searchtool specify sequence search algorithm last, mmseqs2, diamond or
+#' lambda3
 #' [default: last]
 #' @param lastpath specify the PATH to the last binaries
 #' [default: /extdata/last-1595/bin/]
 #' @param lastD last option D: query letters per random alignment
 #' [default: 1e6]
+#' @param lastm last option m: maximum initial matches per query position
+#' [default: 10]
 #' @param mmseqs2path specify the PATH to the mmseqs2 binaries
 #' [default: NULL]
 #' @param mmseqs2sensitivity specify the sensitivity option of mmseqs2
 #' [default: 5.7]
+#' @param mmseqs2maxseqs mmseqs2 option: Maximum results per query sequence
+#' allowed to pass the prefilter
+#' [default: 300]
 #' @param diamondpath specify the PATH to the diamond binaries
 #' [default: NULL]
 #' @param diamondsensitivity specify the sensitivity option of diamond
 #' [default: --sensitive]
 #' @param diamondmaxtargetseqs specify the maximum number of target sequences
 #' per query option of diamond
-#' [default: -k0]
+#' [default: 0]
+#' @param lambda3path specify the PATH to the lambda3 binaries
+#' [default: NULL]
+#' @param lambda3sensitivity specify the sensitivity option of lambda3
+#' [default: sensitive]
+#' @param lambda3nummatches specify the number of matches per query option of
+#' lambda3
+#' [default: 25]
 #' @param outpath specify the output PATH [default: /tmp]
 #' @param crbh specify if conditional-reciprocal hit pairs should be retained
 #' as secondary hits [default: TRUE]
@@ -120,11 +133,16 @@ aafile2rbh <- function(aafile1, aafile2,
     lastpath=paste0(find.package("CRBHits"),
         "/extdata/last-1595/bin/"),
     lastD=1e6,
+    lastm=10,
     mmseqs2path=NULL,
     mmseqs2sensitivity=5.7,
+    mmseqs2maxseqs=300,
     diamondpath=NULL,
     diamondsensitivity="--sensitive",
-    diamondmaxtargetseqs="-k0",
+    diamondmaxtargetseqs=0,
+    lambda3path=NULL,
+    lambda3sensitivity="sensitive",
+    lambda3nummatches=25,
     outpath="/tmp",
     crbh=TRUE,
     keepSingleDirection=FALSE,
@@ -224,6 +242,18 @@ aafile2rbh <- function(aafile1, aafile2,
                 prerequisites.")
         }
     }
+    if(searchtool=="lambda3"){
+        if(!dir.exists(lambda3path)){
+            stop("Error: lambda3 PATH does not exist. Please specify
+                correct PATH and/or look into package installation
+                prerequisites.")
+        }
+        if(!file.exists(paste0(lambda3path, "lambda3"))){
+            stop("Error: lambda3 binary does not exist. Please specify
+                correct PATH and/or look into package installation
+                prerequisites.")
+        }
+    }
     selfblast <- FALSE
     if(aafile1==aafile2){
         selfblast <- TRUE
@@ -260,6 +290,16 @@ aafile2rbh <- function(aafile1, aafile2,
         aa2_aa1_lastout <- tempfile("aa2_aa1_diamond_", outpath)
         aa1_aa2_lastout <- tempfile("aa1_aa2_diamond_", outpath)
     }
+    if(searchtool=="lambda3"){
+        aa1file <- tempfile("aa1_", outpath, fileext = ".fa")
+        aa2file <- tempfile("aa2_", outpath, fileext = ".fa")
+        aa1dbfile <- tempfile("aa1db_", outpath, fileext = ".lba")
+        aa2dbfile <- tempfile("aa2db_", outpath, fileext = ".lba")
+        aa2_aa1_lastout <- tempfile("aa2_aa1_lambda3_", outpath,
+            fileext = ".m8")
+        aa1_aa2_lastout <- tempfile("aa1_aa2_lambda3_", outpath,
+            fileext = ".m8")
+    }
     if(searchtool=="last"){
         if(!file.exists(paste0(aa1dbfile, ".suf"))){
             system2(command=paste0(lastpath, "lastdb"),
@@ -270,51 +310,67 @@ aafile2rbh <- function(aafile1, aafile2,
                 args = c("-p", "-cR01", "-P", threads, aa2dbfile, aa2file))
         }
         system2(command=paste0(lastpath, "lastal"),
-            args = c("-f", "BlastTab+", "-P", threads, "-D", lastD, aa1dbfile,
-            aa2file, ">", aa2_aa1_lastout))
+            args = c("-f", "BlastTab+", "-P", threads, "-D", lastD, "-m", lastm,
+            aa1dbfile, aa2file, ">", aa2_aa1_lastout))
         system2(command=paste0(lastpath, "lastal"),
-            args = c("-f", "BlastTab+", "-P", threads, "-D", lastD, aa2dbfile,
-            aa1file, ">", aa1_aa2_lastout))
+            args = c("-f", "BlastTab+", "-P", threads, "-D", lastD, "-m", lastm,
+            aa2dbfile, aa1file, ">", aa1_aa2_lastout))
     }
     if(searchtool=="mmseqs2"){
         system2(command=paste0(mmseqs2path, "mmseqs"),
             args = c("easy-search", aa1file, aa2file, aa1_aa2_lastout, outpath,
                 "--threads", threads, "-s", mmseqs2sensitivity,
+                "--max-seqs", mmseqs2maxseqs,
                 "--format-output", paste0("query,target,fident,alnlen,",
                 "mismatch,gapopen,qstart,qend,tstart,tend,evalue,bits,qlen,",
                 "tlen,raw")))
         system2(command=paste0(mmseqs2path, "mmseqs"),
             args = c("easy-search", aa2file, aa1file, aa2_aa1_lastout, outpath,
                 "--threads", threads, "-s", mmseqs2sensitivity,
+                "--max-seqs", mmseqs2maxseqs,
                 "--format-output", paste0("query,target,fident,alnlen,",
                 "mismatch,gapopen,qstart,qend,tstart,tend,evalue,bits,qlen,",
                 "tlen,raw")))
     }
     if(searchtool=="diamond"){
-        if(!file.exists(paste0(aa1dbfile, ".dmnd"))){
-            system2(command=paste0(diamondpath, "diamond"),
-                args = c("makedb", "--in", aa1file,
-                    "-d", aa1dbfile))
-        }
-        if(!file.exists(paste0(aa2dbfile, ".dmnd"))){
-            system2(command=paste0(diamondpath, "diamond"),
-                args = c("makedb", "--in", aa2file,
-                    "-d", aa2dbfile))
-        }
+        system2(command=paste0(diamondpath, "diamond"),
+            args = c("makedb", "--in", aa1file,
+                "-d", aa1dbfile))
+        system2(command=paste0(diamondpath, "diamond"),
+            args = c("makedb", "--in", aa2file,
+                "-d", aa2dbfile))
         system2(command=paste0(diamondpath, "diamond"),
             args = c("blastp", "--ignore-warnings", "-d", aa2dbfile,
                 "-q", aa1file, "-o", aa1_aa2_lastout, diamondsensitivity,
-                diamondmaxtargetseqs,
+                "--max-target-seqs", diamondmaxtargetseqs,
                 "-f", "6", "qseqid", "sseqid", "pident", "length", "mismatch",
                 "gapopen", "qstart", "qend", "sstart", "send", "evalue",
-                "bitscore", "qlen", "slen", "score"))
+                "bitscore", "qlen", "slen", "score", "--threads", threads))
         system2(command=paste0(diamondpath, "diamond"),
             args = c("blastp", "--ignore-warnings", "-d", aa1dbfile,
                 "-q", aa2file, "-o", aa2_aa1_lastout, diamondsensitivity,
-                diamondmaxtargetseqs,
+                "--max-target-seqs", diamondmaxtargetseqs,
                 "-f", "6", "qseqid", "sseqid", "pident", "length", "mismatch",
                 "gapopen", "qstart", "qend", "sstart", "send", "evalue",
-                "bitscore", "qlen", "slen", "score"))
+                "bitscore", "qlen", "slen", "score", "--threads", threads))
+    }
+    if(searchtool=="lambda3"){
+        system2(command=paste0(lambda3path, "lambda3"),
+            args = c("mkindexp", "-d", aa1file, "-i", aa1dbfile,
+                "--threads", threads))
+        system2(command=paste0(lambda3path, "lambda3"),
+            args = c("mkindexp", "-d", aa2file, "-i", aa2dbfile,
+                "--threads", threads))
+        system2(command=paste0(lambda3path, "lambda3"),
+            args = c("searchp", "-i", aa2dbfile, "-q", aa1file,
+                "-o", aa1_aa2_lastout, "-p", lambda3sensitivity,
+                "--num-matches", lambda3nummatches, "--output-columns",
+                "'std qlen slen score'", "--threads", threads))
+        system2(command=paste0(lambda3path, "lambda3"),
+            args = c("searchp", "-i", aa1dbfile, "-q", aa2file,
+                "-o", aa2_aa1_lastout, "-p", lambda3sensitivity,
+                "--num-matches", lambda3nummatches, "--output-columns",
+                "'std qlen slen score'", "--threads", threads))
     }
     aa1_aa2 <- read.table(aa1_aa2_lastout, sep="\t", header=FALSE,
         stringsAsFactors=FALSE)
