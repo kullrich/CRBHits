@@ -1,6 +1,6 @@
 FROM ubuntu:24.04
 
-LABEL version="0.0.8"
+LABEL version="0.0.9"
 LABEL description="Conditional reciprocal best hits (CRBHits) in R"
 LABEL maintainer="ullrich@evolbio.mpg.de"
 
@@ -62,12 +62,12 @@ RUN R -e "install.packages('devtools')"
 RUN R -e "message(BiocManager::version());BiocManager::install(version = \"3.20\");BiocManager::install(\"MSA2dist\");devtools::install_github(\"kullrich/CRBHits\", build_vignettes=FALSE, dependencies=TRUE); CRBHits::make_last(); CRBHits::make_dagchainer()"
 RUN mkdir /usr/local/opt \
         && cd /usr/local/opt \
-        && wget https://gitlab.com/mcfrith/last/-/archive/1595/last-1595.zip \
-        && unzip last-1595.zip \
-        && cd last-1595 \
+        && wget https://gitlab.com/mcfrith/last/-/archive/1639/last-1639.zip \
+        && unzip last-1639.zip \
+        && cd last-1639 \
         && make \
         && make install \
-        && rm /usr/local/opt/last-1595.zip
+        && rm /usr/local/opt/last-1639.zip
 RUN cd /usr/local/opt \
         && wget https://github.com/soedinglab/MMseqs2/releases/download/17-b804f/mmseqs-linux-avx2.tar.gz \
         && tar -xvf mmseqs-linux-avx2.tar.gz \
