@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   V01CRBHitsBasicVignette: V01CRBHitsBasicVignette.html
   V02KaKsVignette: V02KaKsVignette.html
-last_built: 2025-05-16T12:09Z
+last_built: 2025-05-16T12:38Z
 urls:
   reference: https://kullrich.github.io/CRBHits/reference
   article: https://kullrich.github.io/CRBHits/articles
