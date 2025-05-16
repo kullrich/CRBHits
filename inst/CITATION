@@ -1,0 +1,20 @@
+citHeader("To cite CRBHits in publications, use:")
+
+citEntry(
+  entry    = "Article",
+  title    = "CRBHits: from conditional reciprocal best hits to codon alignments and Ka/Ks in R",
+  author   = personList(
+      as.person("Kristian K. Ullrich")
+  ),
+  journal  = "The Journal of Open Source Software",
+  year     = "2020",
+  volume   = "5",
+  number   = "55",
+  url      = "https://joss.theoj.org/papers/10.21105/joss.02424",
+  doi      = "10.21105/joss.02424",
+  textVersion = paste(
+      "Ullrich, Kristian K.",
+      "CRBHits: from conditional reciprocal best hits to codon alignments and Ka/Ks in R.",
+      "The Journal of Open Source Software, 5(55). (2020). https://doi.org/10.21105/joss.02424"
+  )
+)

@@ -8,7 +8,7 @@ cdsdir2orthofinder(
   dir,
   file_ending = "*",
   searchtool = "last",
-  lastpath = paste0(find.package("CRBHits"), "/extdata/last-1595/bin/"),
+  lastpath = paste0(find.package("CRBHits"), "/extdata/last-1639/bin/"),
   lastD = 1e+06,
   lastm = 10,
   mmseqs2path = NULL,
@@ -49,7 +49,7 @@ lambda3
 [default: last]}
 
 \item{lastpath}{specify the PATH to the last binaries
-[default: /extdata/last-1595/bin/]}
+[default: /extdata/last-1639/bin/]}
 
 \item{lastD}{last option D: query letters per random alignment
 [default: 1e6]}
@@ -143,7 +143,7 @@ or with \bold{diamond}
 \emph{Buchfink, B et al. (2021)}.
 }
 \examples{
-## compile last-1542 within CRBHits
+## compile last-1639 within CRBHits
 CRBHits::make_last()
 }
 \references{

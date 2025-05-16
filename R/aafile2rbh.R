@@ -20,7 +20,7 @@
 #' lambda3
 #' [default: last]
 #' @param lastpath specify the PATH to the last binaries
-#' [default: /extdata/last-1595/bin/]
+#' [default: /extdata/last-1639/bin/]
 #' @param lastD last option D: query letters per random alignment
 #' [default: 1e6]
 #' @param lastm last option m: maximum initial matches per query position
@@ -100,7 +100,7 @@
 #' @references Rost B. (1999). Twilight zone of protein sequence alignments.
 #' \emph{Protein Engineering}, \bold{12(2)}, 85-94.
 #' @examples
-#' ## compile last-1595 within CRBHits
+#' ## compile last-1639 within CRBHits
 #' CRBHits::make_last()
 #' ## load example sequence data
 #' athfile <- system.file("fasta", "ath.aa.fasta.gz", package="CRBHits")
@@ -131,7 +131,7 @@ aafile2rbh <- function(aafile1, aafile2,
     dbfile2=NULL,
     searchtool="last",
     lastpath=paste0(find.package("CRBHits"),
-        "/extdata/last-1595/bin/"),
+        "/extdata/last-1639/bin/"),
     lastD=1e6,
     lastm=10,
     mmseqs2path=NULL,

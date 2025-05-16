@@ -1,8 +1,8 @@
 destination: public
+url: https://kullrich.github.io/CRBHits/
 template:
   bootstrap: 5
 repo:
-  url:
-    home: https://kullrich.github.io/CRBHits/
-    source: https://github.com/kullrich/CRBHits/blob/devel
-    issue: https://github.com/kullrich/CRBHits/issues
+  home: https://kullrich.github.io/CRBHits/
+  source: https://github.com/kullrich/CRBHits/blob/devel
+  issue: https://github.com/kullrich/CRBHits/issues
