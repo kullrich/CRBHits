@@ -6,12 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Conditional reciprocal best hits (CRBHits) in R • CRBHits</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" sizes="any" href="favicon.ico">
+<link rel="manifest" href="site.webmanifest">
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -19,7 +18,7 @@
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Conditional reciprocal best hits (CRBHits) in R">
 <meta name="description" content="CRBHits calculates conditional reciprocal best hit (CRBHit) pairs and subsequently can classify tandem duplicates, assign syntney groups and calculate Ka/Ks values.">
 <meta property="og:description" content="CRBHits calculates conditional reciprocal best hit (CRBHit) pairs and subsequently can classify tandem duplicates, assign syntney groups and calculate Ka/Ks values.">
-<meta property="og:image" content="/logo.png">
+<meta property="og:image" content="https://kullrich.github.io/CRBHits/logo.png">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -29,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="index.html">CRBHits</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.9</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,6 +50,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/kullrich/CRBHits/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -70,7 +70,7 @@
 <h1 id="crbhits---from-conditional-reciprocal-best-hits-to-codon-alignments-and-kaks-in-r">CRBHits - From Conditional Reciprocal Best Hits to Codon Alignments and Ka/Ks in R<a class="anchor" aria-label="anchor" href="#crbhits---from-conditional-reciprocal-best-hits-to-codon-alignments-and-kaks-in-r"></a>
 </h1>
 <p>R package source code: <a href="https://github.com/kullrich/CRBHits" class="external-link">https://github.com/kullrich/CRBHits</a></p>
-<p>R package pages: <a href="https://kullrich.github.io/CRBHits/" class="external-link">https://kullrich.github.io/CRBHits/</a></p>
+<p>R package pages: <a href="https://kullrich.github.io/CRBHits/">https://kullrich.github.io/CRBHits/</a></p>
 <p>R package issues: <a href="https://github.com/kullrich/CRBHits/issues" class="external-link">https://github.com/kullrich/CRBHits/issues</a></p>
 </div>
 <div class="section level1">
@@ -189,7 +189,7 @@
 <div class="section level1">
 <h1 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h1>
-<p>see also here for the R package pages <a href="https://kullrich.github.io/CRBHits/" class="external-link">https://kullrich.github.io/CRBHits/</a></p>
+<p>see also here for the R package pages <a href="https://kullrich.github.io/CRBHits/">https://kullrich.github.io/CRBHits/</a></p>
 <div class="section level2">
 <h2 id="r-specific-installation-prerequisites">R specific installation prerequisites<a class="anchor" aria-label="anchor" href="#r-specific-installation-prerequisites"></a>
 </h2>
@@ -231,7 +231,7 @@
 <p>These vignettes introduce <a href="https://github.com/kullrich/CRBHits" class="external-link">CRBHits</a></p>
 <ul>
 <li>
-<a href="https://kullrich.github.io/CRBHits/articles/V01CRBHitsBasicVignette.html" class="external-link">CRBHits Basic Vignette</a> - Basic Usage of CRBHits
+<a href="https://kullrich.github.io/CRBHits/articles/V01CRBHitsBasicVignette.html">CRBHits Basic Vignette</a> - Basic Usage of CRBHits
 <ul>
 <li>includes CRBHit pair calculation</li>
 <li>includes CRBHit pair filtering</li>
@@ -241,7 +241,7 @@
 </ul>
 </li>
 <li>
-<a href="https://kullrich.github.io/CRBHits/articles/V02KaKsVignette.html" class="external-link">KaKs Vignette</a> - KaKs Calculations between two species and subsequent data filter steps
+<a href="https://kullrich.github.io/CRBHits/articles/V02KaKsVignette.html">KaKs Vignette</a> - KaKs Calculations between two species and subsequent data filter steps
 <ul>
 <li>includes <em>Arabidopsis thalina</em> and <em>Arabidopsis lyrata</em> CRBHit pair calculation</li>
 <li>includes <em>Homo sapiens</em> and <em>Pan troglodytes</em> CRBHit pair calculation</li>
@@ -259,7 +259,7 @@
 </h2>
 <pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/kullrich/CRBHits" class="external-link">CRBHits</a></span><span class="op">)</span></span>
 <span><span class="co">## prerequisite: last</span></span>
-<span><span class="co">## if not done yet, try to compile last-1595 - uncomment the following line</span></span>
+<span><span class="co">## if not done yet, try to compile last-1639 - uncomment the following line</span></span>
 <span><span class="co">#CRBHits::make_last()</span></span>
 <span><span class="co">## conditional reciprocal best hits (CRBHit pairs)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ath"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span></span>
@@ -336,7 +336,7 @@
 <span></span>
 <span><span class="co">##### see section compile external tools from original source code</span></span>
 <span><span class="co">## example how to use own compiled version of LAST</span></span>
-<span><span class="va">my.lastpath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/last/last-1595/bin"</span></span>
+<span><span class="va">my.lastpath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/last/last-1639/bin"</span></span>
 <span><span class="va">ath_aly_crbh</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cds2rbh.html">cds2rbh</a></span><span class="op">(</span><span class="va">ath</span>, <span class="va">aly</span>, plotCurve <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                        lastpath <span class="op">=</span> <span class="va">my.lastpath</span><span class="op">)</span></span>
 <span><span class="op">?</span><span class="va">cds2rbh</span></span>
@@ -393,7 +393,7 @@ conda install lambda</code></pre>
 <p>The source code for the prerequisites (LAST, DAGchainer) are forked within <a href="https://github.com/kullrich/CRBHits" class="external-link">CRBHits</a>.</p>
 <ul>
 <li>
-<a href="https://gitlab.com/mcfrith/last" class="external-link">LAST</a> <a href="https://gitlab.com/mcfrith/last/-/archive/1595/last-1595.zip" class="external-link">https://gitlab.com/mcfrith/last/-/archive/1595/last-1595.zip</a>
+<a href="https://gitlab.com/mcfrith/last" class="external-link">LAST</a> <a href="https://gitlab.com/mcfrith/last/-/archive/1595/last-1639.zip" class="external-link">https://gitlab.com/mcfrith/last/-/archive/1595/last-1639.zip</a>
 </li>
 </ul>
 <p>To compile the forked version of <a href="https://gitlab.com/mcfrith/last" class="external-link">LAST</a> within the <code>CRBHits</code> R package directory try to use the function <code><a href="reference/make_last.html">make_last()</a></code>:</p>
@@ -427,10 +427,10 @@ conda install lambda</code></pre>
 ## e.g.
 mkdir /tmp/last
 cd /tmp/last
-## donwload last-1595
-curl -O https://gitlab.com/mcfrith/last/-/archive/1550/last-1595.zip
-unzip last-1595.zip
-cd last-1595
+## donwload last-1639
+curl -O https://gitlab.com/mcfrith/last/-/archive/1550/last-1639.zip
+unzip last-1639.zip
+cd last-1639
 ## compile LAST
 make</code></pre>
 <p>All models from <a href="https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download" class="external-link">KaKs_Calculator2.0</a> have been ported to the <code>MSA2dist</code> R package with <code>Rcpp</code> and can be obtained via the <code><a href="https://mpievolbio-it.pages.gwdg.de/MSA2dist/reference/dnastring2kaks.html" class="external-link">MSA2dist::dnastring2kaks()</a></code> function. There is no need anymore to compile this external tool.</p>
@@ -448,7 +448,7 @@ cd dagchainer
 make</code></pre>
 <p>If you would like to use your own compiled versions of <code>LAST</code> and <code>DAGchainer</code> you need to set the correct <code>@param</code> in the corresponding functions of <a href="https://github.com/kullrich/CRBHits" class="external-link">CRBHits</a>.</p>
 <pre><code><span><span class="co">## example how to use own compiled versions of LAST, KaKs_Calculator2.0 and DAGchainer</span></span>
-<span><span class="va">my.lastpath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/last/last-1595/bin"</span></span>
+<span><span class="va">my.lastpath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/last/last-1639/bin"</span></span>
 <span><span class="va">my.dagchainerpath</span> <span class="op">&lt;-</span> <span class="st">"/tmp/dagcahiner"</span></span>
 <span></span>
 <span><span class="op">?</span><span class="va">cds2rbh</span></span>
@@ -467,7 +467,7 @@ make</code></pre>
 <p>MIT (see LICENSE)</p>
 <p>The <a href="https://github.com/kullrich/CRBHits" class="external-link">CRBHits</a> package includes source code that has been published under following licenses:</p>
 <div class="section level3">
-<h3 id="last-1595zip">last-1595.zip<a class="anchor" aria-label="anchor" href="#last-1595zip"></a>
+<h3 id="last-1639zip">last-1639.zip<a class="anchor" aria-label="anchor" href="#last-1639zip"></a>
 </h3>
 <p>GNU General Public License Version 3, 29 June 2007 <a href="https://www.gnu.org/licenses/gpl-3.0.de.html" class="external-link">GPLv3</a></p>
 </div>
@@ -542,7 +542,7 @@ make</code></pre>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li><a href="https://kullrich.github.io/CRBHits/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/kullrich/CRBHits/" class="external-link">Browse source code</a></li>
 <li><a href="https://github.com/kullrich/CRBHits/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
@@ -573,7 +573,7 @@ make</code></pre>
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Kristian K Ullrich <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-4308-9626" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Kristian K Ullrich <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-4308-9626" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
 </ul>
 </div>
 
@@ -588,7 +588,7 @@ make</code></pre>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
 </div>
 
     </footer>
