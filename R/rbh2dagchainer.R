@@ -14,8 +14,8 @@
 #' (see \code{\link[CRBHits]{cds2genepos}}) [default: NULL]
 #' @param gene.position.cds2 specify gene position for cds2 sequences
 #' (see \code{\link[CRBHits]{cds2genepos}}) [default: NULL]
-#' @param dagchainerpath specify the PATH to the DAGchainer binaries
-#' [default: /extdata/dagchainer/]
+#' @param dagchainerpath specify the PATH to the DAGchainer directory
+#' containing the dagchainer binaries [default: /extdata/dagchainer/]
 #' @param gap_open_penalty gap open penalty [default: 0]
 #' @param gap_extension_penalty gap extension penalty [default: -3]
 #' @param gap_length length of a gap (avgerage distance expected between two
@@ -97,8 +97,7 @@ rbh2dagchainer <- function(rbhpairs,
     selfblast2=NULL,
     gene.position.cds1=NULL,
     gene.position.cds2=NULL,
-    dagchainerpath=paste0(find.package("CRBHits"),
-        "/extdata/dagchainer/"),
+    dagchainerpath=file.path(find.package("CRBHits"), "extdata", "dagchainer"),
     gap_open_penalty=0,
     gap_extension_penalty=-3,
     gap_length=10000,
@@ -158,21 +157,14 @@ rbh2dagchainer <- function(rbhpairs,
                 add a 'genepos' class attribute")
         }
     }
-    if(!dir.exists(dagchainerpath)){
-        stop("Error: DAGchainer PATH does not exist. Please specify correct
-            PATH and/or look into package installation prerequisites. Try to
-            use make_dagchainer() function.")
-    }
-    if(!file.exists(paste0(dagchainerpath, "dagchainer"))){
-        stop("Error: dagchainer binary does not exist. Please specify correct
-            PATH and/or look into package installation prerequisites. Try to
-            use make_dagchainer() function.")
-    }
-    if(!file.exists(paste0(dagchainerpath, "run_DAG_chainer.pl"))){
-        stop("Error: run_DAG_chainer.pl does not exist. Please specify correct
-            PATH and/or look into package installation prerequisites. Try to use
-            make_dagchainer() function.")
-    }
+    check_ext_install(
+        ext_name="DAGchainer",
+        ext_dir=dagchainerpath,
+        binary_name="dagchainer")
+    check_ext_install(
+        ext_name="DAGchainer",
+        ext_dir=dagchainerpath,
+        binary_name="run_DAG_chainer.pl")
     selfblast <- attributes(rbhpairs)$selfblast
     genepos.colnames <- c("gene.seq.id", "gene.chr", "gene.start", "gene.end",
         "gene.mid", "gene.strand", "gene.idx")
@@ -354,7 +346,7 @@ rbh2dagchainer <- function(rbhpairs,
     tmp <- tempfile()
     write.table(dagchainer.input,
         sep="\t", quote=FALSE, col.names=FALSE, row.names=FALSE, file=tmp)
-    dagchainercmd <- paste0(dagchainerpath, "run_DAG_chainer.pl")
+    dagchainercmd <- file.path(dagchainerpath, "run_DAG_chainer.pl")
     dagchainerargs <- c(
         "-i", tmp,
         "-o", sprintf("%0i", gap_open_penalty),

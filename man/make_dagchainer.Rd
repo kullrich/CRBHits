@@ -4,10 +4,13 @@
 \alias{make_dagchainer}
 \title{make_dagchainer}
 \usage{
-make_dagchainer()
+make_dagchainer(build_dir = file.path(find.package("CRBHits"), "extdata"))
+}
+\arguments{
+\item{build_dir}{directory to build DAGchainer [mandatory]}
 }
 \value{
-compile DAGchainer
+compile DAGchainer and return binary path
 }
 \description{
 This function tries to build the DAGchainer from source code

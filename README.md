@@ -22,9 +22,10 @@ The CRBH algorithm was introduced by [Aubry S, Kelly S et al. (2014)](http://www
 
 Like [shmlast](https://pypi.org/project/shmlast/), [CRBHits](https://github.com/kullrich/CRBHits) plots the fitted model of the CRBHit evalue based algorithm. In addition users can filter the CRBHit pairs prior fitting for other criteria like evalue, protein identity and/or the twilight zone of protein sequence alignments according to [Rost B. (1999)](https://academic.oup.com/peds/article/12/2/85/1550637).
 
-[CRBHits](https://github.com/kullrich/CRBHits) only takes coding nucleotide sequences as the query and target inputs, since the secondary aim of CRBHits is to calculate synonymous and non-synonymous substitutions with the R package [seqinr](https://cran.r-project.org/web/packages/seqinr/index.html) ([Sharif D, Lobry JR. 2007](https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10)) or the external tool [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download) ([Wang D, Zhang Y et al. 2010](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5054116/)).
+[CRBHits](https://github.com/kullrich/CRBHits) per default takes coding nucleotide sequences as the query and target inputs, since the secondary aim of CRBHits is to calculate synonymous and non-synonymous substitutions with the R package [seqinr](https://cran.r-project.org/web/packages/seqinr/index.html) ([Sharif D, Lobry JR. 2007](https://link.springer.com/chapter/10.1007/978-3-540-35306-5_10)) or the 
+`Bioconductor` package[MSA2dist](https://www.bioconductor.org/packages/release/bioc/html/MSA2dist.html) which ported all models from [KaKs_Calculator2.0](https://sourceforge.net/projects/kakscalculator2/files/KaKs_Calculator2.0.tar.gz/download) ([Wang D, Zhang Y et al. 2010](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5054116/)).
 
-This is in contrast to [crb-blast](https://github.com/cboursnell/crb-blast), which can take proteins or nucleotides as the target sequences and in contrast to [shmlast](https://pypi.org/project/shmlast/), which uses nucleotides as queries and proteins as target sequences.
+In addition to nucleotide, like [crb-blast](https://github.com/cboursnell/crb-blast), CRBHits can take proteins as the target sequences. In contrast to [shmlast](https://pypi.org/project/shmlast/), which uses nucleotides as queries and proteins as target sequences.
 
 The resulting CRBHit pairs can be used to obtain pairwise codon alignments, which are further used to calculate synonymous and nonsynonymous substitutions using parallelization.
 
@@ -230,13 +231,13 @@ there is the possibility to install them via [conda](https://www.anaconda.com/):
 conda config --add channels bioconda
 conda config --add channels conda-forge
 
-conda install last
-conda install dagchainer
+conda install -c bioconda last
+conda install -c bioconda dagchainer
 
 #optional sequence search algorithm
-conda install mmseqs2
-conda install diamond
-conda install lambda
+conda install -c bioconda mmseqs2
+conda install -c bioconda diamond
+conda install -c bioconda lambda
 ```
 
 After this installation, the prerequisites are supposed to be in the `PATH` and you need to set the correct `@param` in the corresponding functions of [CRBHits](https://github.com/kullrich/CRBHits) like this:
@@ -267,7 +268,7 @@ cds2rbh(., ., lambda3path=my.lambda3path, searchtool="lambda3")
 
 The source code for the prerequisites (LAST, DAGchainer) are forked within [CRBHits](https://github.com/kullrich/CRBHits). 
 
-- [LAST](https://gitlab.com/mcfrith/last) [https://gitlab.com/mcfrith/last/-/archive/1595/last-1639.zip](https://gitlab.com/mcfrith/last/-/archive/1595/last-1639.zip)
+- [LAST](https://gitlab.com/mcfrith/last) [https://gitlab.com/mcfrith/last/-/archive/1639/last-1639.zip](https://gitlab.com/mcfrith/last/-/archive/1639/last-1639.zip)
 
 To compile the forked version of [LAST](https://gitlab.com/mcfrith/last) within the `CRBHits` R package directory try to use the function `make_last()`:
 
@@ -312,7 +313,7 @@ To compile [LAST](https://gitlab.com/mcfrith/last) yourself on Linux/Unix/macOS 
 mkdir /tmp/last
 cd /tmp/last
 ## donwload last-1639
-curl -O https://gitlab.com/mcfrith/last/-/archive/1550/last-1639.zip
+curl -O https://gitlab.com/mcfrith/last/-/archive/1639/last-1639.zip
 unzip last-1639.zip
 cd last-1639
 ## compile LAST

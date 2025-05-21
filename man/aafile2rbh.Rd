@@ -10,7 +10,7 @@ aafile2rbh(
   dbfile1 = NULL,
   dbfile2 = NULL,
   searchtool = "last",
-  lastpath = paste0(find.package("CRBHits"), "/extdata/last-1639/bin/"),
+  lastpath = file.path(find.package("CRBHits"), "extdata", "last-1639", "bin"),
   lastD = 1e+06,
   lastm = 10,
   mmseqs2path = NULL,

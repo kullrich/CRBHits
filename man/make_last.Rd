@@ -4,10 +4,13 @@
 \alias{make_last}
 \title{make_last}
 \usage{
-make_last()
+make_last(build_dir = file.path(find.package("CRBHits"), "extdata"))
+}
+\arguments{
+\item{build_dir}{directory to build last [mandatory]}
 }
 \value{
-compile last
+compile last and return binary path
 }
 \description{
 This function tries to build the prerequisite last-1639 from

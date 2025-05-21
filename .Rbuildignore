@@ -18,3 +18,4 @@ pkgdown/
 vignettes/V01*.png
 vignettes/V02*.png
 ^\.github$
+^LICENSE\.md$

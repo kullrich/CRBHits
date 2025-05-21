@@ -89,8 +89,7 @@
 cdsdir2orthofinder <- function(dir,
     file_ending="*",
     searchtool="last",
-    lastpath=paste0(find.package("CRBHits"),
-        "/extdata/last-1639/bin/"),
+    lastpath=file.path(find.package("CRBHits"), "extdata", "last-1639", "bin"),
     lastD=1e6,
     lastm=10,
     mmseqs2path=NULL,
@@ -121,57 +120,32 @@ cdsdir2orthofinder <- function(dir,
     remove.db=FALSE
     ){
     if(searchtool=="last"){
-        if(!dir.exists(lastpath)){
-            stop("Error: last PATH does not exist. Please specify correct
-                PATH and/or look into package installation prerequisites.
-                Try to use make_last() function.")
-        }
-        if(!file.exists(paste0(lastpath, "lastdb"))){
-            stop("Error: lastdb binary does not exist. Please specify
-                correct PATH and/or look into package installation
-                prerequisites. Try to use make_last() function.")
-        }
-        if(!file.exists(paste0(lastpath, "lastal"))){
-            stop("Error: lastal binary does not exist. Please specify
-                correct PATH and/or look into package installation
-                prerequisites. Try to use make_last() function.")
-        }
+        check_ext_install(
+            ext_name="last",
+            ext_dir=lastpath,
+            binary_name="lastdb")
+        check_ext_install(
+            ext_name="last",
+            ext_dir=lastpath,
+            binary_name="lastal")
     }
     if(searchtool=="mmseqs2"){
-        if(!dir.exists(mmseqs2path)){
-            stop("Error: mmseqs2 PATH does not exist. Please specify
-                correct PATH and/or look into package installation
-                prerequisites.")
-        }
-        if(!file.exists(paste0(mmseqs2path, "mmseqs"))){
-            stop("Error: mmseqs2 binary does not exist. Please specify
-                correct PATH and/or look into package installation
-                prerequisites.")
-        }
+        check_ext_install(
+            ext_name="mmseqs2",
+            ext_dir=mmseqs2path,
+            binary_name="mmseqs")
     }
     if(searchtool=="diamond"){
-        if(!dir.exists(diamondpath)){
-            stop("Error: diamond PATH does not exist. Please specify
-                correct PATH and/or look into package installation
-                prerequisites.")
-        }
-        if(!file.exists(paste0(diamondpath, "diamond"))){
-            stop("Error: diamond binary does not exist. Please specify
-                correct PATH and/or look into package installation
-                prerequisites.")
-        }
+        check_ext_install(
+            ext_name="diamond",
+            ext_dir=diamondpath,
+            binary_name="diamond")
     }
     if(searchtool=="lambda3"){
-        if(!dir.exists(lambda3path)){
-            stop("Error: lambda3 PATH does not exist. Please specify
-                correct PATH and/or look into package installation
-                prerequisites.")
-        }
-        if(!file.exists(paste0(lambda3path, "lambda3"))){
-            stop("Error: lambda3 binary does not exist. Please specify
-                correct PATH and/or look into package installation
-                prerequisites.")
-        }
+        check_ext_install(
+            ext_name="lambda",
+            ext_dir=lambda3path,
+            binary_name="lambda3")
     }
     if(!dir.exists(outpath)){
         dir.create(outpath)

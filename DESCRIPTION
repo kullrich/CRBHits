@@ -1,6 +1,6 @@
 Package: CRBHits
 Title: Conditional reciprocal best hits (CRBHits) in R
-Version: 0.0.9
+Version: 0.0.10
 Authors@R: 
     person(given = "Kristian K",
            family = "Ullrich",
@@ -14,10 +14,10 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: false
 Depends:
-  R (>= 4.4.0)
+  R (>= 4.5.0)
 Imports:
   Biostrings,
-  MSA2dist (>= 1.9.0),
+  MSA2dist (>= 1.12.0),
   curl,
   doParallel,
   dplyr,
@@ -49,6 +49,9 @@ NeedsCompilation: yes
 SystemRequirements:
   LAST (https://anaconda.org/bioconda/last),
   DAGchainer (https://anaconda.org/bioconda/dagchainer),
+  DIAMOND (optional, https://anaconda.org/bioconda/diamond),
+  MMSEQS2 (optiona, https://anaconda.org/bioconda/mmseqs2),
+  LAMBDA (optional, https://anaconda.org/bioconda/lambda),
   GNU make,
   libcurl (deb: libcurl4-openssl-dev or CentOS: libcurl-devel),
   openssl (deb: libssl-dev or CentOS: openssl-devel),

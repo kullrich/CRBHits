@@ -145,8 +145,7 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
     dbfile1=NULL,
     dbfile2=NULL,
     searchtool="last",
-    lastpath=paste0(find.package("CRBHits"),
-        "/extdata/last-1639/bin/"),
+    lastpath=file.path(find.package("CRBHits"), "extdata", "last-1639", "bin"),
     lastD=1e6,
     lastm=10,
     mmseqs2path=NULL,
@@ -226,57 +225,32 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
         return(fitMatrixfun)
     }
     if(searchtool=="last"){
-        if(!dir.exists(lastpath)){
-            stop("Error: last PATH does not exist. Please specify correct
-                PATH and/or look into package installation prerequisites.
-                Try to use make_last() function.")
-        }
-        if(!file.exists(paste0(lastpath, "lastdb"))){
-            stop("Error: lastdb binary does not exist. Please specify
-                correct PATH and/or look into package installation
-                prerequisites. Try to use make_last() function.")
-        }
-        if(!file.exists(paste0(lastpath, "lastal"))){
-            stop("Error: lastal binary does not exist. Please specify
-                correct PATH and/or look into package installation
-                prerequisites. Try to use make_last() function.")
-        }
+        check_ext_install(
+            ext_name="last",
+            ext_dir=lastpath,
+            binary_name="lastdb")
+        check_ext_install(
+            ext_name="last",
+            ext_dir=lastpath,
+            binary_name="lastal")
     }
     if(searchtool=="mmseqs2"){
-        if(!dir.exists(mmseqs2path)){
-            stop("Error: mmseqs2 PATH does not exist. Please specify
-                correct PATH and/or look into package installation
-                prerequisites.")
-        }
-        if(!file.exists(paste0(mmseqs2path, "mmseqs"))){
-            stop("Error: mmseqs2 binary does not exist. Please specify
-                correct PATH and/or look into package installation
-                prerequisites.")
-        }
+        check_ext_install(
+            ext_name="mmseqs2",
+            ext_dir=mmseqs2path,
+            binary_name="mmseqs")
     }
     if(searchtool=="diamond"){
-        if(!dir.exists(diamondpath)){
-            stop("Error: diamond PATH does not exist. Please specify
-                correct PATH and/or look into package installation
-                prerequisites.")
-        }
-        if(!file.exists(paste0(diamondpath, "diamond"))){
-            stop("Error: diamond binary does not exist. Please specify
-                correct PATH and/or look into package installation
-                prerequisites.")
-        }
+        check_ext_install(
+            ext_name="diamond",
+            ext_dir=diamondpath,
+            binary_name="diamond")
     }
     if(searchtool=="lambda3"){
-        if(!dir.exists(lambda3path)){
-            stop("Error: lambda3 PATH does not exist. Please specify
-                correct PATH and/or look into package installation
-                prerequisites.")
-        }
-        if(!file.exists(paste0(lambda3path, "lambda3"))){
-            stop("Error: lambda3 binary does not exist. Please specify
-                correct PATH and/or look into package installation
-                prerequisites.")
-        }
+        check_ext_install(
+            ext_name="lambda",
+            ext_dir=lambda3path,
+            binary_name="lambda3")
     }
     selfblast <- FALSE
     if(cdsfile1==cdsfile2){
@@ -333,26 +307,26 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
             genetic.code=genetic.code2)
     }
     if(searchtool=="last"){
-        system2(command=paste0(lastpath, "lastdb"),
+        system2(command=file.path(lastpath, "lastdb"),
             args = c("-p", "-cR01", "-P", threads, aa1dbfile, aa1file))
-        system2(command=paste0(lastpath, "lastdb"),
+        system2(command=file.path(lastpath, "lastdb"),
             args = c("-p", "-cR01", "-P", threads, aa2dbfile, aa2file))
-        system2(command=paste0(lastpath, "lastal"),
+        system2(command=file.path(lastpath, "lastal"),
             args = c("-f", "BlastTab+", "-P", threads, "-D", lastD, "-m", lastm,
             aa1dbfile, aa2file, ">", aa2_aa1_lastout))
-        system2(command=paste0(lastpath, "lastal"),
+        system2(command=file.path(lastpath, "lastal"),
             args = c("-f", "BlastTab+", "-P", threads, "-D", lastD, "-m", lastm,
             aa2dbfile, aa1file, ">", aa1_aa2_lastout))
     }
     if(searchtool=="mmseqs2"){
-        system2(command=paste0(mmseqs2path, "mmseqs"),
+        system2(command=file.path(mmseqs2path, "mmseqs"),
             args = c("easy-search", aa1file, aa2file, aa1_aa2_lastout, outpath,
             "--threads", threads, "-s", mmseqs2sensitivity,
             "--max-seqs", mmseqs2maxseqs,
             "--format-output", paste0("query,target,fident,alnlen,",
             "mismatch,gapopen,qstart,qend,tstart,tend,evalue,bits,qlen,",
             "tlen,raw")))
-        system2(command=paste0(mmseqs2path, "mmseqs"),
+        system2(command=file.path(mmseqs2path, "mmseqs"),
             args = c("easy-search", aa2file, aa1file, aa2_aa1_lastout, outpath,
             "--threads", threads, "-s", mmseqs2sensitivity,
             "--max-seqs", mmseqs2maxseqs,
@@ -361,20 +335,20 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
             "tlen,raw")))
     }
     if(searchtool=="diamond"){
-        system2(command=paste0(diamondpath, "diamond"),
+        system2(command=file.path(diamondpath, "diamond"),
             args = c("makedb", "--in", aa1file,
                 "-d", aa1dbfile))
-        system2(command=paste0(diamondpath, "diamond"),
+        system2(command=file.path(diamondpath, "diamond"),
             args = c("makedb", "--in", aa2file,
                 "-d", aa2dbfile))
-        system2(command=paste0(diamondpath, "diamond"),
+        system2(command=file.path(diamondpath, "diamond"),
             args = c("blastp", "--ignore-warnings", "-d", aa2dbfile,
                 "-q", aa1file, "-o", aa1_aa2_lastout, diamondsensitivity,
                 "--max-target-seqs", diamondmaxtargetseqs,
                 "-f", "6", "qseqid", "sseqid", "pident", "length", "mismatch",
                 "gapopen", "qstart", "qend", "sstart", "send", "evalue",
                 "bitscore", "qlen", "slen", "score", "--threads", threads))
-        system2(command=paste0(diamondpath, "diamond"),
+        system2(command=file.path(diamondpath, "diamond"),
             args = c("blastp", "--ignore-warnings", "-d", aa1dbfile,
             "-q", aa2file, "-o", aa2_aa1_lastout, diamondsensitivity,
             "--max-target-seqs", diamondmaxtargetseqs,
@@ -383,18 +357,18 @@ cdsfile2rbh <- function(cdsfile1, cdsfile2,
             "bitscore", "qlen", "slen", "score", "--threads", threads))
     }
     if(searchtool=="lambda3"){
-        system2(command=paste0(lambda3path, "lambda3"),
+        system2(command=file.path(lambda3path, "lambda3"),
             args = c("mkindexp", "-d", aa1file, "-i", aa1dbfile,
             "--threads", threads))
-        system2(command=paste0(lambda3path, "lambda3"),
+        system2(command=file.path(lambda3path, "lambda3"),
             args = c("mkindexp", "-d", aa2file, "-i", aa2dbfile,
             "--threads", threads))
-        system2(command=paste0(lambda3path, "lambda3"),
+        system2(command=file.path(lambda3path, "lambda3"),
             args = c("searchp", "-i", aa2dbfile, "-q", aa1file,
             "-o", aa1_aa2_lastout, "-p", lambda3sensitivity,
             "--num-matches", lambda3nummatches, "--output-columns",
             "'std qlen slen score'", "--threads", threads))
-        system2(command=paste0(lambda3path, "lambda3"),
+        system2(command=file.path(lambda3path, "lambda3"),
             args = c("searchp", "-i", aa1dbfile, "-q", aa2file,
             "-o", aa2_aa1_lastout, "-p", lambda3sensitivity,
             "--num-matches", lambda3nummatches, "--output-columns",

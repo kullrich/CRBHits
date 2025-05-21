@@ -10,7 +10,7 @@ rbh2dagchainer(
   selfblast2 = NULL,
   gene.position.cds1 = NULL,
   gene.position.cds2 = NULL,
-  dagchainerpath = paste0(find.package("CRBHits"), "/extdata/dagchainer/"),
+  dagchainerpath = file.path(find.package("CRBHits"), "extdata", "dagchainer"),
   gap_open_penalty = 0,
   gap_extension_penalty = -3,
   gap_length = 10000,
@@ -48,8 +48,8 @@ result for cds2 sequences (see \code{\link[CRBHits]{cds2rbh}}) [optional]}
 \item{gene.position.cds2}{specify gene position for cds2 sequences
 (see \code{\link[CRBHits]{cds2genepos}}) [default: NULL]}
 
-\item{dagchainerpath}{specify the PATH to the DAGchainer binaries
-[default: /extdata/dagchainer/]}
+\item{dagchainerpath}{specify the PATH to the DAGchainer directory
+containing the dagchainer binaries [default: /extdata/dagchainer/]}
 
 \item{gap_open_penalty}{gap open penalty [default: 0]}
 

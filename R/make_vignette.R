@@ -1,7 +1,7 @@
 #' @title make_vignette
 #' @name make_vignette
 #' @description This function tries to build the prerequisite last-1639,
-#' KaKs_calculator2.0 and DAGchainer from source code forked within CRBHits
+#' and DAGchainer from source code forked within CRBHits
 #' @return path of prerequisites
 #' @references Kiełbasa SM et al. (2011) Adaptive seeds tame genomic sequence
 #' comparison. \bold{Genome Res.} \bold{21} \bold{(3)}, 487-93.
@@ -15,24 +15,14 @@
 #' @author Kristian K Ullrich
 
 make_vignette <- function(){
+    arch <- R.version[["arch"]]
+    sysname <- Sys.info()[["sysname"]]
     CRBHits_root <- system.file(package="CRBHits")
     LastTempDir <- tempdir()
-    system2(command="unzip", args=c("-o",
-        paste0(CRBHits_root, "/extdata/last-1639.zip"), "-d", LastTempDir))
-    system2(command="cd", args=c(paste0(LastTempDir, "/last-1639/;"), "make"))
-    #KaKsCalcTempDir <- tempdir()
-    #system2(command="tar", args=c("-C", KaKsCalcTempDir, "-xvf",
-    #    paste0(CRBHits_root, "/extdata/KaKs_Calculator2.0_src.tar.gz")))
-    #system2(command="cd", args=c(
-    #    paste0(KaKsCalcTempDir, "/KaKs_Calculator2.0_src/src/;"),
-    #    "make", "clean;", "make"))
+    last_path <- make_last(LastTempDir)
     DAGchainerTempDir <- tempdir()
-    system2(command="unzip", args=c("-o", paste0(CRBHits_root,
-        "/extdata/dagchainer.zip"), "-d", DAGchainerTempDir))
-    system2(command="cd", args=c(paste0(DAGchainerTempDir, "/dagchainer/;"),
-        "make"))
+    dagchainer_path <- make_dagchainer(DAGchainerTempDir)
     return(c(
-        paste0(LastTempDir, "/last-1639/bin/"),
-        #paste0(KaKsCalcTempDir, "/KaKs_Calculator2.0_src/src/"),
-        paste0(DAGchainerTempDir, "/dagchainer/")))
+        last_path,
+        dagchainer_path))
 }
