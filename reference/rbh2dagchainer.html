@@ -13,7 +13,7 @@ positions in base pairs but instead using gene order (gene.idx)."><meta property
 
     <a class="navbar-brand me-2" href="../index.html">CRBHits</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.9</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.10</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,7 +57,7 @@ positions in base pairs but instead using gene order (gene.idx).</p>
 <span>  selfblast2 <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  gene.position.cds1 <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  gene.position.cds2 <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  dagchainerpath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/find.package.html" class="external-link">find.package</a></span><span class="op">(</span><span class="st">"CRBHits"</span><span class="op">)</span>, <span class="st">"/extdata/dagchainer/"</span><span class="op">)</span>,</span>
+<span>  dagchainerpath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/find.package.html" class="external-link">find.package</a></span><span class="op">(</span><span class="st">"CRBHits"</span><span class="op">)</span>, <span class="st">"extdata"</span>, <span class="st">"dagchainer"</span><span class="op">)</span>,</span>
 <span>  gap_open_penalty <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  gap_extension_penalty <span class="op">=</span> <span class="op">-</span><span class="fl">3</span>,</span>
 <span>  gap_length <span class="op">=</span> <span class="fl">10000</span>,</span>
@@ -110,8 +110,8 @@ result for cds2 sequences (see <code><a href="cds2rbh.html">cds2rbh</a></code>) 
 
 
 <dt id="arg-dagchainerpath">dagchainerpath<a class="anchor" aria-label="anchor" href="#arg-dagchainerpath"></a></dt>
-<dd><p>specify the PATH to the DAGchainer binaries
-[default: /extdata/dagchainer/]</p></dd>
+<dd><p>specify the PATH to the DAGchainer directory
+containing the dagchainer binaries [default: /extdata/dagchainer/]</p></dd>
 
 
 <dt id="arg-gap-open-penalty">gap_open_penalty<a class="anchor" aria-label="anchor" href="#arg-gap-open-penalty"></a></dt>
@@ -234,6 +234,7 @@ genome duplications and synteny. <em>Bioinformatics.</em>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## compile dagchainer</span></span></span>
 <span class="r-in"><span><span class="fu">CRBHits</span><span class="fu">::</span><span class="fu"><a href="make_dagchainer.html">make_dagchainer</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/__w/_temp/Library/CRBHits/extdata/dagchainer/dagchainer"</span>
 <span class="r-in"><span><span class="co">## load example sequence data</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ath"</span>, package<span class="op">=</span><span class="st">"CRBHits"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co">## get selfhits CRBHit pairs</span></span></span>
@@ -251,7 +252,7 @@ genome duplications and synteny. <em>Bioinformatics.</em>
 <span class="r-in"><span>    rbhpairs<span class="op">=</span><span class="va">ath_selfhits_crbh</span>,</span></span>
 <span class="r-in"><span>    gene.position.cds1<span class="op">=</span><span class="va">ath.genepos</span>,</span></span>
 <span class="r-in"><span>    gene.position.cds2<span class="op">=</span><span class="va">ath.genepos</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/__w/_temp/Library/CRBHits/extdata/dagchainer/run_DAG_chainer.pl -i /tmp/Rtmp6AuK8Q/file1b664510b575 -o 0 -e -3 -g 10000 -M 50 -D 200000 -E 0.001 -A 5 -I -s"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/__w/_temp/Library/CRBHits/extdata/dagchainer/run_DAG_chainer.pl -i /tmp/RtmptX0L7L/file214b39fc2274 -o 0 -e -3 -g 10000 -M 50 -D 200000 -E 0.001 -A 5 -I -s"</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ath_selfblast_crbh.dagchainer</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   gene1.chr gene1.seq.id gene1.start gene1.end gene1.mid gene1.idx gene2.chr</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1     AA1:1  AT1G05100.1     1469541   1470881   1470211       437     AA1:1</span>

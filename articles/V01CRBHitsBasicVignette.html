@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">CRBHits</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.9</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.10</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,7 +64,7 @@
                         <h4 data-toc-skip class="author">Kristian K
 Ullrich</h4>
             
-            <h4 data-toc-skip class="date">2025-05-16</h4>
+            <h4 data-toc-skip class="date">2025-05-21</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/kullrich/CRBHits/blob/devel/vignettes/V01CRBHitsBasicVignette.Rmd" class="external-link"><code>vignettes/V01CRBHitsBasicVignette.Rmd</code></a></small>
       <div class="d-none name"><code>V01CRBHitsBasicVignette.Rmd</code></div>
@@ -172,7 +172,8 @@ would like to repeat the examples.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jeroen.r-universe.dev/curl" class="external-link">curl</a></span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">## compile LAST and DAGchainer for the vignette</span></span>
-<span><span class="va">vignette.paths</span> <span class="op">&lt;-</span> <span class="fu">CRBHits</span><span class="fu">::</span><span class="fu"><a href="../reference/make_vignette.html">make_vignette</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">vignette.paths</span> <span class="op">&lt;-</span> <span class="fu">CRBHits</span><span class="fu">::</span><span class="fu"><a href="../reference/make_vignette.html">make_vignette</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Architecture is x86_64 - no makefile patch needed.</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="installation">1. <span id="install">Installation</span><a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -547,7 +548,7 @@ between alignment length and protein identity is defined for the
 is the expected protein identity given the alignemnet length
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mtext mathvariant="normal">hit pair</mtext></msub><annotation encoding="application/x-tex">L_{\text{hit pair}}</annotation></semantics></math>.
 If the actual
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mi>i</mi><mi>d</mi><mi>e</mi><mi>n</mi><msub><mi>t</mi><mtext mathvariant="normal">hit pair</mtext></msub><mo>&gt;</mo><mo>=</mo><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mtext mathvariant="normal">hit pair</mtext></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">pident_{\text{hit pair}} &gt;= f(x_{\text{hit pair}})</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mi>i</mi><mi>d</mi><mi>e</mi><mi>n</mi><msub><mi>t</mi><mtext mathvariant="normal">hit pair</mtext></msub><mo>&gt;</mo><mo>=</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mtext mathvariant="normal">hit pair</mtext></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">pident_{\text{hit pair}} &gt;= f(x_{\text{hit pair}})</annotation></semantics></math>
 the hit pair is retained.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## detailed explanation for the Rost (1999) twilight-zone filter</span></span>
@@ -738,7 +739,7 @@ default settings,
 in other words, for which their alignment lengths fall between 90 and
 110 are than considered for fitting a cutoff at that alignment length
 using the mean of the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mi>l</mi><mi>o</mi><mi>g</mi><mn>10</mn><mrow><mo stretchy="true" form="prefix">(</mo><mi>e</mi><mi>v</mi><mi>a</mi><mi>l</mi><mi>u</mi><mi>e</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">-log10(evalue)</annotation></semantics></math>.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mi>l</mi><mi>o</mi><mi>g</mi><mn>10</mn><mo stretchy="false" form="prefix">(</mo><mi>e</mi><mi>v</mi><mi>a</mi><mi>l</mi><mi>u</mi><mi>e</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">-log10(evalue)</annotation></semantics></math>.</p>
 <p><span class="math display">$$\text{cutoff}_{L} = \frac{1}{n} \sum_{i
 = 1}^{n}{
 \cases{324 \text{ , for }  evalue_{RBH_i} = 0 \\

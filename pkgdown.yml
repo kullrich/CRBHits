@@ -1,10 +1,10 @@
-pandoc: '3.6'
+pandoc: 3.6.4
 pkgdown: 2.1.2
 pkgdown_sha: ~
 articles:
   V01CRBHitsBasicVignette: V01CRBHitsBasicVignette.html
   V02KaKsVignette: V02KaKsVignette.html
-last_built: 2025-05-16T12:38Z
+last_built: 2025-05-21T17:10Z
 urls:
   reference: https://kullrich.github.io/CRBHits/reference
   article: https://kullrich.github.io/CRBHits/articles
